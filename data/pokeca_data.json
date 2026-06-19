@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "description": "ポケカ相場予想ツール データ定義（MVP）",
+    "version": "0.2",
+    "note": "型番(card_no)を主キーにカードを一意特定。BOXとカードを分離し再録違いを切り分ける。予想材料はプレイヤー需要軸/コレクター需要軸/共通の3グループに構造化。相場投稿は第二弾だが型番でつなげる前提で器だけ用意。",
+    "certainty_levels": {
+      "released": "確定（発売済み）。収録カード・型番が確定し市場に流通。最も堅い根拠。",
+      "announced": "確定（発売前）。発売日・商品名・目玉が公式発表済み。確定範囲では強い根拠。",
+      "rumored": "予想（未確定）。商標登録やSNSリーク段階。根拠に使う場合は必ず未確定と明示。"
+    },
+    "material_groups": {
+      "player": {
+        "_desc": "プレイヤー需要（実需）の軸。競技で使われるか・いつ使えなくなるか。",
+        "regulation_mark": "レギュレーションマーク（F/G/H/I 等）。スタン落ち判定の単位。",
+        "rotation": "スタン落ち予定。値: soon(来期)/upcoming(数期先)/far(当分先)/unknown(未定)",
+        "competitive_usage": "現環境での競技採用度。値: high/mid/low/none",
+        "_logic": "rotation=soon かつ competitive_usage=high → 落ちる前から下落圧力。逆に強くて当分落ちない=需要が長く続く。"
+      },
+      "collector": {
+        "_desc": "コレクター需要（情緒価値）の軸。ニッチ差別化の中核。",
+        "illustrator": "イラストレーター名。",
+        "illustrator_popularity": "そのイラストレーターの人気度。値: high/mid/unknown",
+        "artwork_type": "描き下ろしか流用か。値: original(描き下ろし)/reused(流用)/unknown",
+        "rarity": "レアリティ（SAR/SR/AR/UR 等）。"
+      },
+      "common": {
+        "_desc": "両需要に効く共通要因。",
+        "reprint_status": "再録状況。値: none/reprinted(再録済→供給増)/reprint_planned(再録予定)",
+        "scarcity": "絶版・品薄。値: normal/scarce/out_of_print",
+        "character_popularity": "キャラ自体の人気。値: high/mid/unknown"
+      }
+    },
+    "output_format": {
+      "_desc": "AI出力は2軸で分けてから総合する。",
+      "player_view": "プレイヤー需要の見通し（上昇/横ばい/下落 + 根拠文）",
+      "collector_view": "コレクター需要の見通し（上昇/横ばい/下落 + 根拠文）",
+      "overall": "総合（上昇◯% / 横ばい◯% / 下落◯% + 根拠文）",
+      "disclaimer": "本予想は投資助言ではなく参考情報である旨を必ず明示。"
+    }
+  },
+  "boxes": [
+    {
+      "box_id": "abyss_eye",
+      "box_name": "アビスアイ",
+      "code": "SV○○",
+      "release_ym": "2026-05",
+      "certainty": "released",
+      "pack_price_yen": 200,
+      "note": "メガダークライexが目玉。この弾以降パック価格が200円に上昇。"
+    },
+    {
+      "box_id": "ninja_spinner",
+      "box_name": "ニンジャスピナー",
+      "code": "SV○○",
+      "release_ym": "2026-0?",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "note": "スペシャルレッドカード等の汎用グッズを収録。発売年月は要確認。"
+    },
+    {
+      "box_id": "munikiss_zero",
+      "box_name": "ムニキスゼロ",
+      "code": "SV○○",
+      "release_ym": "2026-01",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "note": "2026-01-23発売。メガジガルデexが目玉。"
+    },
+    {
+      "box_id": "storm_emeralda",
+      "box_name": "ストームエメラルダ",
+      "code": "SV○○",
+      "release_ym": "2026-07",
+      "certainty": "announced",
+      "pack_price_yen": 200,
+      "note": "2026-07-31発売予定（公式発表済み）。発売前=予想の旨味が大きい弾。"
+    }
+  ],
+  "cards": [
+    {
+      "id": "abyss-eye-darkrai-ex-sr",
+      "card_no": "【要確認】公式カード検索で型番を入れる（例: 0xx/119）",
+      "rarity": "SR",
+      "card_name": "メガダークライex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "card_spec": {
+        "type": "悪",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "ワザ「アビスアイ」=相手が特殊状態ならきぜつ。ストリンダー/マシマシラ/ダークベルと組む悪バレット。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "【要確認】レギュマーク（最新弾なのでおそらく現行スタン内）",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "【要確認】公式カード検索でイラストレーター名を入れる",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "公式がデッキレシピ公開。発売後ジムバトル等で優勝・入賞報告が継続（採用度=mid〜）。下落要因=新弾の悪タイプ強化、上昇要因=採用デッキの優勝報告。",
+        "collector": "パッケージを飾る目玉。ダークライは人気ポケモンでファン需要が厚い（character_popularity=high）。SARは別レコードで10万超のコレクター向け。",
+        "source": "公式(pokemon-card.com)、ファミ通、各カードDB/相場サイト（2026-05〜06）"
+      },
+      "note": "SR版の下書き。型番・レギュマーク・イラストレーターは公式カード検索で要確認。SAR版は別レコードで作成予定。"
+    }
+  ],
+  "market_posts": [
+    {
+      "_schema_only": true,
+      "card_no": "（カードに紐づく型番）",
+      "price_yen": 0,
+      "condition": "美品/傷あり/PSA10 等",
+      "posted_by": "ユーザー識別子",
+      "posted_at": "ISO日時",
+      "trust_score": 0,
+      "note": "第二弾の投稿機能用。MVPでは未使用、器だけ。"
+    }
+  ]
+}
