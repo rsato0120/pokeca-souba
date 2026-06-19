@@ -531,6 +531,79 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </div>
       </div>
 
+      {/* ── 購入・相場チェック ── */}
+      {(() => {
+        const q = encodeURIComponent(`${card.card_name} ${card.rarity}`)
+        const shops = [
+          {
+            name: 'カードラッシュ',
+            url: `https://www.cardrush-pokemon.jp/search/?keyword=${q}`,
+            color: '#e8462a',
+          },
+          {
+            name: '遊々亭',
+            url: `https://yuyu-tei.jp/sell/poke?search_word=${q}`,
+            color: '#1a6fd4',
+          },
+          {
+            name: '駿河屋',
+            url: `https://www.suruga-ya.jp/search?category=&search_word=${q}`,
+            color: '#2a8a4a',
+          },
+          {
+            name: 'メルカリ',
+            url: `https://jp.mercari.com/search?keyword=${q}`,
+            color: '#ff0211',
+          },
+        ]
+        return (
+          <div style={{ marginBottom: '28px' }}>
+            <div
+              style={{
+                fontFamily: 'var(--mono)',
+                fontSize: '11px',
+                color: 'var(--ink-faint)',
+                letterSpacing: '0.14em',
+                marginBottom: '12px',
+              }}
+            >
+              BUY · 購入・相場チェック
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              {shops.map(({ name, url, color }) => (
+                <a
+                  key={name}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 14px',
+                    border: `1px solid ${color}33`,
+                    borderRadius: '6px',
+                    background: `${color}11`,
+                    fontFamily: 'var(--mono)',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    color,
+                    letterSpacing: '0.04em',
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {name} →
+                </a>
+              ))}
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '8px' }}>
+              ※ 各サイトの検索結果ページが開きます
+            </div>
+          </div>
+        )
+      })()}
+
       {forecast.generated_at && (() => {
         // UTC → JST(+9h) に変換して日付表示
         const jst = new Date(new Date(forecast.generated_at).getTime() + 9 * 60 * 60 * 1000)
