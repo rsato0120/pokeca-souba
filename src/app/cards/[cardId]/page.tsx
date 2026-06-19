@@ -125,11 +125,20 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       >
         {/* カード枠 */}
         <div>
-          <div className="pokecard">
-            <div className="ph">
-              <span className="big">{card.card_name}</span>
-              <span>カード画像</span>
-            </div>
+          <div className="pokecard" style={{ padding: card.image_url ? '0' : undefined, overflow: 'hidden' }}>
+            {card.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={card.image_url}
+                alt={`${card.card_name} ${card.rarity}`}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            ) : (
+              <div className="ph">
+                <span className="big">{card.card_name}</span>
+                <span>カード画像</span>
+              </div>
+            )}
             <div className="no">{card.card_no} ・ {card.rarity}</div>
           </div>
           <div

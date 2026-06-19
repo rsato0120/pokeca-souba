@@ -63,6 +63,7 @@ export interface Card {
   card_name: string
   box_id: string
   is_reprint: boolean
+  image_url?: string
   card_spec: CardSpec
   materials: CardMaterials
   evidence_notes: EvidenceNotes
