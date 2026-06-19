@@ -114,7 +114,46 @@
         "collector": "パッケージを飾る目玉。ダークライは人気ポケモンでファン需要が厚い（character_popularity=high）。SARは別レコードで10万超のコレクター向け。",
         "source": "公式(pokemon-card.com)、ファミ通、各カードDB/相場サイト（2026-05〜06）"
       },
-      "note": "SR版の下書き。型番・レギュマーク・イラストレーターは公式カード検索で要確認。SAR版は別レコードで作成予定。"
+      "note": "SR版。SARは別レコード（abyss-eye-darkrai-ex-sar）で管理。"
+    },
+    {
+      "id": "abyss-eye-darkrai-ex-sar",
+      "card_no": "114/081",
+      "rarity": "SAR",
+      "card_name": "メガダークライex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/3/3c/MegaDarkraiexAbyssEye114.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "ワザ「アビスアイ」=相手が特殊状態ならきぜつ。SR版と同スペック、イラスト違い。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "SR版と同スペックのため競技採用度は同等（mid）。プレイヤー需要はSR版と共有。",
+        "collector": "AKIRA EGAWA氏による描き下ろしSARイラスト。SARはコレクター向け高額帯。ダークライの人気とAKIRA EGAWA人気の相乗効果で需要が高い。",
+        "source": "Bulbapedia、各カードDB/相場サイト（2026-06）"
+      },
+      "note": "SAR版。SRとはイラストレーターが異なる（AKIRA EGAWA）。"
     }
   ],
   "market_posts": [
