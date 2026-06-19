@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory } from '@/lib/data'
 import type { Card, Forecast, PriceHistory } from '@/types/pokeca'
+import SearchBar from '@/components/SearchBar'
+import type { SearchCard } from '@/components/SearchBar'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -22,6 +24,15 @@ export default function TopPage() {
   const featured = cardsWithForecast[0]
   const featuredSlug = featured ? getCardSlug(featured.card) : ''
   const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
+
+  // 検索用データ（Client Componentに渡す）
+  const searchCards: SearchCard[] = cards.map((card) => ({
+    slug: getCardSlug(card),
+    card_name: card.card_name,
+    rarity: card.rarity,
+    box_name: boxes.find((b) => b.box_id === card.box_id)?.box_name ?? card.box_id,
+    up_pct: getForecast(getCardSlug(card))?.overall.up_pct ?? null,
+  }))
 
   // 実績ランキング用: 価格履歴から日次・週間変化を計算
   type PriceChange = {
@@ -82,10 +93,7 @@ export default function TopPage() {
         )}
       </div>
 
-      <div className="searchbar">
-        <input type="text" placeholder="カード名で検索" />
-        <button>予想する</button>
-      </div>
+      <SearchBar cards={searchCards} />
 
       {/* ── ヒーロー ── */}
       {featured && (
