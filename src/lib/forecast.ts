@@ -9,7 +9,7 @@ async function fetchCurrentPrice(
 ): Promise<{ low: number; high: number }> {
   const genAI = new GoogleGenerativeAI(apiKey)
   const model = genAI.getGenerativeModel({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.5-flash-lite',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tools: [{ googleSearch: {} } as any],
   })
@@ -193,7 +193,7 @@ export async function generateForecast(card: Card): Promise<Forecast> {
 
   const genAI = new GoogleGenerativeAI(apiKey)
   const model = genAI.getGenerativeModel({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.5-flash-lite',
     generationConfig: {
       responseMimeType: 'application/json',
       temperature: 0.4,
