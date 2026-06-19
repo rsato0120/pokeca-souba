@@ -220,3 +220,73 @@ export async function generateForecast(card: Card): Promise<Forecast> {
 
   throw lastError ?? new Error('generateForecast: unknown error')
 }
+
+// ─── ランキング調整パス ───────────────────────────────────────────
+
+type RankEntry = { card_id: string; up_pct: number; flat_pct: number; down_pct: number }
+
+export async function adjustRankings(
+  items: Array<{ cardId: string; card: Card; forecast: Forecast }>
+): Promise<Map<string, { up_pct: number; flat_pct: number; down_pct: number }>> {
+  if (items.length <= 1) {
+    return new Map(items.map(({ cardId, forecast }) => [cardId, forecast.overall]))
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY
+  if (!apiKey || apiKey === 'your_api_key_here') {
+    throw new Error('GEMINI_API_KEY が設定されていません。')
+  }
+
+  const cardList = items.map(({ cardId, card, forecast }) =>
+    `- card_id: ${cardId}
+  カード: ${card.card_name} ${card.rarity}（${card.materials.collector.illustrator}）
+  レアリティ: ${card.rarity} / 絵師人気: ${card.materials.collector.illustrator_popularity} / キャラ人気: ${card.materials.common.character_popularity}
+  初期スコア: 上昇${forecast.overall.up_pct}% 横ばい${forecast.overall.flat_pct}% 下落${forecast.overall.down_pct}%
+  個別分析: ${forecast.overall.reason}`
+  ).join('\n\n')
+
+  const prompt = `あなたはポケモンカード相場の専門家です。
+以下の${items.length}枚のカードを比較し、今後1〜2ヶ月の上昇期待度を相対的に評価し直してください。
+
+## カード一覧（初期スコア付き）
+${cardList}
+
+## 調整ルール
+1. カード同士を比較し、相対的な優劣を反映した数値にする
+2. 隣接するランク間は最低5%の差をつける（全カードが同じ数値になってはいけない）
+3. up_pct + flat_pct + down_pct = 100（各カード）
+4. 初期スコアの大小関係を尊重しつつ、差を明確にする
+5. up_pct の範囲は 10〜75 の間に収める
+
+## 出力形式（JSONのみ、コードブロック不要）
+[
+  { "card_id": "xxx", "up_pct": 整数, "flat_pct": 整数, "down_pct": 整数 },
+  ...
+]`
+
+  const genAI = new GoogleGenerativeAI(apiKey)
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-2.5-flash-lite',
+    generationConfig: { temperature: 0.3 },
+  })
+
+  try {
+    const result = await model.generateContent(prompt)
+    const raw = result.response.text().replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+    const parsed: RankEntry[] = JSON.parse(raw)
+
+    const resultMap = new Map<string, { up_pct: number; flat_pct: number; down_pct: number }>()
+    for (const entry of parsed) {
+      const up = Number(entry.up_pct)
+      const flat = Number(entry.flat_pct)
+      const down = Number(entry.down_pct)
+      if (up + flat + down === 100 && entry.card_id) {
+        resultMap.set(entry.card_id, { up_pct: up, flat_pct: flat, down_pct: down })
+      }
+    }
+    return resultMap
+  } catch (e) {
+    console.error('[adjustRankings] failed, keeping original scores:', e instanceof Error ? e.message : e)
+    return new Map(items.map(({ cardId, forecast }) => [cardId, forecast.overall]))
+  }
+}

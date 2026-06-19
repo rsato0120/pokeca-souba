@@ -1,15 +1,14 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { generateForecast } from '@/lib/forecast'
+import { generateForecast, adjustRankings } from '@/lib/forecast'
 import { getAllCards, getCardSlug } from '@/lib/data'
-import type { PriceHistory } from '@/types/pokeca'
+import type { Forecast, PriceHistory } from '@/types/pokeca'
 
 const forecastDir = path.join(process.cwd(), 'data', 'forecasts')
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 fs.mkdirSync(forecastDir, { recursive: true })
 fs.mkdirSync(pricesDir, { recursive: true })
 
-// JST の今日の日付を "YYYY-MM-DD" で返す
 function todayJST(): string {
   const jst = new Date(Date.now() + 9 * 60 * 60 * 1000)
   return jst.toISOString().slice(0, 10)
@@ -29,10 +28,8 @@ function savePriceHistory(cardId: string, date: string, low: number, high: numbe
     data.history.push({ date, low, high })
   }
 
-  // 新しい日付順にソートして30日分のみ保持
   data.history.sort((a, b) => b.date.localeCompare(a.date))
   data.history = data.history.slice(0, 30)
-
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 }
 
@@ -41,36 +38,67 @@ async function main() {
   const date = todayJST()
   console.log(`${cards.length}枚のカードを処理します（${date} JST）\n`)
 
-  let success = 0
+  // ── Step 1: 個別予想生成 ──────────────────────────────────────
+  console.log('【Step 1】個別予想を生成中...\n')
+  const succeeded: Array<{ cardId: string; card: typeof cards[0]; forecast: Forecast }> = []
   let failed = 0
 
   for (const card of cards) {
     const cardId = getCardSlug(card)
-    process.stdout.write(`[${card.card_name} ${card.rarity}] 生成中... `)
+    process.stdout.write(`  [${card.card_name} ${card.rarity}] 生成中... `)
     try {
       const forecast = await generateForecast(card)
+      savePriceHistory(cardId, date, forecast.price_forecast.current_low, forecast.price_forecast.current_high)
+      succeeded.push({ cardId, card, forecast })
+      const { up_pct, flat_pct, down_pct } = forecast.overall
+      const price = `¥${forecast.price_forecast.current_low.toLocaleString()}〜¥${forecast.price_forecast.current_high.toLocaleString()}`
+      console.log(`完了 [↑${up_pct}% →${flat_pct}% ↓${down_pct}%] ${price}`)
+    } catch (e) {
+      console.log('失敗')
+      console.error('    エラー:', e instanceof Error ? e.message : e)
+      failed++
+    }
+  }
+
+  // ── Step 2: ランキング調整パス ───────────────────────────────
+  if (succeeded.length > 1) {
+    console.log('\n【Step 2】ランキング調整中...')
+    const rankMap = await adjustRankings(succeeded)
+
+    for (const { cardId, forecast } of succeeded) {
+      const adjusted = rankMap.get(cardId)
+      if (adjusted) {
+        forecast.overall.up_pct = adjusted.up_pct
+        forecast.overall.flat_pct = adjusted.flat_pct
+        forecast.overall.down_pct = adjusted.down_pct
+      }
       fs.writeFileSync(
         path.join(forecastDir, `${cardId}.json`),
         JSON.stringify(forecast, null, 2),
         'utf-8'
       )
+    }
 
-      // 価格履歴に今日の相場を追記
-      const { current_low, current_high } = forecast.price_forecast
-      savePriceHistory(cardId, date, current_low, current_high)
-
-      const { up_pct, flat_pct, down_pct } = forecast.overall
-      const price = `¥${current_low.toLocaleString()}〜¥${current_high.toLocaleString()}`
-      console.log(`完了 [↑${up_pct}% →${flat_pct}% ↓${down_pct}%] ${price}`)
-      success++
-    } catch (e) {
-      console.log('失敗')
-      console.error('  エラー:', e instanceof Error ? e.message : e)
-      failed++
+    const sorted = [...succeeded].sort(
+      (a, b) => (rankMap.get(b.cardId)?.up_pct ?? 0) - (rankMap.get(a.cardId)?.up_pct ?? 0)
+    )
+    console.log('  調整後ランキング:')
+    sorted.forEach(({ cardId, card }, i) => {
+      const s = rankMap.get(cardId)
+      console.log(`    ${i + 1}. ${card.card_name} ${card.rarity} → ↑${s?.up_pct}% →${s?.flat_pct}% ↓${s?.down_pct}%`)
+    })
+  } else {
+    // カード1枚のみの場合はそのまま保存
+    for (const { cardId, forecast } of succeeded) {
+      fs.writeFileSync(
+        path.join(forecastDir, `${cardId}.json`),
+        JSON.stringify(forecast, null, 2),
+        'utf-8'
+      )
     }
   }
 
-  console.log(`\n完了: ${success}枚処理, ${failed}枚失敗`)
+  console.log(`\n完了: ${succeeded.length}枚処理, ${failed}枚失敗`)
   if (failed > 0) process.exit(1)
 }
 
