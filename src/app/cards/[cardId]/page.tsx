@@ -217,7 +217,12 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               letterSpacing: '0.03em',
             }}
           >
-            {box?.box_name ?? card.box_id} ・{' '}
+            <Link
+              href={`/boxes/${card.box_id}`}
+              style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
+            >
+              {box?.box_name ?? card.box_id}
+            </Link>{' '}・{' '}
             <span style={{ color: 'var(--ink-dim)' }}>
               {card.card_spec.type} / HP{card.card_spec.hp}
             </span>{' '}

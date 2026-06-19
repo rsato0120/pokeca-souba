@@ -157,9 +157,12 @@ export default function TopPage() {
             >
               <div>
                 <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>収録弾</div>
-                <div style={{ fontSize: '17px', color: 'var(--ink)' }}>
+                <Link
+                  href={`/boxes/${featured.card.box_id}`}
+                  style={{ fontSize: '17px', color: 'var(--ink)', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
+                >
                   {featuredBox?.box_name ?? featured.card.box_id}
-                </div>
+                </Link>
               </div>
               {featured.forecast && (
                 <>
