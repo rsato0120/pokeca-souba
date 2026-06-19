@@ -1,31 +1,27 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getBoxById } from '@/lib/data'
-import type { Card } from '@/types/pokeca'
+import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast } from '@/lib/data'
+import type { Card, Forecast } from '@/types/pokeca'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
   return box?.box_name ?? card.box_id
 }
 
-const TREND_LABEL: Record<string, string> = {
-  up: '▲ 上昇',
-  flat: '→ 横ばい',
-  down: '▼ 下落',
-}
-
-// スタブ用の上昇期待%（将来は forecast から取得）
-function stubUpPct(_card: Card, index: number): number {
-  return Math.max(10, 52 - index * 7)
-}
-
 export default function TopPage() {
   const cards = getAllCards()
   const boxes = getAllBoxes()
 
-  // 今週の注目（先頭カード）
-  const featured = cards[0]
-  const featuredSlug = featured ? getCardSlug(featured) : ''
-  const featuredBox = featured ? getBoxById(featured.box_id) : undefined
+  // 各カードに予想データを紐付け
+  const cardsWithForecast = cards
+    .map((card) => ({
+      card,
+      forecast: getForecast(getCardSlug(card)),
+    }))
+    .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
+
+  const featured = cardsWithForecast[0]
+  const featuredSlug = featured ? getCardSlug(featured.card) : ''
+  const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
 
   return (
     <div className="wrap">
@@ -73,12 +69,21 @@ export default function TopPage() {
             borderBottomColor: 'var(--down-deep)',
           }}
         >
-          <div className="pokecard">
-            <div className="ph">
-              <span className="big">{featured.card_name}</span>
-              <span>カード画像</span>
-            </div>
-            <div className="no">{featured.card_no} ・ {featured.rarity}</div>
+          <div className="pokecard" style={{ padding: featured.card.image_url ? '0' : undefined, overflow: 'hidden' }}>
+            {featured.card.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={featured.card.image_url}
+                alt={`${featured.card.card_name} ${featured.card.rarity}`}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            ) : (
+              <div className="ph">
+                <span className="big">{featured.card.card_name}</span>
+                <span>カード画像</span>
+              </div>
+            )}
+            <div className="no">{featured.card.card_no} ・ {featured.card.rarity}</div>
           </div>
           <div>
             <div
@@ -102,10 +107,10 @@ export default function TopPage() {
                 color: 'var(--ink)',
               }}
             >
-              {featured.card_name} {featured.rarity}
+              {featured.card.card_name} {featured.card.rarity}
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--ink-dim)', marginBottom: '14px' }}>
-              {featured.evidence_notes.collector}
+              {featured.card.evidence_notes.collector}
             </p>
             <div
               style={{
@@ -118,15 +123,25 @@ export default function TopPage() {
               <div>
                 <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>収録弾</div>
                 <div style={{ fontSize: '17px', color: 'var(--ink)' }}>
-                  {featuredBox?.box_name ?? featured.box_id}
+                  {featuredBox?.box_name ?? featured.card.box_id}
                 </div>
               </div>
-              <div>
-                <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>上昇期待</div>
-                <div style={{ fontSize: '17px', color: 'var(--up)' }}>
-                  {stubUpPct(featured, 0)}%
-                </div>
-              </div>
+              {featured.forecast && (
+                <>
+                  <div>
+                    <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>現在相場</div>
+                    <div style={{ fontSize: '17px', color: 'var(--ink)' }}>
+                      ¥{featured.forecast.price_forecast.current_low.toLocaleString()}〜¥{featured.forecast.price_forecast.current_high.toLocaleString()}
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>上昇期待</div>
+                    <div style={{ fontSize: '17px', color: 'var(--up)' }}>
+                      {featured.forecast.overall.up_pct}%
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </Link>
@@ -167,13 +182,12 @@ export default function TopPage() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {cards.map((card, i) => {
+          {cardsWithForecast.map(({ card, forecast }, i) => {
             const slug = getCardSlug(card)
-            const upPct = stubUpPct(card, i)
-            const rankStyle =
+            const rankStyle: React.CSSProperties =
               i < 2
-                ? { fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, color: 'var(--gold)', textAlign: 'center' as const, minWidth: '38px' }
-                : { fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 800, color: 'var(--ink-faint)', textAlign: 'center' as const, minWidth: '38px' }
+                ? { fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, color: 'var(--gold)', textAlign: 'center', minWidth: '38px' }
+                : { fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 800, color: 'var(--ink-faint)', textAlign: 'center', minWidth: '38px' }
 
             return (
               <Link
@@ -186,7 +200,6 @@ export default function TopPage() {
                   alignItems: 'center',
                   padding: '14px 4px',
                   borderBottom: '1px solid var(--hair)',
-                  borderBottomColor: 'var(--hair)',
                   color: 'inherit',
                 }}
               >
@@ -211,17 +224,16 @@ export default function TopPage() {
                     minWidth: '60px',
                   }}
                 >
-                  <div
-                    style={{
-                      fontFamily: 'var(--mono)',
-                      fontSize: '16px',
-                      fontWeight: 600,
-                      color: 'var(--up)',
-                    }}
-                  >
-                    ↑ {upPct}%
-                  </div>
-                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>上昇期待</div>
+                  {forecast ? (
+                    <>
+                      <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--up)' }}>
+                        ↑ {forecast.overall.up_pct}%
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>上昇期待</div>
+                    </>
+                  ) : (
+                    <div style={{ fontSize: '12px', color: 'var(--ink-faint)' }}>予想なし</div>
+                  )}
                 </div>
                 <div
                   style={{
@@ -288,7 +300,7 @@ export default function TopPage() {
           { label: '上昇率', sub: 'PRICE UP · 7日', dot: 'var(--up)', val: '+---%' },
           { label: '下落率', sub: 'PRICE DOWN · 7日', dot: 'var(--down)', val: '−---%' },
           { label: '注目度', sub: 'TRENDING · 検索数', dot: 'var(--gold)', val: '---' },
-        ].map(({ label, sub, dot, val }) => (
+        ].map(({ label, sub, dot }) => (
           <div
             key={label}
             style={{ background: 'var(--panel)', padding: '18px' }}
