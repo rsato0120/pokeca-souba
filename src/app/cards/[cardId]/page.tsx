@@ -30,21 +30,24 @@ const ARTWORK_LABEL: Record<string, string> = { original: '描き下ろし', reu
 const SCARCITY_LABEL: Record<string, string> = { normal: '通常', scarce: '品薄', out_of_print: '絶版' }
 const REPRINT_LABEL: Record<string, string> = { none: 'なし', reprinted: '再録済', reprint_planned: '予定あり' }
 
-// SVGファンチャート座標計算
-// viewBox: 0 0 760 280, y軸: 5000→40, 4000→100, 3000→160, 2000→220
-function priceToY(price: number): number {
-  const minPrice = 2000
-  const maxPrice = 5000
-  const minY = 220
-  const maxY = 40
-  return minY + ((price - minPrice) / (maxPrice - minPrice)) * (maxY - minY)
-}
-
 const X_POINTS = [70, 290, 510, 730] // 現在, 2週後, 1ヶ月後, 2ヶ月後
+const Y_MIN = 220
+const Y_MAX = 40
 
 function buildChartPaths(forecast: Forecast) {
   const { current_low, current_high, base_low, base_high, up_low, up_high, down_low, down_high } =
     forecast.price_forecast
+
+  // 価格範囲をデータから動的に算出
+  const allPrices = [current_low, current_high, base_low, base_high, up_low, up_high, down_low, down_high]
+  const rawMin = Math.min(...allPrices)
+  const rawMax = Math.max(...allPrices)
+  const pad = (rawMax - rawMin) * 0.15 || rawMin * 0.1
+  const minPrice = Math.max(0, rawMin - pad)
+  const maxPrice = rawMax + pad
+
+  const priceToY = (p: number) =>
+    Y_MIN + ((p - minPrice) / (maxPrice - minPrice)) * (Y_MAX - Y_MIN)
 
   const currentMid = (current_low + current_high) / 2
   const baseMid = (base_low + base_high) / 2
@@ -58,12 +61,22 @@ function buildChartPaths(forecast: Forecast) {
   const toPolyline = (pts: number[]) =>
     X_POINTS.map((x, i) => `${x},${priceToY(pts[i])}`).join(' ')
 
+  // Y軸ラベル（固定グリッド4本に対応する価格）
+  const step = (maxPrice - minPrice) / 3
+  const yLabels = [
+    { y: Y_MAX, price: maxPrice },
+    { y: Y_MAX + (Y_MIN - Y_MAX) / 3, price: maxPrice - step },
+    { y: Y_MAX + (Y_MIN - Y_MAX) * 2 / 3, price: maxPrice - step * 2 },
+    { y: Y_MIN, price: minPrice },
+  ]
+
   return {
     base: toPolyline(basePoints),
     up: toPolyline(upPoints),
     down: toPolyline(downPoints),
     startY: priceToY(currentMid),
     startPrice: currentMid,
+    yLabels,
   }
 }
 
@@ -323,10 +336,13 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               <line x1="70" y1="220" x2="730" y2="220" />
             </g>
             <g fill="#6f6a5b" fontSize="11" textAnchor="end">
-              <text x="60" y="44">5,000</text>
-              <text x="60" y="104">4,000</text>
-              <text x="60" y="164">3,000</text>
-              <text x="60" y="224">2,000</text>
+              {chart.yLabels.map(({ y, price }) => (
+                <text key={y} x="60" y={y + 4}>
+                  {price >= 10000
+                    ? `${Math.round(price / 1000)}千`
+                    : Math.round(price).toLocaleString()}
+                </text>
+              ))}
             </g>
             <g fill="#6f6a5b" fontSize="11" textAnchor="middle">
               <text x="70" y="245">現在</text>
