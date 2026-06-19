@@ -496,19 +496,24 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </div>
       </div>
 
-      {forecast.generated_at && (
-        <div
-          style={{
-            fontFamily: 'var(--mono)',
-            fontSize: '11px',
-            color: 'var(--ink-faint)',
-            letterSpacing: '0.04em',
-            marginBottom: '14px',
-          }}
-        >
-          予想生成 {forecast.generated_at.slice(0, 10).replace(/-/g, '.')}
-        </div>
-      )}
+      {forecast.generated_at && (() => {
+        // UTC → JST(+9h) に変換して日付表示
+        const jst = new Date(new Date(forecast.generated_at).getTime() + 9 * 60 * 60 * 1000)
+        const dateStr = jst.toISOString().slice(0, 10).replace(/-/g, '.')
+        return (
+          <div
+            style={{
+              fontFamily: 'var(--mono)',
+              fontSize: '11px',
+              color: 'var(--ink-faint)',
+              letterSpacing: '0.04em',
+              marginBottom: '14px',
+            }}
+          >
+            予想生成 {dateStr}（JST）
+          </div>
+        )
+      })()}
 
       <div className="disclaimer">{forecast.disclaimer}</div>
     </div>
