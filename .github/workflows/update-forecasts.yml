@@ -22,6 +22,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Check API key
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error::GEMINI_API_KEY が空です。GitHub Secrets を確認してください"
+            exit 1
+          fi
+          echo "GEMINI_API_KEY の長さ: ${#GEMINI_API_KEY} 文字（値は非表示）"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
       - name: Generate forecasts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
