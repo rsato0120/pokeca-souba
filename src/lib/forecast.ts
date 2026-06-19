@@ -1,9 +1,43 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import type { Card, Forecast, Trend } from '@/types/pokeca'
 
+// ─── 現在相場取得（Google Search grounding） ─────────────────────
+
+async function fetchCurrentPrice(
+  card: Card,
+  apiKey: string
+): Promise<{ low: number; high: number }> {
+  const genAI = new GoogleGenerativeAI(apiKey)
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-2.5-flash',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    tools: [{ googleSearch: {} } as any],
+  })
+
+  const prompt = `ポケモンカード「${card.card_name}」（${card.rarity}）の現在の日本市場での相場価格を調べてください。
+カードラッシュ・遊々亭・駿河屋・メルカリなどの実勢価格をもとに、美品の平均的な売買価格レンジを教えてください。
+必ず以下のJSON形式のみで回答してください（前後の文章・コードブロック不要）:
+{"low": 最安値の目安(円・整数), "high": 最高値の目安(円・整数)}`
+
+  try {
+    const result = await model.generateContent(prompt)
+    const raw = result.response.text()
+    const match = raw.match(/\{[\s\S]*?"low"[\s\S]*?"high"[\s\S]*?\}/)
+    if (!match) throw new Error('price JSON not found')
+    const parsed = JSON.parse(match[0])
+    const low = Number(parsed.low)
+    const high = Number(parsed.high)
+    if (!low || !high || low <= 0 || high <= 0) throw new Error('invalid price values')
+    return { low, high }
+  } catch (e) {
+    console.error('[fetchCurrentPrice] failed:', e instanceof Error ? e.message : e)
+    return { low: 2500, high: 3500 }
+  }
+}
+
 // ─── プロンプト構築 ──────────────────────────────────────────────
 
-function buildPrompt(card: Card): string {
+function buildPrompt(card: Card, currentLow: number, currentHigh: number): string {
   const { player, collector, common } = card.materials
 
   const rotationLabel: Record<string, string> = {
@@ -55,7 +89,7 @@ function buildPrompt(card: Card): string {
 3. 再録 → 供給増加 → 下落圧力、スタン落ち間近 → 実需減少、などの因果を使う
 4. 根拠文は日本語で2〜3文、具体的に書く
 5. overall の up_pct + flat_pct + down_pct = 100 にする
-6. price_forecast は現在の参考相場から合理的に算出する（current_low=2500, current_high=3500 を起点とする）
+6. price_forecast は現在の参考相場から合理的に算出する（current_low=${currentLow}, current_high=${currentHigh} を起点とする）
 
 ## 出力形式（JSON のみ、コードブロック不要）
 {
@@ -154,16 +188,20 @@ export async function generateForecast(card: Card): Promise<Forecast> {
     throw new Error('GEMINI_API_KEY が設定されていません。.env.local に追加してください。')
   }
 
+  // Step 1: Google Search grounding で現在相場を取得
+  const { low: currentLow, high: currentHigh } = await fetchCurrentPrice(card, apiKey)
+
   const genAI = new GoogleGenerativeAI(apiKey)
   const model = genAI.getGenerativeModel({
     model: 'gemini-2.5-flash',
     generationConfig: {
       responseMimeType: 'application/json',
-      temperature: 0.4, // 低め＝安定した出力
+      temperature: 0.4,
     },
   })
 
-  const prompt = buildPrompt(card)
+  // Step 2: 取得した現在相場をプロンプトに反映して予想生成
+  const prompt = buildPrompt(card, currentLow, currentHigh)
 
   // リトライ（最大2回）
   let lastError: Error | null = null
