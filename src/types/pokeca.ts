@@ -75,6 +75,17 @@ export interface PokeData {
   cards: Card[]
 }
 
+export interface PriceRecord {
+  date: string  // "2026-06-20"
+  low: number
+  high: number
+}
+
+export interface PriceHistory {
+  card_id: string
+  history: PriceRecord[]
+}
+
 export interface ViewForecast {
   trend: Trend
   probability: number

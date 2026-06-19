@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast } from '@/lib/data'
-import type { Card, Forecast } from '@/types/pokeca'
+import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory } from '@/lib/data'
+import type { Card, Forecast, PriceHistory } from '@/types/pokeca'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -22,6 +22,41 @@ export default function TopPage() {
   const featured = cardsWithForecast[0]
   const featuredSlug = featured ? getCardSlug(featured.card) : ''
   const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
+
+  // 実績ランキング用: 価格履歴から日次・週間変化を計算
+  type PriceChange = {
+    card: Card
+    slug: string
+    currentMid: number
+    dayChange: number | null   // 日次変化率(%)
+    weekChange: number | null  // 週間変化率(%)
+  }
+
+  const priceChanges: PriceChange[] = cards.map((card) => {
+    const slug = getCardSlug(card)
+    const history = getPriceHistory(slug)
+    const records = history?.history ?? []
+
+    const mid = (r: { low: number; high: number }) => (r.low + r.high) / 2
+    const today = records[0]
+    const yesterday = records[1]
+    const weekAgo = records[7]
+
+    return {
+      card,
+      slug,
+      currentMid: today ? mid(today) : 0,
+      dayChange: today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null,
+      weekChange: today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null,
+    }
+  }).filter((c) => c.currentMid > 0)
+
+  // 週間変化率が高い順（なければ日次変化率順）
+  const priceRanking = [...priceChanges].sort((a, b) => {
+    const va = a.weekChange ?? a.dayChange ?? 0
+    const vb = b.weekChange ?? b.dayChange ?? 0
+    return vb - va
+  })
 
   return (
     <div className="wrap">
@@ -286,63 +321,81 @@ export default function TopPage() {
 
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: '1px',
-          background: 'var(--hair)',
           border: '1px solid var(--hair)',
           borderRadius: '8px',
           overflow: 'hidden',
           marginBottom: '40px',
         }}
       >
-        {[
-          { label: '上昇率', sub: 'PRICE UP · 7日', dot: 'var(--up)', val: '+---%' },
-          { label: '下落率', sub: 'PRICE DOWN · 7日', dot: 'var(--down)', val: '−---%' },
-          { label: '注目度', sub: 'TRENDING · 検索数', dot: 'var(--gold)', val: '---' },
-        ].map(({ label, sub, dot }) => (
-          <div
-            key={label}
-            style={{ background: 'var(--panel)', padding: '18px' }}
-          >
-            <h3
-              style={{
-                fontFamily: 'var(--mincho)',
-                fontSize: '15px',
-                fontWeight: 700,
-                marginBottom: '3px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '7px',
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '7px',
-                  height: '7px',
-                  borderRadius: '50%',
-                  background: dot,
-                }}
-              />
-              {label}
-            </h3>
-            <div
-              style={{
-                fontFamily: 'var(--mono)',
-                fontSize: '10px',
-                color: 'var(--ink-faint)',
-                letterSpacing: '0.08em',
-                marginBottom: '14px',
-              }}
-            >
-              {sub}
-            </div>
-            <div style={{ fontSize: '13px', color: 'var(--ink-dim)' }}>
-              相場データ取得後に表示されます
-            </div>
+        {/* ヘッダ行 */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr auto auto',
+            gap: '12px',
+            padding: '8px 16px',
+            background: 'var(--bg2)',
+            borderBottom: '1px solid var(--hair)',
+            fontFamily: 'var(--mono)',
+            fontSize: '10px',
+            color: 'var(--ink-faint)',
+            letterSpacing: '0.1em',
+          }}
+        >
+          <span>カード</span>
+          <span style={{ textAlign: 'right', minWidth: '64px' }}>前日比</span>
+          <span style={{ textAlign: 'right', minWidth: '64px' }}>7日比</span>
+        </div>
+
+        {priceRanking.length === 0 ? (
+          <div style={{ padding: '24px 16px', fontSize: '13px', color: 'var(--ink-faint)' }}>
+            相場データ取得後に表示されます（1日1回 自動更新）
           </div>
-        ))}
+        ) : (
+          priceRanking.map(({ card, slug, currentMid, dayChange, weekChange }) => {
+            const fmt = (v: number | null) => {
+              if (v === null) return <span style={{ color: 'var(--ink-faint)' }}>—</span>
+              const sign = v >= 0 ? '+' : ''
+              const color = v > 0 ? 'var(--up)' : v < 0 ? 'var(--down)' : 'var(--ink-faint)'
+              return <span style={{ color, fontWeight: 600 }}>{sign}{v.toFixed(1)}%</span>
+            }
+            return (
+              <Link
+                key={slug}
+                href={`/cards/${slug}`}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr auto auto',
+                  gap: '12px',
+                  alignItems: 'center',
+                  padding: '12px 16px',
+                  borderBottom: '1px solid var(--hair)',
+                  color: 'inherit',
+                }}
+              >
+                <div>
+                  <span style={{ fontSize: '14px', fontWeight: 600 }}>{card.card_name}</span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--mono)',
+                      fontSize: '11px',
+                      color: 'var(--ink-faint)',
+                      marginLeft: '8px',
+                    }}
+                  >
+                    {card.rarity} · ¥{Math.round(currentMid).toLocaleString()}
+                  </span>
+                </div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '64px' }}>
+                  {fmt(dayChange)}
+                </div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '64px' }}>
+                  {fmt(weekChange)}
+                </div>
+              </Link>
+            )
+          })
+        )}
       </div>
 
       <div className="disclaimer">
