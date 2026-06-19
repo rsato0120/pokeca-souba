@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getAllCards, getCardBySlug, getBoxById, getForecast, getCardSlug } from '@/lib/data'
 import type { Forecast } from '@/types/pokeca'
