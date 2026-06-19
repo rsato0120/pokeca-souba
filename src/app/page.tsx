@@ -217,7 +217,7 @@ export default function TopPage() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {cardsWithForecast.map(({ card, forecast }, i) => {
+          {cardsWithForecast.slice(0, 5).map(({ card, forecast }, i) => {
             const slug = getCardSlug(card)
             const rankStyle: React.CSSProperties =
               i < 2
