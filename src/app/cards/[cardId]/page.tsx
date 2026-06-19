@@ -104,6 +104,21 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
       <header className="site-header">
+        <Link
+          href="/"
+          style={{
+            fontFamily: 'var(--mono)',
+            fontSize: '13px',
+            color: 'var(--ink-faint)',
+            letterSpacing: '0.06em',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            marginBottom: '16px',
+          }}
+        >
+          ← トップへ戻る
+        </Link>
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
       </header>
