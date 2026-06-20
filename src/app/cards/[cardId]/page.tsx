@@ -608,6 +608,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             color: '#ff0211',
           },
         ]
+        const rakutenUrl = 'https://rpx.a8.net/svt/ejp?a8mat=4B60CK+20MWKY+2HOM+BW8O1&rakuten=y&a8ejpredirect=http%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2F0ea62065.34400275.0ea62066.204f04c0%2Fa26062027360_4B60CK_20MWKY_2HOM_BW8O1%3Fpc%3Dhttps%253A%252F%252Fsearch.rakuten.co.jp%252Fsearch%252Fmall%252F%2525E3%252583%25259D%2525E3%252582%2525B1%2525E3%252583%2525A2%2525E3%252583%2525B3%2525E3%252582%2525AB%2525E3%252583%2525BC%2525E3%252583%252589%252F101118%252F%26m%3Dhttps%253A%252F%252Fsearch.rakuten.co.jp%252Fsearch%252Fmall%252F%2525E3%252583%25259D%2525E3%252582%2525B1%2525E3%252583%2525A2%2525E3%252583%2525B3%2525E3%252582%2525AB%2525E3%252583%2525BC%2525E3%252583%252589%252F101118%252F'
         return (
           <div style={{ marginBottom: '28px' }}>
             <div
@@ -648,6 +649,29 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   {name} →
                 </a>
               ))}
+              <a
+                href={rakutenUrl}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '8px 14px',
+                  border: '1px solid #bf000033',
+                  borderRadius: '6px',
+                  background: '#bf000011',
+                  fontFamily: 'var(--mono)',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: '#bf0000',
+                  letterSpacing: '0.04em',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                楽天市場 →
+              </a>
             </div>
             <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '8px' }}>
               ※ 各サイトの検索結果ページが開きます
