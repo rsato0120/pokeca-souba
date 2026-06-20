@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     description: 'AIがポケモンカードの価値を読み解く。SR・SAR・MURなどのレアカードの現在相場と今後の予想を根拠つきで提供。',
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: 'cd055327166d788d',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
