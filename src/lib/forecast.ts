@@ -40,6 +40,19 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
     if (p7.length > 0) historySection += `- 7日間平均: ¥${avg(p7, 'low')}〜¥${avg(p7, 'high')}（${p7.length}日分）\n`
     if (p30.length > 0) historySection += `- 30日間平均: ¥${avg(p30, 'low')}〜¥${avg(p30, 'high')}（${p30.length}日分）\n`
     historySection += `- 直近${priceHistory.length}日間の傾向: ${trendStr}（${changePct >= 0 ? '+' : ''}${changePct}%）\n`
+
+    // カードラッシュ最新ショップ価格
+    const latest = priceHistory[0]
+    if (latest.shop_buy != null || latest.shop_sell != null) {
+      historySection += `\n## カードショップ価格（カードラッシュ）\n`
+      if (latest.shop_buy != null) historySection += `- 買取価格: ¥${latest.shop_buy.toLocaleString()}（相場の下値フロア）\n`
+      if (latest.shop_sell != null) historySection += `- 販売価格: ¥${latest.shop_sell.toLocaleString()}（市場での上限目安）\n`
+      if (latest.shop_buy != null && latest.shop_sell != null) {
+        const spread = latest.shop_sell - latest.shop_buy
+        const spreadPct = Math.round((spread / latest.shop_buy) * 100)
+        historySection += `- スプレッド: ¥${spread.toLocaleString()}（${spreadPct}%）— スプレッドが広いほど流動性が低い\n`
+      }
+    }
   }
 
   return `あなたはポケモンカードの相場分析の専門家です。

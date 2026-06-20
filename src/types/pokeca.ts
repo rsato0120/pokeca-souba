@@ -79,6 +79,8 @@ export interface PriceRecord {
   date: string  // "2026-06-20"
   low: number
   high: number
+  shop_buy?: number   // カードラッシュ買取価格
+  shop_sell?: number  // カードラッシュ販売価格
 }
 
 export interface PriceHistory {

@@ -44,6 +44,51 @@ interface MercariItem {
   status?: string
 }
 
+interface ShopPrice {
+  buy: number | null   // 買取価格
+  sell: number | null  // 販売価格
+}
+
+// カードラッシュから買取・販売価格を取得
+async function scrapeCardrush(browser: Browser, cardName: string, rarity: string): Promise<ShopPrice> {
+  const page = await browser.newPage()
+  const query = encodeURIComponent(`${cardName} ${rarity}`)
+  const url = `https://www.cardrush-pokemon.jp/search/?keyword=${query}`
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 })
+    await page.waitForSelector('.p-item-list, .c-product-card, .result_none', { timeout: 8000 }).catch(() => {})
+
+    const result = await page.evaluate((): ShopPrice => {
+      const sellPrices: number[] = []
+      const buyPrices: number[] = []
+
+      // 販売価格
+      const sellEls = document.querySelectorAll('.p-item-list .price, .c-product-card .c-product-card__price, .selling_price')
+      sellEls.forEach(el => {
+        const n = parseInt((el.textContent ?? '').replace(/[^0-9]/g, ''))
+        if (n > 0 && n < 10_000_000) sellPrices.push(n)
+      })
+
+      // 買取価格（買取一覧ページのパターン）
+      const buyEls = document.querySelectorAll('.buy_price, .kaitori_price, [class*="buy"] .price')
+      buyEls.forEach(el => {
+        const n = parseInt((el.textContent ?? '').replace(/[^0-9]/g, ''))
+        if (n > 0 && n < 10_000_000) buyPrices.push(n)
+      })
+
+      return {
+        sell: sellPrices.length > 0 ? Math.min(...sellPrices) : null,
+        buy: buyPrices.length > 0 ? Math.max(...buyPrices) : null,
+      }
+    })
+    return result
+  } catch {
+    return { buy: null, sell: null }
+  } finally {
+    await page.close()
+  }
+}
+
 async function scrapeMercari(browser: Browser, searchQuery: string, debug = false): Promise<number[]> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -99,18 +144,24 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
   }
 }
 
-function savePriceHistory(cardId: string, date: string, low: number, high: number): void {
+function savePriceHistory(cardId: string, date: string, low: number, high: number, shop?: ShopPrice): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
   try {
     data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
   } catch {}
 
+  const record = {
+    date, low, high,
+    ...(shop?.buy != null ? { shop_buy: shop.buy } : {}),
+    ...(shop?.sell != null ? { shop_sell: shop.sell } : {}),
+  }
+
   const idx = data.history.findIndex(r => r.date === date)
   if (idx >= 0) {
-    data.history[idx] = { date, low, high }
+    data.history[idx] = record
   } else {
-    data.history.push({ date, low, high })
+    data.history.push(record)
   }
 
   data.history.sort((a, b) => b.date.localeCompare(a.date))
@@ -160,8 +211,15 @@ async function main() {
 
         const low = calcPercentile(filtered, 25)
         const high = calcPercentile(filtered, 75)
-        savePriceHistory(cardId, date, low, high)
-        console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（${filtered.length}件）`)
+
+        // カードラッシュ買取・販売価格
+        const shop = await scrapeCardrush(browser, card.card_name, card.rarity)
+        const shopLog = shop.buy != null || shop.sell != null
+          ? ` / 買取¥${(shop.buy ?? '—').toLocaleString()} 販売¥${(shop.sell ?? '—').toLocaleString()}`
+          : ''
+
+        savePriceHistory(cardId, date, low, high, shop)
+        console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（${filtered.length}件）${shopLog}`)
         succeeded++
       } catch (e) {
         console.log('失敗（既存価格を維持）')
