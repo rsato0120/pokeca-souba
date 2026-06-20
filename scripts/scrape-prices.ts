@@ -4,8 +4,8 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import type { PriceHistory } from '@/types/pokeca'
 
-const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ']
-const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[2-9][0-9]枚/]
+const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ', 'コンプ', '全種']
+const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[2-9][0-9]枚/, /[2-9０-９]\s*枚/]
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 fs.mkdirSync(pricesDir, { recursive: true })
 
@@ -233,7 +233,6 @@ async function main() {
     // ── カード価格 ──
     for (const card of cards) {
       const boxName = boxMap.get(card.box_id) ?? ''
-      // 収録弾名を含めてポケポケカードに絞り込む
       const query = `${card.card_name} ${card.rarity} ${boxName}`
       await scrapeItem(
         browser,
