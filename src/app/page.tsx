@@ -65,13 +65,6 @@ export default function TopPage() {
     }
   }).filter((c) => c.currentMid > 0)
 
-  // 実績ランキング（週間変化率順）
-  const priceRanking = [...metrics].sort((a, b) => {
-    const va = a.weekChange ?? a.dayChange ?? 0
-    const vb = b.weekChange ?? b.dayChange ?? 0
-    return vb - va
-  })
-
   // 今買われているカード: 週間またはAI買いシグナルで選定
   const buyingCards = [...metrics]
     .filter(m => (m.weekChange ?? m.dayChange ?? 0) > 0 || (m.forecast?.overall.up_pct ?? 0) >= 45)
@@ -347,101 +340,6 @@ export default function TopPage() {
             })
           )}
         </div>
-      </div>
-
-      {/* ── 04: 実績ランキング ── */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'baseline',
-          gap: '12px',
-          marginBottom: '16px',
-          paddingBottom: '8px',
-          borderBottom: '1px solid var(--hair)',
-        }}
-      >
-        <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--gold)', letterSpacing: '0.1em' }}>04</span>
-        <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>実績ランキング</span>
-        <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>直近7日の実際の動き</span>
-      </div>
-
-      <div
-        style={{
-          border: '1px solid var(--hair)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          marginBottom: '40px',
-        }}
-      >
-        {/* ヘッダ行 */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr auto auto',
-            gap: '12px',
-            padding: '8px 16px',
-            background: 'var(--bg2)',
-            borderBottom: '1px solid var(--hair)',
-            fontFamily: 'var(--mono)',
-            fontSize: '10px',
-            color: 'var(--ink-faint)',
-            letterSpacing: '0.1em',
-          }}
-        >
-          <span>カード</span>
-          <span style={{ textAlign: 'right', minWidth: '64px' }}>前日比</span>
-          <span style={{ textAlign: 'right', minWidth: '64px' }}>7日比</span>
-        </div>
-
-        {priceRanking.length === 0 ? (
-          <div style={{ padding: '24px 16px', fontSize: '13px', color: 'var(--ink-faint)' }}>
-            相場データ取得後に表示されます（1日1回 自動更新）
-          </div>
-        ) : (
-          priceRanking.map(({ card, slug, currentMid, dayChange, weekChange, onSale }) => {
-            const fmt = (v: number | null) => {
-              if (v === null) return <span style={{ color: 'var(--ink-faint)' }}>—</span>
-              const sign = v >= 0 ? '+' : ''
-              const color = v > 0 ? 'var(--up)' : v < 0 ? 'var(--down)' : 'var(--ink-faint)'
-              return <span style={{ color, fontWeight: 600 }}>{sign}{v.toFixed(1)}%</span>
-            }
-            return (
-              <Link
-                key={slug}
-                href={`/cards/${slug}`}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr auto auto',
-                  gap: '12px',
-                  alignItems: 'center',
-                  padding: '12px 16px',
-                  borderBottom: '1px solid var(--hair)',
-                  color: 'inherit',
-                }}
-              >
-                <div>
-                  <span style={{ fontSize: '14px', fontWeight: 600 }}>{card.card_name}</span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--mono)',
-                      fontSize: '11px',
-                      color: 'var(--ink-faint)',
-                      marginLeft: '8px',
-                    }}
-                  >
-                    {card.rarity} · ¥{Math.round(currentMid).toLocaleString()}
-                  </span>
-                </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '64px' }}>
-                  {fmt(dayChange)}
-                </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '64px' }}>
-                  {fmt(weekChange)}
-                </div>
-              </Link>
-            )
-          })
-        )}
       </div>
 
       <div className="disclaimer">

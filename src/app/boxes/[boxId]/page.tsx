@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getPriceHistory } from '@/lib/data'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 
 export async function generateMetadata(props: PageProps<'/boxes/[boxId]'>): Promise<Metadata> {
@@ -44,6 +44,31 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
   const priceTrend = latestBoxPrice && prevBoxPrice
     ? Math.round(((latestBoxPrice.low + latestBoxPrice.high) / 2 - (prevBoxPrice.low + prevBoxPrice.high) / 2) / ((prevBoxPrice.low + prevBoxPrice.high) / 2) * 100)
     : null
+
+  // 価格変動ランキング（このBOX内）
+  const mid = (r: { low: number; high: number }) => (r.low + r.high) / 2
+  type CardChange = { card: typeof cards[number]; slug: string; currentMid: number; weekChange: number | null; dayChange: number | null }
+  const cardChanges: CardChange[] = cards.map((card) => {
+    const slug = getCardSlug(card)
+    const history = getPriceHistory(slug)
+    const records = history?.history ?? []
+    const today = records[0]
+    const yesterday = records[1]
+    const weekAgo = records[7]
+    return {
+      card,
+      slug,
+      currentMid: today ? mid(today) : 0,
+      dayChange: today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null,
+      weekChange: today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null,
+    }
+  }).filter(c => c.currentMid > 0)
+
+  const priceRanking = [...cardChanges].sort((a, b) => {
+    const va = a.weekChange ?? a.dayChange ?? 0
+    const vb = b.weekChange ?? b.dayChange ?? 0
+    return vb - va
+  }).slice(0, 8)
 
   // 買い時シグナル
   const boxSignal = (() => {
@@ -247,6 +272,43 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               <PriceHistoryChart history={boxPriceHistory.history} />
             </div>
           )}
+        </div>
+      )}
+
+      {/* ── 価格変動ランキング ── */}
+      {priceRanking.length > 0 && (
+        <div style={{ marginBottom: '28px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', letterSpacing: '0.12em' }}>RANKING</span>
+            <span style={{ fontFamily: 'var(--mincho)', fontSize: '17px', fontWeight: 700 }}>価格変動ランキング</span>
+            <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto' }}>7日間変化率順</span>
+          </div>
+          <div style={{ border: '1px solid var(--hair)', borderRadius: '8px', overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '28px 1fr auto auto', gap: '12px', padding: '7px 14px', background: 'var(--bg2)', borderBottom: '1px solid var(--hair)', fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)', letterSpacing: '0.1em' }}>
+              <span>#</span><span>カード</span>
+              <span style={{ textAlign: 'right', minWidth: '56px' }}>前日比</span>
+              <span style={{ textAlign: 'right', minWidth: '56px' }}>7日比</span>
+            </div>
+            {priceRanking.map(({ card, slug, currentMid, dayChange, weekChange }, i) => {
+              const fmt = (v: number | null) => {
+                if (v === null) return <span style={{ color: 'var(--ink-faint)' }}>—</span>
+                const sign = v >= 0 ? '+' : ''
+                const color = v > 1 ? 'var(--up)' : v < -1 ? 'var(--down)' : 'var(--ink-faint)'
+                return <span style={{ color, fontWeight: 600 }}>{sign}{v.toFixed(1)}%</span>
+              }
+              return (
+                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '28px 1fr auto auto', gap: '12px', alignItems: 'center', padding: '11px 14px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)', textAlign: 'center' }}>{i + 1}</div>
+                  <div>
+                    <span style={{ fontSize: '14px', fontWeight: 600 }}>{card.card_name}</span>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginLeft: '6px' }}>{card.rarity} · ¥{Math.round(currentMid).toLocaleString()}</span>
+                  </div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '56px' }}>{fmt(dayChange)}</div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '56px' }}>{fmt(weekChange)}</div>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       )}
 
