@@ -604,7 +604,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           },
           {
             name: 'メルカリ',
-            url: `https://jp.mercari.com/search?keyword=${q}`,
+            url: 'https://px.a8.net/svt/ejp?a8mat=4B60CK+3FU6LU+5LNQ+5YJRM',
             color: '#ff0211',
           },
         ]
@@ -628,7 +628,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   key={name}
                   href={url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -676,6 +676,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '8px' }}>
               ※ 各サイトの検索結果ページが開きます
             </div>
+            {/* A8.net トラッキングピクセル */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img width={1} height={1} src="https://www16.a8.net/0.gif?a8mat=4B60CK+3FU6LU+5LNQ+5YJRM" alt="" style={{ display: 'block' }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img width={1} height={1} src="https://www13.a8.net/0.gif?a8mat=4B60CK+20MWKY+2HOM+BW8O1" alt="" style={{ display: 'block' }} />
           </div>
         )
       })()}
