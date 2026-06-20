@@ -98,7 +98,7 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
 }
 
 // 出品中件数を取得（供給量の代替指標）
-async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Promise<number | null> {
+async function getMercariOnSaleCount(browser: Browser, searchQuery: string, debug = false): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
 
@@ -108,22 +108,31 @@ async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Pro
   try {
     const responsePromise = page.waitForResponse(
       r => r.url().includes('/v2/entities:search') && r.status() === 200,
-      { timeout: 15000 }
+      { timeout: 25000 }
     )
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 })
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
 
-    const json = await responsePromise.then(r => r.json()).catch(() => null)
+    let json: Record<string, unknown> | null = null
+    try {
+      const res = await responsePromise
+      json = await res.json()
+    } catch (e) {
+      if (debug) process.stdout.write(`[on_sale API失敗: ${e instanceof Error ? e.message : e}] `)
+      return null
+    }
+
     if (!json) return null
 
-    // APIレスポンスから件数を取得
-    const items: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
-    const total: number | undefined =
-      json.meta?.numFound ?? json.meta?.total ?? json.numFound ?? json.totalCount
+    // APIレスポンスから件数を取得（numFound は文字列で返ることがある）
+    const items: MercariItem[] = (json.items ?? json.data?.items ?? json.result?.items ?? []) as MercariItem[]
+    const meta = (json.meta ?? json.data?.meta ?? {}) as Record<string, unknown>
+    const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
+    const count = rawTotal != null ? Number(rawTotal) : items.length
 
-    // totalがあればそれ、なければ取得できたアイテム数
-    const count = total ?? items.length
-    return typeof count === 'number' && count >= 0 ? count : null
-  } catch {
+    if (debug) process.stdout.write(`[on_sale: numFound=${rawTotal} count=${count} items=${items.length}] `)
+    return !isNaN(count) && count >= 0 ? count : null
+  } catch (e) {
+    if (debug) process.stdout.write(`[on_sale例外: ${e instanceof Error ? e.message : e}] `)
     return null
   } finally {
     await page.close()
