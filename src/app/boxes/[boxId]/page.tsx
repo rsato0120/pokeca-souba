@@ -84,41 +84,32 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       </header>
 
       {/* ── 収録弾ヘッダ ── */}
-      <div style={{ marginBottom: '28px' }}>
-        <div
-          style={{
-            fontFamily: 'var(--mono)',
-            fontSize: '11px',
-            color: 'var(--ink-faint)',
-            letterSpacing: '0.14em',
-            marginBottom: '6px',
-          }}
-        >
-          BOX · 収録弾
-        </div>
-        <h1
-          style={{
-            fontFamily: 'var(--mincho)',
-            fontSize: '28px',
-            fontWeight: 800,
-            marginBottom: '10px',
-          }}
-        >
-          {box.box_name}
-        </h1>
-        <div
-          style={{
-            display: 'flex',
-            gap: '20px',
-            flexWrap: 'wrap',
-            fontFamily: 'var(--mono)',
-            fontSize: '12px',
-            color: 'var(--ink-faint)',
-          }}
-        >
-          <span>発売 {box.release_ym}</span>
-          <span>パック ¥{box.pack_price_yen}</span>
-          <span>{cards.length}枚収録（掲載中）</span>
+      <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+        {box.pack_image_url && (
+          <img
+            src={box.pack_image_url}
+            alt={`${box.box_name} パックアート`}
+            style={{
+              width: '90px',
+              height: 'auto',
+              borderRadius: '8px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+              flexShrink: 0,
+            }}
+          />
+        )}
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '6px' }}>
+            BOX · 収録弾
+          </div>
+          <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '28px', fontWeight: 800, marginBottom: '10px' }}>
+            {box.box_name}
+          </h1>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
+            <span>発売 {box.release_ym}</span>
+            <span>パック ¥{box.pack_price_yen}</span>
+            <span>{cards.length}枚収録（掲載中）</span>
+          </div>
         </div>
       </div>
 

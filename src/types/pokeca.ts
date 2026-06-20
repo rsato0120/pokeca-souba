@@ -16,6 +16,7 @@ export interface Box {
   certainty: Certainty
   pack_price_yen: number
   packs_per_box?: number
+  pack_image_url?: string
   note: string
 }
 
