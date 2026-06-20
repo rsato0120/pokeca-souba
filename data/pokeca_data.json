@@ -78,6 +78,45 @@
   ],
   "cards": [
     {
+      "id": "abyss-eye-darkrai-ex-rr",
+      "card_no": "046/081",
+      "rarity": "RR",
+      "card_name": "メガダークライex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/1/12/MegaDarkraiexPitchBlack48.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "ワザ「アビスアイ」=相手が特殊状態ならきぜつ。SR版と同スペック、RRのスタンダード仕様。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "実際にデッキに組み込む枚数分が必要なため実需が最も高いのはRR。悪バレット系デッキの中核として継続採用。competitive_usage=highでプレイヤー需要が安定して底を支える。",
+        "collector": "RRはシングル需要の中心帯。プレイヤー実需が価格下支えとなり、SR/SAR/MURより価格変動は小さい傾向。ダークライ人気でバラまきにもなりにくい。",
+        "source": "Bulbapedia、各カードDB/相場サイト（2026-06）"
+      },
+      "note": "RR版。競技需要が最も高いレアリティ。SR/SAR/MURは別レコードで管理。"
+    },
+    {
       "id": "abyss-eye-darkrai-ex-sr",
       "card_no": "099/081",
       "rarity": "SR",
