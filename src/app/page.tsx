@@ -242,35 +242,37 @@ export default function TopPage() {
           {cardsWithForecast.slice(0, 5).map(({ card, forecast }, i) => {
             const slug = getCardSlug(card)
             const rankStyle: React.CSSProperties = i < 2
-              ? { fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, color: 'var(--gold)', textAlign: 'center', minWidth: '38px' }
-              : { fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 800, color: 'var(--ink-faint)', textAlign: 'center', minWidth: '38px' }
+              ? { fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, color: 'var(--gold)', textAlign: 'center', minWidth: '34px' }
+              : { fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 800, color: 'var(--ink-faint)', textAlign: 'center', minWidth: '34px' }
             const m3Low = forecast?.price_forecast.m3_low
             const m3High = forecast?.price_forecast.m3_high
             return (
-              <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '38px 1fr auto auto', gap: '16px', alignItems: 'center', padding: '14px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+              <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '34px 40px 1fr auto', gap: '12px', alignItems: 'center', padding: '10px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
                 <div style={rankStyle}>{i + 1}</div>
+                {card.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={card.image_url} alt={card.card_name} style={{ width: '40px', height: '56px', objectFit: 'cover', borderRadius: '4px' }} />
+                ) : (
+                  <div style={{ width: '40px', height: '56px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>
+                    {card.rarity}
+                  </div>
+                )}
                 <div>
-                  <div style={{ fontSize: '15px', fontWeight: 700 }}>{card.card_name}</div>
+                  <div style={{ fontSize: '14px', fontWeight: 700 }}>{card.card_name}
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '6px' }}>{card.rarity}</span>
+                  </div>
                   <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '2px' }}>
                     {formatBoxName(card, boxes)} ・ {card.card_no}
                   </div>
-                </div>
-                <div style={{ textAlign: 'right', fontFamily: 'var(--mono)', minWidth: '80px' }}>
-                  {forecast ? (
-                    <>
-                      <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--up)' }}>↑ {forecast.overall.up_pct}%</div>
-                      {m3Low && m3High && (
-                        <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>
-                          3M ¥{m3Low.toLocaleString()}〜{m3High.toLocaleString()}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <div style={{ fontSize: '12px', color: 'var(--ink-faint)' }}>予想なし</div>
+                  {forecast && (
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--up)', marginTop: '2px', fontWeight: 600 }}>
+                      ↑ {forecast.overall.up_pct}%
+                      {m3Low && m3High && <span style={{ color: 'var(--ink-faint)', fontWeight: 400, marginLeft: '6px' }}>3M ¥{m3Low.toLocaleString()}〜{m3High.toLocaleString()}</span>}
+                    </div>
                   )}
                 </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: 'var(--gold)', minWidth: '40px', textAlign: 'right' }}>
-                  {card.rarity}
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', textAlign: 'right' }}>
+                  {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
                 </div>
               </Link>
             )
@@ -293,26 +295,34 @@ export default function TopPage() {
               const change = weekChange ?? dayChange
               const upPct = forecast?.overall.up_pct ?? null
               return (
-                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '12px', alignItems: 'center', padding: '13px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '40px 1fr auto', gap: '12px', alignItems: 'center', padding: '10px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                  {card.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={card.image_url} alt={card.card_name} style={{ width: '40px', height: '56px', objectFit: 'cover', borderRadius: '4px' }} />
+                  ) : (
+                    <div style={{ width: '40px', height: '56px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>
+                      {card.rarity}
+                    </div>
+                  )}
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 700 }}>{card.card_name}
-                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '8px' }}>{card.rarity}</span>
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '6px' }}>{card.rarity}</span>
                     </div>
                     <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '2px' }}>
                       ¥{Math.round(currentMid).toLocaleString()}
                       {onSale != null && <> · 出品中 {onSale.toLocaleString()}件</>}
                     </div>
+                    {upPct != null && (
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: upPct >= 45 ? 'var(--up)' : 'var(--ink-faint)', marginTop: '2px' }}>AI↑{upPct}%</div>
+                    )}
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '64px' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '56px' }}>
                     {change != null && (
                       <span style={{ color: change > 0 ? 'var(--up)' : 'var(--ink-faint)', fontWeight: 600 }}>
                         {change > 0 ? '+' : ''}{change.toFixed(1)}%
                       </span>
                     )}
                     <div style={{ fontSize: '10px', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
-                  </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '52px' }}>
-                    {upPct != null && <span style={{ color: upPct >= 45 ? 'var(--up)' : 'var(--ink-faint)', fontWeight: 600 }}>AI↑{upPct}%</span>}
                   </div>
                 </Link>
               )
@@ -336,26 +346,34 @@ export default function TopPage() {
               const change = weekChange ?? dayChange
               const downPct = forecast?.overall.down_pct ?? null
               return (
-                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '12px', alignItems: 'center', padding: '13px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '40px 1fr auto', gap: '12px', alignItems: 'center', padding: '10px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                  {card.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={card.image_url} alt={card.card_name} style={{ width: '40px', height: '56px', objectFit: 'cover', borderRadius: '4px' }} />
+                  ) : (
+                    <div style={{ width: '40px', height: '56px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>
+                      {card.rarity}
+                    </div>
+                  )}
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 700 }}>{card.card_name}
-                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '8px' }}>{card.rarity}</span>
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '6px' }}>{card.rarity}</span>
                     </div>
                     <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '2px' }}>
                       ¥{Math.round(currentMid).toLocaleString()}
                       {onSale != null && <> · 出品中 {onSale.toLocaleString()}件</>}
                     </div>
+                    {downPct != null && downPct >= 30 && (
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--down)', marginTop: '2px' }}>AI↓{downPct}%</div>
+                    )}
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '64px' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '56px' }}>
                     {change != null && (
                       <span style={{ color: change < 0 ? 'var(--down)' : 'var(--ink-faint)', fontWeight: 600 }}>
                         {change > 0 ? '+' : ''}{change.toFixed(1)}%
                       </span>
                     )}
                     <div style={{ fontSize: '10px', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
-                  </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '52px' }}>
-                    {downPct != null && downPct >= 30 && <span style={{ color: 'var(--down)', fontWeight: 600 }}>AI↓{downPct}%</span>}
                   </div>
                 </Link>
               )
