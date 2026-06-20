@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { Card, Forecast } from '@/types/pokeca'
+import { useCollection } from '@/hooks/useCollection'
 
 type CardEntry = {
   card: Card
@@ -14,6 +15,7 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
   const presentRarities = RARITY_ORDER.filter(r => cardsWithForecast.some(c => c.card.rarity === r))
   const tabs = ['全て', ...presentRarities]
   const [selected, setSelected] = useState('全て')
+  const { getQty, setQty } = useCollection()
 
   const filtered = selected === '全て'
     ? cardsWithForecast
@@ -55,7 +57,7 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
       <div style={{ border: '1px solid var(--hair)', borderRadius: '8px', overflow: 'hidden' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '56px 1fr auto auto',
+          gridTemplateColumns: '56px 1fr auto auto 88px',
           gap: '16px',
           padding: '8px 16px',
           background: 'var(--bg2)',
@@ -69,6 +71,7 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
           <span>カード</span>
           <span style={{ textAlign: 'right' }}>相場</span>
           <span style={{ textAlign: 'right', minWidth: '60px' }}>上昇期待</span>
+          <span style={{ textAlign: 'center' }}>所持枚数</span>
         </div>
 
         {filtered.length === 0 ? (
@@ -81,34 +84,69 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
             const upColor = upPct !== null
               ? upPct >= 50 ? 'var(--up)' : upPct >= 35 ? 'var(--gold)' : 'var(--ink-faint)'
               : 'var(--ink-faint)'
+            const qty = getQty(card.id)
             return (
-              <Link
+              <div
                 key={card.id}
-                href={`/cards/${card.id}`}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '56px 1fr auto auto',
+                  gridTemplateColumns: '56px 1fr auto auto 88px',
                   gap: '16px',
                   alignItems: 'center',
-                  padding: '14px 16px',
                   borderBottom: '1px solid var(--hair)',
-                  color: 'inherit',
+                  background: qty > 0 ? 'rgba(var(--gold-rgb, 212,175,55), 0.06)' : undefined,
                 }}
               >
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)' }}>
-                  {card.card_no}
+                <Link
+                  href={`/cards/${card.id}`}
+                  style={{ display: 'contents', color: 'inherit' }}
+                >
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', padding: '14px 0 14px 16px' }}>
+                    {card.card_no}
+                  </div>
+                  <div style={{ padding: '14px 0' }}>
+                    <span style={{ fontSize: '15px', fontWeight: 700 }}>{card.card_name}</span>
+                    <span className="rare-badge">{card.rarity}</span>
+                  </div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', textAlign: 'right', whiteSpace: 'nowrap', padding: '14px 0' }}>
+                    {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
+                  </div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: upColor, textAlign: 'right', minWidth: '60px', padding: '14px 0' }}>
+                    {upPct !== null ? `↑ ${upPct}%` : '—'}
+                  </div>
+                </Link>
+                {/* 所持枚数コントロール */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', padding: '8px 16px 8px 0' }}>
+                  <button
+                    onClick={() => setQty(card.id, qty - 1)}
+                    style={{
+                      width: '22px', height: '22px', borderRadius: '50%',
+                      border: '1px solid var(--hair)', background: 'transparent',
+                      color: 'var(--ink-dim)', fontSize: '14px', lineHeight: 1,
+                      cursor: qty > 0 ? 'pointer' : 'default',
+                      opacity: qty > 0 ? 1 : 0.3,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}
+                  >−</button>
+                  <span style={{
+                    fontFamily: 'var(--mono)', fontSize: '13px', fontWeight: 600,
+                    minWidth: '16px', textAlign: 'center',
+                    color: qty > 0 ? 'var(--gold)' : 'var(--ink-faint)',
+                  }}>
+                    {qty}
+                  </span>
+                  <button
+                    onClick={() => setQty(card.id, qty + 1)}
+                    style={{
+                      width: '22px', height: '22px', borderRadius: '50%',
+                      border: '1px solid var(--hair)', background: 'transparent',
+                      color: 'var(--ink-dim)', fontSize: '14px', lineHeight: 1,
+                      cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}
+                  >＋</button>
                 </div>
-                <div>
-                  <span style={{ fontSize: '15px', fontWeight: 700 }}>{card.card_name}</span>
-                  <span className="rare-badge">{card.rarity}</span>
-                </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
-                </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: upColor, textAlign: 'right', minWidth: '60px' }}>
-                  {upPct !== null ? `↑ ${upPct}%` : '—'}
-                </div>
-              </Link>
+              </div>
             )
           })
         )}

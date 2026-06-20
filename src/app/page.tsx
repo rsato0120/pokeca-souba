@@ -116,12 +116,32 @@ export default function TopPage() {
           padding: '8px 0 24px',
           borderBottom: '1px solid var(--hair)',
           marginBottom: '28px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '8px',
         }}
       >
-        {new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')} 更新
-        {boxes.length > 0 && (
-          <> ・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</>
-        )}
+        <span>
+          {new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')} 更新
+          {boxes.length > 0 && (
+            <> ・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</>
+          )}
+        </span>
+        <Link
+          href="/portfolio"
+          style={{
+            fontSize: '11px',
+            color: 'var(--gold)',
+            border: '1px solid var(--gold)',
+            borderRadius: '20px',
+            padding: '3px 10px',
+            letterSpacing: '0.05em',
+          }}
+        >
+          マイコレクション →
+        </Link>
       </div>
 
       <SearchBar cards={searchCards} />
