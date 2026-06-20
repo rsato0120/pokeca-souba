@@ -41,16 +41,30 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
     if (p30.length > 0) historySection += `- 30日間平均: ¥${avg(p30, 'low')}〜¥${avg(p30, 'high')}（${p30.length}日分）\n`
     historySection += `- 直近${priceHistory.length}日間の傾向: ${trendStr}（${changePct >= 0 ? '+' : ''}${changePct}%）\n`
 
-    // カードラッシュ最新ショップ価格
-    const latest = priceHistory[0]
-    if (latest.shop_buy != null || latest.shop_sell != null) {
-      historySection += `\n## カードショップ価格（カードラッシュ）\n`
-      if (latest.shop_buy != null) historySection += `- 買取価格: ¥${latest.shop_buy.toLocaleString()}（相場の下値フロア）\n`
-      if (latest.shop_sell != null) historySection += `- 販売価格: ¥${latest.shop_sell.toLocaleString()}（市場での上限目安）\n`
-      if (latest.shop_buy != null && latest.shop_sell != null) {
-        const spread = latest.shop_sell - latest.shop_buy
-        const spreadPct = Math.round((spread / latest.shop_buy) * 100)
-        historySection += `- スプレッド: ¥${spread.toLocaleString()}（${spreadPct}%）— スプレッドが広いほど流動性が低い\n`
+    // 在庫・需給シグナル（メルカリ出品中件数）
+    const withSale = priceHistory.filter(r => r.on_sale != null)
+    if (withSale.length > 0) {
+      const latestSale = withSale[0].on_sale!
+      const oldestSale = withSale[withSale.length - 1].on_sale!
+      const saleChangePct = withSale.length >= 2
+        ? Math.round(((latestSale - oldestSale) / Math.max(oldestSale, 1)) * 100)
+        : null
+
+      const supplySignal = latestSale < 10
+        ? '極めて少ない（市場タイト）'
+        : latestSale < 30
+        ? '少ない（需要優位）'
+        : latestSale < 80
+        ? '普通'
+        : '多い（供給過多リスク）'
+
+      historySection += `\n## 需給シグナル（メルカリ出品中件数）\n`
+      historySection += `- 現在の出品中件数: ${latestSale}件 → ${supplySignal}\n`
+      if (saleChangePct != null) {
+        const trend = saleChangePct > 20 ? '増加傾向（供給増・価格下落圧力）'
+          : saleChangePct < -20 ? '減少傾向（品薄・価格上昇圧力）'
+          : '横ばい'
+        historySection += `- 出品数トレンド: ${saleChangePct >= 0 ? '+' : ''}${saleChangePct}%（${trend}）\n`
       }
     }
   }

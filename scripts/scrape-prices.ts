@@ -5,7 +5,6 @@ import { getAllCards, getCardSlug } from '@/lib/data'
 import type { PriceHistory } from '@/types/pokeca'
 
 const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ']
-// 「セット」は「各1枚セット」などで誤除外されるため枚数付きのみ対象
 const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[2-9][0-9]枚/]
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 fs.mkdirSync(pricesDir, { recursive: true })
@@ -44,51 +43,7 @@ interface MercariItem {
   status?: string
 }
 
-interface ShopPrice {
-  buy: number | null   // 買取価格
-  sell: number | null  // 販売価格
-}
-
-// カードラッシュから買取・販売価格を取得
-async function scrapeCardrush(browser: Browser, cardName: string, rarity: string): Promise<ShopPrice> {
-  const page = await browser.newPage()
-  const query = encodeURIComponent(`${cardName} ${rarity}`)
-  const url = `https://www.cardrush-pokemon.jp/search/?keyword=${query}`
-  try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 })
-    await page.waitForSelector('.p-item-list, .c-product-card, .result_none', { timeout: 8000 }).catch(() => {})
-
-    const result = await page.evaluate((): ShopPrice => {
-      const sellPrices: number[] = []
-      const buyPrices: number[] = []
-
-      // 販売価格
-      const sellEls = document.querySelectorAll('.p-item-list .price, .c-product-card .c-product-card__price, .selling_price')
-      sellEls.forEach(el => {
-        const n = parseInt((el.textContent ?? '').replace(/[^0-9]/g, ''))
-        if (n > 0 && n < 10_000_000) sellPrices.push(n)
-      })
-
-      // 買取価格（買取一覧ページのパターン）
-      const buyEls = document.querySelectorAll('.buy_price, .kaitori_price, [class*="buy"] .price')
-      buyEls.forEach(el => {
-        const n = parseInt((el.textContent ?? '').replace(/[^0-9]/g, ''))
-        if (n > 0 && n < 10_000_000) buyPrices.push(n)
-      })
-
-      return {
-        sell: sellPrices.length > 0 ? Math.min(...sellPrices) : null,
-        buy: buyPrices.length > 0 ? Math.max(...buyPrices) : null,
-      }
-    })
-    return result
-  } catch {
-    return { buy: null, sell: null }
-  } finally {
-    await page.close()
-  }
-}
-
+// 売り切れ商品から価格を取得
 async function scrapeMercari(browser: Browser, searchQuery: string, debug = false): Promise<number[]> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -97,7 +52,6 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
   const searchUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=sold_out&sort=created_time&order=desc`
 
   try {
-    // 検索APIのレスポンスを明示的に待つ
     const responsePromise = page.waitForResponse(
       r => r.url().includes('/v2/entities:search') && r.status() === 200,
       { timeout: 20000 }
@@ -111,13 +65,12 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
       const rawItems: MercariItem[] =
         json.items ?? json.data?.items ?? json.result?.items ?? []
 
-      if (debug) console.log(`  [API] ${rawItems.length}件取得`)
+      if (debug) console.log(`  [API sold] ${rawItems.length}件取得`)
 
       return rawItems
         .filter(item => !isExcluded(item.name) && Number(item.price) > 0)
         .map(item => Number(item.price))
     } catch {
-      // タイムアウト時は DOMフォールバック
       if (debug) console.log('\n  [DEBUG] APIタイムアウト → DOMスクレイピングにフォールバック')
       try {
         await page.waitForSelector('mer-price, [data-testid="item-price"]', { timeout: 8000 })
@@ -144,7 +97,46 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
   }
 }
 
-function savePriceHistory(cardId: string, date: string, low: number, high: number, shop?: ShopPrice): void {
+// 出品中件数を取得（供給量の代替指標）
+async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Promise<number | null> {
+  const page = await browser.newPage()
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
+
+  const keyword = encodeURIComponent(searchQuery)
+  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale`
+
+  try {
+    const responsePromise = page.waitForResponse(
+      r => r.url().includes('/v2/entities:search') && r.status() === 200,
+      { timeout: 15000 }
+    )
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 })
+
+    const json = await responsePromise.then(r => r.json()).catch(() => null)
+    if (!json) return null
+
+    // APIレスポンスから件数を取得
+    const items: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
+    const total: number | undefined =
+      json.meta?.numFound ?? json.meta?.total ?? json.numFound ?? json.totalCount
+
+    // totalがあればそれ、なければ取得できたアイテム数
+    const count = total ?? items.length
+    return typeof count === 'number' && count >= 0 ? count : null
+  } catch {
+    return null
+  } finally {
+    await page.close()
+  }
+}
+
+function savePriceHistory(
+  cardId: string,
+  date: string,
+  low: number,
+  high: number,
+  onSale: number | null
+): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
   try {
@@ -153,8 +145,7 @@ function savePriceHistory(cardId: string, date: string, low: number, high: numbe
 
   const record = {
     date, low, high,
-    ...(shop?.buy != null ? { shop_buy: shop.buy } : {}),
-    ...(shop?.sell != null ? { shop_sell: shop.sell } : {}),
+    ...(onSale != null ? { on_sale: onSale } : {}),
   }
 
   const idx = data.history.findIndex(r => r.date === date)
@@ -190,6 +181,7 @@ async function main() {
       process.stdout.write(`  [${searchQuery}] スクレイピング中... `)
 
       try {
+        // 1. 売り切れ価格（需要・実勢価格）
         let filtered: number[] = []
         const MAX_RETRY = 3
         for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
@@ -212,14 +204,12 @@ async function main() {
         const low = calcPercentile(filtered, 25)
         const high = calcPercentile(filtered, 75)
 
-        // カードラッシュ買取・販売価格
-        const shop = await scrapeCardrush(browser, card.card_name, card.rarity)
-        const shopLog = shop.buy != null || shop.sell != null
-          ? ` / 買取¥${(shop.buy ?? '—').toLocaleString()} 販売¥${(shop.sell ?? '—').toLocaleString()}`
-          : ''
+        // 2. 出品中件数（供給量）
+        const onSale = await getMercariOnSaleCount(browser, searchQuery)
+        const supplyLog = onSale != null ? ` / 出品中${onSale}件` : ''
 
-        savePriceHistory(cardId, date, low, high, shop)
-        console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（${filtered.length}件）${shopLog}`)
+        savePriceHistory(cardId, date, low, high, onSale)
+        console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${supplyLog}）`)
         succeeded++
       } catch (e) {
         console.log('失敗（既存価格を維持）')

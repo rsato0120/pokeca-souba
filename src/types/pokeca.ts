@@ -79,8 +79,7 @@ export interface PriceRecord {
   date: string  // "2026-06-20"
   low: number
   high: number
-  shop_buy?: number   // カードラッシュ買取価格
-  shop_sell?: number  // カードラッシュ販売価格
+  on_sale?: number  // メルカリ出品中件数（供給量の代替指標）
 }
 
 export interface PriceHistory {
