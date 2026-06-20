@@ -112,7 +112,8 @@ async function getMercariOnSaleCount(browser: Browser, searchQuery: string, debu
     )
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
 
-    let json: Record<string, unknown> | null = null
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let json: any = null
     try {
       const res = await responsePromise
       json = await res.json()
@@ -124,8 +125,8 @@ async function getMercariOnSaleCount(browser: Browser, searchQuery: string, debu
     if (!json) return null
 
     // APIレスポンスから件数を取得（numFound は文字列で返ることがある）
-    const items: MercariItem[] = (json.items ?? json.data?.items ?? json.result?.items ?? []) as MercariItem[]
-    const meta = (json.meta ?? json.data?.meta ?? {}) as Record<string, unknown>
+    const items: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
+    const meta = json.meta ?? json.data?.meta ?? {}
     const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
     const count = rawTotal != null ? Number(rawTotal) : items.length
 
