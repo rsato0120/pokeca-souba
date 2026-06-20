@@ -149,6 +149,22 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
   const { overall, player_view, collector_view, price_forecast } = forecast
 
+  const signal =
+    overall.up_pct >= 45
+      ? { label: '買い', dot: '🟢', color: 'var(--up)' }
+      : overall.down_pct >= 45
+      ? { label: '弱含み', dot: '🔴', color: 'var(--down)' }
+      : { label: '様子見', dot: '🟡', color: 'var(--flat)' }
+
+  const latestRecord = priceHistory?.history?.[0] ?? null
+  const latestOnSale = latestRecord?.on_sale ?? null
+  const supplyLabel =
+    latestOnSale == null ? null
+    : latestOnSale < 10 ? '極めて少ない（市場タイト）'
+    : latestOnSale < 30 ? '少ない（需要優位）'
+    : latestOnSale < 80 ? '普通'
+    : '多め（供給過多リスク）'
+
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
       <Link
@@ -203,17 +219,22 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             )}
             <div className="no">{card.card_no} ・ {card.rarity}</div>
           </div>
-          <div
-            style={{
-              marginTop: '12px',
-              textAlign: 'center',
-              fontFamily: 'var(--mono)',
-              fontSize: '11px',
-              letterSpacing: '0.1em',
-              color: TREND_COLOR[overall.up_pct >= 40 ? 'up' : overall.down_pct >= 40 ? 'down' : 'flat'],
-            }}
-          >
-            {overall.up_pct >= 40 ? '▲ 相場は明るい' : overall.down_pct >= 40 ? '▼ 相場は弱含み' : '→ 相場は横ばい'}
+          <div style={{ marginTop: '12px', textAlign: 'center' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                padding: '5px 16px',
+                borderRadius: '20px',
+                background: `color-mix(in srgb, ${signal.color} 15%, transparent)`,
+                color: signal.color,
+                fontFamily: 'var(--mono)',
+                fontSize: '13px',
+                fontWeight: 700,
+                letterSpacing: '0.06em',
+              }}
+            >
+              {signal.dot} {signal.label}
+            </span>
           </div>
         </div>
 
@@ -262,6 +283,104 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               {card.card_spec.type} / HP{card.card_spec.hp}
             </span>{' '}
             ・ {box?.release_ym ?? '—'} 発売 ・ illus. {card.materials.collector.illustrator}
+          </div>
+
+          {/* AI評価ヒーロー */}
+          <div
+            style={{
+              border: '1px solid var(--hair)',
+              borderLeft: `3px solid ${signal.color}`,
+              borderRadius: '8px',
+              padding: '16px 18px',
+              marginBottom: '12px',
+              background: 'var(--panel)',
+            }}
+          >
+            <div
+              style={{
+                fontFamily: 'var(--mono)',
+                fontSize: '11px',
+                letterSpacing: '0.14em',
+                color: 'var(--ink-faint)',
+                marginBottom: '10px',
+              }}
+            >
+              AI 評価
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '8px',
+                flexWrap: 'wrap',
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'var(--mincho)',
+                  fontSize: '32px',
+                  fontWeight: 800,
+                  color: signal.color,
+                  letterSpacing: '0.02em',
+                  lineHeight: 1,
+                }}
+              >
+                {signal.dot}&thinsp;{signal.label}
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>
+                  上昇期待度
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--mono)',
+                    fontSize: '26px',
+                    fontWeight: 700,
+                    color: signal.color,
+                    lineHeight: 1,
+                  }}
+                >
+                  {overall.up_pct}%
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                marginTop: '12px',
+                paddingTop: '10px',
+                borderTop: '1px solid var(--hair)',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: '11px',
+                  color: 'var(--ink-faint)',
+                  marginBottom: '4px',
+                }}
+              >
+                予想価格（3ヶ月後 本線）
+              </div>
+              <div
+                style={{
+                  fontFamily: 'var(--mono)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <span style={{ color: 'var(--ink-dim)' }}>
+                  ¥{price_forecast.current_low.toLocaleString()}〜{price_forecast.current_high.toLocaleString()}
+                </span>
+                <span style={{ color: 'var(--ink-faint)' }}>→</span>
+                <span style={{ color: signal.color }}>
+                  ¥{price_forecast.m3_low.toLocaleString()}〜{price_forecast.m3_high.toLocaleString()}
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* 現在相場 */}
@@ -457,9 +576,49 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         ))}
       </div>
 
-      <p style={{ fontSize: '14px', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: '26px' }}>
+      <p style={{ fontSize: '14px', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: '18px' }}>
         {overall.reason}
       </p>
+
+      {/* 需給シグナル */}
+      {latestOnSale != null && (
+        <div
+          style={{
+            background: 'var(--bg2)',
+            border: '1px solid var(--hair)',
+            borderRadius: '8px',
+            padding: '14px 18px',
+            marginBottom: '26px',
+          }}
+        >
+          <div
+            style={{
+              fontFamily: 'var(--mono)',
+              fontSize: '11px',
+              letterSpacing: '0.14em',
+              color: 'var(--ink-faint)',
+              marginBottom: '10px',
+            }}
+          >
+            需給シグナル（メルカリ出品中）
+          </div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontFamily: 'var(--mono)',
+                fontSize: '22px',
+                fontWeight: 700,
+                color: latestOnSale < 30 ? 'var(--up)' : latestOnSale < 80 ? 'var(--ink)' : 'var(--down)',
+              }}
+            >
+              {latestOnSale}件
+            </span>
+            <span style={{ fontSize: '13px', color: 'var(--ink-dim)' }}>
+              出品中 — {supplyLabel}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* ── プレイヤー/コレクター 2軸 ── */}
       <div
