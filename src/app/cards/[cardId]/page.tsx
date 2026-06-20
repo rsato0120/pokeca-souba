@@ -764,7 +764,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           },
           {
             name: 'メルカリ',
-            url: 'https://px.a8.net/svt/ejp?a8mat=4B60CK+3FU6LU+5LNQ+5YJRM',
+            url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`,
             color: '#ff0211',
           },
         ]
