@@ -1,40 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import type { Card, Forecast, Trend } from '@/types/pokeca'
 
-// ─── 現在相場取得（Google Search grounding） ─────────────────────
-
-async function fetchCurrentPrice(
-  card: Card,
-  apiKey: string
-): Promise<{ low: number; high: number }> {
-  const genAI = new GoogleGenerativeAI(apiKey)
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-2.5-flash-lite',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tools: [{ googleSearch: {} } as any],
-  })
-
-  const prompt = `ポケモンカード「${card.card_name}」（${card.rarity}）の現在の日本市場での相場価格を調べてください。
-カードラッシュ・遊々亭・駿河屋・メルカリなどの実勢価格をもとに、美品の平均的な売買価格レンジを教えてください。
-必ず以下のJSON形式のみで回答してください（前後の文章・コードブロック不要）:
-{"low": 最安値の目安(円・整数), "high": 最高値の目安(円・整数)}`
-
-  try {
-    const result = await model.generateContent(prompt)
-    const raw = result.response.text()
-    const match = raw.match(/\{[\s\S]*?"low"[\s\S]*?"high"[\s\S]*?\}/)
-    if (!match) throw new Error('price JSON not found')
-    const parsed = JSON.parse(match[0])
-    const low = Number(parsed.low)
-    const high = Number(parsed.high)
-    if (!low || !high || low <= 0 || high <= 0) throw new Error('invalid price values')
-    return { low, high }
-  } catch (e) {
-    console.error('[fetchCurrentPrice] failed:', e instanceof Error ? e.message : e)
-    return { low: 2500, high: 3500 }
-  }
-}
-
 // ─── プロンプト構築 ──────────────────────────────────────────────
 
 function buildPrompt(card: Card, currentLow: number, currentHigh: number): string {
@@ -182,14 +148,15 @@ function parseForecastJson(raw: string, card: Card): Forecast {
 
 // ─── メイン関数（AI呼び出しはここに隔離） ────────────────────────
 
-export async function generateForecast(card: Card): Promise<Forecast> {
+export async function generateForecast(
+  card: Card,
+  currentLow: number,
+  currentHigh: number
+): Promise<Forecast> {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey || apiKey === 'your_api_key_here') {
     throw new Error('GEMINI_API_KEY が設定されていません。.env.local に追加してください。')
   }
-
-  // Step 1: Google Search grounding で現在相場を取得
-  const { low: currentLow, high: currentHigh } = await fetchCurrentPrice(card, apiKey)
 
   const genAI = new GoogleGenerativeAI(apiKey)
   const model = genAI.getGenerativeModel({

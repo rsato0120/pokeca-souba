@@ -7,52 +7,45 @@ import type { Forecast, PriceHistory } from '@/types/pokeca'
 const forecastDir = path.join(process.cwd(), 'data', 'forecasts')
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 fs.mkdirSync(forecastDir, { recursive: true })
-fs.mkdirSync(pricesDir, { recursive: true })
 
-function todayJST(): string {
-  const jst = new Date(Date.now() + 9 * 60 * 60 * 1000)
-  return jst.toISOString().slice(0, 10)
-}
-
-function savePriceHistory(cardId: string, date: string, low: number, high: number) {
+function getLatestPrice(cardId: string): { low: number; high: number } | null {
   const filePath = path.join(pricesDir, `${cardId}.json`)
-  let data: PriceHistory = { card_id: cardId, history: [] }
   try {
-    data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    const data: PriceHistory = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    if (data.history.length > 0) {
+      const { low, high } = data.history[0]
+      return { low, high }
+    }
   } catch {}
-
-  const idx = data.history.findIndex((r) => r.date === date)
-  if (idx >= 0) {
-    data.history[idx] = { date, low, high }
-  } else {
-    data.history.push({ date, low, high })
-  }
-
-  data.history.sort((a, b) => b.date.localeCompare(a.date))
-  data.history = data.history.slice(0, 30)
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
+  return null
 }
 
 async function main() {
   const cards = getAllCards()
-  const date = todayJST()
-  console.log(`${cards.length}枚のカードを処理します（${date} JST）\n`)
+  console.log(`${cards.length}枚のカードの予想を生成します\n`)
 
-  // ── Step 1: 個別予想生成 ──────────────────────────────────────
   console.log('【Step 1】個別予想を生成中...\n')
   const succeeded: Array<{ cardId: string; card: typeof cards[0]; forecast: Forecast }> = []
   let failed = 0
 
   for (const card of cards) {
     const cardId = getCardSlug(card)
-    process.stdout.write(`  [${card.card_name} ${card.rarity}] 生成中... `)
+    process.stdout.write(`  [${card.card_name} ${card.rarity}] `)
+
+    const price = getLatestPrice(cardId)
+    if (!price) {
+      console.log('価格データなし — スキップ（scrape-prices.ts を先に実行してください）')
+      failed++
+      continue
+    }
+
+    process.stdout.write('予想生成中... ')
     try {
-      const forecast = await generateForecast(card)
-      savePriceHistory(cardId, date, forecast.price_forecast.current_low, forecast.price_forecast.current_high)
+      const forecast = await generateForecast(card, price.low, price.high)
       succeeded.push({ cardId, card, forecast })
       const { up_pct, flat_pct, down_pct } = forecast.overall
-      const price = `¥${forecast.price_forecast.current_low.toLocaleString()}〜¥${forecast.price_forecast.current_high.toLocaleString()}`
-      console.log(`完了 [↑${up_pct}% →${flat_pct}% ↓${down_pct}%] ${price}`)
+      const priceStr = `¥${price.low.toLocaleString()}〜¥${price.high.toLocaleString()}`
+      console.log(`完了 [↑${up_pct}% →${flat_pct}% ↓${down_pct}%] ${priceStr}`)
     } catch (e) {
       console.log('失敗')
       console.error('    エラー:', e instanceof Error ? e.message : e)
@@ -60,7 +53,6 @@ async function main() {
     }
   }
 
-  // ── Step 2: ランキング調整パス ───────────────────────────────
   if (succeeded.length > 1) {
     console.log('\n【Step 2】ランキング調整中...')
     const rankMap = await adjustRankings(succeeded)
@@ -88,7 +80,6 @@ async function main() {
       console.log(`    ${i + 1}. ${card.card_name} ${card.rarity} → ↑${s?.up_pct}% →${s?.flat_pct}% ↓${s?.down_pct}%`)
     })
   } else {
-    // カード1枚のみの場合はそのまま保存
     for (const { cardId, forecast } of succeeded) {
       fs.writeFileSync(
         path.join(forecastDir, `${cardId}.json`),

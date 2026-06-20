@@ -1,4 +1,4 @@
-name: Update Forecasts
+name: Update Prices and Forecasts
 
 on:
   schedule:
@@ -22,6 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Scrape prices from Mercari
+        run: npx tsx scripts/scrape-prices.ts
+
       - name: Generate forecasts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -31,5 +37,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/forecasts/
-          git diff --cached --quiet && echo "変更なし" || (git commit -m "update forecasts $(date -u '+%Y-%m-%d')" && git push)
+          git add data/prices/ data/forecasts/
+          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices and forecasts $(date -u '+%Y-%m-%d')" && git push)
