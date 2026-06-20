@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory } from '@/lib/data'
+import PriceHistoryChart from '@/components/PriceHistoryChart'
 
 export async function generateMetadata(props: PageProps<'/boxes/[boxId]'>): Promise<Metadata> {
   const { boxId } = await props.params
@@ -43,6 +44,24 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
   const priceTrend = latestBoxPrice && prevBoxPrice
     ? Math.round(((latestBoxPrice.low + latestBoxPrice.high) / 2 - (prevBoxPrice.low + prevBoxPrice.high) / 2) / ((prevBoxPrice.low + prevBoxPrice.high) / 2) * 100)
     : null
+
+  // 買い時シグナル
+  const boxSignal = (() => {
+    if (!latestBoxPrice || premiumPct == null) return null
+    if (premiumPct < 20) {
+      return { label: '買い好機', dot: '🟢', color: 'var(--up)', desc: '定価に近い水準。コスト効率が高い購入タイミング。' }
+    }
+    if (premiumPct > 80 && (priceTrend == null || priceTrend >= 0)) {
+      return { label: '高値注意', dot: '🔴', color: 'var(--down)', desc: '定価の大幅プレミア。相場が天井圏の可能性あり。' }
+    }
+    if (premiumPct > 80 && priceTrend !== null && priceTrend < -3) {
+      return { label: '調整中', dot: '🟡', color: 'var(--flat)', desc: '高値から下落傾向。もう少し待つと安く買える可能性。' }
+    }
+    if (priceTrend !== null && priceTrend < -5) {
+      return { label: '下落中', dot: '🟡', color: 'var(--flat)', desc: '価格が下落傾向。底値確認後の購入を検討。' }
+    }
+    return { label: '様子見', dot: '🟡', color: 'var(--flat)', desc: '標準的なプレミア水準。急いで買う必要はない。' }
+  })()
 
   return (
     <div className="wrap">
@@ -189,6 +208,52 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           {msrp != null && box.packs_per_box != null && (
             <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '12px' }}>
               定価: {box.packs_per_box}パック × ¥{box.pack_price_yen} = ¥{msrp.toLocaleString()}
+            </div>
+          )}
+
+          {/* 買い時シグナル */}
+          {boxSignal && (
+            <div
+              style={{
+                marginTop: '20px',
+                borderLeft: `3px solid ${boxSignal.color}`,
+                paddingLeft: '14px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '18px' }}>{boxSignal.dot}</span>
+                <span
+                  style={{
+                    fontFamily: 'var(--mincho)',
+                    fontSize: '20px',
+                    fontWeight: 700,
+                    color: boxSignal.color,
+                  }}
+                >
+                  {boxSignal.label}
+                </span>
+              </div>
+              <div style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.6 }}>
+                {boxSignal.desc}
+              </div>
+            </div>
+          )}
+
+          {/* 価格推移グラフ */}
+          {boxPriceHistory && boxPriceHistory.history.length > 0 && (
+            <div style={{ marginTop: '24px' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--mono)',
+                  fontSize: '11px',
+                  color: 'var(--ink-faint)',
+                  letterSpacing: '0.1em',
+                  marginBottom: '10px',
+                }}
+              >
+                PRICE HISTORY · 未開封BOX価格推移
+              </div>
+              <PriceHistoryChart history={boxPriceHistory.history} />
             </div>
           )}
         </div>
