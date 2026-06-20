@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Shippori_Mincho, JetBrains_Mono, Zen_Kaku_Gothic_New } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
+
+const GA_ID = 'G-NTDWVBC7SW'
 
 const mincho = Shippori_Mincho({
   weight: ['500', '600', '700', '800'],
@@ -51,6 +54,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className={`${mincho.variable} ${mono.variable} ${gothic.variable}`}>
+      <head>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="ga4-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}');
+        `}</Script>
+      </head>
       <body>{children}</body>
     </html>
   )
