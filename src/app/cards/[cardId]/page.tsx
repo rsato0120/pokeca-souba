@@ -568,12 +568,12 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           },
           {
             name: '遊々亭',
-            url: `https://yuyu-tei.jp/sell/poke?search_word=${q}`,
+            url: `https://yuyu-tei.jp/game_product/list/poke?search_word=${q}`,
             color: '#1a6fd4',
           },
           {
             name: '駿河屋',
-            url: `https://www.suruga-ya.jp/search?category=&search_word=${q}`,
+            url: `https://www.suruga-ya.jp/search?category=524&search_word=${q}`,
             color: '#2a8a4a',
           },
           {
