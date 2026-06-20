@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getAllCards, getCardBySlug, getBoxById, getForecast, getCardSlug } from '@/lib/data'
+import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, getCardSlug } from '@/lib/data'
 import type { Forecast } from '@/types/pokeca'
+import PriceHistoryChart from '@/components/PriceHistoryChart'
 
 export async function generateMetadata(props: PageProps<'/cards/[cardId]'>): Promise<Metadata> {
   const { cardId } = await props.params
@@ -137,6 +138,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
   const box = getBoxById(card.box_id)
   const forecast: Forecast = getForecast(card.id) ?? stubForecast(card.card_no, card.rarity)
+  const priceHistory = getPriceHistory(card.id)
   const chart = buildChartPaths(forecast)
 
   const { overall, player_view, collector_view, price_forecast } = forecast
@@ -295,7 +297,25 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </div>
       </div>
 
-      {/* ── 予想推移グラフ ── */}
+      {/* ── 過去価格推移グラフ ── */}
+      {priceHistory && priceHistory.history.length > 0 && (
+        <div style={{ marginBottom: '26px' }}>
+          <div
+            style={{
+              fontFamily: 'var(--mono)',
+              fontSize: '11px',
+              letterSpacing: '0.14em',
+              color: 'var(--ink-faint)',
+              marginBottom: '12px',
+            }}
+          >
+            PRICE HISTORY · 価格推移
+          </div>
+          <PriceHistoryChart history={priceHistory.history} />
+        </div>
+      )}
+
+      {/* ── AI予想推移グラフ ── */}
       <div style={{ marginBottom: '26px' }}>
         <div
           style={{
@@ -315,7 +335,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               color: 'var(--ink-faint)',
             }}
           >
-            PRICE FORECAST · 予想推移
+            AI FORECAST · 予想推移（今後 1–2ヶ月）
           </span>
           <div
             style={{
