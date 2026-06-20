@@ -20,6 +20,24 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
     none: 'なし',
   }
 
+  const reprintLabel: Record<string, string> = {
+    none: '再録なし',
+    reprinted: '再録済み（供給増）',
+    reprint_planned: '再録予定あり（供給増加見込み）',
+  }
+
+  const scarcityLabel: Record<string, string> = {
+    normal: '普通',
+    scarce: '入手困難（品薄）',
+    out_of_print: '絶版（流通量極小）',
+  }
+
+  const charPopLabel: Record<string, string> = {
+    high: '高い',
+    mid: '普通',
+    unknown: '不明',
+  }
+
   // 価格履歴の集計
   let historySection = ''
   if (priceHistory.length >= 2) {
@@ -90,9 +108,9 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
 - レアリティ: ${collector.rarity}
 
 ## 共通材料
-- 再録状況: ${common.reprint_status}
-- 品薄度: ${common.scarcity}
-- キャラ人気: ${common.character_popularity}
+- 再録状況: ${reprintLabel[common.reprint_status] ?? common.reprint_status}
+- 品薄度: ${scarcityLabel[common.scarcity] ?? common.scarcity}
+- キャラ人気: ${charPopLabel[common.character_popularity] ?? common.character_popularity}
 
 ## 補足情報（証拠メモ）
 - プレイヤー視点: ${card.evidence_notes.player}
