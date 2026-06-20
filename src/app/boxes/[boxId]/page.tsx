@@ -138,9 +138,11 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       {/* ── 収録弾ヘッダ ── */}
       <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
         {box.pack_image_url && (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={box.pack_image_url}
             alt={`${box.box_name} パックアート`}
+            referrerPolicy="no-referrer"
             style={{
               width: '90px',
               height: 'auto',

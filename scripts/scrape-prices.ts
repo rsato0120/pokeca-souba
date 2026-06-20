@@ -218,6 +218,7 @@ async function scrapeItem(
 async function main() {
   const cards = getAllCards()
   const boxes = getAllBoxes().filter(b => b.certainty === 'released' && b.packs_per_box != null)
+  const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
   const date = todayJST()
   console.log(`${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
@@ -231,10 +232,13 @@ async function main() {
   try {
     // ── カード価格 ──
     for (const card of cards) {
+      const boxName = boxMap.get(card.box_id) ?? ''
+      // 収録弾名を含めてポケポケカードに絞り込む
+      const query = `${card.card_name} ${card.rarity} ${boxName}`
       await scrapeItem(
         browser,
         getCardSlug(card),
-        `${card.card_name} ${card.rarity}`,
+        query,
         `${card.card_name} ${card.rarity}`,
         date,
         stats
@@ -248,7 +252,7 @@ async function main() {
         await scrapeItem(
           browser,
           `box-${box.box_id}`,
-          `${box.box_name} 未開封`,
+          `${box.box_name} 未開封 BOX`,
           `${box.box_name} 未開封BOX`,
           date,
           stats
