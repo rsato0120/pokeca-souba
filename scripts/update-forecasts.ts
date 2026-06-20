@@ -2,19 +2,19 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { generateForecast, adjustRankings } from '@/lib/forecast'
 import { getAllCards, getCardSlug } from '@/lib/data'
-import type { Forecast, PriceHistory } from '@/types/pokeca'
+import type { Forecast, PriceHistory, PriceRecord } from '@/types/pokeca'
 
 const forecastDir = path.join(process.cwd(), 'data', 'forecasts')
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 fs.mkdirSync(forecastDir, { recursive: true })
 
-function getLatestPrice(cardId: string): { low: number; high: number } | null {
+function getPriceData(cardId: string): { low: number; high: number; history: PriceRecord[] } | null {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   try {
     const data: PriceHistory = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
     if (data.history.length > 0) {
       const { low, high } = data.history[0]
-      return { low, high }
+      return { low, high, history: data.history }
     }
   } catch {}
   return null
@@ -32,7 +32,7 @@ async function main() {
     const cardId = getCardSlug(card)
     process.stdout.write(`  [${card.card_name} ${card.rarity}] `)
 
-    const price = getLatestPrice(cardId)
+    const price = getPriceData(cardId)
     if (!price) {
       console.log('価格データなし — スキップ（scrape-prices.ts を先に実行してください）')
       failed++
@@ -41,7 +41,7 @@ async function main() {
 
     process.stdout.write('予想生成中... ')
     try {
-      const forecast = await generateForecast(card, price.low, price.high)
+      const forecast = await generateForecast(card, price.low, price.high, price.history)
       succeeded.push({ cardId, card, forecast })
       const { up_pct, flat_pct, down_pct } = forecast.overall
       const priceStr = `¥${price.low.toLocaleString()}〜¥${price.high.toLocaleString()}`

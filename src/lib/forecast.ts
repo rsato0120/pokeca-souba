@@ -1,9 +1,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import type { Card, Forecast, Trend } from '@/types/pokeca'
+import type { Card, Forecast, PriceRecord, Trend } from '@/types/pokeca'
 
 // ─── プロンプト構築 ──────────────────────────────────────────────
 
-function buildPrompt(card: Card, currentLow: number, currentHigh: number): string {
+function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceHistory: PriceRecord[]): string {
   const { player, collector, common } = card.materials
 
   const rotationLabel: Record<string, string> = {
@@ -20,8 +20,30 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number): strin
     none: 'なし',
   }
 
+  // 価格履歴の集計
+  let historySection = ''
+  if (priceHistory.length >= 2) {
+    const now = Date.now()
+    const avg = (records: PriceRecord[], key: 'low' | 'high') =>
+      Math.round(records.reduce((s, r) => s + Number(r[key]), 0) / records.length)
+
+    const p7 = priceHistory.filter(r => new Date(r.date).getTime() >= now - 7 * 86400000)
+    const p30 = priceHistory.filter(r => new Date(r.date).getTime() >= now - 30 * 86400000)
+    const oldest = priceHistory[priceHistory.length - 1]
+    const newest = priceHistory[0]
+    const oldMid = (Number(oldest.low) + Number(oldest.high)) / 2
+    const newMid = (Number(newest.low) + Number(newest.high)) / 2
+    const changePct = Math.round(((newMid - oldMid) / oldMid) * 100)
+    const trendStr = changePct > 5 ? '上昇傾向' : changePct < -5 ? '下落傾向' : '横ばい'
+
+    historySection = `\n## 実際の価格履歴（参考）\n`
+    if (p7.length > 0) historySection += `- 7日間平均: ¥${avg(p7, 'low')}〜¥${avg(p7, 'high')}（${p7.length}日分）\n`
+    if (p30.length > 0) historySection += `- 30日間平均: ¥${avg(p30, 'low')}〜¥${avg(p30, 'high')}（${p30.length}日分）\n`
+    historySection += `- 直近${priceHistory.length}日間の傾向: ${trendStr}（${changePct >= 0 ? '+' : ''}${changePct}%）\n`
+  }
+
   return `あなたはポケモンカードの相場分析の専門家です。
-以下のカード情報をもとに、今後1〜2ヶ月の相場予想を生成してください。
+以下のカード情報をもとに、今後6ヶ月の相場予想（1ヶ月後・3ヶ月後・6ヶ月後）を生成してください。
 
 ## カード情報
 - カード名: ${card.card_name}
@@ -48,14 +70,15 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number): strin
 ## 補足情報（証拠メモ）
 - プレイヤー視点: ${card.evidence_notes.player}
 - コレクター視点: ${card.evidence_notes.collector}
-
+${historySection}
 ## 出力ルール
 1. 断言しない。「上がります」ではなく確率＋根拠で示す
 2. player_view と collector_view を分けて分析する
 3. 再録 → 供給増加 → 下落圧力、スタン落ち間近 → 実需減少、などの因果を使う
 4. 根拠文は日本語で2〜3文、具体的に書く
 5. overall の up_pct + flat_pct + down_pct = 100 にする
-6. price_forecast は現在の参考相場から合理的に算出する（current_low=${currentLow}, current_high=${currentHigh} を起点とする）
+6. price_forecast は3時点（1ヶ月後・3ヶ月後・6ヶ月後）の本線予想価格を出す。起点は current_low=${currentLow}, current_high=${currentHigh}
+7. up/down は6ヶ月後の上振れ・下振れシナリオ価格
 
 ## 出力形式（JSON のみ、コードブロック不要）
 {
@@ -78,8 +101,12 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number): strin
   "price_forecast": {
     "current_low": 整数,
     "current_high": 整数,
-    "base_low": 整数,
-    "base_high": 整数,
+    "m1_low": 整数,
+    "m1_high": 整数,
+    "m3_low": 整数,
+    "m3_high": 整数,
+    "m6_low": 整数,
+    "m6_high": 整数,
     "up_low": 整数,
     "up_high": 整数,
     "down_low": 整数,
@@ -132,8 +159,12 @@ function parseForecastJson(raw: string, card: Card): Forecast {
     price_forecast: {
       current_low: Number(parsed.price_forecast.current_low),
       current_high: Number(parsed.price_forecast.current_high),
-      base_low: Number(parsed.price_forecast.base_low),
-      base_high: Number(parsed.price_forecast.base_high),
+      m1_low: Number(parsed.price_forecast.m1_low),
+      m1_high: Number(parsed.price_forecast.m1_high),
+      m3_low: Number(parsed.price_forecast.m3_low),
+      m3_high: Number(parsed.price_forecast.m3_high),
+      m6_low: Number(parsed.price_forecast.m6_low),
+      m6_high: Number(parsed.price_forecast.m6_high),
       up_low: Number(parsed.price_forecast.up_low),
       up_high: Number(parsed.price_forecast.up_high),
       down_low: Number(parsed.price_forecast.down_low),
@@ -151,7 +182,8 @@ function parseForecastJson(raw: string, card: Card): Forecast {
 export async function generateForecast(
   card: Card,
   currentLow: number,
-  currentHigh: number
+  currentHigh: number,
+  priceHistory: PriceRecord[] = []
 ): Promise<Forecast> {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey || apiKey === 'your_api_key_here') {
@@ -167,8 +199,7 @@ export async function generateForecast(
     },
   })
 
-  // Step 2: 取得した現在相場をプロンプトに反映して予想生成
-  const prompt = buildPrompt(card, currentLow, currentHigh)
+  const prompt = buildPrompt(card, currentLow, currentHigh, priceHistory)
 
   // リトライ（最大2回）
   let lastError: Error | null = null
@@ -213,7 +244,7 @@ export async function adjustRankings(
   ).join('\n\n')
 
   const prompt = `あなたはポケモンカード相場の専門家です。
-以下の${items.length}枚のカードを比較し、今後1〜2ヶ月の上昇期待度を相対的に評価し直してください。
+以下の${items.length}枚のカードを比較し、今後6ヶ月の上昇期待度を相対的に評価し直してください。
 
 ## カード一覧（初期スコア付き）
 ${cardList}

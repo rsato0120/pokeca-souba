@@ -57,16 +57,15 @@ const ARTWORK_LABEL: Record<string, string> = { original: '描き下ろし', reu
 const SCARCITY_LABEL: Record<string, string> = { normal: '通常', scarce: '品薄', out_of_print: '絶版' }
 const REPRINT_LABEL: Record<string, string> = { none: 'なし', reprinted: '再録済', reprint_planned: '予定あり' }
 
-const X_POINTS = [70, 290, 510, 730] // 現在, 2週後, 1ヶ月後, 2ヶ月後
+const X_POINTS = [70, 290, 510, 730] // 現在, 1ヶ月後, 3ヶ月後, 6ヶ月後
 const Y_MIN = 220
 const Y_MAX = 40
 
 function buildChartPaths(forecast: Forecast) {
-  const { current_low, current_high, base_low, base_high, up_low, up_high, down_low, down_high } =
+  const { current_low, current_high, m1_low, m1_high, m3_low, m3_high, m6_low, m6_high, up_low, up_high, down_low, down_high } =
     forecast.price_forecast
 
-  // 価格範囲をデータから動的に算出
-  const allPrices = [current_low, current_high, base_low, base_high, up_low, up_high, down_low, down_high]
+  const allPrices = [current_low, current_high, m1_low, m1_high, m3_low, m3_high, m6_low, m6_high, up_low, up_high, down_low, down_high]
   const rawMin = Math.min(...allPrices)
   const rawMax = Math.max(...allPrices)
   const pad = (rawMax - rawMin) * 0.15 || rawMin * 0.1
@@ -77,18 +76,21 @@ function buildChartPaths(forecast: Forecast) {
     Y_MIN + ((p - minPrice) / (maxPrice - minPrice)) * (Y_MAX - Y_MIN)
 
   const currentMid = (current_low + current_high) / 2
-  const baseMid = (base_low + base_high) / 2
+  const m1Mid = (m1_low + m1_high) / 2
+  const m3Mid = (m3_low + m3_high) / 2
+  const m6Mid = (m6_low + m6_high) / 2
   const upMid = (up_low + up_high) / 2
   const downMid = (down_low + down_high) / 2
 
-  const basePoints = [currentMid, baseMid * 0.5 + currentMid * 0.5, baseMid * 0.8 + currentMid * 0.2, baseMid]
-  const upPoints = [currentMid, upMid * 0.3 + currentMid * 0.7, upMid * 0.7 + currentMid * 0.3, upMid]
-  const downPoints = [currentMid, downMid * 0.3 + currentMid * 0.7, downMid * 0.7 + currentMid * 0.3, downMid]
+  // 本線: AIが予測した各時点の実値
+  const basePoints = [currentMid, m1Mid, m3Mid, m6Mid]
+  // 上振れ/下振れ: 6ヶ月後のシナリオへ滑らかに補間
+  const upPoints = [currentMid, currentMid * 0.7 + upMid * 0.3, currentMid * 0.3 + upMid * 0.7, upMid]
+  const downPoints = [currentMid, currentMid * 0.7 + downMid * 0.3, currentMid * 0.3 + downMid * 0.7, downMid]
 
   const toPolyline = (pts: number[]) =>
     X_POINTS.map((x, i) => `${x},${priceToY(pts[i])}`).join(' ')
 
-  // Y軸ラベル（固定グリッド4本に対応する価格）
   const step = (maxPrice - minPrice) / 3
   const yLabels = [
     { y: Y_MAX, price: maxPrice },
@@ -119,8 +121,12 @@ function stubForecast(card_no: string, rarity: string): Forecast {
     price_forecast: {
       current_low: 2500,
       current_high: 3500,
-      base_low: 2800,
-      base_high: 4000,
+      m1_low: 2500,
+      m1_high: 3500,
+      m3_low: 2700,
+      m3_high: 3800,
+      m6_low: 2800,
+      m6_high: 4000,
       up_low: 4000,
       up_high: 5000,
       down_low: 1800,
@@ -221,7 +227,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               marginBottom: '6px',
             }}
           >
-            FORECAST · 今後 1–2 ヶ月
+            FORECAST · 今後 6ヶ月
           </div>
           <h1
             style={{
@@ -335,7 +341,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               color: 'var(--ink-faint)',
             }}
           >
-            AI FORECAST · 予想推移（今後 1–2ヶ月）
+            AI FORECAST · 予想推移（1M / 3M / 6M）
           </span>
           <div
             style={{
@@ -397,9 +403,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             </g>
             <g fill="#6f6a5b" fontSize="11" textAnchor="middle">
               <text x="70" y="245">現在</text>
-              <text x="290" y="245">2週後</text>
-              <text x="510" y="245">1ヶ月後</text>
-              <text x="730" y="245">2ヶ月後</text>
+              <text x="290" y="245">1ヶ月後</text>
+              <text x="510" y="245">3ヶ月後</text>
+              <text x="730" y="245">6ヶ月後</text>
             </g>
             <polyline points={chart.up} fill="none" stroke="var(--up)" strokeWidth="1.5" strokeDasharray="4 4" />
             <polyline points={chart.down} fill="none" stroke="var(--down)" strokeWidth="1.5" strokeDasharray="4 4" />
@@ -414,7 +420,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
       {/* ── 総合シナリオ ── */}
       <div style={{ fontSize: '12px', color: 'var(--ink-faint)', letterSpacing: '0.06em', marginBottom: '9px' }}>
-        総合シナリオ（今後 1–2 ヶ月）
+        総合シナリオ（今後 6ヶ月）
       </div>
       <div
         style={{

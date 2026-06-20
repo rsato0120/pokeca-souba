@@ -95,11 +95,15 @@ export interface ViewForecast {
 export interface PriceForecast {
   current_low: number
   current_high: number
-  base_low: number
-  base_high: number
-  up_low: number
+  m1_low: number    // 1ヶ月後 本線
+  m1_high: number
+  m3_low: number    // 3ヶ月後 本線
+  m3_high: number
+  m6_low: number    // 6ヶ月後 本線
+  m6_high: number
+  up_low: number    // 6ヶ月後 上振れ
   up_high: number
-  down_low: number
+  down_low: number  // 6ヶ月後 下振れ
   down_high: number
 }
 

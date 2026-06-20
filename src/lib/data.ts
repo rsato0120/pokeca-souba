@@ -33,7 +33,10 @@ export function getForecast(cardId: string): Forecast | null {
   try {
     const filePath = path.join(process.cwd(), 'data', 'forecasts', `${cardId}.json`)
     const raw = fs.readFileSync(filePath, 'utf-8')
-    return JSON.parse(raw)
+    const data = JSON.parse(raw)
+    // 旧形式（base_low）は新形式（m1_low）に未対応なのでnullを返しstubにフォールバック
+    if (data.price_forecast?.m1_low === undefined) return null
+    return data as Forecast
   } catch {
     return null
   }
