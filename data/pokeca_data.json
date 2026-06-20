@@ -118,6 +118,153 @@
       "note": "RR版。競技需要が最も高いレアリティ。SR/SAR/MURは別レコードで管理。"
     },
     {
+      "id": "abyss-eye-lurantis-ex-rr",
+      "card_no": "004/081",
+      "rarity": "RR",
+      "card_name": "ラランテスex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/c/c5/LurantisexAbyssEye4.jpg",
+      "card_spec": { "type": "くさ", "stage": "1進化", "hp": 260, "note": "草タイプ1進化ex。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": {
+        "player": "草タイプexとして一部デッキに採用実績あり。競技採用度は低め。",
+        "collector": "RR版は実用需要が主。SRに比べコレクター需要は低い。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "ラランテスex RR版。"
+    },
+    {
+      "id": "abyss-eye-wailord-ex-rr",
+      "card_no": "015/081",
+      "rarity": "RR",
+      "card_name": "ホエルオーex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/a/aa/WailordexAbyssEye15.jpg",
+      "card_spec": { "type": "みず", "stage": "1進化", "hp": 380, "note": "HP380はTCG最高水準。スタール戦術の核。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": {
+        "player": "HP380というスペックからスタールデッキで採用される場合があるが、主流ではない。",
+        "collector": "RR版。HP記録持ちだがコレクター需要はSR優先。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "ホエルオーex RR版。HP380でTCG最大級。"
+    },
+    {
+      "id": "abyss-eye-mega-zeraora-ex-rr",
+      "card_no": "026/081",
+      "rarity": "RR",
+      "card_name": "メガゼラオラex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "",
+      "card_spec": { "type": "でんき", "stage": "基本", "hp": 270, "note": "雷タイプ基本ex。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": {
+        "player": "雷タイプexとして競技採用実績あり。SAR版もあり人気。",
+        "collector": "RR版は競技需要が主。画像はBulbapediaに未アップロードのため空欄。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "メガゼラオラex RR版。画像準備中。"
+    },
+    {
+      "id": "abyss-eye-mega-chandelure-ex-rr",
+      "card_no": "036/081",
+      "rarity": "RR",
+      "card_name": "メガシャンデラex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/f/f1/MegaChandelureexAbyssEye36.jpg",
+      "card_spec": { "type": "エスパー", "stage": "2進化", "hp": 350, "note": "超タイプ2進化ex。高HPが強み。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": {
+        "player": "超タイプ2進化exとして競技採用。SAR版の人気も高い。",
+        "collector": "RR版は実用需要が主。SAR版がコレクター人気を担う。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "メガシャンデラex RR版。"
+    },
+    {
+      "id": "abyss-eye-rampardos-ex-rr",
+      "card_no": "043/081",
+      "rarity": "RR",
+      "card_name": "ラムパルドex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/e/ed/RampardosexAbyssEye43.jpg",
+      "card_spec": { "type": "闘", "stage": "2進化", "hp": 330, "note": "闘タイプ2進化ex。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": {
+        "player": "闘タイプ2進化exだが主流デッキへの採用は限定的。",
+        "collector": "RR版。コレクター需要はSR版が担う。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "ラムパルドex RR版。"
+    },
+    {
+      "id": "abyss-eye-morpeko-ex-rr",
+      "card_no": "053/081",
+      "rarity": "RR",
+      "card_name": "モルペコex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "https://archives.bulbagarden.net/media/upload/c/cc/MorpekoexAbyssEye53.jpg",
+      "card_spec": { "type": "あく", "stage": "基本", "hp": 180, "note": "悪タイプ基本ex。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": {
+        "player": "悪タイプ基本exとして採用実績あり。SAR版の人気も高い。",
+        "collector": "モルペコはキャラ人気が高く、RR版も一定の需要がある。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "モルペコex RR版。"
+    },
+    {
+      "id": "abyss-eye-mega-excadrill-ex-rr",
+      "card_no": "063/081",
+      "rarity": "RR",
+      "card_name": "メガドリュウズex",
+      "box_id": "abyss_eye",
+      "is_reprint": false,
+      "image_url": "",
+      "card_spec": { "type": "はがね", "stage": "1進化", "hp": 340, "note": "鋼タイプ1進化ex。" },
+      "materials": {
+        "player": { "regulation_mark": "J", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "5ban Graphics", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "RR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": {
+        "player": "鋼タイプexだが競技採用は限定的。",
+        "collector": "RR版。画像はBulbapediaに未アップロードのため空欄。",
+        "source": "Bulbapedia（2026-06）"
+      },
+      "note": "メガドリュウズex RR版。画像準備中。"
+    },
+    {
       "id": "abyss-eye-darkrai-ex-sr",
       "card_no": "099/081",
       "rarity": "SR",
