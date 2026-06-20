@@ -111,6 +111,28 @@ export default function TopPage() {
 
       <SearchBar cards={searchCards} />
 
+      {/* ── BOXナビ ── */}
+      <div style={{ display: 'flex', gap: '6px', marginTop: '12px', marginBottom: '32px', overflowX: 'auto', paddingBottom: '2px' }}>
+        {boxes.filter(b => b.certainty === 'released').map(b => (
+          <Link
+            key={b.box_id}
+            href={`/boxes/${b.box_id}`}
+            style={{
+              padding: '6px 16px',
+              borderRadius: '20px',
+              border: '1px solid var(--hair)',
+              background: 'transparent',
+              color: 'var(--ink-dim)',
+              fontFamily: 'var(--mono)',
+              fontSize: '12px',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {b.box_name}
+          </Link>
+        ))}
+      </div>
+
       {/* ── ヒーロー ── */}
       {featured && (
         <Link

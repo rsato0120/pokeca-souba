@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getPriceHistory } from '@/lib/data'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
+import BoxCardList from '@/components/BoxCardList'
 
 export async function generateMetadata(props: PageProps<'/boxes/[boxId]'>): Promise<Metadata> {
   const { boxId } = await props.params
@@ -107,6 +108,32 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
       </header>
+
+      {/* ── BOX切替タブ ── */}
+      <div style={{ display: 'flex', gap: '6px', marginBottom: '24px', overflowX: 'auto', paddingBottom: '2px' }}>
+        {boxes.filter(b => b.certainty === 'released').map(b => {
+          const active = b.box_id === boxId
+          return (
+            <Link
+              key={b.box_id}
+              href={`/boxes/${b.box_id}`}
+              style={{
+                padding: '6px 16px',
+                borderRadius: '20px',
+                border: `1px solid ${active ? 'var(--gold)' : 'var(--hair)'}`,
+                background: active ? 'var(--gold)' : 'transparent',
+                color: active ? '#000' : 'var(--ink-dim)',
+                fontFamily: 'var(--mono)',
+                fontSize: '12px',
+                fontWeight: active ? 700 : 400,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {b.box_name}
+            </Link>
+          )
+        })}
+      </div>
 
       {/* ── 収録弾ヘッダ ── */}
       <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
@@ -312,104 +339,14 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         </div>
       )}
 
-      {/* ── カード一覧 ── */}
-      <div
-        style={{
-          border: '1px solid var(--hair)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-        }}
-      >
-        {/* ヘッダ行 */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '56px 1fr auto auto',
-            gap: '16px',
-            padding: '8px 16px',
-            background: 'var(--bg2)',
-            borderBottom: '1px solid var(--hair)',
-            fontFamily: 'var(--mono)',
-            fontSize: '10px',
-            color: 'var(--ink-faint)',
-            letterSpacing: '0.1em',
-          }}
-        >
-          <span>No.</span>
-          <span>カード</span>
-          <span style={{ textAlign: 'right' }}>相場</span>
-          <span style={{ textAlign: 'right', minWidth: '60px' }}>上昇期待</span>
+      {/* ── カード一覧（レアリティタブつき） ── */}
+      {cardsWithForecast.length === 0 ? (
+        <div style={{ padding: '24px 16px', fontSize: '13px', color: 'var(--ink-faint)' }}>
+          このセットのカードはまだ登録されていません。
         </div>
-
-        {cardsWithForecast.length === 0 ? (
-          <div style={{ padding: '24px 16px', fontSize: '13px', color: 'var(--ink-faint)' }}>
-            このセットのカードはまだ登録されていません。
-          </div>
-        ) : (
-          cardsWithForecast.map(({ card, forecast }) => {
-            const slug = getCardSlug(card)
-            const upPct = forecast?.overall.up_pct ?? null
-            const upColor = upPct !== null
-              ? upPct >= 50 ? 'var(--up)' : upPct >= 35 ? 'var(--gold)' : 'var(--ink-faint)'
-              : 'var(--ink-faint)'
-
-            return (
-              <Link
-                key={slug}
-                href={`/cards/${slug}`}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '56px 1fr auto auto',
-                  gap: '16px',
-                  alignItems: 'center',
-                  padding: '14px 16px',
-                  borderBottom: '1px solid var(--hair)',
-                  color: 'inherit',
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '11px',
-                    color: 'var(--ink-faint)',
-                  }}
-                >
-                  {card.card_no}
-                </div>
-                <div>
-                  <span style={{ fontSize: '15px', fontWeight: 700 }}>{card.card_name}</span>
-                  <span className="rare-badge">{card.rarity}</span>
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '13px',
-                    color: 'var(--ink-dim)',
-                    textAlign: 'right',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {forecast
-                    ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜`
-                    : '—'}
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    color: upColor,
-                    textAlign: 'right',
-                    minWidth: '60px',
-                  }}
-                >
-                  {upPct !== null ? `↑ ${upPct}%` : '—'}
-                </div>
-              </Link>
-            )
-          })
-        )}
-      </div>
+      ) : (
+        <BoxCardList cardsWithForecast={cardsWithForecast} />
+      )}
 
       <div className="disclaimer" style={{ marginTop: '32px' }}>
         本サイトのランキング・予想・相場レンジは AI が公開情報をもとに生成した参考情報であり、投資や売買を助言するものではありません。
