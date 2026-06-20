@@ -1,7 +1,33 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { getAllCards, getCardBySlug, getBoxById, getForecast, getCardSlug } from '@/lib/data'
 import type { Forecast } from '@/types/pokeca'
+
+export async function generateMetadata(props: PageProps<'/cards/[cardId]'>): Promise<Metadata> {
+  const { cardId } = await props.params
+  const card = getCardBySlug(cardId)
+  if (!card) return {}
+  const forecast = getForecast(cardId)
+  const box = getBoxById(card.box_id)
+  const upPct = forecast?.overall.up_pct
+  const low = forecast?.price_forecast.current_low
+  const high = forecast?.price_forecast.current_high
+  const priceStr = low && high ? `現在相場 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}。` : ''
+  const upStr = upPct !== undefined ? `上昇期待 ${upPct}%。` : ''
+  const title = `${card.card_name} ${card.rarity} の相場予想`
+  const description = `${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）のポケモンカード相場予想。${priceStr}${upStr}AI分析による根拠つき予想。`
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: card.image_url ? [{ url: card.image_url, width: 600, height: 837 }] : [],
+    },
+    twitter: { title, description },
+  }
+}
 
 export function generateStaticParams() {
   return getAllCards().map((card) => ({ cardId: getCardSlug(card) }))

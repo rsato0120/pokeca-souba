@@ -1,6 +1,22 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast } from '@/lib/data'
+
+export async function generateMetadata(props: PageProps<'/boxes/[boxId]'>): Promise<Metadata> {
+  const { boxId } = await props.params
+  const box = getAllBoxes().find((b) => b.box_id === boxId)
+  if (!box) return {}
+  const cardCount = getAllCards().filter((c) => c.box_id === boxId).length
+  const title = `${box.box_name} カード一覧`
+  const description = `${box.box_name}（${box.release_ym}発売）のポケモンカード相場一覧。${cardCount}枚掲載。AI予想による上昇期待ランキングつき。`
+  return {
+    title,
+    description,
+    openGraph: { title, description },
+    twitter: { title, description },
+  }
+}
 
 export function generateStaticParams() {
   return getAllBoxes().map((box) => ({ boxId: box.box_id }))
