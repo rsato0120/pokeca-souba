@@ -85,6 +85,21 @@ export default function TopPage() {
     })
     .slice(0, 5)
 
+  // 価格急騰・急落: 前日比優先、なければ週間比
+  const getChange = (m: CardMetrics) => m.dayChange ?? m.weekChange ?? 0
+  const getChangeLabel = (m: CardMetrics) => m.dayChange != null ? '前日比' : '7日比'
+  const changeCards = metrics.filter(m => m.dayChange != null || m.weekChange != null)
+
+  const surgeCards = [...changeCards]
+    .filter(m => getChange(m) > 0)
+    .sort((a, b) => getChange(b) - getChange(a))
+    .slice(0, 5)
+
+  const dropCards = [...changeCards]
+    .filter(m => getChange(m) < 0)
+    .sort((a, b) => getChange(a) - getChange(b))
+    .slice(0, 5)
+
   return (
     <div className="wrap">
       <header className="site-header">
@@ -381,6 +396,85 @@ export default function TopPage() {
           )}
         </div>
       </div>
+
+      {/* ── 04: 価格急落・急騰 ── */}
+      {(surgeCards.length > 0 || dropCards.length > 0) && (
+        <div style={{ marginBottom: '44px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '20px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--gold)', letterSpacing: '0.1em' }}>04</span>
+            <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>価格急落・急騰</span>
+            <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto' }}>前日比</span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+            {/* 急騰 */}
+            <div>
+              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--up)', marginBottom: '10px', fontWeight: 600 }}>▲ 急騰</div>
+              {surgeCards.length === 0 ? (
+                <div style={{ fontSize: '12px', color: 'var(--ink-faint)' }}>データ蓄積中</div>
+              ) : surgeCards.map(m => {
+                const change = getChange(m)
+                const label = getChangeLabel(m)
+                return (
+                  <Link key={m.slug} href={`/cards/${m.slug}`} style={{ display: 'grid', gridTemplateColumns: '36px 1fr auto', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                    {m.card.image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={m.card.image_url} alt={m.card.card_name} style={{ width: '36px', height: '50px', objectFit: 'cover', borderRadius: '3px' }} />
+                    ) : (
+                      <div style={{ width: '36px', height: '50px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '8px', color: 'var(--ink-faint)' }}>
+                        {m.card.rarity}
+                      </div>
+                    )}
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)' }}>
+                        {m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}
+                      </div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>{label}</div>
+                    </div>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 700, color: 'var(--up)', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                      +{change.toFixed(1)}%
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* 急落 */}
+            <div>
+              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--down)', marginBottom: '10px', fontWeight: 600 }}>▼ 急落</div>
+              {dropCards.length === 0 ? (
+                <div style={{ fontSize: '12px', color: 'var(--ink-faint)' }}>データ蓄積中</div>
+              ) : dropCards.map(m => {
+                const change = getChange(m)
+                const label = getChangeLabel(m)
+                return (
+                  <Link key={m.slug} href={`/cards/${m.slug}`} style={{ display: 'grid', gridTemplateColumns: '36px 1fr auto', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                    {m.card.image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={m.card.image_url} alt={m.card.card_name} style={{ width: '36px', height: '50px', objectFit: 'cover', borderRadius: '3px' }} />
+                    ) : (
+                      <div style={{ width: '36px', height: '50px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '8px', color: 'var(--ink-faint)' }}>
+                        {m.card.rarity}
+                      </div>
+                    )}
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)' }}>
+                        {m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}
+                      </div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>{label}</div>
+                    </div>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 700, color: 'var(--down)', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                      {change.toFixed(1)}%
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="disclaimer">
         本サイトのランキング・予想・相場レンジは AI が公開情報をもとに生成した参考情報であり、投資や売買を助言するものではありません。実際の取引価格は市場状況により変動します。売買の判断はご自身の責任で行ってください。
