@@ -417,9 +417,40 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               ※ 美品・{card.rarity}版の目安。状態・販路により変動します。
             </span>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '22px' }}>
+          <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '14px' }}>
             出典：相場データ取得後に表示されます（1日1回 自動取得）
           </div>
+
+          {/* 購入リンク */}
+          {(() => {
+            const q = encodeURIComponent(`${card.card_name} ${card.rarity} ${box?.box_name ?? ''}`)
+            const shops = [
+              { name: 'メルカリ', url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`, color: '#FF0211' },
+              { name: 'カードラッシュ', url: `https://www.cardrush-pokemon.jp/search/?keyword=${encodeURIComponent(`${card.card_name} ${card.rarity}`)}`, color: '#e57300' },
+              { name: '遊々亭', url: `https://yuyu-tei.jp/game_product/list?name=${encodeURIComponent(card.card_name)}&game=poke_p`, color: '#1a7abf' },
+            ]
+            return (
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
+                {shops.map(s => (
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '4px',
+                      padding: '5px 14px', borderRadius: '20px',
+                      border: `1px solid ${s.color}`,
+                      color: s.color, fontSize: '12px', fontFamily: 'var(--mono)',
+                      letterSpacing: '0.03em',
+                    }}
+                  >
+                    {s.name}で探す →
+                  </a>
+                ))}
+              </div>
+            )
+          })()}
         </div>
       </div>
 
