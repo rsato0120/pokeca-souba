@@ -1,7 +1,7 @@
 import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
-import { getAllCards, getCardSlug } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import type { PriceHistory } from '@/types/pokeca'
 
 const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ']
@@ -170,72 +170,97 @@ function savePriceHistory(
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 }
 
+async function scrapeItem(
+  browser: Browser,
+  id: string,
+  searchQuery: string,
+  label: string,
+  date: string,
+  stats: { succeeded: number; skipped: number; failed: number }
+) {
+  process.stdout.write(`  [${label}] スクレイピング中... `)
+  try {
+    let filtered: number[] = []
+    const MAX_RETRY = 3
+    for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
+      const prices = await scrapeMercari(browser, searchQuery)
+      filtered = removeOutliers(prices)
+      if (filtered.length >= 5) break
+      if (attempt < MAX_RETRY) {
+        process.stdout.write(`(${filtered.length}件 → リトライ${attempt}/${MAX_RETRY - 1}回目) `)
+        await new Promise(r => setTimeout(r, 3000))
+      }
+    }
+
+    if (filtered.length < 5) {
+      console.log(`データ不足（${filtered.length}件）— スキップ（既存価格を維持）`)
+      stats.skipped++
+      await new Promise(r => setTimeout(r, 1000))
+      return
+    }
+
+    const low = calcPercentile(filtered, 25)
+    const high = calcPercentile(filtered, 75)
+    const onSale = await getMercariOnSaleCount(browser, searchQuery)
+    const supplyLog = onSale != null ? ` / 出品中${onSale}件` : ''
+
+    savePriceHistory(id, date, low, high, onSale)
+    console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${supplyLog}）`)
+    stats.succeeded++
+  } catch (e) {
+    console.log('失敗（既存価格を維持）')
+    console.error('  エラー:', e instanceof Error ? e.message : e)
+    stats.failed++
+  }
+  await new Promise(r => setTimeout(r, 2000 + Math.random() * 2000))
+}
+
 async function main() {
   const cards = getAllCards()
+  const boxes = getAllBoxes().filter(b => b.certainty === 'released' && b.packs_per_box != null)
   const date = todayJST()
-  console.log(`${cards.length}枚の価格をスクレイピングします（${date} JST）\n`)
+  console.log(`${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
   const browser = await chromium.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   })
 
-  let succeeded = 0
-  let skipped = 0
-  let failed = 0
+  const stats = { succeeded: 0, skipped: 0, failed: 0 }
 
   try {
+    // ── カード価格 ──
     for (const card of cards) {
-      const cardId = getCardSlug(card)
-      const searchQuery = `${card.card_name} ${card.rarity}`
-      process.stdout.write(`  [${searchQuery}] スクレイピング中... `)
+      await scrapeItem(
+        browser,
+        getCardSlug(card),
+        `${card.card_name} ${card.rarity}`,
+        `${card.card_name} ${card.rarity}`,
+        date,
+        stats
+      )
+    }
 
-      try {
-        // 1. 売り切れ価格（需要・実勢価格）
-        let filtered: number[] = []
-        const MAX_RETRY = 3
-        for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
-          const prices = await scrapeMercari(browser, searchQuery)
-          filtered = removeOutliers(prices)
-          if (filtered.length >= 5) break
-          if (attempt < MAX_RETRY) {
-            process.stdout.write(`(${filtered.length}件 → リトライ${attempt}/${MAX_RETRY - 1}回目) `)
-            await new Promise(r => setTimeout(r, 3000))
-          }
-        }
-
-        if (filtered.length < 5) {
-          console.log(`データ不足（${filtered.length}件）— スキップ（既存価格を維持）`)
-          skipped++
-          await new Promise(r => setTimeout(r, 1000))
-          continue
-        }
-
-        const low = calcPercentile(filtered, 25)
-        const high = calcPercentile(filtered, 75)
-
-        // 2. 出品中件数（供給量）
-        const onSale = await getMercariOnSaleCount(browser, searchQuery)
-        const supplyLog = onSale != null ? ` / 出品中${onSale}件` : ''
-
-        savePriceHistory(cardId, date, low, high, onSale)
-        console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${supplyLog}）`)
-        succeeded++
-      } catch (e) {
-        console.log('失敗（既存価格を維持）')
-        console.error('  エラー:', e instanceof Error ? e.message : e)
-        failed++
+    // ── 未開封BOX価格 ──
+    if (boxes.length > 0) {
+      console.log('\n── 未開封BOX ──')
+      for (const box of boxes) {
+        await scrapeItem(
+          browser,
+          `box-${box.box_id}`,
+          `${box.box_name} 未開封`,
+          `${box.box_name} 未開封BOX`,
+          date,
+          stats
+        )
       }
-
-      // リクエスト間隔（2〜4秒のランダム遅延）
-      await new Promise(r => setTimeout(r, 2000 + Math.random() * 2000))
     }
   } finally {
     await browser.close()
   }
 
-  console.log(`\n完了: ${succeeded}枚更新, ${skipped}枚スキップ, ${failed}枚失敗`)
-  if (failed > 0) process.exit(1)
+  console.log(`\n完了: ${stats.succeeded}件更新, ${stats.skipped}件スキップ, ${stats.failed}件失敗`)
+  if (stats.failed > 0) process.exit(1)
 }
 
 main()

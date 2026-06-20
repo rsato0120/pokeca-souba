@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory } from '@/lib/data'
 
 export async function generateMetadata(props: PageProps<'/boxes/[boxId]'>): Promise<Metadata> {
   const { boxId } = await props.params
@@ -33,6 +33,16 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     card,
     forecast: getForecast(getCardSlug(card)),
   }))
+
+  const boxPriceHistory = getBoxPriceHistory(boxId)
+  const latestBoxPrice = boxPriceHistory?.history?.[0] ?? null
+  const prevBoxPrice = boxPriceHistory?.history?.[7] ?? null
+  const msrp = box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : null
+  const boxMid = latestBoxPrice ? Math.round((latestBoxPrice.low + latestBoxPrice.high) / 2) : null
+  const premiumPct = msrp && boxMid ? Math.round(((boxMid - msrp) / msrp) * 100) : null
+  const priceTrend = latestBoxPrice && prevBoxPrice
+    ? Math.round(((latestBoxPrice.low + latestBoxPrice.high) / 2 - (prevBoxPrice.low + prevBoxPrice.high) / 2) / ((prevBoxPrice.low + prevBoxPrice.high) / 2) * 100)
+    : null
 
   return (
     <div className="wrap">
@@ -92,6 +102,97 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           <span>{cards.length}枚収録（掲載中）</span>
         </div>
       </div>
+
+      {/* ── 未開封BOX相場 ── */}
+      {latestBoxPrice && (
+        <div
+          style={{
+            background: 'var(--panel)',
+            border: '1px solid var(--hair)',
+            borderRadius: '10px',
+            padding: '20px 24px',
+            marginBottom: '28px',
+          }}
+        >
+          <div
+            style={{
+              fontFamily: 'var(--mono)',
+              fontSize: '11px',
+              color: 'var(--ink-faint)',
+              letterSpacing: '0.14em',
+              marginBottom: '12px',
+            }}
+          >
+            BOX · 未開封ボックス相場（メルカリ実勢）
+          </div>
+          <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+            {/* 現在相場 */}
+            <div>
+              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>現在相場</div>
+              <div style={{ fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 700, letterSpacing: '0.02em' }}>
+                ¥{latestBoxPrice.low.toLocaleString()}
+                <span style={{ fontSize: '16px', color: 'var(--ink-dim)' }}>〜</span>
+                ¥{latestBoxPrice.high.toLocaleString()}
+              </div>
+            </div>
+
+            {/* 定価比 */}
+            {msrp != null && premiumPct != null && (
+              <div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>
+                  定価比（¥{msrp.toLocaleString()} 基準）
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--mono)',
+                    fontSize: '20px',
+                    fontWeight: 700,
+                    color: premiumPct > 0 ? 'var(--up)' : premiumPct < 0 ? 'var(--down)' : 'var(--flat)',
+                  }}
+                >
+                  {premiumPct > 0 ? `+${premiumPct}%` : `${premiumPct}%`}
+                  <span style={{ fontSize: '12px', fontWeight: 400, color: 'var(--ink-faint)', marginLeft: '6px' }}>
+                    {premiumPct > 0 ? 'プレミア' : premiumPct < 0 ? 'ディスカウント' : '定価並み'}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* 7日間トレンド */}
+            {priceTrend != null && (
+              <div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>7日間推移</div>
+                <div
+                  style={{
+                    fontFamily: 'var(--mono)',
+                    fontSize: '20px',
+                    fontWeight: 700,
+                    color: priceTrend > 2 ? 'var(--up)' : priceTrend < -2 ? 'var(--down)' : 'var(--flat)',
+                  }}
+                >
+                  {priceTrend > 0 ? `↑ +${priceTrend}%` : priceTrend < 0 ? `↓ ${priceTrend}%` : '→ 横ばい'}
+                </div>
+              </div>
+            )}
+
+            {/* 出品中件数 */}
+            {latestBoxPrice.on_sale != null && (
+              <div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>出品中</div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '20px', fontWeight: 700, color: 'var(--ink-dim)' }}>
+                  {latestBoxPrice.on_sale.toLocaleString()}件
+                </div>
+              </div>
+            )}
+          </div>
+
+          {msrp != null && box.packs_per_box != null && (
+            <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '12px' }}>
+              定価: {box.packs_per_box}パック × ¥{box.pack_price_yen} = ¥{msrp.toLocaleString()}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ── カード一覧 ── */}
       <div

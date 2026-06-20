@@ -15,6 +15,7 @@ export interface Box {
   release_ym: string
   certainty: Certainty
   pack_price_yen: number
+  packs_per_box?: number
   note: string
 }
 

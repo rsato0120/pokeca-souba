@@ -51,3 +51,13 @@ export function getPriceHistory(cardId: string): PriceHistory | null {
     return null
   }
 }
+
+export function getBoxPriceHistory(boxId: string): PriceHistory | null {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'prices', `box-${boxId}.json`)
+    const raw = fs.readFileSync(filePath, 'utf-8')
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
