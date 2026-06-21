@@ -60,7 +60,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       card,
       slug,
       currentMid: today ? mid(today) : 0,
-      dayChange: (() => { const v = today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
+      dayChange: (() => { const v = today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null; return v !== null && Math.abs(v) > 20 ? null : v })(),
       weekChange: (() => { const v = today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
     }
   }).filter(c => c.currentMid > 0)
