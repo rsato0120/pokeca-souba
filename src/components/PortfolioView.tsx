@@ -20,7 +20,7 @@ export default function PortfolioView({ cards }: { cards: PortfolioCardData[] })
   const { col, setQty, getQty } = useCollection()
 
   const owned = cards.filter(c => (col[c.id] ?? 0) > 0)
-  const totalQty = Object.values(col).reduce((s, n) => s + n, 0)
+  const totalQty = owned.reduce((s, c) => s + (col[c.id] ?? 0), 0)
 
   const currentTotal = owned.reduce((s, c) => s + c.currentMid * (col[c.id] ?? 0), 0)
   const forecastCards = owned.filter(c => c.m3Low != null && c.m3High != null)

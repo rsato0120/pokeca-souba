@@ -9,7 +9,7 @@ type CardEntry = {
   forecast: Forecast | null
 }
 
-const RARITY_ORDER = ['RR', 'SR', 'SAR', 'MUR', 'AR', 'UR']
+const RARITY_ORDER = ['RR', 'SR', 'SAR', 'MA', 'MUR', 'AR', 'UR']
 
 export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: CardEntry[] }) {
   const presentRarities = RARITY_ORDER.filter(r => cardsWithForecast.some(c => c.card.rarity === r))
