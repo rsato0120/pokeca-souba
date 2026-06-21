@@ -68,6 +68,8 @@
       "release_ym": "2026-01",
       "certainty": "released",
       "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/9/92/M3_Nihil_Zero_pack.png",
       "note": "2026-01-23発売。メガジガルデexが目玉。"
     },
     {
@@ -2292,6 +2294,657 @@
       },
       "evidence_notes": { "player": "SR版と同効果のSAR。ホミカサポートとして競技採用mid。", "collector": "ホミカはバンドミュージシャン設定で人気高。SARはコレクター向け高額帯。キャラ人気で需要が安定しやすい。", "source": "各カードDB（2026-03）" },
       "note": "ホミカの演奏 SAR。SR(110)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-spewpa-ar",
+      "card_no": "081/080",
+      "rarity": "AR",
+      "card_name": "コフーライ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/081.jpg",
+      "card_spec": { "type": "くさ", "stage": "1進化", "hp": 60, "note": "くさタイプ1進化ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "XYに登場する虫ポケモン。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARコフーライ。"
+    },
+    {
+      "id": "munikiss-zero-rowlet-ar",
+      "card_no": "082/080",
+      "rarity": "AR",
+      "card_name": "モクロー",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/082.jpg",
+      "card_spec": { "type": "くさ", "stage": "基本", "hp": 60, "note": "くさタイプ基本ポケモン ARフルアート。ジュナイパーの1進化前。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "SM人気スターターポケモン。キャラ人気が高くAR需要あり。", "source": "各カードDB（2026-01）" },
+      "note": "ARモクロー。"
+    },
+    {
+      "id": "munikiss-zero-talonflame-ar",
+      "card_no": "083/080",
+      "rarity": "AR",
+      "card_name": "ファイアロー",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/083.jpg",
+      "card_spec": { "type": "ほのお", "stage": "2進化", "hp": 130, "note": "炎タイプ2進化ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "XYの炎/飛行タイプ。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARファイアロー。"
+    },
+    {
+      "id": "munikiss-zero-aurorus-ar",
+      "card_no": "084/080",
+      "rarity": "AR",
+      "card_name": "アマルルガ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/084.jpg",
+      "card_spec": { "type": "みず", "stage": "1進化", "hp": 130, "note": "みずタイプ1進化ポケモン ARフルアート。化石復元ポケモン。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "XYの化石ポケモン。幻想的な見た目でファン多め。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARアマルルガ。"
+    },
+    {
+      "id": "munikiss-zero-dedenne-ar",
+      "card_no": "085/080",
+      "rarity": "AR",
+      "card_name": "デデンネ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/085.jpg",
+      "card_spec": { "type": "電気", "stage": "基本", "hp": 70, "note": "電気タイプ基本ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "アニメXYシリーズで人気を博したポケモン。ピカチュウ系のAR需要あり。", "source": "各カードDB（2026-01）" },
+      "note": "ARデデンネ。"
+    },
+    {
+      "id": "munikiss-zero-clefairy-ar",
+      "card_no": "086/080",
+      "rarity": "AR",
+      "card_name": "ピッピ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/086.jpg",
+      "card_spec": { "type": "超", "stage": "基本", "hp": 70, "note": "超タイプ基本ポケモン ARフルアート。メガピクシーの進化前。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "初代からの人気ポケモン。メガピクシーexとの関連でセット需要あり。", "source": "各カードDB（2026-01）" },
+      "note": "ARピッピ。"
+    },
+    {
+      "id": "munikiss-zero-espurr-ar",
+      "card_no": "087/080",
+      "rarity": "AR",
+      "card_name": "ニャスパー",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/087.jpg",
+      "card_spec": { "type": "超", "stage": "基本", "hp": 60, "note": "超タイプ基本ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "XYの超タイプ。独特な表情でコレクター人気が高い。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARニャスパー。"
+    },
+    {
+      "id": "munikiss-zero-probopass-ar",
+      "card_no": "088/080",
+      "rarity": "AR",
+      "card_name": "ダイノーズ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/088.jpg",
+      "card_spec": { "type": "鋼", "stage": "1進化", "hp": 120, "note": "鋼タイプ1進化ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "low" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "鋼タイプARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARダイノーズ。"
+    },
+    {
+      "id": "munikiss-zero-tyrunt-ar",
+      "card_no": "089/080",
+      "rarity": "AR",
+      "card_name": "チゴラス",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/089.jpg",
+      "card_spec": { "type": "闘", "stage": "基本", "hp": 60, "note": "闘タイプ基本ポケモン ARフルアート。化石復元ポケモン。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "恐竜系化石ポケモン。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARチゴラス。"
+    },
+    {
+      "id": "munikiss-zero-drapion-ar",
+      "card_no": "090/080",
+      "rarity": "AR",
+      "card_name": "ドラピオン",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/090.jpg",
+      "card_spec": { "type": "悪", "stage": "1進化", "hp": 110, "note": "悪タイプ1進化ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "悪/毒タイプARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARドラピオン。"
+    },
+    {
+      "id": "munikiss-zero-doublade-ar",
+      "card_no": "091/080",
+      "rarity": "AR",
+      "card_name": "ニダンギル",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/091.jpg",
+      "card_spec": { "type": "鋼", "stage": "1進化", "hp": 80, "note": "鋼タイプ1進化ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "ゴースト/鋼タイプの剣ポケモン。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARニダンギル。"
+    },
+    {
+      "id": "munikiss-zero-raticate-ar",
+      "card_no": "092/080",
+      "rarity": "AR",
+      "card_name": "ラッタ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/092.jpg",
+      "card_spec": { "type": "ノーマル", "stage": "1進化", "hp": 100, "note": "ノーマルタイプ1進化ポケモン ARフルアート。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "none" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "AR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用なし。", "collector": "初代ノーマルポケモン。ARフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ARラッタ。"
+    },
+    {
+      "id": "munikiss-zero-decidueye-ex-sr",
+      "card_no": "093/080",
+      "rarity": "SR",
+      "card_name": "ジュナイパーex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/093.jpg",
+      "card_spec": { "type": "くさ", "stage": "2進化ex", "hp": 280, "note": "ジュナイパーex SR版。草タイプ2段階進化ex。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SMスターター最終進化ex。草タイプ2進化の強みあり。", "collector": "ジュナイパーはSMシリーズで人気のスターター。SRフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "ジュナイパーex SR。"
+    },
+    {
+      "id": "munikiss-zero-salazzle-ex-sr",
+      "card_no": "094/080",
+      "rarity": "SR",
+      "card_name": "エンニュートex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/094.jpg",
+      "card_spec": { "type": "ほのお", "stage": "1進化ex", "hp": 240, "note": "エンニュートex SR版。炎タイプ1段階進化ex。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "炎タイプ1進化ex。競技採用midの炎デッキパーツ。", "collector": "SMの炎/毒タイプex。SRフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "エンニュートex SR。"
+    },
+    {
+      "id": "munikiss-zero-mega-starmie-ex-sr",
+      "card_no": "095/080",
+      "rarity": "SR",
+      "card_name": "メガスターミーex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/095.jpg",
+      "card_spec": { "type": "みず", "stage": "メガシンカex", "hp": 260, "note": "メガスターミーex SR版。水タイプメガシンカex。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "水タイプメガシンカex。SAR(111)と同効果。", "collector": "初代人気ポケモン スターミーのメガ進化SR版。SARは別レコード。", "source": "各カードDB（2026-01）" },
+      "note": "メガスターミーex SR。SARは別レコード(munikiss-zero-mega-starmie-ex-sar)。"
+    },
+    {
+      "id": "munikiss-zero-mega-clefable-ex-sr",
+      "card_no": "096/080",
+      "rarity": "SR",
+      "card_name": "メガピクシーex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/096.jpg",
+      "card_spec": { "type": "超", "stage": "メガシンカex", "hp": 250, "note": "メガピクシーex SR版。超タイプメガシンカex。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "超タイプメガシンカex。SAR(112)と同効果。", "collector": "ピクシーは初代から人気のフェアリー系。SARは別レコード。", "source": "各カードDB（2026-01）" },
+      "note": "メガピクシーex SR。SARは別レコード(munikiss-zero-mega-clefable-ex-sar)。"
+    },
+    {
+      "id": "munikiss-zero-mega-zygarde-ex-sr",
+      "card_no": "097/080",
+      "rarity": "SR",
+      "card_name": "メガジガルデex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/097.jpg",
+      "card_spec": { "type": "闘", "stage": "メガシンカex", "hp": 310, "note": "メガジガルデex SR版。闘タイプメガシンカex。この弾の目玉カード。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "high" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "この弾のメイン。高HPの闘タイプメガシンカexとして競技採用high。", "collector": "ジガルデはLegends ZAの看板伝説ポケモン。SAR/MURも収録で最高需要帯。", "source": "各カードDB（2026-01）" },
+      "note": "メガジガルデex SR。SAR(113)/MUR(117)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-yveltal-ex-sr",
+      "card_no": "098/080",
+      "rarity": "SR",
+      "card_name": "イベルタルex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/098.jpg",
+      "card_spec": { "type": "悪", "stage": "たねex", "hp": 240, "note": "イベルタルex SR版。悪タイプたねex。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "悪タイプ伝説ex。悪バレット系デッキのアタッカー候補。", "collector": "イベルタルはXYシリーズの人気伝説ポケモン。SRフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "イベルタルex SR。"
+    },
+    {
+      "id": "munikiss-zero-mega-skarmory-ex-sr",
+      "card_no": "099/080",
+      "rarity": "SR",
+      "card_name": "メガエアームドex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/099.jpg",
+      "card_spec": { "type": "鋼", "stage": "メガシンカex", "hp": 270, "note": "メガエアームドex SR版。鋼タイプメガシンカex。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "鋼タイプメガシンカex。現環境での競技採用は低め。", "collector": "エアームドのメガ進化SR版。SRフルアート。", "source": "各カードDB（2026-01）" },
+      "note": "メガエアームドex SR。"
+    },
+    {
+      "id": "munikiss-zero-meowth-ex-sr",
+      "card_no": "100/080",
+      "rarity": "SR",
+      "card_name": "ニャースex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/100.jpg",
+      "card_spec": { "type": "ノーマル", "stage": "たねex", "hp": 180, "note": "ニャースex SR版。ノーマルタイプたねex。SAR(114)と同効果。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "たねex。競技採用はSR帯では低め。", "collector": "ニャースは人気の高い初代ポケモン。SARは別レコード。", "source": "各カードDB（2026-01）" },
+      "note": "ニャースex SR。SARは別レコード(munikiss-zero-meowth-ex-sar)。"
+    },
+    {
+      "id": "munikiss-zero-energy-retrieval-sr",
+      "card_no": "101/080",
+      "rarity": "SR",
+      "card_name": "エネルギーリサイクル",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/101.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "エネルギーをトラッシュから回収する汎用グッズSR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "汎用エネルギー回収グッズ。多くのデッキで採用される実用カード。", "collector": "汎用グッズのSR版。", "source": "各カードDB（2026-01）" },
+      "note": "エネルギーリサイクル SR。"
+    },
+    {
+      "id": "munikiss-zero-sacred-ash-sr",
+      "card_no": "102/080",
+      "rarity": "SR",
+      "card_name": "せいなるはい",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/102.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "トラッシュのポケモンを全て山札に戻す強力グッズのSR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "全ポケモン回収の強力グッズ。回復系デッキで需要あり。", "collector": "強力効果の汎用グッズSR版。", "source": "各カードDB（2026-01）" },
+      "note": "せいなるはい SR。"
+    },
+    {
+      "id": "munikiss-zero-pokepad-sr",
+      "card_no": "103/080",
+      "rarity": "SR",
+      "card_name": "ポケパッド",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/103.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "ポケパッド グッズSR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "Legends ZAの道具グッズ。競技採用midの汎用グッズ。", "collector": "汎用グッズのSR版。", "source": "各カードDB（2026-01）" },
+      "note": "ポケパッド SR。"
+    },
+    {
+      "id": "munikiss-zero-wonder-patch-sr",
+      "card_no": "104/080",
+      "rarity": "SR",
+      "card_name": "ワンダーパッチ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/104.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "ワンダーパッチ グッズSR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "グッズSR版。競技採用low〜mid。", "collector": "汎用グッズのSR版。", "source": "各カードDB（2026-01）" },
+      "note": "ワンダーパッチ SR。"
+    },
+    {
+      "id": "munikiss-zero-taragon-sr",
+      "card_no": "105/080",
+      "rarity": "SR",
+      "card_name": "タラゴン",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/105.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "タラゴン サポートSR版。Legends ZAの登場人物。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "新キャラサポートSR。競技採用は様子見。", "collector": "Legends ZAキャラクターのSRサポート。", "source": "各カードDB（2026-01）" },
+      "note": "タラゴン SR。"
+    },
+    {
+      "id": "munikiss-zero-pyur-sr",
+      "card_no": "106/080",
+      "rarity": "SR",
+      "card_name": "ピュール",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/106.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "ピュール サポートSR版。Legends ZAの登場人物。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "新キャラサポートSR。競技採用は様子見。", "collector": "Legends ZAキャラクターのSRサポート。", "source": "各カードDB（2026-01）" },
+      "note": "ピュール SR。"
+    },
+    {
+      "id": "munikiss-zero-rosas-encouragement-sr",
+      "card_no": "107/080",
+      "rarity": "SR",
+      "card_name": "メイのはげまし",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/107.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "メイのはげまし サポートSR版。SAR(115)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "競技採用midのサポートカード。SAR版と同効果。", "collector": "メイ（Rosa）はBW2の人気主人公。SARは別レコード。", "source": "各カードDB（2026-01）" },
+      "note": "メイのはげまし SR。SARは別レコード(munikiss-zero-rosas-encouragement-sar)。"
+    },
+    {
+      "id": "munikiss-zero-jacinthe-sr",
+      "card_no": "108/080",
+      "rarity": "SR",
+      "card_name": "ユカリ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/108.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "ユカリ サポートSR版。SAR(116)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "競技採用midのサポートカード。SAR版と同効果。", "collector": "Legends ZAキャラクター（英語名：Jacinthe）のSR版。SARは別レコード。", "source": "各カードDB（2026-01）" },
+      "note": "ユカリ SR。SARは別レコード(munikiss-zero-jacinthe-sar)。"
+    },
+    {
+      "id": "munikiss-zero-vitality-forest-sr",
+      "card_no": "109/080",
+      "rarity": "SR",
+      "card_name": "活力の森",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/109.jpg",
+      "card_spec": { "type": "スタジアム", "stage": "スタジアム", "hp": 0, "note": "活力の森 スタジアムSR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "スタジアムSR。競技採用は環境次第。", "collector": "スタジアムカードのSR版。", "source": "各カードDB（2026-01）" },
+      "note": "活力の森 SR。"
+    },
+    {
+      "id": "munikiss-zero-lumiose-city-sr",
+      "card_no": "110/080",
+      "rarity": "SR",
+      "card_name": "ミアレシティ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/110.jpg",
+      "card_spec": { "type": "スタジアム", "stage": "スタジアム", "hp": 0, "note": "ミアレシティ スタジアムSR版。Legends ZAの舞台。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "Legends ZAの舞台ミアレシティのスタジアム。競技採用midを見込む。", "collector": "ゲームの舞台スタジアムのSR版。背景美術でコレクター需要あり。", "source": "各カードDB（2026-01）" },
+      "note": "ミアレシティ SR。"
+    },
+    {
+      "id": "munikiss-zero-mega-starmie-ex-sar",
+      "card_no": "111/080",
+      "rarity": "SAR",
+      "card_name": "メガスターミーex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/111.jpg",
+      "card_spec": { "type": "みず", "stage": "メガシンカex", "hp": 260, "note": "メガスターミーex SAR版。SR(095)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "SR版と同効果のSAR。水タイプメガシンカex。", "collector": "初代人気ポケモンのメガ進化SAR版。コレクター向け高額帯。", "source": "各カードDB（2026-01）" },
+      "note": "メガスターミーex SAR。SR(095)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-mega-clefable-ex-sar",
+      "card_no": "112/080",
+      "rarity": "SAR",
+      "card_name": "メガピクシーex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/112.jpg",
+      "card_spec": { "type": "超", "stage": "メガシンカex", "hp": 250, "note": "メガピクシーex SAR版。SR(096)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SR版と同効果のSAR。超タイプメガシンカex。", "collector": "ピクシーは初代から人気。SARはコレクター向け最高帯の一角。", "source": "各カードDB（2026-01）" },
+      "note": "メガピクシーex SAR。SR(096)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-mega-zygarde-ex-sar",
+      "card_no": "113/080",
+      "rarity": "SAR",
+      "card_name": "メガジガルデex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/113.jpg",
+      "card_spec": { "type": "闘", "stage": "メガシンカex", "hp": 310, "note": "メガジガルデex SAR版。SR(097)と同効果・イラスト違い。この弾の看板カード。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "high" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "この弾最高需要カードの一角。高HP闘タイプとして競技採用high。", "collector": "Legends ZA看板伝説のSAR。MURと並ぶコレクター最高需要帯。", "source": "各カードDB（2026-01）" },
+      "note": "メガジガルデex SAR。SR(097)/MUR(117)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-meowth-ex-sar",
+      "card_no": "114/080",
+      "rarity": "SAR",
+      "card_name": "ニャースex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/114.jpg",
+      "card_spec": { "type": "ノーマル", "stage": "たねex", "hp": 180, "note": "ニャースex SAR版。SR(100)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SR版と同効果のSAR。", "collector": "ニャースは人気No.トップクラス。SARフルアートは高需要が期待される。", "source": "各カードDB（2026-01）" },
+      "note": "ニャースex SAR。SR(100)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-rosas-encouragement-sar",
+      "card_no": "115/080",
+      "rarity": "SAR",
+      "card_name": "メイのはげまし",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/115.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "メイのはげまし サポートSAR版。SR(107)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SR版と同効果のSAR。", "collector": "メイ（Rosa）はBW2の人気主人公キャラ。SARサポートは高需要帯。", "source": "各カードDB（2026-01）" },
+      "note": "メイのはげまし SAR。SR(107)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-jacinthe-sar",
+      "card_no": "116/080",
+      "rarity": "SAR",
+      "card_name": "ユカリ",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/116.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "ユカリ サポートSAR版。SR(108)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "SR版と同効果のSAR。", "collector": "Legends ZAキャラクター（英語名：Jacinthe）のSAR版。コレクター向け高額帯。", "source": "各カードDB（2026-01）" },
+      "note": "ユカリ SAR。SR(108)は別レコード。"
+    },
+    {
+      "id": "munikiss-zero-mega-zygarde-ex-mur",
+      "card_no": "117/080",
+      "rarity": "MUR",
+      "card_name": "メガジガルデex",
+      "box_id": "munikiss_zero",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m3mn/117.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "メガシンカex",
+        "hp": 320,
+        "note": "メガジガルデex MUR版。闘タイプメガシンカex。ムニキスゼロ最高レアリティ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "MUR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "この弾最強カード。高HP闘タイプメガシンカexとして最高需要。",
+        "collector": "MURはミステリーユニバースレア最高レアリティ。Legends ZA看板ポケモンのミラー加工最高仕様。コレクター需要最高峰。",
+        "source": "各カードDB（2026-01）"
+      },
+      "note": "メガジガルデex MUR版。ムニキスゼロ最高レア。SAR(113)/SR(097)は別レコード。"
     }
   ],
   "market_posts": [
