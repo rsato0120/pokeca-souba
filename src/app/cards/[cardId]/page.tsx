@@ -427,8 +427,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             const q = encodeURIComponent(`${card.card_name} ${card.rarity} ${box?.box_name ?? ''}`)
             const shops = [
               { name: 'メルカリ', url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`, color: '#FF0211' },
-              { name: 'カードラッシュ', url: `https://www.cardrush-pokemon.jp/search/?keyword=${encodeURIComponent(`${card.card_name} ${card.rarity}`)}`, color: '#e57300' },
-              { name: '遊々亭', url: `https://yuyu-tei.jp/game_product/list?name=${encodeURIComponent(card.card_name)}&game=poke_p`, color: '#1a7abf' },
+              { name: '楽天市場', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000' },
             ]
             return (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
