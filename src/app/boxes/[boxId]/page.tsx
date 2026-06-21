@@ -301,6 +301,43 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               <PriceHistoryChart history={boxPriceHistory.history} />
             </div>
           )}
+
+          {/* 購入リンク */}
+          {(() => {
+            const q = encodeURIComponent(`${box.box_name} 未開封 BOX`)
+            const shops = [
+              { name: 'メルカリで探す', url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`, color: '#FF0211' },
+              { name: '楽天市場で探す', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000' },
+            ]
+            return (
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--hair)' }}>
+                {shops.map(s => (
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 16px',
+                      borderRadius: '6px',
+                      background: s.color,
+                      color: '#fff',
+                      fontFamily: 'var(--gothic)',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      border: 'none',
+                      letterSpacing: '0.03em',
+                    }}
+                  >
+                    {s.name} →
+                  </a>
+                ))}
+              </div>
+            )
+          })()}
         </div>
       )}
 
