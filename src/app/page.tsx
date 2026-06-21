@@ -58,8 +58,8 @@ export default function TopPage() {
       card,
       slug,
       currentMid: today ? mid(today) : 0,
-      dayChange: today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null,
-      weekChange: today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null,
+      dayChange: (() => { const v = today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
+      weekChange: (() => { const v = today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
       onSale: today?.on_sale ?? null,
       forecast: getForecast(slug),
     }
