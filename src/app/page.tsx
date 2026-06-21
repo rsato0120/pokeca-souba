@@ -172,6 +172,7 @@ export default function TopPage() {
       {featured && (
         <Link
           href={`/cards/${featuredSlug}`}
+          className="hero-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: '180px 1fr',
@@ -214,6 +215,7 @@ export default function TopPage() {
               FEATURED · 今週の注目
             </div>
             <h2
+              className="hero-title"
               style={{
                 fontFamily: 'var(--mincho)',
                 fontSize: '27px',
@@ -271,7 +273,7 @@ export default function TopPage() {
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
           <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--gold)', letterSpacing: '0.1em' }}>01</span>
           <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>AI予想 これからの注目カード</span>
-          <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>3ヶ月後の価格予想つき</span>
+          <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>3ヶ月後の価格予想つき</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {cardsWithForecast.slice(0, 5).map(({ card, forecast }, i) => {
@@ -320,7 +322,7 @@ export default function TopPage() {
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
           <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--up)', letterSpacing: '0.1em' }}>02</span>
           <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>今買われているカード</span>
-          <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>価格上昇中・買いシグナル</span>
+          <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>価格上昇中・買いシグナル</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {buyingCards.length === 0 ? (
@@ -371,7 +373,7 @@ export default function TopPage() {
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
           <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--down)', letterSpacing: '0.1em' }}>03</span>
           <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>今売られているカード</span>
-          <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>価格下落中・売りシグナル</span>
+          <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>価格下落中・売りシグナル</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {sellingCards.length === 0 ? (

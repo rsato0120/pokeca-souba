@@ -55,7 +55,7 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
 
       {/* カードリスト */}
       <div style={{ border: '1px solid var(--hair)', borderRadius: '8px', overflow: 'hidden' }}>
-        <div style={{
+        <div className="card-table-header" style={{
           display: 'grid',
           gridTemplateColumns: '56px 1fr auto auto 88px',
           gap: '16px',
@@ -67,10 +67,10 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
           color: 'var(--ink-faint)',
           letterSpacing: '0.1em',
         }}>
-          <span>No.</span>
+          <span className="col-no">No.</span>
           <span>カード</span>
           <span style={{ textAlign: 'right' }}>相場</span>
-          <span style={{ textAlign: 'right', minWidth: '60px' }}>上昇期待</span>
+          <span className="col-up" style={{ textAlign: 'right', minWidth: '60px' }}>上昇期待</span>
           <span style={{ textAlign: 'center' }}>所持枚数</span>
         </div>
 
@@ -88,6 +88,7 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
             return (
               <div
                 key={card.id}
+                className="card-table-row-wrap"
                 style={{
                   display: 'grid',
                   gridTemplateColumns: '56px 1fr auto auto 88px',
@@ -101,17 +102,17 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
                   href={`/cards/${card.id}`}
                   style={{ display: 'contents', color: 'inherit' }}
                 >
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', padding: '14px 0 14px 16px' }}>
+                  <div className="col-no" style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', padding: '14px 0 14px 16px' }}>
                     {card.card_no}
                   </div>
-                  <div style={{ padding: '14px 0' }}>
+                  <div style={{ padding: '14px 0', paddingLeft: '16px' }}>
                     <span style={{ fontSize: '15px', fontWeight: 700 }}>{card.card_name}</span>
                     <span className="rare-badge">{card.rarity}</span>
                   </div>
                   <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', textAlign: 'right', whiteSpace: 'nowrap', padding: '14px 0' }}>
                     {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: upColor, textAlign: 'right', minWidth: '60px', padding: '14px 0' }}>
+                  <div className="col-up" style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: upColor, textAlign: 'right', minWidth: '60px', padding: '14px 0' }}>
                     {upPct !== null ? `↑ ${upPct}%` : '—'}
                   </div>
                 </Link>

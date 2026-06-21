@@ -192,6 +192,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
       {/* ── カード + バーディクト ── */}
       <div
+        className="card-detail-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: '210px 1fr',
@@ -201,7 +202,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         }}
       >
         {/* カード枠 */}
-        <div>
+        <div className="card-detail-col-card">
           <div className="pokecard" style={{ padding: card.image_url ? '0' : undefined, overflow: 'hidden' }}>
             {card.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element

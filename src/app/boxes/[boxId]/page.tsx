@@ -310,7 +310,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
             <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', letterSpacing: '0.12em' }}>RANKING</span>
             <span style={{ fontFamily: 'var(--mincho)', fontSize: '17px', fontWeight: 700 }}>価格変動ランキング</span>
-            <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto' }}>7日間変化率順</span>
+            <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto' }}>7日間変化率順</span>
           </div>
           <div style={{ border: '1px solid var(--hair)', borderRadius: '8px', overflow: 'hidden' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '28px 1fr auto auto', gap: '12px', padding: '7px 14px', background: 'var(--bg2)', borderBottom: '1px solid var(--hair)', fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)', letterSpacing: '0.1em' }}>
