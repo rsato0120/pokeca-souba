@@ -1311,7 +1311,7 @@
           "competitive_usage": "high"
         },
         "collector": {
-          "illustrator": "AKIRA EGAWA",
+          "illustrator": "前屋進",
           "illustrator_popularity": "high",
           "artwork_type": "original",
           "rarity": "SAR"
@@ -1350,8 +1350,8 @@
           "competitive_usage": "mid"
         },
         "collector": {
-          "illustrator": "Unknown",
-          "illustrator_popularity": "unknown",
+          "illustrator": "Keisin",
+          "illustrator_popularity": "mid",
           "artwork_type": "original",
           "rarity": "SAR"
         },
@@ -1428,8 +1428,8 @@
           "competitive_usage": "low"
         },
         "collector": {
-          "illustrator": "Unknown",
-          "illustrator_popularity": "unknown",
+          "illustrator": "Keisin",
+          "illustrator_popularity": "mid",
           "artwork_type": "original",
           "rarity": "SAR"
         },
@@ -1506,8 +1506,8 @@
           "competitive_usage": "none"
         },
         "collector": {
-          "illustrator": "Unknown",
-          "illustrator_popularity": "unknown",
+          "illustrator": "古澤あつし",
+          "illustrator_popularity": "mid",
           "artwork_type": "original",
           "rarity": "AR"
         },
@@ -1584,8 +1584,8 @@
           "competitive_usage": "none"
         },
         "collector": {
-          "illustrator": "Unknown",
-          "illustrator_popularity": "unknown",
+          "illustrator": "前屋進",
+          "illustrator_popularity": "high",
           "artwork_type": "original",
           "rarity": "AR"
         },
@@ -1623,8 +1623,8 @@
           "competitive_usage": "none"
         },
         "collector": {
-          "illustrator": "Unknown",
-          "illustrator_popularity": "unknown",
+          "illustrator": "前屋進",
+          "illustrator_popularity": "high",
           "artwork_type": "original",
           "rarity": "AR"
         },
@@ -1840,7 +1840,7 @@
       "id": "ninja-spinner-sliggoo-ar",
       "card_no": "093/083",
       "rarity": "AR",
-      "card_name": "ヌメルゴン",
+      "card_name": "ヌメイル",
       "box_id": "ninja_spinner",
       "is_reprint": false,
       "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/093.jpg",
@@ -1952,6 +1952,346 @@
         "source": "Bulbapedia（2026-06）"
       },
       "note": "ARミルホッグ。"
+    },
+    {
+      "id": "ninja-spinner-beedrill-ex-sr",
+      "card_no": "096/083",
+      "rarity": "SR",
+      "card_name": "スピアーex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/096.jpg",
+      "card_spec": { "type": "草", "stage": "たねex", "hp": 240, "note": "スピアーex SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "SR版。競技採用は限定的。", "collector": "SRフルアートのスピアーex。", "source": "各カードDB（2026-03）" },
+      "note": "スピアーex SR。"
+    },
+    {
+      "id": "ninja-spinner-mega-pyroar-ex-sr",
+      "card_no": "097/083",
+      "rarity": "SR",
+      "card_name": "メガカエンジシex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/097.jpg",
+      "card_spec": { "type": "ほのお", "stage": "メガシンカex", "hp": 310, "note": "メガカエンジシex SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "メガシンカex。競技採用midの炎タイプ。", "collector": "カエンジシのメガ進化SR版。", "source": "各カードDB（2026-03）" },
+      "note": "メガカエンジシex SR。"
+    },
+    {
+      "id": "ninja-spinner-mega-greninja-ex-sr",
+      "card_no": "098/083",
+      "rarity": "SR",
+      "card_name": "メガゲッコウガex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/098.jpg",
+      "card_spec": { "type": "みず", "stage": "メガシンカex", "hp": 280, "note": "SAR/MURと同スペック。SR版イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "high" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SARと同スペックで競技採用high。SR版はより手が届きやすい価格帯。", "collector": "ゲッコウガ人気でSRも一定の需要がある。", "source": "各カードDB（2026-03）" },
+      "note": "メガゲッコウガex SR。SAR(114)・MUR(120)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-mega-floette-ex-sr",
+      "card_no": "099/083",
+      "rarity": "SR",
+      "card_name": "メガフラエッテex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/099.jpg",
+      "card_spec": { "type": "フェアリー", "stage": "メガシンカex", "hp": 300, "note": "SAR(115)と同スペック。SR版イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "SARと同スペック。フェアリーメガシンカex。", "collector": "SARより手が届きやすい価格帯のSR版。", "source": "各カードDB（2026-03）" },
+      "note": "メガフラエッテex SR。SAR(115)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-gourgeist-ex-sr",
+      "card_no": "100/083",
+      "rarity": "SR",
+      "card_name": "パンプジンex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/100.jpg",
+      "card_spec": { "type": "超", "stage": "たねex", "hp": 240, "note": "ゴースト/くさタイプのパンプジンex SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "SR版。競技採用は限定的。", "collector": "ハロウィン系デザインでファン需要あり。", "source": "各カードDB（2026-03）" },
+      "note": "パンプジンex SR。"
+    },
+    {
+      "id": "ninja-spinner-cobalion-ex-sr",
+      "card_no": "101/083",
+      "rarity": "SR",
+      "card_name": "コバルオンex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/101.jpg",
+      "card_spec": { "type": "はがね", "stage": "たねex", "hp": 250, "note": "はがね伝説ポケモンex SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "はがね伝説ポケモンex。竜騎士系デッキで活躍の可能性。", "collector": "コバルオンは剣の伝説で一定のコレクター需要あり。", "source": "各カードDB（2026-03）" },
+      "note": "コバルオンex SR。"
+    },
+    {
+      "id": "ninja-spinner-mega-dragalge-ex-sr",
+      "card_no": "102/083",
+      "rarity": "SR",
+      "card_name": "メガドラミドロex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/102.jpg",
+      "card_spec": { "type": "ドラゴン", "stage": "メガシンカex", "hp": 330, "note": "SAR(116)と同スペック。SR版イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "SARと同スペック。ドラゴンメガシンカexとして一定の競技採用。", "collector": "HP330の高耐久ドラゴンex SR版。", "source": "各カードDB（2026-03）" },
+      "note": "メガドラミドロex SR。SAR(116)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-cinccino-ex-sr",
+      "card_no": "103/083",
+      "rarity": "SR",
+      "card_name": "チラチーノex",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/103.jpg",
+      "card_spec": { "type": "無色", "stage": "1進化", "hp": 220, "note": "SAR(117)と同スペック。SR版イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "low" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SARと同スペック。競技採用は限定的。", "collector": "チラチーノ高人気でSR版も一定の需要。SAR(117)より手が届きやすい。", "source": "各カードDB（2026-03）" },
+      "note": "チラチーノex SR。SAR(117)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-energy-retrieval-sr",
+      "card_no": "104/083",
+      "rarity": "SR",
+      "card_name": "エネルギー回収",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/104.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "エネルギーカードをトラッシュから回収するグッズ。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "エネルギー回収系グッズ。エネルギー加速デッキで採用される。", "collector": "グッズSR版。実用需要がコレクター需要を支える。", "source": "各カードDB（2026-03）" },
+      "note": "エネルギー回収 SR。"
+    },
+    {
+      "id": "ninja-spinner-jumbo-ice-cream-sr",
+      "card_no": "105/083",
+      "rarity": "SR",
+      "card_name": "ジャンボアイス",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/105.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "ジャンボアイス SR版グッズカード。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "グッズカード。効果次第で競技採用が見込まれる。", "collector": "SR版グッズカード。実用性でコレクター需要が変動する。", "source": "各カードDB（2026-03）" },
+      "note": "ジャンボアイス SR。"
+    },
+    {
+      "id": "ninja-spinner-special-red-card-sr",
+      "card_no": "106/083",
+      "rarity": "SR",
+      "card_name": "スペシャルレッドカード",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/106.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "相手の手札を山札に戻させ5枚引かせる強力妨害グッズ。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "high" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "妨害グッズとして競技採用highの強力カード。多くのデッキに採用される汎用グッズ。", "collector": "実用性の高いグッズのSR版。需要が安定しやすい。", "source": "各カードDB（2026-03）" },
+      "note": "スペシャルレッドカード SR。競技採用highの強力グッズ。"
+    },
+    {
+      "id": "ninja-spinner-tool-scrapper-sr",
+      "card_no": "107/083",
+      "rarity": "SR",
+      "card_name": "ツールスクラッパー",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/107.jpg",
+      "card_spec": { "type": "グッズ", "stage": "グッズ", "hp": 0, "note": "相手のポケモンのどうぐを2枚まで捨てる妨害グッズ。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "どうぐ破壊グッズ。ツール採用デッキへの対策として競技採用midで安定。", "collector": "実用性あるグッズのSR版。", "source": "各カードDB（2026-03）" },
+      "note": "ツールスクラッパー SR。"
+    },
+    {
+      "id": "ninja-spinner-az-tranquility-sr",
+      "card_no": "108/083",
+      "rarity": "SR",
+      "card_name": "AZの安らぎ",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/108.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "AZが描かれたサポートカード。Legends Z-A世界のAZ。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "AZのサポートとして競技デッキに採用される。効果によって採用率が左右される。", "collector": "AZはXY/Legends ZAの人気キャラクター。SAR(118)より手が届きやすい価格帯。", "source": "各カードDB（2026-03）" },
+      "note": "AZの安らぎ SR。SAR(118)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-emma-sr",
+      "card_no": "109/083",
+      "rarity": "SR",
+      "card_name": "ジプソ",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/109.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "ジプソ（XYのエマ）が描かれたサポートカード。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "XY系サポートカード。競技採用midで一定の実需がある。", "collector": "XYキャラクターのSR版。ファン需要がある。", "source": "各カードDB（2026-03）" },
+      "note": "ジプソ SR。"
+    },
+    {
+      "id": "ninja-spinner-roxie-performance-sr",
+      "card_no": "110/083",
+      "rarity": "SR",
+      "card_name": "ホミカの演奏",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/110.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "ホミカ（BW毒ジム）の演奏が描かれたサポート。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "BW毒ジムリーダー・ホミカのサポート。毒デッキや特殊戦略デッキで採用される。", "collector": "ホミカはバンドミュージシャン設定で人気が高い。SAR(119)より手が届きやすいSR版。", "source": "各カードDB（2026-03）" },
+      "note": "ホミカの演奏 SR。SAR(119)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-matiere-sr",
+      "card_no": "111/083",
+      "rarity": "SR",
+      "card_name": "マチエール",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/111.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "マチエールが描かれたサポートカード。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "こまやま明", "illustrator_popularity": "mid", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "サポートカード。効果次第で競技採用率が変動する。", "collector": "こまやま明氏によるSRイラスト。マチエールファン層に訴求。", "source": "各カードDB（2026-03）" },
+      "note": "マチエール SR。イラストレーター：こまやま明。"
+    },
+    {
+      "id": "ninja-spinner-surfing-beach-sr",
+      "card_no": "112/083",
+      "rarity": "SR",
+      "card_name": "なみのりビーチ",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/112.jpg",
+      "card_spec": { "type": "スタジアム", "stage": "スタジアム", "hp": 0, "note": "なみのりビーチ スタジアムカード。SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "unknown" }
+      },
+      "evidence_notes": { "player": "スタジアムカード。水タイプデッキや特定戦略で採用される。", "collector": "スタジアムSR版。イラストの完成度次第でコレクター需要が変動。", "source": "各カードDB（2026-03）" },
+      "note": "なみのりビーチ SR。"
+    },
+    {
+      "id": "ninja-spinner-prism-tower-sr",
+      "card_no": "113/083",
+      "rarity": "SR",
+      "card_name": "プリズムタワー",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/113.jpg",
+      "card_spec": { "type": "スタジアム", "stage": "スタジアム", "hp": 0, "note": "プリズムタワー（ミアレシティのタワー）スタジアム SR版。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "mid" }
+      },
+      "evidence_notes": { "player": "XYのプリズムタワーをモチーフにしたスタジアム。フェアリー/特定タイプ強化の可能性。", "collector": "Legends Z-Aの舞台であるミアレシティのランドマーク。コレクター需要あり。", "source": "各カードDB（2026-03）" },
+      "note": "プリズムタワー SR。"
+    },
+    {
+      "id": "ninja-spinner-az-tranquility-sar",
+      "card_no": "118/083",
+      "rarity": "SAR",
+      "card_name": "AZの安らぎ",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/118.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "AZのサポートカードSAR版。SR(108)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SR版と同効果。AZサポートとして競技採用mid。", "collector": "AZはXY/Legends ZAのキャラクターで人気が高い。SARはコレクター向け高額帯。", "source": "各カードDB（2026-03）" },
+      "note": "AZの安らぎ SAR。SR(108)は別レコード。"
+    },
+    {
+      "id": "ninja-spinner-roxie-performance-sar",
+      "card_no": "119/083",
+      "rarity": "SAR",
+      "card_name": "ホミカの演奏",
+      "box_id": "ninja_spinner",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m4n/119.jpg",
+      "card_spec": { "type": "サポート", "stage": "サポート", "hp": 0, "note": "ホミカの演奏サポートSAR版。SR(110)と同効果・イラスト違い。" },
+      "materials": {
+        "player": { "regulation_mark": "I", "rotation": "far", "competitive_usage": "mid" },
+        "collector": { "illustrator": "unknown", "illustrator_popularity": "unknown", "artwork_type": "original", "rarity": "SAR" },
+        "common": { "reprint_status": "none", "scarcity": "normal", "character_popularity": "high" }
+      },
+      "evidence_notes": { "player": "SR版と同効果のSAR。ホミカサポートとして競技採用mid。", "collector": "ホミカはバンドミュージシャン設定で人気高。SARはコレクター向け高額帯。キャラ人気で需要が安定しやすい。", "source": "各カードDB（2026-03）" },
+      "note": "ホミカの演奏 SAR。SR(110)は別レコード。"
     }
   ],
   "market_posts": [
