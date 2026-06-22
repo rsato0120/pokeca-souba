@@ -192,23 +192,37 @@ async function scrapeCard(
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
+    // スニーカーダンクIDを検索
     let apparelId: number | null = snkrdunkIds[id] ?? null
     if (!apparelId) {
       apparelId = await findSnkrdunkId(browser, cardName, rarity)
       if (apparelId) { snkrdunkIds[id] = apparelId; saveSnkrdunkIds(snkrdunkIds) }
     }
 
-    if (!apparelId) {
-      console.log('スニーカーダンクID未発見 — スキップ')
-      stats.skipped++
-      await new Promise(r => setTimeout(r, 1000))
-      return
+    let avg: number | null = null
+    let psa10: number | null = null
+    let source = ''
+
+    if (apparelId) {
+      // スニーカーダンクから取得
+      const prices = await getSnkrdunkPrices(browser, apparelId)
+      avg = prices.regular
+      psa10 = prices.psa10
+      source = 'スニダン'
     }
 
-    const { regular, psa10 } = await getSnkrdunkPrices(browser, apparelId)
+    if (avg == null) {
+      // Mercari sold_out でフォールバック
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        avg = await scrapeMercariSoldAvg(browser, searchQuery)
+        if (avg != null) break
+        if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
+      }
+      source = 'メルカリ'
+    }
 
-    if (regular == null) {
-      console.log('取引データなし — スキップ（既存価格を維持）')
+    if (avg == null) {
+      console.log('データ不足 — スキップ（既存価格を維持）')
       stats.skipped++
       await new Promise(r => setTimeout(r, 1000))
       return
@@ -218,8 +232,8 @@ async function scrapeCard(
 
     const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
-    savePriceHistory(id, date, regular, onSale, psa10)
-    console.log(`完了 素体¥${regular.toLocaleString()}${onSaleLog}${psa10Log}`)
+    savePriceHistory(id, date, avg, onSale, psa10)
+    console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
     console.log('失敗（既存価格を維持）')
