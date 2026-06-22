@@ -129,7 +129,31 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
   finally { await page.close() }
 }
 
-// スニーカーダンク: PSA10 最新取引価格を取得
+// メルカリ: 固定価格出品中件数を取得
+async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Promise<number | null> {
+  const page = await browser.newPage()
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
+  const keyword = encodeURIComponent(searchQuery)
+  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now`
+  try {
+    const responsePromise = page.waitForResponse(
+      r => r.url().includes('/v2/entities:search') && r.status() === 200,
+      { timeout: 25000 }
+    )
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let json: any = null
+    try { json = await (await responsePromise).json() } catch { return null }
+    if (!json) return null
+    const meta = json.meta ?? json.data?.meta ?? {}
+    const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
+    const count = rawTotal != null ? Number(rawTotal) : null
+    return count != null && !isNaN(count) && count > 0 ? count : null
+  } catch { return null }
+  finally { await page.close() }
+}
+
+// スニーカーダンク: PSA10 全取引の平均価格を取得
 async function getSnkrdunkPsa10(browser: Browser, apparelId: number): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -141,10 +165,12 @@ async function getSnkrdunkPsa10(browser: Browser, apparelId: number): Promise<nu
     const psa10Start = histText.indexOf('状態PSA10の売買履歴')
     if (psa10Start < 0) return null
     const psa9Start = histText.indexOf('状態PSA9の売買履歴', psa10Start)
-    const section = histText.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 600)
+    const section = histText.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 1500)
     if (section.includes('まだこの商品は取引がありません')) return null
-    const priceMatch = section.match(/¥([\d,]+)/)
-    return priceMatch ? parseInt(priceMatch[1].replace(/,/g, '')) : null
+    const matches = [...section.matchAll(/¥([\d,]+)/g)]
+    const prices = matches.map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p > 0)
+    if (!prices.length) return null
+    return Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
   } catch { return null }
   finally { await page.close() }
 }
@@ -154,6 +180,8 @@ function savePriceHistory(
   date: string,
   low: number,
   high: number,
+  avg: number,
+  onSale: number | null,
   psa10: number | null
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
@@ -163,7 +191,8 @@ function savePriceHistory(
   } catch {}
 
   const record = {
-    date, low, high,
+    date, low, high, avg,
+    ...(onSale != null ? { on_sale: onSale } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
@@ -213,8 +242,12 @@ async function scrapeItem(
 
     const low = calcPercentile(filtered, 25)
     const high = calcPercentile(filtered, 75)
+    const avg = Math.round(filtered.reduce((a, b) => a + b, 0) / filtered.length)
 
-    // スニーカーダンクからPSA10取得（カードのみ）
+    // メルカリ出品数（固定価格のみ）
+    const onSale = await getMercariOnSaleCount(browser, searchQuery)
+
+    // スニーカーダンクからPSA10平均取得（カードのみ）
     let psa10: number | null = null
     if (cardName && rarity) {
       let apparelId: number | null = snkrdunkIds[id] ?? null
@@ -230,10 +263,11 @@ async function scrapeItem(
       }
     }
 
-    const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
+    const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
+    const psa10Log = psa10 != null ? ` / PSA10平均¥${psa10.toLocaleString()}` : ''
 
-    savePriceHistory(id, date, low, high, psa10)
-    console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${psa10Log}）`)
+    savePriceHistory(id, date, low, high, avg, onSale, psa10)
+    console.log(`完了 平均¥${avg.toLocaleString()}（売${filtered.length}件${onSaleLog}${psa10Log}）`)
     stats.succeeded++
   } catch (e) {
     console.log('失敗（既存価格を維持）')

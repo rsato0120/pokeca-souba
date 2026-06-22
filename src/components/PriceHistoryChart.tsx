@@ -32,7 +32,7 @@ export default function PriceHistoryChart({ history }: Props) {
       date: r.date,
       low: Number(r.low),
       high: Number(r.high),
-      mid: (Number(r.low) + Number(r.high)) / 2,
+      mid: r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2,
       psa10: r.psa10 != null ? Number(r.psa10) : null,
     }))
 

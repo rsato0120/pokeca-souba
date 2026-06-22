@@ -81,8 +81,9 @@ export interface PriceRecord {
   date: string  // "2026-06-20"
   low: number
   high: number
-  on_sale?: number   // スニーカーダンク出品中件数
-  psa10?: number | null  // スニーカーダンク PSA10最安値（null = 記載なし）
+  avg?: number          // メルカリ取引平均価格
+  on_sale?: number      // メルカリ固定価格出品中件数
+  psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
 }
 
 export interface PriceHistory {

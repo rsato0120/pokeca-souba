@@ -157,6 +157,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       : { label: '様子見', dot: '🟡', color: 'var(--flat)' }
 
   const latestRecord = priceHistory?.history?.[0] ?? null
+  const latestAvg = latestRecord?.avg ?? null
+  const latestOnSale = latestRecord?.on_sale ?? null
   const latestPsa10 = latestRecord !== null && 'psa10' in latestRecord ? latestRecord.psa10 : undefined
 
   return (
@@ -378,42 +380,43 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             </div>
           </div>
 
-          {/* 現在相場 */}
+          {/* 市場価格 */}
           <div
             style={{
               background: 'var(--bg2)',
               border: '1px solid var(--hair)',
               borderRadius: '8px',
               padding: '14px 18px',
-              marginBottom: '6px',
-              display: 'flex',
-              alignItems: 'baseline',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '6px',
+              marginBottom: '14px',
             }}
           >
-            <span style={{ fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.06em' }}>
-              現在のおおよその相場（参考レンジ）
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--mono)',
-                fontSize: '22px',
-                fontWeight: 600,
-                color: 'var(--ink)',
-              }}
-            >
-              ¥{price_forecast.current_low.toLocaleString()}{' '}
-              <small style={{ fontSize: '13px', color: 'var(--ink-dim)', fontWeight: 400 }}>〜</small>{' '}
-              ¥{price_forecast.current_high.toLocaleString()}
-            </span>
-            <span style={{ fontSize: '11px', color: 'var(--ink-faint)', width: '100%' }}>
-              ※ 美品・{card.rarity}版の目安。状態・販路により変動します。
-            </span>
-          </div>
-          <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '14px' }}>
-            出典：相場データ取得後に表示されます（1日1回 自動取得）
+            <div style={{ fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.06em', marginBottom: '10px' }}>
+              MARKET · 市場価格
+            </div>
+            <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap', alignItems: 'baseline' }}>
+              <div>
+                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>メルカリ 取引平均</div>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: '26px', fontWeight: 700, color: 'var(--gold)' }}>
+                  {latestAvg != null ? `¥${latestAvg.toLocaleString()}` : '—'}
+                </span>
+              </div>
+              {latestPsa10 !== undefined && (
+                <div>
+                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>PSA 10（スニーカーダンク 平均）</div>
+                  <span style={{ fontFamily: 'var(--mono)', fontSize: '26px', fontWeight: 700, color: '#6c8ebf' }}>
+                    {latestPsa10 != null ? `¥${latestPsa10.toLocaleString()}` : '—'}
+                  </span>
+                </div>
+              )}
+              {latestOnSale != null && (
+                <div>
+                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>メルカリ 出品中</div>
+                  <span style={{ fontFamily: 'var(--mono)', fontSize: '22px', fontWeight: 600, color: 'var(--ink-dim)' }}>
+                    {latestOnSale}件
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* 購入リンク */}
@@ -634,30 +637,6 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         {overall.reason}
       </p>
 
-      {/* PSA10 シグナル */}
-      {latestPsa10 !== undefined && (
-        <div
-          style={{
-            background: 'var(--bg2)',
-            border: '1px solid var(--hair)',
-            borderRadius: '8px',
-            padding: '14px 18px',
-            marginBottom: '26px',
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '16px',
-            flexWrap: 'wrap',
-          }}
-        >
-          <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.14em', color: 'var(--ink-faint)' }}>
-            PSA 10
-          </span>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: '22px', fontWeight: 700, color: '#6c8ebf' }}>
-            {latestPsa10 != null ? `¥${latestPsa10.toLocaleString()}` : '—'}
-          </span>
-          <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>スニーカーダンク 直近取引価格</span>
-        </div>
-      )}
 
       {/* ── プレイヤー/コレクター 2軸 ── */}
       <div
