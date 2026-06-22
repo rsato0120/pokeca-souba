@@ -59,7 +59,7 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
 
   const keyword = encodeURIComponent(searchQuery)
-  const searchUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=sold_out&sort=created_time&order=desc`
+  const searchUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=sold_out&item_types=buy_now&sort=created_time&order=desc`
 
   try {
     const responsePromise = page.waitForResponse(
@@ -129,31 +129,6 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
   finally { await page.close() }
 }
 
-// メルカリ: 出品中件数を取得
-async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Promise<number | null> {
-  const page = await browser.newPage()
-  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
-  const keyword = encodeURIComponent(searchQuery)
-  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale`
-  try {
-    const responsePromise = page.waitForResponse(
-      r => r.url().includes('/v2/entities:search') && r.status() === 200,
-      { timeout: 25000 }
-    )
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let json: any = null
-    try { json = await (await responsePromise).json() } catch { return null }
-    if (!json) return null
-    const items: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
-    const meta = json.meta ?? json.data?.meta ?? {}
-    const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
-    const count = rawTotal != null ? Number(rawTotal) : items.length
-    return !isNaN(count) && count > 0 ? count : null
-  } catch { return null }
-  finally { await page.close() }
-}
-
 // スニーカーダンク: PSA10 最新取引価格を取得
 async function getSnkrdunkPsa10(browser: Browser, apparelId: number): Promise<number | null> {
   const page = await browser.newPage()
@@ -179,7 +154,6 @@ function savePriceHistory(
   date: string,
   low: number,
   high: number,
-  onSale: number | null,
   psa10: number | null
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
@@ -190,7 +164,6 @@ function savePriceHistory(
 
   const record = {
     date, low, high,
-    ...(onSale != null ? { on_sale: onSale } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
@@ -241,9 +214,6 @@ async function scrapeItem(
     const low = calcPercentile(filtered, 25)
     const high = calcPercentile(filtered, 75)
 
-    // メルカリから出品数取得
-    const onSale = await getMercariOnSaleCount(browser, searchQuery)
-
     // スニーカーダンクからPSA10取得（カードのみ）
     let psa10: number | null = null
     if (cardName && rarity) {
@@ -260,11 +230,10 @@ async function scrapeItem(
       }
     }
 
-    const supplyLog = onSale != null ? ` / 出品${onSale}件` : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
 
-    savePriceHistory(id, date, low, high, onSale, psa10)
-    console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${supplyLog}${psa10Log}）`)
+    savePriceHistory(id, date, low, high, psa10)
+    console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${psa10Log}）`)
     stats.succeeded++
   } catch (e) {
     console.log('失敗（既存価格を維持）')

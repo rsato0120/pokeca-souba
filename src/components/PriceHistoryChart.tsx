@@ -10,10 +10,10 @@ const PERIODS = [
 
 const W = 760
 const H = 200
-const PL = 68  // left padding (Y labels)
+const PL = 68
 const PR = 16
 const PT = 16
-const PB = 32  // bottom padding (date labels)
+const PB = 32
 
 interface Props {
   history: PriceRecord[]
@@ -22,24 +22,29 @@ interface Props {
 export default function PriceHistoryChart({ history }: Props) {
   const [days, setDays] = useState<number>(30)
 
-  const nowMs = Date.now() + 9 * 60 * 60 * 1000  // JST
+  const nowMs = Date.now() + 9 * 60 * 60 * 1000
   const cutoffMs = nowMs - days * 24 * 60 * 60 * 1000
 
   const filtered = history
     .filter(r => new Date(r.date).getTime() >= cutoffMs)
-    .reverse()  // oldest → newest
+    .reverse()
     .map(r => ({
       date: r.date,
       low: Number(r.low),
       high: Number(r.high),
       mid: (Number(r.low) + Number(r.high)) / 2,
+      psa10: r.psa10 != null ? Number(r.psa10) : null,
     }))
 
   const hasPeriodData = (d: number) =>
     history.filter(r => new Date(r.date).getTime() >= nowMs - d * 24 * 60 * 60 * 1000).length >= 1
 
-  // ── 座標計算 ──────────────────────────────────────────────
-  const allPrices = filtered.flatMap(r => [r.low, r.high])
+  const psa10Points = filtered.filter(r => r.psa10 != null)
+
+  const allPrices = [
+    ...filtered.flatMap(r => [r.low, r.high]),
+    ...psa10Points.map(r => r.psa10 as number),
+  ]
   const rawMin = allPrices.length ? Math.min(...allPrices) : 0
   const rawMax = allPrices.length ? Math.max(...allPrices) : 1
   const pad = (rawMax - rawMin) * 0.2 || rawMin * 0.15 || 1000
@@ -56,12 +61,10 @@ export default function PriceHistoryChart({ history }: Props) {
 
   const toX = (t: number) => PL + ((t - minT) / rangeT) * (W - PL - PR)
 
-  // ── SVGパス ──────────────────────────────────────────────
   const midPts = filtered.map(r => `${toX(new Date(r.date).getTime())},${toY(r.mid)}`).join(' ')
   const topPts = filtered.map(r => `${toX(new Date(r.date).getTime())},${toY(r.high)}`).join(' ')
   const botPts = [...filtered].reverse().map(r => `${toX(new Date(r.date).getTime())},${toY(r.low)}`).join(' ')
 
-  // ── Y軸ラベル ─────────────────────────────────────────────
   const step = (maxP - minP) / 3
   const yLabels = [0, 1, 2, 3].map(i => ({
     y: toY(maxP - step * i),
@@ -71,14 +74,13 @@ export default function PriceHistoryChart({ history }: Props) {
   const fmtPrice = (p: number) =>
     p >= 10000 ? `${Math.round(p / 1000)}千` : Math.round(p).toLocaleString()
 
-  // 日付ラベル（最初・中間・最後）
   const dateLabelIndices = filtered.length <= 1 ? [0] :
     [0, Math.floor((filtered.length - 1) / 2), filtered.length - 1]
 
   return (
     <div>
       {/* 期間セレクター */}
-      <div style={{ display: 'flex', gap: '6px', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', gap: '6px', marginBottom: '10px', alignItems: 'center' }}>
         {PERIODS.map(({ label, days: d }) => {
           const active = days === d
           const enabled = hasPeriodData(d)
@@ -103,6 +105,19 @@ export default function PriceHistoryChart({ history }: Props) {
             </button>
           )
         })}
+        {/* 凡例 */}
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--ink-faint)' }}>
+            <span style={{ display: 'inline-block', width: '24px', height: '2px', background: 'var(--gold)', borderRadius: '1px' }} />
+            通常相場
+          </span>
+          {psa10Points.length > 0 && (
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--ink-faint)' }}>
+              <span style={{ display: 'inline-block', width: '8px', height: '8px', background: '#6c8ebf', borderRadius: '50%' }} />
+              PSA 10
+            </span>
+          )}
+        </div>
       </div>
 
       {/* グラフ本体 */}
@@ -153,7 +168,7 @@ export default function PriceHistoryChart({ history }: Props) {
               ))}
             </g>
 
-            {/* 価格レンジ帯（低〜高） */}
+            {/* 価格レンジ帯 */}
             {filtered.length >= 2 && (
               <polygon
                 points={`${topPts} ${botPts}`}
@@ -172,7 +187,7 @@ export default function PriceHistoryChart({ history }: Props) {
               />
             )}
 
-            {/* データポイント */}
+            {/* 通常データポイント */}
             {filtered.map(r => (
               <circle
                 key={r.date}
@@ -181,6 +196,29 @@ export default function PriceHistoryChart({ history }: Props) {
                 r="3.5"
                 fill="var(--gold)"
               />
+            ))}
+
+            {/* PSA10 データポイント */}
+            {psa10Points.map(r => (
+              <g key={`psa10-${r.date}`}>
+                <circle
+                  cx={toX(new Date(r.date).getTime())}
+                  cy={toY(r.psa10 as number)}
+                  r="5"
+                  fill="#6c8ebf"
+                  stroke="var(--bg2)"
+                  strokeWidth="1.5"
+                />
+                <text
+                  x={toX(new Date(r.date).getTime())}
+                  y={toY(r.psa10 as number) - 10}
+                  fill="#6c8ebf"
+                  fontSize="10"
+                  textAnchor="middle"
+                >
+                  {fmtPrice(r.psa10 as number)}
+                </text>
+              </g>
             ))}
 
             {/* 日付ラベル */}
