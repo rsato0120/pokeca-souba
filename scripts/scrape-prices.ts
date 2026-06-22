@@ -131,7 +131,7 @@ async function getMercariOnSaleCount(browser: Browser, searchQuery: string, debu
     const count = rawTotal != null ? Number(rawTotal) : items.length
 
     if (debug) process.stdout.write(`[on_sale: numFound=${rawTotal} count=${count} items=${items.length}] `)
-    return !isNaN(count) && count >= 0 ? count : null
+    return !isNaN(count) && count > 0 ? count : null
   } catch (e) {
     if (debug) process.stdout.write(`[on_sale例外: ${e instanceof Error ? e.message : e}] `)
     return null
