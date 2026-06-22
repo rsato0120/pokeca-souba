@@ -661,12 +661,12 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               marginBottom: '10px',
             }}
           >
-            スニーカーダンク 出品情報
+            出品・グレード情報
           </div>
           <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'baseline' }}>
             {latestOnSale != null && (
               <div>
-                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>出品数</div>
+                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>メルカリ出品中</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
                   <span
                     style={{
@@ -684,7 +684,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             )}
             {latestPsa10 !== undefined && (
               <div>
-                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>PSA 10</div>
+                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>PSA 10（スニーカーダンク）</div>
                 <div
                   style={{
                     fontFamily: 'var(--mono)',
