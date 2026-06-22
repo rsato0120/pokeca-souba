@@ -84,6 +84,17 @@
       "note": "2025-11-28発売。ハイクラスパック。メガシンカexを大量収録。新レアリティMA（メガアタックレア）初登場。目玉はメガカイリューexMUR・カナリィSAR。"
     },
     {
+      "box_id": "inferno_x",
+      "box_name": "インフェルノX",
+      "code": "M2",
+      "release_ym": "2025-09",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/e/e0/M2_Inferno_X_pack.png",
+      "note": "2025-09-26発売。メガリザードンXexが目玉の炎・悪タイプ強化弾。"
+    },
+    {
       "box_id": "storm_emeralda",
       "box_name": "ストームエメラルダ",
       "code": "SV○○",
@@ -6411,6 +6422,1410 @@
         "source": ""
       },
       "note": ""
+    },
+    {
+      "id": "inferno-x-mega-heracross-ex-rr",
+      "card_no": "004/080",
+      "rarity": "RR",
+      "card_name": "メガヘラクロスex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/004.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "ワザ「パンツァーホーン」で受けたダメージ分を上乗せ攻撃。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "草タイプのメガシンカex。競技採用は限定的。",
+        "collector": "メガヘラクロスexのRRホロ版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-mega-charizard-x-ex-rr",
+      "card_no": "013/080",
+      "rarity": "RR",
+      "card_name": "メガリザードンXex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/013.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "ワザ「インフェルノX」で炎エネルギーをトラッシュして大ダメージ。環境トップ級。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "環境最強格のメガシンカex。炎デッキの主軸として広く採用。",
+        "collector": "人気最高峰のリザードンXex RR。コレクター需要も高い。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-oricorio-ex-rr",
+      "card_no": "018/080",
+      "rarity": "RR",
+      "card_name": "オドリドリex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/018.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "基本ex",
+        "hp": 160,
+        "note": "特性「エキサイトターボ」で炎エネルギーを加速。サポート役。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "炎デッキのエネルギー加速要員。採用率mid。",
+        "collector": "オドリドリexのRRホロ版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-rotom-ex-rr",
+      "card_no": "029/080",
+      "rarity": "RR",
+      "card_name": "ロトムex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/029.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本ex",
+        "hp": 130,
+        "note": "特性でドロー加速。汎用性の高いサポートex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "汎用ドローサポートexとして採用率mid。",
+        "collector": "人気キャラのロトムex RRホロ版。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-mismagius-ex-rr",
+      "card_no": "036/080",
+      "rarity": "RR",
+      "card_name": "ムウマージex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/036.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "基本ex",
+        "hp": 120,
+        "note": "超タイプのサポートex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "超タイプex。競技採用はlow。",
+        "collector": "ムウマージexのRRホロ版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-mega-sharpedo-ex-rr",
+      "card_no": "051/080",
+      "rarity": "RR",
+      "card_name": "メガサメハダーex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/051.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "メガシンカex",
+        "hp": 290,
+        "note": "水タイプのメガシンカex。高HPと火力を兼備。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "水タイプメガシンカex。採用率mid。",
+        "collector": "メガサメハダーexのRRホロ版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-empoleon-ex-rr",
+      "card_no": "058/080",
+      "rarity": "RR",
+      "card_name": "エンペルトex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/058.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "基本ex",
+        "hp": 230,
+        "note": "特性「こうていのかまえ」で相手のワザ効果を無効化。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "防御特性持ちエンペルトex。採用率mid。",
+        "collector": "人気スターターエンペルトのexRR版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-mega-lopunny-ex-rr",
+      "card_no": "072/080",
+      "rarity": "RR",
+      "card_name": "メガミミロップex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/072.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "無タイプの高HP330メガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "メガミミロップex。無タイプで汎用性あり。採用率mid。",
+        "collector": "メガミミロップexのRRホロ版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "RR版。"
+    },
+    {
+      "id": "inferno-x-ludicolo-ar",
+      "card_no": "081/080",
+      "rarity": "AR",
+      "card_name": "ルンパッパ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/081.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "2進化",
+        "hp": 160,
+        "note": "ハスボー→ハスブレロ→ルンパッパの最終進化。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "ルンパッパのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-nymble-ar",
+      "card_no": "082/080",
+      "rarity": "AR",
+      "card_name": "マメバッタ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/082.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "基本",
+        "hp": 60,
+        "note": "パルデア地方の小型虫ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "マメバッタのAR特殊イラスト版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-rolycoly-ar",
+      "card_no": "083/080",
+      "rarity": "AR",
+      "card_name": "カルボウ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/083.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "基本",
+        "hp": 60,
+        "note": "石炭をモチーフにした基本ポケモン。インフェルノX炎テーマに合致。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "カルボウのAR特殊イラスト版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-dewgong-ar",
+      "card_no": "084/080",
+      "rarity": "AR",
+      "card_name": "ジュゴン",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/084.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 130,
+        "note": "パウワウの進化形。水タイプの1進化ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "ジュゴンのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-piplup-ar",
+      "card_no": "085/080",
+      "rarity": "AR",
+      "card_name": "ポッチャマ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/085.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "基本",
+        "hp": 70,
+        "note": "エンペルトの基本形。人気の高い水タイプスターター。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "人気スターターポッチャマのAR版。character_popularity=highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-yamper-ar",
+      "card_no": "086/080",
+      "rarity": "AR",
+      "card_name": "ワンパチ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/086.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 70,
+        "note": "雷タイプのかわいい犬ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "ワンパチのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-zacian-ar",
+      "card_no": "087/080",
+      "rarity": "AR",
+      "card_name": "ザシアン",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/087.jpg",
+      "card_spec": {
+        "type": "金",
+        "stage": "基本",
+        "hp": 130,
+        "note": "伝説の剣ポケモン。金タイプ（鋼）の基本ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の伝説ポケモン。競技採用なし。",
+        "collector": "人気伝説ポケモンのAR版。character_popularity=highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-flygon-ar",
+      "card_no": "088/080",
+      "rarity": "AR",
+      "card_name": "フライゴン",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/088.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "2進化",
+        "hp": 130,
+        "note": "ナックラー→ビブラーバ→フライゴンの最終進化。人気のドラゴン系ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "人気ドラゴンポケモンのAR版。character_popularity=highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-toxtricity-ar",
+      "card_no": "089/080",
+      "rarity": "AR",
+      "card_name": "ストリンダー",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/089.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 110,
+        "note": "シビルドンの進化形。悪タイプのロック系ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "ストリンダーのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-togedemaru-ar",
+      "card_no": "090/080",
+      "rarity": "AR",
+      "card_name": "トゲデマル",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/090.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 70,
+        "note": "丸くてかわいい雷タイプのハリネズミポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "トゲデマルのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-wigglytuff-ar",
+      "card_no": "091/080",
+      "rarity": "AR",
+      "card_name": "プクリン",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/091.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 150,
+        "note": "プリンの進化形。高HPの無タイプポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "人気ポケモンプクリンのAR版。character_popularity=highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-ambipom-ar",
+      "card_no": "092/080",
+      "rarity": "AR",
+      "card_name": "エテボース",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/092.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 110,
+        "note": "エテボースのAR版。無タイプの1進化ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "エテボースのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "inferno-x-mega-heracross-ex-sr",
+      "card_no": "093/080",
+      "rarity": "SR",
+      "card_name": "メガヘラクロスex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/093.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "SR版。RRと同スペック、異イラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用はlow。SR版はホロfoil加工でコレクター向け。",
+        "collector": "メガヘラクロスexのSR版。RRより希少性高め。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-mega-charizard-x-ex-sr",
+      "card_no": "094/080",
+      "rarity": "SR",
+      "card_name": "メガリザードンXex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/094.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "SR版。環境最強格。SAR/MURも存在。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "環境最強格のSR版。競技採用=high。",
+        "collector": "人気最高峰SRリザードンXex。SAR・MUR・RRと並ぶコレクターの対象。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-oricorio-ex-sr",
+      "card_no": "095/080",
+      "rarity": "SR",
+      "card_name": "オドリドリex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/095.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "基本ex",
+        "hp": 160,
+        "note": "SR版。エネルギー加速特性持ち。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "炎デッキのエネルギー加速要員SR版。採用率mid。",
+        "collector": "オドリドリexのSR版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-rotom-ex-sr",
+      "card_no": "096/080",
+      "rarity": "SR",
+      "card_name": "ロトムex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/096.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本ex",
+        "hp": 130,
+        "note": "SR版。汎用ドローサポートex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "汎用ドローexのSR版。採用率mid。",
+        "collector": "人気キャラロトムexのSR版。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-mismagius-ex-sr",
+      "card_no": "097/080",
+      "rarity": "SR",
+      "card_name": "ムウマージex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/097.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "基本ex",
+        "hp": 120,
+        "note": "SR版。超タイプのサポートex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "超タイプexのSR版。競技採用low。",
+        "collector": "ムウマージexのSR版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-mega-sharpedo-ex-sr",
+      "card_no": "098/080",
+      "rarity": "SR",
+      "card_name": "メガサメハダーex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/098.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "メガシンカex",
+        "hp": 290,
+        "note": "SR版。水タイプの高HPメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "水タイプメガシンカexのSR版。採用率mid。",
+        "collector": "メガサメハダーexのSR版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-empoleon-ex-sr",
+      "card_no": "099/080",
+      "rarity": "SR",
+      "card_name": "エンペルトex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/099.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "基本ex",
+        "hp": 230,
+        "note": "SR版。防御特性持ち。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "防御特性持ちエンペルトexのSR版。採用率mid。",
+        "collector": "人気スターターexのSR版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-mega-lopunny-ex-sr",
+      "card_no": "100/080",
+      "rarity": "SR",
+      "card_name": "メガミミロップex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/100.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SR版。無タイプ高HPメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "無タイプメガシンカexのSR版。採用率mid。",
+        "collector": "メガミミロップexのSR版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-hikari-sr",
+      "card_no": "106/080",
+      "rarity": "SR",
+      "card_name": "ヒカリ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/106.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "強力なサポートカードのSR版。炎デッキのエネルギー加速サポート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "環境デッキで広く採用されるサポートのSR版。採用率high。",
+        "collector": "人気キャラ「ヒカリ」のSR版。SAR版（115）のほうが高額だがSR版も需要あり。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "inferno-x-mega-charizard-x-ex-sar",
+      "card_no": "110/080",
+      "rarity": "SAR",
+      "card_name": "メガリザードンXex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/110.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "SAR版。進化ラインが集合した青炎イラストで人気最高峰。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "だんちゃお",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "SR版と同スペック。競技採用=high。",
+        "collector": "だんちゃお氏描き下ろしSARイラスト。リザードンX人気×SARレアリティで超高額。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "inferno-x-oricorio-ex-sar",
+      "card_no": "111/080",
+      "rarity": "SAR",
+      "card_name": "オドリドリex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/111.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "基本ex",
+        "hp": 160,
+        "note": "SAR版。特殊アートの描き下ろしイラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "エネルギー加速要員のSAR版。採用率mid。",
+        "collector": "オドリドリexのSAR版。描き下ろしイラストでコレクター需要。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "inferno-x-rotom-ex-sar",
+      "card_no": "112/080",
+      "rarity": "SAR",
+      "card_name": "ロトムex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/112.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本ex",
+        "hp": 130,
+        "note": "SAR版。特殊アート描き下ろし。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "汎用ドローexのSAR版。採用率mid。",
+        "collector": "人気キャラロトムexのSAR版。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "inferno-x-mega-sharpedo-ex-sar",
+      "card_no": "113/080",
+      "rarity": "SAR",
+      "card_name": "メガサメハダーex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/113.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "メガシンカex",
+        "hp": 290,
+        "note": "SAR版。特殊アート描き下ろし。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "水タイプメガシンカexのSAR版。採用率mid。",
+        "collector": "メガサメハダーexのSAR版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "inferno-x-mega-lopunny-ex-sar",
+      "card_no": "114/080",
+      "rarity": "SAR",
+      "card_name": "メガミミロップex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/114.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SAR版。特殊アート描き下ろし。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "無タイプメガシンカexのSAR版。採用率mid。",
+        "collector": "メガミミロップexのSAR版。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "inferno-x-hikari-sar",
+      "card_no": "115/080",
+      "rarity": "SAR",
+      "card_name": "ヒカリ",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/115.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SAR版。インフェルノXの最高額カードの一つ。人気キャラ×SAR希少性で超高額。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "環境サポートのSAR版。採用率high。",
+        "collector": "ヒカリSARはインフェルノXトップ価格帯。人気キャラ×SAR希少性で需要extremely high。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "inferno-x-mega-charizard-x-ex-mur",
+      "card_no": "116/080",
+      "rarity": "MUR",
+      "card_name": "メガリザードンXex",
+      "box_id": "inferno_x",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m2in/116.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "MUR（メガウルトラレア）版。ミラー加工の最高レアリティ。50BOXに1枚の超希少。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "MUR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "SR版と同スペック。競技採用=high。",
+        "collector": "インフェルノXの最高峰レアリティ。リザードンX人気×MUR極稀少で非常に高額。",
+        "source": "各カードDB/相場サイト（2025-09〜）"
+      },
+      "note": "MUR版。"
     }
   ],
   "market_posts": [
