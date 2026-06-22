@@ -219,6 +219,7 @@ async function main() {
   const cards = getAllCards()
   const boxes = getAllBoxes().filter(b => b.certainty === 'released' && b.packs_per_box != null)
   const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
+  const boxCodeMap = new Map(getAllBoxes().map(b => [b.box_id, b.code]))
   const date = todayJST()
   console.log(`${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
@@ -233,7 +234,9 @@ async function main() {
     // ── カード価格 ──
     for (const card of cards) {
       const boxName = boxMap.get(card.box_id) ?? ''
-      const query = `${card.card_name} ${card.rarity} ${boxName}`
+      const boxCode = boxCodeMap.get(card.box_id) ?? ''
+      // セットコード（M2, M4等）を加えることで標準TCGの同名ARカードが混入するのを防ぐ
+      const query = `${card.card_name} ${card.rarity} ${boxCode} ${boxName}`.replace(/\s+/g, ' ').trim()
       await scrapeItem(
         browser,
         getCardSlug(card),
