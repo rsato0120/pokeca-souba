@@ -158,6 +158,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
   const latestRecord = priceHistory?.history?.[0] ?? null
   const latestOnSale = latestRecord?.on_sale ?? null
+  const latestPsa10 = latestRecord !== null && 'psa10' in latestRecord ? latestRecord.psa10 : undefined
   const supplyLabel =
     latestOnSale == null ? null
     : latestOnSale < 10 ? '極めて少ない（市場タイト）'
@@ -641,7 +642,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       </p>
 
       {/* 需給シグナル */}
-      {latestOnSale != null && (
+      {(latestOnSale != null || latestPsa10 !== undefined) && (
         <div
           style={{
             background: 'var(--bg2)',
@@ -660,22 +661,42 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               marginBottom: '10px',
             }}
           >
-            需給シグナル（メルカリ出品中）
+            スニーカーダンク 出品情報
           </div>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
-            <span
-              style={{
-                fontFamily: 'var(--mono)',
-                fontSize: '22px',
-                fontWeight: 700,
-                color: latestOnSale < 30 ? 'var(--up)' : latestOnSale < 80 ? 'var(--ink)' : 'var(--down)',
-              }}
-            >
-              {latestOnSale}件
-            </span>
-            <span style={{ fontSize: '13px', color: 'var(--ink-dim)' }}>
-              出品中 — {supplyLabel}
-            </span>
+          <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'baseline' }}>
+            {latestOnSale != null && (
+              <div>
+                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>出品数</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--mono)',
+                      fontSize: '22px',
+                      fontWeight: 700,
+                      color: latestOnSale < 30 ? 'var(--up)' : latestOnSale < 80 ? 'var(--ink)' : 'var(--down)',
+                    }}
+                  >
+                    {latestOnSale}件
+                  </span>
+                  <span style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>{supplyLabel}</span>
+                </div>
+              </div>
+            )}
+            {latestPsa10 !== undefined && (
+              <div>
+                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>PSA 10</div>
+                <div
+                  style={{
+                    fontFamily: 'var(--mono)',
+                    fontSize: '22px',
+                    fontWeight: 700,
+                    color: 'var(--ink)',
+                  }}
+                >
+                  {latestPsa10 != null ? `¥${latestPsa10.toLocaleString()}` : '—'}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

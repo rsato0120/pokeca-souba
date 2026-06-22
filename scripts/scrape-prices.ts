@@ -4,6 +4,16 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import type { PriceHistory } from '@/types/pokeca'
 
+const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
+
+function loadSnkrdunkIds(): Record<string, number> {
+  try { return JSON.parse(fs.readFileSync(SNKRDUNK_IDS_FILE, 'utf-8')) } catch { return {} }
+}
+
+function saveSnkrdunkIds(ids: Record<string, number>): void {
+  fs.writeFileSync(SNKRDUNK_IDS_FILE, JSON.stringify(ids, null, 2), 'utf-8')
+}
+
 const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ', 'コンプ', '全種', 'セット', '複数', '大量', 'カートン']
 const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[1-9][0-9]+\s*枚/, /[2-9０-９]\s*枚/, /[2-9０-９]\s*[点種]/, /[2-9０-９]\s*(BOX|ボックス|箱)/i, /[1-9][0-9]+\s*(BOX|ボックス|箱)/i]
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
@@ -97,47 +107,59 @@ async function scrapeMercari(browser: Browser, searchQuery: string, debug = fals
   }
 }
 
-// 出品中件数を取得（供給量の代替指標）
-async function getMercariOnSaleCount(browser: Browser, searchQuery: string, debug = false): Promise<number | null> {
+// スニーカーダンク: カード名+レアリティで apparel_id を検索
+async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
-
-  const keyword = encodeURIComponent(searchQuery)
-  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale`
-
   try {
-    const responsePromise = page.waitForResponse(
-      r => r.url().includes('/v2/entities:search') && r.status() === 200,
-      { timeout: 25000 }
+    const query = encodeURIComponent(`${cardName} ${rarity}`)
+    await page.goto(`https://snkrdunk.com/search?keyword=${query}&category=card`, {
+      waitUntil: 'domcontentloaded', timeout: 15000
+    })
+    const links = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('a'))
+        .filter(a => (a as HTMLAnchorElement).href.includes('/apparels/'))
+        .map(a => ({ text: (a as HTMLElement).innerText.trim(), href: (a as HTMLAnchorElement).href }))
     )
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    const filtered = links.filter(l => l.text.includes(cardName) && l.text.includes(rarity))
+    if (!filtered.length) return null
+    const m = filtered[0].href.match(/\/apparels\/(\d+)/)
+    return m ? parseInt(m[1]) : null
+  } catch { return null }
+  finally { await page.close() }
+}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let json: any = null
-    try {
-      const res = await responsePromise
-      json = await res.json()
-    } catch (e) {
-      if (debug) process.stdout.write(`[on_sale API失敗: ${e instanceof Error ? e.message : e}] `)
-      return null
+// スニーカーダンク: 出品数 + PSA10 価格を取得
+async function getSnkrdunkData(browser: Browser, apparelId: number): Promise<{ onSale: number | null; psa10: number | null }> {
+  const result = { onSale: null as number | null, psa10: null as number | null }
+  const page = await browser.newPage()
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
+  try {
+    // 出品数
+    await page.goto(`https://snkrdunk.com/apparels/${apparelId}`, {
+      waitUntil: 'domcontentloaded', timeout: 15000
+    })
+    const mainText = await page.evaluate(() => document.body.innerText)
+    const onSaleMatch = mainText.match(/出品\((\d+)\+?\)/)
+    if (onSaleMatch) result.onSale = parseInt(onSaleMatch[1])
+
+    // PSA10 最新取引価格
+    await page.goto(`https://snkrdunk.com/apparels/${apparelId}/sales-histories`, {
+      waitUntil: 'domcontentloaded', timeout: 15000
+    })
+    const histText = await page.evaluate(() => document.body.innerText)
+    const psa10Start = histText.indexOf('状態PSA10の売買履歴')
+    if (psa10Start >= 0) {
+      const psa9Start = histText.indexOf('状態PSA9の売買履歴', psa10Start)
+      const section = histText.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 600)
+      if (!section.includes('まだこの商品は取引がありません')) {
+        const priceMatch = section.match(/¥([\d,]+)/)
+        if (priceMatch) result.psa10 = parseInt(priceMatch[1].replace(/,/g, ''))
+      }
     }
-
-    if (!json) return null
-
-    // APIレスポンスから件数を取得（numFound は文字列で返ることがある）
-    const items: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
-    const meta = json.meta ?? json.data?.meta ?? {}
-    const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
-    const count = rawTotal != null ? Number(rawTotal) : items.length
-
-    if (debug) process.stdout.write(`[on_sale: numFound=${rawTotal} count=${count} items=${items.length}] `)
-    return !isNaN(count) && count > 0 ? count : null
-  } catch (e) {
-    if (debug) process.stdout.write(`[on_sale例外: ${e instanceof Error ? e.message : e}] `)
-    return null
-  } finally {
-    await page.close()
-  }
+  } catch { /* ignore */ }
+  finally { await page.close() }
+  return result
 }
 
 function savePriceHistory(
@@ -145,7 +167,8 @@ function savePriceHistory(
   date: string,
   low: number,
   high: number,
-  onSale: number | null
+  onSale: number | null,
+  psa10: number | null
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -156,6 +179,7 @@ function savePriceHistory(
   const record = {
     date, low, high,
     ...(onSale != null ? { on_sale: onSale } : {}),
+    ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
   const idx = data.history.findIndex(r => r.date === date)
@@ -176,7 +200,10 @@ async function scrapeItem(
   searchQuery: string,
   label: string,
   date: string,
-  stats: { succeeded: number; skipped: number; failed: number }
+  stats: { succeeded: number; skipped: number; failed: number },
+  snkrdunkIds: Record<string, number>,
+  cardName?: string,
+  rarity?: string
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
@@ -201,11 +228,31 @@ async function scrapeItem(
 
     const low = calcPercentile(filtered, 25)
     const high = calcPercentile(filtered, 75)
-    const onSale = await getMercariOnSaleCount(browser, searchQuery)
-    const supplyLog = onSale != null ? ` / 出品中${onSale}件` : ''
 
-    savePriceHistory(id, date, low, high, onSale)
-    console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${supplyLog}）`)
+    // スニーカーダンクから出品数・PSA10取得（カードのみ、BOXは対象外）
+    let onSale: number | null = null
+    let psa10: number | null = null
+    if (cardName && rarity) {
+      let apparelId: number | null = snkrdunkIds[id] ?? null
+      if (!apparelId) {
+        apparelId = await findSnkrdunkId(browser, cardName, rarity)
+        if (apparelId) {
+          snkrdunkIds[id] = apparelId
+          saveSnkrdunkIds(snkrdunkIds)
+        }
+      }
+      if (apparelId) {
+        const snkrData = await getSnkrdunkData(browser, apparelId)
+        onSale = snkrData.onSale
+        psa10 = snkrData.psa10
+      }
+    }
+
+    const supplyLog = onSale != null ? ` / 出品${onSale}件` : ''
+    const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
+
+    savePriceHistory(id, date, low, high, onSale, psa10)
+    console.log(`完了 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（売${filtered.length}件${supplyLog}${psa10Log}）`)
     stats.succeeded++
   } catch (e) {
     console.log('失敗（既存価格を維持）')
@@ -229,6 +276,7 @@ async function main() {
   })
 
   const stats = { succeeded: 0, skipped: 0, failed: 0 }
+  const snkrdunkIds = loadSnkrdunkIds()
 
   try {
     // ── カード価格 ──
@@ -243,7 +291,10 @@ async function main() {
         query,
         `${card.card_name} ${card.rarity}`,
         date,
-        stats
+        stats,
+        snkrdunkIds,
+        card.card_name,
+        card.rarity
       )
     }
 
@@ -257,7 +308,9 @@ async function main() {
           `${box.box_name} 未開封 BOX`,
           `${box.box_name} 未開封BOX`,
           date,
-          stats
+          stats,
+          snkrdunkIds
+          // cardName/rarity 未指定 → スニーカーダンク不要
         )
       }
     }

@@ -81,7 +81,8 @@ export interface PriceRecord {
   date: string  // "2026-06-20"
   low: number
   high: number
-  on_sale?: number  // メルカリ出品中件数（供給量の代替指標）
+  on_sale?: number   // スニーカーダンク出品中件数
+  psa10?: number | null  // スニーカーダンク PSA10最安値（null = 記載なし）
 }
 
 export interface PriceHistory {
