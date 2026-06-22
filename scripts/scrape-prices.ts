@@ -129,37 +129,49 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
   finally { await page.close() }
 }
 
-// スニーカーダンク: 出品数 + PSA10 価格を取得
-async function getSnkrdunkData(browser: Browser, apparelId: number): Promise<{ onSale: number | null; psa10: number | null }> {
-  const result = { onSale: null as number | null, psa10: null as number | null }
+// メルカリ: 出品中件数を取得
+async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Promise<number | null> {
+  const page = await browser.newPage()
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
+  const keyword = encodeURIComponent(searchQuery)
+  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale`
+  try {
+    const responsePromise = page.waitForResponse(
+      r => r.url().includes('/v2/entities:search') && r.status() === 200,
+      { timeout: 25000 }
+    )
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let json: any = null
+    try { json = await (await responsePromise).json() } catch { return null }
+    if (!json) return null
+    const items: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
+    const meta = json.meta ?? json.data?.meta ?? {}
+    const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
+    const count = rawTotal != null ? Number(rawTotal) : items.length
+    return !isNaN(count) && count > 0 ? count : null
+  } catch { return null }
+  finally { await page.close() }
+}
+
+// スニーカーダンク: PSA10 最新取引価格を取得
+async function getSnkrdunkPsa10(browser: Browser, apparelId: number): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
-    // 出品数
-    await page.goto(`https://snkrdunk.com/apparels/${apparelId}`, {
-      waitUntil: 'domcontentloaded', timeout: 15000
-    })
-    const mainText = await page.evaluate(() => document.body.innerText)
-    const onSaleMatch = mainText.match(/出品\((\d+)\+?\)/)
-    if (onSaleMatch) result.onSale = parseInt(onSaleMatch[1])
-
-    // PSA10 最新取引価格
     await page.goto(`https://snkrdunk.com/apparels/${apparelId}/sales-histories`, {
       waitUntil: 'domcontentloaded', timeout: 15000
     })
     const histText = await page.evaluate(() => document.body.innerText)
     const psa10Start = histText.indexOf('状態PSA10の売買履歴')
-    if (psa10Start >= 0) {
-      const psa9Start = histText.indexOf('状態PSA9の売買履歴', psa10Start)
-      const section = histText.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 600)
-      if (!section.includes('まだこの商品は取引がありません')) {
-        const priceMatch = section.match(/¥([\d,]+)/)
-        if (priceMatch) result.psa10 = parseInt(priceMatch[1].replace(/,/g, ''))
-      }
-    }
-  } catch { /* ignore */ }
+    if (psa10Start < 0) return null
+    const psa9Start = histText.indexOf('状態PSA9の売買履歴', psa10Start)
+    const section = histText.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 600)
+    if (section.includes('まだこの商品は取引がありません')) return null
+    const priceMatch = section.match(/¥([\d,]+)/)
+    return priceMatch ? parseInt(priceMatch[1].replace(/,/g, '')) : null
+  } catch { return null }
   finally { await page.close() }
-  return result
 }
 
 function savePriceHistory(
@@ -229,8 +241,10 @@ async function scrapeItem(
     const low = calcPercentile(filtered, 25)
     const high = calcPercentile(filtered, 75)
 
-    // スニーカーダンクから出品数・PSA10取得（カードのみ、BOXは対象外）
-    let onSale: number | null = null
+    // メルカリから出品数取得
+    const onSale = await getMercariOnSaleCount(browser, searchQuery)
+
+    // スニーカーダンクからPSA10取得（カードのみ）
     let psa10: number | null = null
     if (cardName && rarity) {
       let apparelId: number | null = snkrdunkIds[id] ?? null
@@ -242,9 +256,7 @@ async function scrapeItem(
         }
       }
       if (apparelId) {
-        const snkrData = await getSnkrdunkData(browser, apparelId)
-        onSale = snkrData.onSale
-        psa10 = snkrData.psa10
+        psa10 = await getSnkrdunkPsa10(browser, apparelId)
       }
     }
 
