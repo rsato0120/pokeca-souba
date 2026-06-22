@@ -26,7 +26,7 @@ export async function generateMetadata(props: PageProps<'/cards/[cardId]'>): Pro
       description,
       images: card.image_url ? [{ url: card.image_url, width: 600, height: 837 }] : [],
     },
-    twitter: { title, description },
+    twitter: { card: 'summary_large_image', title, description, images: card.image_url ? [card.image_url] : [] },
   }
 }
 
@@ -451,6 +451,33 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   </a>
                 ))}
               </div>
+            )
+          })()}
+
+          {/* Xシェアボタン */}
+          {(() => {
+            const tweetText = [
+              `【AI相場予想】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
+              `現在 ¥${price_forecast.current_low.toLocaleString()}〜¥${price_forecast.current_high.toLocaleString()}`,
+              `${signal.dot} ${signal.label} 上昇期待${overall.up_pct}%`,
+              `#ポケカ相場 #ポケカMEGA`,
+              `https://pokeca-souba.vercel.app/cards/${cardId}`,
+            ].join('\n')
+            return (
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  padding: '5px 16px', borderRadius: '20px',
+                  border: '1px solid #aaa',
+                  color: 'var(--ink-dim)', fontSize: '12px', fontFamily: 'var(--mono)',
+                  letterSpacing: '0.03em', marginBottom: '6px',
+                }}
+              >
+                𝕏 でシェア
+              </a>
             )
           })()}
         </div>

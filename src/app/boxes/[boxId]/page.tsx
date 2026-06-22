@@ -340,6 +340,32 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               </div>
             )
           })()}
+
+          {/* Xシェアボタン */}
+          {(() => {
+            const tweetText = [
+              `【BOX相場】${box.box_name}`,
+              latestBoxPrice ? `現在 ¥${latestBoxPrice.low.toLocaleString()}〜¥${latestBoxPrice.high.toLocaleString()}（定価比${premiumPct != null ? (premiumPct >= 0 ? `+${premiumPct}` : `${premiumPct}`) : '—'}%）` : '',
+              `#ポケカ相場 #ポケカMEGA`,
+              `https://pokeca-souba.vercel.app/boxes/${boxId}`,
+            ].filter(Boolean).join('\n')
+            return (
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  padding: '5px 16px', borderRadius: '20px',
+                  border: '1px solid #aaa',
+                  color: 'var(--ink-dim)', fontSize: '12px', fontFamily: 'var(--mono)',
+                  letterSpacing: '0.03em', marginTop: '12px',
+                }}
+              >
+                𝕏 でシェア
+              </a>
+            )
+          })()}
         </div>
       )}
 
