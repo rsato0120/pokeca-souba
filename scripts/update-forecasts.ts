@@ -98,7 +98,6 @@ async function main() {
   }
 
   console.log(`\n完了: ${succeeded.length}枚処理, ${failed}枚失敗`)
-  if (failed > 0) process.exit(1)
 }
 
 main()
