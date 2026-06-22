@@ -305,9 +305,11 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           {/* 購入リンク */}
           {(() => {
             const q = encodeURIComponent(`${box.box_name} 未開封 BOX`)
+            const surugayaSearch = `https://www.suruga-ya.jp/search?keyword=${q}`
             const shops = [
               { name: 'メルカリで探す', url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`, color: '#FF0211' },
               { name: '楽天市場で探す', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000' },
+              { name: '駿河屋で探す', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: '#FF6600' },
             ]
             return (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--hair)' }}>

@@ -20,6 +20,10 @@ function getPriceData(cardId: string): { low: number; high: number; history: Pri
   return null
 }
 
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+// 15 RPM free tier → 1 call per 4s to stay safely under the limit
+const API_DELAY_MS = 4000
+
 async function main() {
   const cards = getAllCards()
   console.log(`${cards.length}枚のカードの予想を生成します\n`)
@@ -27,6 +31,7 @@ async function main() {
   console.log('【Step 1】個別予想を生成中...\n')
   const succeeded: Array<{ cardId: string; card: typeof cards[0]; forecast: Forecast }> = []
   let failed = 0
+  let apiCallCount = 0
 
   for (const card of cards) {
     const cardId = getCardSlug(card)
@@ -39,14 +44,17 @@ async function main() {
       continue
     }
 
+    if (apiCallCount > 0) await sleep(API_DELAY_MS)
     process.stdout.write('予想生成中... ')
     try {
       const forecast = await generateForecast(card, price.low, price.high, price.history)
+      apiCallCount++
       succeeded.push({ cardId, card, forecast })
       const { up_pct, flat_pct, down_pct } = forecast.overall
       const priceStr = `¥${price.low.toLocaleString()}〜¥${price.high.toLocaleString()}`
       console.log(`完了 [↑${up_pct}% →${flat_pct}% ↓${down_pct}%] ${priceStr}`)
     } catch (e) {
+      apiCallCount++
       console.log('失敗')
       console.error('    エラー:', e instanceof Error ? e.message : e)
       failed++

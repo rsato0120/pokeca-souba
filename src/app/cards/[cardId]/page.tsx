@@ -425,9 +425,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           {/* 購入リンク */}
           {(() => {
             const q = encodeURIComponent(`${card.card_name} ${card.rarity} ${box?.box_name ?? ''}`)
+            const surugayaSearch = `https://www.suruga-ya.jp/search?keyword=${q}`
             const shops = [
               { name: 'メルカリ', url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`, color: '#FF0211' },
               { name: '楽天市場', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000' },
+              { name: '駿河屋', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: '#FF6600' },
             ]
             return (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
