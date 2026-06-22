@@ -39,24 +39,26 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
   }
 
   // 価格履歴の集計
+  const midOf = (r: PriceRecord) => r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2
+
   let historySection = ''
   if (priceHistory.length >= 2) {
     const now = Date.now()
-    const avg = (records: PriceRecord[], key: 'low' | 'high') =>
-      Math.round(records.reduce((s, r) => s + Number(r[key]), 0) / records.length)
+    const avgOf = (records: PriceRecord[]) =>
+      Math.round(records.reduce((s, r) => s + midOf(r), 0) / records.length)
 
     const p7 = priceHistory.filter(r => new Date(r.date).getTime() >= now - 7 * 86400000)
     const p30 = priceHistory.filter(r => new Date(r.date).getTime() >= now - 30 * 86400000)
     const oldest = priceHistory[priceHistory.length - 1]
     const newest = priceHistory[0]
-    const oldMid = (Number(oldest.low) + Number(oldest.high)) / 2
-    const newMid = (Number(newest.low) + Number(newest.high)) / 2
+    const oldMid = midOf(oldest)
+    const newMid = midOf(newest)
     const changePct = Math.round(((newMid - oldMid) / oldMid) * 100)
     const trendStr = changePct > 5 ? '上昇傾向' : changePct < -5 ? '下落傾向' : '横ばい'
 
     historySection = `\n## 実際の価格履歴（参考）\n`
-    if (p7.length > 0) historySection += `- 7日間平均: ¥${avg(p7, 'low')}〜¥${avg(p7, 'high')}（${p7.length}日分）\n`
-    if (p30.length > 0) historySection += `- 30日間平均: ¥${avg(p30, 'low')}〜¥${avg(p30, 'high')}（${p30.length}日分）\n`
+    if (p7.length > 0) historySection += `- 7日間平均: ¥${avgOf(p7)}（${p7.length}日分）\n`
+    if (p30.length > 0) historySection += `- 30日間平均: ¥${avgOf(p30)}（${p30.length}日分）\n`
     historySection += `- 直近${priceHistory.length}日間の傾向: ${trendStr}（${changePct >= 0 ? '+' : ''}${changePct}%）\n`
 
     // 在庫・需給シグナル（メルカリ出品中件数）
