@@ -21,10 +21,6 @@ export default function TopPage() {
     }))
     .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
 
-  const featured = cardsWithForecast[0]
-  const featuredSlug = featured ? getCardSlug(featured.card) : ''
-  const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
-
   // 検索用データ（Client Componentに渡す）
   const searchCards: SearchCard[] = cards.map((card) => ({
     slug: getCardSlug(card),
@@ -99,6 +95,28 @@ export default function TopPage() {
     .filter(m => getChange(m) < 0)
     .sort((a, b) => getChange(a) - getChange(b))
     .slice(0, 5)
+
+  // AI注目カード: 上昇期待度が高く、かつ直近で大きく下落していないものに限定
+  // （値下がり中のカードが「注目」に並ぶ違和感を避ける）
+  const RECENT_DROP_LIMIT = -3  // 直近の値動きが-3%超の下落なら注目から除外
+  const notableFromMetrics = [...metrics]
+    .filter(m => (m.forecast?.overall.up_pct ?? 0) > 0)
+    .filter(m => (m.weekChange ?? m.dayChange ?? 0) >= RECENT_DROP_LIMIT)
+    .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
+  // 価格データがまだ無いカードも拾えるよう、不足分はAI予想順で補完
+  const notableCards = (notableFromMetrics.length >= 5
+    ? notableFromMetrics
+    : [
+        ...notableFromMetrics,
+        ...cardsWithForecast.filter(
+          c => !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
+        ),
+      ]
+  ).slice(0, 5)
+
+  const featured = notableCards[0] ?? cardsWithForecast[0]
+  const featuredSlug = featured ? getCardSlug(featured.card) : ''
+  const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
 
   return (
     <div className="wrap">
@@ -276,7 +294,7 @@ export default function TopPage() {
           <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>3ヶ月後の価格予想つき</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {cardsWithForecast.slice(0, 5).map(({ card, forecast }, i) => {
+          {notableCards.map(({ card, forecast }, i) => {
             const slug = getCardSlug(card)
             const rankStyle: React.CSSProperties = i < 2
               ? { fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, color: 'var(--gold)', textAlign: 'center', minWidth: '34px' }
