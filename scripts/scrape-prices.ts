@@ -87,8 +87,9 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       .reduce((min, i) => Math.min(min, i), Infinity)
 
     // 素体（非PSA）: PSAセクション開始前の全取引価格を平均
+    // スニダンは円マークなしで「179,000」形式で価格を表示する
     const regularSection = isFinite(psaStart) ? text.slice(0, psaStart) : text
-    const regularPrices = [...regularSection.matchAll(/[¥￥]([\d,]+)/g)]
+    const regularPrices = [...regularSection.matchAll(/\b(\d{1,3}(?:,\d{3})+)\b/g)]
       .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 100)
     const regular = regularPrices.length > 0
       ? Math.round(regularPrices.reduce((a, b) => a + b, 0) / regularPrices.length)
@@ -100,7 +101,7 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
 
     let psa10: number | null = null
     if (psa10Start >= 0) {
-      const psa9Patterns = ['状態PSA9の売買履歴', 'PSA9の売買履歴', 'PSA 9の売買履歴', 'PSA9']
+      const psa9Patterns = ['状態PSA9の売買履歴', 'PSA9の売買履歴', 'PSA 9の売買履歴', 'PSA9の']
       const psa9Start = psa9Patterns.reduce((acc, s) => {
         const i = text.indexOf(s, psa10Start + 4)
         return acc >= 0 ? acc : (i > psa10Start ? i : -1)
@@ -108,8 +109,8 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       const psa10Section = text.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 2000)
       const noHistory = ['まだこの商品は取引がありません', '取引がありません', '売買履歴はまだありません']
       if (!noHistory.some(s => psa10Section.includes(s))) {
-        const psa10Prices = [...psa10Section.matchAll(/[¥￥]([\d,]+)/g)]
-          .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 100)
+        const psa10Prices = [...psa10Section.matchAll(/\b(\d{1,3}(?:,\d{3})+)\b/g)]
+          .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 1000)
         psa10 = psa10Prices.length > 0
           ? Math.round(psa10Prices.reduce((a, b) => a + b, 0) / psa10Prices.length)
           : null
