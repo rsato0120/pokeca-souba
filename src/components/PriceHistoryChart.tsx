@@ -74,8 +74,17 @@ export default function PriceHistoryChart({ history }: Props) {
   const fmtPrice = (p: number) =>
     p >= 10000 ? `${Math.round(p / 1000)}千` : Math.round(p).toLocaleString()
 
-  const dateLabelIndices = filtered.length <= 1 ? [0] :
-    [0, Math.floor((filtered.length - 1) / 2), filtered.length - 1]
+  // 点数が少なければ全ラベル、多ければ最大6個を均等表示（先頭・末尾は必ず含む）
+  const MAX_LABELS = 6
+  const dateLabelIndices = filtered.length <= MAX_LABELS
+    ? filtered.map((_, i) => i)
+    : Array.from(
+        new Set(
+          Array.from({ length: MAX_LABELS }, (_, k) =>
+            Math.round((k * (filtered.length - 1)) / (MAX_LABELS - 1))
+          )
+        )
+      )
 
   return (
     <div>
