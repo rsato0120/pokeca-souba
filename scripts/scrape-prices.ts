@@ -73,28 +73,43 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
     await page.goto(`https://snkrdunk.com/apparels/${apparelId}/sales-histories`, {
-      waitUntil: 'domcontentloaded', timeout: 15000
+      waitUntil: 'load', timeout: 20000
     })
+    // 動的コンテンツのロード待ち
+    await new Promise(r => setTimeout(r, 2500))
     const text = await page.evaluate(() => document.body.innerText)
 
+    // PSAセクション開始位置（"状態PSA" か "PSAの売買履歴" のみ。"PSA10"単体は他の箇所に出現しうるため除外）
+    const psaMarkers = ['状態PSA', 'PSAの売買履歴', '状態 PSA']
+    const psaStart = psaMarkers
+      .map(s => text.indexOf(s))
+      .filter(i => i >= 0)
+      .reduce((min, i) => Math.min(min, i), Infinity)
+
     // 素体（非PSA）: PSAセクション開始前の全取引価格を平均
-    const psaStart = text.indexOf('状態PSA')
-    const regularSection = psaStart > 0 ? text.slice(0, psaStart) : text
-    const regularPrices = [...regularSection.matchAll(/¥([\d,]+)/g)]
-      .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p > 0)
+    const regularSection = isFinite(psaStart) ? text.slice(0, psaStart) : text
+    const regularPrices = [...regularSection.matchAll(/[¥￥]([\d,]+)/g)]
+      .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 100)
     const regular = regularPrices.length > 0
       ? Math.round(regularPrices.reduce((a, b) => a + b, 0) / regularPrices.length)
       : null
 
-    // PSA10: 専用セクションの全取引価格を平均
-    const psa10Start = text.indexOf('状態PSA10の売買履歴')
+    // PSA10セクション開始位置（"PSA10の" を最低限のパターンとして使用）
+    const psa10Patterns = ['状態PSA10の売買履歴', 'PSA10の売買履歴', 'PSA 10の売買履歴', 'PSA10の']
+    const psa10Start = psa10Patterns.reduce((acc, s) => acc >= 0 ? acc : text.indexOf(s), -1)
+
     let psa10: number | null = null
     if (psa10Start >= 0) {
-      const psa9Start = text.indexOf('状態PSA9の売買履歴', psa10Start)
-      const psa10Section = text.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 1500)
-      if (!psa10Section.includes('まだこの商品は取引がありません')) {
-        const psa10Prices = [...psa10Section.matchAll(/¥([\d,]+)/g)]
-          .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p > 0)
+      const psa9Patterns = ['状態PSA9の売買履歴', 'PSA9の売買履歴', 'PSA 9の売買履歴', 'PSA9']
+      const psa9Start = psa9Patterns.reduce((acc, s) => {
+        const i = text.indexOf(s, psa10Start + 4)
+        return acc >= 0 ? acc : (i > psa10Start ? i : -1)
+      }, -1)
+      const psa10Section = text.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 2000)
+      const noHistory = ['まだこの商品は取引がありません', '取引がありません', '売買履歴はまだありません']
+      if (!noHistory.some(s => psa10Section.includes(s))) {
+        const psa10Prices = [...psa10Section.matchAll(/[¥￥]([\d,]+)/g)]
+          .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 100)
         psa10 = psa10Prices.length > 0
           ? Math.round(psa10Prices.reduce((a, b) => a + b, 0) / psa10Prices.length)
           : null
@@ -228,7 +243,8 @@ async function scrapeCard(
       return
     }
 
-    const onSale = await getMercariOnSaleCount(browser, searchQuery)
+    // 出品中件数はカード名+レアリティだけで検索（BOXコードを外すと件数が正確になる）
+    const onSale = await getMercariOnSaleCount(browser, `${cardName} ${rarity}`)
 
     const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
@@ -260,8 +276,12 @@ async function scrapeBox(
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
-    savePriceHistory(id, date, avg, null, null)
-    console.log(`完了 平均¥${avg.toLocaleString()}`)
+    // 出品中件数（"1BOX"を外して広めに取得）
+    const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
+    const onSale = await getMercariOnSaleCount(browser, onSaleQuery)
+    savePriceHistory(id, date, avg, onSale, null)
+    const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
+    console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
     stats.succeeded++
   } catch (e) {
     console.log('失敗')
@@ -275,7 +295,6 @@ async function main() {
   const cards = getAllCards()
   const boxes = getAllBoxes().filter(b => b.certainty === 'released' && b.packs_per_box != null)
   const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
-  const boxCodeMap = new Map(getAllBoxes().map(b => [b.box_id, b.code]))
   const date = todayJST()
   console.log(`${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
@@ -290,15 +309,16 @@ async function main() {
   try {
     for (const card of cards) {
       const boxName = boxMap.get(card.box_id) ?? ''
-      const boxCode = boxCodeMap.get(card.box_id) ?? ''
-      const query = `${card.card_name} ${card.rarity} ${boxCode} ${boxName}`.replace(/\s+/g, ' ').trim()
+      // BOXコード（M2/M4等）は出品タイトルに入らないため除外して一致件数を増やす
+      const query = `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
       await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity)
     }
 
     if (boxes.length > 0) {
       console.log('\n── 未開封BOX ──')
       for (const box of boxes) {
-        await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 BOX`, `${box.box_name} 未開封BOX`, date, stats)
+        // "1BOX" を明示して複数BOXロットを排除
+        await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`, date, stats)
       }
     }
   } finally {
