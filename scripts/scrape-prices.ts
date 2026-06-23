@@ -21,12 +21,21 @@ function todayJST(): string {
   return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10)
 }
 
-// メルカリ: 固定価格出品中件数を取得
-async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Promise<number | null> {
+// メルカリ: 出品中（on_sale）の件数＋出品価格分布を取得
+// 成約相場（sold_out）と分離することで、急騰（在庫減・出品価格上昇）と
+// 急落（在庫増・投げ売り）を区別できるようにする。
+interface OnSaleResult {
+  count: number | null     // 出品中の総件数（供給圧）
+  askLow: number | null    // 出品最安値帯（即購入できる床値・先行指標）
+  askMid: number | null    // 出品中央値
+}
+
+async function getMercariOnSale(browser: Browser, searchQuery: string): Promise<OnSaleResult> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   const keyword = encodeURIComponent(searchQuery)
-  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now`
+  // 価格昇順で取得 → meta.numFound で総件数、items で安値帯の出品相場を得る
+  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
   try {
     const responsePromise = page.waitForResponse(
       r => r.url().includes('/v2/entities:search') && r.status() === 200,
@@ -35,13 +44,27 @@ async function getMercariOnSaleCount(browser: Browser, searchQuery: string): Pro
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let json: any = null
-    try { json = await (await responsePromise).json() } catch { return null }
-    if (!json) return null
+    try { json = await (await responsePromise).json() } catch { return { count: null, askLow: null, askMid: null } }
+    if (!json) return { count: null, askLow: null, askMid: null }
+
     const meta = json.meta ?? json.data?.meta ?? {}
     const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
-    const count = rawTotal != null ? Number(rawTotal) : null
-    return count != null && !isNaN(count) && count > 0 ? count : null
-  } catch { return null }
+    const count = rawTotal != null && !isNaN(Number(rawTotal)) && Number(rawTotal) > 0 ? Number(rawTotal) : null
+
+    // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）
+    const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
+    const prices = removeOutliers(
+      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
+    ).sort((a, b) => a - b)
+
+    let askLow: number | null = null
+    let askMid: number | null = null
+    if (prices.length >= 3) {
+      askLow = prices[Math.floor(prices.length * 0.1)]  // 10thパーセンタイル＝実質的な床値
+      askMid = calcMedian(prices)
+    }
+    return { count, askLow, askMid }
+  } catch { return { count: null, askLow: null, askMid: null } }
   finally { await page.close() }
 }
 
@@ -72,12 +95,21 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
-    await page.goto(`https://snkrdunk.com/apparels/${apparelId}/sales-histories`, {
-      waitUntil: 'load', timeout: 20000
-    })
-    // 動的コンテンツのロード待ち
-    await new Promise(r => setTimeout(r, 2500))
-    const text = await page.evaluate(() => document.body.innerText)
+    // スニダンはTLSリセット（ERR_CONNECTION_RESET）で間欠的に失敗するため最大4回リトライ
+    let text = ''
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      try {
+        await page.goto(`https://snkrdunk.com/apparels/${apparelId}/sales-histories`, {
+          waitUntil: 'load', timeout: 20000
+        })
+        await new Promise(r => setTimeout(r, 2500))  // 動的コンテンツのロード待ち
+        text = await page.evaluate(() => document.body.innerText)
+        if (text && text.length > 200) break
+      } catch {
+        if (attempt < 4) await new Promise(r => setTimeout(r, 2000))
+      }
+    }
+    if (!text) return { regular: null, psa10: null }
 
     // PSAセクション開始位置（"状態PSA" か "PSAの売買履歴" のみ。"PSA10"単体は他の箇所に出現しうるため除外）
     const psaMarkers = ['状態PSA', 'PSAの売買履歴', '状態 PSA']
@@ -178,7 +210,7 @@ function savePriceHistory(
   avg: number,
   low: number,
   high: number,
-  onSale: number | null,
+  onSale: OnSaleResult | null,
   psa10: number | null
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
@@ -190,7 +222,9 @@ function savePriceHistory(
     low,
     high,
     avg,
-    ...(onSale != null ? { on_sale: onSale } : {}),
+    ...(onSale?.count != null ? { on_sale: onSale.count } : {}),
+    ...(onSale?.askLow != null ? { ask_low: onSale.askLow } : {}),
+    ...(onSale?.askMid != null ? { ask_mid: onSale.askMid } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
@@ -257,10 +291,12 @@ async function scrapeCard(
     const low  = mercariLow  || Math.round(avg * 0.90)
     const high = mercariHigh || Math.round(avg * 1.10)
 
-    // 出品中件数はカード名+レアリティだけで検索（BOXコードを外すと件数が正確になる）
-    const onSale = await getMercariOnSaleCount(browser, `${cardName} ${rarity}`)
+    // 出品中はカード名+レアリティだけで検索（BOXコードを外すと件数が正確になる）
+    const onSale = await getMercariOnSale(browser, `${cardName} ${rarity}`)
 
-    const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
+    const onSaleLog = onSale.count != null
+      ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
+      : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
     savePriceHistory(id, date, avg, low, high, onSale, psa10)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
@@ -291,11 +327,11 @@ async function scrapeBox(
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
-    // 出品中件数（"1BOX"を外して広めに取得）
+    // 出品中（"1BOX"を外して広めに取得）
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
-    const onSale = await getMercariOnSaleCount(browser, onSaleQuery)
+    const onSale = await getMercariOnSale(browser, onSaleQuery)
     savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null)
-    const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
+    const onSaleLog = onSale.count != null ? ` / 出品${onSale.count}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
     stats.succeeded++
   } catch (e) {

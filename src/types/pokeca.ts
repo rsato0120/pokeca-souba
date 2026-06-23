@@ -81,8 +81,10 @@ export interface PriceRecord {
   date: string  // "2026-06-20"
   low: number
   high: number
-  avg?: number          // メルカリ取引平均価格
-  on_sale?: number      // メルカリ固定価格出品中件数
+  avg?: number          // メルカリ成約平均価格（sold_out・結果指標）
+  on_sale?: number      // メルカリ出品中件数（供給圧）
+  ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
+  ask_mid?: number      // 出品中の中央値
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
 }
 

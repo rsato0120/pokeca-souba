@@ -86,6 +86,25 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
           : '横ばい'
         historySection += `- 出品数トレンド: ${saleChangePct >= 0 ? '+' : ''}${saleChangePct}%（${trend}）\n`
       }
+
+      // 成約相場 vs 出品最安値の乖離で「急騰」と「急落」を分離する
+      // 成約(sold)＝結果指標、出品最安(ask_low)＝先行指標。両者の関係＋在庫トレンドで方向を判定。
+      const latestAsk = withSale[0].ask_low ?? null
+      const soldNow = midOf(withSale[0])
+      if (latestAsk != null && soldNow > 0) {
+        const gapPct = Math.round(((latestAsk - soldNow) / soldNow) * 100)
+        const invUp = saleChangePct != null && saleChangePct > 20      // 在庫増
+        const invDown = saleChangePct != null && saleChangePct < -20    // 在庫減
+        // gap>0: 出品が成約より高い（売り手強気/品薄）, gap<0: 出品が成約より安い（投げ売り）
+        let momentum: string
+        if (gapPct <= -8 && invUp) momentum = '急落シグナル（投げ売り＝出品が成約価格を下回り、在庫も増加）'
+        else if (gapPct <= -8) momentum = '軟調（出品最安が成約相場を下回る＝値下げ圧力）'
+        else if (gapPct >= 8 && invDown) momentum = '急騰シグナル（品薄＝出品が成約より高く、在庫も減少）'
+        else if (gapPct >= 8) momentum = '強含み（出品最安が成約相場を上回る＝強気の売り）'
+        else momentum = '安定（出品と成約が拮抗）'
+        historySection += `- 出品最安値: ¥${latestAsk}（成約相場との乖離 ${gapPct >= 0 ? '+' : ''}${gapPct}%）\n`
+        historySection += `- 値動きの方向: ${momentum}\n`
+      }
     }
   }
 
