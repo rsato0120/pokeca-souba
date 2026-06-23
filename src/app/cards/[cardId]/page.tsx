@@ -353,10 +353,10 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 style={{
                   fontSize: '11px',
                   color: 'var(--ink-faint)',
-                  marginBottom: '4px',
+                  marginBottom: '6px',
                 }}
               >
-                予想価格（3ヶ月後 本線）
+                予想価格（本線）
               </div>
               <div
                 style={{
@@ -365,16 +365,29 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   fontWeight: 600,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
+                  gap: '8px',
                   flexWrap: 'wrap',
                 }}
               >
-                <span style={{ color: 'var(--ink-dim)' }}>
-                  ¥{price_forecast.current_low.toLocaleString()}〜{price_forecast.current_high.toLocaleString()}
+                <span style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>現在</span>
+                  <span style={{ color: 'var(--ink-dim)' }}>
+                    ¥{price_forecast.current_low.toLocaleString()}〜{price_forecast.current_high.toLocaleString()}
+                  </span>
                 </span>
                 <span style={{ color: 'var(--ink-faint)' }}>→</span>
-                <span style={{ color: signal.color }}>
-                  ¥{price_forecast.m3_low.toLocaleString()}〜{price_forecast.m3_high.toLocaleString()}
+                <span style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>3ヶ月後</span>
+                  <span style={{ color: signal.color }}>
+                    ¥{price_forecast.m3_low.toLocaleString()}〜{price_forecast.m3_high.toLocaleString()}
+                  </span>
+                </span>
+                <span style={{ color: 'var(--ink-faint)' }}>→</span>
+                <span style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>6ヶ月後</span>
+                  <span style={{ color: signal.color }}>
+                    ¥{price_forecast.m6_low.toLocaleString()}〜{price_forecast.m6_high.toLocaleString()}
+                  </span>
                 </span>
               </div>
             </div>
