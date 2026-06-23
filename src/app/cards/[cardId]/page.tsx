@@ -5,6 +5,9 @@ import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, g
 import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 
+// A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
+const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
+
 export async function generateMetadata(props: PageProps<'/cards/[cardId]'>): Promise<Metadata> {
   const { cardId } = await props.params
   const card = getCardBySlug(cardId)
@@ -436,19 +439,22 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           {(() => {
             const q = encodeURIComponent(`${card.card_name} ${card.rarity} ${box?.box_name ?? ''}`)
             const surugayaSearch = `https://www.suruga-ya.jp/search?category=501080033&search_word=${q}`
+            // メルカリはA8経由（a8ejpredirectでカード別検索ページに着地させつつクリック/インプレッションを計測）
+            const mercariSearch = `https://jp.mercari.com/search?keyword=${q}&status=on_sale`
+            const mercariUrl = `https://px.a8.net/svt/ejp?a8mat=${A8_MERCARI_MAT}&a8ejpredirect=${encodeURIComponent(mercariSearch)}`
             const shops = [
-              { name: 'メルカリ', url: `https://jp.mercari.com/search?keyword=${q}&status=on_sale`, color: '#FF0211' },
-              { name: '楽天市場', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000' },
-              { name: '駿河屋', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: '#FF6600' },
+              { name: 'メルカリ', url: mercariUrl, color: '#FF0211', nofollow: true },
+              { name: '楽天市場', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000', nofollow: false },
+              { name: '駿河屋', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: '#FF6600', nofollow: true },
             ]
             return (
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px', alignItems: 'center' }}>
                 {shops.map(s => (
                   <a
                     key={s.name}
                     href={s.url}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel={s.nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
                     style={{
                       display: 'inline-flex', alignItems: 'center', gap: '4px',
                       padding: '5px 14px', borderRadius: '20px',
@@ -460,6 +466,15 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                     {s.name}で探す →
                   </a>
                 ))}
+                {/* A8インプレッション計測タグ（メルカリ） */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://www14.a8.net/0.gif?a8mat=${A8_MERCARI_MAT}`}
+                  width={1}
+                  height={1}
+                  alt=""
+                  style={{ position: 'absolute', width: 1, height: 1, border: 0 }}
+                />
               </div>
             )
           })()}
