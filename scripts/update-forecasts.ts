@@ -13,7 +13,11 @@ function getPriceData(cardId: string): { low: number; high: number; history: Pri
   try {
     const data: PriceHistory = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
     if (data.history.length > 0) {
-      const { low, high } = data.history[0]
+      const record = data.history[0]
+      const avg = record.avg ?? record.low
+      // scraper が avg のみ保存する場合（low===high）は ±10% の価格帯を推定する
+      const low = record.low < record.high ? record.low : Math.round(avg * 0.90)
+      const high = record.low < record.high ? record.high : Math.round(avg * 1.10)
       return { low, high, history: data.history }
     }
   } catch {}
