@@ -40,13 +40,15 @@ export default function PriceHistoryChart({ history }: Props) {
     history.filter(r => new Date(r.date).getTime() >= nowMs - d * 24 * 60 * 60 * 1000).length >= 1
 
   const psa10Points = filtered.filter(r => r.psa10 != null)
+  const hasPsa = psa10Points.length > 0
 
-  const allPrices = [
-    ...filtered.flatMap(r => [r.low, r.high]),
-    ...psa10Points.map(r => r.psa10 as number),
-  ]
-  const rawMin = allPrices.length ? Math.min(...allPrices) : 0
-  const rawMax = allPrices.length ? Math.max(...allPrices) : 1
+  // 右側にPSA10用の軸ラベル領域を確保（PSA10があるときだけ広げる）
+  const PR_EFF = hasPsa ? 54 : PR
+
+  // 通常相場の縦軸（左）— PSA10は桁が違うため除外して、通常相場の上下動が見えるようにする
+  const regPrices = filtered.flatMap(r => [r.low, r.high])
+  const rawMin = regPrices.length ? Math.min(...regPrices) : 0
+  const rawMax = regPrices.length ? Math.max(...regPrices) : 1
   const pad = (rawMax - rawMin) * 0.2 || rawMin * 0.15 || 1000
   const minP = Math.max(0, rawMin - pad)
   const maxP = rawMax + pad
@@ -54,12 +56,24 @@ export default function PriceHistoryChart({ history }: Props) {
   const toY = (p: number) =>
     PT + (H - PT - PB) * (1 - (p - minP) / (maxP - minP))
 
+  // PSA10の縦軸（右）— 独立スケール。1点だけのときは±15%でレンジを作る
+  const psaVals = psa10Points.map(r => r.psa10 as number)
+  const psaRawMin = psaVals.length ? Math.min(...psaVals) : 0
+  const psaRawMax = psaVals.length ? Math.max(...psaVals) : 1
+  const psaPad = (psaRawMax - psaRawMin) * 0.2 || psaRawMax * 0.15 || 1000
+  const psaMin = Math.max(0, psaRawMin - psaPad)
+  const psaMax = psaRawMax + psaPad
+  const toYPsa = (p: number) =>
+    psaMax === psaMin
+      ? PT + (H - PT - PB) / 2
+      : PT + (H - PT - PB) * (1 - (p - psaMin) / (psaMax - psaMin))
+
   const timestamps = filtered.map(r => new Date(r.date).getTime())
   const minT = timestamps[0] ?? nowMs
   const maxT = timestamps[timestamps.length - 1] ?? nowMs
   const rangeT = maxT - minT || 1
 
-  const toX = (t: number) => PL + ((t - minT) / rangeT) * (W - PL - PR)
+  const toX = (t: number) => PL + ((t - minT) / rangeT) * (W - PL - PR_EFF)
 
   const midPts = filtered.map(r => `${toX(new Date(r.date).getTime())},${toY(r.mid)}`).join(' ')
   const topPts = filtered.map(r => `${toX(new Date(r.date).getTime())},${toY(r.high)}`).join(' ')
@@ -70,6 +84,14 @@ export default function PriceHistoryChart({ history }: Props) {
     y: toY(maxP - step * i),
     price: maxP - step * i,
   }))
+
+  // PSA10右軸ラベル（1点だけのときはその値のみ）
+  const psaStep = (psaMax - psaMin) / 3
+  const psaYLabels = !hasPsa
+    ? []
+    : psaMax === psaMin
+    ? [{ y: toYPsa(psaMax), price: psaMax }]
+    : [0, 1, 2, 3].map(i => ({ y: toYPsa(psaMax - psaStep * i), price: psaMax - psaStep * i }))
 
   const fmtPrice = (p: number) =>
     p >= 10000 ? `${Math.round(p / 1000)}千` : Math.round(p).toLocaleString()
@@ -118,12 +140,12 @@ export default function PriceHistoryChart({ history }: Props) {
         <div style={{ marginLeft: 'auto', display: 'flex', gap: '12px', alignItems: 'center' }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--ink-faint)' }}>
             <span style={{ display: 'inline-block', width: '24px', height: '2px', background: 'var(--gold)', borderRadius: '1px' }} />
-            通常相場
+            通常相場{hasPsa ? '（左軸）' : ''}
           </span>
-          {psa10Points.length > 0 && (
+          {hasPsa && (
             <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--ink-faint)' }}>
               <span style={{ display: 'inline-block', width: '8px', height: '8px', background: '#6c8ebf', borderRadius: '50%' }} />
-              PSA 10
+              PSA 10（右軸）
             </span>
           )}
         </div>
@@ -164,11 +186,11 @@ export default function PriceHistoryChart({ history }: Props) {
             {/* グリッド */}
             <g stroke="var(--hair)" strokeWidth="0.8">
               {yLabels.map(({ y }) => (
-                <line key={y} x1={PL} y1={y} x2={W - PR} y2={y} />
+                <line key={y} x1={PL} y1={y} x2={W - PR_EFF} y2={y} />
               ))}
             </g>
 
-            {/* Y軸ラベル */}
+            {/* 左Y軸ラベル（通常相場） */}
             <g fill="var(--ink-faint)" fontSize="11" textAnchor="end">
               {yLabels.map(({ y, price }) => (
                 <text key={y} x={PL - 6} y={y + 4}>
@@ -176,6 +198,17 @@ export default function PriceHistoryChart({ history }: Props) {
                 </text>
               ))}
             </g>
+
+            {/* 右Y軸ラベル（PSA10・独立スケール） */}
+            {hasPsa && (
+              <g fill="#6c8ebf" fontSize="11" textAnchor="start">
+                {psaYLabels.map(({ y, price }) => (
+                  <text key={`psa-${y}`} x={W - PR_EFF + 6} y={y + 4}>
+                    {fmtPrice(price)}
+                  </text>
+                ))}
+              </g>
+            )}
 
             {/* 価格レンジ帯 */}
             {filtered.length >= 2 && (
@@ -207,12 +240,23 @@ export default function PriceHistoryChart({ history }: Props) {
               />
             ))}
 
-            {/* PSA10 データポイント */}
+            {/* PSA10をつなぐ線（2点以上のとき・右軸スケール） */}
+            {psa10Points.length >= 2 && (
+              <polyline
+                points={psa10Points.map(r => `${toX(new Date(r.date).getTime())},${toYPsa(r.psa10 as number)}`).join(' ')}
+                fill="none"
+                stroke="#6c8ebf"
+                strokeWidth="1.5"
+                strokeDasharray="4 3"
+              />
+            )}
+
+            {/* PSA10 データポイント（右軸スケール） */}
             {psa10Points.map(r => (
               <g key={`psa10-${r.date}`}>
                 <circle
                   cx={toX(new Date(r.date).getTime())}
-                  cy={toY(r.psa10 as number)}
+                  cy={toYPsa(r.psa10 as number)}
                   r="5"
                   fill="#6c8ebf"
                   stroke="var(--bg2)"
@@ -220,7 +264,7 @@ export default function PriceHistoryChart({ history }: Props) {
                 />
                 <text
                   x={toX(new Date(r.date).getTime())}
-                  y={toY(r.psa10 as number) - 10}
+                  y={toYPsa(r.psa10 as number) - 10}
                   fill="#6c8ebf"
                   fontSize="10"
                   textAnchor="middle"
