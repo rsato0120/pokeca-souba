@@ -7,6 +7,18 @@ import PriceHistoryChart from '@/components/PriceHistoryChart'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
+// A8.net 楽天素材ID（楽天アフィリのhgcディープリンクにカード別検索を差し込む）
+const A8_RAKUTEN_MAT = '4B60CK+20MWKY+2HOM+6C1VM'
+const A8_RAKUTEN_HGC = '0ea62065.34400275.0ea62066.204f04c0'
+const A8_RAKUTEN_AID = 'a26062027360_4B60CK_20MWKY_2HOM_6C1VM'
+
+// 楽天市場のカード別検索ページに着地するA8計測リンクを生成
+function buildRakutenA8Url(rakutenSearchUrl: string): string {
+  const afl =
+    `http://hb.afl.rakuten.co.jp/hgc/${A8_RAKUTEN_HGC}/${A8_RAKUTEN_AID}` +
+    `?pc=${encodeURIComponent(rakutenSearchUrl)}&m=${encodeURIComponent(rakutenSearchUrl)}`
+  return `https://rpx.a8.net/svt/ejp?a8mat=${A8_RAKUTEN_MAT}&rakuten=y&a8ejpredirect=${encodeURIComponent(afl)}`
+}
 
 export async function generateMetadata(props: PageProps<'/cards/[cardId]'>): Promise<Metadata> {
   const { cardId } = await props.params
@@ -442,9 +454,10 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             // メルカリはA8経由（a8ejpredirectでカード別検索ページに着地させつつクリック/インプレッションを計測）
             const mercariSearch = `https://jp.mercari.com/search?keyword=${q}&status=on_sale`
             const mercariUrl = `https://px.a8.net/svt/ejp?a8mat=${A8_MERCARI_MAT}&a8ejpredirect=${encodeURIComponent(mercariSearch)}`
+            const rakutenUrl = buildRakutenA8Url(`https://search.rakuten.co.jp/search/mall/${q}/`)
             const shops = [
               { name: 'メルカリ', url: mercariUrl, color: '#FF0211', nofollow: true },
-              { name: '楽天市場', url: `https://search.rakuten.co.jp/search/mall/${q}/`, color: '#BF0000', nofollow: false },
+              { name: '楽天市場', url: rakutenUrl, color: '#BF0000', nofollow: true },
               { name: '駿河屋', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: '#FF6600', nofollow: true },
             ]
             return (
@@ -466,10 +479,18 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                     {s.name}で探す →
                   </a>
                 ))}
-                {/* A8インプレッション計測タグ（メルカリ） */}
+                {/* A8インプレッション計測タグ（メルカリ・楽天） */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`https://www14.a8.net/0.gif?a8mat=${A8_MERCARI_MAT}`}
+                  width={1}
+                  height={1}
+                  alt=""
+                  style={{ position: 'absolute', width: 1, height: 1, border: 0 }}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://www13.a8.net/0.gif?a8mat=${A8_RAKUTEN_MAT}`}
                   width={1}
                   height={1}
                   alt=""
