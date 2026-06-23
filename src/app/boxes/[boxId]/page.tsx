@@ -40,6 +40,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
   const latestBoxPrice = boxPriceHistory?.history?.[0] ?? null
   const prevBoxPrice = boxPriceHistory?.history?.[7] ?? null
   const msrp = box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : null
+  // low===high（avg単一値保存）のとき ±10% で表示幅を推定
+  const displayLow  = latestBoxPrice ? (latestBoxPrice.low < latestBoxPrice.high ? latestBoxPrice.low  : Math.round((latestBoxPrice.avg ?? latestBoxPrice.low) * 0.90)) : null
+  const displayHigh = latestBoxPrice ? (latestBoxPrice.low < latestBoxPrice.high ? latestBoxPrice.high : Math.round((latestBoxPrice.avg ?? latestBoxPrice.low) * 1.10)) : null
   const boxMid = latestBoxPrice ? Math.round((latestBoxPrice.low + latestBoxPrice.high) / 2) : null
   const premiumPct = msrp && boxMid ? Math.round(((boxMid - msrp) / msrp) * 100) : null
   const priceTrend = latestBoxPrice && prevBoxPrice
@@ -194,9 +197,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             <div>
               <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>現在相場</div>
               <div style={{ fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 700, letterSpacing: '0.02em' }}>
-                ¥{latestBoxPrice.low.toLocaleString()}
+                ¥{displayLow?.toLocaleString()}
                 <span style={{ fontSize: '16px', color: 'var(--ink-dim)' }}>〜</span>
-                ¥{latestBoxPrice.high.toLocaleString()}
+                ¥{displayHigh?.toLocaleString()}
               </div>
             </div>
 
@@ -345,7 +348,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           {(() => {
             const tweetText = [
               `【BOX相場】${box.box_name}`,
-              latestBoxPrice ? `現在 ¥${latestBoxPrice.low.toLocaleString()}〜¥${latestBoxPrice.high.toLocaleString()}（定価比${premiumPct != null ? (premiumPct >= 0 ? `+${premiumPct}` : `${premiumPct}`) : '—'}%）` : '',
+              latestBoxPrice ? `現在 ¥${displayLow?.toLocaleString()}〜¥${displayHigh?.toLocaleString()}（定価比${premiumPct != null ? (premiumPct >= 0 ? `+${premiumPct}` : `${premiumPct}`) : '—'}%）` : '',
               `#ポケカ相場 #ポケカMEGA`,
               `https://pokeca-souba.vercel.app/boxes/${boxId}`,
             ].filter(Boolean).join('\n')

@@ -143,8 +143,9 @@ function removeOutliers(prices: number[]): number[] {
 }
 
 interface MercariItem { id?: string; name: string; price: number; status?: string }
+interface MercariPriceResult { avg: number; low: number; high: number }
 
-async function scrapeMercariSoldAvg(browser: Browser, searchQuery: string): Promise<number | null> {
+async function scrapeMercariSoldAvg(browser: Browser, searchQuery: string): Promise<MercariPriceResult | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   const keyword = encodeURIComponent(searchQuery)
@@ -161,7 +162,12 @@ async function scrapeMercariSoldAvg(browser: Browser, searchQuery: string): Prom
       rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
     )
     if (prices.length < 3) return null
-    return Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
+    const sorted = [...prices].sort((a, b) => a - b)
+    const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
+    // 20th〜80th percentile で代表的な取引幅を算出
+    const low = sorted[Math.floor(sorted.length * 0.2)]
+    const high = sorted[Math.floor(sorted.length * 0.8)]
+    return { avg, low, high }
   } catch { return null }
   finally { await page.close() }
 }
@@ -170,6 +176,8 @@ function savePriceHistory(
   cardId: string,
   date: string,
   avg: number,
+  low: number,
+  high: number,
   onSale: number | null,
   psa10: number | null
 ): void {
@@ -179,8 +187,8 @@ function savePriceHistory(
 
   const record = {
     date,
-    low: avg,   // AI forecast 互換
-    high: avg,  // AI forecast 互換
+    low,
+    high,
     avg,
     ...(onSale != null ? { on_sale: onSale } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
@@ -227,11 +235,12 @@ async function scrapeCard(
       source = 'スニダン'
     }
 
+    let mercariLow = 0, mercariHigh = 0
     if (avg == null) {
       // Mercari sold_out でフォールバック
       for (let attempt = 1; attempt <= 3; attempt++) {
-        avg = await scrapeMercariSoldAvg(browser, searchQuery)
-        if (avg != null) break
+        const result = await scrapeMercariSoldAvg(browser, searchQuery)
+        if (result != null) { avg = result.avg; mercariLow = result.low; mercariHigh = result.high; break }
         if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
       }
       source = 'メルカリ'
@@ -244,12 +253,16 @@ async function scrapeCard(
       return
     }
 
+    // スニダン取得時は low/high を avg の ±10% で推定
+    const low  = mercariLow  || Math.round(avg * 0.90)
+    const high = mercariHigh || Math.round(avg * 1.10)
+
     // 出品中件数はカード名+レアリティだけで検索（BOXコードを外すと件数が正確になる）
     const onSale = await getMercariOnSaleCount(browser, `${cardName} ${rarity}`)
 
     const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
-    savePriceHistory(id, date, avg, onSale, psa10)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
@@ -271,16 +284,17 @@ async function scrapeBox(
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
     let avg: number | null = null
+    let boxLow = 0, boxHigh = 0
     for (let attempt = 1; attempt <= 3; attempt++) {
-      avg = await scrapeMercariSoldAvg(browser, searchQuery)
-      if (avg != null) break
+      const result = await scrapeMercariSoldAvg(browser, searchQuery)
+      if (result != null) { avg = result.avg; boxLow = result.low; boxHigh = result.high; break }
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
     // 出品中件数（"1BOX"を外して広めに取得）
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
     const onSale = await getMercariOnSaleCount(browser, onSaleQuery)
-    savePriceHistory(id, date, avg, onSale, null)
+    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null)
     const onSaleLog = onSale != null ? ` / 出品${onSale}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
     stats.succeeded++
