@@ -96,22 +96,35 @@ export default function TopPage() {
     .sort((a, b) => getChange(a) - getChange(b))
     .slice(0, 5)
 
-  // AI注目カード: 上昇期待度が高く、かつ直近で大きく下落していないものに限定
-  // （値下がり中のカードが「注目」に並ぶ違和感を避ける）
-  const RECENT_DROP_LIMIT = -3  // 直近の値動きが-3%超の下落なら注目から除外
+  // AI注目カード: AIが本当に「上がる」と見ているカードに限定する
+  //  - 3ヶ月後の本線(m3)が現在より上（予想価格が上昇方向）
+  //  - up_pct > down_pct（ネットで上昇寄りの判断）
+  // 従来は up_pct 順だけで並べていたため、本線が下落・down_pct優勢のカードも
+  // 「注目」に入り「価格が下がって見える」違和感があった。
+  // ※直近の値動きでは絞らない（AIが+12%と見ている押し目カードを除外しないため）
+  const fcM3Gain = (fc: ReturnType<typeof getForecast>): number | null => {
+    const p = fc?.price_forecast
+    if (!p) return null
+    const cur = (p.current_low + p.current_high) / 2
+    const m3 = (p.m3_low + p.m3_high) / 2
+    return cur > 0 ? (m3 - cur) / cur : null
+  }
+  const isRising = (fc: ReturnType<typeof getForecast>): boolean => {
+    if (!fc) return false
+    if (fc.overall.up_pct <= fc.overall.down_pct) return false     // ネット上昇のみ
+    const gain = fcM3Gain(fc)
+    return gain != null && gain > 0                                // 本線が現在より上
+  }
   const notableFromMetrics = [...metrics]
-    .filter(m => (m.forecast?.overall.up_pct ?? 0) > 0)
-    .filter(m => (m.weekChange ?? m.dayChange ?? 0) >= RECENT_DROP_LIMIT)
+    .filter(m => isRising(m.forecast))
     .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
-  // 価格データがまだ無いカードも拾えるよう、不足分はAI予想順で補完
+  // 価格データがまだ無いカードも拾えるよう、不足分は「上昇予想」のAI予想順で補完
+  const notableBackfill = cardsWithForecast.filter(
+    c => isRising(c.forecast) && !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
+  )
   const notableCards = (notableFromMetrics.length >= 5
     ? notableFromMetrics
-    : [
-        ...notableFromMetrics,
-        ...cardsWithForecast.filter(
-          c => !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
-        ),
-      ]
+    : [...notableFromMetrics, ...notableBackfill]
   ).slice(0, 5)
 
   const featured = notableCards[0] ?? cardsWithForecast[0]
