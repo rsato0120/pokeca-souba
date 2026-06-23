@@ -97,11 +97,11 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
         const invDown = saleChangePct != null && saleChangePct < -20    // 在庫減
         // gap>0: 出品が成約より高い（売り手強気/品薄）, gap<0: 出品が成約より安い（投げ売り）
         let momentum: string
-        if (gapPct <= -8 && invUp) momentum = '急落シグナル（投げ売り＝出品が成約価格を下回り、在庫も増加）'
-        else if (gapPct <= -8) momentum = '軟調（出品最安が成約相場を下回る＝値下げ圧力）'
-        else if (gapPct >= 8 && invDown) momentum = '急騰シグナル（品薄＝出品が成約より高く、在庫も減少）'
-        else if (gapPct >= 8) momentum = '強含み（出品最安が成約相場を上回る＝強気の売り）'
-        else momentum = '安定（出品と成約が拮抗）'
+        if (gapPct <= -8 && invUp) momentum = '値下がりしそう（安値の出品が増えていて、売り急ぎの傾向）'
+        else if (gapPct <= -8) momentum = 'やや下がり気味（売れた価格より安い出品が出てきている）'
+        else if (gapPct >= 8 && invDown) momentum = '値上がりしそう（在庫が減り、出品価格が売れた価格より高い＝品薄）'
+        else if (gapPct >= 8) momentum = 'やや上がり気味（出品価格が売れた価格より高めで強気）'
+        else momentum = '横ばい（出品価格と売れた価格がほぼ同じ）'
         historySection += `- 出品最安値: ¥${latestAsk}（成約相場との乖離 ${gapPct >= 0 ? '+' : ''}${gapPct}%）\n`
         historySection += `- 値動きの方向: ${momentum}\n`
       }

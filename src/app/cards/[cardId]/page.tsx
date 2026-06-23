@@ -153,7 +153,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
     overall.up_pct >= 45
       ? { label: '買い', dot: '🟢', color: 'var(--up)' }
       : overall.down_pct >= 45
-      ? { label: '弱含み', dot: '🔴', color: 'var(--down)' }
+      ? { label: '値下がり注意', dot: '🔴', color: 'var(--down)' }
       : { label: '様子見', dot: '🟡', color: 'var(--flat)' }
 
   const latestRecord = priceHistory?.history?.[0] ?? null
