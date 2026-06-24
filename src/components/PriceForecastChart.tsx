@@ -24,10 +24,10 @@ const DAY = 24 * 60 * 60 * 1000
 const PAST_DAYS = 30
 const FUTURE_DAYS = 90
 
-// 軸ラベル用に ¥ 表記を圧縮。万は常に1桁小数（末尾.0は除去）にして
-// 近接する目盛りが同じラベルに丸まって重複表示されるのを防ぐ
+// Y軸ラベル用 ¥ 表記。10万円未満はフル円表記（狭いレンジでも目盛りが潰れない）、
+// 10万円以上だけ万表記でコンパクトにする
 function yen(v: number): string {
-  if (v >= 10000) return `¥${(v / 10000).toFixed(1).replace(/\.0$/, '')}万`
+  if (v >= 100000) return `¥${(v / 10000).toFixed(1).replace(/\.0$/, '')}万`
   return `¥${Math.round(v).toLocaleString()}`
 }
 
@@ -219,7 +219,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
             tickFormatter={yen}
             tick={{ fill: 'var(--ink-faint)', fontSize: 11, fontFamily: 'var(--mono)' }}
             stroke="var(--hair)"
-            width={52}
+            width={60}
           />
           <Tooltip
             contentStyle={{

@@ -26,9 +26,10 @@ const PERIODS = [
 
 const DAY = 24 * 60 * 60 * 1000
 
-// Y軸ラベル用 ¥ 圧縮表記（万は1桁小数・末尾.0除去で目盛り重複を防ぐ）
+// Y軸ラベル用 ¥ 表記。10万円未満はフル円表記（狭いレンジでも目盛りが潰れない）、
+// 10万円以上だけ万表記でコンパクトにする
 function yen(v: number): string {
-  if (v >= 10000) return `¥${(v / 10000).toFixed(1).replace(/\.0$/, '')}万`
+  if (v >= 100000) return `¥${(v / 10000).toFixed(1).replace(/\.0$/, '')}万`
   return `¥${Math.round(v).toLocaleString()}`
 }
 
@@ -176,7 +177,7 @@ export default function PriceHistoryChart({ history }: Props) {
               tickFormatter={yen}
               tick={{ fill: 'var(--ink-faint)', fontSize: 11, fontFamily: 'var(--mono)' }}
               stroke="var(--hair)"
-              width={52}
+              width={60}
             />
             <Tooltip
               contentStyle={{
