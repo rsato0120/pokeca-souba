@@ -19,6 +19,15 @@ export default function PortfolioPage() {
     const low = today?.low ?? 0
     const high = today?.high ?? 0
 
+    // 評価額グラフ用に直近30日の中央値(mid)を昇順で渡す
+    const hist = (history?.history ?? [])
+      .slice(0, 30)
+      .map(r => ({
+        date: r.date,
+        mid: r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2,
+      }))
+      .reverse()
+
     return {
       id: card.id,
       card_name: card.card_name,
@@ -31,6 +40,7 @@ export default function PortfolioPage() {
       currentMid: low > 0 && high > 0 ? Math.round((low + high) / 2) : 0,
       m3Low: forecast?.price_forecast.m3_low ?? null,
       m3High: forecast?.price_forecast.m3_high ?? null,
+      history: hist,
     }
   })
 
