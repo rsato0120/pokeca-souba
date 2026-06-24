@@ -1,0 +1,43 @@
+name: Post movers to X
+
+on:
+  schedule:
+    - cron: '0 23 * * *'  # JST 8:00  → 📈急騰
+    - cron: '0 4 * * *'   # JST 13:00 → 📉値下がり
+    - cron: '0 11 * * *'  # JST 20:00 → 🤖AI注目
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'surge | drop | ai（空ならJST時刻で自動判定）'
+        required: false
+        default: ''
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Decide mode（cron遅延に左右されないよう発火scheduleで決める）
+        id: mode
+        run: |
+          case "${{ github.event.schedule }}" in
+            "0 23 * * *") echo "mode=surge" >> "$GITHUB_OUTPUT" ;;
+            "0 4 * * *")  echo "mode=drop"  >> "$GITHUB_OUTPUT" ;;
+            "0 11 * * *") echo "mode=ai"    >> "$GITHUB_OUTPUT" ;;
+            *)            echo "mode=${{ github.event.inputs.mode }}" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Post tweet
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: npx tsx scripts/post-movers-tweet.ts ${{ steps.mode.outputs.mode }}
