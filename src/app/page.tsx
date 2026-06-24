@@ -3,6 +3,7 @@ import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPric
 import type { Card } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
+import BoxSelector from '@/components/BoxSelector'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -177,27 +178,12 @@ export default function TopPage() {
 
       <SearchBar cards={searchCards} />
 
-      {/* ── BOXナビ ── */}
-      <div style={{ display: 'flex', gap: '6px', marginTop: '12px', marginBottom: '32px', overflowX: 'auto', paddingBottom: '2px' }}>
-        {boxes.filter(b => b.certainty === 'released').map(b => (
-          <Link
-            key={b.box_id}
-            href={`/boxes/${b.box_id}`}
-            style={{
-              padding: '6px 16px',
-              borderRadius: '20px',
-              border: '1px solid var(--hair)',
-              background: 'transparent',
-              color: 'var(--ink-dim)',
-              fontFamily: 'var(--mono)',
-              fontSize: '12px',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {b.box_name}
-          </Link>
-        ))}
-      </div>
+      {/* ── BOXナビ（ドロップダウン選択） ── */}
+      <BoxSelector
+        boxes={boxes
+          .filter(b => b.certainty === 'released')
+          .map(b => ({ box_id: b.box_id, box_name: b.box_name }))}
+      />
 
       {/* ── ヒーロー ── */}
       {featured && (
