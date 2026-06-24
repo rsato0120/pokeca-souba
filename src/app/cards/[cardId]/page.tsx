@@ -122,7 +122,10 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const latestRecord = priceHistory?.history?.[0] ?? null
   const latestAvg = latestRecord?.avg ?? null
   const latestOnSale = latestRecord?.on_sale ?? null
-  const latestPsa10 = latestRecord !== null && 'psa10' in latestRecord ? latestRecord.psa10 : undefined
+  // 今日のスニダン取得が失敗(null)でも、履歴の直近の既知PSA10を表示する（チャートと整合）
+  const latestPsa10Record = priceHistory?.history?.find(r => r.psa10 != null) ?? null
+  const latestPsa10 = latestPsa10Record?.psa10 ?? null
+  const latestPsa10Date = latestPsa10Record?.date ?? null
 
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
@@ -376,11 +379,16 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   {latestAvg != null ? `¥${latestAvg.toLocaleString()}` : '—'}
                 </span>
               </div>
-              {latestPsa10 !== undefined && (
+              {latestPsa10 != null && (
                 <div>
-                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>PSA 10（スニーカーダンク 平均）</div>
+                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>
+                    PSA 10（スニーカーダンク 平均）
+                    {latestPsa10Date && latestRecord && latestPsa10Date !== latestRecord.date && (
+                      <span style={{ color: 'var(--ink-faint)' }}>（{latestPsa10Date.slice(5).replace('-', '/')}時点）</span>
+                    )}
+                  </div>
                   <span style={{ fontFamily: 'var(--mono)', fontSize: '26px', fontWeight: 700, color: '#6c8ebf' }}>
-                    {latestPsa10 != null ? `¥${latestPsa10.toLocaleString()}` : '—'}
+                    ¥{latestPsa10.toLocaleString()}
                   </span>
                 </div>
               )}
