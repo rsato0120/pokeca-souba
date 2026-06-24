@@ -95,6 +95,16 @@
       "note": "2025-09-26発売。メガリザードンXexが目玉の炎・悪タイプ強化弾。"
     },
     {
+      "box_id": "mega_brave",
+      "box_name": "メガブレイブ",
+      "code": "M1",
+      "release_ym": "2025-08",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "note": "2025-08-01発売。MEGAシリーズ第1弾。メガルカリオex/メガフシギバナex/メガアブソルex/メガクチートex/メガバクーダexを収録。メガシンフォニアと同時発売。"
+    },
+    {
       "box_id": "storm_emeralda",
       "box_name": "ストームエメラルダ",
       "code": "SV○○",
@@ -4862,6 +4872,708 @@
         "source": "各カードDB/相場サイト（2025-09〜）"
       },
       "note": "MUR版。"
+    },
+    {
+      "id": "mega-brave-mega-venusaur-ex-sr",
+      "card_no": "076/063",
+      "rarity": "SR",
+      "card_name": "メガフシギバナex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/076.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SR版。初代御三家フシギバナのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "草タイプのメガシンカex。競技採用mid。",
+        "collector": "人気の初代御三家フシギバナのSR版。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "mega-brave-mega-camerupt-ex-sr",
+      "card_no": "077/063",
+      "rarity": "SR",
+      "card_name": "メガバクーダex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/077.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SR版。炎・地のメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "炎タイプのメガシンカex。競技採用low。",
+        "collector": "メガバクーダexのSR版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "mega-brave-mega-lucario-ex-sr",
+      "card_no": "078/063",
+      "rarity": "SR",
+      "card_name": "メガルカリオex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/078.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SR版。メガブレイブの看板格。闘タイプのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "闘タイプのメガシンカex。競技採用mid。",
+        "collector": "人気最高峰ルカリオのSR版。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "mega-brave-mega-absol-ex-sr",
+      "card_no": "079/063",
+      "rarity": "SR",
+      "card_name": "メガアブソルex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/079.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "SR版。悪タイプのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "悪タイプのメガシンカex。競技採用mid。",
+        "collector": "人気のアブソルのSR版。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "mega-brave-mega-mawile-ex-sr",
+      "card_no": "080/063",
+      "rarity": "SR",
+      "card_name": "メガクチートex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/080.jpg",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "メガシンカex",
+        "hp": 300,
+        "note": "SR版。鋼タイプのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "鋼タイプのメガシンカex。競技採用low。",
+        "collector": "メガクチートexのSR版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SR版。"
+    },
+    {
+      "id": "mega-brave-mega-venusaur-ex-sar",
+      "card_no": "087/063",
+      "rarity": "SAR",
+      "card_name": "メガフシギバナex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/087.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SAR版。描き下ろし特殊イラスト。メガシンフォニアのカードと並べて繋がる構図。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "草メガシンカexのSAR版。競技採用mid。",
+        "collector": "初代御三家フシギバナの描き下ろしSAR。人気×SAR希少性で高額。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "mega-brave-mega-lucario-ex-sar",
+      "card_no": "088/063",
+      "rarity": "SAR",
+      "card_name": "メガルカリオex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/088.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SAR版。描き下ろし特殊イラスト。メガブレイブの目玉SAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "闘メガシンカexのSAR版。競技採用mid。",
+        "collector": "人気最高峰ルカリオの描き下ろしSAR。メガブレイブのトップ価格帯。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "mega-brave-mega-absol-ex-sar",
+      "card_no": "089/063",
+      "rarity": "SAR",
+      "card_name": "メガアブソルex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/089.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "SAR版。描き下ろし特殊イラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "悪メガシンカexのSAR版。競技採用mid。",
+        "collector": "人気のアブソルの描き下ろしSAR。コレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "mega-brave-matis-no-torihiki-sar",
+      "card_no": "090/063",
+      "rarity": "SAR",
+      "card_name": "マチスの取引",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/090.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SAR版。サポートの描き下ろしイラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "サポートカードのSAR版。採用率mid。",
+        "collector": "マチスの取引のSAR描き下ろし。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "mega-brave-lillie-determination-sar",
+      "card_no": "091/063",
+      "rarity": "SAR",
+      "card_name": "リーリエの決心",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/091.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SAR版。人気キャラ「リーリエ」の描き下ろしサポートSAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "サポートカードのSAR版。採用率mid。",
+        "collector": "人気キャラ・リーリエの描き下ろしSAR。キャラ人気×SAR希少性で高額。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "SAR版。"
+    },
+    {
+      "id": "mega-brave-mega-lucario-ex-mur",
+      "card_no": "092/063",
+      "rarity": "MUR",
+      "card_name": "メガルカリオex",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/M1L/M1L_92_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "MUR（最高レアリティ）版。ミラー加工の超希少枠。メガブレイブの最高峰。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "MUR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "闘メガシンカexのMUR版。競技採用mid。",
+        "collector": "メガブレイブ最高峰レアリティ。ルカリオ人気×MUR極稀少で非常に高額。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "MUR版。"
+    },
+    {
+      "id": "mega-brave-bulbasaur-ar",
+      "card_no": "064/063",
+      "rarity": "AR",
+      "card_name": "フシギダネ",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/064.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "基本",
+        "hp": 70,
+        "note": "AR特殊イラスト版。初代御三家の基本ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "人気の初代御三家フシギダネのAR版。キャラ人気highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "mega-brave-ivysaur-ar",
+      "card_no": "065/063",
+      "rarity": "AR",
+      "card_name": "フシギソウ",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/065.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 100,
+        "note": "AR特殊イラスト版。フシギダネの進化形。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "フシギソウのAR版。初代御三家ラインで人気high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "mega-brave-vulpix-ar",
+      "card_no": "067/063",
+      "rarity": "AR",
+      "card_name": "ロコン",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/067.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "基本",
+        "hp": 70,
+        "note": "AR特殊イラスト版。人気の炎タイプ基本ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "人気ポケモン・ロコンのAR版。キャラ人気highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "mega-brave-riolu-ar",
+      "card_no": "068/063",
+      "rarity": "AR",
+      "card_name": "リオル",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/068.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "基本",
+        "hp": 70,
+        "note": "AR特殊イラスト版。ルカリオの進化前。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "人気のルカリオ進化前リオルのAR版。キャラ人気highでコレクター需要high。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "mega-brave-marshadow-ar",
+      "card_no": "069/063",
+      "rarity": "AR",
+      "card_name": "マーシャドー",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/069.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "基本",
+        "hp": 90,
+        "note": "AR特殊イラスト版。幻のポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "幻のポケモン・マーシャドーのAR版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "mega-brave-spiritomb-ar",
+      "card_no": "071/063",
+      "rarity": "AR",
+      "card_name": "ミカルゲ",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/071.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "基本",
+        "hp": 80,
+        "note": "AR特殊イラスト版。悪タイプの基本ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の基本ポケモン。競技採用なし。",
+        "collector": "ミカルゲのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
+    },
+    {
+      "id": "mega-brave-steelix-ar",
+      "card_no": "073/063",
+      "rarity": "AR",
+      "card_name": "ハガネール",
+      "box_id": "mega_brave",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1l/073.jpg",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "1進化",
+        "hp": 150,
+        "note": "AR特殊イラスト版。イワークの進化形。鋼タイプ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "AR枠の進化ポケモン。競技採用なし。",
+        "collector": "ハガネールのAR特殊イラスト版。コレクター需要mid。",
+        "source": "各カードDB/相場サイト（2025-08〜）"
+      },
+      "note": "AR版。"
     }
   ],
   "market_posts": [

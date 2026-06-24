@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getPriceHistory } from '@/lib/data'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import BoxCardList from '@/components/BoxCardList'
+import BoxSelector from '@/components/BoxSelector'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -127,31 +128,15 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
       </header>
 
-      {/* ── BOX切替タブ ── */}
-      <div style={{ display: 'flex', gap: '6px', marginBottom: '24px', overflowX: 'auto', paddingBottom: '2px' }}>
-        {boxes.filter(b => b.certainty === 'released').map(b => {
-          const active = b.box_id === boxId
-          return (
-            <Link
-              key={b.box_id}
-              href={`/boxes/${b.box_id}`}
-              style={{
-                padding: '6px 16px',
-                borderRadius: '20px',
-                border: `1px solid ${active ? 'var(--gold)' : 'var(--hair)'}`,
-                background: active ? 'var(--gold)' : 'transparent',
-                color: active ? '#000' : 'var(--ink-dim)',
-                fontFamily: 'var(--mono)',
-                fontSize: '12px',
-                fontWeight: active ? 700 : 400,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {b.box_name}
-            </Link>
-          )
-        })}
-      </div>
+      {/* ── BOX切替（ドロップダウン選択） ── */}
+      <BoxSelector
+        current={boxId}
+        marginTop={0}
+        marginBottom={24}
+        boxes={boxes
+          .filter(b => b.certainty === 'released')
+          .map(b => ({ box_id: b.box_id, box_name: b.box_name }))}
+      />
 
       {/* ── 収録弾ヘッダ ── */}
       <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>

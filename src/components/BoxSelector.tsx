@@ -9,19 +9,22 @@ interface BoxOption {
 
 interface Props {
   boxes: BoxOption[]
+  current?: string          // 現在表示中のBOX（選択状態にする）
+  marginTop?: number
+  marginBottom?: number
 }
 
 // 収録弾をドロップダウンで選択 → 選んだBOXページへ遷移。
 // 弾が何個増えても1行で収まり、横スクロールにならない。
-export default function BoxSelector({ boxes }: Props) {
+export default function BoxSelector({ boxes, current, marginTop = 12, marginBottom = 32 }: Props) {
   const router = useRouter()
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block', marginTop: '12px', marginBottom: '32px' }}>
+    <div style={{ position: 'relative', display: 'inline-block', marginTop, marginBottom }}>
       <select
-        defaultValue=""
+        defaultValue={current ?? ''}
         onChange={(e) => {
-          if (e.target.value) router.push(`/boxes/${e.target.value}`)
+          if (e.target.value && e.target.value !== current) router.push(`/boxes/${e.target.value}`)
         }}
         style={{
           appearance: 'none',

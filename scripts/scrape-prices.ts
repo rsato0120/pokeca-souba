@@ -355,11 +355,16 @@ async function scrapeBox(
 }
 
 async function main() {
-  const cards = getAllCards()
-  const boxes = getAllBoxes().filter(b => b.certainty === 'released' && b.packs_per_box != null)
+  // 任意の引数で特定BOXだけに絞り込める（例: npx tsx scripts/scrape-prices.ts mega_brave）
+  const boxFilter = process.argv[2] || null
+  const cards = getAllCards().filter(c => !boxFilter || c.box_id === boxFilter)
+  const boxes = getAllBoxes().filter(
+    b => b.certainty === 'released' && b.packs_per_box != null && (!boxFilter || b.box_id === boxFilter)
+  )
   const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
   const date = todayJST()
-  console.log(`${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
+  const scope = boxFilter ? `［${boxFilter}のみ］` : ''
+  console.log(`${scope}${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
   const browser = await chromium.launch({
     headless: true,
