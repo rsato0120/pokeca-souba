@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { PokeData, Card, Box, Forecast, PriceHistory } from '@/types/pokeca'
+import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog } from '@/types/pokeca'
 
 function readPokeData(): PokeData {
   const filePath = path.join(process.cwd(), 'data', 'pokeca_data.json')
@@ -45,6 +45,16 @@ export function getForecast(cardId: string): Forecast | null {
 export function getPriceHistory(cardId: string): PriceHistory | null {
   try {
     const filePath = path.join(process.cwd(), 'data', 'prices', `${cardId}.json`)
+    const raw = fs.readFileSync(filePath, 'utf-8')
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+export function getPredictionLog(cardId: string): PredictionLog | null {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'predictions', `${cardId}.json`)
     const raw = fs.readFileSync(filePath, 'utf-8')
     return JSON.parse(raw)
   } catch {

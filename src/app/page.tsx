@@ -179,19 +179,34 @@ export default function TopPage() {
             <> ・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</>
           )}
         </span>
-        <Link
-          href="/portfolio"
-          style={{
-            fontSize: '11px',
-            color: 'var(--gold)',
-            border: '1px solid var(--gold)',
-            borderRadius: '20px',
-            padding: '3px 10px',
-            letterSpacing: '0.05em',
-          }}
-        >
-          マイコレクション →
-        </Link>
+        <span style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <Link
+            href="/accuracy"
+            style={{
+              fontSize: '11px',
+              color: 'var(--ink-dim)',
+              border: '1px solid var(--hair)',
+              borderRadius: '20px',
+              padding: '3px 10px',
+              letterSpacing: '0.05em',
+            }}
+          >
+            AI的中実績 →
+          </Link>
+          <Link
+            href="/portfolio"
+            style={{
+              fontSize: '11px',
+              color: 'var(--gold)',
+              border: '1px solid var(--gold)',
+              borderRadius: '20px',
+              padding: '3px 10px',
+              letterSpacing: '0.05em',
+            }}
+          >
+            マイコレクション →
+          </Link>
+        </span>
       </div>
 
       <SearchBar cards={searchCards} />

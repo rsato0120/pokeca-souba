@@ -93,6 +93,20 @@ export interface PriceHistory {
   history: PriceRecord[]
 }
 
+// AI予想のスナップショット（的中実績の集計に使う）
+export interface PredictionRecord {
+  date: string        // 予想を記録した日（JST）
+  mid: number         // 予想時点の中央値相場
+  up_pct: number
+  flat_pct: number
+  down_pct: number
+}
+
+export interface PredictionLog {
+  card_id: string
+  predictions: PredictionRecord[]  // 新しい順
+}
+
 export interface ViewForecast {
   trend: Trend
   probability: number

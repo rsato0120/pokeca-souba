@@ -33,9 +33,12 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npx tsx scripts/update-forecasts.ts
 
+      - name: Archive predictions (的中実績用)
+        run: npx tsx scripts/archive-predictions.ts
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/forecasts/
+          git add data/prices/ data/forecasts/ data/predictions/
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices and forecasts $(date -u '+%Y-%m-%d')" && git push)
