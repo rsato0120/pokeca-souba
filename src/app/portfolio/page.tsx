@@ -55,5 +55,9 @@ export default function PortfolioPage() {
     }
   })
 
-  return <PortfolioView cards={portfolioCards} />
+  const releasedBoxes = boxes
+    .filter(b => b.certainty === 'released')
+    .map(b => ({ box_id: b.box_id, box_name: b.box_name }))
+
+  return <PortfolioView cards={portfolioCards} boxes={releasedBoxes} />
 }

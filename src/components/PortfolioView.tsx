@@ -39,7 +39,7 @@ function yen(v: number): string {
   return `¥${Math.round(v).toLocaleString()}`
 }
 
-export default function PortfolioView({ cards }: { cards: PortfolioCardData[] }) {
+export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioCardData[]; boxes?: { box_id: string; box_name: string }[] }) {
   const { col, setQty } = useCollection()
 
   // 所持している保有（素体 / PSA10）を列挙
@@ -107,15 +107,15 @@ export default function PortfolioView({ cards }: { cards: PortfolioCardData[] })
         <p style={{ color: 'var(--ink-faint)', fontSize: '14px', marginBottom: '40px' }}>
           カード詳細ページの「コレクションに追加」で所持枚数を設定するとここに表示されます
         </p>
-        <div style={{ border: '1px dashed var(--hair)', borderRadius: '12px', padding: '48px 24px', textAlign: 'center' }}>
+        <div style={{ border: '1px dashed var(--hair)', borderRadius: '12px', padding: '40px 24px', textAlign: 'center' }}>
           <p style={{ fontSize: '14px', color: 'var(--ink-faint)', marginBottom: '16px' }}>まだカードが登録されていません</p>
+          <p style={{ fontSize: '12px', color: 'var(--ink-faint)', marginBottom: '16px' }}>収録弾から探す</p>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/boxes/abyss_eye" style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
-              アビスアイ →
-            </Link>
-            <Link href="/boxes/mega_brave" style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
-              メガブレイブ →
-            </Link>
+            {boxes.map(b => (
+              <Link key={b.box_id} href={`/boxes/${b.box_id}`} style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
+                {b.box_name} →
+              </Link>
+            ))}
           </div>
         </div>
       </div>
