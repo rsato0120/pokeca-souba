@@ -56,8 +56,10 @@ async function getSnkrdunkPsa10(browser: Browser, apparelId: number): Promise<nu
 async function main() {
   const ids: Record<string, number> = JSON.parse(fs.readFileSync(SNKRDUNK_IDS_FILE, 'utf-8'))
   const date = todayJST()
-  const entries = Object.entries(ids)
-  console.log(`PSA10価格取得: ${entries.length}件 (${date})\n`)
+  // 任意の引数(cardId か box接頭辞)で対象を絞り込める
+  const filter = process.argv[2] || null
+  const entries = Object.entries(ids).filter(([cid]) => !filter || cid === filter || cid.startsWith(filter))
+  console.log(`PSA10価格取得: ${entries.length}件${filter ? `（絞り込み: ${filter}）` : ''} (${date})\n`)
 
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] })
   let ok = 0, ng = 0
