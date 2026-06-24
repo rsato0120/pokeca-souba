@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, getCardSlug } from '@/lib/data'
 import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
+import PriceForecastChart from '@/components/PriceForecastChart'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -72,58 +73,6 @@ const ARTWORK_LABEL: Record<string, string> = { original: '描き下ろし', reu
 const SCARCITY_LABEL: Record<string, string> = { normal: '通常', scarce: '品薄', out_of_print: '絶版' }
 const REPRINT_LABEL: Record<string, string> = { none: 'なし', reprinted: '再録済', reprint_planned: '予定あり' }
 
-const X_POINTS = [70, 290, 510, 730] // 現在, 1ヶ月後, 3ヶ月後, 6ヶ月後
-const Y_MIN = 220
-const Y_MAX = 40
-
-function buildChartPaths(forecast: Forecast) {
-  const { current_low, current_high, m1_low, m1_high, m3_low, m3_high, m6_low, m6_high, up_low, up_high, down_low, down_high } =
-    forecast.price_forecast
-
-  const allPrices = [current_low, current_high, m1_low, m1_high, m3_low, m3_high, m6_low, m6_high, up_low, up_high, down_low, down_high]
-  const rawMin = Math.min(...allPrices)
-  const rawMax = Math.max(...allPrices)
-  const pad = (rawMax - rawMin) * 0.15 || rawMin * 0.1
-  const minPrice = Math.max(0, rawMin - pad)
-  const maxPrice = rawMax + pad
-
-  const priceToY = (p: number) =>
-    Y_MIN + ((p - minPrice) / (maxPrice - minPrice)) * (Y_MAX - Y_MIN)
-
-  const currentMid = (current_low + current_high) / 2
-  const m1Mid = (m1_low + m1_high) / 2
-  const m3Mid = (m3_low + m3_high) / 2
-  const m6Mid = (m6_low + m6_high) / 2
-  const upMid = (up_low + up_high) / 2
-  const downMid = (down_low + down_high) / 2
-
-  // 本線: AIが予測した各時点の実値
-  const basePoints = [currentMid, m1Mid, m3Mid, m6Mid]
-  // 上振れ/下振れ: 6ヶ月後のシナリオへ滑らかに補間
-  const upPoints = [currentMid, currentMid * 0.7 + upMid * 0.3, currentMid * 0.3 + upMid * 0.7, upMid]
-  const downPoints = [currentMid, currentMid * 0.7 + downMid * 0.3, currentMid * 0.3 + downMid * 0.7, downMid]
-
-  const toPolyline = (pts: number[]) =>
-    X_POINTS.map((x, i) => `${x},${priceToY(pts[i])}`).join(' ')
-
-  const step = (maxPrice - minPrice) / 3
-  const yLabels = [
-    { y: Y_MAX, price: maxPrice },
-    { y: Y_MAX + (Y_MIN - Y_MAX) / 3, price: maxPrice - step },
-    { y: Y_MAX + (Y_MIN - Y_MAX) * 2 / 3, price: maxPrice - step * 2 },
-    { y: Y_MIN, price: minPrice },
-  ]
-
-  return {
-    base: toPolyline(basePoints),
-    up: toPolyline(upPoints),
-    down: toPolyline(downPoints),
-    startY: priceToY(currentMid),
-    startPrice: currentMid,
-    yLabels,
-  }
-}
-
 // スタブfallback
 function stubForecast(card_no: string, rarity: string): Forecast {
   return {
@@ -160,7 +109,6 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const box = getBoxById(card.box_id)
   const forecast: Forecast = getForecast(card.id) ?? stubForecast(card.card_no, card.rarity)
   const priceHistory = getPriceHistory(card.id)
-  const chart = buildChartPaths(forecast)
 
   const { overall, player_view, collector_view, price_forecast } = forecast
 
@@ -529,7 +477,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </div>
       </div>
 
-      {/* ── 過去価格推移グラフ ── */}
+      {/* ── 価格推移＋AI予想（素体/PSA10タブ） ── */}
       {priceHistory && priceHistory.history.length > 0 && (
         <div style={{ marginBottom: '26px' }}>
           <div
@@ -541,108 +489,29 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               marginBottom: '12px',
             }}
           >
-            PRICE HISTORY · 価格推移
+            PRICE &amp; AI FORECAST · 価格推移とAI予想
           </div>
-          <PriceHistoryChart history={priceHistory.history} />
+          <PriceForecastChart history={priceHistory.history} forecast={price_forecast} />
         </div>
       )}
 
-      {/* ── AI予想推移グラフ ── */}
-      <div style={{ marginBottom: '26px' }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-            marginBottom: '12px',
-            flexWrap: 'wrap',
-            gap: '6px',
-          }}
-        >
-          <span
+      {/* ── 過去価格推移グラフ（詳細） ── */}
+      {priceHistory && priceHistory.history.length > 0 && (
+        <div style={{ marginBottom: '26px' }}>
+          <div
             style={{
               fontFamily: 'var(--mono)',
               fontSize: '11px',
               letterSpacing: '0.14em',
               color: 'var(--ink-faint)',
+              marginBottom: '12px',
             }}
           >
-            AI FORECAST · 予想推移（1M / 3M / 6M）
-          </span>
-          <div
-            style={{
-              display: 'flex',
-              gap: '14px',
-              fontSize: '11px',
-              color: 'var(--ink-dim)',
-            }}
-          >
-            {[
-              { color: 'var(--flat)', label: '本線' },
-              { color: 'var(--up)', label: '上振れ' },
-              { color: 'var(--down)', label: '下振れ' },
-            ].map(({ color, label }) => (
-              <span key={label}>
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '14px',
-                    height: '0',
-                    borderTop: `2px solid ${color}`,
-                    marginRight: '5px',
-                    verticalAlign: 'middle',
-                  }}
-                />
-                {label}
-              </span>
-            ))}
+            PRICE HISTORY · 価格推移（詳細）
           </div>
+          <PriceHistoryChart history={priceHistory.history} />
         </div>
-        <div
-          style={{
-            background: 'var(--bg2)',
-            border: '1px solid var(--hair)',
-            borderRadius: '8px',
-            padding: '14px 8px 6px',
-          }}
-        >
-          <svg
-            viewBox="0 0 760 280"
-            width="100%"
-            preserveAspectRatio="xMidYMid meet"
-            style={{ fontFamily: 'var(--mono)' }}
-          >
-            <g stroke="#2b281f" strokeWidth="1">
-              <line x1="70" y1="40" x2="730" y2="40" />
-              <line x1="70" y1="100" x2="730" y2="100" />
-              <line x1="70" y1="160" x2="730" y2="160" />
-              <line x1="70" y1="220" x2="730" y2="220" />
-            </g>
-            <g fill="#6f6a5b" fontSize="11" textAnchor="end">
-              {chart.yLabels.map(({ y, price }) => (
-                <text key={y} x="60" y={y + 4}>
-                  {price >= 10000
-                    ? `${Math.round(price / 1000)}千`
-                    : Math.round(price).toLocaleString()}
-                </text>
-              ))}
-            </g>
-            <g fill="#6f6a5b" fontSize="11" textAnchor="middle">
-              <text x="70" y="245">現在</text>
-              <text x="290" y="245">1ヶ月後</text>
-              <text x="510" y="245">3ヶ月後</text>
-              <text x="730" y="245">6ヶ月後</text>
-            </g>
-            <polyline points={chart.up} fill="none" stroke="var(--up)" strokeWidth="1.5" strokeDasharray="4 4" />
-            <polyline points={chart.down} fill="none" stroke="var(--down)" strokeWidth="1.5" strokeDasharray="4 4" />
-            <polyline points={chart.base} fill="none" stroke="var(--flat)" strokeWidth="2.5" />
-            <circle cx="70" cy={chart.startY} r="4.5" fill="var(--gold)" />
-            <text x="80" y={chart.startY - 8} fill="var(--gold)" fontSize="11">
-              ¥{Math.round(chart.startPrice).toLocaleString()}
-            </text>
-          </svg>
-        </div>
-      </div>
+      )}
 
       {/* ── 総合シナリオ ── */}
       <div style={{ fontSize: '12px', color: 'var(--ink-faint)', letterSpacing: '0.06em', marginBottom: '9px' }}>
