@@ -2,7 +2,7 @@ name: Update Prices and Forecasts
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 毎日 JST 3:00 (UTC 18:00)
+    - cron: '0 0 * * *'  # 毎日 JST 9:00 (UTC 0:00)
   workflow_dispatch:       # GitHub画面から手動実行も可能
 
 jobs:
