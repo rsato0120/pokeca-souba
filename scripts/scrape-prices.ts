@@ -14,6 +14,11 @@ function saveSnkrdunkIds(ids: Record<string, number>): void {
   fs.writeFileSync(SNKRDUNK_IDS_FILE, JSON.stringify(ids, null, 2), 'utf-8')
 }
 
+// 安全網: 取りこぼした未処理Promiseリジェクトでバッチ全体を落とさない（1枚の失敗で中断しない）
+process.on('unhandledRejection', (reason) => {
+  console.error('  [unhandledRejection 無視]', reason instanceof Error ? reason.message : reason)
+})
+
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 fs.mkdirSync(pricesDir, { recursive: true })
 
@@ -37,14 +42,18 @@ async function getMercariOnSale(browser: Browser, searchQuery: string): Promise<
   // 価格昇順で取得 → meta.numFound で総件数、items で安値帯の出品相場を得る
   const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
   try {
+    // .catch を即付与しないと、goto待機中(最大30s)に25sタイムアウトで reject した際
+    // 未処理Promiseリジェクトとなり try/catch を素通りしてプロセスごと落ちる
     const responsePromise = page.waitForResponse(
       r => r.url().includes('/v2/entities:search') && r.status() === 200,
       { timeout: 25000 }
-    )
+    ).catch(() => null)
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    const response = await responsePromise
+    if (!response) return { count: null, askLow: null, askMid: null }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let json: any = null
-    try { json = await (await responsePromise).json() } catch { return { count: null, askLow: null, askMid: null } }
+    try { json = await response.json() } catch { return { count: null, askLow: null, askMid: null } }
     if (!json) return { count: null, askLow: null, askMid: null }
 
     const meta = json.meta ?? json.data?.meta ?? {}
@@ -183,12 +192,15 @@ async function scrapeMercariSoldAvg(browser: Browser, searchQuery: string): Prom
   const keyword = encodeURIComponent(searchQuery)
   const url = `https://jp.mercari.com/search?keyword=${keyword}&status=sold_out&item_types=buy_now&sort=created_time&order=desc`
   try {
+    // 同上: 未処理リジェクトでプロセスが落ちるのを防ぐため即 .catch する
     const responsePromise = page.waitForResponse(
       r => r.url().includes('/v2/entities:search') && r.status() === 200,
       { timeout: 20000 }
-    )
+    ).catch(() => null)
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
-    const json = await (await responsePromise).json()
+    const response = await responsePromise
+    if (!response) return null
+    const json = await response.json()
     const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
     const prices = removeOutliers(
       rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
