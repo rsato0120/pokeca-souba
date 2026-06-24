@@ -123,10 +123,28 @@ export default function TopPage() {
   const notableBackfill = cardsWithForecast.filter(
     c => isRising(c.forecast) && !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
   )
-  const notableCards = (notableFromMetrics.length >= 5
+  const risingPool = notableFromMetrics.length >= 5
     ? notableFromMetrics
     : [...notableFromMetrics, ...notableBackfill]
-  ).slice(0, 5)
+  // 1弾に偏らないよう、各弾上限2枚で分散して選ぶ（足りなければ上限を無視して埋める）。
+  // 予想スコアのスケールが弾ごとに違っても、ホームが特定弾だけで埋まるのを防ぐ。
+  const diversifyByBox = <T extends { card: Card }>(items: T[], limit: number, maxPerBox: number): T[] => {
+    const picked: T[] = []
+    const count: Record<string, number> = {}
+    for (const it of items) {
+      if (picked.length >= limit) break
+      const b = it.card.box_id
+      if ((count[b] ?? 0) < maxPerBox) { picked.push(it); count[b] = (count[b] ?? 0) + 1 }
+    }
+    if (picked.length < limit) {
+      for (const it of items) {
+        if (picked.length >= limit) break
+        if (!picked.includes(it)) picked.push(it)
+      }
+    }
+    return picked
+  }
+  const notableCards = diversifyByBox(risingPool, 5, 2)
 
   const featured = notableCards[0] ?? cardsWithForecast[0]
   const featuredSlug = featured ? getCardSlug(featured.card) : ''
