@@ -6,6 +6,7 @@ import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
+import OripaBanner from '@/components/OripaBanner'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -459,6 +460,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               </div>
             )
           })()}
+
+          {/* オリパ案件バナー（A8 / PR） */}
+          <OripaBanner marginY={10} />
 
           {/* Xシェアボタン */}
           {(() => {

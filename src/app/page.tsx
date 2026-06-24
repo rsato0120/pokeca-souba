@@ -4,6 +4,7 @@ import type { Card } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
+import OripaBanner from '@/components/OripaBanner'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -317,6 +318,9 @@ export default function TopPage() {
           </div>
         </Link>
       )}
+
+      {/* オリパ案件バナー（A8 / PR） */}
+      <OripaBanner marginY={4} />
 
       {/* ── 01: AI予想 これからの注目カード ── */}
       <div style={{ marginBottom: '44px' }}>
