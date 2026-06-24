@@ -1,4 +1,4 @@
-// A8.net オリパ案件バナー（素材ID 004 / 100×60）。
+// A8.net オリパ案件バナー（素材ID 003 / 300×250・CTR高め）。
 // ステマ規制対応で「PR」表記を必ず併記する。
 export default function OripaBanner({ marginY = 18 }: { marginY?: number }) {
   return (
@@ -7,17 +7,17 @@ export default function OripaBanner({ marginY = 18 }: { marginY?: number }) {
         PR
       </div>
       <a
-        href="https://px.a8.net/svt/ejp?a8mat=4B60CK+2V00FM+5H3K+5Z6WX"
+        href="https://px.a8.net/svt/ejp?a8mat=4B60CK+2V00FM+5H3K+5YZ75"
         rel="nofollow noopener noreferrer"
         target="_blank"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          width={100}
-          height={60}
+          width={300}
+          height={250}
           alt="ハズレなしのオリパガチャ"
-          src="https://www23.a8.net/svt/bgt?aid=260620868173&wid=001&eno=01&mid=s00000025544001004000&mc=1"
-          style={{ border: 0, display: 'inline-block' }}
+          src="https://www23.a8.net/svt/bgt?aid=260620868173&wid=001&eno=01&mid=s00000025544001003000&mc=1"
+          style={{ border: 0, display: 'inline-block', maxWidth: '100%', height: 'auto' }}
         />
       </a>
       {/* インプレッション計測タグ */}
@@ -25,7 +25,7 @@ export default function OripaBanner({ marginY = 18 }: { marginY?: number }) {
       <img
         width={1}
         height={1}
-        src="https://www11.a8.net/0.gif?a8mat=4B60CK+2V00FM+5H3K+5Z6WX"
+        src="https://www10.a8.net/0.gif?a8mat=4B60CK+2V00FM+5H3K+5YZ75"
         alt=""
         style={{ position: 'absolute', width: 1, height: 1, border: 0 }}
       />
