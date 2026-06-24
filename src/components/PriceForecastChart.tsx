@@ -125,11 +125,12 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
   const tabBtn = (id: Tab): React.CSSProperties => ({
     flex: '0 0 auto',
-    padding: '8px 18px',
+    padding: '9px 20px',
     borderRadius: '8px',
-    border: `1px solid ${tab === id ? 'var(--ink-dim)' : 'var(--hair)'}`,
+    // 非アクティブも明るい文字＋見える枠でモバイルでも判別できるようにする
+    border: `1px solid ${tab === id ? 'var(--gold)' : 'var(--ink-faint)'}`,
     background: tab === id ? 'var(--panel)' : 'transparent',
-    color: tab === id ? 'var(--ink)' : 'var(--ink-faint)',
+    color: tab === id ? 'var(--ink)' : 'var(--ink-dim)',
     fontFamily: 'var(--mono)',
     fontSize: '13px',
     fontWeight: tab === id ? 700 : 500,
@@ -147,17 +148,17 @@ export default function PriceForecastChart({ history, forecast }: Props) {
         padding: '18px 16px 10px',
       }}
     >
-      {/* ── タブ ── */}
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '18px', flexWrap: 'wrap' }}>
-        <button type="button" onClick={() => setTab('raw')} style={tabBtn('raw')}>
-          素体
-        </button>
-        {showPsa && (
+      {/* ── タブ（PSA10データがあるカードだけ表示） ── */}
+      {showPsa && (
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '18px', flexWrap: 'wrap' }}>
+          <button type="button" onClick={() => setTab('raw')} style={tabBtn('raw')}>
+            素体
+          </button>
           <button type="button" onClick={() => setTab('psa10')} style={tabBtn('psa10')}>
             PSA10
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* ── アクティブタブの大きな数値（投資アプリ風） ── */}
       <div
