@@ -5,6 +5,7 @@ import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, g
 import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import PriceForecastChart from '@/components/PriceForecastChart'
+import CardCollectionControl from '@/components/CardCollectionControl'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -402,6 +403,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               )}
             </div>
           </div>
+
+          {/* コレクション登録（素体＋PSA10） */}
+          <CardCollectionControl cardId={cardId} hasPsa10={latestPsa10 != null} />
 
           {/* 購入リンク */}
           {(() => {

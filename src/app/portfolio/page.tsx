@@ -20,13 +20,22 @@ export default function PortfolioPage() {
     const high = today?.high ?? 0
 
     // 評価額グラフ用に直近30日の中央値(mid)を昇順で渡す
-    const hist = (history?.history ?? [])
+    const records = history?.history ?? []
+    const hist = records
       .slice(0, 30)
       .map(r => ({
         date: r.date,
         mid: r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2,
       }))
       .reverse()
+
+    // PSA10: 直近30日のpsa10価格（nullの日は除外）を昇順で。現在値は直近の既知値。
+    const psaHist = records
+      .slice(0, 30)
+      .filter(r => r.psa10 != null)
+      .map(r => ({ date: r.date, mid: Number(r.psa10) }))
+      .reverse()
+    const psa10Current = records.find(r => r.psa10 != null)?.psa10 ?? null
 
     return {
       id: card.id,
@@ -41,6 +50,8 @@ export default function PortfolioPage() {
       m3Low: forecast?.price_forecast.m3_low ?? null,
       m3High: forecast?.price_forecast.m3_high ?? null,
       history: hist,
+      psa10Current: psa10Current != null ? Number(psa10Current) : null,
+      psa10History: psaHist,
     }
   })
 
