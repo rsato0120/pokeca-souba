@@ -24,9 +24,10 @@ const DAY = 24 * 60 * 60 * 1000
 const PAST_DAYS = 30
 const FUTURE_DAYS = 90
 
-// 軸ラベル・ツールチップ用に ¥ 表記を圧縮
+// 軸ラベル用に ¥ 表記を圧縮。万は常に1桁小数（末尾.0は除去）にして
+// 近接する目盛りが同じラベルに丸まって重複表示されるのを防ぐ
 function yen(v: number): string {
-  if (v >= 10000) return `¥${(v / 10000).toFixed(v >= 100000 ? 0 : 1)}万`
+  if (v >= 10000) return `¥${(v / 10000).toFixed(1).replace(/\.0$/, '')}万`
   return `¥${Math.round(v).toLocaleString()}`
 }
 
@@ -239,13 +240,14 @@ export default function PriceForecastChart({ history, forecast }: Props) {
           />
           {/* 今日の境界線 */}
           <ReferenceLine x={0} stroke="var(--ink-faint)" strokeDasharray="3 3" />
-          {/* 実績（実線） */}
+          {/* 実績（実線）。データ点にドットを出し、疎なデータや単一点(PSA10)も
+              「点」として読めるようにする */}
           <Line
             type="monotone"
             dataKey="actual"
             stroke={actualColor}
             strokeWidth={2.5}
-            dot={false}
+            dot={{ r: 2.5, fill: actualColor, strokeWidth: 0 }}
             connectNulls
             isAnimationActive={false}
           />
