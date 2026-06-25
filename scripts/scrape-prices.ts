@@ -127,11 +127,21 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       .filter(i => i >= 0)
       .reduce((min, i) => Math.min(min, i), Infinity)
 
-    // 素体（非PSA）: PSAセクション開始前の全取引価格を平均
-    // スニダンは円マークなしで「179,000」形式で価格を表示する
+    // 素体（非PSA）: 状態A〜Dの「売買履歴」テーブル行(日付+状態+金額)だけを対象にする。
+    // ページ上部の最安値表示・価格チャートの目盛り・関連商品価格などのノイズや、
+    // 古い1件だけの取引でMercariの直近相場を上書きする事故を防ぐため、
+    //  (1) 「YYYY/MM/DD 状態 金額」の行パターンに限定（チャートは MM/DD で状態が無いので除外）
+    //  (2) 直近90日の取引のみ採用。該当が無ければ null を返し Mercari にフォールバックさせる
     const regularSection = isFinite(psaStart) ? text.slice(0, psaStart) : text
-    const regularPrices = [...regularSection.matchAll(/\b(\d{1,3}(?:,\d{3})+)\b/g)]
-      .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 100)
+    const REGULAR_WINDOW_DAYS = 90
+    const now = Date.now()
+    const regularPrices = [...regularSection.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+[A-D]\s+(\d{1,3}(?:,\d{3})*)/g)]
+      .map(m => ({
+        t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
+        p: parseInt(m[4].replace(/,/g, ''), 10),
+      }))
+      .filter(r => r.p >= 100 && isFinite(r.t) && now - r.t <= REGULAR_WINDOW_DAYS * 86400000)
+      .map(r => r.p)
     const regular = regularPrices.length > 0
       ? Math.round(regularPrices.reduce((a, b) => a + b, 0) / regularPrices.length)
       : null
