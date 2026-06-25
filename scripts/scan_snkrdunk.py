@@ -15,8 +15,9 @@ SET_RANGES = {
     'M4':  [(776300, 776430)],                                       # ニンジャスピナー
     'M5':  [(826520, 826600), (819800, 819860)],                     # アビスアイ
     'M3':  [(753242, 753276)],                                       # ムニキスゼロ（取りこぼし再取得）
+    'M1L': [(657361, 657364), (663632, 663638), (664095, 664110)],   # メガブレイブ（3バッチに散在。ロコン067/リオル068は未出品で取得不可）
 }
-CODE_TO_BOX = {'M2a': 'mega_dream_ex', 'M2': 'inferno_x', 'M4': 'ninja_spinner', 'M5': 'abyss_eye', 'M3': 'munikiss_zero'}
+CODE_TO_BOX = {'M2a': 'mega_dream_ex', 'M2': 'inferno_x', 'M4': 'ninja_spinner', 'M5': 'abyss_eye', 'M3': 'munikiss_zero', 'M1L': 'mega_brave'}
 TARGET_RARITIES = {'SAR', 'MUR', 'MA', 'AR', 'SR'}
 
 def get_title(aid):
