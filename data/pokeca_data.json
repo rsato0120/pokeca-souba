@@ -106,6 +106,15 @@
       "note": "2025-08-01発売。MEGAシリーズ第1弾。メガルカリオex/メガフシギバナex/メガアブソルex/メガクチートex/メガバクーダexを収録。メガシンフォニアと同時発売。"
     },
     {
+      "box_id": "pokecen_pikachu",
+      "box_name": "ポケモンセンター限定ピカチュウ",
+      "code": "SV-P",
+      "release_ym": "2025-08",
+      "certainty": "released",
+      "pack_price_yen": 2090,
+      "note": "ポケモンセンター（トウホク/ヒロシマ/フクオカ）リニューアル記念スペシャルBOX収録のご当地ピカチュウプロモ。ポケモンセンターオンラインの抽選販売限定で、定価2,090円のスペシャルBOXに1枚封入。"
+    },
+    {
       "box_id": "storm_emeralda",
       "box_name": "ストームエメラルダ",
       "code": "SV○○",
@@ -5575,6 +5584,123 @@
         "source": "各カードDB/相場サイト（2025-08〜）"
       },
       "note": "AR版。"
+    },
+    {
+      "id": "pokecen-pikachu-tohoku",
+      "card_no": "260/SV-P",
+      "rarity": "PROMO",
+      "card_name": "トウホクのピカチュウ",
+      "box_id": "pokecen_pikachu",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SVP/SVP_260_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 70,
+        "note": "東北をテーマにした描き下ろしご当地ピカチュウ。プロモ（SV-P 260）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "—",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技用途なし（コレクター向けプロモ）。",
+        "collector": "東北地方のお祭りをイメージしたアート。 抽選限定で供給が絞られ、ピカチュウ人気×ご当地描き下ろしで高額。定価2,090円に対し高騰実績あり。",
+        "source": "ポケカ公式(info/005053)、各相場サイト（2025-08〜）"
+      },
+      "note": "東北のポケモンセンター リニューアル記念スペシャルBOX収録プロモ。"
+    },
+    {
+      "id": "pokecen-pikachu-hiroshima",
+      "card_no": "261/SV-P",
+      "rarity": "PROMO",
+      "card_name": "ヒロシマのピカチュウ",
+      "box_id": "pokecen_pikachu",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SVP/SVP_261_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 70,
+        "note": "広島をテーマにした描き下ろしご当地ピカチュウ。プロモ（SV-P 261）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "—",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技用途なし（コレクター向けプロモ）。",
+        "collector": "広島の街を楽しむピカチュウたちのアート。 抽選限定で供給が絞られ、ピカチュウ人気×ご当地描き下ろしで高額。定価2,090円に対し高騰実績あり。",
+        "source": "ポケカ公式(info/005053)、各相場サイト（2025-08〜）"
+      },
+      "note": "広島のポケモンセンター リニューアル記念スペシャルBOX収録プロモ。"
+    },
+    {
+      "id": "pokecen-pikachu-fukuoka",
+      "card_no": "289/SV-P",
+      "rarity": "PROMO",
+      "card_name": "フクオカのピカチュウ",
+      "box_id": "pokecen_pikachu",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SVP/SVP_289_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 70,
+        "note": "福岡をテーマにした描き下ろしご当地ピカチュウ。プロモ（SV-P 289）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "—",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技用途なし（コレクター向けプロモ）。",
+        "collector": "福岡のグルメフェスをイメージしたアート。 抽選限定で供給が絞られ、ピカチュウ人気×ご当地描き下ろしで高額。定価2,090円に対し高騰実績あり。",
+        "source": "ポケカ公式(info/005053)、各相場サイト（2025-08〜）"
+      },
+      "note": "福岡のポケモンセンター リニューアル記念スペシャルBOX収録プロモ。"
     }
   ],
   "market_posts": [

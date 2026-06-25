@@ -304,7 +304,9 @@ async function scrapeCard(
     const high = mercariHigh || Math.round(avg * 1.10)
 
     // 出品中はカード名+レアリティだけで検索（BOXコードを外すと件数が正確になる）
-    const onSale = await getMercariOnSale(browser, `${cardName} ${rarity}`)
+    // プロモは英字レアの代わりにカナ「プロモ」で件数を取る
+    const onSaleRarity = rarity === 'PROMO' ? 'プロモ' : rarity
+    const onSale = await getMercariOnSale(browser, `${cardName} ${onSaleRarity}`)
 
     const onSaleLog = onSale.count != null
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
@@ -377,8 +379,12 @@ async function main() {
   try {
     for (const card of cards) {
       const boxName = boxMap.get(card.box_id) ?? ''
-      // BOXコード（M2/M4等）は出品タイトルに入らないため除外して一致件数を増やす
-      const query = `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
+      // プロモは card_name（例「トウホクのピカチュウ」）が一意なので box_name/英字レアを付けず
+      // カナ「プロモ」だけ添えてヒット件数を確保する（人工box名を付けると0件になる）
+      // それ以外: BOXコード（M2/M4等）は出品タイトルに入らないため除外して一致件数を増やす
+      const query = card.rarity === 'PROMO'
+        ? `${card.card_name} プロモ`
+        : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
       await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity)
     }
 

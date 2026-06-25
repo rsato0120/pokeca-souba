@@ -164,7 +164,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           </h1>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
             <span>発売 {box.release_ym}</span>
-            <span>パック ¥{box.pack_price_yen}</span>
+            <span>{box.packs_per_box != null ? `パック ¥${box.pack_price_yen}` : `定価 ¥${box.pack_price_yen.toLocaleString()}`}</span>
             <span>{cards.length}枚収録（掲載中）</span>
           </div>
         </div>
