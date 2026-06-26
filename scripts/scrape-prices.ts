@@ -273,7 +273,8 @@ async function scrapeCard(
   stats: { succeeded: number; skipped: number; failed: number },
   snkrdunkIds: Record<string, number>,
   cardName: string,
-  rarity: string
+  rarity: string,
+  boxName: string
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
@@ -334,10 +335,13 @@ async function scrapeCard(
     const low  = mercariLow  || Math.round(avg * 0.90)
     const high = mercariHigh || Math.round(avg * 1.10)
 
-    // 出品中はカード名+レアリティだけで検索（BOXコードを外すと件数が正確になる）
-    // プロモは英字レアの代わりにカナ「プロモ」で件数を取る
+    // 出品中はBOX名込みで検索（BOXコードM2/M4等は除外、BOX名は含めて他弾の同名カードを除外）
+    // プロモは一意なカード名のためBOX名不要。英字レアの代わりにカナ「プロモ」で件数を取る
     const onSaleRarity = rarity === 'PROMO' ? 'プロモ' : rarity
-    const onSale = await getMercariOnSale(browser, `${cardName} ${onSaleRarity}`)
+    const onSaleQuery = rarity === 'PROMO'
+      ? `${cardName} プロモ`
+      : `${cardName} ${onSaleRarity} ${boxName}`.replace(/\s+/g, ' ').trim()
+    const onSale = await getMercariOnSale(browser, onSaleQuery)
 
     const onSaleLog = onSale.count != null
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
@@ -416,7 +420,7 @@ async function main() {
       const query = card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity)
+      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName)
     }
 
     if (boxes.length > 0) {
