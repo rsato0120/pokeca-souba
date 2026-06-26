@@ -405,6 +405,7 @@ async function main() {
 
   const browser = await chromium.launch({
     headless: true,
+    executablePath: process.env.CHROMIUM_PATH || undefined,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   })
 
