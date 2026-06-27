@@ -370,7 +370,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             const tweetText = [
               `【BOX相場】${box.box_name}`,
               latestBoxPrice ? `現在 ¥${displayLow?.toLocaleString()}〜¥${displayHigh?.toLocaleString()}（定価比${premiumPct != null ? (premiumPct >= 0 ? `+${premiumPct}` : `${premiumPct}`) : '—'}%）` : '',
-              `#ポケカ相場 #ポケカMEGA`,
+              `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/boxes/${boxId}`,
             ].filter(Boolean).join('\n')
             return (

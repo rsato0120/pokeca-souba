@@ -470,7 +470,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               `【AI相場予想】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
               `現在 ¥${price_forecast.current_low.toLocaleString()}〜¥${price_forecast.current_high.toLocaleString()}`,
               `${signal.dot} ${signal.label} 上昇期待${overall.up_pct}%`,
-              `#ポケカ相場 #ポケカMEGA`,
+              `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/cards/${cardId}`,
             ].join('\n')
             return (
