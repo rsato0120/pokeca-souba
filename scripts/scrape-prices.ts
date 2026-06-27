@@ -100,7 +100,7 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
 }
 
 // スニーカーダンク: 素体平均価格 + PSA10平均価格を取得
-async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ regular: number | null; psa10: number | null }> {
+async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ regular: number | null; regularCount: number; psa10: number | null }> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
@@ -118,7 +118,7 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
         if (attempt < 4) await new Promise(r => setTimeout(r, 2000))
       }
     }
-    if (!text) return { regular: null, psa10: null }
+    if (!text) return { regular: null, regularCount: 0, psa10: null }
 
     // PSAセクション開始位置（"状態PSA" か "PSAの売買履歴" のみ。"PSA10"単体は他の箇所に出現しうるため除外）
     const psaMarkers = ['状態PSA', 'PSAの売買履歴', '状態 PSA']
@@ -142,8 +142,9 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       }))
       .filter(r => r.p >= 100 && isFinite(r.t) && now - r.t <= REGULAR_WINDOW_DAYS * 86400000)
       .map(r => r.p)
-    const regular = regularPrices.length > 0
-      ? Math.round(regularPrices.reduce((a, b) => a + b, 0) / regularPrices.length)
+    const regularCount = regularPrices.length
+    const regular = regularCount > 0
+      ? Math.round(regularPrices.reduce((a, b) => a + b, 0) / regularCount)
       : null
 
     // PSA10セクション開始位置（"PSA10の" を最低限のパターンとして使用）
@@ -168,8 +169,8 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       }
     }
 
-    return { regular, psa10 }
-  } catch { return { regular: null, psa10: null } }
+    return { regular, regularCount, psa10 }
+  } catch { return { regular: null, regularCount: 0, psa10: null } }
   finally { await page.close() }
 }
 
@@ -283,23 +284,39 @@ async function scrapeCard(
     let psa10: number | null = null
     let source = ''
 
+    // スニダン素体価格は「状態A=新品のみ」で実勢より高め。取引が少数だと新品1件が
+    // そのまま相場化して高止まりするため、サンプル数が閾値を超えた時だけ信頼する。
+    // 少数サンプル時はメルカリ成約相場（実勢）を優先する。
+    const SNKRDUNK_MIN_SAMPLES = 3
+    let snkrdunkRegular: number | null = null
+    let snkrdunkCount = 0
+
     if (apparelId) {
-      // スニーカーダンクから取得
+      // スニーカーダンクから取得（PSA10は常にスニダン由来）
       const prices = await getSnkrdunkPrices(browser, apparelId)
-      avg = prices.regular
+      snkrdunkRegular = prices.regular
+      snkrdunkCount = prices.regularCount
       psa10 = prices.psa10
-      source = 'スニダン'
     }
 
     let mercariLow = 0, mercariHigh = 0
-    if (avg == null) {
-      // Mercari sold_out でフォールバック
+    if (snkrdunkRegular != null && snkrdunkCount > SNKRDUNK_MIN_SAMPLES) {
+      // 十分な取引数があるスニダン価格はそのまま採用
+      avg = snkrdunkRegular
+      source = 'スニダン'
+    } else {
+      // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
       for (let attempt = 1; attempt <= 3; attempt++) {
         const result = await scrapeMercariSoldAvg(browser, searchQuery)
         if (result != null) { avg = result.avg; mercariLow = result.low; mercariHigh = result.high; break }
         if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
       }
       source = 'メルカリ'
+      // メルカリ成約も取れなければ、少数でもスニダン価格を使う（無いよりはマシ）
+      if (avg == null && snkrdunkRegular != null) {
+        avg = snkrdunkRegular
+        source = `スニダン(${snkrdunkCount}件)`
+      }
     }
 
     if (avg == null) {
