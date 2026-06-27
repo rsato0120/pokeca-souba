@@ -60,7 +60,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
   const growthM3 = curMid > 0 ? m3Mid / curMid : 1
   const upPct = Math.round((growthM3 - 1) * 100)
 
-  const { data, currentPrice, forecastPrice } = useMemo(() => {
+  const { data, currentPrice, forecastPrice, yDomain } = useMemo(() => {
     const pick = (r: PriceRecord): number | null =>
       tab === 'raw'
         ? (r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2)
@@ -117,7 +117,18 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
     const cur = base
     const fc = base != null ? Math.round(base * growthM3) : null
-    return { data: merged, currentPrice: cur, forecastPrice: fc }
+
+    // Y軸domain: 0始まりや'auto'だと線が底に張り付き変動が潰れるため、
+    // 実データのmin/maxにレンジ比例のパディングを付けて変動が中央に見えるようにする
+    const vals = merged.flatMap(p => [p.actual, p.forecast]).filter((v): v is number => v != null && v > 0)
+    let yDomain: [number, number] | [string, string] = ['auto', 'auto']
+    if (vals.length) {
+      const lo = Math.min(...vals)
+      const hi = Math.max(...vals)
+      const pad = Math.max((hi - lo) * 0.18, hi * 0.04)
+      yDomain = [Math.max(0, Math.floor(lo - pad)), Math.ceil(hi + pad)]
+    }
+    return { data: merged, currentPrice: cur, forecastPrice: fc, yDomain }
   }, [tab, history, todayMs, curMid, growthM1, growthM3, latestPsa10])
 
   const accent = upPct > 0 ? 'var(--up)' : upPct < 0 ? 'var(--down)' : 'var(--flat)'
@@ -215,7 +226,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
             stroke="var(--hair)"
           />
           <YAxis
-            domain={['auto', 'auto']}
+            domain={yDomain}
             tickFormatter={yen}
             tick={{ fill: 'var(--ink-faint)', fontSize: 11, fontFamily: 'var(--mono)' }}
             stroke="var(--hair)"

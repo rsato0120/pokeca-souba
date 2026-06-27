@@ -71,6 +71,17 @@ export default function PriceHistoryChart({ history }: Props) {
 
   const hasData = data.some(d => d.value != null)
 
+  // Y軸domain: 'auto'だと線が底に張り付き変動が潰れるので、実データのmin/maxに
+  // レンジ比例パディングを付けて変動が中央に見えるようにする
+  const yDomain = useMemo<[number, number] | [string, string]>(() => {
+    const vals = data.map(d => d.value).filter((v): v is number => v != null && v > 0)
+    if (!vals.length) return ['auto', 'auto']
+    const lo = Math.min(...vals)
+    const hi = Math.max(...vals)
+    const pad = Math.max((hi - lo) * 0.18, hi * 0.04)
+    return [Math.max(0, Math.floor(lo - pad)), Math.ceil(hi + pad)]
+  }, [data])
+
   const tabBtn = (id: Tab): React.CSSProperties => ({
     flex: '0 0 auto',
     padding: '9px 20px',
@@ -173,7 +184,7 @@ export default function PriceHistoryChart({ history }: Props) {
               minTickGap={24}
             />
             <YAxis
-              domain={['auto', 'auto']}
+              domain={yDomain}
               tickFormatter={yen}
               tick={{ fill: 'var(--ink-faint)', fontSize: 11, fontFamily: 'var(--mono)' }}
               stroke="var(--hair)"
