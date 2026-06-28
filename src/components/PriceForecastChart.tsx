@@ -214,7 +214,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
       {/* ── チャート ── */}
       <ResponsiveContainer width="100%" height={260}>
-        <LineChart data={data} margin={{ top: 8, right: 14, bottom: 4, left: 4 }}>
+        <LineChart data={data} margin={{ top: 8, right: 30, bottom: 4, left: 4 }}>
           <CartesianGrid stroke="var(--hair)" strokeDasharray="2 4" vertical={false} />
           <XAxis
             dataKey="t"

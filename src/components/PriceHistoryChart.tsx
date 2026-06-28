@@ -175,13 +175,15 @@ export default function PriceHistoryChart({ history }: Props) {
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={240}>
-          <LineChart data={data} margin={{ top: 8, right: 14, bottom: 4, left: 4 }}>
+          {/* right マージンは右端(最新日)のX軸ラベルが見切れないよう広めに確保する */}
+          <LineChart data={data} margin={{ top: 8, right: 30, bottom: 4, left: 4 }}>
             <CartesianGrid stroke="var(--hair)" strokeDasharray="2 4" vertical={false} />
             <XAxis
               dataKey="label"
               tick={{ fill: 'var(--ink-faint)', fontSize: 11, fontFamily: 'var(--mono)' }}
               stroke="var(--hair)"
               minTickGap={24}
+              interval="preserveStartEnd"
             />
             <YAxis
               domain={yDomain}
