@@ -133,6 +133,17 @@
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/0/03/S6a_Eevee_Heroes_pack.jpg",
       "note": "2021-05-28発売の強化拡張パック。イーブイズ(進化系8体)のV/VMAXを描き下ろしSAで大量収録。絶版で長期にわたり高騰。目玉はブラッキーVMAX SA・ニンフィアVMAX SA。"
+    },
+    {
+      "box_id": "pokemon_151",
+      "box_name": "ポケモンカード151",
+      "code": "SV2a",
+      "release_ym": "2023-06",
+      "certainty": "released",
+      "pack_price_yen": 290,
+      "packs_per_box": 20,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/1/15/SV2a_F_pack.png",
+      "note": "2023-06-16発売の強化拡張パック。初代カントー151匹をポケモン図鑑順に収録。受注生産で大量再販されたが、リザードンex SAR・ミュウex UR/SARを筆頭にチェイスは高値安定。"
     }
   ],
   "cards": [
@@ -6717,6 +6728,591 @@
         "common": {
           "reprint_status": "none",
           "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-rizaado-ar-169",
+      "card_no": "169/165",
+      "rarity": "AR",
+      "card_name": "リザード",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_169_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化ポケモン",
+        "hp": 90,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-pikachu-ar-173",
+      "card_no": "173/165",
+      "rarity": "AR",
+      "card_name": "ピカチュウ",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_173_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たねポケモン",
+        "hp": 60,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-myuutsuu-ar-183",
+      "card_no": "183/165",
+      "rarity": "AR",
+      "card_name": "ミュウツー",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_183_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモン",
+        "hp": 130,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-rizaadon-ex-sr-185",
+      "card_no": "185/165",
+      "rarity": "SR",
+      "card_name": "リザードンex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_185_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンex",
+        "hp": 330,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-fushigibana-ex-sar-200",
+      "card_no": "200/165",
+      "rarity": "SAR",
+      "card_name": "フシギバナex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_200_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "ポケモンex",
+        "hp": 300,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-rizaadon-ex-sar-201",
+      "card_no": "201/165",
+      "rarity": "SAR",
+      "card_name": "リザードンex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_201_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンex",
+        "hp": 330,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-kamekkusu-ex-sar-202",
+      "card_no": "202/165",
+      "rarity": "SAR",
+      "card_name": "カメックスex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_202_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモンex",
+        "hp": 310,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-fuudin-ex-sar-203",
+      "card_no": "203/165",
+      "rarity": "SAR",
+      "card_name": "フーディンex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_203_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "ポケモンex",
+        "hp": 190,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-sandaa-ex-sar-204",
+      "card_no": "204/165",
+      "rarity": "SAR",
+      "card_name": "サンダーex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_204_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たねポケモンex",
+        "hp": 200,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-myuu-ex-sar-205",
+      "card_no": "205/165",
+      "rarity": "SAR",
+      "card_name": "ミュウex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_205_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモンex",
+        "hp": 180,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-erika-no-shoutai-sar-206",
+      "card_no": "206/165",
+      "rarity": "SAR",
+      "card_name": "エリカの招待",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_206_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-sakaki-no-karisuma-sar-207",
+      "card_no": "207/165",
+      "rarity": "SAR",
+      "card_name": "サカキのカリスマ",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_207_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-myuu-ex-ur-208",
+      "card_no": "208/165",
+      "rarity": "UR",
+      "card_name": "ミュウex",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_208_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモンex",
+        "hp": 180,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-pokemon-irekae-ur-209",
+      "card_no": "209/165",
+      "rarity": "UR",
+      "card_name": "ポケモンいれかえ",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_209_R_JP_LG.png",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "pokemon-151-kihon-chou-energy-ur-210",
+      "card_no": "210/165",
+      "rarity": "UR",
+      "card_name": "基本超エネルギー",
+      "box_id": "pokemon_151",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2a/SV2a_210_R_JP_LG.png",
+      "card_spec": {
+        "type": "エネルギー",
+        "stage": "エネルギー",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
           "character_popularity": "mid"
         }
       },

@@ -91,7 +91,11 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
         .filter(a => (a as HTMLAnchorElement).href.includes('/apparels/'))
         .map(a => ({ text: (a as HTMLElement).innerText.trim(), href: (a as HTMLAnchorElement).href }))
     )
-    const filtered = links.filter(l => l.text.includes(cardName) && l.text.includes(rarity))
+    // rarity は単独トークンとして照合する。includes だと "AR" が "SAR" に、"UR" が "MUR" に
+    // 部分一致し別カード(例: 151ピカチュウAR→メガドリームのピカチュウex SAR)を誤取得するため、
+    // 前後が英大文字でないことを確認する。
+    const rarityRe = new RegExp(`(^|[^A-Z])${rarity}([^A-Z]|$)`)
+    const filtered = links.filter(l => l.text.includes(cardName) && rarityRe.test(l.text))
     if (!filtered.length) return null
     const m = filtered[0].href.match(/\/apparels\/(\d+)/)
     return m ? parseInt(m[1]) : null
