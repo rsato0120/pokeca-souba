@@ -305,13 +305,7 @@ async function scrapeCard(
     }
 
     let mercariLow = 0, mercariHigh = 0
-    if (apparelId && snkrdunkRegular == null) {
-      // スニダンIDがあるのに今日取得できなかった場合はスキップ（メルカリで上書きしない）
-      console.log('スニダン取得失敗 — スキップ（既存価格を維持）')
-      stats.skipped++
-      await new Promise(r => setTimeout(r, 1000))
-      return
-    } else if (snkrdunkRegular != null && snkrdunkCount > SNKRDUNK_MIN_SAMPLES) {
+    if (snkrdunkRegular != null && snkrdunkCount > SNKRDUNK_MIN_SAMPLES) {
       // 十分な取引数があるスニダン価格はそのまま採用
       avg = snkrdunkRegular
       source = 'スニダン'
