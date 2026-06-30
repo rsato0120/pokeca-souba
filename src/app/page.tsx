@@ -63,23 +63,45 @@ export default function TopPage() {
     }
   }).filter((c) => c.currentMid > 0)
 
-  // 今買われているカード: 週間またはAI買いシグナルで選定
+  // 今買われているカード: 出品数が減ったカード（SR除外）
+  // on_sale件数の前日比減少 = 在庫が捌けている = 買い需要の実態シグナル
   const buyingCards = [...metrics]
-    .filter(m => (m.weekChange ?? m.dayChange ?? 0) > 0 || (m.forecast?.overall.up_pct ?? 0) >= 45)
+    .filter(m => m.card.rarity !== 'SR' && m.onSale != null)
+    .filter(m => {
+      const slug = m.slug
+      const history = getPriceHistory(slug)
+      const yesterday = history?.history?.[1]
+      return yesterday?.on_sale != null && m.onSale! < yesterday.on_sale
+    })
     .sort((a, b) => {
-      const va = (a.weekChange ?? a.dayChange ?? 0) + (a.forecast?.overall.up_pct ?? 0) * 0.5
-      const vb = (b.weekChange ?? b.dayChange ?? 0) + (b.forecast?.overall.up_pct ?? 0) * 0.5
-      return vb - va
+      const histA = getPriceHistory(a.slug)?.history
+      const histB = getPriceHistory(b.slug)?.history
+      const prevA = histA?.[1]?.on_sale ?? a.onSale!
+      const prevB = histB?.[1]?.on_sale ?? b.onSale!
+      const changeA = (a.onSale! - prevA) / prevA
+      const changeB = (b.onSale! - prevB) / prevB
+      return changeA - changeB  // 減少率が大きい順
     })
     .slice(0, 5)
 
-  // 今売られているカード: 週間下落 or 出品数多 or AI売りシグナル
+  // 今売られているカード: 出品数が増えたカード（SR除外）
+  // on_sale件数の前日比増加 = 売り圧が高まっている = 売り需要の実態シグナル
   const sellingCards = [...metrics]
-    .filter(m => (m.weekChange ?? m.dayChange ?? 0) < -1 || (m.forecast?.overall.down_pct ?? 0) >= 45)
+    .filter(m => m.card.rarity !== 'SR' && m.onSale != null)
+    .filter(m => {
+      const slug = m.slug
+      const history = getPriceHistory(slug)
+      const yesterday = history?.history?.[1]
+      return yesterday?.on_sale != null && m.onSale! > yesterday.on_sale
+    })
     .sort((a, b) => {
-      const va = (a.weekChange ?? a.dayChange ?? 0) - (a.forecast?.overall.down_pct ?? 0) * 0.3
-      const vb = (b.weekChange ?? b.dayChange ?? 0) - (b.forecast?.overall.down_pct ?? 0) * 0.3
-      return va - vb
+      const histA = getPriceHistory(a.slug)?.history
+      const histB = getPriceHistory(b.slug)?.history
+      const prevA = histA?.[1]?.on_sale ?? a.onSale!
+      const prevB = histB?.[1]?.on_sale ?? b.onSale!
+      const changeA = (a.onSale! - prevA) / prevA
+      const changeB = (b.onSale! - prevB) / prevB
+      return changeB - changeA  // 増加率が大きい順
     })
     .slice(0, 5)
 
