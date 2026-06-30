@@ -124,6 +124,16 @@
       "note": "2026-07-31発売予定（公式発表済み）。発売前=予想の旨味が大きい弾。"
     },
     {
+      "box_id": "soukuu_stream",
+      "box_name": "蒼空ストリーム",
+      "code": "S7R",
+      "release_ym": "2021-07",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "note": "2021-07-09発売。ドラゴンタイプ強化弾。レックウザV/VMAXを中心にカイリューV・ギャラドスVMAX・チャーレムV等を収録。レックウザVMAX SA（083/067）が目玉で超高額カード。摩天パーフェクト（S7D）と同時発売。"
+    },
+    {
       "box_id": "eevee_heroes",
       "box_name": "イーブイヒーローズ",
       "code": "S6a",
@@ -7322,6 +7332,903 @@
         "source": ""
       },
       "note": ""
+    },
+    {
+      "id": "soukuu-stream-aurott-v-sr-68",
+      "card_no": "068/067",
+      "rarity": "SR",
+      "card_name": "オーロットV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_68_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "soukuu-stream-ulgamoth-v-sr-69",
+      "card_no": "069/067",
+      "rarity": "SR",
+      "card_name": "ウルガモスV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_69_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンV",
+        "hp": 210,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "soukuu-stream-gyarados-v-sr-70",
+      "card_no": "070/067",
+      "rarity": "SR",
+      "card_name": "ギャラドスV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_70_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "soukuu-stream-charem-v-sr-71",
+      "card_no": "071/067",
+      "rarity": "SR",
+      "card_name": "チャーレムV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_71_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "ポケモンV",
+        "hp": 190,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "soukuu-stream-charem-v-sa-72",
+      "card_no": "072/067",
+      "rarity": "SA",
+      "card_name": "チャーレムV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_72_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "ポケモンV",
+        "hp": 190,
+        "note": "スペシャルアート版。描き下ろしイラストで希少性が高い。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "スペシャルアート（SA）版チャーレムV。SR版と同スペックでイラスト違い。コレクター向け。",
+        "source": "各カードDB/相場サイト"
+      },
+      "note": "SA版。SR版（071/067）とはイラストが異なる。"
+    },
+    {
+      "id": "soukuu-stream-kairyu-v-sr-73",
+      "card_no": "073/067",
+      "rarity": "SR",
+      "card_name": "カイリューV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_73_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "soukuu-stream-kairyu-v-sa-74",
+      "card_no": "074/067",
+      "rarity": "SA",
+      "card_name": "カイリューV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_74_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": "スペシャルアート版。描き下ろしイラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "スペシャルアート（SA）版カイリューV。カイリューはコレクター人気が高く、SA版は特にプレミアム価格。",
+        "source": "Amazon.co.jp、各カードDB（2021-07〜）"
+      },
+      "note": "SA版。SR版（073/067）とはイラストが異なる。"
+    },
+    {
+      "id": "soukuu-stream-rayquaza-v-sr-75",
+      "card_no": "075/067",
+      "rarity": "SR",
+      "card_name": "レックウザV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_75_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": "ワザ「エメラルドビーム」。レックウザデッキの基盤カード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "レックウザVMAXデッキの必須カード。スタン環境引退済みだがコレクター需要が継続。",
+        "collector": "レックウザは世代を超えた人気ポケモン（character_popularity=high）。SR版でも高いコレクター需要。",
+        "source": "Amazon.co.jp（2021-07〜）"
+      },
+      "note": ""
+    },
+    {
+      "id": "soukuu-stream-rayquaza-v-sa-76",
+      "card_no": "076/067",
+      "rarity": "SA",
+      "card_name": "レックウザV",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_76_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": "スペシャルアート版。全面イラストの迫力ある描き下ろし。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "SR版と同スペック。競技採用はSR版と共有。",
+        "collector": "レックウザV SAはコレクターから非常に高い需要を誇る。絶版・高騰中。描き下ろしSAイラスト。",
+        "source": "Amazon.co.jp、各相場サイト（2021-07〜）"
+      },
+      "note": "SA版レックウザV。SR版（075/067）と別イラスト。超高額帯。"
+    },
+    {
+      "id": "soukuu-stream-sana-sr-77",
+      "card_no": "077/067",
+      "rarity": "SR",
+      "card_name": "サナ",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_77_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": "「ヒガナの決意」を探すサポート。レックウザデッキの核。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "西田ユウ",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "レックウザVMAXデッキで必須。スタン引退済みだが当時の競技環境で多用。",
+        "collector": "西田ユウ氏による描き下ろしSRイラスト。サナは原作ファンも多く人気。HRも存在し合計2種のコレクター向けレアリティ。",
+        "source": "Amazon.co.jp、スニーカーダンク（2021-07〜）"
+      },
+      "note": "トレーナーズ（サポート）SR。HR版（084/067）も存在。"
+    },
+    {
+      "id": "soukuu-stream-schoolboy-sr-78",
+      "card_no": "078/067",
+      "rarity": "SR",
+      "card_name": "スクールボーイ",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_78_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "トレーナーズ（サポート）SR。HR版（085/067）も存在。"
+    },
+    {
+      "id": "soukuu-stream-higana-no-kessen-sr-79",
+      "card_no": "079/067",
+      "rarity": "SR",
+      "card_name": "ヒガナの決意",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_79_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": "デッキから竜タイプエネルギーを手札に加えるサポート。レックウザデッキの必須パーツ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "レックウザVMAXデッキで必須のエネルギー加速サポート。スタン引退済み。",
+        "collector": "ヒガナ（Zinnia）は人気キャラクター。SR・HRともにコレクター需要あり。",
+        "source": "各カードDB/相場サイト"
+      },
+      "note": "トレーナーズ（サポート）SR。HR版（086/067）も存在。"
+    },
+    {
+      "id": "soukuu-stream-aurott-vmax-hr-80",
+      "card_no": "080/067",
+      "rarity": "HR",
+      "card_name": "オーロットVMAX",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_80_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "ポケモンVMAX",
+        "hp": 320,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "レインボーレア（HR）。全面レインボーホロの豪華仕様。"
+    },
+    {
+      "id": "soukuu-stream-gyarados-vmax-hr-81",
+      "card_no": "081/067",
+      "rarity": "HR",
+      "card_name": "ギャラドスVMAX",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_81_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモンVMAX",
+        "hp": 330,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "レインボーレア（HR）。"
+    },
+    {
+      "id": "soukuu-stream-rayquaza-vmax-hr-82",
+      "card_no": "082/067",
+      "rarity": "HR",
+      "card_name": "レックウザVMAX",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_82_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンVMAX",
+        "hp": 320,
+        "note": "ワザ「ダイレックウザ」。レインボーレア（HR）版の通常VMAX。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "PLANETA Mochizuki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "S7R時点でトップメタのレックウザVMAXデッキ必須。スタン引退済み。",
+        "collector": "レックウザは世代を超えた人気ポケモン。レインボーレア（HR）でも高額帯。SA版（083）は更に高額。",
+        "source": "各カードDB/相場サイト（2021-07〜）"
+      },
+      "note": "HR版（レインボーレア）。SA HR版（083/067）が最高額。"
+    },
+    {
+      "id": "soukuu-stream-rayquaza-vmax-sa-hr-83",
+      "card_no": "083/067",
+      "rarity": "SA",
+      "card_name": "レックウザVMAX",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_83_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンVMAX",
+        "hp": 320,
+        "note": "スペシャルアートVMAX。宇宙空間を背景にしたAnesaki Dynamicの名作イラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Anesaki Dynamic",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "HR版（082）と同スペック。競技採用はSR/HR版と共有。",
+        "collector": "蒼空ストリーム最高額・最注目カード。Anesaki Dynamic氏の躍動感あるSAイラストとレックウザ人気の相乗効果で絶版後も超高額安定（数十万円超）。",
+        "source": "cardrush、各相場サイト、スニーカーダンク（2021-07〜）"
+      },
+      "note": "SA（スペシャルアート）HR版。HR版（082）とはイラスト違い。このセット最大のチェイスカード。"
+    },
+    {
+      "id": "soukuu-stream-sana-hr-84",
+      "card_no": "084/067",
+      "rarity": "HR",
+      "card_name": "サナ",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_84_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "サナHR（レインボーレア）。SR版（077）より更に希少。人気キャラクターのレインボーホロでコレクター需要が高い。",
+        "source": "各カードDB/相場サイト"
+      },
+      "note": "トレーナーズ（サポート）HR（レインボーレア）。SR版（077/067）より希少。"
+    },
+    {
+      "id": "soukuu-stream-schoolboy-hr-85",
+      "card_no": "085/067",
+      "rarity": "HR",
+      "card_name": "スクールボーイ",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_85_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "トレーナーズ（サポート）HR（レインボーレア）。SR版（078/067）より希少。"
+    },
+    {
+      "id": "soukuu-stream-higana-no-kessen-hr-86",
+      "card_no": "086/067",
+      "rarity": "HR",
+      "card_name": "ヒガナの決意",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_86_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ヒガナの決意HR（レインボーレア）。ヒガナはコレクター人気が高く、HR版は希少で高額帯。",
+        "source": "各カードDB/相場サイト"
+      },
+      "note": "トレーナーズ（サポート）HR（レインボーレア）。SR版（079/067）より希少。"
+    },
+    {
+      "id": "soukuu-stream-yukimenoko-ur-87",
+      "card_no": "087/067",
+      "rarity": "UR",
+      "card_name": "ユキメノコ",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_87_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモン",
+        "hp": 0,
+        "note": "ゴールドカード（UR）仕様のユキメノコ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールドカード（UR）。ユキメノコのゴールドアート版でコレクター需要あり。",
+        "source": "遊々亭、各買取サイト"
+      },
+      "note": "ゴールドカード（UR）。"
+    },
+    {
+      "id": "soukuu-stream-toy-catcher-ur-88",
+      "card_no": "088/067",
+      "rarity": "UR",
+      "card_name": "トイキャッチャー",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_88_R_JP_LG.png",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "グッズ ゴールドカード（UR）。"
+    },
+    {
+      "id": "soukuu-stream-arashi-no-sanmyaku-ur-89",
+      "card_no": "089/067",
+      "rarity": "UR",
+      "card_name": "嵐の山脈",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_89_R_JP_LG.png",
+      "card_spec": {
+        "type": "スタジアム",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": "場に出すと両プレイヤーの場の竜タイプのダメージが増加するスタジアム。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "スタジアム ゴールドカード（UR）。"
+    },
+    {
+      "id": "soukuu-stream-kihon-kaminari-energy-ur-90",
+      "card_no": "090/067",
+      "rarity": "UR",
+      "card_name": "基本かみなりエネルギー",
+      "box_id": "soukuu_stream",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S7R/S7R_90_R_JP_LG.png",
+      "card_spec": {
+        "type": "エネルギー",
+        "stage": "エネルギー",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": "基本エネルギー ゴールドカード（UR）。"
     }
   ],
   "market_posts": [
