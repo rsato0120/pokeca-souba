@@ -246,8 +246,9 @@ function savePriceHistory(
 
   // on_sale品質チェック: 前日比40%未満はIPブロックによる誤値と判定して保存しない
   // （メルカリが同一IPからの大量リクエストをソフトブロックすると numFound が半減する）
+  // ONSALE_NO_GATE=1: クエリ基準変更などで前日基準が信頼できない establishing run 用に一度だけゲート無効化
   let validatedOnSale = onSale
-  if (onSale?.count != null) {
+  if (onSale?.count != null && process.env.ONSALE_NO_GATE !== '1') {
     const prevRecord = data.history.find(r => r.date !== date)
     const prevOnSale = (prevRecord as Record<string, unknown>)?.on_sale as number | undefined
     if (prevOnSale != null && onSale.count < prevOnSale * 0.6) {
