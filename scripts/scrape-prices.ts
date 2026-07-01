@@ -244,14 +244,26 @@ function savePriceHistory(
   let data: PriceHistory = { card_id: cardId, history: [] }
   try { data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) } catch {}
 
+  // on_sale品質チェック: 前日比40%未満はIPブロックによる誤値と判定して保存しない
+  // （メルカリが同一IPからの大量リクエストをソフトブロックすると numFound が半減する）
+  let validatedOnSale = onSale
+  if (onSale?.count != null) {
+    const prevRecord = data.history.find(r => r.date !== date)
+    const prevOnSale = (prevRecord as Record<string, unknown>)?.on_sale as number | undefined
+    if (prevOnSale != null && onSale.count < prevOnSale * 0.6) {
+      process.stdout.write(`[on_sale疑わしい: ${onSale.count}件 ← 前回${prevOnSale}件の${Math.round(onSale.count/prevOnSale*100)}%] `)
+      validatedOnSale = { count: null, askLow: null, askMid: null }
+    }
+  }
+
   const record = {
     date,
     low,
     high,
     avg,
-    ...(onSale?.count != null ? { on_sale: onSale.count } : {}),
-    ...(onSale?.askLow != null ? { ask_low: onSale.askLow } : {}),
-    ...(onSale?.askMid != null ? { ask_mid: onSale.askMid } : {}),
+    ...(validatedOnSale?.count != null ? { on_sale: validatedOnSale.count } : {}),
+    ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
+    ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
@@ -342,6 +354,8 @@ async function scrapeCard(
       ? `${cardName} プロモ`
       : `${cardName} ${onSaleRarity} ${boxName}`.replace(/\s+/g, ' ').trim()
     const onSale = await getMercariOnSale(browser, onSaleQuery)
+    // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
+    await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 
     const onSaleLog = onSale.count != null
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
