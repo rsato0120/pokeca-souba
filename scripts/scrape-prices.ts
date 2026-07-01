@@ -250,7 +250,7 @@ function savePriceHistory(
   let validatedOnSale = onSale
   if (onSale?.count != null && process.env.ONSALE_NO_GATE !== '1') {
     const prevRecord = data.history.find(r => r.date !== date)
-    const prevOnSale = (prevRecord as Record<string, unknown>)?.on_sale as number | undefined
+    const prevOnSale = prevRecord?.on_sale
     if (prevOnSale != null && onSale.count < prevOnSale * 0.6) {
       process.stdout.write(`[on_sale疑わしい: ${onSale.count}件 ← 前回${prevOnSale}件の${Math.round(onSale.count/prevOnSale*100)}%] `)
       validatedOnSale = { count: null, askLow: null, askMid: null }
