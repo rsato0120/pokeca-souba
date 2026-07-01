@@ -35,7 +35,7 @@ interface OnSaleResult {
   askMid: number | null    // 出品中央値
 }
 
-async function getMercariOnSale(browser: Browser, searchQuery: string): Promise<OnSaleResult> {
+async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice = 0): Promise<OnSaleResult> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   const keyword = encodeURIComponent(searchQuery)
@@ -62,8 +62,9 @@ async function getMercariOnSale(browser: Browser, searchQuery: string): Promise<
 
     // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）
     const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
+    // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
     const prices = removeOutliers(
-      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
+      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) >= Math.max(1, minPrice)).map(i => Number(i.price))
     ).sort((a, b) => a - b)
 
     let askLow: number | null = null
@@ -391,9 +392,9 @@ async function scrapeBox(
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
-    // 出品中（"1BOX"を外して広めに取得）
+    // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
-    const onSale = await getMercariOnSale(browser, onSaleQuery)
+    const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
     savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null)
     const onSaleLog = onSale.count != null ? ` / 出品${onSale.count}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
