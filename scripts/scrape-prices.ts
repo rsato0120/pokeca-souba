@@ -202,7 +202,12 @@ function removeOutliers(prices: number[]): number[] {
 interface MercariItem { id?: string; name: string; price: number; status?: string }
 interface MercariPriceResult { avg: number; low: number; high: number }
 
-async function scrapeMercariSoldAvg(browser: Browser, searchQuery: string): Promise<MercariPriceResult | null> {
+async function scrapeMercariSoldAvg(
+  browser: Browser,
+  searchQuery: string,
+  lowPct = 0.2,
+  highPct = 0.8
+): Promise<MercariPriceResult | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   const keyword = encodeURIComponent(searchQuery)
@@ -224,9 +229,10 @@ async function scrapeMercariSoldAvg(browser: Browser, searchQuery: string): Prom
     if (prices.length < 3) return null
     const sorted = [...prices].sort((a, b) => a - b)
     const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
-    // 20th〜80th percentile で代表的な取引幅を算出
-    const low = sorted[Math.floor(sorted.length * 0.2)]
-    const high = sorted[Math.floor(sorted.length * 0.8)]
+    // 代表的な取引幅（既定 20th〜80th percentile）。BOXは高値テールに引っ張られるので
+    // 床値寄りの狭いバンド（例 20th〜35th）を渡して「実際に買える価格帯」を表示する。
+    const low = sorted[Math.floor(sorted.length * lowPct)]
+    const high = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * highPct))]
     return { avg, low, high }
   } catch { return null }
   finally { await page.close() }
@@ -387,11 +393,15 @@ async function scrapeBox(
     let avg: number | null = null
     let boxLow = 0, boxHigh = 0
     for (let attempt = 1; attempt <= 3; attempt++) {
-      const result = await scrapeMercariSoldAvg(browser, searchQuery)
+      // BOXは高額な状態良・付属品付き出品が右に長い裾を作るため、床値寄りの 20th〜35th を採用
+      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.35)
       if (result != null) { avg = result.avg; boxLow = result.low; boxHigh = result.high; break }
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
+    // BOXの代表値は「床値バンドの中央」に統一（チャートが描く avg と表示レンジ low〜high を一致させる）。
+    // 平均値は高額出品の裾に引っ張られるため BOX相場としては使わない。
+    avg = Math.round((boxLow + boxHigh) / 2)
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
     const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
