@@ -1,16 +1,17 @@
 :root {
-  --bg: #14130f;
-  --bg2: #1b1a15;
-  --panel: #201e18;
-  --hair: #2b281f;
-  --ink: #ece8dd;
-  --ink-dim: #a39d8c;
-  --ink-faint: #6f6a5b;
-  --up: #b8c97f;
-  --down: #c08267;
-  --flat: #b7ad8e;
-  --gold: #c9a86a;
-  --down-deep: #5a3528;
+  /* ── ライト基調（相場アプリ風・清潔/中立） ── */
+  --bg: #f2f4f7;        /* ページ背景（オフホワイト） */
+  --bg2: #ffffff;       /* 入力欄・内側の面 */
+  --panel: #ffffff;     /* カード/パネル（白で背景から浮かせる） */
+  --hair: #e2e6ea;      /* 罫線・境界 */
+  --ink: #1a1d21;       /* 本文（くっきり黒） */
+  --ink-dim: #4b5563;   /* 副次テキスト */
+  --ink-faint: #8a919c; /* 淡いテキスト */
+  --up: #16a34a;        /* 上昇＝鮮やかな緑 */
+  --down: #dc2626;      /* 下落＝鮮やかな赤 */
+  --flat: #6b7280;      /* 横ばい＝グレー */
+  --gold: #a97b1f;      /* アクセント（白地でも読める深めの金） */
+  --down-deep: #ece3cf; /* リンク下線（淡い金） */
   --mono: var(--font-mono), monospace;
   --mincho: var(--font-mincho), serif;
   --gothic: var(--font-gothic), sans-serif;
@@ -141,11 +142,9 @@ a:hover {
   aspect-ratio: 63 / 88;
   border-radius: 11px;
   overflow: hidden;
-  border: 1px solid #3a3528;
-  background: radial-gradient(120% 90% at 30% 15%, rgba(201, 168, 106, 0.28), transparent 55%),
-    linear-gradient(155deg, #3a3322 0%, #2a2a30 45%, #20242c 100%);
-  box-shadow: 0 0 0 1px rgba(201, 168, 106, 0.25), 0 8px 30px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(184, 201, 127, 0.1);
+  border: 1px solid var(--hair);
+  background: linear-gradient(155deg, #eef0f3 0%, #e4e7ec 100%);
+  box-shadow: 0 4px 18px rgba(20, 30, 50, 0.1);
 }
 
 .pokecard::before {
@@ -155,11 +154,11 @@ a:hover {
   background: linear-gradient(
     115deg,
     transparent 30%,
-    rgba(255, 255, 255, 0.1) 45%,
-    rgba(201, 168, 106, 0.14) 50%,
+    rgba(255, 255, 255, 0.5) 45%,
+    rgba(255, 255, 255, 0.2) 50%,
     transparent 65%
   );
-  mix-blend-mode: screen;
+  mix-blend-mode: overlay;
 }
 
 .pokecard .ph {
@@ -189,7 +188,8 @@ a:hover {
   left: 11px;
   font-family: var(--mono);
   font-size: 10px;
-  color: rgba(236, 232, 221, 0.5);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
   letter-spacing: 0.05em;
 }
 
@@ -199,8 +199,8 @@ a:hover {
   font-size: 12px;
   font-weight: 600;
   color: var(--gold);
-  border: 1px solid #5c4a23;
-  background: #2a2114;
+  border: 1px solid #e3d3a6;
+  background: #f7f0dd;
   padding: 2px 8px;
   border-radius: 4px;
   vertical-align: middle;
