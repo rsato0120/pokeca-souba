@@ -4,21 +4,7 @@ import type { Card, Forecast, PriceRecord, Trend } from '@/types/pokeca'
 // ─── プロンプト構築 ──────────────────────────────────────────────
 
 function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceHistory: PriceRecord[]): string {
-  const { player, collector, common } = card.materials
-
-  const rotationLabel: Record<string, string> = {
-    soon: '来期スタン落ち予定（重要な下落圧力）',
-    upcoming: '数期先にスタン落ち予定',
-    far: '当分スタン落ちなし（需要継続しやすい）',
-    unknown: 'スタン落ち時期不明',
-  }
-
-  const usageLabel: Record<string, string> = {
-    high: '高（トップデッキ級）',
-    mid: '中（採用実績あり）',
-    low: '低（稀に採用）',
-    none: 'なし',
-  }
+  const { collector, common } = card.materials
 
   const reprintLabel: Record<string, string> = {
     none: '再録なし',
@@ -108,19 +94,14 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
     }
   }
 
-  return `あなたはポケモンカードの相場分析の専門家です。
-以下のカード情報をもとに、今後6ヶ月の相場予想（1ヶ月後・3ヶ月後・6ヶ月後）を生成してください。
+  return `あなたはポケモンカードの「コレクター相場」（観賞用・保有価値）の分析専門家です。
+対戦での実需（プレイヤー需要）は考慮に入れず、コレクター需要・希少性・キャラ/絵師人気・需給を軸に、
+以下のカードの今後6ヶ月の相場予想（1ヶ月後・3ヶ月後・6ヶ月後）を生成してください。
 
 ## カード情報
 - カード名: ${card.card_name}
 - レアリティ: ${card.rarity}
 - 収録弾: ${card.box_id}
-- タイプ: ${card.card_spec.type} / HP${card.card_spec.hp}
-
-## プレイヤー需要の材料
-- レギュレーションマーク: ${player.regulation_mark}
-- スタン落ち: ${rotationLabel[player.rotation] ?? player.rotation}
-- 競技採用度: ${usageLabel[player.competitive_usage] ?? player.competitive_usage}
 
 ## コレクター需要の材料
 - イラストレーター: ${collector.illustrator}
@@ -134,16 +115,15 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
 - キャラ人気: ${charPopLabel[common.character_popularity] ?? common.character_popularity}
 
 ## 補足情報（証拠メモ）
-- プレイヤー視点: ${card.evidence_notes.player}
 - コレクター視点: ${card.evidence_notes.collector}
 ${historySection}
 ## 出力ルール
 1. 断言しない。「上がります」ではなく確率＋根拠で示す
-2. player_view と collector_view を分けて分析する
+2. コレクター視点（観賞・保有価値）で分析する。対戦採用の有無は判断材料にしない
 3. 上昇圧力と下落圧力の両方を公平に検討し、このカード固有の材料から方向を判断する。機械的にどちらか一方へ倒さないこと。
-   【下落圧力の例】再録／再録予定→供給増、スタン落ち間近→実需減、出品数の増加→供給過多
-   【上昇圧力の例】品薄・絶版→希少性プレミア、人気絵師の描き下ろし→コレクター需要、競技トップ採用→実需で底堅い、キャラ人気が高い→長期保有需要、出品数の減少→需給逼迫
-4. すべてのカードが下落するわけではない。新弾直後の供給増は一要因にすぎず、希少・人気絵師・競技採用・品薄・絶版など強い材料を持つカードは横ばい〜上昇も十分ありうる。材料の強弱に応じてカードごとに明確に差別化し、up_pct を団子にしない（強い材料なら40〜70%、弱い材料なら10〜25%など幅を持たせる）
+   【下落圧力の例】再録／再録予定→供給増、出品数の増加→供給過多
+   【上昇圧力の例】品薄・絶版→希少性プレミア、人気絵師の描き下ろし→コレクター需要、キャラ人気が高い→長期保有需要、出品数の減少→需給逼迫
+4. すべてのカードが下落するわけではない。新弾直後の供給増は一要因にすぎず、希少・人気絵師・品薄・絶版など強い材料を持つカードは横ばい〜上昇も十分ありうる。材料の強弱に応じてカードごとに明確に差別化し、up_pct を団子にしない（強い材料なら40〜70%、弱い材料なら10〜25%など幅を持たせる）
 5. 根拠文は日本語で2〜3文、具体的に書く
 6. overall の up_pct + flat_pct + down_pct = 100 にする
 7. price_forecast は3時点（1ヶ月後・3ヶ月後・6ヶ月後）の本線予想価格を出す。起点は current_low=${currentLow}, current_high=${currentHigh}
@@ -151,11 +131,6 @@ ${historySection}
 
 ## 出力形式（JSON のみ、コードブロック不要）
 {
-  "player_view": {
-    "trend": "up" | "flat" | "down",
-    "probability": 0〜100の整数,
-    "reason": "根拠文（日本語）"
-  },
   "collector_view": {
     "trend": "up" | "flat" | "down",
     "probability": 0〜100の整数,
@@ -197,7 +172,6 @@ function parseForecastJson(raw: string, card: Card): Forecast {
   const parsed = JSON.parse(cleaned)
 
   // 必須フィールド検証
-  if (!isValidTrend(parsed.player_view?.trend)) throw new Error('invalid player_view.trend')
   if (!isValidTrend(parsed.collector_view?.trend)) throw new Error('invalid collector_view.trend')
 
   const upPct = Number(parsed.overall?.up_pct ?? 0)
@@ -209,11 +183,6 @@ function parseForecastJson(raw: string, card: Card): Forecast {
     card_no: card.card_no,
     rarity: card.rarity,
     generated_at: new Date().toISOString(),
-    player_view: {
-      trend: parsed.player_view.trend,
-      probability: Number(parsed.player_view.probability),
-      reason: String(parsed.player_view.reason),
-    },
     collector_view: {
       trend: parsed.collector_view.trend,
       probability: Number(parsed.collector_view.probability),
@@ -302,10 +271,9 @@ const UP_MIN = 10 // 最下位カードの up_pct
 
 const POP_SCORE: Record<string, number> = { high: 2, mid: 1, unknown: 0 }
 const SCARCITY_SCORE: Record<string, number> = { out_of_print: 2, scarce: 1, normal: 0 }
-const USAGE_SCORE: Record<string, number> = { high: 2, mid: 1, low: 0.5, none: 0 }
 
 // 各カードの「上昇期待度」を並べ替えるための連続スコア。
-// 個別予想の up_pct を主軸に、net確信度・player/collector視点・材料でタイブレーク。
+// 個別予想の up_pct を主軸に、net確信度・コレクター視点・コレクター材料でタイブレーク。
 function rankingScore(card: Card, forecast: Forecast): number {
   const { up_pct, down_pct } = forecast.overall
   const signed = (v: { trend: Trend; probability: number }) =>
@@ -314,13 +282,12 @@ function rankingScore(card: Card, forecast: Forecast): number {
   const material =
     (POP_SCORE[card.materials.collector.illustrator_popularity] ?? 0) +
     (POP_SCORE[card.materials.common.character_popularity] ?? 0) +
-    (SCARCITY_SCORE[card.materials.common.scarcity] ?? 0) +
-    (USAGE_SCORE[card.materials.player.competitive_usage] ?? 0)
+    (SCARCITY_SCORE[card.materials.common.scarcity] ?? 0)
 
   return (
     up_pct * 1000 + // AIの上昇%を最優先バンドに
     (up_pct - down_pct) * 5 + // ネット上昇でup同値を分離
-    (signed(forecast.player_view) + signed(forecast.collector_view)) * 0.5 +
+    signed(forecast.collector_view) * 0.5 + // コレクター視点の確信度
     material
   )
 }

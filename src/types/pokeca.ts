@@ -132,7 +132,6 @@ export interface Forecast {
   card_no: string
   rarity: string
   generated_at: string
-  player_view: ViewForecast
   collector_view: ViewForecast
   overall: {
     up_pct: number

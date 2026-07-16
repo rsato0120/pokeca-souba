@@ -55,20 +55,6 @@ export function generateStaticParams() {
 const TREND_LABEL = { up: '▲ 上昇', flat: '→ 横ばい', down: '▼ 下落' } as const
 const TREND_COLOR = { up: 'var(--up)', flat: 'var(--flat)', down: 'var(--down)' } as const
 
-const ROTATION_LABEL: Record<string, string> = {
-  soon: '来期落ち予定',
-  upcoming: '数期先',
-  far: '当分先',
-  unknown: '未定',
-}
-
-const USAGE_LABEL: Record<string, string> = {
-  high: '高',
-  mid: '中',
-  low: '低',
-  none: 'なし',
-}
-
 const CHAR_POP_LABEL: Record<string, string> = { high: '高', mid: '中', unknown: '—' }
 const ILLUST_POP_LABEL: Record<string, string> = { high: '高', mid: '中', unknown: '—' }
 const ARTWORK_LABEL: Record<string, string> = { original: '描き下ろし', reused: '流用', unknown: '—' }
@@ -81,7 +67,6 @@ function stubForecast(card_no: string, rarity: string): Forecast {
     card_no,
     rarity,
     generated_at: '',
-    player_view: { trend: 'flat', probability: 45, reason: '予想データを準備中です。' },
     collector_view: { trend: 'up', probability: 35, reason: '予想データを準備中です。' },
     overall: { up_pct: 35, flat_pct: 45, down_pct: 20, reason: '予想データを準備中です。' },
     price_forecast: {
@@ -112,7 +97,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const forecast: Forecast = getForecast(card.id) ?? stubForecast(card.card_no, card.rarity)
   const priceHistory = getPriceHistory(card.id)
 
-  const { overall, player_view, collector_view, price_forecast } = forecast
+  const { overall, collector_view, price_forecast } = forecast
 
   const signal =
     overall.up_pct >= 45
@@ -572,70 +557,52 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       </p>
 
 
-      {/* ── プレイヤー/コレクター 2軸 ── */}
+      {/* ── コレクター需要（観賞・保有価値） ── */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '1px',
-          background: 'var(--hair)',
+          background: 'var(--panel)',
           border: '1px solid var(--hair)',
           borderRadius: '8px',
-          overflow: 'hidden',
+          padding: '20px',
           marginBottom: '22px',
         }}
       >
-        {[
-          {
-            title: 'プレイヤー需要',
-            sub: '対戦での実需',
-            view: player_view,
-          },
-          {
-            title: 'コレクター需要',
-            sub: '観賞・保有価値',
-            view: collector_view,
-          },
-        ].map(({ title, sub, view }) => (
-          <div key={title} style={{ background: 'var(--panel)', padding: '20px' }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                justifyContent: 'space-between',
-                marginBottom: '4px',
-              }}
-            >
-              <span style={{ fontFamily: 'var(--mincho)', fontSize: '16px', fontWeight: 700 }}>
-                {title}
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--mono)',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.06em',
-                  color: TREND_COLOR[view.trend],
-                }}
-              >
-                {TREND_LABEL[view.trend]}
-              </span>
-            </div>
-            <div
-              style={{
-                fontSize: '11px',
-                color: 'var(--ink-faint)',
-                marginBottom: '14px',
-                letterSpacing: '0.04em',
-              }}
-            >
-              {sub}
-            </div>
-            <p style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.6 }}>
-              {view.reason}
-            </p>
-          </div>
-        ))}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+            marginBottom: '4px',
+          }}
+        >
+          <span style={{ fontFamily: 'var(--mincho)', fontSize: '16px', fontWeight: 700 }}>
+            コレクター需要
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--mono)',
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              color: TREND_COLOR[collector_view.trend],
+            }}
+          >
+            {TREND_LABEL[collector_view.trend]}
+          </span>
+        </div>
+        <div
+          style={{
+            fontSize: '11px',
+            color: 'var(--ink-faint)',
+            marginBottom: '14px',
+            letterSpacing: '0.04em',
+          }}
+        >
+          観賞・保有価値
+        </div>
+        <p style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.7 }}>
+          {collector_view.reason}
+        </p>
       </div>
 
       {/* ── 根拠データ ── */}
@@ -654,15 +621,12 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 36px' }}>
           {[
-            { k: 'レギュレーション', v: card.materials.player.regulation_mark, accent: 'player' },
             { k: 'イラストレーター', v: card.materials.collector.illustrator, accent: 'collector' },
-            { k: 'スタン落ち', v: ROTATION_LABEL[card.materials.player.rotation] ?? card.materials.player.rotation, accent: 'player' },
             { k: '絵師人気', v: ILLUST_POP_LABEL[card.materials.collector.illustrator_popularity], accent: 'collector' },
-            { k: '競技採用度', v: USAGE_LABEL[card.materials.player.competitive_usage], accent: 'player' },
             { k: 'キャラ人気', v: CHAR_POP_LABEL[card.materials.common.character_popularity], accent: 'collector' },
-            { k: '再録状況', v: REPRINT_LABEL[card.materials.common.reprint_status], accent: null },
-            { k: '品薄度', v: SCARCITY_LABEL[card.materials.common.scarcity], accent: null },
             { k: 'イラスト', v: ARTWORK_LABEL[card.materials.collector.artwork_type], accent: 'collector' },
+            { k: '品薄度', v: SCARCITY_LABEL[card.materials.common.scarcity], accent: null },
+            { k: '再録状況', v: REPRINT_LABEL[card.materials.common.reprint_status], accent: null },
           ].map(({ k, v, accent }) => (
             <div
               key={k}
@@ -680,12 +644,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 style={{
                   fontFamily: 'var(--mono)',
                   fontSize: '12px',
-                  color:
-                    accent === 'player'
-                      ? 'var(--up)'
-                      : accent === 'collector'
-                      ? 'var(--gold)'
-                      : 'var(--ink)',
+                  color: accent === 'collector' ? 'var(--gold)' : 'var(--ink)',
                 }}
               >
                 {v}
