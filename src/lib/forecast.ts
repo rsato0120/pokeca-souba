@@ -288,72 +288,74 @@ export async function generateForecast(
   throw lastError ?? new Error('generateForecast: unknown error')
 }
 
-// ─── ランキング調整パス ───────────────────────────────────────────
+// ─── ランキング調整パス（決定論的スプレッド） ─────────────────────
+//
+// 旧実装は全カードを1プロンプトでLLMに再ランクさせていたが、
+// 「隣接5%差」×「範囲10〜75」を200枚超に課すのはスケール的に破綻し、
+// 上位が上限に張り付き（60/55/50/45に団子）中間層が10%へ圧縮された。
+// → LLM呼び出しを撤廃し、個別予想を連続スコア化 → 順位を対数カーブへ
+//   マッピングする。上位ほど間隔が広く裾は緩やかになり、序列が滑らかに出る。
+// 完全に決定論的（再現性あり）＆API消費ゼロ。
 
-type RankEntry = { card_id: string; up_pct: number; flat_pct: number; down_pct: number }
+const UP_MAX = 70 // 最上位カードの up_pct
+const UP_MIN = 10 // 最下位カードの up_pct
 
-export async function adjustRankings(
+const POP_SCORE: Record<string, number> = { high: 2, mid: 1, unknown: 0 }
+const SCARCITY_SCORE: Record<string, number> = { out_of_print: 2, scarce: 1, normal: 0 }
+const USAGE_SCORE: Record<string, number> = { high: 2, mid: 1, low: 0.5, none: 0 }
+
+// 各カードの「上昇期待度」を並べ替えるための連続スコア。
+// 個別予想の up_pct を主軸に、net確信度・player/collector視点・材料でタイブレーク。
+function rankingScore(card: Card, forecast: Forecast): number {
+  const { up_pct, down_pct } = forecast.overall
+  const signed = (v: { trend: Trend; probability: number }) =>
+    (v.trend === 'up' ? 1 : v.trend === 'down' ? -1 : 0) * v.probability
+
+  const material =
+    (POP_SCORE[card.materials.collector.illustrator_popularity] ?? 0) +
+    (POP_SCORE[card.materials.common.character_popularity] ?? 0) +
+    (SCARCITY_SCORE[card.materials.common.scarcity] ?? 0) +
+    (USAGE_SCORE[card.materials.player.competitive_usage] ?? 0)
+
+  return (
+    up_pct * 1000 + // AIの上昇%を最優先バンドに
+    (up_pct - down_pct) * 5 + // ネット上昇でup同値を分離
+    (signed(forecast.player_view) + signed(forecast.collector_view)) * 0.5 +
+    material
+  )
+}
+
+export function adjustRankings(
   items: Array<{ cardId: string; card: Card; forecast: Forecast }>
-): Promise<Map<string, { up_pct: number; flat_pct: number; down_pct: number }>> {
+): Map<string, { up_pct: number; flat_pct: number; down_pct: number }> {
   if (items.length <= 1) {
     return new Map(items.map(({ cardId, forecast }) => [cardId, forecast.overall]))
   }
 
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey || apiKey === 'your_api_key_here') {
-    throw new Error('GEMINI_API_KEY が設定されていません。')
-  }
-
-  const cardList = items.map(({ cardId, card, forecast }) =>
-    `- card_id: ${cardId}
-  カード: ${card.card_name} ${card.rarity}（${card.materials.collector.illustrator}）
-  レアリティ: ${card.rarity} / 絵師人気: ${card.materials.collector.illustrator_popularity} / キャラ人気: ${card.materials.common.character_popularity}
-  初期スコア: 上昇${forecast.overall.up_pct}% 横ばい${forecast.overall.flat_pct}% 下落${forecast.overall.down_pct}%
-  個別分析: ${forecast.overall.reason}`
-  ).join('\n\n')
-
-  const prompt = `あなたはポケモンカード相場の専門家です。
-以下の${items.length}枚のカードを比較し、今後6ヶ月の上昇期待度を相対的に評価し直してください。
-
-## カード一覧（初期スコア付き）
-${cardList}
-
-## 調整ルール
-1. カード同士を比較し、相対的な優劣を反映した数値にする
-2. 隣接するランク間は最低5%の差をつける（全カードが同じ数値になってはいけない）
-3. up_pct + flat_pct + down_pct = 100（各カード）
-4. 初期スコアの大小関係を尊重しつつ、差を明確にする
-5. up_pct の範囲は 10〜75 の間に収める
-
-## 出力形式（JSONのみ、コードブロック不要）
-[
-  { "card_id": "xxx", "up_pct": 整数, "flat_pct": 整数, "down_pct": 整数 },
-  ...
-]`
-
-  const genAI = new GoogleGenerativeAI(apiKey)
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-3.1-flash-lite',
-    generationConfig: { temperature: 0.3 },
+  // スコア降順（同点は cardId で安定ソート）に並べる
+  const ordered = [...items].sort((a, b) => {
+    const diff = rankingScore(b.card, b.forecast) - rankingScore(a.card, a.forecast)
+    return diff !== 0 ? diff : a.cardId.localeCompare(b.cardId)
   })
 
-  try {
-    const result = await model.generateContent(prompt)
-    const raw = result.response.text().replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-    const parsed: RankEntry[] = JSON.parse(raw)
+  const n = ordered.length
+  // up = UP_MAX - k·ln(rank+1) が rank=n-1 で UP_MIN になるよう k を決める
+  const k = (UP_MAX - UP_MIN) / Math.log(n)
 
-    const resultMap = new Map<string, { up_pct: number; flat_pct: number; down_pct: number }>()
-    for (const entry of parsed) {
-      const up = Number(entry.up_pct)
-      const flat = Number(entry.flat_pct)
-      const down = Number(entry.down_pct)
-      if (up + flat + down === 100 && entry.card_id) {
-        resultMap.set(entry.card_id, { up_pct: up, flat_pct: flat, down_pct: down })
-      }
-    }
-    return resultMap
-  } catch (e) {
-    console.error('[adjustRankings] failed, keeping original scores:', e instanceof Error ? e.message : e)
-    return new Map(items.map(({ cardId, forecast }) => [cardId, forecast.overall]))
-  }
+  const resultMap = new Map<string, { up_pct: number; flat_pct: number; down_pct: number }>()
+  ordered.forEach(({ cardId, forecast }, rank) => {
+    const up = Math.max(
+      UP_MIN,
+      Math.min(UP_MAX, Math.round(UP_MAX - k * Math.log(rank + 1)))
+    )
+    // 残り(100-up)を、元の flat:down 比を保ったまま配分する
+    const { flat_pct: origFlat, down_pct: origDown } = forecast.overall
+    const rem = 100 - up
+    const denom = origFlat + origDown
+    const down = denom > 0 ? Math.round((rem * origDown) / denom) : Math.round(rem / 2)
+    const flat = rem - down
+    resultMap.set(cardId, { up_pct: up, flat_pct: flat, down_pct: down })
+  })
+
+  return resultMap
 }

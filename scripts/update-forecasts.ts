@@ -66,8 +66,8 @@ async function main() {
   }
 
   if (succeeded.length > 1) {
-    console.log('\n【Step 2】ランキング調整中...')
-    const rankMap = await adjustRankings(succeeded)
+    console.log('\n【Step 2】ランキング調整中（決定論的スプレッド）...')
+    const rankMap = adjustRankings(succeeded)
 
     for (const { cardId, forecast } of succeeded) {
       const adjusted = rankMap.get(cardId)
