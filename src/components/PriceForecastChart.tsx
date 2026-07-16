@@ -52,13 +52,46 @@ export default function PriceForecastChart({ history, forecast }: Props) {
     return `${d.getMonth() + 1}/${d.getDate()}`
   }
 
-  // 素体予想の現在→各時点の成長率（PSA10はこの率を流用して近似）
+  // ── 素体予想の成長率（AI予想の価格帯から算出）──
   const curMid = (forecast.current_low + forecast.current_high) / 2
   const m1Mid = (forecast.m1_low + forecast.m1_high) / 2
   const m3Mid = (forecast.m3_low + forecast.m3_high) / 2
-  const growthM1 = curMid > 0 ? m1Mid / curMid : 1
-  const growthM3 = curMid > 0 ? m3Mid / curMid : 1
+  const rawGrowthM1 = curMid > 0 ? m1Mid / curMid : 1
+  const rawGrowthM3 = curMid > 0 ? m3Mid / curMid : 1
+
+  // ── PSA10予想の成長率 ──
+  // PSA10自身の価格履歴のトレンド（月次・±12%にクランプ・ダンピング0.6）と、
+  // AIの素体予想方向を 0.55:0.45 でブレンドして3ヶ月後を推計する。
+  // 素体率の丸写しをやめ、鑑定品固有の値動きを反映する（差別化の肝）。
+  const psaGrowthM3 = (() => {
+    let ownG3: number | null = null
+    if (psaRecords.length >= 2) {
+      const newestMs = new Date(psaRecords[0].date).getTime()
+      const newestV = Number(psaRecords[0].psa10)
+      const windowStart = newestMs - 90 * DAY
+      const inWin = psaRecords.filter(r => new Date(r.date).getTime() >= windowStart)
+      const base = inWin[inWin.length - 1]
+      const baseV = Number(base.psa10)
+      const dtDays = Math.max(7, (newestMs - new Date(base.date).getTime()) / DAY)
+      if (baseV > 0) {
+        const monthlyRate = ((newestV / baseV) - 1) / (dtDays / 30)
+        const cappedMonthly = Math.max(-0.12, Math.min(0.12, monthlyRate))
+        ownG3 = 1 + cappedMonthly * 3 * 0.6
+      }
+    }
+    const blended = ownG3 != null ? 0.55 * ownG3 + 0.45 * rawGrowthM3 : rawGrowthM3
+    return Math.max(0.72, Math.min(1.55, blended)) // 3ヶ月で -28%〜+55% に収める
+  })()
+  const psaGrowthM1 = 1 + (psaGrowthM3 - 1) / 3
+
+  // アクティブタブの成長率（この3つを以降の描画・大きな数値で使う）
+  const growthM1 = tab === 'psa10' ? psaGrowthM1 : rawGrowthM1
+  const growthM3 = tab === 'psa10' ? psaGrowthM3 : rawGrowthM3
   const upPct = Math.round((growthM3 - 1) * 100)
+
+  // タブ横バッジ用（切替なしで素体/PSA10の見通し差を一目で示す）
+  const rawUpPct = Math.round((rawGrowthM3 - 1) * 100)
+  const psaUpPct = Math.round((psaGrowthM3 - 1) * 100)
 
   const { data, currentPrice, forecastPrice, yDomain } = useMemo(() => {
     const pick = (r: PriceRecord): number | null =>
@@ -150,6 +183,13 @@ export default function PriceForecastChart({ history, forecast }: Props) {
     lineHeight: 1.3,
   })
 
+  const pctBadge = (v: number): React.CSSProperties => ({
+    marginLeft: '7px',
+    fontSize: '11px',
+    fontWeight: 700,
+    color: v > 0 ? 'var(--up)' : v < 0 ? 'var(--down)' : 'var(--flat)',
+  })
+
   return (
     <div
       style={{
@@ -164,9 +204,11 @@ export default function PriceForecastChart({ history, forecast }: Props) {
         <div style={{ display: 'flex', gap: '8px', marginBottom: '18px', flexWrap: 'wrap' }}>
           <button type="button" onClick={() => setTab('raw')} style={tabBtn('raw')}>
             素体
+            <span style={pctBadge(rawUpPct)}>{rawUpPct >= 0 ? '+' : ''}{rawUpPct}%</span>
           </button>
           <button type="button" onClick={() => setTab('psa10')} style={tabBtn('psa10')}>
             PSA10
+            <span style={pctBadge(psaUpPct)}>{psaUpPct >= 0 ? '+' : ''}{psaUpPct}%</span>
           </button>
         </div>
       )}
