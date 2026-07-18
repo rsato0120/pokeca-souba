@@ -15,6 +15,38 @@
   --mono: var(--font-mono), monospace;
   --mincho: var(--font-mincho), serif;
   --gothic: var(--font-gothic), sans-serif;
+
+  /* ── 余白スケール（4の倍数・これ以外の値を新規に使わないこと） ── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* ── 文字サイズスケール ── */
+  --fs-xs: 11px;   /* ラベル・注記 */
+  --fs-sm: 12px;   /* 補助テキスト */
+  --fs-base: 14px; /* 本文・リスト項目名 */
+  --fs-md: 16px;   /* 小見出し */
+  --fs-lg: 20px;   /* セクション見出し */
+  --fs-xl: 26px;   /* ページ見出し・主要数値 */
+  --fs-2xl: 32px;  /* ヒーロー数値 */
+
+  /* ── 角丸 ── */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+
+  /* ── 影 ── */
+  --shadow-sm: 0 1px 3px rgba(20, 30, 50, 0.06);
+  --shadow-md: 0 4px 18px rgba(20, 30, 50, 0.1);
+
+  /* ── 字間 ── */
+  --ls-wide: 0.1em;
+  --ls-wider: 0.14em;
 }
 
 * {
@@ -208,6 +240,144 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+/* ─── セクション ─── */
+.sec {
+  margin-bottom: var(--sp-7);
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--hair);
+}
+
+.sec-no {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+  color: var(--gold);
+}
+
+.sec-title {
+  font-family: var(--mincho);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.sec-sub {
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  margin-left: auto;
+  letter-spacing: 0.04em;
+}
+
+/* ─── ラベル（英字小見出し） ─── */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-3);
+}
+
+/* ─── パネル ─── */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-md);
+  padding: var(--sp-4) var(--sp-5);
+}
+
+/* ─── カード行（ランキング・リスト共通） ─── */
+.row {
+  display: grid;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-1);
+  border-bottom: 1px solid var(--hair);
+  color: inherit;
+  border-bottom-color: var(--hair);
+}
+
+.row:hover {
+  background: var(--bg2);
+}
+
+.row-thumb {
+  width: 40px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  background: var(--bg2);
+  border: 1px solid var(--hair);
+}
+
+.row-thumb-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--ink-faint);
+}
+
+.row-name {
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.row-meta {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+/* ─── 統計値（ラベル＋数値の縦組み） ─── */
+.stat-label {
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  margin-bottom: 2px;
+}
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* ─── ピル（小さなリンク/タグ） ─── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: var(--fs-xs);
+  font-family: var(--mono);
+  letter-spacing: 0.05em;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+  color: var(--ink-dim);
+}
+
+.pill-gold {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ─── データ出所の注記 ─── */
+.source-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+  margin-top: var(--sp-1);
+}
+
 /* ─── 免責 ─── */
 .disclaimer {
   font-size: 11px;
@@ -259,8 +429,13 @@ a:hover {
   }
 
   /* セクションヘッダー右端のサブタイトル非表示 */
-  .section-sub {
+  .section-sub,
+  .sec-sub {
     display: none !important;
+  }
+
+  .sec {
+    margin-bottom: var(--sp-6);
   }
 
   /* BoxCardList: 5列→3列（No.列と上昇期待列を非表示） */

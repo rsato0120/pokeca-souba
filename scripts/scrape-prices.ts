@@ -2,7 +2,7 @@ import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
-import type { PriceHistory } from '@/types/pokeca'
+import type { PriceHistory, PriceSource } from '@/types/pokeca'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
 
@@ -245,7 +245,9 @@ function savePriceHistory(
   low: number,
   high: number,
   onSale: OnSaleResult | null,
-  psa10: number | null
+  psa10: number | null,
+  priceSource?: PriceSource,
+  sampleCount?: number
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -269,6 +271,8 @@ function savePriceHistory(
     low,
     high,
     avg,
+    ...(priceSource ? { source: priceSource } : {}),
+    ...(sampleCount != null ? { sample_count: sampleCount } : {}),
     ...(validatedOnSale?.count != null ? { on_sale: validatedOnSale.count } : {}),
     ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
@@ -308,6 +312,9 @@ async function scrapeCard(
     let avg: number | null = null
     let psa10: number | null = null
     let source = ''
+    // ログ用の source とは別に、画面表示用の構造化した出所を保持する
+    let priceSource: PriceSource | undefined
+    let sampleCount: number | undefined
 
     // スニダン素体価格は「状態A=新品のみ」で実勢より高め。取引が少数だと新品1件が
     // そのまま相場化して高止まりするため、サンプル数が閾値を超えた時だけ信頼する。
@@ -329,6 +336,8 @@ async function scrapeCard(
       // 十分な取引数があるスニダン価格はそのまま採用
       avg = snkrdunkRegular
       source = 'スニダン'
+      priceSource = 'snkrdunk'
+      sampleCount = snkrdunkCount
     } else {
       // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
       for (let attempt = 1; attempt <= 3; attempt++) {
@@ -337,10 +346,13 @@ async function scrapeCard(
         if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
       }
       source = 'メルカリ'
+      priceSource = 'mercari'
       // メルカリ成約も取れなければ、少数でもスニダン価格を使う（無いよりはマシ）
       if (avg == null && snkrdunkRegular != null) {
         avg = snkrdunkRegular
         source = `スニダン(${snkrdunkCount}件)`
+        priceSource = 'snkrdunk'
+        sampleCount = snkrdunkCount
       }
     }
 
@@ -369,7 +381,7 @@ async function scrapeCard(
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
       : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
-    savePriceHistory(id, date, avg, low, high, onSale, psa10)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
@@ -405,7 +417,8 @@ async function scrapeBox(
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
     const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
-    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null)
+    // BOX相場は常にメルカリ成約の床値バンド由来
+    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null, 'mercari')
     const onSaleLog = onSale.count != null ? ` / 出品${onSale.count}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
     stats.succeeded++

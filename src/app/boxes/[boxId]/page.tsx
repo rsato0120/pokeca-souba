@@ -27,7 +27,7 @@ export async function generateMetadata(props: PageProps<'/boxes/[boxId]'>): Prom
   if (!box) return {}
   const cardCount = getAllCards().filter((c) => c.box_id === boxId).length
   const title = `${box.box_name} カード一覧`
-  const description = `${box.box_name}（${box.release_ym}発売）のポケモンカード相場一覧。${cardCount}枚掲載。AI予想による上昇期待ランキングつき。`
+  const description = `${box.box_name}（${box.release_ym}発売）のポケモンカード相場一覧。${cardCount}枚掲載。AI予想による上昇確率ランキングつき。`
   return {
     title,
     description,

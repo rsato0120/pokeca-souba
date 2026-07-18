@@ -183,17 +183,17 @@ export default function TopPage() {
       <div
         style={{
           fontFamily: 'var(--mono)',
-          fontSize: '11px',
+          fontSize: 'var(--fs-xs)',
           color: 'var(--ink-faint)',
-          letterSpacing: '0.1em',
-          padding: '8px 0 24px',
+          letterSpacing: 'var(--ls-wide)',
+          padding: 'var(--sp-2) 0 var(--sp-5)',
           borderBottom: '1px solid var(--hair)',
-          marginBottom: '28px',
+          marginBottom: 'var(--sp-6)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '8px',
+          gap: 'var(--sp-2)',
         }}
       >
         <span>
@@ -202,34 +202,23 @@ export default function TopPage() {
             <> ・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</>
           )}
         </span>
-        <span style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Link
-            href="/accuracy"
-            style={{
-              fontSize: '11px',
-              color: 'var(--ink-dim)',
-              border: '1px solid var(--hair)',
-              borderRadius: '20px',
-              padding: '3px 10px',
-              letterSpacing: '0.05em',
-            }}
-          >
-            AI的中実績 →
-          </Link>
-          <Link
-            href="/portfolio"
-            style={{
-              fontSize: '11px',
-              color: 'var(--gold)',
-              border: '1px solid var(--gold)',
-              borderRadius: '20px',
-              padding: '3px 10px',
-              letterSpacing: '0.05em',
-            }}
-          >
-            マイコレクション →
-          </Link>
+        <span style={{ display: 'flex', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
+          <Link href="/accuracy" className="pill">AI的中実績 →</Link>
+          <Link href="/portfolio" className="pill pill-gold">マイコレクション →</Link>
         </span>
+      </div>
+
+      {/* 価格の出所を明示（どこの数字かが分からないと相場サイトは信用されない） */}
+      <div
+        style={{
+          fontSize: 'var(--fs-xs)',
+          color: 'var(--ink-faint)',
+          lineHeight: 1.7,
+          marginBottom: 'var(--sp-5)',
+        }}
+      >
+        価格はメルカリの成約実績とスニーカーダンクの実取引から毎日自動取得しています。
+        カードごとに取引件数の多い方を採用し、出所は各カードのページに表示しています。
       </div>
 
       <SearchBar cards={searchCards} />
@@ -249,14 +238,15 @@ export default function TopPage() {
           style={{
             display: 'grid',
             gridTemplateColumns: '180px 1fr',
-            gap: '28px',
+            gap: 'var(--sp-6)',
             alignItems: 'center',
             background: 'var(--bg2)',
             border: '1px solid var(--hair)',
-            borderRadius: '10px',
-            padding: '26px',
-            marginBottom: '40px',
-            borderBottomColor: 'var(--down-deep)',
+            borderRadius: 'var(--r-lg)',
+            boxShadow: 'var(--shadow-sm)',
+            padding: 'var(--sp-5)',
+            marginBottom: 'var(--sp-7)',
+            borderBottomColor: 'var(--hair)',
           }}
         >
           <div className="pokecard" style={{ padding: featured.card.image_url ? '0' : undefined, overflow: 'hidden' }}>
@@ -276,43 +266,35 @@ export default function TopPage() {
             <div className="no">{featured.card.card_no} ・ {featured.card.rarity}</div>
           </div>
           <div>
-            <div
-              style={{
-                fontFamily: 'var(--mono)',
-                fontSize: '11px',
-                letterSpacing: '0.18em',
-                color: 'var(--gold)',
-                marginBottom: '8px',
-              }}
-            >
+            <div className="eyebrow" style={{ color: 'var(--gold)', marginBottom: 'var(--sp-2)' }}>
               FEATURED · 今週の注目
             </div>
             <h2
               className="hero-title"
               style={{
                 fontFamily: 'var(--mincho)',
-                fontSize: '27px',
+                fontSize: 'var(--fs-xl)',
                 fontWeight: 800,
                 lineHeight: 1.3,
-                marginBottom: '10px',
+                marginBottom: 'var(--sp-2)',
                 color: 'var(--ink)',
               }}
             >
               {featured.card.card_name} {featured.card.rarity}
             </h2>
-            <p style={{ fontSize: '14px', color: 'var(--ink-dim)', marginBottom: '14px' }}>
+            <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', marginBottom: 'var(--sp-3)' }}>
               {featured.card.evidence_notes.collector}
             </p>
             <div
               style={{
                 display: 'flex',
-                gap: '24px',
+                gap: 'var(--sp-5)',
                 fontFamily: 'var(--mono)',
                 flexWrap: 'wrap',
               }}
             >
               <div>
-                <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>収録弾</div>
+                <div className="stat-label">収録弾</div>
                 <Link
                   href={`/boxes/${featured.card.box_id}`}
                   style={{ fontSize: '17px', color: 'var(--ink)', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
@@ -323,14 +305,15 @@ export default function TopPage() {
               {featured.forecast && (
                 <>
                   <div>
-                    <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>現在相場</div>
-                    <div style={{ fontSize: '17px', color: 'var(--ink)' }}>
+                    <div className="stat-label">現在相場</div>
+                    <div style={{ fontSize: 'var(--fs-md)', color: 'var(--ink)' }}>
                       ¥{featured.forecast.price_forecast.current_low.toLocaleString()}〜¥{featured.forecast.price_forecast.current_high.toLocaleString()}
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>上昇期待</div>
-                    <div style={{ fontSize: '17px', color: 'var(--up)' }}>
+                    {/* up_pct は上昇率ではなく「上昇シナリオの確率」 */}
+                    <div className="stat-label">上昇する確率</div>
+                    <div style={{ fontSize: 'var(--fs-md)', color: 'var(--up)' }}>
                       {featured.forecast.overall.up_pct}%
                     </div>
                   </div>
@@ -345,46 +328,49 @@ export default function TopPage() {
       <OripaBanner marginY={4} />
 
       {/* ── 01: AI予想 これからの注目カード ── */}
-      <div style={{ marginBottom: '44px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--gold)', letterSpacing: '0.1em' }}>01</span>
-          <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>AI予想 これからの注目カード</span>
-          <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>3ヶ月後の価格予想つき</span>
+      <div className="sec">
+        <div className="sec-head">
+          <span className="sec-no">01</span>
+          <span className="sec-title">AI予想 これからの注目カード</span>
+          <span className="sec-sub">3ヶ月後の価格予想つき</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {notableCards.map(({ card, forecast }, i) => {
             const slug = getCardSlug(card)
-            const rankStyle: React.CSSProperties = i < 2
-              ? { fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, color: 'var(--gold)', textAlign: 'center', minWidth: '34px' }
-              : { fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 800, color: 'var(--ink-faint)', textAlign: 'center', minWidth: '34px' }
+            const rankStyle: React.CSSProperties = {
+              fontFamily: 'var(--mincho)',
+              fontSize: i < 2 ? 'var(--fs-xl)' : 'var(--fs-lg)',
+              fontWeight: 800,
+              color: i < 2 ? 'var(--gold)' : 'var(--ink-faint)',
+              textAlign: 'center',
+              minWidth: '34px',
+            }
             const m3Low = forecast?.price_forecast.m3_low
             const m3High = forecast?.price_forecast.m3_high
             return (
-              <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '34px 40px 1fr auto', gap: '12px', alignItems: 'center', padding: '10px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+              <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '34px 40px 1fr auto' }}>
                 <div style={rankStyle}>{i + 1}</div>
                 {card.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={card.image_url} alt={card.card_name} style={{ width: '40px', height: '56px', objectFit: 'cover', borderRadius: '4px' }} />
+                  <img src={card.image_url} alt={card.card_name} className="row-thumb" />
                 ) : (
-                  <div style={{ width: '40px', height: '56px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>
-                    {card.rarity}
-                  </div>
+                  <div className="row-thumb row-thumb-ph">{card.rarity}</div>
                 )}
                 <div>
-                  <div style={{ fontSize: '14px', fontWeight: 700 }}>{card.card_name}
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '6px' }}>{card.rarity}</span>
+                  <div className="row-name">{card.card_name}
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '2px' }}>
+                  <div className="row-meta">
                     {formatBoxName(card, boxes)} ・ {card.card_no}
                   </div>
                   {forecast && (
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--up)', marginTop: '2px', fontWeight: 600 }}>
-                      ↑ {forecast.overall.up_pct}%
-                      {m3Low && m3High && <span style={{ color: 'var(--ink-faint)', fontWeight: 400, marginLeft: '6px' }}>3M ¥{m3Low.toLocaleString()}〜{m3High.toLocaleString()}</span>}
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-sm)', color: 'var(--up)', marginTop: '2px', fontWeight: 600 }}>
+                      上昇確率 {forecast.overall.up_pct}%
+                      {m3Low && m3High && <span style={{ color: 'var(--ink-faint)', fontWeight: 400, marginLeft: 'var(--sp-1)' }}>3ヶ月後 ¥{m3Low.toLocaleString()}〜{m3High.toLocaleString()}</span>}
                     </div>
                   )}
                 </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', textAlign: 'right' }}>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)', textAlign: 'right' }}>
                   {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
                 </div>
               </Link>
@@ -394,48 +380,48 @@ export default function TopPage() {
       </div>
 
       {/* ── 02: 今買われているカード ── */}
-      <div style={{ marginBottom: '44px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--up)', letterSpacing: '0.1em' }}>02</span>
-          <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>今買われているカード</span>
-          <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>価格上昇中・買いシグナル</span>
+      <div className="sec">
+        <div className="sec-head">
+          <span className="sec-no" style={{ color: 'var(--up)' }}>02</span>
+          <span className="sec-title">今買われているカード</span>
+          <span className="sec-sub">出品数が減少＝在庫が捌けている</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {buyingCards.length === 0 ? (
-            <div style={{ padding: '20px 0', fontSize: '13px', color: 'var(--ink-faint)' }}>データ蓄積中（毎日自動更新）</div>
+            <div style={{ padding: 'var(--sp-5) 0', fontSize: 'var(--fs-base)', color: 'var(--ink-faint)' }}>データ蓄積中（毎日自動更新）</div>
           ) : (
             buyingCards.map(({ card, slug, currentMid, weekChange, dayChange, onSale, forecast }) => {
               const change = weekChange ?? dayChange
               const upPct = forecast?.overall.up_pct ?? null
               return (
-                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '40px 1fr auto', gap: '12px', alignItems: 'center', padding: '10px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '40px 1fr auto' }}>
                   {card.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={card.image_url} alt={card.card_name} style={{ width: '40px', height: '56px', objectFit: 'cover', borderRadius: '4px' }} />
+                    <img src={card.image_url} alt={card.card_name} className="row-thumb" />
                   ) : (
-                    <div style={{ width: '40px', height: '56px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>
-                      {card.rarity}
-                    </div>
+                    <div className="row-thumb row-thumb-ph">{card.rarity}</div>
                   )}
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 700 }}>{card.card_name}
-                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '6px' }}>{card.rarity}</span>
+                    <div className="row-name">{card.card_name}
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                     </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '2px' }}>
+                    <div className="row-meta">
                       ¥{Math.round(currentMid).toLocaleString()}
                       {onSale != null && <> · 出品中 {onSale.toLocaleString()}件</>}
                     </div>
                     {upPct != null && (
-                      <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: upPct >= 45 ? 'var(--up)' : 'var(--ink-faint)', marginTop: '2px' }}>AI↑{upPct}%</div>
+                      <div className="row-meta" style={{ color: upPct >= 45 ? 'var(--up)' : 'var(--ink-faint)' }}>
+                        AI予想 上昇確率 {upPct}%
+                      </div>
                     )}
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '56px' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', textAlign: 'right', minWidth: '56px' }}>
                     {change != null && (
                       <span style={{ color: change > 0 ? 'var(--up)' : 'var(--ink-faint)', fontWeight: 600 }}>
                         {change > 0 ? '+' : ''}{change.toFixed(1)}%
                       </span>
                     )}
-                    <div style={{ fontSize: '10px', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
+                    <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
                   </div>
                 </Link>
               )
@@ -445,48 +431,48 @@ export default function TopPage() {
       </div>
 
       {/* ── 03: 今売られているカード ── */}
-      <div style={{ marginBottom: '44px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--down)', letterSpacing: '0.1em' }}>03</span>
-          <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>今売られているカード</span>
-          <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto', letterSpacing: '0.04em' }}>価格下落中・売りシグナル</span>
+      <div className="sec">
+        <div className="sec-head">
+          <span className="sec-no" style={{ color: 'var(--down)' }}>03</span>
+          <span className="sec-title">今売られているカード</span>
+          <span className="sec-sub">出品数が増加＝売り圧が高まっている</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {sellingCards.length === 0 ? (
-            <div style={{ padding: '20px 0', fontSize: '13px', color: 'var(--ink-faint)' }}>データ蓄積中（毎日自動更新）</div>
+            <div style={{ padding: 'var(--sp-5) 0', fontSize: 'var(--fs-base)', color: 'var(--ink-faint)' }}>データ蓄積中（毎日自動更新）</div>
           ) : (
             sellingCards.map(({ card, slug, currentMid, weekChange, dayChange, onSale, forecast }) => {
               const change = weekChange ?? dayChange
               const downPct = forecast?.overall.down_pct ?? null
               return (
-                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '40px 1fr auto', gap: '12px', alignItems: 'center', padding: '10px 4px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '40px 1fr auto' }}>
                   {card.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={card.image_url} alt={card.card_name} style={{ width: '40px', height: '56px', objectFit: 'cover', borderRadius: '4px' }} />
+                    <img src={card.image_url} alt={card.card_name} className="row-thumb" />
                   ) : (
-                    <div style={{ width: '40px', height: '56px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>
-                      {card.rarity}
-                    </div>
+                    <div className="row-thumb row-thumb-ph">{card.rarity}</div>
                   )}
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 700 }}>{card.card_name}
-                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', marginLeft: '6px' }}>{card.rarity}</span>
+                    <div className="row-name">{card.card_name}
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                     </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '2px' }}>
+                    <div className="row-meta">
                       ¥{Math.round(currentMid).toLocaleString()}
                       {onSale != null && <> · 出品中 {onSale.toLocaleString()}件</>}
                     </div>
                     {downPct != null && downPct >= 30 && (
-                      <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--down)', marginTop: '2px' }}>AI↓{downPct}%</div>
+                      <div className="row-meta" style={{ color: 'var(--down)' }}>
+                        AI予想 下落確率 {downPct}%
+                      </div>
                     )}
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', textAlign: 'right', minWidth: '56px' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', textAlign: 'right', minWidth: '56px' }}>
                     {change != null && (
                       <span style={{ color: change < 0 ? 'var(--down)' : 'var(--ink-faint)', fontWeight: 600 }}>
                         {change > 0 ? '+' : ''}{change.toFixed(1)}%
                       </span>
                     )}
-                    <div style={{ fontSize: '10px', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
+                    <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
                   </div>
                 </Link>
               )
@@ -497,40 +483,38 @@ export default function TopPage() {
 
       {/* ── 04: 価格急落・急騰 ── */}
       {(surgeCards.length > 0 || dropCards.length > 0) && (
-        <div style={{ marginBottom: '44px' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '20px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--gold)', letterSpacing: '0.1em' }}>04</span>
-            <span style={{ fontFamily: 'var(--mincho)', fontSize: '20px', fontWeight: 700 }}>価格急落・急騰</span>
-            <span style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto' }}>前日比</span>
+        <div className="sec">
+          <div className="sec-head">
+            <span className="sec-no">04</span>
+            <span className="sec-title">価格急落・急騰</span>
+            <span className="sec-sub">実際の成約価格の変化率</span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-5)' }}>
             {/* 急騰 */}
             <div>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--up)', marginBottom: '10px', fontWeight: 600 }}>▲ 急騰</div>
+              <div className="eyebrow" style={{ color: 'var(--up)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>▲ 急騰</div>
               {surgeCards.length === 0 ? (
-                <div style={{ fontSize: '12px', color: 'var(--ink-faint)' }}>データ蓄積中</div>
+                <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ蓄積中</div>
               ) : surgeCards.map(m => {
                 const change = getChange(m)
                 const label = getChangeLabel(m)
                 return (
-                  <Link key={m.slug} href={`/cards/${m.slug}`} style={{ display: 'grid', gridTemplateColumns: '36px 1fr auto', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                  <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
                     {m.card.image_url ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={m.card.image_url} alt={m.card.card_name} style={{ width: '36px', height: '50px', objectFit: 'cover', borderRadius: '3px' }} />
+                      <img src={m.card.image_url} alt={m.card.card_name} className="row-thumb" style={{ width: '36px', height: '50px' }} />
                     ) : (
-                      <div style={{ width: '36px', height: '50px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '8px', color: 'var(--ink-faint)' }}>
-                        {m.card.rarity}
-                      </div>
+                      <div className="row-thumb row-thumb-ph" style={{ width: '36px', height: '50px' }}>{m.card.rarity}</div>
                     )}
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: '13px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
-                      <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)' }}>
+                      <div className="row-name" style={{ fontSize: 'var(--fs-base)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
+                      <div className="row-meta">
                         {m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}
                       </div>
-                      <div style={{ fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>{label}</div>
+                      <div className="row-meta">{label}</div>
                     </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 700, color: 'var(--up)', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--up)', textAlign: 'right', whiteSpace: 'nowrap' }}>
                       +{change.toFixed(1)}%
                     </div>
                   </Link>
@@ -540,30 +524,28 @@ export default function TopPage() {
 
             {/* 急落 */}
             <div>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--down)', marginBottom: '10px', fontWeight: 600 }}>▼ 急落</div>
+              <div className="eyebrow" style={{ color: 'var(--down)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>▼ 急落</div>
               {dropCards.length === 0 ? (
-                <div style={{ fontSize: '12px', color: 'var(--ink-faint)' }}>データ蓄積中</div>
+                <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ蓄積中</div>
               ) : dropCards.map(m => {
                 const change = getChange(m)
                 const label = getChangeLabel(m)
                 return (
-                  <Link key={m.slug} href={`/cards/${m.slug}`} style={{ display: 'grid', gridTemplateColumns: '36px 1fr auto', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                  <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
                     {m.card.image_url ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={m.card.image_url} alt={m.card.card_name} style={{ width: '36px', height: '50px', objectFit: 'cover', borderRadius: '3px' }} />
+                      <img src={m.card.image_url} alt={m.card.card_name} className="row-thumb" style={{ width: '36px', height: '50px' }} />
                     ) : (
-                      <div style={{ width: '36px', height: '50px', background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--mono)', fontSize: '8px', color: 'var(--ink-faint)' }}>
-                        {m.card.rarity}
-                      </div>
+                      <div className="row-thumb row-thumb-ph" style={{ width: '36px', height: '50px' }}>{m.card.rarity}</div>
                     )}
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: '13px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
-                      <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)' }}>
+                      <div className="row-name" style={{ fontSize: 'var(--fs-base)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
+                      <div className="row-meta">
                         {m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}
                       </div>
-                      <div style={{ fontFamily: 'var(--mono)', fontSize: '9px', color: 'var(--ink-faint)' }}>{label}</div>
+                      <div className="row-meta">{label}</div>
                     </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 700, color: 'var(--down)', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--down)', textAlign: 'right', whiteSpace: 'nowrap' }}>
                       {change.toFixed(1)}%
                     </div>
                   </Link>

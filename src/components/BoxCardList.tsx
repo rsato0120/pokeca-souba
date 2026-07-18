@@ -71,7 +71,7 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
           <span className="col-no">No.</span>
           <span>カード</span>
           <span style={{ textAlign: 'right' }}>相場</span>
-          <span className="col-up" style={{ textAlign: 'right', minWidth: '60px' }}>上昇期待</span>
+          <span className="col-up" style={{ textAlign: 'right', minWidth: '60px' }}>上昇確率</span>
           <span style={{ textAlign: 'center' }}>所持枚数</span>
         </div>
 

@@ -33,7 +33,7 @@ export async function generateMetadata(props: PageProps<'/cards/[cardId]'>): Pro
   const low = forecast?.price_forecast.current_low
   const high = forecast?.price_forecast.current_high
   const priceStr = low && high ? `現在相場 ¥${low.toLocaleString()}〜¥${high.toLocaleString()}。` : ''
-  const upStr = upPct !== undefined ? `上昇期待 ${upPct}%。` : ''
+  const upStr = upPct !== undefined ? `上昇確率 ${upPct}%。` : ''
   const title = `${card.card_name} ${card.rarity} の相場予想`
   const description = `${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）のポケモンカード相場予想。${priceStr}${upStr}AI分析による根拠つき予想。`
   return {
@@ -109,6 +109,15 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const latestRecord = priceHistory?.history?.[0] ?? null
   const latestAvg = latestRecord?.avg ?? null
   const latestOnSale = latestRecord?.on_sale ?? null
+  // avg の出所はカードごとに異なる（取引件数でスニダン/メルカリを切替）。
+  // source を持たない旧レコードは断定せず中立ラベルにする。
+  const avgSource = latestRecord?.source ?? null
+  const avgSourceLabel =
+    avgSource === 'snkrdunk' ? 'スニーカーダンク 素体平均'
+    : avgSource === 'mercari' ? 'メルカリ 取引平均'
+    : '取引平均'
+  const avgSampleCount = latestRecord?.sample_count ?? null
+  const latestDate = latestRecord?.date ?? null
   // 今日のスニダン取得が失敗(null)でも、履歴の直近の既知PSA10を表示する（チャートと整合）
   const latestPsa10Record = priceHistory?.history?.find(r => r.psa10 != null) ?? null
   const latestPsa10 = latestPsa10Record?.psa10 ?? null
@@ -279,18 +288,10 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 {signal.dot}&thinsp;{signal.label}
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>
-                  上昇期待度
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '26px',
-                    fontWeight: 700,
-                    color: signal.color,
-                    lineHeight: 1,
-                  }}
-                >
+                {/* up_pct は「上昇シナリオの確率」であって上昇率ではない。
+                    隣に予想価格が並ぶため、単位を明示しないと値上がり率と誤読される。 */}
+                <div className="stat-label">6ヶ月以内に上昇する確率</div>
+                <div className="stat-value" style={{ color: signal.color }}>
                   {overall.up_pct}%
                 </div>
               </div>
@@ -344,49 +345,55 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 </span>
               </div>
             </div>
+            {/* 予想の当たり外れを自分で確認できる導線（信頼性の担保） */}
+            <div style={{ marginTop: 'var(--sp-3)' }}>
+              <Link href="/accuracy" className="pill">
+                この予想はどれくらい当たっている？ →
+              </Link>
+            </div>
           </div>
 
           {/* 市場価格 */}
-          <div
-            style={{
-              background: 'var(--bg2)',
-              border: '1px solid var(--hair)',
-              borderRadius: '8px',
-              padding: '14px 18px',
-              marginBottom: '14px',
-            }}
-          >
-            <div style={{ fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.06em', marginBottom: '10px' }}>
-              MARKET · 市場価格
-            </div>
-            <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap', alignItems: 'baseline' }}>
+          <div className="panel" style={{ background: 'var(--bg2)', marginBottom: 'var(--sp-4)' }}>
+            <div className="eyebrow" style={{ marginBottom: 'var(--sp-2)' }}>MARKET · 市場価格</div>
+            <div style={{ display: 'flex', gap: 'var(--sp-6)', flexWrap: 'wrap', alignItems: 'baseline' }}>
               <div>
-                <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>メルカリ 取引平均</div>
-                <span style={{ fontFamily: 'var(--mono)', fontSize: '26px', fontWeight: 700, color: 'var(--gold)' }}>
+                <div className="stat-label">{avgSourceLabel}</div>
+                <span className="stat-value" style={{ color: 'var(--gold)' }}>
                   {latestAvg != null ? `¥${latestAvg.toLocaleString()}` : '—'}
                 </span>
               </div>
               {latestPsa10 != null && (
                 <div>
-                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>
+                  <div className="stat-label">
                     PSA 10（スニーカーダンク 平均）
                     {latestPsa10Date && latestRecord && latestPsa10Date !== latestRecord.date && (
-                      <span style={{ color: 'var(--ink-faint)' }}>（{latestPsa10Date.slice(5).replace('-', '/')}時点）</span>
+                      <span>（{latestPsa10Date.slice(5).replace('-', '/')}時点）</span>
                     )}
                   </div>
-                  <span style={{ fontFamily: 'var(--mono)', fontSize: '26px', fontWeight: 700, color: '#6c8ebf' }}>
+                  <span className="stat-value" style={{ color: '#6c8ebf' }}>
                     ¥{latestPsa10.toLocaleString()}
                   </span>
                 </div>
               )}
               {latestOnSale != null && (
                 <div>
-                  <div style={{ fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '2px' }}>メルカリ 出品中</div>
-                  <span style={{ fontFamily: 'var(--mono)', fontSize: '22px', fontWeight: 600, color: 'var(--ink-dim)' }}>
+                  <div className="stat-label">メルカリ 出品中</div>
+                  <span className="stat-value" style={{ fontSize: 'var(--fs-lg)', fontWeight: 600, color: 'var(--ink-dim)' }}>
                     {latestOnSale}件
                   </span>
                 </div>
               )}
+            </div>
+            {/* データの出所と鮮度を明示（信頼性の担保） */}
+            <div className="source-note">
+              {latestDate && <>{latestDate.replace(/-/g, '/')} 時点</>}
+              {avgSource === 'snkrdunk' && (
+                <> ・ 素体価格はスニーカーダンクの実取引{avgSampleCount != null ? `${avgSampleCount}件` : ''}の平均</>
+              )}
+              {avgSource === 'mercari' && <> ・ 素体価格はメルカリ成約の20〜80パーセンタイル平均</>}
+              {avgSource == null && <> ・ 素体価格はメルカリ成約またはスニーカーダンク実取引の平均</>}
+              {' '}・ 毎日自動更新
             </div>
           </div>
 
@@ -454,7 +461,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             const tweetText = [
               `【AI相場予想】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
               `現在 ¥${price_forecast.current_low.toLocaleString()}〜¥${price_forecast.current_high.toLocaleString()}`,
-              `${signal.dot} ${signal.label} 上昇期待${overall.up_pct}%`,
+              `${signal.dot} ${signal.label} 上昇確率${overall.up_pct}%`,
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/cards/${cardId}`,
             ].join('\n')
@@ -515,8 +522,21 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       )}
 
       {/* ── 総合シナリオ ── */}
-      <div style={{ fontSize: '12px', color: 'var(--ink-faint)', letterSpacing: '0.06em', marginBottom: '9px' }}>
-        総合シナリオ（今後 6ヶ月）
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+          gap: 'var(--sp-2)',
+          flexWrap: 'wrap',
+          fontSize: 'var(--fs-sm)',
+          color: 'var(--ink-faint)',
+          letterSpacing: '0.06em',
+          marginBottom: 'var(--sp-2)',
+        }}
+      >
+        <span>総合シナリオ（今後 6ヶ月）</span>
+        <span style={{ fontSize: 'var(--fs-xs)' }}>上昇・横ばい・下落それぞれの確率</span>
       </div>
       <div
         style={{

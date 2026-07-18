@@ -77,11 +77,18 @@ export interface PokeData {
   cards: Card[]
 }
 
+// avg の出所。カードによってメルカリ成約とスニダン素体のどちらを採用するかが
+// 取引件数で切り替わる（scripts/scrape-prices.ts の SNKRDUNK_MIN_SAMPLES 参照）ため、
+// 画面で「どこの値か」を正しく出せるよう記録する。
+export type PriceSource = 'mercari' | 'snkrdunk'
+
 export interface PriceRecord {
   date: string  // "2026-06-20"
   low: number
   high: number
-  avg?: number          // メルカリ成約平均価格（sold_out・結果指標）
+  avg?: number          // 成約平均価格（出所は source を参照）
+  source?: PriceSource  // avg の出所（2026-07-18 以降のレコードのみ保持）
+  sample_count?: number // avg の算出に使った取引件数（スニダン採用時のみ）
   on_sale?: number      // メルカリ出品中件数（供給圧）
   ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
   ask_mid?: number      // 出品中の中央値
