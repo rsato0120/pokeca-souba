@@ -155,6 +155,17 @@
       "packs_per_box": 20,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/1/15/SV2a_F_pack.png",
       "note": "2023-06-16発売の強化拡張パック。初代カントー151匹をポケモン図鑑順に収録。受注生産で大量再販されたが、リザードンex SAR・ミュウex UR/SARを筆頭にチェイスは高値安定。"
+    },
+    {
+      "box_id": "tag_bolt",
+      "box_name": "タッグボルト",
+      "code": "SM9",
+      "release_ym": "2018-12",
+      "certainty": "released",
+      "pack_price_yen": 162,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/0/0d/SM9_Tag_Bolt_pack.jpg",
+      "note": "2018-12-07発売のサン&ムーン期拡張パック。TAG TEAM GXが初登場した弾で、各GXに通常SRとスペシャルアート(SA)の2種が存在する。目玉はラティアス&ラティオスGX SA・ゲンガー&ミミッキュGX SA・ピカチュウ&ゼクロムGX SA。長期絶版で高騰。"
     }
   ],
   "cards": [
@@ -8230,6 +8241,552 @@
         "source": ""
       },
       "note": "基本エネルギー ゴールドカード（UR）。"
+    },
+    {
+      "id": "tag-bolt-serebii-fushigibana-gx-sr-96",
+      "card_no": "096/095",
+      "rarity": "SR",
+      "card_name": "セレビィ&フシギバナGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_96_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "たねポケモン",
+        "hp": 270,
+        "note": "TAG TEAM GX。通常イラストのSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-serebii-fushigibana-gx-sa-97",
+      "card_no": "097/095",
+      "rarity": "SA",
+      "card_name": "セレビィ&フシギバナGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_97_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "たねポケモン",
+        "hp": 270,
+        "note": "TAG TEAM GXのスペシャルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shin Nagasawa",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-koiking-hoeruoo-gx-sr-98",
+      "card_no": "098/095",
+      "rarity": "SR",
+      "card_name": "コイキング&ホエルオーGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_98_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たねポケモン",
+        "hp": 300,
+        "note": "TAG TEAM GX。通常イラストのSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-koiking-hoeruoo-gx-sa-99",
+      "card_no": "099/095",
+      "rarity": "SA",
+      "card_name": "コイキング&ホエルオーGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_99_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たねポケモン",
+        "hp": 300,
+        "note": "TAG TEAM GXのスペシャルアート。人気の高いチェイスカード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "OOYAMA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-pikachu-zekrom-gx-sr-100",
+      "card_no": "100/095",
+      "rarity": "SR",
+      "card_name": "ピカチュウ&ゼクロムGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_100_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たねポケモン",
+        "hp": 240,
+        "note": "TAG TEAM GX。当時環境を席巻した看板カードの通常SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-pikachu-zekrom-gx-sa-101",
+      "card_no": "101/095",
+      "rarity": "SA",
+      "card_name": "ピカチュウ&ゼクロムGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_101_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たねポケモン",
+        "hp": 240,
+        "note": "TAG TEAM GXのスペシャルアート。タッグボルトを代表するチェイスカード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kawayoo",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-gengar-mimikyu-gx-sr-102",
+      "card_no": "102/095",
+      "rarity": "SR",
+      "card_name": "ゲンガー&ミミッキュGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_102_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモン",
+        "hp": 240,
+        "note": "TAG TEAM GX。通常イラストのSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-gengar-mimikyu-gx-sa-103",
+      "card_no": "103/095",
+      "rarity": "SA",
+      "card_name": "ゲンガー&ミミッキュGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_103_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモン",
+        "hp": 240,
+        "note": "TAG TEAM GXのスペシャルアート。ゲンガー・ミミッキュ双方の人気が高く最上位クラスの相場。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Midori Harada",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-latias-latios-gx-sr-104",
+      "card_no": "104/095",
+      "rarity": "SR",
+      "card_name": "ラティアス&ラティオスGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_104_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "たねポケモン",
+        "hp": 250,
+        "note": "TAG TEAM GX。通常イラストのSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-latias-latios-gx-sa-105",
+      "card_no": "105/095",
+      "rarity": "SA",
+      "card_name": "ラティアス&ラティオスGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_105_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "たねポケモン",
+        "hp": 250,
+        "note": "TAG TEAM GXのスペシャルアート。タッグボルト最高額帯のカード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-eevee-kabigon-gx-sr-106",
+      "card_no": "106/095",
+      "rarity": "SR",
+      "card_name": "イーブイ&カビゴンGX",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_106_R_JP_LG.png",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たねポケモン",
+        "hp": 270,
+        "note": "TAG TEAM GX。SA版は存在せずSRのみ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-erika-no-omotenashi-sr-107",
+      "card_no": "107/095",
+      "rarity": "SR",
+      "card_name": "エリカのおもてなし",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_107_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "エリカが描かれたサポートSR。サポート枠では屈指の人気。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-takeshi-no-gattsu-sr-108",
+      "card_no": "108/095",
+      "rarity": "SR",
+      "card_name": "タケシのガッツ",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_108_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "タケシが描かれたサポートSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-bolt-natsume-no-anji-sr-109",
+      "card_no": "109/095",
+      "rarity": "SR",
+      "card_name": "ナツメの暗示",
+      "box_id": "tag_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM9/SM9_109_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "ナツメが描かれたサポートSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hitoshi Ariga",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
     }
   ],
   "market_posts": [
