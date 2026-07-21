@@ -9,11 +9,14 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
 } from 'recharts'
 import type { PriceRecord } from '@/types/pokeca'
 
 interface Props {
   history: PriceRecord[]
+  /** 全期間の高値・安値。素体タブでのみ水平線として描く */
+  extremes?: { high: number; low: number } | null
 }
 
 type Tab = 'raw' | 'psa10'
@@ -39,7 +42,7 @@ interface Point {
   value: number | null
 }
 
-export default function PriceHistoryChart({ history }: Props) {
+export default function PriceHistoryChart({ history, extremes = null }: Props) {
   const [tab, setTab] = useState<Tab>('raw')
   const [days, setDays] = useState<number>(30)
 
@@ -73,14 +76,19 @@ export default function PriceHistoryChart({ history }: Props) {
 
   // Y軸domain: 'auto'だと線が底に張り付き変動が潰れるので、実データのmin/maxに
   // レンジ比例パディングを付けて変動が中央に見えるようにする
+  // 高値・安値の水平線は素体タブのみ（PSA10は別系列なので混ぜない）
+  const refLines = tab === 'raw' ? extremes : null
+
   const yDomain = useMemo<[number, number] | [string, string]>(() => {
     const vals = data.map(d => d.value).filter((v): v is number => v != null && v > 0)
     if (!vals.length) return ['auto', 'auto']
-    const lo = Math.min(...vals)
-    const hi = Math.max(...vals)
+    // 水平線が枠外に出ないよう、極値も domain の計算に含める
+    const all = refLines ? [...vals, refLines.high, refLines.low] : vals
+    const lo = Math.min(...all)
+    const hi = Math.max(...all)
     const pad = Math.max((hi - lo) * 0.18, hi * 0.04)
     return [Math.max(0, Math.floor(lo - pad)), Math.ceil(hi + pad)]
-  }, [data])
+  }, [data, refLines])
 
   const tabBtn = (id: Tab): React.CSSProperties => ({
     flex: '0 0 auto',
@@ -205,6 +213,24 @@ export default function PriceHistoryChart({ history }: Props) {
                 [`¥${Number(value).toLocaleString()}`, tab === 'raw' ? '相場' : 'PSA10'] as [string, string]
               }
             />
+            {refLines && (
+              <>
+                <ReferenceLine
+                  y={refLines.high}
+                  stroke="var(--up)"
+                  strokeDasharray="4 4"
+                  strokeOpacity={0.75}
+                  label={{ value: '最高', position: 'insideTopLeft', fill: 'var(--up)', fontSize: 10, fontFamily: 'var(--mono)' }}
+                />
+                <ReferenceLine
+                  y={refLines.low}
+                  stroke="var(--down)"
+                  strokeDasharray="4 4"
+                  strokeOpacity={0.75}
+                  label={{ value: '最安', position: 'insideBottomLeft', fill: 'var(--down)', fontSize: 10, fontFamily: 'var(--mono)' }}
+                />
+              </>
+            )}
             <Line
               type="monotone"
               dataKey="value"

@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, getCardSlug } from '@/lib/data'
+import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getCardSlug } from '@/lib/data'
+import { extremeHitToday } from '@/lib/extremes'
 import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import PriceForecastChart from '@/components/PriceForecastChart'
@@ -122,6 +123,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const latestPsa10Record = priceHistory?.history?.find(r => r.psa10 != null) ?? null
   const latestPsa10 = latestPsa10Record?.psa10 ?? null
   const latestPsa10Date = latestPsa10Record?.date ?? null
+
+  // 全期間の高値・安値（履歴は90日で消えるので data/price-extremes.json から）
+  const extremes = getPriceExtremes(card.id)
+  const extremeHit = extremeHitToday(extremes, latestDate ?? undefined)
+  const mdOf = (d: string) => `${Number(d.slice(5, 7))}/${Number(d.slice(8, 10))}`
 
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
@@ -517,7 +523,54 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           >
             PRICE HISTORY · 価格推移（詳細）
           </div>
-          <PriceHistoryChart history={priceHistory.history} />
+
+          {/* 全期間の高値・安値。当日更新なら見出しにバッジを出す */}
+          {extremes && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '10px',
+                fontSize: '12px',
+                color: 'var(--ink-dim)',
+                marginBottom: '10px',
+              }}
+            >
+              <span>
+                最高 <strong style={{ color: 'var(--up)' }}>¥{extremes.high.value.toLocaleString()}</strong>
+                <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.high.date)}）</span>
+              </span>
+              <span style={{ color: 'var(--hair)' }}>|</span>
+              <span>
+                最安 <strong style={{ color: 'var(--down)' }}>¥{extremes.low.value.toLocaleString()}</strong>
+                <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.low.date)}）</span>
+              </span>
+              {extremeHit && (
+                <span
+                  style={{
+                    fontFamily: 'var(--mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.06em',
+                    padding: '2px 8px',
+                    borderRadius: '3px',
+                    color: '#fff',
+                    background: extremeHit === 'high' ? 'var(--up)' : 'var(--down)',
+                  }}
+                >
+                  {extremeHit === 'high' ? '🔺 本日 最高値更新' : '🔻 本日 最安値更新'}
+                </span>
+              )}
+              <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>
+                （{mdOf(extremes.since)}以降の計測）
+              </span>
+            </div>
+          )}
+
+          <PriceHistoryChart
+            history={priceHistory.history}
+            extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null}
+          />
         </div>
       )}
 

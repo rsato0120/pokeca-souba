@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PsaPop } from '@/types/pokeca'
+import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop } from '@/types/pokeca'
 
 function readPokeData(): PokeData {
   const filePath = path.join(process.cwd(), 'data', 'pokeca_data.json')
@@ -60,6 +60,21 @@ export function getPredictionLog(cardId: string): PredictionLog | null {
   } catch {
     return null
   }
+}
+
+// 全期間の高値・安値（scripts/scrape-prices.ts が更新）。全カード分が1ファイル。
+let extremesCache: Record<string, PriceExtremes> | null = null
+
+export function getPriceExtremes(cardId: string): PriceExtremes | null {
+  if (extremesCache == null) {
+    try {
+      const filePath = path.join(process.cwd(), 'data', 'price-extremes.json')
+      extremesCache = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    } catch {
+      extremesCache = {}
+    }
+  }
+  return extremesCache?.[cardId] ?? null
 }
 
 // PSA鑑定枚数（scripts/scrape-psa-pop.ts が生成）。全カード分が1ファイルなので読み込みをキャッシュする。

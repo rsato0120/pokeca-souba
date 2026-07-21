@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
+import { extremeHitToday } from '@/lib/extremes'
 import type { Card } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
@@ -104,6 +105,21 @@ export default function TopPage() {
       return changeB - changeA  // 増加率が大きい順
     })
     .slice(0, 5)
+
+  // 本日の高値・安値更新: 全期間の極値（data/price-extremes.json）を当日更新したカード。
+  // 蓄積が浅いカードは extremeHitToday 側で除外される（新弾は初日が必ず最高かつ最安になるため）
+  const extremeUpdates = metrics
+    .map(m => {
+      const ex = getPriceExtremes(m.slug)
+      const latestDate = getPriceHistory(m.slug)?.history?.[0]?.date
+      return { m, ex, hit: extremeHitToday(ex, latestDate) }
+    })
+    .filter((e): e is { m: CardMetrics; ex: NonNullable<typeof e.ex>; hit: 'high' | 'low' } => e.hit != null && e.ex != null)
+
+  const highUpdates = extremeUpdates.filter(e => e.hit === 'high')
+    .sort((a, b) => b.m.currentMid - a.m.currentMid).slice(0, 5)
+  const lowUpdates = extremeUpdates.filter(e => e.hit === 'low')
+    .sort((a, b) => b.m.currentMid - a.m.currentMid).slice(0, 5)
 
   // 価格急騰・急落: 前日比優先、なければ週間比
   const getChange = (m: CardMetrics) => m.dayChange ?? m.weekChange ?? 0
@@ -378,6 +394,52 @@ export default function TopPage() {
           })}
         </div>
       </div>
+
+      {/* ── 本日の高値・安値更新 ── */}
+      {(highUpdates.length > 0 || lowUpdates.length > 0) && (
+        <div className="sec">
+          <div className="sec-head">
+            <span className="sec-no" style={{ color: 'var(--gold)' }}>★</span>
+            <span className="sec-title">本日 最高値・最安値を更新したカード</span>
+            <span className="sec-sub">計測開始以降でいちばん高い／安い水準</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {[...highUpdates, ...lowUpdates].map(({ m, ex, hit }) => (
+              <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '40px 1fr auto' }}>
+                {m.card.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={m.card.image_url} alt={m.card.card_name} className="row-thumb" />
+                ) : (
+                  <div className="row-thumb row-thumb-ph">{m.card.rarity}</div>
+                )}
+                <div>
+                  <div className="row-name">{m.card.card_name}
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{m.card.rarity}</span>
+                  </div>
+                  <div className="row-meta">
+                    ¥{Math.round(m.currentMid).toLocaleString()}
+                    {' · '}
+                    {hit === 'high'
+                      ? <>これまでの最高 ¥{ex.high.value.toLocaleString()} を更新</>
+                      : <>これまでの最安 ¥{ex.low.value.toLocaleString()} を更新</>}
+                  </div>
+                  <div className="row-meta" style={{ color: 'var(--ink-faint)' }}>
+                    {ex.records}日分の記録（{ex.since.slice(5).replace('-', '/')}以降）
+                  </div>
+                </div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', textAlign: 'right', minWidth: '56px' }}>
+                  <span style={{ color: hit === 'high' ? 'var(--up)' : 'var(--down)', fontWeight: 700 }}>
+                    {hit === 'high' ? '🔺 高値' : '🔻 安値'}
+                  </span>
+                  <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>
+                    {hit === 'high' ? '更新' : '買い時水準'}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── 02: 今買われているカード ── */}
       <div className="sec">

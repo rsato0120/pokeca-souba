@@ -96,6 +96,22 @@ export interface PriceRecord {
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
 }
 
+// 全期間の高値・安値。価格履歴は90日ローリングで消えるため、極値だけ別ファイルに積み上げる。
+export interface ExtremePoint {
+  value: number
+  date: string
+  source?: PriceSource
+  sample_count?: number
+}
+
+export interface PriceExtremes {
+  high: ExtremePoint
+  low: ExtremePoint
+  since: string       // 計測開始日（この日より前は分からない）
+  records: number     // 極値判定に採用したレコード数
+  updated_at: string
+}
+
 // PSA鑑定枚数（gemrate経由でPSAのPopulation Reportを集計したもの）。
 // psa10 が少ないほど鑑定品の供給が硬く、gem_rate が低いほど10が出にくい＝プレミアが維持されやすい。
 export interface PsaPop {

@@ -2,9 +2,11 @@ import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
-import type { PriceHistory, PriceSource } from '@/types/pokeca'
+import { updateExtremes } from '@/lib/extremes'
+import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
+const EXTREMES_FILE = path.join(process.cwd(), 'data', 'price-extremes.json')
 
 function loadSnkrdunkIds(): Record<string, number> {
   try { return JSON.parse(fs.readFileSync(SNKRDUNK_IDS_FILE, 'utf-8')) } catch { return {} }
@@ -288,13 +290,33 @@ function savePriceHistory(
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
+  // 極値は履歴から落ちる前に別ファイルへ退避する（更新前の1つ前のレコードをノイズ判定に使う）
+  const prevRecord = data.history.find(r => r.date !== date) ?? null
+
   const idx = data.history.findIndex(r => r.date === date)
   if (idx >= 0) data.history[idx] = record
   else data.history.push(record)
 
   data.history.sort((a, b) => b.date.localeCompare(a.date))
-  data.history = data.history.slice(0, 30)
+  // 90日ローリング。チャートの「90日」タブが実データで埋まる長さに合わせている
+  data.history = data.history.slice(0, 90)
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
+
+  saveExtremes(cardId, record, prevRecord)
+}
+
+// 全期間の高値・安値（data/price-extremes.json）。1件ずつ read-modify-write するが
+// 数十KBのファイルなので実行時間には影響しない。カード毎に確定させることで
+// スクレイプが途中で落ちても取得済み分が残る。
+function saveExtremes(cardId: string, record: PriceRecord, prevRecord: PriceRecord | null): void {
+  let all: Record<string, PriceExtremes> = {}
+  try { all = JSON.parse(fs.readFileSync(EXTREMES_FILE, 'utf-8')) } catch {}
+
+  const next = updateExtremes(all[cardId] ?? null, record, prevRecord)
+  if (!next) return
+
+  all[cardId] = next
+  fs.writeFileSync(EXTREMES_FILE, JSON.stringify(all, null, 2) + '\n', 'utf-8')
 }
 
 async function scrapeCard(
