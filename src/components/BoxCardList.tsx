@@ -10,7 +10,8 @@ type CardEntry = {
 }
 
 // SA=特別アート(SwSh期), HR=ハイパーレア。イーブイヒーローズ等の旧弾で使用。
-const RARITY_ORDER = ['RR', 'SR', 'SA', 'SAR', 'MA', 'MUR', 'AR', 'UR', 'HR']
+// BWR=ブラックホワイトレア。ブラックボルト/ホワイトフレア限定の最上位レアリティ。
+const RARITY_ORDER = ['RR', 'SR', 'SA', 'SAR', 'BWR', 'MA', 'MUR', 'AR', 'UR', 'HR']
 
 export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: CardEntry[] }) {
   const presentRarities = RARITY_ORDER.filter(r => cardsWithForecast.some(c => c.card.rarity === r))

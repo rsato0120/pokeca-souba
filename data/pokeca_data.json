@@ -106,6 +106,17 @@
       "note": "2025-08-01発売。MEGAシリーズ第1弾。メガルカリオex/メガフシギバナex/メガアブソルex/メガクチートex/メガバクーダexを収録。メガシンフォニアと同時発売。"
     },
     {
+      "box_id": "black_bolt",
+      "box_name": "ブラックボルト",
+      "code": "SV11B",
+      "release_ym": "2025-06",
+      "certainty": "released",
+      "pack_price_yen": 290,
+      "packs_per_box": 20,
+      "pack_image_url": "https://www.pokemon-card.com/ex/sv11/assets/images/infoProduct-img-1.png",
+      "note": "2025-06-06発売の拡張パック（同時発売の「ホワイトフレア」と対）。イッシュ地方のポケモンを全種ARで収録する特殊構成で、AR72種・SAR7種に加えこの弾だけの新レアリティBWR（ゼクロムex 174）が目玉。本サイトは相場が動く高額帯18枚を掲載。"
+    },
+    {
       "box_id": "pokecen_pikachu",
       "box_name": "ポケモンセンター限定ピカチュウ",
       "code": "SV-P",
@@ -8778,6 +8789,708 @@
         "common": {
           "reprint_status": "none",
           "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-zekrom-ex-bwr-174",
+      "card_no": "174/086",
+      "rarity": "BWR",
+      "card_name": "ゼクロムex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_174_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "この弾だけの新レアリティBWR（ブラックホワイトレア）。黒基調の特殊加工で、ブラックボルト最高額のチェイスカード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "BWR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-n-no-sujigaki-sar-173",
+      "card_no": "173/086",
+      "rarity": "SAR",
+      "card_name": "Nの筋書き",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_173_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "Nが描かれたサポートSAR。初動¥24,800から下落したが、サポートSARでは屈指の人気。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "REND",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-genesect-ex-sar-172",
+      "card_no": "172/086",
+      "rarity": "SAR",
+      "card_name": "ゲノセクトex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_172_R_JP_LG.png",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "ポケモンex",
+        "hp": 220,
+        "note": "ゲノセクトexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-doryuuzu-ex-sar-171",
+      "card_no": "171/086",
+      "rarity": "SAR",
+      "card_name": "ドリュウズex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_171_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "ポケモンex",
+        "hp": 270,
+        "note": "有田満弘によるドリュウズexのSAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-meloetta-ex-sar-170",
+      "card_no": "170/086",
+      "rarity": "SAR",
+      "card_name": "メロエッタex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_170_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "ポケモンex",
+        "hp": 200,
+        "note": "メロエッタexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "LINNE",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-zekrom-ex-sar-169",
+      "card_no": "169/086",
+      "rarity": "SAR",
+      "card_name": "ゼクロムex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_169_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "ゼクロムexのSAR。BWRに次ぐこの弾の主力チェイス。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "danciao",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-kyurem-ex-sar-168",
+      "card_no": "168/086",
+      "rarity": "SAR",
+      "card_name": "キュレムex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_168_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "キュレムexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "chibi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-jalorda-ex-sar-167",
+      "card_no": "167/086",
+      "rarity": "SAR",
+      "card_name": "ジャローダex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_167_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "ポケモンex",
+        "hp": 320,
+        "note": "ジャローダexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ryota Murayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-n-no-sujigaki-sr-165",
+      "card_no": "165/086",
+      "rarity": "SR",
+      "card_name": "Nの筋書き",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_165_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "Nの筋書きのフルアートSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "hncl",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-zekrom-ex-sr-161",
+      "card_no": "161/086",
+      "rarity": "SR",
+      "card_name": "ゼクロムex",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_161_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "ゼクロムexのフルアートSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-chiraamii-ar-157",
+      "card_no": "157/086",
+      "rarity": "AR",
+      "card_name": "チラーミィ",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_157_R_JP_LG.png",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たねポケモン",
+        "hp": 60,
+        "note": "ARの中でも人気の高い一枚。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Natsumi Yoshida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-uniran-ar-123",
+      "card_no": "123/086",
+      "rarity": "AR",
+      "card_name": "ユニラン",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_123_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモン",
+        "hp": 40,
+        "note": "USGMENによるAR。AR帯ではガマゲロゲに次ぐ高額。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "USGMEN",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-shibishirasu-ar-117",
+      "card_no": "117/086",
+      "rarity": "AR",
+      "card_name": "シビシラス",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_117_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たねポケモン",
+        "hp": 40,
+        "note": "AR帯の上位。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "ryoma uratsuka",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-gamageroge-ar-109",
+      "card_no": "109/086",
+      "rarity": "AR",
+      "card_name": "ガマゲロゲ",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_109_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "2進化ポケモン",
+        "hp": 170,
+        "note": "AR最高額。SAR勢を上回る相場を付けたこの弾の名物カード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shinji Kanda",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-urugamosu-ar-104",
+      "card_no": "104/086",
+      "rarity": "AR",
+      "card_name": "ウルガモス",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_104_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化ポケモン",
+        "hp": 120,
+        "note": "AR帯の上位。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-shandera-ar-102",
+      "card_no": "102/086",
+      "rarity": "AR",
+      "card_name": "シャンデラ",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11B/SV11B_102_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化ポケモン",
+        "hp": 150,
+        "note": "AR帯の上位。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kuroimori",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-victini-ar-97",
+      "card_no": "097/086",
+      "rarity": "AR",
+      "card_name": "ビクティニ",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv11b/097.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たねポケモン",
+        "hp": 80,
+        "note": "Amelicartによる人気AR。AR帯ではユニランと並ぶ高額。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Amelicart",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "black-bolt-tsutaaja-ar-87",
+      "card_no": "087/086",
+      "rarity": "AR",
+      "card_name": "ツタージャ",
+      "box_id": "black_bolt",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv11b/087.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "たねポケモン",
+        "hp": 70,
+        "note": "AR番号の先頭を飾るツタージャ。御三家人気で安定。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yoshimi Miyoshi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
           "character_popularity": "mid"
         }
       },
