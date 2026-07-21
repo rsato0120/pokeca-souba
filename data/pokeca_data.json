@@ -117,6 +117,17 @@
       "note": "2025-06-06発売の拡張パック（同時発売の「ホワイトフレア」と対）。イッシュ地方のポケモンを全種ARで収録する特殊構成で、AR72種・SAR7種に加えこの弾だけの新レアリティBWR（ゼクロムex 174）が目玉。本サイトは相場が動く高額帯18枚を掲載。"
     },
     {
+      "box_id": "white_flare",
+      "box_name": "ホワイトフレア",
+      "code": "SV11W",
+      "release_ym": "2025-06",
+      "certainty": "released",
+      "pack_price_yen": 290,
+      "packs_per_box": 20,
+      "pack_image_url": "https://www.pokemon-card.com/ex/sv11/assets/images/infoProduct-img-2.png",
+      "note": "2025-06-06発売の拡張パック（同時発売の「ブラックボルト」と対）。イッシュ地方のポケモンを全種ARで収録する特殊構成で、AR72種・SAR7種に加え新レアリティBWR（レシラムex 174）が目玉。BWRは2カートンに1枚とされる低封入率。本サイトは相場が動く高額帯18枚を掲載。"
+    },
+    {
       "box_id": "pokecen_pikachu",
       "box_name": "ポケモンセンター限定ピカチュウ",
       "code": "SV-P",
@@ -9484,6 +9495,708 @@
         },
         "collector": {
           "illustrator": "Yoshimi Miyoshi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-reshiram-ex-bwr-174",
+      "card_no": "174/086",
+      "rarity": "BWR",
+      "card_name": "レシラムex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_174_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "ブラックボルトのゼクロムexと対になるBWR。封入率が極めて低く、ホワイトフレア最高額のチェイスカード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "BWR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-touko-sar-173",
+      "card_no": "173/086",
+      "rarity": "SAR",
+      "card_name": "トウコ",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_173_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "BWの女主人公トウコのSAR。人気キャラでサポートSARとして高額帯。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-baffuron-ex-sar-172",
+      "card_no": "172/086",
+      "rarity": "SAR",
+      "card_name": "バッフロンex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_172_R_JP_LG.png",
+      "card_spec": {
+        "type": "無色",
+        "stage": "ポケモンex",
+        "hp": 220,
+        "note": "バッフロンexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Rianti Hidayat",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-sazandora-ex-sar-171",
+      "card_no": "171/086",
+      "rarity": "SAR",
+      "card_name": "サザンドラex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_171_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "ポケモンex",
+        "hp": 330,
+        "note": "和田拓三によるサザンドラexのSAR。SAR勢ではレシラム・トウコに次ぐ相場。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Takumi Wada",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-burungeru-ex-sar-170",
+      "card_no": "170/086",
+      "rarity": "SAR",
+      "card_name": "ブルンゲルex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_170_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "ポケモンex",
+        "hp": 270,
+        "note": "ブルンゲルexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Narano",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-keldeo-ex-sar-169",
+      "card_no": "169/086",
+      "rarity": "SAR",
+      "card_name": "ケルディオex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_169_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモンex",
+        "hp": 210,
+        "note": "ケルディオexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-reshiram-ex-sar-168",
+      "card_no": "168/086",
+      "rarity": "SAR",
+      "card_name": "レシラムex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_168_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "kawayooによるレシラムexのSAR。この弾の看板ポケモンでBWRに次ぐ主力チェイス。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kawayoo",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-erufuun-ex-sar-167",
+      "card_no": "167/086",
+      "rarity": "SAR",
+      "card_name": "エルフーンex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_167_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "エルフーンexのスペシャルアートレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "mele",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-touko-sr-166",
+      "card_no": "166/086",
+      "rarity": "SR",
+      "card_name": "トウコ",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_166_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "トウコのフルアートSR。SR帯では最高額。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "yuu",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-reshiram-ex-sr-160",
+      "card_no": "160/086",
+      "rarity": "SR",
+      "card_name": "レシラムex",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_160_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンex",
+        "hp": 230,
+        "note": "レシラムexのフルアートSR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-zoroark-ar-141",
+      "card_no": "141/086",
+      "rarity": "AR",
+      "card_name": "ゾロアーク",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_141_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化ポケモン",
+        "hp": 120,
+        "note": "ゾロアークのAR。ゾロア(140)と対で人気。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Iwamoto05",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-zorua-ar-140",
+      "card_no": "140/086",
+      "rarity": "AR",
+      "card_name": "ゾロア",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_140_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たねポケモン",
+        "hp": 70,
+        "note": "ゾロアのAR。AR帯の上位。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-pururiru-ar-124",
+      "card_no": "124/086",
+      "rarity": "AR",
+      "card_name": "プルリル",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_124_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たねポケモン",
+        "hp": 80,
+        "note": "プルリルのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shinya Komatsu",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-bachuru-ar-113",
+      "card_no": "113/086",
+      "rarity": "AR",
+      "card_name": "バチュル",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_113_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たねポケモン",
+        "hp": 40,
+        "note": "HYOGONOSUKEによるバチュルのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "HYOGONOSUKE",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-daikenki-ar-104",
+      "card_no": "104/086",
+      "rarity": "AR",
+      "card_name": "ダイケンキ",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_104_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "2進化ポケモン",
+        "hp": 160,
+        "note": "ミジュマルの最終進化ダイケンキのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "DOM",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-mijumaru-ar-102",
+      "card_no": "102/086",
+      "rarity": "AR",
+      "card_name": "ミジュマル",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV11W/SV11W_102_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たねポケモン",
+        "hp": 70,
+        "note": "AR最高額。SAR勢に迫る相場を付けたこの弾の名物カード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "OKACHEKE",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-pokabu-ar-96",
+      "card_no": "096/086",
+      "rarity": "AR",
+      "card_name": "ポカブ",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv11w/096.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たねポケモン",
+        "hp": 70,
+        "note": "イッシュ御三家ポカブのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Orca",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "white-flare-virizion-ar-95",
+      "card_no": "095/086",
+      "rarity": "AR",
+      "card_name": "ビリジオン",
+      "box_id": "white_flare",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv11w/095.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "たねポケモン",
+        "hp": 120,
+        "note": "ビリジオンのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kodama",
           "illustrator_popularity": "mid",
           "artwork_type": "original",
           "rarity": "AR"
