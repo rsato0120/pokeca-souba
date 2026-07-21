@@ -200,7 +200,9 @@ function removeOutliers(prices: number[]): number[] {
 }
 
 interface MercariItem { id?: string; name: string; price: number; status?: string }
-interface MercariPriceResult { avg: number; low: number; high: number }
+// soldTotal = 成約済みの総件数（meta.numFound）。日々の差分が「1日に何枚売れたか」＝回転率になる。
+// 追加リクエストは発生しない（成約相場を取る同じレスポンスの meta を読むだけ）。
+interface MercariPriceResult { avg: number; low: number; high: number; soldTotal: number | null }
 
 async function scrapeMercariSoldAvg(
   browser: Browser,
@@ -223,6 +225,11 @@ async function scrapeMercariSoldAvg(
     if (!response) return null
     const json = await response.json()
     const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
+    const meta = json.meta ?? json.data?.meta ?? {}
+    const rawSoldTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
+    const soldTotal = rawSoldTotal != null && !isNaN(Number(rawSoldTotal)) && Number(rawSoldTotal) > 0
+      ? Number(rawSoldTotal)
+      : null
     const prices = removeOutliers(
       rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
     )
@@ -233,7 +240,7 @@ async function scrapeMercariSoldAvg(
     // 床値寄りの狭いバンド（例 20th〜35th）を渡して「実際に買える価格帯」を表示する。
     const low = sorted[Math.floor(sorted.length * lowPct)]
     const high = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * highPct))]
-    return { avg, low, high }
+    return { avg, low, high, soldTotal }
   } catch { return null }
   finally { await page.close() }
 }
@@ -247,7 +254,8 @@ function savePriceHistory(
   onSale: OnSaleResult | null,
   psa10: number | null,
   priceSource?: PriceSource,
-  sampleCount?: number
+  sampleCount?: number,
+  soldTotal?: number | null
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -273,6 +281,7 @@ function savePriceHistory(
     avg,
     ...(priceSource ? { source: priceSource } : {}),
     ...(sampleCount != null ? { sample_count: sampleCount } : {}),
+    ...(soldTotal != null ? { sold_total: soldTotal } : {}),
     ...(validatedOnSale?.count != null ? { on_sale: validatedOnSale.count } : {}),
     ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
@@ -332,6 +341,8 @@ async function scrapeCard(
     }
 
     let mercariLow = 0, mercariHigh = 0
+    // スニダン採用時はメルカリ成約検索を行わないので soldTotal は取れない（追加リクエストは避ける）
+    let soldTotal: number | null = null
     if (snkrdunkRegular != null && snkrdunkCount > SNKRDUNK_MIN_SAMPLES) {
       // 十分な取引数があるスニダン価格はそのまま採用
       avg = snkrdunkRegular
@@ -342,7 +353,10 @@ async function scrapeCard(
       // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
       for (let attempt = 1; attempt <= 3; attempt++) {
         const result = await scrapeMercariSoldAvg(browser, searchQuery)
-        if (result != null) { avg = result.avg; mercariLow = result.low; mercariHigh = result.high; break }
+        if (result != null) {
+          avg = result.avg; mercariLow = result.low; mercariHigh = result.high; soldTotal = result.soldTotal
+          break
+        }
         if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
       }
       source = 'メルカリ'
@@ -381,7 +395,7 @@ async function scrapeCard(
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
       : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
@@ -404,10 +418,14 @@ async function scrapeBox(
   try {
     let avg: number | null = null
     let boxLow = 0, boxHigh = 0
+    let soldTotal: number | null = null
     for (let attempt = 1; attempt <= 3; attempt++) {
       // BOXは高額な状態良・付属品付き出品が右に長い裾を作るため、床値寄りの 20th〜35th を採用
       const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.35)
-      if (result != null) { avg = result.avg; boxLow = result.low; boxHigh = result.high; break }
+      if (result != null) {
+        avg = result.avg; boxLow = result.low; boxHigh = result.high; soldTotal = result.soldTotal
+        break
+      }
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
@@ -418,7 +436,7 @@ async function scrapeBox(
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
     const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
     // BOX相場は常にメルカリ成約の床値バンド由来
-    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null, 'mercari')
+    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null, 'mercari', undefined, soldTotal)
     const onSaleLog = onSale.count != null ? ` / 出品${onSale.count}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
     stats.succeeded++

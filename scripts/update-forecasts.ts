@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { generateForecast, adjustRankings } from '@/lib/forecast'
 import { getAllCards, getCardSlug } from '@/lib/data'
+import { createForecastContextBuilder } from '@/lib/forecast-context'
 import type { Forecast, PriceHistory, PriceRecord } from '@/types/pokeca'
 
 const forecastDir = path.join(process.cwd(), 'data', 'forecasts')
@@ -30,6 +31,8 @@ const API_DELAY_MS = 4000
 
 async function main() {
   const cards = getAllCards()
+  // 弾の状況・BOX相場・同名カードのレア間価格・過去予想の較正をプロンプトに渡すための文脈
+  const buildContext = createForecastContextBuilder(cards)
   console.log(`${cards.length}枚のカードの予想を生成します\n`)
 
   console.log('【Step 1】個別予想を生成中...\n')
@@ -51,7 +54,7 @@ async function main() {
     if (apiCallCount > 0) await sleep(API_DELAY_MS)
     process.stdout.write('予想生成中... ')
     try {
-      const forecast = await generateForecast(card, price.low, price.high, price.history)
+      const forecast = await generateForecast(card, price.low, price.high, price.history, buildContext(card))
       apiCallCount++
       succeeded.push({ cardId, card, forecast })
       const { up_pct, flat_pct, down_pct } = forecast.overall

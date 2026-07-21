@@ -89,10 +89,23 @@ export interface PriceRecord {
   avg?: number          // 成約平均価格（出所は source を参照）
   source?: PriceSource  // avg の出所（2026-07-18 以降のレコードのみ保持）
   sample_count?: number // avg の算出に使った取引件数（スニダン採用時のみ）
+  sold_total?: number   // メルカリ成約済み総件数（累計）。前日との差が「1日に何枚売れたか」＝回転率になる
   on_sale?: number      // メルカリ出品中件数（供給圧）
   ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
   ask_mid?: number      // 出品中の中央値
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
+}
+
+// PSA鑑定枚数（gemrate経由でPSAのPopulation Reportを集計したもの）。
+// psa10 が少ないほど鑑定品の供給が硬く、gem_rate が低いほど10が出にくい＝プレミアが維持されやすい。
+export interface PsaPop {
+  psa10: number
+  total: number      // 総鑑定枚数（全グレード合計）
+  gem_rate: number   // PSA10率（0-100）
+  parallel: string   // PSA側のレアリティ表記（例: Special Art Rare）。取り違え検証用
+  name: string       // PSA側のカード名（英語）
+  set_name: string
+  fetched_at: string
 }
 
 export interface PriceHistory {

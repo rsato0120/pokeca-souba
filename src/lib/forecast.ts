@@ -1,9 +1,28 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import type { Card, Forecast, PriceRecord, Trend } from '@/types/pokeca'
+import type { Box, Card, Forecast, PriceRecord, PsaPop, Trend } from '@/types/pokeca'
+import type { BoxCalibration } from './calibration'
+
+// カード単体の材料・価格履歴だけでは判断できない文脈（弾の状況・レア間の位置・自己較正）。
+// すべて呼び出し側がディスクから組み立てて渡す。未指定でも動く（該当セクションが出ないだけ）。
+export interface ForecastContext {
+  box?: Box | null
+  boxHistory?: PriceRecord[] | null
+  /** 同名カードの他レアリティの相場（このカード自身は含めない） */
+  siblings?: Array<{ rarity: string; mid: number }> | null
+  calibration?: BoxCalibration | null
+  psaPop?: PsaPop | null
+}
 
 // ─── プロンプト構築 ──────────────────────────────────────────────
 
-function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceHistory: PriceRecord[]): string {
+// 内容の目視確認（scripts/_preview_ctx.ts 等）ができるよう export している
+export function buildPrompt(
+  card: Card,
+  currentLow: number,
+  currentHigh: number,
+  priceHistory: PriceRecord[],
+  ctx: ForecastContext = {}
+): string {
   const { collector, common } = card.materials
 
   const reprintLabel: Record<string, string> = {
@@ -92,6 +111,149 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
         historySection += `- 値動きの方向: ${momentum}\n`
       }
     }
+
+    // 成約総件数（sold_total）の増分＝実際に売れた枚数。回転の速さは需要の強さを直接表す。
+    // メルカリ成約を取得した日のみ記録されるため、スニダン採用カードでは欠けることがある。
+    const withSold = priceHistory.filter(r => r.sold_total != null)
+    if (withSold.length >= 2) {
+      const newestSold = withSold[0]
+      const oldestSold = withSold[withSold.length - 1]
+      const days = Math.max(
+        1,
+        Math.round((new Date(newestSold.date).getTime() - new Date(oldestSold.date).getTime()) / 86400000)
+      )
+      const perDay = (newestSold.sold_total! - oldestSold.sold_total!) / days
+      if (perDay >= 0) {
+        const velocityLabel = perDay >= 5 ? '非常に速い（毎日売れている＝実需が厚い）'
+          : perDay >= 1.5 ? '速い（活発に取引されている）'
+          : perDay >= 0.5 ? '普通'
+          : '遅い（買い手が少なく、値付けが崩れやすい）'
+        historySection += `\n## 取引の回転（メルカリ成約件数の増加ペース）\n`
+        historySection += `- 直近${days}日で約${Math.round(perDay * 10) / 10}枚/日が成約 → ${velocityLabel}\n`
+      }
+    }
+  }
+
+  // ── PSA10プレミアム: 鑑定品にどれだけ上乗せが付くか＝美品/コレクター需要の強さ
+  let psaSection = ''
+  const psaRec = priceHistory.find(r => r.psa10 != null && Number(r.psa10) > 0)
+  if (psaRec) {
+    const psa10 = Number(psaRec.psa10)
+    const base = midOf(psaRec)
+    if (base > 0) {
+      const mult = psa10 / base
+      const label = mult >= 8 ? '非常に高い（鑑定に出す価値が大きく、美品需要が強い。素体の下値も固い）'
+        : mult >= 4 ? '高い（コレクター需要がしっかりある）'
+        : mult >= 2.5 ? '標準的'
+        : '低い（鑑定妙味が薄く、コレクター需要は限定的）'
+      psaSection = `\n## PSA10（鑑定品）相場\n`
+      psaSection += `- PSA10: ¥${Math.round(psa10).toLocaleString()}（素体の${Math.round(mult * 10) / 10}倍）→ プレミアは${label}\n`
+
+      const psaSeries = priceHistory.filter(r => r.psa10 != null && Number(r.psa10) > 0)
+      if (psaSeries.length >= 2) {
+        const oldPsa = Number(psaSeries[psaSeries.length - 1].psa10)
+        const psaChange = Math.round(((psa10 - oldPsa) / oldPsa) * 100)
+        if (Math.abs(psaChange) >= 5) {
+          psaSection += `- PSA10の推移: ${psaChange >= 0 ? '+' : ''}${psaChange}%（鑑定品が先に動くことがあり、素体の先行指標になりうる）\n`
+        }
+      }
+    }
+  }
+
+  // ── PSA鑑定枚数: 鑑定済みが何枚あるか＝「良品の供給量」。価格と違い後戻りしない硬い指標。
+  let popSection = ''
+  const pop = ctx.psaPop
+  if (pop) {
+    const popLabel = pop.psa10 < 300 ? '非常に少ない（鑑定済みの良品が希少）'
+      : pop.psa10 < 1500 ? '少なめ'
+      : pop.psa10 < 6000 ? '標準的'
+      : '非常に多い（鑑定品が潤沢に出回っており、PSA10であること自体の希少性は低い）'
+    const gemLabel = pop.gem_rate >= 90 ? '非常に高い（10が出やすく、PSA10の供給は今後も増えやすい）'
+      : pop.gem_rate >= 75 ? '高い'
+      : pop.gem_rate >= 55 ? '普通'
+      : '低い（10が出にくく、PSA10のプレミアは維持されやすい）'
+    popSection = `\n## PSA鑑定枚数（良品の供給量）\n`
+    popSection += `- PSA10: ${pop.psa10.toLocaleString()}枚 / 総鑑定 ${pop.total.toLocaleString()}枚 → ${popLabel}\n`
+    popSection += `- PSA10率: ${pop.gem_rate}% → ${gemLabel}\n`
+  }
+
+  // ── 相場の厚み: 何件の取引で決まった値か。薄い相場は極端な予想を避ける根拠になる
+  let liquiditySection = ''
+  const latest = priceHistory[0]
+  if (latest?.source) {
+    const srcLabel = latest.source === 'snkrdunk' ? 'スニーカーダンクの素体取引' : 'メルカリ成約'
+    liquiditySection = `\n## 相場の厚み\n- 現在相場の出所: ${srcLabel}\n`
+    if (latest.sample_count != null) {
+      const n = latest.sample_count
+      const thickness = n <= 3 ? '非常に薄い（少数の取引で決まった値。実勢と乖離している可能性がある）'
+        : n <= 8 ? '薄め（参考程度に扱う）'
+        : '十分'
+      liquiditySection += `- 算出に使った取引件数: ${n}件 → ${thickness}\n`
+    }
+  }
+
+  // ── 弾の状況: 発売からの経過と、弾そのもの（未開封BOX）の地合い
+  let setSection = ''
+  const box = ctx.box
+  if (box) {
+    setSection = `\n## 収録弾の状況\n- 弾名: ${box.box_name}（${box.code}・${box.release_ym}発売）\n`
+    const m = /^(\d{4})-(\d{2})$/.exec(box.release_ym)
+    if (m) {
+      const released = new Date(Number(m[1]), Number(m[2]) - 1, 1).getTime()
+      const months = Math.max(0, Math.round((Date.now() - released) / (30.44 * 86400000)))
+      const stage = months < 3 ? '発売直後（開封が続き供給が最も多い時期。下落圧力が強い）'
+        : months < 12 ? '流通中（供給は続くが開封のピークは越えた）'
+        : months < 36 ? '市場消化が進んだ時期（供給は中古のみ。良品は減り始める）'
+        : '旧弾（絶版。供給は中古のみで、良品の希少性が年々上がる）'
+      setSection += `- 発売から約${months}ヶ月 → ${stage}\n`
+    }
+    const bh = ctx.boxHistory ?? []
+    if (bh.length > 0) {
+      const boxNow = midOf(bh[0])
+      setSection += `- 未開封BOX相場: ¥${Math.round(boxNow).toLocaleString()}\n`
+      if (box.pack_price_yen && box.packs_per_box) {
+        const msrp = box.pack_price_yen * box.packs_per_box
+        const premium = Math.round(((boxNow - msrp) / msrp) * 100)
+        setSection += `- 定価(¥${msrp.toLocaleString()})比: ${premium >= 0 ? '+' : ''}${premium}%（BOXのプレミア＝弾全体の人気度）\n`
+      }
+      if (bh.length >= 2) {
+        const boxOld = midOf(bh[bh.length - 1])
+        const boxChange = Math.round(((boxNow - boxOld) / boxOld) * 100)
+        const dir = boxChange > 5 ? '弾全体が上昇基調（追い風）' : boxChange < -5 ? '弾全体が下落基調（向かい風）' : '弾全体は横ばい'
+        setSection += `- BOX相場の推移: ${boxChange >= 0 ? '+' : ''}${boxChange}% → ${dir}\n`
+      }
+    }
+  }
+
+  // ── レア間の位置: 同名カードの別レアリティと比べて何倍か（弾内でのチェイス度）
+  let siblingSection = ''
+  const siblings = ctx.siblings ?? []
+  if (siblings.length > 0) {
+    const selfMid = (currentLow + currentHigh) / 2
+    const list = siblings
+      .slice()
+      .sort((a, b) => a.mid - b.mid)
+      .map(s => `${s.rarity} ¥${Math.round(s.mid).toLocaleString()}`)
+      .join(' / ')
+    siblingSection = `\n## 同名カードの他レアリティ\n- ${list}\n`
+    const cheapest = Math.min(...siblings.map(s => s.mid))
+    if (cheapest > 0) {
+      const ratio = Math.round((selfMid / cheapest) * 10) / 10
+      siblingSection += `- このカード（${card.rarity}）は最安レアの${ratio}倍。倍率が極端に大きい場合は上位レアに需要が集中している（＝下位レアは値動きが鈍い）\n`
+    }
+  }
+
+  // ── 自己較正: 弾単位で「これまで強気/弱気に外していないか」だけを渡す
+  let calibrationSection = ''
+  const cal = ctx.calibration
+  if (cal) {
+    const gap = cal.avgPredictedNet - cal.avgActualPct
+    const verdict = gap > 20 ? 'これまでこの弾には強気に寄りすぎていた'
+      : gap < -20 ? 'これまでこの弾には弱気に寄りすぎていた'
+      : 'これまでの予想と実際の値動きは概ね整合している'
+    calibrationSection = `\n## 過去予想の較正（この弾${cal.cards}枚の平均）\n`
+    calibrationSection += `- ${cal.lookbackDays}日前のAI予想: 平均ネット${cal.avgPredictedNet >= 0 ? '+' : ''}${cal.avgPredictedNet}（up_pct−down_pct）\n`
+    calibrationSection += `- その後の実際の変動: 平均${cal.avgActualPct >= 0 ? '+' : ''}${cal.avgActualPct}% → ${verdict}\n`
   }
 
   return `あなたはポケモンカードの「コレクター相場」（観賞用・保有価値）の分析専門家です。
@@ -116,7 +278,7 @@ function buildPrompt(card: Card, currentLow: number, currentHigh: number, priceH
 
 ## 補足情報（証拠メモ）
 - コレクター視点: ${card.evidence_notes.collector}
-${historySection}
+${historySection}${psaSection}${popSection}${liquiditySection}${setSection}${siblingSection}${calibrationSection}
 ## 出力ルール
 1. 断言しない。「上がります」ではなく確率＋根拠で示す
 2. コレクター視点（観賞・保有価値）で分析する。対戦採用の有無は判断材料にしない
@@ -124,10 +286,18 @@ ${historySection}
    【下落圧力の例】再録／再録予定→供給増、出品数の増加→供給過多
    【上昇圧力の例】品薄・絶版→希少性プレミア、人気絵師の描き下ろし→コレクター需要、キャラ人気が高い→長期保有需要、出品数の減少→需給逼迫
 4. すべてのカードが下落するわけではない。新弾直後の供給増は一要因にすぎず、希少・人気絵師・品薄・絶版など強い材料を持つカードは横ばい〜上昇も十分ありうる。材料の強弱に応じてカードごとに明確に差別化し、up_pct を団子にしない（強い材料なら40〜70%、弱い材料なら10〜25%など幅を持たせる）
-5. 根拠文は日本語で2〜3文、具体的に書く
-6. overall の up_pct + flat_pct + down_pct = 100 にする
-7. price_forecast は3時点（1ヶ月後・3ヶ月後・6ヶ月後）の本線予想価格を出す。起点は current_low=${currentLow}, current_high=${currentHigh}
-8. up/down は6ヶ月後の上振れ・下振れシナリオ価格
+5. 提供された各セクションは次のように扱う（記載が無いセクションは判断材料から外す）
+   - 相場の厚み: 取引件数が少ない（薄い）ほど現在価格自体が不確かなので、極端な up/down に振らず flat を厚めにする
+   - PSA10プレミアム: 倍率が高いほど美品需要が強く素体の下値も固い（下落幅を小さく見積もる根拠になる）
+   - PSA鑑定枚数: 鑑定済みが多いほど良品の供給が厚く上値が重い。少なければ希少性の裏付けになる。PSA10率が低いカードは美品が出にくく下値が固い
+   - 収録弾の状況: 発売直後は開封による供給増で下落圧力、旧弾・絶版は希少性で上昇圧力。BOX相場の方向は弾全体の地合いとして加味する
+   - 取引の回転: 回転が速い＝実需が厚く価格が崩れにくい。遅い＝少数の出品で相場が動きやすい
+   - 同名カードの他レアリティ: 上位レアに需要が集中している場合、下位レアの値動きは鈍いと考える
+   - 過去予想の較正: **参考程度に留める**。材料が変わっていないのに方向を反転させないこと。強気/弱気に寄りすぎと指摘された場合でも、調整は確率で数ポイント程度に収める
+6. 根拠文は日本語で2〜3文、具体的に書く
+7. overall の up_pct + flat_pct + down_pct = 100 にする
+8. price_forecast は3時点（1ヶ月後・3ヶ月後・6ヶ月後）の本線予想価格を出す。起点は current_low=${currentLow}, current_high=${currentHigh}
+9. up/down は6ヶ月後の上振れ・下振れシナリオ価格
 
 ## 出力形式（JSON のみ、コードブロック不要）
 {
@@ -221,7 +391,8 @@ export async function generateForecast(
   card: Card,
   currentLow: number,
   currentHigh: number,
-  priceHistory: PriceRecord[] = []
+  priceHistory: PriceRecord[] = [],
+  ctx: ForecastContext = {}
 ): Promise<Forecast> {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey || apiKey === 'your_api_key_here') {
@@ -237,7 +408,7 @@ export async function generateForecast(
     },
   })
 
-  const prompt = buildPrompt(card, currentLow, currentHigh, priceHistory)
+  const prompt = buildPrompt(card, currentLow, currentHigh, priceHistory, ctx)
 
   // リトライ（最大2回）
   let lastError: Error | null = null
