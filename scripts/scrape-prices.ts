@@ -247,6 +247,14 @@ async function scrapeMercariSoldAvg(
   finally { await page.close() }
 }
 
+// 当日より前の最新レコード。出所のヒステリシス判定に使う
+function readLatestRecord(cardId: string, date: string): PriceRecord | null {
+  try {
+    const data: PriceHistory = JSON.parse(fs.readFileSync(path.join(pricesDir, `${cardId}.json`), 'utf-8'))
+    return data.history.find(r => r.date !== date) ?? null
+  } catch { return null }
+}
+
 function savePriceHistory(
   cardId: string,
   date: string,
@@ -350,7 +358,15 @@ async function scrapeCard(
     // スニダン素体価格は「状態A=新品のみ」で実勢より高め。取引が少数だと新品1件が
     // そのまま相場化して高止まりするため、サンプル数が閾値を超えた時だけ信頼する。
     // 少数サンプル時はメルカリ成約相場（実勢）を優先する。
-    const SNKRDUNK_MIN_SAMPLES = 3
+    //
+    // 閾値はヒステリシスを持たせる。単一閾値だと90日窓の取引件数が境界を跨ぐたびに
+    // 出典がスニダン⇔メルカリで入れ替わり、両者の水準差(安価帯で2〜3倍)がそのまま
+    // 価格の段差・1日だけのヒゲとしてグラフに出る。新規採用は厳しく、維持は緩く。
+    const SNKRDUNK_ADOPT_SAMPLES = 6   // メルカリ→スニダンに乗り換えるのに必要な件数
+    const SNKRDUNK_KEEP_SAMPLES = 4    // すでにスニダン採用中の時に維持できる件数
+    // スニダンは手数料込み表示かつ最低取引価格の影響で、安価帯の素体が ¥1,000 前後に
+    // 張り付く（メルカリ実勢 ¥350〜700 の2〜3倍）。この価格帯の素体は相場として使わない。
+    const SNKRDUNK_MIN_PRICE = 1500
     let snkrdunkRegular: number | null = null
     let snkrdunkCount = 0
 
@@ -360,12 +376,22 @@ async function scrapeCard(
       snkrdunkRegular = prices.regular
       snkrdunkCount = prices.regularCount
       psa10 = prices.psa10
+
+      if (snkrdunkRegular != null && snkrdunkRegular < SNKRDUNK_MIN_PRICE) {
+        process.stdout.write(`[スニダン床値¥${snkrdunkRegular}→不採用] `)
+        snkrdunkRegular = null
+        snkrdunkCount = 0
+      }
     }
+
+    // 前回の出所。ヒステリシスの基準に使う（2026-07-18 以前のレコードには source が無い）
+    const prevSource = readLatestRecord(id, date)?.source
+    const snkrdunkNeeded = prevSource === 'snkrdunk' ? SNKRDUNK_KEEP_SAMPLES : SNKRDUNK_ADOPT_SAMPLES
 
     let mercariLow = 0, mercariHigh = 0
     // スニダン採用時はメルカリ成約検索を行わないので soldTotal は取れない（追加リクエストは避ける）
     let soldTotal: number | null = null
-    if (snkrdunkRegular != null && snkrdunkCount > SNKRDUNK_MIN_SAMPLES) {
+    if (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded) {
       // 十分な取引数があるスニダン価格はそのまま採用
       avg = snkrdunkRegular
       source = 'スニダン'
@@ -399,10 +425,6 @@ async function scrapeCard(
       return
     }
 
-    // スニダン取得時は low/high を avg の ±10% で推定
-    const low  = mercariLow  || Math.round(avg * 0.90)
-    const high = mercariHigh || Math.round(avg * 1.10)
-
     // 出品中はBOX名込みで検索（BOXコードM2/M4等は除外、BOX名は含めて他弾の同名カードを除外）
     // プロモは一意なカード名のためBOX名不要。英字レアの代わりにカナ「プロモ」で件数を取る
     const onSaleRarity = rarity === 'PROMO' ? 'プロモ' : rarity
@@ -412,6 +434,32 @@ async function scrapeCard(
     const onSale = await getMercariOnSale(browser, onSaleQuery)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
+
+    // メルカリ成約検索は同名の別バージョン（通常版⇔SR⇔SA）を拾うことがあり、実勢から
+    // 桁違いにずれる。出品価格帯と突き合わせて明らかに整合しない成約平均は採用しない。
+    // 出品最安を恒常的に上回る成約も、その半値以下で売れ続けることも市場論理として無いため。
+    if (priceSource === 'mercari' && onSale.askLow != null && avg != null) {
+      const askRatio = avg / onSale.askLow
+      if (askRatio > 2.5 || askRatio < 0.5) {
+        const detail = `成約¥${avg.toLocaleString()} vs 出品最安¥${onSale.askLow.toLocaleString()}`
+        if (snkrdunkRegular != null) {
+          process.stdout.write(`[メルカリ不整合(${detail})→スニダン${snkrdunkCount}件] `)
+          avg = snkrdunkRegular
+          mercariLow = 0; mercariHigh = 0
+          source = `スニダン(${snkrdunkCount}件)`
+          priceSource = 'snkrdunk'
+          sampleCount = snkrdunkCount
+        } else {
+          console.log(`メルカリ不整合(${detail}) — スキップ（既存価格を維持）`)
+          stats.skipped++
+          return
+        }
+      }
+    }
+
+    // スニダン取得時は low/high を avg の ±10% で推定
+    const low  = mercariLow  || Math.round(avg * 0.90)
+    const high = mercariHigh || Math.round(avg * 1.10)
 
     const onSaleLog = onSale.count != null
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
