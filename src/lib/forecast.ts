@@ -336,7 +336,7 @@ function isValidTrend(v: unknown): v is Trend {
   return v === 'up' || v === 'flat' || v === 'down'
 }
 
-function parseForecastJson(raw: string, card: Card): Forecast {
+function parseForecastJson(raw: string, card: Card, currentLow: number, currentHigh: number): Forecast {
   // コードブロックが混入した場合に除去
   const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
   const parsed = JSON.parse(cleaned)
@@ -365,8 +365,11 @@ function parseForecastJson(raw: string, card: Card): Forecast {
       reason: String(parsed.overall.reason),
     },
     price_forecast: {
-      current_low: Number(parsed.price_forecast.current_low),
-      current_high: Number(parsed.price_forecast.current_high),
+      // current_low/high はスクレイピングで取得した実価格をそのまま採用する。
+      // AIに出力させるとプロンプトで指定した起点を無視して無関係な数値を返すことがあるため、
+      // ここでプログラム側から上書きし、実データと乖離しないようにする。
+      current_low: currentLow,
+      current_high: currentHigh,
       m1_low: Number(parsed.price_forecast.m1_low),
       m1_high: Number(parsed.price_forecast.m1_high),
       m3_low: Number(parsed.price_forecast.m3_low),
@@ -416,7 +419,7 @@ export async function generateForecast(
     try {
       const result = await model.generateContent(prompt)
       const raw = result.response.text()
-      return parseForecastJson(raw, card)
+      return parseForecastJson(raw, card, currentLow, currentHigh)
     } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err))
       if (attempt < 2) {
