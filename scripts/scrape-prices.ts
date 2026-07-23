@@ -7,6 +7,7 @@ import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/ty
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
 const EXTREMES_FILE = path.join(process.cwd(), 'data', 'price-extremes.json')
+const QUERY_OVERRIDES_FILE = path.join(process.cwd(), 'data', 'price-query-overrides.json')
 
 function loadSnkrdunkIds(): Record<string, number> {
   try { return JSON.parse(fs.readFileSync(SNKRDUNK_IDS_FILE, 'utf-8')) } catch { return {} }
@@ -14,6 +15,13 @@ function loadSnkrdunkIds(): Record<string, number> {
 
 function saveSnkrdunkIds(ids: Record<string, number>): void {
   fs.writeFileSync(SNKRDUNK_IDS_FILE, JSON.stringify(ids, null, 2), 'utf-8')
+}
+
+// カード名+レアリティ+弾名だけでは別商品（別弾の同名カード等）を誤ヒットするケースがある
+// （例: カイリューV SR、タッグボルトのSR数枚）。そういうカードだけ card_no 付きの
+// より絞り込んだクエリを個別指定できるようにする。無指定カードは今まで通り自動生成クエリを使う。
+function loadQueryOverrides(): Record<string, string> {
+  try { return JSON.parse(fs.readFileSync(QUERY_OVERRIDES_FILE, 'utf-8')) } catch { return {} }
 }
 
 // 安全網: 取りこぼした未処理Promiseリジェクトでバッチ全体を落とさない（1枚の失敗で中断しない）
@@ -303,11 +311,35 @@ function savePriceHistory(
     }
   }
 
+  // 価格急変検知: 前日比2.5倍以上/0.4倍以下は検索クエリが別商品にヒットした等の誤取得の
+  // 疑いが強い（カイリューV SR等、成約平均が1日で9倍超に跳ねた事故で確認）。
+  // このケースは前回の avg/low/high をそのまま維持し、price_flag で疑わしいことを記録する。
+  // 出品件数・PSA10など他のフィールドは今回の取得値をそのまま使う。
+  // PRICE_NO_GATE=1: 実際に急騰/急落が確認できた場合に一度だけゲートを無効化する用。
+  let finalAvg = avg, finalLow = low, finalHigh = high
+  let priceSuspicious = false
+  if (process.env.PRICE_NO_GATE !== '1') {
+    const prevForPriceGate = data.history.find(r => r.date !== date)
+    const prevAvg = prevForPriceGate
+      ? (prevForPriceGate.avg ?? (prevForPriceGate.low + prevForPriceGate.high) / 2)
+      : null
+    if (prevForPriceGate && prevAvg != null && prevAvg > 0) {
+      const ratio = avg / prevAvg
+      if (ratio >= 2.5 || ratio <= 0.4) {
+        process.stdout.write(`[価格急変疑わしい: ¥${avg.toLocaleString()}（前日比${Math.round(ratio * 100)}%）← 前回¥${Math.round(prevAvg).toLocaleString()} — 前回値を維持] `)
+        finalAvg = prevForPriceGate.avg ?? Math.round((prevForPriceGate.low + prevForPriceGate.high) / 2)
+        finalLow = prevForPriceGate.low
+        finalHigh = prevForPriceGate.high
+        priceSuspicious = true
+      }
+    }
+  }
+
   const record = {
     date,
-    low,
-    high,
-    avg,
+    low: finalLow,
+    high: finalHigh,
+    avg: finalAvg,
     ...(priceSource ? { source: priceSource } : {}),
     ...(sampleCount != null ? { sample_count: sampleCount } : {}),
     ...(soldTotal != null ? { sold_total: soldTotal } : {}),
@@ -315,6 +347,7 @@ function savePriceHistory(
     ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
+    ...(priceSuspicious ? { price_flag: 'suspicious_reverted' as const } : {}),
   }
 
   // 極値は履歴から落ちる前に別ファイルへ退避する（更新前の1つ前のレコードをノイズ判定に使う）
@@ -356,9 +389,11 @@ async function scrapeCard(
   snkrdunkIds: Record<string, number>,
   cardName: string,
   rarity: string,
-  boxName: string
+  boxName: string,
+  queryOverride?: string
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
+  if (queryOverride) process.stdout.write('[クエリ上書き] ')
   try {
     // スニーカーダンクIDを検索
     let apparelId: number | null = snkrdunkIds[id] ?? null
@@ -432,10 +467,11 @@ async function scrapeCard(
 
     // 出品中はBOX名込みで検索（BOXコードM2/M4等は除外、BOX名は含めて他弾の同名カードを除外）
     // プロモは一意なカード名のためBOX名不要。英字レアの代わりにカナ「プロモ」で件数を取る
+    // queryOverride がある場合は成約検索と同じクエリを使い、出品/成約で別商品を拾うズレを防ぐ
     const onSaleRarity = rarity === 'PROMO' ? 'プロモ' : rarity
-    const onSaleQuery = rarity === 'PROMO'
+    const onSaleQuery = queryOverride ?? (rarity === 'PROMO'
       ? `${cardName} プロモ`
-      : `${cardName} ${onSaleRarity} ${boxName}`.replace(/\s+/g, ' ').trim()
+      : `${cardName} ${onSaleRarity} ${boxName}`.replace(/\s+/g, ' ').trim())
     const onSale = await getMercariOnSale(browser, onSaleQuery)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
@@ -517,17 +553,22 @@ async function main() {
 
   const stats = { succeeded: 0, skipped: 0, failed: 0 }
   const snkrdunkIds = loadSnkrdunkIds()
+  const queryOverrides = loadQueryOverrides()
 
   try {
     for (const card of cards) {
       const boxName = boxMap.get(card.box_id) ?? ''
+      const cardId = getCardSlug(card)
       // プロモは card_name（例「トウホクのピカチュウ」）が一意なので box_name/英字レアを付けず
       // カナ「プロモ」だけ添えてヒット件数を確保する（人工box名を付けると0件になる）
       // それ以外: BOXコード（M2/M4等）は出品タイトルに入らないため除外して一致件数を増やす
-      const query = card.rarity === 'PROMO'
+      const defaultQuery = card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName)
+      // 同名カード違いの誤ヒットが確認されたカードは data/price-query-overrides.json で
+      // card_no 付きの絞り込みクエリを個別指定する（無指定なら defaultQuery を使う）
+      const query = queryOverrides[cardId] ?? defaultQuery
+      await scrapeCard(browser, cardId, query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, queryOverrides[cardId])
     }
 
     if (boxes.length > 0) {

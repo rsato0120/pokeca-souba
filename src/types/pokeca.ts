@@ -94,6 +94,7 @@ export interface PriceRecord {
   ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
   ask_mid?: number      // 出品中の中央値
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
+  price_flag?: 'suspicious_reverted' // 前日比が急変しすぎたため前回値を維持したことを示す（scripts/scrape-prices.ts参照）
 }
 
 // 全期間の高値・安値。価格履歴は90日ローリングで消えるため、極値だけ別ファイルに積み上げる。
