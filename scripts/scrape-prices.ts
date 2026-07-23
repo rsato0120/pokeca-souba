@@ -66,7 +66,7 @@ async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice 
     const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
     // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
     const prices = removeOutliers(
-      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) >= Math.max(1, minPrice)).map(i => Number(i.price))
+      rawItems.filter(i => !isExcluded(i.name) && !isDamagedCondition(i) && Number(i.price) >= Math.max(1, minPrice)).map(i => Number(i.price))
     ).sort((a, b) => a - b)
 
     let askLow: number | null = null
@@ -189,6 +189,24 @@ function isExcluded(title: string): boolean {
   return EXCLUDE_KEYWORDS.some(kw => title.includes(kw)) || EXCLUDE_PATTERNS.some(re => re.test(title))
 }
 
+// Mercariの商品状態ID（1:新品、未使用 〜 6:全体的に状態が悪い）。タイトルに「傷あり」等の
+// 明記が無い出品でも構造化データで悪状態品を弾く。レスポンスの実際のキー名は環境で要検証のため、
+// 想定される複数のキー形状を試し、どれにも一致しなければ null（＝タイトル判定のみにフォールバック）を返す。
+const DAMAGED_CONDITION_IDS = new Set([4, 5, 6])
+
+function getConditionId(item: MercariItem): number | null {
+  const raw =
+    item.itemConditionId ?? item.item_condition_id ??
+    item.itemCondition?.id ?? item.item_condition?.id
+  const id = Number(raw)
+  return raw != null && !isNaN(id) ? id : null
+}
+
+function isDamagedCondition(item: MercariItem): boolean {
+  const id = getConditionId(item)
+  return id != null && DAMAGED_CONDITION_IDS.has(id)
+}
+
 function calcMedian(arr: number[]): number {
   const sorted = [...arr].sort((a, b) => a - b)
   const mid = Math.floor(sorted.length / 2)
@@ -201,7 +219,16 @@ function removeOutliers(prices: number[]): number[] {
   return prices.filter(p => p >= med * 0.5 && p <= med * 1.5)
 }
 
-interface MercariItem { id?: string; name: string; price: number; status?: string }
+interface MercariItem {
+  id?: string
+  name: string
+  price: number
+  status?: string
+  itemConditionId?: number
+  item_condition_id?: number
+  itemCondition?: { id?: number }
+  item_condition?: { id?: number }
+}
 // soldTotal = 成約済みの総件数（meta.numFound）。日々の差分が「1日に何枚売れたか」＝回転率になる。
 // 追加リクエストは発生しない（成約相場を取る同じレスポンスの meta を読むだけ）。
 interface MercariPriceResult { avg: number; low: number; high: number; soldTotal: number | null }
@@ -233,7 +260,7 @@ async function scrapeMercariSoldAvg(
       ? Number(rawSoldTotal)
       : null
     const prices = removeOutliers(
-      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
+      rawItems.filter(i => !isExcluded(i.name) && !isDamagedCondition(i) && Number(i.price) > 0).map(i => Number(i.price))
     )
     if (prices.length < 3) return null
     const sorted = [...prices].sort((a, b) => a - b)
