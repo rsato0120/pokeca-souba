@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import type { Box, Card, Forecast, PriceRecord, PsaPop, Trend } from '@/types/pokeca'
+import type { Box, Card, Forecast, PriceRecord, PsaPop, Trend, BuyThesis, Conviction } from '@/types/pokeca'
 import type { BoxCalibration } from './calibration'
 
 // カード単体の材料・価格履歴だけでは判断できない文脈（弾の状況・レア間の位置・自己較正）。
@@ -11,6 +11,8 @@ export interface ForecastContext {
   siblings?: Array<{ rarity: string; mid: number }> | null
   calibration?: BoxCalibration | null
   psaPop?: PsaPop | null
+  /** 弾内での価格順位（1=最高額）。チェイス度の絶対位置を示し、根拠文の差別化に使う */
+  boxRank?: { rank: number; total: number } | null
 }
 
 // ─── プロンプト構築 ──────────────────────────────────────────────
@@ -243,6 +245,18 @@ export function buildPrompt(
     }
   }
 
+  // ── 弾内の価格順位: チェイス度の絶対位置。「弾内3位/19枚の高額枠」など根拠を具体化する
+  let rankSection = ''
+  const br = ctx.boxRank
+  if (br && br.total > 1) {
+    const pct = br.rank / br.total
+    const tier = pct <= 0.15 ? '弾のトップチェイス級（相場を牽引する最上位）'
+      : pct <= 0.4 ? '弾内の上位（人気の高額枠）'
+      : pct <= 0.7 ? '弾内の中位'
+      : '弾内の下位（相場の動きは緩やか）'
+    rankSection = `\n## 弾内での価格順位\n- 掲載${br.total}枚中 第${br.rank}位 → ${tier}\n`
+  }
+
   // ── 自己較正: 弾単位で「これまで強気/弱気に外していないか」だけを渡す
   let calibrationSection = ''
   const cal = ctx.calibration
@@ -262,8 +276,11 @@ export function buildPrompt(
 
 ## カード情報
 - カード名: ${card.card_name}
+- カード番号: ${card.card_no}
 - レアリティ: ${card.rarity}
 - 収録弾: ${card.box_id}
+- ポケモン/種類: ${card.card_spec.type}・${card.card_spec.stage}${card.card_spec.hp ? `・HP${card.card_spec.hp}` : ''}
+${card.note ? `- 特記: ${card.note}` : ''}
 
 ## コレクター需要の材料
 - イラストレーター: ${collector.illustrator}
@@ -278,7 +295,7 @@ export function buildPrompt(
 
 ## 補足情報（証拠メモ）
 - コレクター視点: ${card.evidence_notes.collector}
-${historySection}${psaSection}${popSection}${liquiditySection}${setSection}${siblingSection}${calibrationSection}
+${historySection}${psaSection}${popSection}${liquiditySection}${setSection}${siblingSection}${rankSection}${calibrationSection}
 ## 出力ルール
 1. 断言しない。「上がります」ではなく確率＋根拠で示す
 2. コレクター視点（観賞・保有価値）で分析する。対戦採用の有無は判断材料にしない
@@ -294,7 +311,11 @@ ${historySection}${psaSection}${popSection}${liquiditySection}${setSection}${sib
    - 取引の回転: 回転が速い＝実需が厚く価格が崩れにくい。遅い＝少数の出品で相場が動きやすい
    - 同名カードの他レアリティ: 上位レアに需要が集中している場合、下位レアの値動きは鈍いと考える
    - 過去予想の較正: **参考程度に留める**。材料が変わっていないのに方向を反転させないこと。強気/弱気に寄りすぎと指摘された場合でも、調整は確率で数ポイント程度に収める
-6. 根拠文は日本語で2〜3文、具体的に書く
+6. 根拠文（reason）は**このカード固有の情報**で書く。定型文を避けるため以下を厳守する:
+   - このカードだけに当てはまる固有名詞・数値を**必ず2つ以上**引用する（例: イラストレーター名「${collector.illustrator}」、ポケモン名/キャラ、現在相場¥${Math.round((currentLow + currentHigh) / 2).toLocaleString()}、PSA10プレミア倍率、出品件数、弾内順位、同名レア比の倍率、絶版/品薄の別 など）。
+   - 「新弾直後で供給が多い」「希少性が高い」といった**どのカードにも書ける一般論だけで終わらせない**。必ずこのカードの材料に接続する。
+   - 上位に来た理由・下位に留まる理由が他カードと**何が違うのか**が伝わる文にする。書き出しや語順も機械的に揃えない。
+   - 日本語で2〜3文、具体的に。
 7. overall の up_pct + flat_pct + down_pct = 100 にする
 8. price_forecast は3時点（1ヶ月後・3ヶ月後・6ヶ月後）の本線予想価格を出す。起点は current_low=${currentLow}, current_high=${currentHigh}
 9. up/down は6ヶ月後の上振れ・下振れシナリオ価格
@@ -404,7 +425,9 @@ export async function generateForecast(
     model: 'gemini-3.1-flash-lite',
     generationConfig: {
       responseMimeType: 'application/json',
-      temperature: 0.4,
+      // 0.4→0.55: 根拠文が全カードで似通うのを避け、語り口に幅を持たせる
+      // （responseMimeType=json でJSON構造は担保される）
+      temperature: 0.55,
     },
   })
 
@@ -426,6 +449,132 @@ export async function generateForecast(
   }
 
   throw lastError ?? new Error('generateForecast: unknown error')
+}
+
+// ─── 「買うべきカード」の厚い論拠（買い候補の上位数枚だけに生成する） ──────────
+//
+// 選定は決定論（src/lib/buy-signals.ts）。ここでは選ばれたカードについて
+// 「なぜ今この価格で買いなのか」を具体的な数値・材料で厚く言語化する。
+
+export interface BuyThesisInput {
+  card: Card
+  forecast: Forecast
+  mid: number                    // 現在の中央値相場
+  upsidePct: number              // 3ヶ月後 本線の上昇率(%)
+  pricePosition: number | null   // 全期間レンジ内の位置(0..1)。null=不明
+  weekChange: number | null      // 7日変化率(%)
+  psa10?: number | null          // PSA10相場
+  psaMultiple?: number | null    // PSA10 ÷ 素体
+  onSale?: number | null         // 出品中件数
+  supplyTightening?: boolean     // 出品数が減少しているか
+  extremesLow?: number | null    // 全期間の最安
+  extremesHigh?: number | null   // 全期間の最高
+  boxName?: string
+  releaseYm?: string
+}
+
+function isConviction(v: unknown): v is Conviction {
+  return v === 'high' || v === 'mid' || v === 'low'
+}
+
+function buildBuyThesisPrompt(input: BuyThesisInput): string {
+  const { card, forecast, mid, upsidePct, pricePosition, weekChange } = input
+  const { collector, common } = card.materials
+
+  const scarcityLabel: Record<string, string> = {
+    normal: '普通', scarce: '品薄', out_of_print: '絶版（流通量が細い）',
+  }
+  const reprintLabel: Record<string, string> = {
+    none: '再録なし', reprinted: '再録済み（供給増）', reprint_planned: '再録予定あり',
+  }
+
+  const lines: string[] = []
+  lines.push(`- カード名: ${card.card_name}（${card.rarity}・${card.card_no}）`)
+  if (input.boxName) lines.push(`- 収録弾: ${input.boxName}${input.releaseYm ? `（${input.releaseYm}発売）` : ''}`)
+  lines.push(`- 現在相場: ¥${Math.round(mid).toLocaleString()}`)
+  lines.push(`- AI予想: 上昇確率${forecast.overall.up_pct}% / 下落確率${forecast.overall.down_pct}% / 3ヶ月後 本線 ${upsidePct >= 0 ? '+' : ''}${Math.round(upsidePct)}%`)
+  if (input.extremesLow != null && input.extremesHigh != null) {
+    lines.push(`- 全期間レンジ: 最安¥${input.extremesLow.toLocaleString()} 〜 最高¥${input.extremesHigh.toLocaleString()}`)
+  }
+  if (pricePosition != null) {
+    const posLabel = pricePosition <= 0.35 ? 'レンジ下位（割安圏）' : pricePosition >= 0.7 ? 'レンジ上位（高値圏）' : 'レンジ中位'
+    lines.push(`- レンジ内の位置: ${Math.round(pricePosition * 100)}%（${posLabel}）`)
+  }
+  if (weekChange != null) lines.push(`- 直近7日の値動き: ${weekChange >= 0 ? '+' : ''}${weekChange.toFixed(1)}%`)
+  if (input.psa10 != null && input.psaMultiple != null) {
+    lines.push(`- PSA10相場: ¥${Math.round(input.psa10).toLocaleString()}（素体の${Math.round(input.psaMultiple * 10) / 10}倍）`)
+  }
+  if (input.onSale != null) lines.push(`- 出品中件数: ${input.onSale}件${input.supplyTightening ? '（減少中＝在庫が捌けている）' : ''}`)
+  lines.push(`- イラストレーター: ${collector.illustrator}（人気: ${collector.illustrator_popularity}）`)
+  lines.push(`- 品薄度: ${scarcityLabel[common.scarcity] ?? common.scarcity} / 再録: ${reprintLabel[common.reprint_status] ?? common.reprint_status} / キャラ人気: ${common.character_popularity}`)
+  lines.push(`- 補足: ${card.evidence_notes.collector}`)
+
+  return `あなたはポケモンカードのコレクター相場に精通したアナリストです。
+以下のカードは、当サイトのシグナル分析で「いま買い妙味がある」と選定されました。
+その根拠を、コレクター視点で**具体的な数値・固有名詞を交えて厚く**言語化してください。
+一般論（「希少だから上がる」等）で終わらせず、このカード固有の材料に必ず接続すること。
+
+## カードのデータ
+${lines.join('\n')}
+
+## 出力ルール
+1. 各項目は日本語で1〜2文、このカードの数値・材料を必ず引用する。
+2. valuation は「なぜ今の価格が割安/妥当か」（レンジ内の位置・PSA比・弾内での位置づけ 等）。
+3. timing は「なぜ今が買い時か」（押し目・在庫減・回転・発売からの経過 等）。
+4. catalyst は「今後の上昇材料」（絶版・キャラ/絵師人気・描き下ろし・鑑定妙味 等）。
+5. risk は「下落リスク」（再録・供給過多・薄商い・高値圏 等）。必ず1つは正直に挙げる。
+6. headline は15〜30字の一言サマリー（このカードらしさを出す）。
+7. conviction は上昇材料と割安度の強さから high / mid / low で判定。
+8. 断言や投資助言はしない。参考情報として書く。
+
+## 出力形式（JSON のみ、コードブロック不要）
+{
+  "headline": "一言サマリー",
+  "valuation": "割安根拠",
+  "timing": "買い時根拠",
+  "catalyst": "上昇材料",
+  "risk": "下落リスク",
+  "conviction": "high" | "mid" | "low"
+}`
+}
+
+export async function generateBuyThesis(input: BuyThesisInput): Promise<BuyThesis> {
+  const apiKey = process.env.GEMINI_API_KEY
+  if (!apiKey || apiKey === 'your_api_key_here') {
+    throw new Error('GEMINI_API_KEY が設定されていません。.env.local に追加してください。')
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey)
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-3.1-flash-lite',
+    generationConfig: { responseMimeType: 'application/json', temperature: 0.6 },
+  })
+
+  const prompt = buildBuyThesisPrompt(input)
+
+  let lastError: Error | null = null
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const result = await model.generateContent(prompt)
+      const cleaned = result.response.text().replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+      const parsed = JSON.parse(cleaned)
+      return {
+        card_id: input.card.id,
+        generated_at: new Date().toISOString(),
+        mid: Math.round(input.mid),
+        headline: String(parsed.headline ?? '').trim(),
+        valuation: String(parsed.valuation ?? '').trim(),
+        timing: String(parsed.timing ?? '').trim(),
+        catalyst: String(parsed.catalyst ?? '').trim(),
+        risk: String(parsed.risk ?? '').trim(),
+        conviction: isConviction(parsed.conviction) ? parsed.conviction : 'mid',
+      }
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err))
+      if (attempt < 2) await new Promise(r => setTimeout(r, 1000))
+    }
+  }
+  throw lastError ?? new Error('generateBuyThesis: unknown error')
 }
 
 // ─── ランキング調整パス（決定論的スプレッド） ─────────────────────

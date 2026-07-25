@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop } from '@/types/pokeca'
+import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop, BuyThesis } from '@/types/pokeca'
 
 function readPokeData(): PokeData {
   const filePath = path.join(process.cwd(), 'data', 'pokeca_data.json')
@@ -100,4 +100,31 @@ export function getBoxPriceHistory(boxId: string): PriceHistory | null {
   } catch {
     return null
   }
+}
+
+// 変異系列（シュリンクあり/なし、セット商品の地域別など）。
+// ファイル名は box-{boxId}-{suffix}.json。無ければ null。
+export function getBoxPriceVariant(boxId: string, suffix: string): PriceHistory | null {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'prices', `box-${boxId}-${suffix}.json`)
+    const raw = fs.readFileSync(filePath, 'utf-8')
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+// 「AIが買うべきカード」欄の論拠（scripts/generate-buy-theses.ts が生成）。全カード分が1ファイル。
+let buyThesesCache: Record<string, BuyThesis> | null = null
+
+export function getBuyTheses(): Record<string, BuyThesis> {
+  if (buyThesesCache == null) {
+    try {
+      const filePath = path.join(process.cwd(), 'data', 'buy-theses.json')
+      buyThesesCache = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    } catch {
+      buyThesesCache = {}
+    }
+  }
+  return buyThesesCache ?? {}
 }

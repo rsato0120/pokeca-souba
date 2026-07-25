@@ -38,6 +38,13 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npx tsx scripts/update-forecasts.ts
 
+      # 「AIが買うべきカード」欄の厚い論拠（買い候補の上位数枚だけ・API消費は軽い）
+      - name: Generate buy theses
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npx tsx scripts/generate-buy-theses.ts
+        continue-on-error: true
+
       - name: Archive predictions (的中実績用)
         run: npx tsx scripts/archive-predictions.ts
 
@@ -45,5 +52,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json
+          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices and forecasts $(date -u '+%Y-%m-%d')" && git push)

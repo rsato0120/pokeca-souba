@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getPriceHistory } from '@/lib/data'
-import PriceHistoryChart from '@/components/PriceHistoryChart'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getBoxPriceVariant, getPriceHistory } from '@/lib/data'
+import { getSetProducts } from '@/lib/set-boxes'
 import BoxCardList from '@/components/BoxCardList'
 import BoxSelector from '@/components/BoxSelector'
+import BoxPricePanel from '@/components/BoxPricePanel'
+import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -52,18 +54,41 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     forecast: getForecast(getCardSlug(card)),
   }))
 
+  // BOX相場: シュリンクあり/なしの変異系列＋後方互換の混在系列。
   const boxPriceHistory = getBoxPriceHistory(boxId)
-  const latestBoxPrice = boxPriceHistory?.history?.[0] ?? null
-  const prevBoxPrice = boxPriceHistory?.history?.[7] ?? null
+  const shrinkHist = getBoxPriceVariant(boxId, 'shrink')?.history ?? null
+  const noshrinkHist = getBoxPriceVariant(boxId, 'noshrink')?.history ?? null
+  const mixedHist = boxPriceHistory?.history ?? null
   const msrp = box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : null
-  // low===high（avg単一値保存）のとき ±10% で表示幅を推定
-  const displayLow  = latestBoxPrice ? (latestBoxPrice.low < latestBoxPrice.high ? latestBoxPrice.low  : Math.round((latestBoxPrice.avg ?? latestBoxPrice.low) * 0.90)) : null
-  const displayHigh = latestBoxPrice ? (latestBoxPrice.low < latestBoxPrice.high ? latestBoxPrice.high : Math.round((latestBoxPrice.avg ?? latestBoxPrice.low) * 1.10)) : null
-  const boxMid = latestBoxPrice ? Math.round((latestBoxPrice.low + latestBoxPrice.high) / 2) : null
-  const premiumPct = msrp && boxMid ? Math.round(((boxMid - msrp) / msrp) * 100) : null
-  const priceTrend = latestBoxPrice && prevBoxPrice
-    ? Math.round(((latestBoxPrice.low + latestBoxPrice.high) / 2 - (prevBoxPrice.low + prevBoxPrice.high) / 2) / ((prevBoxPrice.low + prevBoxPrice.high) / 2) * 100)
+
+  // セット商品（ポケセン等）: パックBOXではなくセット相場を地域ごとに出す
+  const setProducts = getSetProducts(boxId)
+  const setRows: SetRow[] | null = setProducts
+    ? setProducts.map((p) => {
+        const card = cards.find((c) => c.id === p.cardId)
+        const latest = getBoxPriceVariant(boxId, p.setId)?.history?.[0] ?? null
+        const dLow = latest ? (latest.low < latest.high ? latest.low : Math.round((latest.avg ?? latest.low) * 0.9)) : null
+        const dHigh = latest ? (latest.low < latest.high ? latest.high : Math.round((latest.avg ?? latest.low) * 1.1)) : null
+        return {
+          setId: p.setId,
+          label: p.label,
+          cardSlug: p.cardId,
+          cardName: card?.card_name ?? '',
+          low: dLow,
+          high: dHigh,
+          onSale: latest?.on_sale ?? null,
+          listPrice: p.listPrice,
+        }
+      })
     : null
+
+  // 表示判定＆Xシェア用の代表値（シュリンクあり→なし→混在→セット先頭 の順）
+  const repLatest = shrinkHist?.[0] ?? noshrinkHist?.[0] ?? mixedHist?.[0] ?? null
+  const repLow = repLatest ? (repLatest.low < repLatest.high ? repLatest.low : Math.round((repLatest.avg ?? repLatest.low) * 0.9)) : null
+  const repHigh = repLatest ? (repLatest.low < repLatest.high ? repLatest.high : Math.round((repLatest.avg ?? repLatest.low) * 1.1)) : null
+  const repMid = repLatest ? Math.round((repLatest.low + repLatest.high) / 2) : null
+  const repPremiumPct = msrp && repMid ? Math.round(((repMid - msrp) / msrp) * 100) : null
+  const showBoxSection = !!(setRows || repLatest)
 
   // 価格変動ランキング（このBOX内）
   const mid = (r: { low: number; high: number }) => (r.low + r.high) / 2
@@ -89,24 +114,6 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     const vb = b.weekChange ?? b.dayChange ?? 0
     return vb - va
   }).slice(0, 8)
-
-  // 買い時シグナル
-  const boxSignal = (() => {
-    if (!latestBoxPrice || premiumPct == null) return null
-    if (premiumPct < 20) {
-      return { label: '買い好機', dot: '🟢', color: 'var(--up)', desc: '定価に近い水準。コスト効率が高い購入タイミング。' }
-    }
-    if (premiumPct > 80 && (priceTrend == null || priceTrend >= 0)) {
-      return { label: '高値注意', dot: '🔴', color: 'var(--down)', desc: '定価の大幅プレミア。相場が天井圏の可能性あり。' }
-    }
-    if (premiumPct > 80 && priceTrend !== null && priceTrend < -3) {
-      return { label: '調整中', dot: '🟡', color: 'var(--flat)', desc: '高値から下落傾向。もう少し待つと安く買える可能性。' }
-    }
-    if (priceTrend !== null && priceTrend < -5) {
-      return { label: '下落中', dot: '🟡', color: 'var(--flat)', desc: '価格が下落傾向。底値確認後の購入を検討。' }
-    }
-    return { label: '様子見', dot: '🟡', color: 'var(--flat)', desc: '標準的なプレミア水準。急いで買う必要はない。' }
-  })()
 
   return (
     <div className="wrap">
@@ -170,8 +177,8 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         </div>
       </div>
 
-      {/* ── 未開封BOX相場 ── */}
-      {latestBoxPrice && (
+      {/* ── 未開封BOX相場 / セット相場 ── */}
+      {showBoxSection && (
         <div
           style={{
             background: 'var(--panel)',
@@ -181,128 +188,17 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             marginBottom: '28px',
           }}
         >
-          <div
-            style={{
-              fontFamily: 'var(--mono)',
-              fontSize: '11px',
-              color: 'var(--ink-faint)',
-              letterSpacing: '0.14em',
-              marginBottom: '12px',
-            }}
-          >
-            BOX · 未開封ボックス相場（メルカリ実勢）
-          </div>
-          <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            {/* 現在相場 */}
-            <div>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>現在相場</div>
-              <div style={{ fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 700, letterSpacing: '0.02em' }}>
-                ¥{displayLow?.toLocaleString()}
-                <span style={{ fontSize: '16px', color: 'var(--ink-dim)' }}>〜</span>
-                ¥{displayHigh?.toLocaleString()}
-              </div>
-            </div>
-
-            {/* 定価比 */}
-            {msrp != null && premiumPct != null && (
-              <div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>
-                  定価比（¥{msrp.toLocaleString()} 基準）
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '20px',
-                    fontWeight: 700,
-                    color: premiumPct > 0 ? 'var(--up)' : premiumPct < 0 ? 'var(--down)' : 'var(--flat)',
-                  }}
-                >
-                  {premiumPct > 0 ? `+${premiumPct}%` : `${premiumPct}%`}
-                  <span style={{ fontSize: '12px', fontWeight: 400, color: 'var(--ink-faint)', marginLeft: '6px' }}>
-                    {premiumPct > 0 ? 'プレミア' : premiumPct < 0 ? 'ディスカウント' : '定価並み'}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* 7日間トレンド */}
-            {priceTrend != null && (
-              <div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>7日間推移</div>
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '20px',
-                    fontWeight: 700,
-                    color: priceTrend > 2 ? 'var(--up)' : priceTrend < -2 ? 'var(--down)' : 'var(--flat)',
-                  }}
-                >
-                  {priceTrend > 0 ? `↑ +${priceTrend}%` : priceTrend < 0 ? `↓ ${priceTrend}%` : '→ 横ばい'}
-                </div>
-              </div>
-            )}
-
-            {/* 出品中件数 */}
-            {latestBoxPrice.on_sale != null && (
-              <div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }}>出品中</div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: '20px', fontWeight: 700, color: 'var(--ink-dim)' }}>
-                  {latestBoxPrice.on_sale.toLocaleString()}件
-                </div>
-              </div>
-            )}
-          </div>
-
-          {msrp != null && box.packs_per_box != null && (
-            <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '12px' }}>
-              定価: {box.packs_per_box}パック × ¥{box.pack_price_yen} = ¥{msrp.toLocaleString()}
-            </div>
-          )}
-
-          {/* 買い時シグナル */}
-          {boxSignal && (
-            <div
-              style={{
-                marginTop: '20px',
-                borderLeft: `3px solid ${boxSignal.color}`,
-                paddingLeft: '14px',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <span style={{ fontSize: '18px' }}>{boxSignal.dot}</span>
-                <span
-                  style={{
-                    fontFamily: 'var(--mincho)',
-                    fontSize: '20px',
-                    fontWeight: 700,
-                    color: boxSignal.color,
-                  }}
-                >
-                  {boxSignal.label}
-                </span>
-              </div>
-              <div style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.6 }}>
-                {boxSignal.desc}
-              </div>
-            </div>
-          )}
-
-          {/* 価格推移グラフ */}
-          {boxPriceHistory && boxPriceHistory.history.length > 0 && (
-            <div style={{ marginTop: '24px' }}>
-              <div
-                style={{
-                  fontFamily: 'var(--mono)',
-                  fontSize: '11px',
-                  color: 'var(--ink-faint)',
-                  letterSpacing: '0.1em',
-                  marginBottom: '10px',
-                }}
-              >
-                PRICE HISTORY · 未開封BOX価格推移
-              </div>
-              <PriceHistoryChart history={boxPriceHistory.history} />
-            </div>
+          {setRows ? (
+            <SetPricePanel rows={setRows} />
+          ) : (
+            <BoxPricePanel
+              shrink={shrinkHist}
+              noshrink={noshrinkHist}
+              mixed={mixedHist}
+              msrp={msrp}
+              packsPerBox={box.packs_per_box}
+              packPrice={box.pack_price_yen}
+            />
           )}
 
           {/* 購入リンク */}
@@ -369,7 +265,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           {(() => {
             const tweetText = [
               `【BOX相場】${box.box_name}`,
-              latestBoxPrice ? `現在 ¥${displayLow?.toLocaleString()}〜¥${displayHigh?.toLocaleString()}（定価比${premiumPct != null ? (premiumPct >= 0 ? `+${premiumPct}` : `${premiumPct}`) : '—'}%）` : '',
+              repLatest ? `現在 ¥${repLow?.toLocaleString()}〜¥${repHigh?.toLocaleString()}${repPremiumPct != null ? `（定価比${repPremiumPct >= 0 ? `+${repPremiumPct}` : `${repPremiumPct}`}%）` : ''}` : '',
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/boxes/${boxId}`,
             ].filter(Boolean).join('\n')

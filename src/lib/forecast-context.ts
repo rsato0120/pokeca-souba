@@ -25,6 +25,21 @@ export function createForecastContextBuilder(allCards: Card[]) {
     return midCache.get(id) ?? null
   }
 
+  // 弾内価格順位: 弾ごとに1回だけ「価格降順の card.id 配列」を作りキャッシュする
+  const boxRankCache = new Map<string, string[]>()
+  const rankListFor = (boxId: string): string[] => {
+    if (!boxRankCache.has(boxId)) {
+      const ranked = allCards
+        .filter(c => c.box_id === boxId)
+        .map(c => ({ id: c.id, mid: midFor(c) ?? -1 }))
+        .filter(c => c.mid > 0)
+        .sort((a, b) => b.mid - a.mid)
+        .map(c => c.id)
+      boxRankCache.set(boxId, ranked)
+    }
+    return boxRankCache.get(boxId)!
+  }
+
   return (card: Card): ForecastContext => {
     const boxId = card.box_id
 
@@ -34,6 +49,10 @@ export function createForecastContextBuilder(allCards: Card[]) {
     if (!calCache.has(boxId)) {
       calCache.set(boxId, computeBoxCalibration(allCards.filter(c => c.box_id === boxId)))
     }
+
+    const rankList = rankListFor(boxId)
+    const rankIdx = rankList.indexOf(card.id)
+    const boxRank = rankIdx >= 0 ? { rank: rankIdx + 1, total: rankList.length } : null
 
     // 同名カードの別レアリティ（例: ゼクロムex の SR / SAR / BWR）
     const siblings = allCards
@@ -47,6 +66,7 @@ export function createForecastContextBuilder(allCards: Card[]) {
       siblings,
       calibration: calCache.get(boxId) ?? null,
       psaPop: getPsaPop(getCardSlug(card)),
+      boxRank,
     }
   }
 }

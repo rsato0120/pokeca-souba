@@ -1,11 +1,13 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses } from '@/lib/data'
 import { extremeHitToday } from '@/lib/extremes'
+import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
 import type { Card } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
 import OripaBanner from '@/components/OripaBanner'
+import BuyPicks, { type BuyPick } from '@/components/BuyPicks'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -185,6 +187,29 @@ export default function TopPage() {
   }
   const notableCards = diversifyByBox(risingPool, 5, 2)
 
+  // ── AIが買うべきカード: 決定論シグナルで候補選定 → 上位に厚いAI論拠を紐付け ──
+  const buyInputs: BuyInput[] = cards.map((card) => {
+    const slug = getCardSlug(card)
+    return {
+      card,
+      slug,
+      forecast: getForecast(slug),
+      history: getPriceHistory(slug)?.history ?? [],
+      extremes: getPriceExtremes(slug),
+    }
+  })
+  const buyTheses = getBuyTheses()
+  const buyPicks: BuyPick[] = selectBuyCandidates(buyInputs, 6, 2).map((c) => ({
+    card: c.card,
+    slug: c.slug,
+    boxName: formatBoxName(c.card, boxes),
+    mid: c.mid,
+    upsidePct: c.upsidePct,
+    upPct: c.card && getForecast(c.slug)?.overall.up_pct != null ? getForecast(c.slug)!.overall.up_pct : null,
+    factors: c.factors,
+    thesis: buyTheses[c.card.id] ?? null,
+  }))
+
   const featured = notableCards[0] ?? cardsWithForecast[0]
   const featuredSlug = featured ? getCardSlug(featured.card) : ''
   const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
@@ -342,6 +367,21 @@ export default function TopPage() {
 
       {/* オリパ案件バナー（A8 / PR） */}
       <OripaBanner marginY={4} />
+
+      {/* ── ★ AIが買うべきカード（厚い論拠つき） ── */}
+      {buyPicks.length > 0 && (
+        <div className="sec">
+          <div className="sec-head">
+            <span className="sec-no" style={{ color: 'var(--gold)' }}>★</span>
+            <span className="sec-title">AIが買うべきカード</span>
+            <span className="sec-sub">割安度・AI予想・買い時シグナルから選定</span>
+          </div>
+          <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)', lineHeight: 1.7, marginBottom: 'var(--sp-4)' }}>
+            現在の相場水準・AIの上昇予想・出品数の動き・希少性などを総合し、いま仕込む妙味があるとAIが判断したカードです。各カードの根拠を添えています（投資助言ではありません）。
+          </div>
+          <BuyPicks picks={buyPicks} />
+        </div>
+      )}
 
       {/* ── 01: AI予想 これからの注目カード ── */}
       <div className="sec">

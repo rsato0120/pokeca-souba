@@ -2,6 +2,7 @@ import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
+import { SET_BOXES } from '@/lib/set-boxes'
 import { updateExtremes } from '@/lib/extremes'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
 
@@ -554,8 +555,24 @@ async function main() {
     if (boxes.length > 0) {
       console.log('\n── 未開封BOX ──')
       for (const box of boxes) {
+        // 混在系列（後方互換・予想の入力・変異ファイルが無い間のフォールバック表示に使う）
         // "1BOX" を明示して複数BOXロットを排除
         await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`, date, stats)
+        // シュリンクあり/なしを分けて取得（相場が別物なので混ぜると実勢とズレる）。
+        // Mercari はキーワードをトークンAND照合するので「シュリンク付き」/「シュリンクなし」で分離できる。
+        await scrapeBox(browser, `box-${box.box_id}-shrink`, `${box.box_name} 未開封 シュリンク付き 1BOX`, `${box.box_name} シュリンクあり`, date, stats)
+        await scrapeBox(browser, `box-${box.box_id}-noshrink`, `${box.box_name} 未開封 シュリンクなし 1BOX`, `${box.box_name} シュリンクなし`, date, stats)
+      }
+    }
+
+    // ── セット商品（ポケセン等）: パックBOXではなく“セット”の相場を地域ごとに取得 ──
+    const setBoxEntries = Object.entries(SET_BOXES).filter(([boxId]) => !boxFilter || boxId === boxFilter)
+    if (setBoxEntries.length > 0) {
+      console.log('\n── セット商品（スペシャルBOX等） ──')
+      for (const [boxId, products] of setBoxEntries) {
+        for (const p of products) {
+          await scrapeBox(browser, `box-${boxId}-${p.setId}`, p.query, `${boxMap.get(boxId) ?? boxId} ${p.label}セット`, date, stats)
+        }
       }
     }
   } finally {

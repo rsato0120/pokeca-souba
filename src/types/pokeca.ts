@@ -178,3 +178,19 @@ export interface Forecast {
   price_forecast: PriceForecast
   disclaimer: string
 }
+
+// 「AIが買うべきカード」欄の厚い論拠（scripts/generate-buy-theses.ts が Gemini で生成）。
+// 選定自体は src/lib/buy-signals.ts が決定論的に行い、上位候補だけこの論拠を持つ。
+export type Conviction = 'high' | 'mid' | 'low'
+
+export interface BuyThesis {
+  card_id: string
+  generated_at: string
+  mid: number            // 生成時点の中央値相場（鮮度確認用）
+  headline: string       // 一言サマリー（例「絵師人気×品薄で下値が固い押し目」）
+  valuation: string      // 割安根拠（現値がレンジのどこか・PSA比 など）
+  timing: string         // 買い時根拠（押し目・在庫減・回転 など）
+  catalyst: string       // 上昇材料（絶版・キャラ人気・描き下ろし など）
+  risk: string           // 下落リスク（再録・供給過多・薄商い など）
+  conviction: Conviction // 確信度
+}
