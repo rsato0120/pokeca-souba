@@ -491,8 +491,13 @@ async function scrapeBox(
     let boxLow = 0, boxHigh = 0
     let soldTotal: number | null = null
     for (let attempt = 1; attempt <= 3; attempt++) {
-      // BOXは高額な状態良・付属品付き出品が右に長い裾を作るため、床値寄りの 20th〜35th を採用
-      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.35)
+      // BOXの代表値は成約分布の中位バンド 35th〜65th（＝中央値まわり）を採用する。
+      // 以前は床値寄りの 20th〜35th だったが、これは「高額な状態良・付属品付き出品の裾」を
+      // 避ける目的に対して行き過ぎで、古い高額弾を系統的に安く表示していた
+      // （例 タッグボルト: 実勢中央値¥380,000に対し表示¥231,000＝-34%）。
+      // 高値テールは removeOutliers（中央値の0.5〜1.5倍のみ採用）が既に落としているので、
+      // 中位バンドでも「高すぎ」側には戻らない。
+      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65)
       if (result != null) {
         avg = result.avg; boxLow = result.low; boxHigh = result.high; soldTotal = result.soldTotal
         break
@@ -500,13 +505,13 @@ async function scrapeBox(
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
     }
     if (avg == null) { console.log('データ不足 — スキップ'); stats.skipped++; return }
-    // BOXの代表値は「床値バンドの中央」に統一（チャートが描く avg と表示レンジ low〜high を一致させる）。
-    // 平均値は高額出品の裾に引っ張られるため BOX相場としては使わない。
+    // BOXの代表値は「中位バンドの中央」に統一（チャートが描く avg と表示レンジ low〜high を一致させる）。
+    // 単純平均は高額出品の裾に引っ張られるため BOX相場としては使わない。
     avg = Math.round((boxLow + boxHigh) / 2)
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
     const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
-    // BOX相場は常にメルカリ成約の床値バンド由来
+    // BOX相場は常にメルカリ成約の中位バンド由来
     savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null, 'mercari', undefined, soldTotal)
     const onSaleLog = onSale.count != null ? ` / 出品${onSale.count}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
@@ -522,7 +527,10 @@ async function scrapeBox(
 async function main() {
   // 任意の引数で特定BOXだけに絞り込める（例: npx tsx scripts/scrape-prices.ts mega_brave）
   const boxFilter = process.argv[2] || null
-  const cards = getAllCards().filter(c => !boxFilter || c.box_id === boxFilter)
+  // BOX_ONLY=1 でカードを飛ばし未開封BOX系列だけ取得する（代表値の算出方式を変えた直後など、
+  // BOXだけ establishing run を回したい時に使う。カード257枚の再取得を避けられる）
+  const boxOnly = process.env.BOX_ONLY === '1'
+  const cards = boxOnly ? [] : getAllCards().filter(c => !boxFilter || c.box_id === boxFilter)
   const boxes = getAllBoxes().filter(
     b => b.certainty === 'released' && b.packs_per_box != null && (!boxFilter || b.box_id === boxFilter)
   )
