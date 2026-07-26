@@ -95,7 +95,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   if (!card) notFound()
 
   const box = getBoxById(card.box_id)
-  const forecast: Forecast = getForecast(card.id) ?? stubForecast(card.card_no, card.rarity)
+  // 予想が未生成のカードはスタブで骨組みだけ描く。スタブの price_forecast は
+  // ダミー値（¥2,500〜¥3,500）なので、**金額は絶対に表示しない**（実勢と誤読されるため）。
+  const realForecast = getForecast(card.id)
+  const isStub = realForecast == null
+  const forecast: Forecast = realForecast ?? stubForecast(card.card_no, card.rarity)
   const priceHistory = getPriceHistory(card.id)
 
   const { overall, collector_view, price_forecast } = forecast
@@ -329,26 +333,34 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   flexWrap: 'wrap',
                 }}
               >
-                <span style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>現在</span>
-                  <span style={{ color: 'var(--ink-dim)' }}>
-                    ¥{price_forecast.current_low.toLocaleString()}〜{price_forecast.current_high.toLocaleString()}
+                {isStub ? (
+                  <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '13px' }}>
+                    このカードはまだ相場データを取得できていません（毎日自動で再取得しています）。
                   </span>
-                </span>
-                <span style={{ color: 'var(--ink-faint)' }}>→</span>
-                <span style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>3ヶ月後</span>
-                  <span style={{ color: signal.color }}>
-                    ¥{price_forecast.m3_low.toLocaleString()}〜{price_forecast.m3_high.toLocaleString()}
-                  </span>
-                </span>
-                <span style={{ color: 'var(--ink-faint)' }}>→</span>
-                <span style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>6ヶ月後</span>
-                  <span style={{ color: signal.color }}>
-                    ¥{price_forecast.m6_low.toLocaleString()}〜{price_forecast.m6_high.toLocaleString()}
-                  </span>
-                </span>
+                ) : (
+                  <>
+                    <span style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>現在</span>
+                      <span style={{ color: 'var(--ink-dim)' }}>
+                        ¥{price_forecast.current_low.toLocaleString()}〜{price_forecast.current_high.toLocaleString()}
+                      </span>
+                    </span>
+                    <span style={{ color: 'var(--ink-faint)' }}>→</span>
+                    <span style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>3ヶ月後</span>
+                      <span style={{ color: signal.color }}>
+                        ¥{price_forecast.m3_low.toLocaleString()}〜{price_forecast.m3_high.toLocaleString()}
+                      </span>
+                    </span>
+                    <span style={{ color: 'var(--ink-faint)' }}>→</span>
+                    <span style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>6ヶ月後</span>
+                      <span style={{ color: signal.color }}>
+                        ¥{price_forecast.m6_low.toLocaleString()}〜{price_forecast.m6_high.toLocaleString()}
+                      </span>
+                    </span>
+                  </>
+                )}
               </div>
             </div>
             {/* 予想の当たり外れを自分で確認できる導線（信頼性の担保） */}
@@ -466,7 +478,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           {(() => {
             const tweetText = [
               `【AI相場予想】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
-              `現在 ¥${price_forecast.current_low.toLocaleString()}〜¥${price_forecast.current_high.toLocaleString()}`,
+              // スタブ時はダミー価格をツイートに載せない
+              isStub ? '相場データ取得中' : `現在 ¥${price_forecast.current_low.toLocaleString()}〜¥${price_forecast.current_high.toLocaleString()}`,
               `${signal.dot} ${signal.label} 上昇確率${overall.up_pct}%`,
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/cards/${cardId}`,

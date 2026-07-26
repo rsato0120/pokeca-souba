@@ -72,6 +72,19 @@ export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerB
   const active = tabs.find(t => t.id === tab) ?? tabs[0]
   const stats = computeStats(active.history, msrp)
 
+  // シュリンク別の系列は 2026-07-26 開始で履歴がほぼ無い。1〜2点では折れ線にならず
+  // 「値段が取れていない」ように見えるので、点が足りない間は混在系列のグラフを出す。
+  // 現在相場・定価比などの数値は選択中のタブのものを使う（グラフだけのフォールバック）。
+  const MIN_CHART_POINTS = 3
+  const chart: { history: PriceRecord[]; label: string; fallback: boolean } | null =
+    active.history && active.history.length >= MIN_CHART_POINTS
+      ? { history: active.history, label: active.label, fallback: false }
+      : mixed && mixed.length >= MIN_CHART_POINTS
+        ? { history: mixed, label: '全体・シュリンク混在', fallback: true }
+        : active.history && active.history.length > 0
+          ? { history: active.history, label: active.label, fallback: false }
+          : null
+
   const tabBtn = (id: VariantId): React.CSSProperties => ({
     flex: '0 0 auto',
     padding: '8px 16px',
@@ -168,12 +181,17 @@ export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerB
             </div>
           )}
 
-          {active.history && active.history.length > 0 && (
+          {chart && (
             <div style={{ marginTop: '24px' }}>
               <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.1em', marginBottom: '10px' }}>
-                PRICE HISTORY · 未開封BOX価格推移{hasVariant ? `（${active.label}）` : ''}
+                PRICE HISTORY · 未開封BOX価格推移（{chart.label}）
               </div>
-              <PriceHistoryChart history={active.history} />
+              {chart.fallback && (
+                <div style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.6, marginBottom: '10px' }}>
+                  「{active.label}」の推移は蓄積中のため、グラフはシュリンクあり／なしを合わせた全体の推移を表示しています。
+                </div>
+              )}
+              <PriceHistoryChart history={chart.history} />
             </div>
           )}
         </>

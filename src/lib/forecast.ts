@@ -357,7 +357,7 @@ function isValidTrend(v: unknown): v is Trend {
   return v === 'up' || v === 'flat' || v === 'down'
 }
 
-function parseForecastJson(raw: string, card: Card): Forecast {
+function parseForecastJson(raw: string, card: Card, currentLow: number, currentHigh: number): Forecast {
   // コードブロックが混入した場合に除去
   const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
   const parsed = JSON.parse(cleaned)
@@ -386,8 +386,14 @@ function parseForecastJson(raw: string, card: Card): Forecast {
       reason: String(parsed.overall.reason),
     },
     price_forecast: {
-      current_low: Number(parsed.price_forecast.current_low),
-      current_high: Number(parsed.price_forecast.current_high),
+      // ⚠ current_low/high は**予想ではなく実測値**なので、LLMの出力を採用しない。
+      // 画面の「現在相場」はこの2つを表示しており、モデルが返した値をそのまま入れると
+      // 価格履歴（過去に汚染された値が残っていることがある）に引きずられて実勢から乖離する。
+      // 実例: リーフィアV SR はスクレイプ実測 ¥1,200〜¥1,555 を渡したのに、履歴に残っていた
+      // 汚染値(¥19,514)に引かれてモデルが ¥17,110 を返し、それが現在相場として表示された。
+      // 予想させるのは m1/m3/m6 と up/down のみ。
+      current_low: currentLow,
+      current_high: currentHigh,
       m1_low: Number(parsed.price_forecast.m1_low),
       m1_high: Number(parsed.price_forecast.m1_high),
       m3_low: Number(parsed.price_forecast.m3_low),
@@ -439,7 +445,7 @@ export async function generateForecast(
     try {
       const result = await model.generateContent(prompt)
       const raw = result.response.text()
-      return parseForecastJson(raw, card)
+      return parseForecastJson(raw, card, currentLow, currentHigh)
     } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err))
       if (attempt < 2) {

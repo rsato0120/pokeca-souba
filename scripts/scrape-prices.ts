@@ -38,7 +38,7 @@ interface OnSaleResult {
   askMid: number | null    // 出品中央値
 }
 
-async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice = 0): Promise<OnSaleResult> {
+async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice = 0, cardNo: CardNo | null = null): Promise<OnSaleResult> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   const keyword = encodeURIComponent(searchQuery)
@@ -67,7 +67,9 @@ async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice 
     const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
     // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
     const prices = removeOutliers(
-      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) >= Math.max(1, minPrice)).map(i => Number(i.price))
+      rawItems
+        .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice))
+        .map(i => Number(i.price))
     ).sort((a, b) => a - b)
 
     let askLow: number | null = null
@@ -82,7 +84,7 @@ async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice 
 }
 
 // スニーカーダンク: apparel_id をカード名+レアリティで検索
-async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string): Promise<number | null> {
+async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string, cardNo: CardNo | null): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
@@ -99,7 +101,13 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
     // 部分一致し別カード(例: 151ピカチュウAR→メガドリームのピカチュウex SAR)を誤取得するため、
     // 前後が英大文字でないことを確認する。
     const rarityRe = new RegExp(`(^|[^A-Z])${rarity}([^A-Z]|$)`)
-    const filtered = links.filter(l => l.text.includes(cardName) && rarityRe.test(l.text))
+    // ⚠ さらにカード番号でも照合する。スニダンは**SA版のタイトルを「リーフィアV SR: SA」と
+    // 表記する**ため、レアリティのトークン照合だけでは "SR" 検索が SA版に一致してしまう。
+    // 実例: リーフィアV SR(070) に SA(071) の apparel 91170 が登録され、SRがSAの価格
+    // (¥19,514)を表示していた。タイトルには "[S6a 071/069]" と番号が入るのでこれで切り分ける。
+    const filtered = links.filter(l =>
+      l.text.includes(cardName) && rarityRe.test(l.text) && matchesCardNo(l.text, cardNo)
+    )
     if (!filtered.length) return null
     const m = filtered[0].href.match(/\/apparels\/(\d+)/)
     return m ? parseInt(m[1]) : null
@@ -187,7 +195,47 @@ const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS'
 const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[1-9][0-9]+\s*枚/, /[2-9０-９]\s*枚/, /[2-9０-９]\s*[点種]/, /[2-9０-９]\s*(BOX|ボックス|箱)/i, /[1-9][0-9]+\s*(BOX|ボックス|箱)/i]
 
 function isExcluded(title: string): boolean {
-  return EXCLUDE_KEYWORDS.some(kw => title.includes(kw)) || EXCLUDE_PATTERNS.some(re => re.test(title))
+  // 英字キーワード（PSA/BGS/CGC/BOX）は出品タイトルで小文字表記も多い（"psa10 073/067" 等）。
+  // 大文字固定で照合していた頃は鑑定品が素体の成約に混入していたため、必ず大文字化して比較する。
+  const upper = title.toUpperCase()
+  return EXCLUDE_KEYWORDS.some(kw => upper.includes(kw.toUpperCase())) || EXCLUDE_PATTERNS.some(re => re.test(title))
+}
+
+// 出品タイトルに書かれた "073/067" 形式の数字ペアを全て拾う（全角スラッシュ・空白を吸収）。
+function extractNoPairs(title: string): Array<{ no: number; total: number }> {
+  const out: Array<{ no: number; total: number }> = []
+  for (const m of title.matchAll(/(\d{1,3})\s*[/／]\s*(\d{1,3})/g)) {
+    out.push({ no: parseInt(m[1], 10), total: parseInt(m[2], 10) })
+  }
+  return out
+}
+
+// 同名カードの別バージョン（SR 073 ⇔ SA 074 など）を番号で切り分ける。
+//
+// メルカリの出品者は SA(スペシャルアート) にも「SR」と書くことが多く、キーワード検索だけでは
+// 分離できない。実例: カイリューV SR(073/067・実勢¥3,000) の検索結果に SA(074/067・¥50,000超) が
+// 大量に混ざり、**多数派がSAだったため removeOutliers が本物のSRを外れ値として捨て**、
+// SR の相場が ¥44,345（＝SAの値段）になっていた。
+//
+// 判定は保守的に2段構え:
+//   1. 番号が書かれていないタイトルは判別不能として通す（除外しすぎると件数が足りずスキップになる）
+//   2. **分母が同じペアだけを「カード番号」とみなす**。分母を見ないと "9/30まで値下げ" のような
+//      日付や "1/2" を番号と誤認して正当な出品を落としてしまう。同名別バージョンは必ず同じ弾＝
+//      同じ分母なので（SR 073/067 ⇔ SA 074/067）、分母一致だけを対象にすれば取りこぼさない。
+function matchesCardNo(title: string, card: CardNo | null): boolean {
+  if (card == null) return true
+  const sameSet = extractNoPairs(title).filter(p => p.total === card.total)
+  if (sameSet.length === 0) return true
+  return sameSet.some(p => p.no === card.no)
+}
+
+interface CardNo { no: number; total: number }
+
+// "073/067" → {no:73,total:67}。PROMO の "260/SV-P" など数字/数字でないものは null（照合しない）
+function parseCardNo(cardNo: string | undefined): CardNo | null {
+  if (!cardNo) return null
+  const m = cardNo.match(/^(\d{1,3})\s*[/／]\s*(\d{1,3})$/)
+  return m ? { no: parseInt(m[1], 10), total: parseInt(m[2], 10) } : null
 }
 
 function calcMedian(arr: number[]): number {
@@ -211,7 +259,8 @@ async function scrapeMercariSoldAvg(
   browser: Browser,
   searchQuery: string,
   lowPct = 0.2,
-  highPct = 0.8
+  highPct = 0.8,
+    cardNo: CardNo | null = null
 ): Promise<MercariPriceResult | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -234,7 +283,9 @@ async function scrapeMercariSoldAvg(
       ? Number(rawSoldTotal)
       : null
     const prices = removeOutliers(
-      rawItems.filter(i => !isExcluded(i.name) && Number(i.price) > 0).map(i => Number(i.price))
+      rawItems
+        .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
+        .map(i => Number(i.price))
     )
     if (prices.length < 3) return null
     const sorted = [...prices].sort((a, b) => a - b)
@@ -338,15 +389,27 @@ async function scrapeCard(
   snkrdunkIds: Record<string, number>,
   cardName: string,
   rarity: string,
-  boxName: string
+  boxName: string,
+    cardNo: CardNo | null
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
     // スニーカーダンクIDを検索
     let apparelId: number | null = snkrdunkIds[id] ?? null
     if (!apparelId) {
-      apparelId = await findSnkrdunkId(browser, cardName, rarity)
-      if (apparelId) { snkrdunkIds[id] = apparelId; saveSnkrdunkIds(snkrdunkIds) }
+      apparelId = await findSnkrdunkId(browser, cardName, rarity, cardNo)
+      // 同じ apparel_id が既に別カードに使われていたら採用しない。1つのIDが2枚に
+      // 割り当たると必ず片方が別カードの価格を表示する（リーフィアV SR/SA の事故）。
+      const owner = apparelId != null
+        ? Object.entries(snkrdunkIds).find(([otherId, v]) => v === apparelId && otherId !== id)?.[0]
+        : undefined
+      if (owner) {
+        process.stdout.write(`[スニダンID${apparelId}は${owner}が使用中→不採用] `)
+        apparelId = null
+      } else if (apparelId) {
+        snkrdunkIds[id] = apparelId
+        saveSnkrdunkIds(snkrdunkIds)
+      }
     }
 
     let avg: number | null = null
@@ -401,7 +464,7 @@ async function scrapeCard(
     } else {
       // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
       for (let attempt = 1; attempt <= 3; attempt++) {
-        const result = await scrapeMercariSoldAvg(browser, searchQuery)
+        const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.8, cardNo)
         if (result != null) {
           avg = result.avg; mercariLow = result.low; mercariHigh = result.high; soldTotal = result.soldTotal
           break
@@ -432,7 +495,7 @@ async function scrapeCard(
     const onSaleQuery = rarity === 'PROMO'
       ? `${cardName} プロモ`
       : `${cardName} ${onSaleRarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-    const onSale = await getMercariOnSale(browser, onSaleQuery)
+    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 
@@ -557,7 +620,7 @@ async function main() {
       const query = card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName)
+      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, parseCardNo(card.card_no))
     }
 
     if (boxes.length > 0) {
