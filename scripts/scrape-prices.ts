@@ -1,4 +1,4 @@
-import { chromium, type Browser } from 'playwright'
+﻿import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
@@ -116,7 +116,7 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
 }
 
 // スニーカーダンク: 素体平均価格 + PSA10平均価格を取得
-async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ regular: number | null; regularCount: number; psa10: number | null }> {
+async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null }> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
@@ -134,7 +134,7 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
         if (attempt < 4) await new Promise(r => setTimeout(r, 2000))
       }
     }
-    if (!text) return { regular: null, regularCount: 0, psa10: null }
+    if (!text) return { regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null }
 
     // PSAセクション開始位置（"状態PSA" か "PSAの売買履歴" のみ。"PSA10"単体は他の箇所に出現しうるため除外）
     const psaMarkers = ['状態PSA', 'PSAの売買履歴', '状態 PSA']
@@ -149,18 +149,36 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
     //  (1) 「YYYY/MM/DD 状態 金額」の行パターンに限定（チャートは MM/DD で状態が無いので除外）
     //  (2) 直近90日の取引のみ採用。該当が無ければ null を返し Mercari にフォールバックさせる
     const regularSection = isFinite(psaStart) ? text.slice(0, psaStart) : text
-    const REGULAR_WINDOW_DAYS = 90
+    // 窓は45日。90日だと相場が動いた銘柄で「1〜2ヶ月前の高値」が平均に残り続ける。
+    const REGULAR_WINDOW_DAYS = 45
+    // さらに**最新の取引が25日以内**であることを要求する。スニダンは取引が数週間〜数ヶ月
+    // 止まる銘柄が普通にあり、止まったまま件数だけ足りているとメルカリの直近実勢を
+    // 古い高値で上書きし続ける（レックウザV SR: 最新6/18の¥23,000〜30,000を7/28まで表示。
+    // メルカリ直近実勢は¥11,500〜15,555だった）。止まっている系列は相場として使わない。
+    const REGULAR_FRESH_DAYS = 25
     const now = Date.now()
-    const regularPrices = [...regularSection.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+[A-D]\s+(\d{1,3}(?:,\d{3})*)/g)]
+    const regularRows = [...regularSection.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+[A-D]\s+(\d{1,3}(?:,\d{3})*)/g)]
       .map(m => ({
         t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
         p: parseInt(m[4].replace(/,/g, ''), 10),
       }))
-      .filter(r => r.p >= 100 && isFinite(r.t) && now - r.t <= REGULAR_WINDOW_DAYS * 86400000)
-      .map(r => r.p)
+      .filter(r => r.p >= 100 && isFinite(r.t))
+    const newestT = regularRows.length ? Math.max(...regularRows.map(r => r.t)) : null
+    const stale = newestT == null || now - newestT > REGULAR_FRESH_DAYS * 86400000
+    const regularPrices = stale
+      ? []
+      : regularRows.filter(r => now - r.t <= REGULAR_WINDOW_DAYS * 86400000).map(r => r.p)
     const regularCount = regularPrices.length
     const regular = regularCount > 0
       ? Math.round(regularPrices.reduce((a, b) => a + b, 0) / regularCount)
+      : null
+    const regularStaleDays = newestT != null ? Math.floor((now - newestT) / 86400000) : null
+    // 止まっている系列でも「直近5件の平均」は最後の手段として持っておく。取引が年に数回しか
+    // 無い超高額カード（レックウザVMAX SA 等）はメルカリ側も番号付き成約が薄く、
+    // 何も出せないと前日の誤った値が残り続けるため。採用は他が全滅した時だけ。
+    const newestFive = [...regularRows].sort((a, b) => b.t - a.t).slice(0, 5).map(r => r.p)
+    const staleRegular = newestFive.length
+      ? Math.round(newestFive.reduce((a, b) => a + b, 0) / newestFive.length)
       : null
 
     // PSA10セクション開始位置（"PSA10の" を最低限のパターンとして使用）
@@ -185,8 +203,8 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       }
     }
 
-    return { regular, regularCount, psa10 }
-  } catch { return { regular: null, regularCount: 0, psa10: null } }
+    return { regular, regularCount, psa10, staleDays: regularStaleDays, staleRegular }
+  } catch { return { regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null } }
   finally { await page.close() }
 }
 
@@ -222,14 +240,22 @@ function extractNoPairs(title: string): Array<{ no: number; total: number }> {
 //   2. **分母が同じペアだけを「カード番号」とみなす**。分母を見ないと "9/30まで値下げ" のような
 //      日付や "1/2" を番号と誤認して正当な出品を落としてしまう。同名別バージョンは必ず同じ弾＝
 //      同じ分母なので（SR 073/067 ⇔ SA 074/067）、分母一致だけを対象にすれば取りこぼさない。
+//
+// ⚠ 例外 = strict モード（同名別番号のカードが同じ弾に存在する時）。
+//   上の(1)「番号なしは通す」は**安い同名カードが高額カードを汚染する逆方向**を止められない。
+//   実例: レックウザVMAX SA(083/067・素体¥900,000前後) の成約検索に、番号を書いていない
+//   HR(082/067・¥24,000〜33,000) の出品が混ざり、平均が ¥343,633 まで引き下げられていた
+//   （出品最安 ¥499,999 より安い成約平均＝ありえない状態）。
+//   同名の兄弟カードが居るなら「番号が書いてあるタイトルだけ」を採用する。件数が足りなければ
+//   スキップ（既存価格を維持）する方が、別カードの値段を出すよりましという判断。
 function matchesCardNo(title: string, card: CardNo | null): boolean {
   if (card == null) return true
   const sameSet = extractNoPairs(title).filter(p => p.total === card.total)
-  if (sameSet.length === 0) return true
+  if (sameSet.length === 0) return !card.strict
   return sameSet.some(p => p.no === card.no)
 }
 
-interface CardNo { no: number; total: number }
+interface CardNo { no: number; total: number; strict?: boolean }
 
 // "073/067" → {no:73,total:67}。PROMO の "260/SV-P" など数字/数字でないものは null（照合しない）
 function parseCardNo(cardNo: string | undefined): CardNo | null {
@@ -433,6 +459,9 @@ async function scrapeCard(
     const SNKRDUNK_MIN_PRICE = 1500
     let snkrdunkRegular: number | null = null
     let snkrdunkCount = 0
+    // 鮮度切れのスニダン値。メルカリも取れなかった時の最後の手段としてだけ使う
+    let snkrdunkStale: number | null = null
+    let snkrdunkStaleDays: number | null = null
 
     if (apparelId) {
       // スニーカーダンクから取得（PSA10は常にスニダン由来）
@@ -440,6 +469,14 @@ async function scrapeCard(
       snkrdunkRegular = prices.regular
       snkrdunkCount = prices.regularCount
       psa10 = prices.psa10
+      snkrdunkStale = prices.staleRegular
+      snkrdunkStaleDays = prices.staleDays
+
+      // 取引が止まっている系列は getSnkrdunkPrices が regular=null を返す。何日止まって
+      // いたかをログに出す（メルカリに落ちた理由が「取引無し」か「件数不足」か判別するため）
+      if (prices.regular == null && prices.staleDays != null) {
+        process.stdout.write(`[スニダン最新取引${prices.staleDays}日前→不採用] `)
+      }
 
       if (snkrdunkRegular != null && snkrdunkRegular < SNKRDUNK_MIN_PRICE) {
         process.stdout.write(`[スニダン床値¥${snkrdunkRegular}→不採用] `)
@@ -474,11 +511,25 @@ async function scrapeCard(
       source = 'メルカリ'
       priceSource = 'mercari'
       // メルカリ成約も取れなければ、少数でもスニダン価格を使う（無いよりはマシ）
-      if (avg == null && snkrdunkRegular != null) {
+      // フォールバックは「前日の2倍を超える値」を出さない。番号必須化でメルカリ件数が
+      // 足りないと、安価カードがスニダンの手数料込み床値(¥1,500〜1,700)に跳ね上がる
+      // （メガズルズキンex MA: 実勢¥549 → スニダン¥1,640＝+199%）。フォールバック元より
+      // 桁が変わる値を採るくらいなら、既存価格を維持してスキップする方がまし。
+      const prevAvg = readLatestRecord(id, date)?.avg ?? null
+      const tooHighForFallback = (v: number) => prevAvg != null && v > prevAvg * 2
+      if (avg == null && snkrdunkRegular != null && !tooHighForFallback(snkrdunkRegular)) {
         avg = snkrdunkRegular
         source = `スニダン(${snkrdunkCount}件)`
         priceSource = 'snkrdunk'
         sampleCount = snkrdunkCount
+      }
+      // 最後の手段: 鮮度切れのスニダン直近5件平均。年に数回しか動かない超高額カードは
+      // メルカリ側も番号付き成約が薄く、ここが無いと前日の誤った値が居座り続ける
+      if (avg == null && snkrdunkStale != null && snkrdunkStale >= SNKRDUNK_MIN_PRICE && !tooHighForFallback(snkrdunkStale)) {
+        avg = snkrdunkStale
+        source = `スニダン(鮮度切れ${snkrdunkStaleDays}日前)`
+        priceSource = 'snkrdunk'
+        sampleCount = undefined
       }
     }
 
@@ -611,6 +662,19 @@ async function main() {
   const stats = { succeeded: 0, skipped: 0, failed: 0 }
   const snkrdunkIds = loadSnkrdunkIds()
 
+  // 同じ弾に同名カードが複数ある(SR/SA/HR等)なら、そのカード群は番号必須で照合する。
+  // 番号なしタイトルを通すと、安い方が高い方を（またはその逆で）汚染するため。
+  const siblingCount = new Map<string, number>()
+  for (const card of getAllCards()) {
+    const key = `${card.box_id}|${card.card_name}`
+    siblingCount.set(key, (siblingCount.get(key) ?? 0) + 1)
+  }
+  const cardNoFor = (card: { box_id: string; card_name: string; card_no?: string }): CardNo | null => {
+    const no = parseCardNo(card.card_no)
+    if (!no) return null
+    return { ...no, strict: (siblingCount.get(`${card.box_id}|${card.card_name}`) ?? 0) > 1 }
+  }
+
   try {
     for (const card of cards) {
       const boxName = boxMap.get(card.box_id) ?? ''
@@ -620,7 +684,7 @@ async function main() {
       const query = card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, parseCardNo(card.card_no))
+      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card))
     }
 
     if (boxes.length > 0) {
