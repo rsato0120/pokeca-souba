@@ -66,17 +66,21 @@ async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice 
     // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）
     const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
     // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
-    const prices = removeOutliers(
-      rawItems
-        .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice))
-        .map(i => Number(i.price))
-    ).sort((a, b) => a - b)
+    const prices = rawItems
+      .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice))
+      .map(i => Number(i.price))
+      .sort((a, b) => a - b)
 
     let askLow: number | null = null
     let askMid: number | null = null
     if (prices.length >= 3) {
-      askLow = prices[Math.floor(prices.length * 0.1)]  // 10thパーセンタイル＝実質的な床値
-      askMid = calcMedian(prices)
+      // 成約側と同じ理由でデータ依存のカットオフは使わない。ここは価格昇順で取っているので
+      // 上位25%を機械的に落とせば混入（束売り・鑑定品）を外せる。
+      // 旧実装（中央値±50%）はカイリューV SA で ask_low が ¥29,300 ⇔ ¥52,222 を日替わりで
+      // 往復させ、下の「メルカリ不整合」ガードを誤爆させていた。
+      const core = prices.slice(0, Math.max(3, Math.ceil(prices.length * 0.75)))
+      askLow = percentileAt(core, 0.1)  // 10thパーセンタイル＝実質的な床値
+      askMid = calcMedian(core)
     }
     return { count, askLow, askMid }
   } catch { return { count: null, askLow: null, askMid: null } }
@@ -116,7 +120,9 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
 }
 
 // スニーカーダンク: 素体平均価格 + PSA10平均価格を取得
-async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null }> {
+// fetched: ページ本文を取得できたか。false は「取引が無い」ではなく**通信/レート制限で見えなかった**
+// を意味する。この2つを混同すると、取得失敗のたびにメルカリへ乗り換えて系列が方形波になる。
+async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ fetched: boolean; regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null }> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
@@ -134,7 +140,7 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
         if (attempt < 4) await new Promise(r => setTimeout(r, 2000))
       }
     }
-    if (!text) return { regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null }
+    if (!text) return { fetched: false, regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null }
 
     // PSAセクション開始位置（"状態PSA" か "PSAの売買履歴" のみ。"PSA10"単体は他の箇所に出現しうるため除外）
     const psaMarkers = ['状態PSA', 'PSAの売買履歴', '状態 PSA']
@@ -195,16 +201,33 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       const psa10Section = text.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 2000)
       const noHistory = ['まだこの商品は取引がありません', '取引がありません', '売買履歴はまだありません']
       if (!noHistory.some(s => psa10Section.includes(s))) {
-        const psa10Prices = [...psa10Section.matchAll(/\b(\d{1,3}(?:,\d{3})+)\b/g)]
-          .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 1000)
+        // 素体と同じく「YYYY/MM/DD + 金額」の売買履歴行だけを対象にし、直近90日に限る。
+        // カンマ区切りの数字を無差別に平均していた頃は、価格チャートの目盛りや関連商品価格も
+        // 混ざり、しかも古い取引が永久に平均へ残った（132銘柄中15銘柄でPSA10が1ヶ月以上
+        // 1〜2種類の値に張り付いていた）。素体より窓を長く取るのは、鑑定品は取引頻度が
+        // 低く45日だと該当ゼロになる銘柄が多いため。
+        const PSA10_WINDOW_DAYS = 90
+        const psa10Rows = [...psa10Section.matchAll(/(\d{4})\/(\d{2})\/(\d{2})[^\n]*?(\d{1,3}(?:,\d{3})+)/g)]
+          .map(m => ({
+            t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
+            p: parseInt(m[4].replace(/,/g, ''), 10),
+          }))
+          .filter(r => r.p >= 1000 && isFinite(r.t) && now - r.t <= PSA10_WINDOW_DAYS * 86400000)
+          .map(r => r.p)
+        // 行として1件も読めない時だけ従来の「セクション内の数字を平均」に戻す。
+        // スニダンのDOMが変わっても PSA10 が一斉に null になって消えることは避ける。
+        const psa10Prices = psa10Rows.length > 0
+          ? psa10Rows
+          : [...psa10Section.matchAll(/\b(\d{1,3}(?:,\d{3})+)\b/g)]
+              .map(m => parseInt(m[1].replace(/,/g, ''))).filter(p => p >= 1000)
         psa10 = psa10Prices.length > 0
           ? Math.round(psa10Prices.reduce((a, b) => a + b, 0) / psa10Prices.length)
           : null
       }
     }
 
-    return { regular, regularCount, psa10, staleDays: regularStaleDays, staleRegular }
-  } catch { return { regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null } }
+    return { fetched: true, regular, regularCount, psa10, staleDays: regularStaleDays, staleRegular }
+  } catch { return { fetched: false, regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null } }
   finally { await page.close() }
 }
 
@@ -212,11 +235,43 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
 const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ', 'コンプ', '全種', 'セット', '複数', '大量', 'カートン']
 const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[1-9][0-9]+\s*枚/, /[2-9０-９]\s*枚/, /[2-9０-９]\s*[点種]/, /[2-9０-９]\s*(BOX|ボックス|箱)/i, /[1-9][0-9]+\s*(BOX|ボックス|箱)/i]
 
+// レアリティ表記をトークンとして数える（"MEGA" の中の "MA" 等に部分一致しないよう境界を見る）
+const RARITY_TOKEN_RE = /(?:^|[^A-Za-z])(SAR|SR|AR|UR|RR|MA|HR|MUR)(?![A-Za-z])/g
+
+// 「まとめ売り」を名乗らない複数枚出品を落とす。
+//
+// 除外キーワード（まとめ/セット/N枚）は "まとめ" と書いてくれる出品しか捕まえられない。実際の
+// 汚染はカード名を並べただけのタイトルで入ってくる:
+//   ¥999   「シロナのミカルゲ ダーテング トゲデマル ミカルゲ ロケット団のヘルガー」
+//   ¥1,560 「なかよしポフィンSR ハイパーボール SR 夜のタンカ SR」
+//   ¥24,500「ポケカ 引退品」
+//   ¥3,400 「に*@様 ポケモンカードメガドリーム　メガユキメノコex SAR他」
+// これらが1枚の相場に混ざると、中央値が実勢の数倍まで押し上げられる。
+function looksLikeBundle(title: string): boolean {
+  // 引退品＝コレクション一括。単品出品でこの語は使われない
+  if (/引退/.test(title)) return true
+  // 「○○様専用」＝取り置き。中身が確認できず束の取り置きも多いので相場には使わない
+  if (/専用/.test(title)) return true
+  // 「…SAR他」「…ex他」＝ and others。末尾の「他」も同じ
+  if (/(?:[A-Za-z]|ex|EX|GX|V|VMAX|VSTAR)\s*他/.test(title) || /他\s*$/.test(title)) return true
+  // レアリティ表記が3つ以上＝複数カードの列挙
+  if ((title.match(RARITY_TOKEN_RE) || []).length >= 3) return true
+  // 同じ分母のカード番号が2種類以上＝複数カードの列挙（"1/2の確率"等を拾わないよう分母一致で見る）
+  const byTotal = new Map<number, Set<number>>()
+  for (const p of extractNoPairs(title)) {
+    if (!byTotal.has(p.total)) byTotal.set(p.total, new Set())
+    byTotal.get(p.total)!.add(p.no)
+  }
+  return [...byTotal.values()].some(s => s.size >= 2)
+}
+
 function isExcluded(title: string): boolean {
   // 英字キーワード（PSA/BGS/CGC/BOX）は出品タイトルで小文字表記も多い（"psa10 073/067" 等）。
   // 大文字固定で照合していた頃は鑑定品が素体の成約に混入していたため、必ず大文字化して比較する。
   const upper = title.toUpperCase()
-  return EXCLUDE_KEYWORDS.some(kw => upper.includes(kw.toUpperCase())) || EXCLUDE_PATTERNS.some(re => re.test(title))
+  return EXCLUDE_KEYWORDS.some(kw => upper.includes(kw.toUpperCase()))
+    || EXCLUDE_PATTERNS.some(re => re.test(title))
+    || looksLikeBundle(title)
 }
 
 // 出品タイトルに書かれた "073/067" 形式の数字ペアを全て拾う（全角スラッシュ・空白を吸収）。
@@ -270,23 +325,47 @@ function calcMedian(arr: number[]): number {
   return sorted.length % 2 !== 0 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2)
 }
 
-function removeOutliers(prices: number[]): number[] {
-  if (prices.length < 3) return prices
-  const med = calcMedian(prices)
-  return prices.filter(p => p >= med * 0.5 && p <= med * 1.5)
+// ⚠ 旧 removeOutliers（中央値の0.5〜1.5倍だけ採用）は使わない。グラフのノコギリ波の真因だった。
+//
+// 成約検索には必ず高値側の混入（束売り・別バージョン・鑑定品）が残る。混入があると中央値が
+// 実勢より上に持ち上がり、その中央値から引いた**下限（中央値×0.5）が実勢の価格帯そのものに
+// 刺さる**。するとサンプルが1〜2件入れ替わっただけで中央値がずれ、下限が動き、床値クラスタが
+// 丸ごと採用/不採用に切り替わって平均が飛ぶ。
+//   実測（ミカルゲAR・実勢¥350前後）: 21件中9件が¥999〜¥7,150の混入。中央値¥599 → 下限¥300 が
+//   ¥300の成約6件の上に乗り、2件入れ替えただけで代表値が最大 **78%** 変動した。
+//   これが「¥520→¥588→¥492→¥396」と数日おきに同じ値を往復する階段グラフの正体。
+//
+// 対策＝カットオフをデータ依存にしない。ソート済み配列の**固定パーセンタイル区間**だけを見る。
+// 区間の位置は件数にしか依存しないので「崖」が無く、1件の増減では区間が1つずれるだけで済む。
+// 混入は常に高値側なので、下寄りの区間を取れば混入の割合が多少変わっても値が動かない。
+function percentileAt(sorted: number[], q: number): number {
+  return sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * q))]
+}
+
+// lo〜hi パーセンタイル区間の平均（実測7銘柄で最悪変動 28.3% → 16.6%）
+function sliceMean(prices: number[], loPct: number, hiPct: number): number {
+  const sorted = [...prices].sort((a, b) => a - b)
+  const i = Math.floor(sorted.length * loPct)
+  const j = Math.max(i + 1, Math.min(sorted.length, Math.floor(sorted.length * hiPct) + 1))
+  const core = sorted.slice(i, j)
+  return Math.round(core.reduce((a, b) => a + b, 0) / core.length)
 }
 
 interface MercariItem { id?: string; name: string; price: number; status?: string }
 // soldTotal = 成約済みの総件数（meta.numFound）。日々の差分が「1日に何枚売れたか」＝回転率になる。
 // 追加リクエストは発生しない（成約相場を取る同じレスポンスの meta を読むだけ）。
-interface MercariPriceResult { avg: number; low: number; high: number; soldTotal: number | null }
+interface MercariPriceResult { avg: number; low: number; high: number; soldTotal: number | null; sampleCount: number }
 
+// trimTopPct: low/high を出す前に高値側から機械的に落とす割合。成約検索に残る混入は必ず
+// 高値側なので、これが無いと表示レンジの上端が束売り/鑑定品の値になる（ミカルゲAR: 実勢¥362
+// なのに上端¥722）。カードは 0.25、BOX は 0（BOXは呼び出し側が中位バンドを指定するため）。
 async function scrapeMercariSoldAvg(
   browser: Browser,
   searchQuery: string,
   lowPct = 0.2,
-  highPct = 0.8,
-    cardNo: CardNo | null = null
+  highPct = 0.6,
+    cardNo: CardNo | null = null,
+  trimTopPct = 0.25
 ): Promise<MercariPriceResult | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -308,19 +387,23 @@ async function scrapeMercariSoldAvg(
     const soldTotal = rawSoldTotal != null && !isNaN(Number(rawSoldTotal)) && Number(rawSoldTotal) > 0
       ? Number(rawSoldTotal)
       : null
-    const prices = removeOutliers(
-      rawItems
-        .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
-        .map(i => Number(i.price))
-    )
+    const prices = rawItems
+      .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
+      .map(i => Number(i.price))
     if (prices.length < 3) return null
     const sorted = [...prices].sort((a, b) => a - b)
-    const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
-    // 代表的な取引幅（既定 20th〜80th percentile）。BOXは高値テールに引っ張られるので
-    // 床値寄りの狭いバンド（例 20th〜35th）を渡して「実際に買える価格帯」を表示する。
-    const low = sorted[Math.floor(sorted.length * lowPct)]
-    const high = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * highPct))]
-    return { avg, low, high, soldTotal }
+    // 代表的な取引幅。高値側の混入を機械的に落としてから percentile を取る（データ依存の
+    // カットオフではないので「崖」は生まれない）。BOXは呼び出し側が中位バンドを指定する。
+    const core = trimTopPct > 0
+      ? sorted.slice(0, Math.max(3, Math.ceil(sorted.length * (1 - trimTopPct))))
+      : sorted
+    // 代表値は 20th〜50th の区間平均。単純平均は高値側の混入をそのまま拾ううえ、
+    // 事前の外れ値除去にデータ依存のカットオフを使うと採用集合が日替わりで総入れ替えになる
+    // （sliceMean のコメント参照）。BOX はこの avg を (low+high)/2 で上書きするので影響しない。
+    const avg = sliceMean(sorted, 0.2, 0.5)
+    const low = Math.min(percentileAt(core, lowPct), avg)
+    const high = Math.max(percentileAt(core, highPct), avg)
+    return { avg, low, high, soldTotal, sampleCount: prices.length }
   } catch { return null }
   finally { await page.close() }
 }
@@ -462,10 +545,12 @@ async function scrapeCard(
     // 鮮度切れのスニダン値。メルカリも取れなかった時の最後の手段としてだけ使う
     let snkrdunkStale: number | null = null
     let snkrdunkStaleDays: number | null = null
+    let snkrdunkFetched = false
 
     if (apparelId) {
       // スニーカーダンクから取得（PSA10は常にスニダン由来）
       const prices = await getSnkrdunkPrices(browser, apparelId)
+      snkrdunkFetched = prices.fetched
       snkrdunkRegular = prices.regular
       snkrdunkCount = prices.regularCount
       psa10 = prices.psa10
@@ -486,8 +571,31 @@ async function scrapeCard(
     }
 
     // 前回の出所。ヒステリシスの基準に使う（2026-07-18 以前のレコードには source が無い）
-    const prevSource = readLatestRecord(id, date)?.source
+    const prevRecordForSource = readLatestRecord(id, date)
+    const prevSource = prevRecordForSource?.source
     const snkrdunkNeeded = prevSource === 'snkrdunk' ? SNKRDUNK_KEEP_SAMPLES : SNKRDUNK_ADOPT_SAMPLES
+
+    // スニダンの**取得自体が失敗**した時は、メルカリに乗り換えずその日を見送る。
+    // 件数ヒステリシス（ADOPT/KEEP）は「取引件数が減った時」しか守っておらず、TLSリセットや
+    // レート制限でページが空になると regular=null → 無条件でメルカリへ落ちていた。スニダン基準と
+    // メルカリ基準は水準が違うため、これが数日おきの出所フリップ＝方形波になっていた
+    // （トウコSR: ¥2,617 ⇔ ¥2,430 を7日で3往復、Nの筋書きSAR: 8日で3往復）。
+    // ただし恒久的に取得できなくなった場合に値が凍り付かないよう、直近レコードが3日以内の時だけ見送る。
+    // 「取得できなかった」は2通りある。ページ本文が空(fetched=false)と、**ページは返ったのに
+    // 売買履歴の行が1つも読めない**(regularCount=0 かつ staleDays=null＝日付行ゼロ)。後者は
+    // ソフトなレート制限で起きる。昨日まで36〜46件あった銘柄の履歴が突然0件になるのは実態では
+    // ありえないので、前日がスニダン由来ならこれも取得失敗として扱う
+    // （リーリエの決心SAR: n=36 → 翌日0件でメルカリへ落ち ¥26,141→¥21,533 の偽の下落が出た）。
+    const snkrdunkBlocked = !snkrdunkFetched || (snkrdunkCount === 0 && snkrdunkStaleDays == null && snkrdunkRegular == null)
+    if (apparelId && snkrdunkBlocked && prevSource === 'snkrdunk') {
+      const prevDate = prevRecordForSource?.date
+      const ageDays = prevDate ? Math.round((Date.parse(date) - Date.parse(prevDate)) / 86400000) : 99
+      if (ageDays <= 3) {
+        console.log(`スニダン取得失敗 — スキップ（既存価格を維持・出所フリップ回避）`)
+        stats.skipped++
+        return
+      }
+    }
 
     let mercariLow = 0, mercariHigh = 0
     // スニダン採用時はメルカリ成約検索を行わないので soldTotal は取れない（追加リクエストは避ける）
@@ -501,9 +609,12 @@ async function scrapeCard(
     } else {
       // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
       for (let attempt = 1; attempt <= 3; attempt++) {
-        const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.8, cardNo)
+        const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.6, cardNo)
         if (result != null) {
           avg = result.avg; mercariLow = result.low; mercariHigh = result.high; soldTotal = result.soldTotal
+          // メルカリ由来でも件数を残す。これが無いと「何件の成約で出した値か」が後から検証できず、
+          // 監査で薄いサンプルの跳ねと本物の相場変動を切り分けられなかった。
+          sampleCount = result.sampleCount
           break
         }
         if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
@@ -515,9 +626,12 @@ async function scrapeCard(
       // 足りないと、安価カードがスニダンの手数料込み床値(¥1,500〜1,700)に跳ね上がる
       // （メガズルズキンex MA: 実勢¥549 → スニダン¥1,640＝+199%）。フォールバック元より
       // 桁が変わる値を採るくらいなら、既存価格を維持してスキップする方がまし。
+      // ⚠ 上下**両方向**を見る。以前は上振れ（>2倍）しか止めておらず、フォールバックで
+      // 半値以下に落ちる方は素通りしていた。出所が変わって水準が変わっただけの値を
+      // 「暴落」としてグラフに刻んでしまうため、桁が変わる時は既存価格を維持する。
       const prevAvg = readLatestRecord(id, date)?.avg ?? null
-      const tooHighForFallback = (v: number) => prevAvg != null && v > prevAvg * 2
-      if (avg == null && snkrdunkRegular != null && !tooHighForFallback(snkrdunkRegular)) {
+      const tooFarForFallback = (v: number) => prevAvg != null && (v > prevAvg * 2 || v < prevAvg * 0.5)
+      if (avg == null && snkrdunkRegular != null && !tooFarForFallback(snkrdunkRegular)) {
         avg = snkrdunkRegular
         source = `スニダン(${snkrdunkCount}件)`
         priceSource = 'snkrdunk'
@@ -525,7 +639,7 @@ async function scrapeCard(
       }
       // 最後の手段: 鮮度切れのスニダン直近5件平均。年に数回しか動かない超高額カードは
       // メルカリ側も番号付き成約が薄く、ここが無いと前日の誤った値が居座り続ける
-      if (avg == null && snkrdunkStale != null && snkrdunkStale >= SNKRDUNK_MIN_PRICE && !tooHighForFallback(snkrdunkStale)) {
+      if (avg == null && snkrdunkStale != null && snkrdunkStale >= SNKRDUNK_MIN_PRICE && !tooFarForFallback(snkrdunkStale)) {
         avg = snkrdunkStale
         source = `スニダン(鮮度切れ${snkrdunkStaleDays}日前)`
         priceSource = 'snkrdunk'
@@ -553,10 +667,17 @@ async function scrapeCard(
     // メルカリ成約検索は同名の別バージョン（通常版⇔SR⇔SA）を拾うことがあり、実勢から
     // 桁違いにずれる。出品価格帯と突き合わせて明らかに整合しない成約平均は採用しない。
     // 出品最安を恒常的に上回る成約も、その半値以下で売れ続けることも市場論理として無いため。
-    if (priceSource === 'mercari' && onSale.askLow != null && avg != null) {
-      const askRatio = avg / onSale.askLow
-      if (askRatio > 2.5 || askRatio < 0.5) {
-        const detail = `成約¥${avg.toLocaleString()} vs 出品最安¥${onSale.askLow.toLocaleString()}`
+    // 基準は**出品中央値(askMid)**を優先する。askLow は10thパーセンタイル＝1件の投げ売りで
+    // 動くため、正常なカードを何日も連続でスキップさせていた（ブースターV SR: 成約¥5,083 vs
+    // 出品最安¥1,999＝2.54倍で誤爆、カイリューV SR は3日連続スキップ＋削除で8日の欠測に）。
+    // 別バージョン混入そのものは matchesCardNo で塞いだので、ここは桁違いだけを止める最後の網。
+    const askRef = onSale.askMid ?? onSale.askLow
+    const askRefLabel = onSale.askMid != null ? '出品中央値' : '出品最安'
+    const [ratioLo, ratioHi] = onSale.askMid != null ? [0.4, 2.2] : [0.5, 2.5]
+    if (priceSource === 'mercari' && askRef != null && avg != null) {
+      const askRatio = avg / askRef
+      if (askRatio > ratioHi || askRatio < ratioLo) {
+        const detail = `成約¥${avg.toLocaleString()} vs ${askRefLabel}¥${askRef.toLocaleString()}`
         if (snkrdunkRegular != null) {
           process.stdout.write(`[メルカリ不整合(${detail})→スニダン${snkrdunkCount}件] `)
           avg = snkrdunkRegular
@@ -611,7 +732,9 @@ async function scrapeBox(
       // （例 タッグボルト: 実勢中央値¥380,000に対し表示¥231,000＝-34%）。
       // 高値テールは removeOutliers（中央値の0.5〜1.5倍のみ採用）が既に落としているので、
       // 中位バンドでも「高すぎ」側には戻らない。
-      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65)
+      // trimTopPct=0: BOXは中位バンド(35-65th)を明示的に取るので、追加の高値カットはしない
+      // （2026-07-27 に床値バンドから中位バンドへ戻した経緯があり、二重に下げてはいけない）
+      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65, null, 0)
       if (result != null) {
         avg = result.avg; boxLow = result.low; boxHigh = result.high; soldTotal = result.soldTotal
         break

@@ -112,6 +112,36 @@ console.log(`   カード孤児 ${orphans.length}件 / BOX孤児 ${boxOrphans.le
 orphans.slice(0, 10).forEach(o => console.log('    ', o))
 boxOrphans.forEach(o => console.log('    ', o))
 
+// ── 9. ノコギリ波（相場は動いていないのに価格だけ往復している） ──────────
+// 2026-07-29 の調査で最大の不具合だった症状の再発検知。旧推定量は採用サンプルの集合が
+// 日替わりで総入れ替えになり、avg が「+23% → 翌日 -19%」と同じ値を往復していた。
+// 出品価格(ask)が動いていないのに avg だけが往復していたら推定量side の問題を疑う。
+section('9. ノコギリ波（ask が動いていないのに avg が往復）')
+let zigzag = 0
+for (const c of cards) {
+  const h = read(getCardSlug(c))
+  if (!h || h.length < 10) continue
+  const asc = [...h].sort((a, b) => a.date.localeCompare(b.date))
+  let flips = 0, maxAmp = 0
+  for (let i = 1; i < asc.length - 1; i++) {
+    const p = asc[i - 1], r = asc[i], n = asc[i + 1]
+    if (p.avg == null || r.avg == null || n.avg == null) continue
+    const d1 = (r.avg - p.avg) / p.avg, d2 = (n.avg - r.avg) / r.avg
+    // 山（上げてすぐ下げ）か谷（下げてすぐ上げ）で、どちらも15%以上
+    if (Math.sign(d1) === Math.sign(d2) || Math.abs(d1) < 0.15 || Math.abs(d2) < 0.15) continue
+    // ask が同方向に追随していれば本物の変動
+    const askRef = r.ask_mid ?? r.ask_low, askPrev = p.ask_mid ?? p.ask_low
+    if (askRef != null && askPrev != null && Math.abs((askRef - askPrev) / askPrev) >= 0.10) continue
+    flips++
+    maxAmp = Math.max(maxAmp, Math.abs(d1), Math.abs(d2))
+  }
+  if (flips >= 2) {
+    zigzag++
+    console.log(`   ${c.id.padEnd(44)} 往復${flips}回 最大振幅${Math.round(maxAmp * 100)}%`)
+  }
+}
+if (!zigzag) console.log('   なし')
+
 // ── 8. BOX: シュリンクあり < シュリンクなし（通常あり得ない） ─────────
 section('8. BOX シュリンクあり ≦ シュリンクなし（逆転）')
 let boxBad = 0
