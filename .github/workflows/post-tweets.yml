@@ -1,10 +1,11 @@
 name: Post movers to X
 
 on:
-  schedule:
-    - cron: '0 23 * * *'  # JST 8:00  → 📈急騰
-    - cron: '0 4 * * *'   # JST 13:00 → 📉値下がり
-    - cron: '0 11 * * *'  # JST 20:00 → 🤖AI注目
+  # X APIのクレジット枯渇（402 credits depleted）のため定期実行を停止中。
+  # Developer Portal の Dashboard で枠の回復を確認したら、下2行のコメントを外す。
+  # 枠を使い切らないよう、再開時は1日3回→1日1回に減らしてある。
+  # schedule:
+  #   - cron: '0 11 * * *'  # JST 20:00 → 🤖AI注目
   workflow_dispatch:
     inputs:
       mode:
@@ -19,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
       - name: Install dependencies
         run: npm install

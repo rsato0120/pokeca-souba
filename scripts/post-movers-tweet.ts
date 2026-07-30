@@ -114,9 +114,39 @@ function selectTweet(mode: Mode): { mode: Mode; text: string } | null {
   return r ? { mode: 'ai', text: compose('ai', r) } : null
 }
 
+// X APIの失敗は原因ごとに対処が違うので、生のスタックトレースではなく
+// 「次に何をすればいいか」まで出す。
+function reportPostError(err: any) {
+  const code: number | undefined = err?.code
+  const detail: string = err?.data?.detail ?? err?.message ?? '詳細不明'
+  const accessLevel = err?.headers?.['x-access-level']
+  console.error(`❌ 投稿失敗（${code ?? '不明'}）: ${detail}`)
+  if (code === 402) {
+    console.error('   X APIの月次クレジットを使い切っています。')
+    console.error('   Developer Portal → Dashboard で残量とリセット日を確認してください。')
+  } else if (code === 403) {
+    console.error(`   アプリの権限が不足しています（x-access-level: ${accessLevel ?? '不明'}）。`)
+    console.error('   App permissions を Read and write にした「後で」アクセストークンを再生成し、')
+    console.error('   X_ACCESS_TOKEN / X_ACCESS_SECRET を更新してください（再生成しないと権限は反映されません）。')
+  } else if (code === 401) {
+    console.error('   キーの値が違います。X_API_KEY にBearer Tokenを入れていないか確認してください。')
+    console.error('   X_API_KEY は Consumer Keys の API Key（25文字前後）です。')
+  } else if (code === 429) {
+    console.error('   レート制限です。時間をおいて再実行してください。')
+  }
+}
+
 async function post(text: string) {
   const { X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET } = process.env
   if (!X_API_KEY || !X_API_SECRET || !X_ACCESS_TOKEN || !X_ACCESS_SECRET) {
+    // CI上でのDRY RUNは「緑なのに投稿ゼロ」を招くので失敗として扱う。
+    if (process.env.CI) {
+      console.error('❌ X APIキーが未設定です。GitHub Secrets に以下4つが登録されているか確認してください:')
+      console.error('   X_API_KEY / X_API_SECRET / X_ACCESS_TOKEN / X_ACCESS_SECRET')
+      console.error('   ※ Variables タブではなく Secrets タブです。')
+      process.exitCode = 1
+      return
+    }
     console.log('--- DRY RUN（X APIキー未設定・投稿しません）---')
     console.log(text)
     console.log(`--- 文字数: ${[...text].length} ---`)
@@ -127,8 +157,13 @@ async function post(text: string) {
     appKey: X_API_KEY, appSecret: X_API_SECRET,
     accessToken: X_ACCESS_TOKEN, accessSecret: X_ACCESS_SECRET,
   })
-  const res = await client.v2.tweet(text)
-  console.log('投稿完了:', res.data.id)
+  try {
+    const res = await client.v2.tweet(text)
+    console.log('投稿完了:', res.data.id)
+  } catch (err) {
+    reportPostError(err)
+    process.exitCode = 1
+  }
 }
 
 async function main() {
