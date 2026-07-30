@@ -7,6 +7,7 @@ import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
+import CardSentiment from '@/components/CardSentiment'
 import OripaBanner from '@/components/OripaBanner'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
@@ -642,6 +643,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         {overall.reason}
       </p>
 
+      {/* ── みんなの予想（投票・Supabase） ── */}
+      <CardSentiment cardId={cardId} ai={{ up: overall.up_pct, down: overall.down_pct }} />
 
       {/* ── コレクター需要（観賞・保有価値） ── */}
       <div
