@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getBoxPriceVariant, getPriceHistory } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getBoxPriceVariant, getPriceHistory, getPullRates } from '@/lib/data'
 import { getSetProducts } from '@/lib/set-boxes'
+import { computeBoxEv } from '@/lib/box-ev'
 import BoxCardList from '@/components/BoxCardList'
 import BoxSelector from '@/components/BoxSelector'
 import BoxPricePanel from '@/components/BoxPricePanel'
+import BoxExpectedValue from '@/components/BoxExpectedValue'
 import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
@@ -108,6 +110,12 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       weekChange: (() => { const v = today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
     }
   }).filter(c => c.currentMid > 0)
+
+  // 1BOX開封の期待値。開封目的の購入はシュリンクなしが基準になるのでそちらを優先する。
+  const priceMap = new Map(cardChanges.map(c => [c.card.id, Math.round(c.currentMid)]))
+  const evBoxLatest = noshrinkHist?.[0] ?? shrinkHist?.[0] ?? mixedHist?.[0] ?? null
+  const evBoxPrice = evBoxLatest ? Math.round((evBoxLatest.low + evBoxLatest.high) / 2) : null
+  const boxEv = computeBoxEv(getPullRates(boxId), cards, (c) => priceMap.get(c.id) ?? 0, evBoxPrice, msrp)
 
   const priceRanking = [...cardChanges].sort((a, b) => {
     const va = a.weekChange ?? a.dayChange ?? 0
@@ -266,6 +274,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             const tweetText = [
               `【BOX相場】${box.box_name}`,
               repLatest ? `現在 ¥${repLow?.toLocaleString()}〜¥${repHigh?.toLocaleString()}${repPremiumPct != null ? `（定価比${repPremiumPct >= 0 ? `+${repPremiumPct}` : `${repPremiumPct}`}%）` : ''}` : '',
+              boxEv && boxEv.ev > 0 && boxEv.recoveryPct != null
+                ? `開封の期待値 ¥${boxEv.ev.toLocaleString()}以上（回収率${boxEv.recoveryPct}%）`
+                : '',
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/boxes/${boxId}`,
             ].filter(Boolean).join('\n')
@@ -286,6 +297,21 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               </a>
             )
           })()}
+        </div>
+      )}
+
+      {/* ── 1BOX開封の期待値 ── */}
+      {boxEv && boxEv.ev > 0 && (
+        <div
+          style={{
+            background: 'var(--panel)',
+            border: '1px solid var(--hair)',
+            borderRadius: '10px',
+            padding: '20px 24px',
+            marginBottom: '28px',
+          }}
+        >
+          <BoxExpectedValue ev={boxEv} boxName={box.box_name} />
         </div>
       )}
 

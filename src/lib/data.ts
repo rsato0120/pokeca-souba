@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop, BuyThesis } from '@/types/pokeca'
+import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop, BuyThesis, BoxPullRates } from '@/types/pokeca'
 
 function readPokeData(): PokeData {
   const filePath = path.join(process.cwd(), 'data', 'pokeca_data.json')
@@ -112,6 +112,21 @@ export function getBoxPriceVariant(boxId: string, suffix: string): PriceHistory 
   } catch {
     return null
   }
+}
+
+// BOX開封の期待値に使う封入率テーブル。設定のある弾だけ期待値セクションを出す。
+let pullRatesCache: Record<string, BoxPullRates> | null = null
+
+export function getPullRates(boxId: string): BoxPullRates | null {
+  if (pullRatesCache == null) {
+    try {
+      const filePath = path.join(process.cwd(), 'data', 'pull-rates.json')
+      pullRatesCache = JSON.parse(fs.readFileSync(filePath, 'utf-8')).boxes ?? {}
+    } catch {
+      pullRatesCache = {}
+    }
+  }
+  return pullRatesCache?.[boxId] ?? null
 }
 
 // 「AIが買うべきカード」欄の論拠（scripts/generate-buy-theses.ts が生成）。全カード分が1ファイル。

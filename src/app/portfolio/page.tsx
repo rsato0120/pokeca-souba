@@ -19,19 +19,19 @@ export default function PortfolioPage() {
     const low = today?.low ?? 0
     const high = today?.high ?? 0
 
-    // 評価額グラフ用に直近30日の中央値(mid)を昇順で渡す
+    // 評価額グラフ用に直近90日の中央値(mid)を昇順で渡す（表示期間の切替はクライアント側）
     const records = history?.history ?? []
     const hist = records
-      .slice(0, 30)
+      .slice(0, 90)
       .map(r => ({
         date: r.date,
         mid: r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2,
       }))
       .reverse()
 
-    // PSA10: 直近30日のpsa10価格（nullの日は除外）を昇順で。現在値は直近の既知値。
+    // PSA10: 直近90日のpsa10価格（nullの日は除外）を昇順で。現在値は直近の既知値。
     const psaHist = records
-      .slice(0, 30)
+      .slice(0, 90)
       .filter(r => r.psa10 != null)
       .map(r => ({ date: r.date, mid: Number(r.psa10) }))
       .reverse()

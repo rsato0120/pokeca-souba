@@ -1,9 +1,10 @@
 'use client'
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts'
-import { useCollection, psaKey } from '@/hooks/useCollection'
+import { useCollection, useCostBasis, psaKey } from '@/hooks/useCollection'
 
 export type PortfolioCardData = {
   id: string
@@ -17,7 +18,7 @@ export type PortfolioCardData = {
   currentMid: number
   m3Low: number | null
   m3High: number | null
-  history: { date: string; mid: number }[]  // 昇順・直近30日
+  history: { date: string; mid: number }[]  // 昇順・直近90日
   psa10Current: number | null
   psa10History: { date: string; mid: number }[]
 }
@@ -33,14 +34,27 @@ type Holding = {
   m3High: number | null
 }
 
+const RANGES = [7, 30, 90] as const
+type Range = typeof RANGES[number]
+
 // Y軸ラベル: 10万未満はフル円、10万以上は万表記
 function yen(v: number): string {
   if (v >= 100000) return `¥${(v / 10000).toFixed(1).replace(/\.0$/, '')}万`
   return `¥${Math.round(v).toLocaleString()}`
 }
 
+function signedYen(v: number): string {
+  return `${v >= 0 ? '+' : '−'}¥${Math.abs(Math.round(v)).toLocaleString()}`
+}
+
+function deltaColor(v: number): string {
+  return v > 0 ? 'var(--up)' : v < 0 ? 'var(--down)' : 'var(--ink-dim)'
+}
+
 export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioCardData[]; boxes?: { box_id: string; box_name: string }[] }) {
   const { col, setQty } = useCollection()
+  const { cost, setCost } = useCostBasis()
+  const [range, setRange] = useState<Range>(30)
 
   // 所持している保有（素体 / PSA10）を列挙
   const holdings: Holding[] = []
@@ -74,11 +88,19 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   const diffLowPct = currentTotal > 0 ? Math.round(((m3LowTotal - currentTotal) / currentTotal) * 100) : 0
   const diffHighPct = currentTotal > 0 ? Math.round(((m3HighTotal - currentTotal) / currentTotal) * 100) : 0
 
+  // ── 取得原価と含み損益（買値を入れた保有だけを集計する） ──
+  const costedHoldings = holdings.filter(h => (cost[h.key] ?? 0) > 0)
+  const costTotal = costedHoldings.reduce((s, h) => s + cost[h.key] * h.qty, 0)
+  const costedMarket = costedHoldings.reduce((s, h) => s + h.unitPrice * h.qty, 0)
+  const pl = costedMarket - costTotal
+  const plPct = costTotal > 0 ? (pl / costTotal) * 100 : 0
+  const isPartialCost = costedHoldings.length < holdings.length
+
   // ── 評価額の時系列（保有 × その日の相場の合計） ──
   const valueSeries = (() => {
     const dateSet = new Set<string>()
     holdings.forEach(h => h.history.forEach(p => dateSet.add(p.date)))
-    const dates = [...dateSet].sort().slice(-30)
+    const dates = [...dateSet].sort().slice(-range)
     // データ開始前は最古の既知価格でバックフィルし、被覆差による段差を防ぐ
     const priceAsOf = (hist: { date: string; mid: number }[], date: string): number | null => {
       if (hist.length === 0) return null
@@ -93,9 +115,26 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
     })
   })()
 
+  const lastVal = valueSeries.length > 0 ? valueSeries[valueSeries.length - 1].value : currentTotal
+  const prevVal = valueSeries.length >= 2 ? valueSeries[valueSeries.length - 2].value : null
+  const dayDiff = prevVal != null ? lastVal - prevVal : null
+  const dayPct = prevVal != null && prevVal > 0 ? (dayDiff! / prevVal) * 100 : null
+
   const firstVal = valueSeries.length > 0 ? valueSeries[0].value : 0
-  const periodChangePct = firstVal > 0 ? Math.round(((currentTotal - firstVal) / firstVal) * 100) : 0
-  const periodColor = periodChangePct > 0 ? 'var(--up)' : periodChangePct < 0 ? 'var(--down)' : 'var(--ink-dim)'
+  const periodDiff = firstVal > 0 ? lastVal - firstVal : null
+  const periodPct = firstVal > 0 ? ((lastVal - firstVal) / firstVal) * 100 : null
+
+  const rangeBtn = (r: Range): React.CSSProperties => ({
+    padding: '4px 12px',
+    borderRadius: '6px',
+    border: `1px solid ${range === r ? 'var(--gold)' : 'var(--hair)'}`,
+    background: range === r ? 'var(--panel)' : 'transparent',
+    color: range === r ? 'var(--ink)' : 'var(--ink-faint)',
+    fontFamily: 'var(--mono)',
+    fontSize: '11px',
+    fontWeight: range === r ? 700 : 500,
+    cursor: 'pointer',
+  })
 
   if (totalQty === 0) {
     return (
@@ -139,17 +178,31 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
         <p style={{ fontSize: '11px', color: 'var(--ink-faint)', fontFamily: 'var(--mono)', letterSpacing: '0.05em', marginBottom: '6px' }}>
           ポートフォリオ評価額
         </p>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap', marginBottom: '10px' }}>
           <span style={{ fontSize: '30px', fontWeight: 700, fontFamily: 'var(--mono)', lineHeight: 1 }}>
             ¥{currentTotal.toLocaleString()}
           </span>
-          {valueSeries.length >= 2 && (
-            <span style={{ fontSize: '13px', fontFamily: 'var(--mono)', color: periodColor }}>
-              {periodChangePct >= 0 ? '+' : ''}{periodChangePct}%
-              <span style={{ color: 'var(--ink-faint)', marginLeft: '4px' }}>（直近{valueSeries.length}日）</span>
+          {dayDiff != null && dayPct != null && (
+            <span style={{ fontSize: '15px', fontFamily: 'var(--mono)', fontWeight: 700, color: deltaColor(dayDiff) }}>
+              {signedYen(dayDiff)}
+              <span style={{ fontSize: '12px', marginLeft: '5px' }}>({dayPct >= 0 ? '+' : ''}{dayPct.toFixed(1)}%)</span>
+              <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '11px', marginLeft: '5px' }}>前日比</span>
             </span>
           )}
         </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
+          {RANGES.map(r => (
+            <button key={r} type="button" onClick={() => setRange(r)} style={rangeBtn(r)}>{r}日</button>
+          ))}
+          {periodDiff != null && periodPct != null && valueSeries.length >= 2 && (
+            <span style={{ fontSize: '12px', fontFamily: 'var(--mono)', color: deltaColor(periodDiff), marginLeft: '4px' }}>
+              {signedYen(periodDiff)} ({periodPct >= 0 ? '+' : ''}{periodPct.toFixed(1)}%)
+              <span style={{ color: 'var(--ink-faint)', marginLeft: '4px' }}>／この{valueSeries.length}日</span>
+            </span>
+          )}
+        </div>
+
         {valueSeries.length >= 2 ? (
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={valueSeries} margin={{ top: 6, right: 12, bottom: 4, left: 4 }}>
@@ -168,6 +221,38 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
           <p style={{ fontSize: '12px', color: 'var(--ink-faint)', padding: '24px 0', textAlign: 'center' }}>
             価格データが2日分以上たまるとグラフが表示されます
           </p>
+        )}
+      </div>
+
+      {/* 含み損益（買値を入れた保有のみ） */}
+      <div style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px', marginBottom: '16px' }}>
+        <p style={{ fontSize: '11px', color: 'var(--ink-faint)', fontFamily: 'var(--mono)', letterSpacing: '0.05em', marginBottom: '6px' }}>
+          含み損益{isPartialCost && costedHoldings.length > 0 ? '*' : ''}
+        </p>
+        {costedHoldings.length === 0 ? (
+          <p style={{ fontSize: '13px', color: 'var(--ink-faint)', lineHeight: 1.7 }}>
+            下の保有リストに<strong style={{ color: 'var(--ink-dim)', fontWeight: 600 }}>買値（1枚あたり）</strong>を入れると、
+            取得原価と含み損益を計算します。入力はこの端末のブラウザにのみ保存されます。
+          </p>
+        ) : (
+          <>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--mono)', lineHeight: 1, color: deltaColor(pl) }}>
+                {signedYen(pl)}
+              </span>
+              <span style={{ fontSize: '15px', fontFamily: 'var(--mono)', fontWeight: 700, color: deltaColor(pl) }}>
+                {plPct >= 0 ? '+' : ''}{plPct.toFixed(1)}%
+              </span>
+            </div>
+            <p style={{ fontSize: '12px', fontFamily: 'var(--mono)', color: 'var(--ink-faint)', marginTop: '8px' }}>
+              取得原価 ¥{costTotal.toLocaleString()} → 現在 ¥{costedMarket.toLocaleString()}（{costedHoldings.length}種）
+            </p>
+            {isPartialCost && (
+              <p style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '10px' }}>
+                * 買値を入れていない{holdings.length - costedHoldings.length}種は集計から除外しています
+              </p>
+            )}
+          </>
         )}
       </div>
 
@@ -201,6 +286,9 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
             const subtotalCurrent = h.unitPrice * h.qty
             const pctHigh = h.m3High != null && h.unitPrice > 0 ? Math.round(((h.m3High - h.unitPrice) / h.unitPrice) * 100) : null
             const pctLow = h.m3Low != null && h.unitPrice > 0 ? Math.round(((h.m3Low - h.unitPrice) / h.unitPrice) * 100) : null
+            const unitCost = cost[h.key] ?? 0
+            const rowPl = unitCost > 0 ? (h.unitPrice - unitCost) * h.qty : null
+            const rowPlPct = unitCost > 0 ? ((h.unitPrice - unitCost) / unitCost) * 100 : null
 
             return (
               <div key={h.key} style={{ borderBottom: '1px solid var(--hair)', padding: '14px 16px' }}>
@@ -250,6 +338,32 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                         ×{h.qty}枚 = 計¥{subtotalCurrent.toLocaleString()}
                       </div>
                     )}
+                    {/* 買値入力と1銘柄の含み損益 */}
+                    <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <label style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        買値
+                        <input
+                          type="number"
+                          min={0}
+                          step={100}
+                          inputMode="numeric"
+                          value={unitCost > 0 ? unitCost : ''}
+                          placeholder="—"
+                          onChange={e => setCost(h.key, e.target.value === '' ? null : Number(e.target.value))}
+                          style={{
+                            width: '84px', padding: '3px 6px', borderRadius: '5px',
+                            border: '1px solid var(--hair)', background: 'var(--bg2)',
+                            color: 'var(--ink)', fontFamily: 'var(--mono)', fontSize: '12px',
+                          }}
+                        />
+                        <span>円/枚</span>
+                      </label>
+                      {rowPl != null && rowPlPct != null && (
+                        <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', fontWeight: 700, color: deltaColor(rowPl) }}>
+                          {signedYen(rowPl)}（{rowPlPct >= 0 ? '+' : ''}{rowPlPct.toFixed(1)}%）
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
                     <button

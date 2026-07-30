@@ -179,6 +179,26 @@ export interface Forecast {
   disclaimer: string
 }
 
+// BOX開封の期待値（data/pull-rates.json）。封入率は公式非公表なので有志の開封統計を出典として持つ。
+export type PullConfidence = 'measured' | 'estimated'
+
+export interface PullGroup {
+  id: string
+  label: string
+  rarity: string
+  stages?: string[]      // card_spec.stage がこのいずれかならこのグループ
+  stages_not?: string[]  // card_spec.stage がこのいずれでもなければこのグループ
+  kinds: number          // セット全体の収録種類数（当サイトの掲載枚数ではない）
+  per_card: number       // 狙いのカード1枚が1BOXに封入される確率＝1枚あたりのBOX期待枚数
+}
+
+export interface BoxPullRates {
+  confidence: PullConfidence
+  source: string
+  source_url?: string
+  groups: PullGroup[]
+}
+
 // 「AIが買うべきカード」欄の厚い論拠（scripts/generate-buy-theses.ts が Gemini で生成）。
 // 選定自体は src/lib/buy-signals.ts が決定論的に行い、上位候補だけこの論拠を持つ。
 export type Conviction = 'high' | 'mid' | 'low'

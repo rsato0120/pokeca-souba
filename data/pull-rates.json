@@ -1,0 +1,156 @@
+{
+  "_readme": [
+    "BOX開封の期待値（src/lib/box-ev.ts）が使う封入率テーブル。",
+    "per_card = 『狙いのカード1枚が1BOXに封入される確率』＝そのカード1枚あたりのBOX期待枚数。",
+    "  例: AR 3枚確定/12種 → per_card 0.25。SAR 1BOX確率28%/6種 → per_card 0.047。",
+    "kinds  = そのグループの収録種類数（当サイトの掲載枚数ではなくセット全体の実数）。",
+    "グループの振り分けは rarity ＋ card_spec.stage（stages / stages_not）で行う。",
+    "confidence: measured=開封統計の実測値, estimated=同世代セットからの外挿。UIに出典を出すこと。",
+    "封入率は公式非公表。数値を更新したらこのファイルだけ直せばサイト全体に反映される。"
+  ],
+  "boxes": {
+    "abyss_eye": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（1,000BOX以上の開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-abysseye/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 12, "per_card": 0.25 },
+        { "id": "sr_item", "label": "SR（グッズ・どうぐ・スタジアム）", "rarity": "SR", "stages": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 6, "per_card": 0.167 },
+        { "id": "sr_poke", "label": "SR（ポケモン・サポート）", "rarity": "SR", "stages_not": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 12, "per_card": 0.066 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 6, "per_card": 0.047 },
+        { "id": "mur", "label": "MUR", "rarity": "MUR", "kinds": 1, "per_card": 0.01 }
+      ]
+    },
+    "ninja_spinner": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（1,000BOX分の開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-ninjaspiner/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 12, "per_card": 0.25 },
+        { "id": "sr_item", "label": "SR（グッズ・どうぐ・スタジアム）", "rarity": "SR", "stages": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 6, "per_card": 0.167 },
+        { "id": "sr_poke", "label": "SR（ポケモン・サポート）", "rarity": "SR", "stages_not": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 12, "per_card": 0.066 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 6, "per_card": 0.047 },
+        { "id": "mur", "label": "MUR", "rarity": "MUR", "kinds": 1, "per_card": 0.015 }
+      ]
+    },
+    "munikiss_zero": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-munikisuzero/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 12, "per_card": 0.25 },
+        { "id": "sr_item", "label": "SR（グッズ・どうぐ・スタジアム）", "rarity": "SR", "stages": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 6, "per_card": 0.167 },
+        { "id": "sr_poke", "label": "SR（ポケモン・サポート）", "rarity": "SR", "stages_not": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 12, "per_card": 0.066 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 6, "per_card": 0.047 },
+        { "id": "mur", "label": "MUR", "rarity": "MUR", "kinds": 1, "per_card": 0.015 }
+      ]
+    },
+    "inferno_x": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-infernox/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 12, "per_card": 0.25 },
+        { "id": "sr_item", "label": "SR（グッズ・どうぐ・スタジアム）", "rarity": "SR", "stages": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 6, "per_card": 0.167 },
+        { "id": "sr_poke", "label": "SR（ポケモン・サポート）", "rarity": "SR", "stages_not": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 11, "per_card": 0.073 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 6, "per_card": 0.047 },
+        { "id": "mur", "label": "MUR", "rarity": "MUR", "kinds": 1, "per_card": 0.015 }
+      ]
+    },
+    "mega_brave": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（開封統計）",
+      "source_url": "https://pokemon-infomation.com/https-pokemon-infomation-com-pull-rates-megabrave/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 12, "per_card": 0.25 },
+        { "id": "sr_item", "label": "SR（グッズ・どうぐ・スタジアム）", "rarity": "SR", "stages": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 4, "per_card": 0.25 },
+        { "id": "sr_poke", "label": "SR（ポケモン・サポート）", "rarity": "SR", "stages_not": ["グッズ", "スタジアム", "ポケモンのどうぐ"], "kinds": 8, "per_card": 0.114 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 5, "per_card": 0.056 },
+        { "id": "mur", "label": "MUR", "rarity": "MUR", "kinds": 1, "per_card": 0.015 }
+      ]
+    },
+    "mega_dream_ex": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（2,000BOXの開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-megadreamex/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 20, "per_card": 0.15 },
+        { "id": "sr", "label": "SR（トレーナーズ）", "rarity": "SR", "kinds": 9, "per_card": 0.111 },
+        { "id": "ma", "label": "MA（メガアタック）", "rarity": "MA", "kinds": 10, "per_card": 0.1 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 17, "per_card": 0.0235 },
+        { "id": "mur", "label": "MUR", "rarity": "MUR", "kinds": 1, "per_card": 0.015 }
+      ]
+    },
+    "pokemon_151": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（960BOXの開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-pokemoncard151/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 18, "per_card": 0.167 },
+        { "id": "sr", "label": "SR", "rarity": "SR", "kinds": 16, "per_card": 0.05 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 8, "per_card": 0.025 },
+        { "id": "ur", "label": "UR", "rarity": "UR", "kinds": 3, "per_card": 0.033 }
+      ]
+    },
+    "eevee_heroes": {
+      "confidence": "measured",
+      "source": "ポケゲトちゃんねる（開封統計）",
+      "source_url": "https://pokemon-infomation.com/pull-rates-eeveeheroes/",
+      "groups": [
+        { "id": "sr_poke", "label": "SR（ポケモンV）", "rarity": "SR", "stages": ["ポケモンV"], "kinds": 8, "per_card": 0.038 },
+        { "id": "sr_support", "label": "SR（サポート）", "rarity": "SR", "stages": ["トレーナーズ"], "kinds": 2, "per_card": 0.075 },
+        { "id": "sa_v", "label": "SA（ポケモンV）", "rarity": "SA", "stages": ["ポケモンV"], "kinds": 8, "per_card": 0.038 },
+        { "id": "sa_vmax", "label": "SA（ポケモンVMAX）", "rarity": "SA", "stages": ["ポケモンVMAX"], "kinds": 4, "per_card": 0.013 },
+        { "id": "hr_vmax", "label": "HR（ポケモンVMAX）", "rarity": "HR", "stages": ["ポケモンVMAX"], "kinds": 4, "per_card": 0.025 },
+        { "id": "hr_support", "label": "HR（サポート）", "rarity": "HR", "stages": ["トレーナーズ"], "kinds": 2, "per_card": 0.05 },
+        { "id": "ur", "label": "UR", "rarity": "UR", "kinds": 3, "per_card": 0.025 }
+      ]
+    },
+    "soukuu_stream": {
+      "confidence": "estimated",
+      "source": "ポケモンSRの実測（6種・各約6.7%）＋同世代『イーブイヒーローズ』の統計からの外挿",
+      "source_url": "https://pokemon-infomation.com/pull-rates-eeveeheroes/",
+      "groups": [
+        { "id": "sr_poke", "label": "SR（ポケモンV）", "rarity": "SR", "stages": ["ポケモンV"], "kinds": 6, "per_card": 0.067 },
+        { "id": "sr_support", "label": "SR（サポート）", "rarity": "SR", "stages": ["トレーナーズ"], "kinds": 3, "per_card": 0.075 },
+        { "id": "sa_v", "label": "SA（ポケモンV）", "rarity": "SA", "stages": ["ポケモンV"], "kinds": 3, "per_card": 0.038 },
+        { "id": "sa_vmax", "label": "SA（ポケモンVMAX）", "rarity": "SA", "stages": ["ポケモンVMAX"], "kinds": 1, "per_card": 0.013 },
+        { "id": "hr_vmax", "label": "HR（ポケモンVMAX）", "rarity": "HR", "stages": ["ポケモンVMAX"], "kinds": 3, "per_card": 0.025 },
+        { "id": "hr_support", "label": "HR（サポート）", "rarity": "HR", "stages": ["トレーナーズ"], "kinds": 3, "per_card": 0.05 },
+        { "id": "ur", "label": "UR", "rarity": "UR", "kinds": 4, "per_card": 0.025 }
+      ]
+    },
+    "tag_bolt": {
+      "confidence": "estimated",
+      "source": "SA5種は実測。確率はSM〜剣盾期の一般的な開封統計からの外挿",
+      "source_url": "https://pokemon-infomation.com/card-list-special-art/",
+      "groups": [
+        { "id": "sr_poke", "label": "SR（TAG TEAM GX）", "rarity": "SR", "stages": ["たねポケモン"], "kinds": 6, "per_card": 0.075 },
+        { "id": "sr_support", "label": "SR（サポート）", "rarity": "SR", "stages": ["サポート"], "kinds": 3, "per_card": 0.075 },
+        { "id": "sa", "label": "SA（スペシャルアート）", "rarity": "SA", "kinds": 5, "per_card": 0.05 }
+      ]
+    },
+    "black_bolt": {
+      "confidence": "estimated",
+      "source": "収録構成（AR71種/SR9種/SAR7種/BWR1種）は番号帯から確定。確率はSV期拡張パックの一般的な開封統計からの外挿",
+      "source_url": "https://pokemon-infomation.com/pull-rates-pokemoncard151/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 71, "per_card": 0.042 },
+        { "id": "sr", "label": "SR", "rarity": "SR", "kinds": 9, "per_card": 0.05 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 7, "per_card": 0.025 },
+        { "id": "bwr", "label": "BWR", "rarity": "BWR", "kinds": 1, "per_card": 0.015 }
+      ]
+    },
+    "white_flare": {
+      "confidence": "estimated",
+      "source": "収録構成（AR71種/SR9種/SAR7種/BWR1種）は番号帯から確定。確率はSV期拡張パックの一般的な開封統計からの外挿",
+      "source_url": "https://pokemon-infomation.com/pull-rates-pokemoncard151/",
+      "groups": [
+        { "id": "ar", "label": "AR", "rarity": "AR", "kinds": 71, "per_card": 0.042 },
+        { "id": "sr", "label": "SR", "rarity": "SR", "kinds": 9, "per_card": 0.05 },
+        { "id": "sar", "label": "SAR", "rarity": "SAR", "kinds": 7, "per_card": 0.025 },
+        { "id": "bwr", "label": "BWR", "rarity": "BWR", "kinds": 1, "per_card": 0.015 }
+      ]
+    }
+  }
+}
