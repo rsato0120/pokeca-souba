@@ -762,12 +762,16 @@ async function scrapeBox(
 }
 
 async function main() {
-  // 任意の引数で特定BOXだけに絞り込める（例: npx tsx scripts/scrape-prices.ts mega_brave）
+  // 任意の引数で特定BOXだけに絞り込める（例: npx tsx scripts/scrape-prices.ts mega_brave）。
+  // scrape-psa-only.ts と同じく cardId / card接頭辞も受け付ける
+  // （例: 新弾で数枚だけ「データ不足」になった時のリトライ）。BOXは box_id 一致の時だけ対象。
   const boxFilter = process.argv[2] || null
   // BOX_ONLY=1 でカードを飛ばし未開封BOX系列だけ取得する（代表値の算出方式を変えた直後など、
   // BOXだけ establishing run を回したい時に使う。カード257枚の再取得を避けられる）
   const boxOnly = process.env.BOX_ONLY === '1'
-  const cards = boxOnly ? [] : getAllCards().filter(c => !boxFilter || c.box_id === boxFilter)
+  const cards = boxOnly
+    ? []
+    : getAllCards().filter(c => !boxFilter || c.box_id === boxFilter || c.id === boxFilter || c.id.startsWith(boxFilter))
   const boxes = getAllBoxes().filter(
     b => b.certainty === 'released' && b.packs_per_box != null && (!boxFilter || b.box_id === boxFilter)
   )

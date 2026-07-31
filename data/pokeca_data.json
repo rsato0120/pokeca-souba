@@ -145,7 +145,7 @@
       "pack_price_yen": 200,
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/4/4f/M6_Storm_Emeralda_pack.png",
-      "note": "2026-07-31発売。メガレックウザexが目玉。全76種＋???。カード画像は pokeca.net の m6 に存在（例 m6/077.jpg）。カードは未登録＝BOX相場のみ先行取得。"
+      "note": "2026-07-31発売。メガレックウザexが目玉。全76種＋シークレット枠37種（AR 077-088 / SR 089-106 / SAR 107-112 / MUR 113）。カード画像は pokeca.net の m6。"
     },
     {
       "box_id": "soukuu_stream",
@@ -10213,6 +10213,1449 @@
         "player": "",
         "collector": "",
         "source": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-masquerain-ar-77",
+      "card_no": "077/076",
+      "rarity": "AR",
+      "card_name": "アメモース",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/077.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 110,
+        "note": "ワザ「バグパニック」=山札を下から7枚オモテにし、同名ワザ持ちの枚数×50ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "REND",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "雨上がりの森を背景にした描き下ろしAR。アメモースはキャラ知名度が中位で、AR帯では下位価格になりやすい。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-growlithe-ar-78",
+      "card_no": "078/076",
+      "rarity": "AR",
+      "card_name": "ガーディ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/078.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 80,
+        "note": "ワザ「ほえる」で相手のバトルポケモンを入れ替え。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yoshimoto Yoshimon",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "室内のドアからのぞくガーディの生活感ある描き下ろし。ガーディ／ウインディはファン人気が厚くAR需要が読める。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-magmortar-ar-79",
+      "card_no": "079/076",
+      "rarity": "AR",
+      "card_name": "ブーバーン",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/079.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 140,
+        "note": "特性「バディブースト」=基本炎/雷エネを手札からエレキブルかブーバーンにつける。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Taiga Kasai",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "エレキブル(081)と対になる火山のAR。ペア収集需要はあるがキャラ人気は中位。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-kyogre-ar-80",
+      "card_no": "080/076",
+      "rarity": "AR",
+      "card_name": "カイオーガ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/080.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 150,
+        "note": "ワザ「あらぶるうず」=「伝説」とつくスタジアムが出ていればベンチにも50ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Nurikabe",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "グラードン(084)と対になる伝説ポケモンAR。ホウエン伝説の看板でAR帯の上位相場が期待できる。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-electivire-ar-81",
+      "card_no": "081/076",
+      "rarity": "AR",
+      "card_name": "エレキブル",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/081.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 140,
+        "note": "ワザ「ボルテージハンマー」=ついている基本エネをトラッシュした枚数×60ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Rianti Hidayat",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "幾何学的な色面で構成された個性的な描き下ろし。ブーバーン(079)と対のAR。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-pincurchin-ar-82",
+      "card_no": "082/076",
+      "rarity": "AR",
+      "card_name": "バチンウニ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/082.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 80,
+        "note": "ワザ「エナジークラッシュ」=相手全員についているエネルギーの数×20ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tetsu Kayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "海底の群れを描いた背景重視のAR。キャラ人気は限定的で低位相場になりやすい。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-enamorus-ar-83",
+      "card_no": "083/076",
+      "rarity": "AR",
+      "card_name": "ラブトロス",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/083.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 120,
+        "note": "特性「けしんだんけつ」=場に化身トリオ／ラブトロスがいれば無色エネなしでワザが使える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Taira Akitsu",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ハート型の雲が浮かぶ淡色のAR。化身フォルム系はコレクター層が薄めだがイラスト評価は高い。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-groudon-ar-84",
+      "card_no": "084/076",
+      "rarity": "AR",
+      "card_name": "グラードン",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/084.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 150,
+        "note": "ワザ「あらぶるだいち」=「伝説」とつくスタジアムが出ていれば170ダメージ追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Ryota Murayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "カイオーガ(080)と対の伝説AR。溶岩の中の咆哮を描いた迫力構図で、AR帯トップ級の相場が付いている。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-inkay-ar-85",
+      "card_no": "085/076",
+      "rarity": "AR",
+      "card_name": "マーイーカ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/085.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 60,
+        "note": "ワザ「はたきおとす」=相手の手札からオモテを見ないで1枚トラッシュ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Rond",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Rond の水彩調が映える海中のAR。メガカラマネロex(094)の進化前で、弾内の関連収集需要がある。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-azurill-ar-86",
+      "card_no": "086/076",
+      "rarity": "AR",
+      "card_name": "ルリリ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/086.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 30,
+        "note": "ワザ「ぴょんぴょんチャージ」=山札からエネルギーをベンチにつける。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Narumi Sato",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "花畑と丸太を描いた優しい画風の低HPかわいい系AR。ベビィポケモンARは根強い層がある。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-altaria-ar-87",
+      "card_no": "087/076",
+      "rarity": "AR",
+      "card_name": "チルタリス",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/087.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 110,
+        "note": "特性「コットンキャリー」=自分のたねポケモン全員のにげるエネルギーが0になる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "kodama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "青空と雲を背景にした爽やかな描き下ろし。チルタリスはイラスト映えでコレクター評価が安定。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-kecleon-ar-88",
+      "card_no": "088/076",
+      "rarity": "AR",
+      "card_name": "カクレオン",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/088.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 90,
+        "note": "ワザ「カラフルウイップ」=手札から見せたポケモンのタイプの数×30ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tomokazu Komiya",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Tomokazu Komiya の極彩色クレヨン画。作家性の強さで買取上位に食い込むタイプのAR。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-golisopod-ex-sr-89",
+      "card_no": "089/076",
+      "rarity": "SR",
+      "card_name": "メガグソクムシャex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/089.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "メガシンカex",
+        "hp": 340,
+        "note": "ワザ「とどめをさす」=相手にダメカンがのっていれば160ダメージ追加。HP340の高耐久メガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR(107)と同カードのSR版。SARに需要が集中しやすくSRは相対的に安価。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-heat-rotom-ex-sr-90",
+      "card_no": "090/076",
+      "rarity": "SR",
+      "card_name": "ヒートロトムex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/090.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "ポケモンex",
+        "hp": 190,
+        "note": "ワザ「さいかねつ」=トラッシュの基本炎エネの枚数×30ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ロトムのフォルムチェンジ系ex。SAR版が無いためSRが最上位版になる。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-wishiwashi-ex-sr-91",
+      "card_no": "091/076",
+      "rarity": "SR",
+      "card_name": "ヨワシex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/091.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "ポケモンex",
+        "hp": 260,
+        "note": "特性「オーシャンゲイン」=バトル場にいるなら自分の番に1回HPを50回復。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "たねでHP260の耐久ex。SAR版なしでSRが最上位。キャラ人気は限定的。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-raikou-ex-sr-92",
+      "card_no": "092/076",
+      "rarity": "SR",
+      "card_name": "ライコウex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/092.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "ポケモンex",
+        "hp": 200,
+        "note": "ワザ「いかずちをまとう」=先攻最初の番でも使えるエネ加速。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR(108)と同カードのSR版。ライコウは伝説三犬でキャラ人気が高く、SRでも一定の需要がある。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-golurk-ex-sr-93",
+      "card_no": "093/076",
+      "rarity": "SR",
+      "card_name": "メガゴルーグex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/093.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 350,
+        "note": "特性「きどうせいげん」=手札が10枚以上のときしかワザが使えない。ワザ「ゴライアスパンチ」300ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "この弾最高HP(350)のメガシンカex。SAR(109)が別レコード。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-malamar-ex-sr-94",
+      "card_no": "094/076",
+      "rarity": "SR",
+      "card_name": "メガカラマネロex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/094.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 320,
+        "note": "ワザ「サイコマリオネット」=相手のベンチの数×70ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR版が無くSRが最上位版。マーイーカAR(085)と合わせた進化ライン収集の対象。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-rayquaza-ex-sr-95",
+      "card_no": "095/076",
+      "rarity": "SR",
+      "card_name": "メガレックウザex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/095.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "特性「はしゃのほうこう」＋ワザ「ストームエメラルダ」=味方全員の炎/雷エネの数×50ダメージ。弾の看板カード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "弾名を冠した目玉カードのSR版。SAR(110)/MUR(113)に需要が集中するがSRも看板需要で下支えされる。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-talonflame-ex-sr-96",
+      "card_no": "096/076",
+      "rarity": "SR",
+      "card_name": "ファイアローex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/096.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "ポケモンex",
+        "hp": 280,
+        "note": "特性「エキサイトダイブ」=無色メガシンカexが場にいれば手札からベンチに出せる。メガレックウザexの相棒枠。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "メガレックウザexデッキの必須枠として実需が読める2進化ex。SAR版なし。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-adventure-lantern-sr-97",
+      "card_no": "097/076",
+      "rarity": "SR",
+      "card_name": "ぼうけんのランタン",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/097.jpg",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": "グッズ。山札から基本炎エネと基本雷エネを1枚ずつ手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "inose yukie",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "メガレックウザex専用のサーチグッズ。トレーナーズSRとしては構築需要で下支えされる。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-pokemon-catcher-sr-98",
+      "card_no": "098/076",
+      "rarity": "SR",
+      "card_name": "ポケモンキャッチャー",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/098.jpg",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": "グッズ。コインがオモテなら相手のベンチポケモンをバトル場に入れ替える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Studio Bora Inc.",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "歴代何度も再録されている定番グッズの新規SR。旧イラストとの比較で相場は控えめ。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-assault-vest-sr-99",
+      "card_no": "099/076",
+      "rarity": "SR",
+      "card_name": "とくちゅうチョッキ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/099.jpg",
+      "card_spec": {
+        "type": "ポケモンのどうぐ",
+        "stage": "ポケモンのどうぐ",
+        "hp": 0,
+        "note": "ポケモンのどうぐ。メガシンカexから受けるワザのダメージを-60。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Toyste Beach",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "メガシンカex環境へのメタどうぐ。実需依存でイラスト面の訴求は小さい。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mc-hype-sr-100",
+      "card_no": "100/076",
+      "rarity": "SR",
+      "card_name": "MCの盛り上げ",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/100.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札を2枚引く。相手のサイドが3枚以下ならさらに2枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "DOM",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "新規女性トレーナーのサポートSR。キャラ人気が付けば伸びるが初出のため未知数。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-gilly-sr-101",
+      "card_no": "101/076",
+      "rarity": "SR",
+      "card_name": "ギリー",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/101.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からサポートとスタジアムを合計3枚まで手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR(111)と同キャラ。SRは通常構図でSAR版に需要が流れやすい。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-zinnia-trust-sr-102",
+      "card_no": "102/076",
+      "rarity": "SR",
+      "card_name": "ヒガナの信頼",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/102.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。バトルポケモンを入れ替え、エネルギー1個を新しいバトルポケモンにつけ替える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "GIDORA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ヒガナはORAS人気キャラでトレーナーズ需要が厚い。SAR(112)が本命だがSRも上位相場。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-tate-liza-training-sr-103",
+      "card_no": "103/076",
+      "rarity": "SR",
+      "card_name": "フウとランの修行",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/103.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。2枚引き、「伝説」とつくスタジアムが出ていれば手札にもどる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ホウエンのジムリーダー双子。懐かしさ需要はあるがキャラ人気は中位。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-grow-grass-energy-sr-104",
+      "card_no": "104/076",
+      "rarity": "SR",
+      "card_name": "グロウ草エネルギー",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/104.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "特殊エネルギー",
+        "hp": 0,
+        "note": "特殊エネルギー。草エネルギー1個ぶんとしてはたらき、つけている草ポケモンの最大HPが+20される。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "エネルギーSRは実需中心で相場は低位安定。4枚揃え需要はある。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-nitro-fire-energy-sr-105",
+      "card_no": "105/076",
+      "rarity": "SR",
+      "card_name": "ニトロ炎エネルギー",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/105.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "特殊エネルギー",
+        "hp": 0,
+        "note": "特殊エネルギー。炎エネルギー1個ぶんとしてはたらき、ワザの効果でトラッシュされたら手札にもどる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "メガレックウザexデッキで採用が見込まれる炎特殊エネ。実需で他のエネSRより高くなりうる。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-bubble-water-energy-sr-106",
+      "card_no": "106/076",
+      "rarity": "SR",
+      "card_name": "バブル水エネルギー",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/106.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "特殊エネルギー",
+        "hp": 0,
+        "note": "特殊エネルギー。水エネルギー1個ぶんとしてはたらき、つけている水ポケモンは特殊状態にならない。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "エネルギーSR3種の1枚。実需中心で低位安定。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-golisopod-ex-sar-107",
+      "card_no": "107/076",
+      "rarity": "SAR",
+      "card_name": "メガグソクムシャex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/107.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "メガシンカex",
+        "hp": 340,
+        "note": "SR(089)と同スペックの特別イラスト版。HP340。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "nagimiso",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "nagimiso による極彩色のスラッシュ構図。作家人気が高くSAR帯の中位以上が期待される。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-raikou-ex-sar-108",
+      "card_no": "108/076",
+      "rarity": "SAR",
+      "card_name": "ライコウex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/108.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "ポケモンex",
+        "hp": 200,
+        "note": "SR(092)と同スペックの特別イラスト版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Oku",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Oku の水墨調で岩場を駆けるライコウ。伝説三犬の人気と作家性が重なりSAR上位（メガレックウザexに次ぐ）。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-golurk-ex-sar-109",
+      "card_no": "109/076",
+      "rarity": "SAR",
+      "card_name": "メガゴルーグex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/109.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 350,
+        "note": "SR(093)と同スペックの特別イラスト版。HP350はこの弾最高。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Takeshi Nakamura",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "遺跡を背景にした重厚な描き下ろし。キャラ人気は中位でSAR帯では下位寄りの相場。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-rayquaza-ex-sar-110",
+      "card_no": "110/076",
+      "rarity": "SAR",
+      "card_name": "メガレックウザex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/110.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "SR(095)と同スペックの特別イラスト版。弾の看板。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Kazuki Minami",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "レックウザとメガレックウザが交錯する構図。ホウエン最人気級の伝説でSAR最高額枠。MUR(113)に次ぐチェイス。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-gilly-sar-111",
+      "card_no": "111/076",
+      "rarity": "SAR",
+      "card_name": "ギリー",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/111.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR(101)と同効果の特別イラスト版。フィールドを駆けるフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Shimaris Yukichi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "新規キャラのためキャラ人気が未成熟。SAR帯では最も安価な枠になりやすい。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-zinnia-trust-sar-112",
+      "card_no": "112/076",
+      "rarity": "SAR",
+      "card_name": "ヒガナの信頼",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/112.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR(102)と同効果の特別イラスト版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Teeziro",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Teeziro による人気キャラ・ヒガナのフルアート。トレーナーズSARは女性キャラ人気で高騰しやすい定番枠。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "storm-emeralda-mega-rayquaza-ex-mur-113",
+      "card_no": "113/076",
+      "rarity": "MUR",
+      "card_name": "メガレックウザex",
+      "box_id": "storm_emeralda",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m6/113.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "この弾の最高レアリティ。SR/SARと同スペック（HP280・ワザ「ストームエメラルダ」）でゴールド加工。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "J",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "MUR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ストームエメラルダ唯一のMUR。金加工＋レックウザ＋弾の看板が重なり、初動から最高額のチェイスカード。",
+        "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
       },
       "note": ""
     }
