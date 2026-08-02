@@ -4,6 +4,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast } from '@/lib/data'
 import type { PriceHistory, PriceRecord } from '@/types/pokeca'
+import { guardPrice } from './scrape-prices'
 
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 const read = (id: string): PriceRecord[] | null => {
@@ -149,6 +150,72 @@ for (const b of boxes) {
   const s = read(`box-${b.box_id}-shrink`)?.[0]
   const n = read(`box-${b.box_id}-noshrink`)?.[0]
   if (!s || !n || s.avg == null || n.avg == null) continue
-  if (s.avg <= n.avg) { boxBad++; console.log(`   ${b.box_name.padEnd(20)} あり ¥${s.avg.toLocaleString()} ≦ なし ¥${n.avg.toLocaleString()}`) }
+  // 数%の逆転は代表値の誤差の範囲。guardPrice の R3 と同じ 0.95 を境にする
+  // （1%の逆転で毎日CIを赤くすると、本物の異常が埋もれて誰も見なくなる）
+  if (s.avg < n.avg * 0.95) { boxBad++; console.log(`   ${b.box_name.padEnd(20)} あり ¥${s.avg.toLocaleString()} < なし ¥${n.avg.toLocaleString()} の0.95倍`) }
 }
 if (!boxBad) console.log('   なし')
+
+// ── 10. 成約サンプルが古い（現在相場が過去の取引で出ている） ─────────
+// メルカリの成約検索は売れた時期を問わず全期間を返す。年に数回しか動かない銘柄では
+// 直近90日に成約が無く、スクレイパーが窓を180日→365日→全期間と広げて値を出している。
+// 値上がり/値下がりの途中だと、その古い成約がそのまま「現在相場」になる。
+// （レックウザVMAX SA: 353日前の¥294,600が現在相場の下限として表示されていた）
+section('10. 成約サンプルが古い（採用した最古の成約が90日超前）')
+const staleSold: Array<{ id: string; days: number; avg: number; n?: number }> = []
+for (const c of [...cards.map(c => ({ id: getCardSlug(c) })), ...boxes.flatMap(b => [
+  { id: `box-${b.box_id}` }, { id: `box-${b.box_id}-shrink` }, { id: `box-${b.box_id}-noshrink` },
+])]) {
+  const r = read(c.id)?.[0]
+  if (!r || r.oldest_sale_days == null || r.oldest_sale_days <= 90 || r.avg == null) continue
+  staleSold.push({ id: c.id, days: r.oldest_sale_days, avg: r.avg, n: r.sample_count })
+}
+staleSold.sort((a, b) => b.days - a.days)
+console.log(`   ${staleSold.length}件`)
+for (const s of staleSold.slice(0, 30)) {
+  console.log(`   ${s.id.padEnd(44)} 最古${String(s.days).padStart(4)}日前  ¥${s.avg.toLocaleString()}${s.n != null ? ` (n=${s.n})` : ''}`)
+}
+if (!staleSold.length) console.log('   なし')
+
+// ── 11. 現在の表示価格が「関門」を通らない ───────────────────────
+// scrape-prices.ts の guardPrice をそのまま再生する。書き込み時に守っている条件を
+// 保存済みデータにも当てるので、ここに出るものは「今サイトに出ている壊れた価格」。
+// ⚠️ 検出ルールを増やす時は guardPrice 側に足すこと。このセクションは自動で追随する。
+section('11. 現在の表示価格が guardPrice を通らない（＝今サイトに出ている異常値）')
+const guardHits: string[] = []
+const allIds = [
+  ...cards.map(c => getCardSlug(c)),
+  ...boxes.flatMap(b => [`box-${b.box_id}`, `box-${b.box_id}-shrink`, `box-${b.box_id}-noshrink`]),
+]
+for (const id of allIds) {
+  const h = read(id)
+  if (!h || h.length < 2) continue
+  const [cur, prev] = h
+  if (cur.avg == null) continue
+  const v = guardPrice({
+    id, date: cur.date, avg: cur.avg,
+    priceSource: cur.source ?? 'mercari',
+    onSale: { count: cur.on_sale ?? null, askLow: cur.ask_low ?? null, askMid: cur.ask_mid ?? null } as never,
+    prev,
+  })
+  if (!v.ok) guardHits.push(`   ${id.padEnd(44)} ${cur.date} ¥${cur.avg.toLocaleString()} ← ${v.reason}`)
+}
+console.log(`   ${guardHits.length}件`)
+guardHits.forEach(s => console.log(s))
+
+// ── 判定 ────────────────────────────────────────────────
+// 「重大」だけで exit 1 する。更新遅れ等の情報系まで赤くすると誰も見なくなるため。
+// ⚠️ これまで価格の異常に最初に気づくのが利用者だった。この行が最後の防波堤。
+section('判定')
+// 予想の乖離も重大に含める。画面の価格表示は forecast.price_forecast 由来なので、
+// 価格ファイルを直しても予想を再生成しない限り**利用者には古い値が見え続ける**。
+const serious = guardHits.length + psaBad + boxBad + fcBad
+console.log(`   関門を通らない現在価格: ${guardHits.length}件`)
+console.log(`   PSA10 ≦ 素体:          ${psaBad}件`)
+console.log(`   BOXシュリンク逆転:      ${boxBad}件`)
+console.log(`   予想と実勢の乖離:       ${fcBad}件（画面に出るのは予想側の値）`)
+if (serious > 0) {
+  console.error(`\n❌ 重大な異常 ${serious}件。data/prices を確認すること。`)
+  process.exit(1)
+}
+console.log('\n✅ 重大な異常なし')

@@ -90,6 +90,9 @@ export interface PriceRecord {
   source?: PriceSource  // avg の出所（2026-07-18 以降のレコードのみ保持）
   sample_count?: number // avg の算出に使った取引件数（スニダン採用時のみ）
   sold_total?: number   // メルカリ成約済み総件数（累計）。前日との差が「1日に何枚売れたか」＝回転率になる
+  // avg に採用した成約のうち最も古いものが何日前か（メルカリ由来のみ）。薄商い銘柄では成約が
+  // 数ヶ月〜1年に散らばるため、「いつの取引で出した値か」を残さないと古い相場と区別できない
+  oldest_sale_days?: number
   on_sale?: number      // メルカリ出品中件数（供給圧）
   ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
   ask_mid?: number      // 出品中の中央値

@@ -351,10 +351,33 @@ function sliceMean(prices: number[], loPct: number, hiPct: number): number {
   return Math.round(core.reduce((a, b) => a + b, 0) / core.length)
 }
 
-interface MercariItem { id?: string; name: string; price: number; status?: string }
+// updated = 最終更新時刻（epoch秒・文字列で返る）。成約検索では実質「売れた時刻」になる。
+interface MercariItem { id?: string; name: string; price: number; status?: string; updated?: number | string }
 // soldTotal = 成約済みの総件数（meta.numFound）。日々の差分が「1日に何枚売れたか」＝回転率になる。
 // 追加リクエストは発生しない（成約相場を取る同じレスポンスの meta を読むだけ）。
-interface MercariPriceResult { avg: number; low: number; high: number; soldTotal: number | null; sampleCount: number }
+interface MercariPriceResult {
+  avg: number; low: number; high: number; soldTotal: number | null; sampleCount: number
+  oldestSaleDays: number | null  // 採用した成約のうち最も古いものが何日前か（鮮度の可視化）
+  windowDays: number | null      // 実際に適用した鮮度の窓（null = 全期間まで広げた）
+}
+
+// 成約サンプルの鮮度。メルカリの成約検索は**売れた時期を問わず全期間**を返すため、年に数回しか
+// 動かない銘柄では1年前の成約がそのまま「現在相場」として採用されてしまう。
+//   実例: レックウザVMAX SA(083/067) は成約11件が 2025-08〜2026-07 に散らばっており、
+//   20th〜50th の区間が **353日前の ¥250,000 / ¥294,600** に刺さって現在相場が
+//   ¥294,600〜¥666,666 と表示された。直近3ヶ月の成約は ¥666,666〜¥1,154,400、出品最安は
+//   ¥670,000 で、実勢の半値以下。このカードは1年で3〜4倍に上がっており、下寄りの区間を取る
+//   sliceMean は「値上がりした薄商い銘柄では必然的に1年前の安値を拾う」という性質を持つ。
+// 対策＝**直近の窓から順に試し、件数が足りない時だけ広げる**。薄商い銘柄をスキップにしない
+// （スキップは前日値の凍結を生み、それはそれで古い値が居座る）。
+// 鮮度不明（updated 欠落）のサンプルは有限の窓には入れない。仮にAPIが updated を返さなく
+// なっても最後の「全期間」に落ちるだけで、従来と同じ挙動に自動で戻る。
+const SOLD_WINDOWS: Array<{ days: number | null; min: number }> = [
+  { days: 90, min: 5 },
+  { days: 180, min: 5 },
+  { days: 365, min: 5 },
+  { days: null, min: 3 },
+]
 
 // trimTopPct: low/high を出す前に高値側から機械的に落とす割合。成約検索に残る混入は必ず
 // 高値側なので、これが無いと表示レンジの上端が束売り/鑑定品の値になる（ミカルゲAR: 実勢¥362
@@ -387,10 +410,30 @@ async function scrapeMercariSoldAvg(
     const soldTotal = rawSoldTotal != null && !isNaN(Number(rawSoldTotal)) && Number(rawSoldTotal) > 0
       ? Number(rawSoldTotal)
       : null
-    const prices = rawItems
+    const nowSec = Date.now() / 1000
+    const candidates = rawItems
       .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
-      .map(i => Number(i.price))
-    if (prices.length < 3) return null
+      .map(i => {
+        const soldAt = Number(i.updated)
+        return {
+          price: Number(i.price),
+          ageDays: Number.isFinite(soldAt) && soldAt > 0 ? (nowSec - soldAt) / 86400 : null,
+        }
+      })
+    // 鮮度の窓を直近から順に試す（SOLD_WINDOWS のコメント参照）
+    let picked: typeof candidates = []
+    let windowDays: number | null = null
+    for (const w of SOLD_WINDOWS) {
+      const maxAge = w.days
+      const inWindow = maxAge == null
+        ? candidates
+        : candidates.filter(c => c.ageDays != null && c.ageDays <= maxAge)
+      if (inWindow.length >= w.min) { picked = inWindow; windowDays = w.days; break }
+    }
+    if (picked.length < 3) return null
+    const prices = picked.map(c => c.price)
+    const ages = picked.map(c => c.ageDays).filter((a): a is number => a != null)
+    const oldestSaleDays = ages.length > 0 ? Math.round(Math.max(...ages)) : null
     const sorted = [...prices].sort((a, b) => a - b)
     // 代表的な取引幅。高値側の混入を機械的に落としてから percentile を取る（データ依存の
     // カットオフではないので「崖」は生まれない）。BOXは呼び出し側が中位バンドを指定する。
@@ -403,7 +446,7 @@ async function scrapeMercariSoldAvg(
     const avg = sliceMean(sorted, 0.2, 0.5)
     const low = Math.min(percentileAt(core, lowPct), avg)
     const high = Math.max(percentileAt(core, highPct), avg)
-    return { avg, low, high, soldTotal, sampleCount: prices.length }
+    return { avg, low, high, soldTotal, sampleCount: prices.length, oldestSaleDays, windowDays }
   } catch { return null }
   finally { await page.close() }
 }
@@ -416,6 +459,118 @@ function readLatestRecord(cardId: string, date: string): PriceRecord | null {
   } catch { return null }
 }
 
+/**
+ * ★価格を保存する直前の単一関門（choke point）。
+ *
+ * ⚠️ この関数を迂回して savePriceHistory を呼んではいけない。健全性の判定は必ずここに足すこと。
+ *
+ * 【なぜ関門を1本にまとめたか】
+ * 価格の書き込み経路は5本ある:
+ *   (1) スニダン主経路  (2) メルカリ成約  (3) スニダンフォールバック
+ *   (4) スニダン鮮度切れ (5) BOX(scrapeBox)
+ * これまで健全性チェックは経路ごとにバラバラに付いていた。ask整合は(2)だけ、前日比の
+ * 急変チェックは(3)(4)だけ、(1)と(5)は**素通り**。そのため1本を塞ぐたびに、同じ種類の
+ * 事故が「まだ塞いでいない経路」から入り直すことを繰り返していた。
+ *   実例A: メガルチャブルex MA — メルカリ実勢¥561 に対しスニダンの手数料込み床値¥1,517 が
+ *          経路(1)から流入(+170%)。同じ事故は2026-07-29に経路(3)で修正済みだったが、
+ *          取引件数が採用閾値(6件)に届いた途端に(1)へ回り込んで再発した。
+ *          絶対額の下限 SNKRDUNK_MIN_PRICE=1500 も ¥1,517 では17円差で素通りする。
+ *   実例B: 蒼空ストリームBOX(シュリンクあり) — 成約が薄く検索窓が90日超へ拡張された結果、
+ *          古い高値が混ざり ¥160,573→¥258,334(+61%)。経路(5)は無防備だった。
+ *
+ * 【判定】ask（出品価格）と前日値による裏付けを要求し、通らなければ**採用しない**
+ * （＝既存価格を維持してスキップ。値の捏造はしない、という既存方針を踏襲）。
+ */
+export function guardPrice(opts: {
+  id: string
+  date: string
+  avg: number
+  priceSource: PriceSource
+  onSale: OnSaleResult | null
+  prev: PriceRecord | null
+}): { ok: true } | { ok: false; reason: string } {
+  const { id, date, avg, priceSource, onSale, prev } = opts
+
+  // --- R0: 凍り付き防止（全ルールに優先する逃げ道） ---
+  // 関門で弾くと既存価格が残るため、条件が恒久的に変わった銘柄は永久に更新されなくなる。
+  // 過去に別のガードで14枚が最長29日間ずっと同じ値のまま固まった事故がある。
+  // 出品側が汚れて ask 基準が使えない銘柄（例: ニンフィアVMAX HR は出品検索がSA版を拾い
+  // 出品¥150,000 に対し実勢の成約¥10,250 が毎日「0.07倍」で弾かれ得る）でも、
+  // 3日を超えて更新できていなければ受け入れる。残る不整合は audit-data.ts が拾う。
+  if (prev?.date) {
+    const ageDays = Math.round((Date.parse(date) - Date.parse(prev.date)) / 86400000)
+    if (ageDays > 3) return { ok: true }
+  }
+
+  // --- R1: ask（出品価格）との整合。全ソースに適用する ---
+  // askMid(中央値)を優先。askLow は10thパーセンタイルで1件の投げ売りに動かされ、
+  // 正常なカードを何日も連続スキップさせた前科があるため補助扱い。
+  // BOXは ask を整合の基準に使えない。出品検索を "1BOX"→"BOX" と**わざと広げて**件数を
+  // 稼いでいるため、1パック/単品や複数BOXロットが混ざり中央値が実体とかけ離れる。
+  //   ストームエメラルダ(統合): 成約¥20,500 に対し出品中央値¥8,300（＝パック単品）
+  //   イーブイヒーローズ(シュリンクなし): 成約¥60,500 に対し出品最安¥69,900・中央値¥169,444
+  // ここで弾くと健全な成約avgまで巻き添えで凍るので、BOXは R2/R3 で守る。
+  const isBoxPool = id.startsWith('box-')
+  const askRef = isBoxPool ? null : (onSale?.askMid ?? onSale?.askLow ?? null)
+  if (askRef != null && askRef > 0) {
+    let lo: number, hi: number
+    if (priceSource === 'snkrdunk') {
+      // スニダンは「状態A=美品」かつ手数料込み表示なので、メルカリ出品より高いのは設計通り。
+      // ただし安価帯は最低取引価格の影響で ¥1,000〜1,700 に張り付き、実勢の2〜3倍に化ける。
+      // この帯だけ上限を締める（実例A の ¥1,517 vs 出品中央値¥739＝2.05倍を止める）。
+      lo = 0.35
+      hi = askRef < 3000 ? 1.8 : 3.5
+    } else {
+      lo = onSale?.askMid != null ? 0.4 : 0.5
+      hi = onSale?.askMid != null ? 2.2 : 2.5
+    }
+    const r = avg / askRef
+    if (r > hi || r < lo) {
+      return { ok: false, reason: `ask整合(${priceSource}) 成約¥${avg.toLocaleString()} vs 出品¥${askRef.toLocaleString()}=${r.toFixed(2)}倍` }
+    }
+  }
+
+  // --- R2: 前日比の急変は ask の裏付けを要求する ---
+  // 相場が本当に動いたなら出品価格も追随する。avg だけが飛んで ask が据え置きなら、
+  // それは相場変動ではなく採用サンプルの入れ替わり（＝出所フリップ・検索窓の拡張・
+  // 別バージョン混入）である、というのがこれまでの全事故に共通する判別法。
+  if (prev?.avg) {
+    const jump = avg / prev.avg
+    if (jump > 1.35 || jump < 0.65) {
+      const prevAsk = prev.ask_mid ?? prev.ask_low ?? null
+      const nowAsk = onSale?.askMid ?? onSale?.askLow ?? null
+      // (a) ask が同方向に10%以上動いていれば真の相場変動とみなして通す
+      const askMoved = prevAsk != null && nowAsk != null && prevAsk > 0 &&
+        ((jump > 1 && nowAsk / prevAsk > 1.10) || (jump < 1 && nowAsk / prevAsk < 0.90))
+      // (b) 新しい値が出品中央値と素直な関係（0.7〜1.5倍）に収まるなら、前日から飛んでいても
+      //     水準そのものは独立に裏付けられている。メルカリ実勢→スニダン美品への**正常な
+      //     出所切替**がここに当たる（ミュウex UR: ¥7,936→¥12,970 だが出品中央値¥11,111＝1.17倍、
+      //     リザードAR: ¥1,897→¥3,197 で出品中央値¥2,999＝1.07倍。どちらも取引件数10〜17件で健全）。
+      //     出所切替で水準が変わるのは設計通りなので、これを事故として弾いてはいけない。
+      const askAnchors = !isBoxPool && onSale?.askMid != null && onSale.askMid > 0 &&
+        avg / onSale.askMid >= 0.7 && avg / onSale.askMid <= 1.5
+      if (!askMoved && !askAnchors) {
+        return { ok: false, reason: `前日比${((jump - 1) * 100).toFixed(0)}%だが出品価格が追随せず（${prev.date} ¥${prev.avg.toLocaleString()} → ¥${avg.toLocaleString()}）` }
+      }
+    }
+  }
+
+  // --- R3: BOX シュリンクあり ⇔ なし の関係 ---
+  // シュリンク付きのプレミアムは実測で 1.05〜1.3倍。1.6倍を超えるのは
+  // カートン/複数BOX/セット出品の混入か、検索窓拡張による古い高値の混入である。
+  if (id.endsWith('-shrink')) {
+    const base = readLatestRecord(`${id.slice(0, -'-shrink'.length)}-noshrink`, '')
+    if (base?.avg) {
+      const r = avg / base.avg
+      if (r > 1.6 || r < 0.95) {
+        return { ok: false, reason: `シュリンク比 ${r.toFixed(2)}倍（シュリンクなし ¥${base.avg.toLocaleString()}）が想定域(0.95〜1.6)外` }
+      }
+    }
+  }
+
+  return { ok: true }
+}
+
 function savePriceHistory(
   cardId: string,
   date: string,
@@ -426,7 +581,8 @@ function savePriceHistory(
   psa10: number | null,
   priceSource?: PriceSource,
   sampleCount?: number,
-  soldTotal?: number | null
+  soldTotal?: number | null,
+  oldestSaleDays?: number | null
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -453,6 +609,7 @@ function savePriceHistory(
     ...(priceSource ? { source: priceSource } : {}),
     ...(sampleCount != null ? { sample_count: sampleCount } : {}),
     ...(soldTotal != null ? { sold_total: soldTotal } : {}),
+    ...(oldestSaleDays != null ? { oldest_sale_days: oldestSaleDays } : {}),
     ...(validatedOnSale?.count != null ? { on_sale: validatedOnSale.count } : {}),
     ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
@@ -600,6 +757,8 @@ async function scrapeCard(
     let mercariLow = 0, mercariHigh = 0
     // スニダン採用時はメルカリ成約検索を行わないので soldTotal は取れない（追加リクエストは避ける）
     let soldTotal: number | null = null
+    // メルカリ成約の鮮度（採用した最古の成約が何日前か）。スニダン採用時は付けない
+    let oldestSaleDays: number | null = null
     if (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded) {
       // 十分な取引数があるスニダン価格はそのまま採用
       avg = snkrdunkRegular
@@ -615,6 +774,11 @@ async function scrapeCard(
           // メルカリ由来でも件数を残す。これが無いと「何件の成約で出した値か」が後から検証できず、
           // 監査で薄いサンプルの跳ねと本物の相場変動を切り分けられなかった。
           sampleCount = result.sampleCount
+          oldestSaleDays = result.oldestSaleDays
+          if (result.windowDays == null || result.windowDays > 90) {
+            const w = result.windowDays == null ? '全期間' : `${result.windowDays}日`
+            process.stdout.write(`[成約が薄い→${w}まで拡張(最古${result.oldestSaleDays ?? '?'}日前)] `)
+          }
           break
         }
         if (attempt < 3) { process.stdout.write(`(データ不足→リトライ${attempt}) `); await new Promise(r => setTimeout(r, 3000)) }
@@ -685,6 +849,7 @@ async function scrapeCard(
           source = `スニダン(${snkrdunkCount}件)`
           priceSource = 'snkrdunk'
           sampleCount = snkrdunkCount
+          oldestSaleDays = null
         } else {
           console.log(`メルカリ不整合(${detail}) — スキップ（既存価格を維持）`)
           stats.skipped++
@@ -701,7 +866,16 @@ async function scrapeCard(
       ? ` / 出品${onSale.count}件${onSale.askLow != null ? `(最安¥${onSale.askLow.toLocaleString()})` : ''}`
       : ''
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal)
+
+    // ★全経路が通る単一の関門。ここを迂回して savePriceHistory を呼ばないこと（guardPrice 参照）
+    const verdict = guardPrice({ id, date, avg, priceSource, onSale, prev: readLatestRecord(id, date) })
+    if (!verdict.ok) {
+      console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
+      stats.skipped++
+      return
+    }
+
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
@@ -725,6 +899,7 @@ async function scrapeBox(
     let avg: number | null = null
     let boxLow = 0, boxHigh = 0
     let soldTotal: number | null = null
+    let oldestSaleDays: number | null = null
     for (let attempt = 1; attempt <= 3; attempt++) {
       // BOXの代表値は成約分布の中位バンド 35th〜65th（＝中央値まわり）を採用する。
       // 以前は床値寄りの 20th〜35th だったが、これは「高額な状態良・付属品付き出品の裾」を
@@ -737,6 +912,11 @@ async function scrapeBox(
       const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65, null, 0)
       if (result != null) {
         avg = result.avg; boxLow = result.low; boxHigh = result.high; soldTotal = result.soldTotal
+        oldestSaleDays = result.oldestSaleDays
+        if (result.windowDays == null || result.windowDays > 90) {
+          const w = result.windowDays == null ? '全期間' : `${result.windowDays}日`
+          process.stdout.write(`[成約が薄い→${w}まで拡張(最古${result.oldestSaleDays ?? '?'}日前)] `)
+        }
         break
       }
       if (attempt < 3) { process.stdout.write(`(データ不足 → リトライ${attempt}/2) `); await new Promise(r => setTimeout(r, 3000)) }
@@ -748,8 +928,18 @@ async function scrapeBox(
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
     const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
+
+    // ★カードと同じ関門を通す。BOXはこれまで無防備で、成約が薄い弾で検索窓が90日超に
+    // 拡張されると古い高値が混ざり +61% の偽の急騰が出ていた（蒼空ストリーム シュリンクあり）
+    const verdict = guardPrice({ id, date, avg, priceSource: 'mercari', onSale, prev: readLatestRecord(id, date) })
+    if (!verdict.ok) {
+      console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
+      stats.skipped++
+      return
+    }
+
     // BOX相場は常にメルカリ成約の中位バンド由来
-    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null, 'mercari', undefined, soldTotal)
+    savePriceHistory(id, date, avg, boxLow, boxHigh, onSale, null, 'mercari', undefined, soldTotal, oldestSaleDays)
     const onSaleLog = onSale.count != null ? ` / 出品${onSale.count}件` : ''
     console.log(`完了 平均¥${avg.toLocaleString()}${onSaleLog}`)
     stats.succeeded++
@@ -844,4 +1034,7 @@ async function main() {
   console.log(`\n完了: ${stats.succeeded}件更新, ${stats.skipped}件スキップ, ${stats.failed}件失敗`)
 }
 
-main()
+// 直接実行された時だけスクレイプする。guardPrice の回帰テスト(verify-price-guard.ts)が
+// この関数を import するため、モジュール読み込みだけでブラウザが起動しないようにしている
+const entry = (process.argv[1] ?? '').replace(/\\/g, '/')
+if (/scrape-prices\.(ts|js|mts|cts)$/.test(entry)) main()

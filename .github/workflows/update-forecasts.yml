@@ -22,6 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # 価格の関門(guardPrice)の回帰テスト。ネットワーク不要・数秒。
+      # 過去に実際に起きた価格事故を毎回再生し、二度と通らないことを確認する。
+      # ここが落ちたらスクレイプしない（壊れた関門で1日分のデータを書かない）
+      - name: Verify price guard
+        run: npx tsx scripts/verify-price-guard.ts
+
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
@@ -54,3 +60,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices and forecasts $(date -u '+%Y-%m-%d')" && git push)
+
+      # データ監査。commit後に回すので、落ちてもその日のデータ更新は失われない。
+      # ⚠️ これまで価格の異常に最初に気づくのが**利用者**だった。異常はここに毎日出す。
+      # Actions の run が赤くなったら「4. PSA10≦素体」「5. 同名別バージョンの逆転」あたりから見る。
+      - name: Audit data (異常検知レポート)
+        run: npx tsx scripts/audit-data.ts
