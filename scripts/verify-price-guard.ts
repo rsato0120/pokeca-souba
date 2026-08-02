@@ -23,6 +23,8 @@ interface Case {
   id: string
   date: string
   avg: number
+  low?: number
+  high?: number
   priceSource: PriceSource
   onSale: OnSale | null
   prev: Partial<PriceRecord> | null
@@ -163,6 +165,54 @@ const cases: Case[] = [
     prev: { date: '2026-07-25', avg: 2000, ask_low: 4000, ask_mid: 5200 },
   },
   {
+    name: 'ニンフィアVMAX SA: avg は妥当でも帯が ¥30,000〜¥142,000 に崩れた（出品最安¥149,999・n=15→5）',
+    shouldReject: true,
+    id: 'eevee-heroes-ninfia-vmax-sa-93',
+    date: '2026-08-03',
+    avg: 133500,
+    low: 30000,
+    high: 142000,
+    priceSource: 'mercari',
+    onSale: { count: 20, askLow: 149999, askMid: 188888 },
+    prev: { date: '2026-08-02', avg: 116200, ask_low: 149999, ask_mid: 188888 },
+  },
+  {
+    name: 'オーロットVMAX HR: n=4 で帯が ¥333〜¥5,733（17.2倍）に崩れた',
+    shouldReject: true,
+    id: 'soukuu-stream-aurott-vmax-hr-80',
+    date: '2026-08-03',
+    avg: 3985,
+    low: 333,
+    high: 5733,
+    priceSource: 'mercari',
+    onSale: { count: 3, askLow: null, askMid: null },
+    prev: { date: '2026-08-02', avg: 3985 },
+  },
+
+  // 2026-08-03: 「PSA10/素体の倍率が同格から外れる」で異常を疑ったが、メルカリ成約を実際に
+  // 見に行くと**どちらも実勢どおりだった**。安いカードは鑑定料(数千円)が下限になるので
+  // PSA10倍率が15〜25倍に開くのは正常。倍率だけで異常と判定してはいけない、の証拠として残す。
+  {
+    name: '正常: マチスの取引SAR ¥611（実市場 ¥450〜900 を確認済。PSA10比15倍は鑑定料の下限効果）',
+    shouldReject: false,
+    id: 'mega-brave-matis-no-torihiki-sar',
+    date: '2026-08-02',
+    avg: 611,
+    priceSource: 'mercari',
+    onSale: { count: 120, askLow: 666, askMid: 850 },
+    prev: { date: '2026-08-01', avg: 606, ask_low: 688, ask_mid: 860 },
+  },
+  {
+    name: '正常: サーファーSAR ¥660（実市場 ¥444〜800 を確認済）',
+    shouldReject: false,
+    id: 'mega-dream-ex-saafaa-sar',
+    date: '2026-08-02',
+    avg: 660,
+    priceSource: 'mercari',
+    onSale: { count: 150, askLow: 700, askMid: 900 },
+    prev: { date: '2026-08-01', avg: 655, ask_low: 700, ask_mid: 900 },
+  },
+  {
     name: '正常: BOX統合ファイルは出品プールを広く取るため ask 乖離では弾かない',
     shouldReject: false,
     id: 'box-storm_emeralda',
@@ -180,6 +230,8 @@ for (const c of cases) {
     id: c.id,
     date: c.date,
     avg: c.avg,
+    low: c.low,
+    high: c.high,
     priceSource: c.priceSource,
     onSale: c.onSale as never,
     prev: c.prev as PriceRecord | null,

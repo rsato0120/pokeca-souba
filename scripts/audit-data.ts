@@ -193,7 +193,7 @@ for (const id of allIds) {
   const [cur, prev] = h
   if (cur.avg == null) continue
   const v = guardPrice({
-    id, date: cur.date, avg: cur.avg,
+    id, date: cur.date, avg: cur.avg, low: cur.low, high: cur.high,
     priceSource: cur.source ?? 'mercari',
     onSale: { count: cur.on_sale ?? null, askLow: cur.ask_low ?? null, askMid: cur.ask_mid ?? null } as never,
     prev,
@@ -203,17 +203,65 @@ for (const id of allIds) {
 console.log(`   ${guardHits.length}件`)
 guardHits.forEach(s => console.log(s))
 
+// ── 12. 最新バッチで更新されなかった（毎日スキップされ古い値が出続けている） ──
+// 「今日の日付」ではなく**データセット内の最新日**を基準にする。日次バッチが未実行の日に
+// 全カードが一斉に「古い」と誤検出されるのを避け、スキップだけを正確に拾うため。
+// ⚠️ 価格が"おかしい"には「間違った値」だけでなく「**更新されていない値**」もある。
+// チャーレムV SR は番号一致の成約が市場に無く、5日前の値を現在相場として出し続けていた。
+section('12. 最新バッチで更新されなかったカード（スキップ＝古い値が出続けている）')
+// 基準日は最新日ではなく**最頻値**にする。最新日を使うと、特定の弾だけ手動で取り直した時に
+// 「取り直していない全カード」が一斉にスキップ扱いになる（実際に誤検出して198件出た）。
+// 日次バッチが全カードを同じ日付で書くので、正常時は最頻値＝その日になる。
+const noFile: string[] = []
+const dateCount: Record<string, number> = {}
+for (const c of cards) {
+  const h = read(getCardSlug(c))
+  if (!h || !h.length) { noFile.push(`${c.id} (${c.card_name} ${c.rarity})`); continue }
+  dateCount[h[0].date] = (dateCount[h[0].date] ?? 0) + 1
+}
+const latestDate = Object.entries(dateCount).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? 1 : -1))[0]?.[0] ?? ''
+const skippedCards: Array<{ id: string; days: number; r: PriceRecord }> = []
+for (const c of cards) {
+  const h = read(getCardSlug(c))
+  if (!h || !h.length) continue
+  const days = Math.round((Date.parse(latestDate) - Date.parse(h[0].date)) / 86400e3)
+  if (days >= 1) skippedCards.push({ id: c.id, days, r: h[0] })
+}
+skippedCards.sort((a, b) => b.days - a.days)
+console.log(`   データセット最新日 ${latestDate}`)
+console.log(`   価格ファイルが無い: ${noFile.length}件`)
+noFile.forEach(m => console.log(`     ${m}`))
+console.log(`   スキップ: ${skippedCards.length}件`)
+skippedCards.forEach(s => console.log(`     ${s.id.padEnd(42)} ${String(s.days).padStart(2)}日遅れ 最終${s.r.date} ¥${(s.r.avg ?? 0).toLocaleString()} askM=${s.r.ask_mid ?? '-'}`))
+// 4日以上のスキップだけ重大扱い。薄商いの銘柄が1〜2日空くのは普通で、そこまで赤くすると
+// 本物の異常が埋もれる。4日は guardPrice の凍結回避窓(R0)と揃えてある。
+// さらに「そもそも市場に単品成約が無いカード」は data/thin-market-cards.json に登録して
+// 重大から外す。恒久的に直せないものを毎日赤くすると、新しい異常が埋もれるため。
+let thin: Record<string, string> = {}
+try {
+  thin = (JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'thin-market-cards.json'), 'utf-8')) as { cards: Record<string, string> }).cards
+} catch {}
+const thinIds = new Set(Object.keys(thin))
+const stuckList = [...skippedCards.filter(s => s.days >= 4).map(s => s.id), ...noFile.map(m => m.split(' ')[0])]
+const stuckNew = stuckList.filter(id => !thinIds.has(id))
+const stuck = stuckNew.length
+if (stuckList.length > stuckNew.length) {
+  console.log(`   （うち ${stuckList.length - stuckNew.length}件は data/thin-market-cards.json 登録済み＝市場に単品成約が無く更新不能。重大から除外）`)
+}
+if (stuckNew.length) console.log(`   ⚠️ 未登録のスキップ: ${stuckNew.join(', ')}`)
+
 // ── 判定 ────────────────────────────────────────────────
 // 「重大」だけで exit 1 する。更新遅れ等の情報系まで赤くすると誰も見なくなるため。
 // ⚠️ これまで価格の異常に最初に気づくのが利用者だった。この行が最後の防波堤。
 section('判定')
 // 予想の乖離も重大に含める。画面の価格表示は forecast.price_forecast 由来なので、
 // 価格ファイルを直しても予想を再生成しない限り**利用者には古い値が見え続ける**。
-const serious = guardHits.length + psaBad + boxBad + fcBad
+const serious = guardHits.length + psaBad + boxBad + fcBad + stuck
 console.log(`   関門を通らない現在価格: ${guardHits.length}件`)
 console.log(`   PSA10 ≦ 素体:          ${psaBad}件`)
 console.log(`   BOXシュリンク逆転:      ${boxBad}件`)
 console.log(`   予想と実勢の乖離:       ${fcBad}件（画面に出るのは予想側の値）`)
+console.log(`   4日以上スキップ/欠落:   ${stuck}件`)
 if (serious > 0) {
   console.error(`\n❌ 重大な異常 ${serious}件。data/prices を確認すること。`)
   process.exit(1)

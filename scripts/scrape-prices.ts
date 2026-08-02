@@ -485,11 +485,14 @@ export function guardPrice(opts: {
   id: string
   date: string
   avg: number
+  /** 画面に出る価格帯。avg だけ正しくても帯が壊れていると表示は破綻する */
+  low?: number
+  high?: number
   priceSource: PriceSource
   onSale: OnSaleResult | null
   prev: PriceRecord | null
 }): { ok: true } | { ok: false; reason: string } {
-  const { id, date, avg, priceSource, onSale, prev } = opts
+  const { id, date, avg, low, high, priceSource, onSale, prev } = opts
 
   // --- R0: 凍り付き防止（全ルールに優先する逃げ道） ---
   // 関門で弾くと既存価格が残るため、条件が恒久的に変わった銘柄は永久に更新されなくなる。
@@ -553,6 +556,17 @@ export function guardPrice(opts: {
         return { ok: false, reason: `前日比${((jump - 1) * 100).toFixed(0)}%だが出品価格が追随せず（${prev.date} ¥${prev.avg.toLocaleString()} → ¥${avg.toLocaleString()}）` }
       }
     }
+  }
+
+  // --- R4: 価格帯(low〜high)が広がりすぎていないか ---
+  // 画面の「現在相場 ¥low〜¥high」は avg ではなくこの帯を出す。avg が妥当でも、成約が薄い日に
+  // 20thパーセンタイルが1件の安値に張り付くと帯だけが破綻する。
+  //   ニンフィアVMAX SA: n=15→5 に減った日に 低¥90,000 → **¥30,000** へ落ち、
+  //   出品最安¥149,999 のカードが「¥30,000〜¥142,000」と表示された。
+  //   オーロットVMAX HR: n=4 で ¥333〜¥5,733（17.2倍）。
+  // 全4,846レコードの high/low は 99パーセンタイルで 2.01倍。3.0倍は十分な余裕がある。
+  if (low != null && high != null && low > 0 && high / low > 3) {
+    return { ok: false, reason: `価格帯が異常に広い ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（${(high / low).toFixed(1)}倍・通常は2倍以内）` }
   }
 
   // --- R3: BOX シュリンクあり ⇔ なし の関係 ---
@@ -696,7 +710,23 @@ async function scrapeCard(
     const SNKRDUNK_KEEP_SAMPLES = 4    // すでにスニダン採用中の時に維持できる件数
     // スニダンは手数料込み表示かつ最低取引価格の影響で、安価帯の素体が ¥1,000 前後に
     // 張り付く（メルカリ実勢 ¥350〜700 の2〜3倍）。この価格帯の素体は相場として使わない。
+    //
+    // ⚠️ 絶対額の下限だけでは足りない。実勢¥561 のメガルチャブルex MA に ¥1,517 が入った時、
+    // この閾値をわずか17円上回って素通りした。**閾値の縁は必ず破られる**ので、
+    // 前日の出品中央値と比べた相対判定(isSnkrdunkFloorPrice)を併用する。
     const SNKRDUNK_MIN_PRICE = 1500
+    // 前日レコード。出所ヒステリシスと、上記の相対判定の基準に使う
+    // （2026-07-18 以前のレコードには source が無い）
+    const prevRecordForSource = readLatestRecord(id, date)
+    // スニダン値が「床値張り付き」かどうかを前日の出品価格から判定する。
+    // 出品が安いのに素体だけ2倍近い＝スニダンの最低取引価格に張り付いている証拠。
+    // これを落とすとメルカリ成約へフォールバックし、**正しい実勢価格が毎日入る**。
+    // （落とさずスキップだけしていると値が何日も凍り、guardPrice の凍結回避で
+    //   4日ごとに誤値が入る鋸歯になる）
+    const isSnkrdunkFloorPrice = (v: number): boolean => {
+      const prevAsk = prevRecordForSource?.ask_mid ?? prevRecordForSource?.ask_low ?? null
+      return prevAsk != null && prevAsk > 0 && prevAsk < 3000 && v > prevAsk * 1.8
+    }
     let snkrdunkRegular: number | null = null
     let snkrdunkCount = 0
     // 鮮度切れのスニダン値。メルカリも取れなかった時の最後の手段としてだけ使う
@@ -720,15 +750,16 @@ async function scrapeCard(
         process.stdout.write(`[スニダン最新取引${prices.staleDays}日前→不採用] `)
       }
 
-      if (snkrdunkRegular != null && snkrdunkRegular < SNKRDUNK_MIN_PRICE) {
-        process.stdout.write(`[スニダン床値¥${snkrdunkRegular}→不採用] `)
+      if (snkrdunkRegular != null && (snkrdunkRegular < SNKRDUNK_MIN_PRICE || isSnkrdunkFloorPrice(snkrdunkRegular))) {
+        const why = snkrdunkRegular < SNKRDUNK_MIN_PRICE
+          ? `¥${snkrdunkRegular}`
+          : `¥${snkrdunkRegular} vs 前日出品¥${prevRecordForSource?.ask_mid ?? prevRecordForSource?.ask_low}`
+        process.stdout.write(`[スニダン床値${why}→不採用] `)
         snkrdunkRegular = null
         snkrdunkCount = 0
       }
     }
 
-    // 前回の出所。ヒステリシスの基準に使う（2026-07-18 以前のレコードには source が無い）
-    const prevRecordForSource = readLatestRecord(id, date)
     const prevSource = prevRecordForSource?.source
     const snkrdunkNeeded = prevSource === 'snkrdunk' ? SNKRDUNK_KEEP_SAMPLES : SNKRDUNK_ADOPT_SAMPLES
 
@@ -868,7 +899,7 @@ async function scrapeCard(
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
 
     // ★全経路が通る単一の関門。ここを迂回して savePriceHistory を呼ばないこと（guardPrice 参照）
-    const verdict = guardPrice({ id, date, avg, priceSource, onSale, prev: readLatestRecord(id, date) })
+    const verdict = guardPrice({ id, date, avg, low, high, priceSource, onSale, prev: readLatestRecord(id, date) })
     if (!verdict.ok) {
       console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
       stats.skipped++
@@ -931,7 +962,7 @@ async function scrapeBox(
 
     // ★カードと同じ関門を通す。BOXはこれまで無防備で、成約が薄い弾で検索窓が90日超に
     // 拡張されると古い高値が混ざり +61% の偽の急騰が出ていた（蒼空ストリーム シュリンクあり）
-    const verdict = guardPrice({ id, date, avg, priceSource: 'mercari', onSale, prev: readLatestRecord(id, date) })
+    const verdict = guardPrice({ id, date, avg, low: boxLow, high: boxHigh, priceSource: 'mercari', onSale, prev: readLatestRecord(id, date) })
     if (!verdict.ok) {
       console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
       stats.skipped++
