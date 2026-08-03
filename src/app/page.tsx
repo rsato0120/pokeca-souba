@@ -9,6 +9,7 @@ import BoxSelector from '@/components/BoxSelector'
 import OripaBanner from '@/components/OripaBanner'
 import BuyPicks, { type BuyPick } from '@/components/BuyPicks'
 import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
+import PriceTicker, { type TickerItem } from '@/components/PriceTicker'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -77,6 +78,21 @@ export default function TopPage() {
       forecast: getForecast(slug),
     }
   }).filter((c) => c.currentMid > 0)
+
+  // 相場ティッカー: 本日の値動きが大きい順。上げ下げの両方を混ぜて流す。
+  // 前日比が無い日（スクレイプ未実施・欠測）は7日比で代替し、それも無ければ載せない。
+  const tickerItems: TickerItem[] = metrics
+    .map((m) => ({ m, change: m.dayChange ?? m.weekChange }))
+    .filter((x): x is { m: CardMetrics; change: number } => x.change != null && Math.abs(x.change) >= 1)
+    .sort((a, b) => Math.abs(b.change) - Math.abs(a.change))
+    .slice(0, 24)
+    .map(({ m, change }) => ({
+      slug: m.slug,
+      name: m.card.card_name,
+      rarity: m.card.rarity,
+      mid: Math.round(m.currentMid),
+      changePct: change,
+    }))
 
   // 今買われているカード: 出品数が減ったカード（SR除外）
   // on_sale件数の前日比減少 = 在庫が捌けている = 買い需要の実態シグナル
@@ -233,6 +249,9 @@ export default function TopPage() {
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
       </header>
 
+      {/* 本日の値動きを流す帯。開いた瞬間に「動いている市場」だと分かるようヘッダ直下に置く */}
+      <PriceTicker items={tickerItems} />
+
       <div
         style={{
           fontFamily: 'var(--mono)',
@@ -285,10 +304,15 @@ export default function TopPage() {
 
       {/* ── ヒーロー ── */}
       {featured && (
-        <Link
-          href={`/cards/${featuredSlug}`}
+        // ⚠ ヒーロー全体を <Link> で包んではいけない。中に「収録弾」へのリンクがあるため
+        // <a> の入れ子になり、HTMLとして不正＝トップページ全体が hydration に失敗して
+        // クライアントで再描画されていた（React error #418）。
+        // カード全体をクリック可能にしたまま入れ子を避けるため、外側のリンクは
+        // 絶対配置のオーバーレイにし、内側のリンクを z-index で上に出す。
+        <div
           className="hero-grid"
           style={{
+            position: 'relative',
             display: 'grid',
             gridTemplateColumns: '180px 1fr',
             gap: 'var(--sp-6)',
@@ -302,6 +326,11 @@ export default function TopPage() {
             borderBottomColor: 'var(--hair)',
           }}
         >
+          <Link
+            href={`/cards/${featuredSlug}`}
+            aria-label={`${featured.card.card_name} ${featured.card.rarity} の詳細`}
+            style={{ position: 'absolute', inset: 0, zIndex: 1, borderRadius: 'var(--r-lg)' }}
+          />
           <div className="pokecard" style={{ padding: featured.card.image_url ? '0' : undefined, overflow: 'hidden' }}>
             {featured.card.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -350,7 +379,8 @@ export default function TopPage() {
                 <div className="stat-label">収録弾</div>
                 <Link
                   href={`/boxes/${featured.card.box_id}`}
-                  style={{ fontSize: '17px', color: 'var(--ink)', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
+                  // オーバーレイのカードリンクより上に出す（でないとクリックが吸われる）
+                  style={{ position: 'relative', zIndex: 2, fontSize: '17px', color: 'var(--ink)', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
                 >
                   {featuredBox?.box_name ?? featured.card.box_id}
                 </Link>
@@ -374,7 +404,7 @@ export default function TopPage() {
               )}
             </div>
           </div>
-        </Link>
+        </div>
       )}
 
       {/* オリパ案件バナー（A8 / PR） */}

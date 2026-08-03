@@ -207,7 +207,17 @@ export default function CardSentiment({
       {total > 0 && (
         <div style={{ display: 'flex', height: '10px', borderRadius: '5px', overflow: 'hidden', border: '1px solid var(--hair)', marginBottom: '16px' }}>
           {STANCES.map(s => (
-            <div key={s} style={{ width: `${pct[s]}%`, background: STANCE_COLOR[s] }} />
+            <div
+              key={s}
+              style={{
+                width: `${pct[s]}%`,
+                background: STANCE_COLOR[s],
+                // 票が入って割合が変わったとき、幅がぬるっと動くようにする。
+                // ここは scaleX ではなく width を遷移させる（3本が隣り合っていて、
+                // scaleX だと隙間が空いてしまうため）
+                transition: 'width 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
           ))}
         </div>
       )}

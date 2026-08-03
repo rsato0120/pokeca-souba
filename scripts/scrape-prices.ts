@@ -60,7 +60,15 @@ const ON_SALE_MAX_PAGES = 3
 //       検索の絞り込みにならないが、"233/193" は出品タイトルにほぼ必ず書かれていて効く。
 //   (2) 返ってきた出品を価格側と**同じ関門**（isExcluded / matchesCardNo）に通し、
 //       残った数を数える。ページをめくって実数で数え、上限を超えた分だけ採用率で外挿する。
-async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice = 0, cardNo: CardNo | null = null): Promise<OnSaleResult> {
+async function getMercariOnSale(
+  browser: Browser,
+  searchQuery: string,
+  minPrice = 0,
+  cardNo: CardNo | null = null,
+  // タイトルに対する追加条件。BOXはカード番号が無く番号照合が使えないので、
+  // 「弾名が書かれていること」「BOX表記があること」をここで担保する。
+  titleMust: ((title: string) => boolean) | null = null,
+): Promise<OnSaleResult> {
   const keyword = encodeURIComponent(searchQuery)
   const baseUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
 
@@ -101,6 +109,7 @@ async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice 
     // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
     const keep = (i: MercariItem) =>
       !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice)
+      && (titleMust == null || titleMust(i.name))
 
     let seen = first.items.length
     let kept = first.items.filter(keep).length
@@ -289,7 +298,10 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
 }
 
 // Mercari sold_out prices（BOX専用フォールバック）
-const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ', 'コンプ', '全種', 'セット', '複数', '大量', 'カートン']
+// 「サプライのみ」「プロモカードなし」はスペシャルBOXから目当てのカードを抜いた**別商品**で、
+// 実勢が1/5以下になる（ポケセン福岡: 本体¥17,654 に対し ¥1,300〜4,000 で並ぶ）。
+// 相場にも件数にも混ぜてはいけない。
+const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ', 'コンプ', '全種', 'セット', '複数', '大量', 'カートン', 'サプライのみ', 'プロモなし', 'プロモ無し', 'プロモカードなし']
 const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[1-9][0-9]+\s*枚/, /[2-9０-９]\s*枚/, /[2-9０-９]\s*[点種]/, /[2-9０-９]\s*(BOX|ボックス|箱)/i, /[1-9][0-9]+\s*(BOX|ボックス|箱)/i]
 
 // レアリティ表記をトークンとして数える（"MEGA" の中の "MA" 等に部分一致しないよう境界を見る）
@@ -360,14 +372,51 @@ function extractNoPairs(title: string): Array<{ no: number; total: number }> {
 //   （出品最安 ¥499,999 より安い成約平均＝ありえない状態）。
 //   同名の兄弟カードが居るなら「番号が書いてあるタイトルだけ」を採用する。件数が足りなければ
 //   スキップ（既存価格を維持）する方が、別カードの値段を出すよりましという判断。
+// 出品者が混同しやすいレアリティの組。この組が同じ弾に同居しているカードは、
+// タイトルのレアリティ表記を版の根拠にしてはいけない（SA版に「SR」と書く出品が多い）。
+// AR⊂SAR・UR⊂MUR は単独トークン照合で防げるが、SR⇔SA は**書き間違いそのもの**なので
+// 文字列の工夫では防げず、番号を必須にするしかない。
+const CONFUSABLE_RARITY_PAIRS = [['SR', 'SA'], ['SR', 'SAR'], ['HR', 'SA']]
+
+function isConfusable(a: string, b: string): boolean {
+  return CONFUSABLE_RARITY_PAIRS.some(([x, y]) => (a === x && b === y) || (a === y && b === x))
+}
+
+/** レアリティが単独トークンとして書かれているか（"MA" が "MEGA" に部分一致しないように） */
+function hasRarityToken(title: string, rarity: string): boolean {
+  return new RegExp(`(^|[^A-Za-z])${rarity}([^A-Za-z]|$)`).test(title.toUpperCase())
+}
+
 function matchesCardNo(title: string, card: CardNo | null): boolean {
   if (card == null) return true
   const sameSet = extractNoPairs(title).filter(p => p.total === card.total)
-  if (sameSet.length === 0) return !card.strict
-  return sameSet.some(p => p.no === card.no)
+  if (sameSet.length > 0) return sameSet.some(p => p.no === card.no)
+  if (!card.strict) return true
+
+  // ── strict の救済（2026-08-04）──
+  // 番号が書いていなくても、**このカードのレアリティだけ**が明記されていれば版は確定する。
+  // これが無いと「メガユキメノコex MA」のように番号を書かない出品が全部落ち、
+  // 46件中44件が消えてサンプル下限割れ＝価格スキップになっていた（出品件数も道連れで欠測）。
+  // 救済の条件は厳しくする:
+  //   ・自分のレアリティが単独トークンで書かれている
+  //   ・兄弟のレアリティが1つも書かれていない（両方書いてある曖昧な出品は採らない）
+  //   ・兄弟に「混同されやすい組」が居ない（SR⇔SA など。ここは従来どおり番号必須のまま）
+  if (!card.rarity || card.siblingRarities == null) return false
+  if (card.siblingRarities.some(r => isConfusable(card.rarity!, r))) return false
+  if (!hasRarityToken(title, card.rarity)) return false
+  if (card.siblingRarities.some(r => hasRarityToken(title, r))) return false
+  return true
 }
 
-interface CardNo { no: number; total: number; strict?: boolean }
+interface CardNo {
+  no: number
+  total: number
+  strict?: boolean
+  /** このカードのレアリティ（strict の救済判定に使う） */
+  rarity?: string
+  /** 同じ弾の同名カードのレアリティ一覧（自分を除く） */
+  siblingRarities?: string[]
+}
 
 // "073/067" → {no:73,total:67}。PROMO の "260/SV-P" など数字/数字でないものは null（照合しない）
 function parseCardNo(cardNo: string | undefined): CardNo | null {
@@ -982,13 +1031,51 @@ async function scrapeCard(
   await new Promise(r => setTimeout(r, 2000 + Math.random() * 2000))
 }
 
+// BOXの出品件数をタイトルで絞る条件（2026-08-04）。
+// カードは card_no で版を分離できるがBOXには番号が無く、メルカリの曖昧一致で
+//   ・別弾（"ストームエメラルダ シュリンクなし BOX" の検索に "MEGA アビスアイ BOX シュリンク無し"）
+//   ・BOXでない出品（"ポケモンカードゲーム ストームエメラルダ" だけの単品）
+//   ・シュリンクあり/なしの取り違え
+// が件数に乗って ¥1,109件 のような実態離れした数字になっていた。
+//
+// シュリンクの判定は「なし」を先に見る。"シュリンクなし" は "シュリンク" を含むので
+// 単純な包含判定だと「あり」にも一致してしまう。
+// alts: このいずれかが書かれていること（"福岡" と "フクオカ" のような表記ゆれを許すためOR）
+// forbidden: これが書かれていたら不採用。姉妹商品（他地域のスペシャルBOX）を弾くのに使う。
+//   3地域まとめ売りは "トウホク ヒロシマ フクオカ" のように全部書くので、
+//   「自分の地域が書いてある」だけでは通ってしまう。カード側で兄弟レアリティを見るのと同じ考え方。
+function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden: string[] = []): (title: string) => boolean {
+  // 出品タイトルは弾名に空白や中黒を挟むことが多い（"ストーム エメラルダ"）ので詰めて比較する
+  const squash = (s: string) => s.replace(/[\s　・]/g, '')
+  const needles = alts.map(squash).filter(n => n !== '')
+  const banned = forbidden.map(squash).filter(n => n !== '')
+  const NO_SHRINK = /シュリンク\s*(なし|無し|無|レス)/
+  const HAS_SHRINK = /シュリンク\s*(付|あり|有)/
+
+  return (title: string) => {
+    const flat = squash(title)
+    if (needles.length > 0 && !needles.some(n => flat.includes(n))) return false
+    if (banned.some(n => flat.includes(n))) return false
+    // 「BOX/ボックス/箱」表記が無いものは単品・パラパラの可能性が高いので数えない
+    if (!/BOX|ＢＯＸ|ボックス|箱/i.test(title)) return false
+    if (shrink === 'no') return NO_SHRINK.test(title)
+    if (shrink === 'yes') return HAS_SHRINK.test(title) && !NO_SHRINK.test(title)
+    return true
+  }
+}
+
 async function scrapeBox(
   browser: Browser,
   id: string,
   searchQuery: string,
   label: string,
   date: string,
-  stats: { succeeded: number; skipped: number; failed: number }
+  stats: { succeeded: number; skipped: number; failed: number },
+  // 出品件数を絞るための弾名（表記ゆれをORで許す）とシュリンク種別。
+  // 成約側の検索クエリはこれまでどおりで、ここは件数の数え方だけに効く。
+  titleAlts: string[],
+  shrink: 'any' | 'yes' | 'no',
+  titleForbidden: string[] = []
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
@@ -1023,7 +1110,9 @@ async function scrapeBox(
     avg = Math.round((boxLow + boxHigh) / 2)
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
-    const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4))
+    const onSale = await getMercariOnSale(
+      browser, onSaleQuery, Math.round(avg * 0.4), null, boxTitleFilter(titleAlts, shrink, titleForbidden),
+    )
 
     // ★カードと同じ関門を通す。BOXはこれまで無防備で、成約が薄い弾で検索窓が90日超に
     // 拡張されると古い高値が混ざり +61% の偽の急騰が出ていた（蒼空ストリーム シュリンクあり）
@@ -1078,14 +1167,25 @@ async function main() {
   // 同じ弾に同名カードが複数ある(SR/SA/HR等)なら、そのカード群は番号必須で照合する。
   // 番号なしタイトルを通すと、安い方が高い方を（またはその逆で）汚染するため。
   const siblingCount = new Map<string, number>()
+  // 同名カードのレアリティ一覧も持つ。番号を書かない出品を「レアリティが一意なら採る」と
+  // 救済するのに使う（matchesCardNo 参照）
+  const siblingRarities = new Map<string, string[]>()
   for (const card of getAllCards()) {
     const key = `${card.box_id}|${card.card_name}`
     siblingCount.set(key, (siblingCount.get(key) ?? 0) + 1)
+    siblingRarities.set(key, [...(siblingRarities.get(key) ?? []), card.rarity])
   }
-  const cardNoFor = (card: { box_id: string; card_name: string; card_no?: string }): CardNo | null => {
+  const cardNoFor = (card: { box_id: string; card_name: string; card_no?: string; rarity: string }): CardNo | null => {
     const no = parseCardNo(card.card_no)
     if (!no) return null
-    return { ...no, strict: (siblingCount.get(`${card.box_id}|${card.card_name}`) ?? 0) > 1 }
+    const key = `${card.box_id}|${card.card_name}`
+    const others = (siblingRarities.get(key) ?? []).filter(r => r !== card.rarity)
+    return {
+      ...no,
+      strict: (siblingCount.get(key) ?? 0) > 1,
+      rarity: card.rarity,
+      siblingRarities: others,
+    }
   }
 
   try {
@@ -1105,11 +1205,11 @@ async function main() {
       for (const box of boxes) {
         // 混在系列（後方互換・予想の入力・変異ファイルが無い間のフォールバック表示に使う）
         // "1BOX" を明示して複数BOXロットを排除
-        await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`, date, stats)
+        await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`, date, stats, [box.box_name], 'any')
         // シュリンクあり/なしを分けて取得（相場が別物なので混ぜると実勢とズレる）。
         // Mercari はキーワードをトークンAND照合するので「シュリンク付き」/「シュリンクなし」で分離できる。
-        await scrapeBox(browser, `box-${box.box_id}-shrink`, `${box.box_name} 未開封 シュリンク付き 1BOX`, `${box.box_name} シュリンクあり`, date, stats)
-        await scrapeBox(browser, `box-${box.box_id}-noshrink`, `${box.box_name} 未開封 シュリンクなし 1BOX`, `${box.box_name} シュリンクなし`, date, stats)
+        await scrapeBox(browser, `box-${box.box_id}-shrink`, `${box.box_name} 未開封 シュリンク付き 1BOX`, `${box.box_name} シュリンクあり`, date, stats, [box.box_name], 'yes')
+        await scrapeBox(browser, `box-${box.box_id}-noshrink`, `${box.box_name} 未開封 シュリンクなし 1BOX`, `${box.box_name} シュリンクなし`, date, stats, [box.box_name], 'no')
       }
     }
 
@@ -1119,7 +1219,13 @@ async function main() {
       console.log('\n── セット商品（スペシャルBOX等） ──')
       for (const [boxId, products] of setBoxEntries) {
         for (const p of products) {
-          await scrapeBox(browser, `box-${boxId}-${p.setId}`, p.query, `${boxMap.get(boxId) ?? boxId} ${p.label}セット`, date, stats)
+          // 同じ弾の他地域セットの名前は「書いてあったら不採用」に回す。
+          // 3地域まとめ売りが各地域の件数に3重計上されるのを防ぐ
+          const others = products.filter(o => o.setId !== p.setId).flatMap(o => o.titleAny ?? [o.label])
+          await scrapeBox(
+            browser, `box-${boxId}-${p.setId}`, p.query, `${boxMap.get(boxId) ?? boxId} ${p.label}セット`,
+            date, stats, p.titleAny ?? [p.label], 'any', others,
+          )
         }
       }
     }

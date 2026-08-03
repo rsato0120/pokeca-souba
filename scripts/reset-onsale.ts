@@ -26,12 +26,15 @@ import path from 'path'
 
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 const dry = process.argv.includes('--dry')
+// ファイル名の接頭辞で対象を絞れる（例: `box-` で未開封BOX/セットだけリセット）。
+// カードとBOXでは件数の数え方を変えた時期が違うので、片方だけ established し直せる必要がある。
+const prefix = process.argv.slice(2).find(a => !a.startsWith('--')) ?? ''
 
 let files = 0
 let recordsCleared = 0
 const samples: string[] = []
 
-for (const name of fs.readdirSync(pricesDir).filter(f => f.endsWith('.json'))) {
+for (const name of fs.readdirSync(pricesDir).filter(f => f.endsWith('.json') && f.startsWith(prefix))) {
   const filePath = path.join(pricesDir, name)
   let data: { card_id: string; history: Array<Record<string, unknown>> }
   try { data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) } catch { continue }
@@ -52,7 +55,7 @@ for (const name of fs.readdirSync(pricesDir).filter(f => f.endsWith('.json'))) {
   if (!dry) fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 }
 
-console.log(`${dry ? '[dry] ' : ''}${files}ファイル / ${recordsCleared}レコードから on_sale を除去`)
+console.log(`${dry ? '[dry] ' : ''}${prefix ? `[${prefix}*] ` : ''}${files}ファイル / ${recordsCleared}レコードから on_sale を除去`)
 console.log('例:')
 for (const s of samples) console.log(`  ${s}`)
 if (dry) console.log('\n実行するには --dry を外してください')

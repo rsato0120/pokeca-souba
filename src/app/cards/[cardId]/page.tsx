@@ -9,6 +9,7 @@ import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
 import CardSentiment from '@/components/CardSentiment'
 import OripaBanner from '@/components/OripaBanner'
+import CountUp from '@/components/CountUp'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -379,7 +380,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               <div>
                 <div className="stat-label">{avgSourceLabel}</div>
                 <span className="stat-value" style={{ color: 'var(--gold)' }}>
-                  {latestAvg != null ? `¥${latestAvg.toLocaleString()}` : '—'}
+                  {latestAvg != null ? <CountUp value={latestAvg} prefix="¥" /> : '—'}
                 </span>
               </div>
               {latestPsa10 != null && (
@@ -391,7 +392,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                     )}
                   </div>
                   <span className="stat-value" style={{ color: '#6c8ebf' }}>
-                    ¥{latestPsa10.toLocaleString()}
+                    <CountUp value={latestPsa10} prefix="¥" />
                   </span>
                 </div>
               )}
@@ -619,10 +620,13 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           { pct: overall.up_pct, bg: 'var(--up)', label: `↑ ${overall.up_pct}%` },
           { pct: overall.flat_pct, bg: 'var(--flat)', label: `→ ${overall.flat_pct}%` },
           { pct: overall.down_pct, bg: 'var(--down)', label: `↓ ${overall.down_pct}%` },
-        ].map(({ pct, bg, label }) => (
+        ].map(({ pct, bg, label }, i) => (
           <div
             key={label}
+            // 左から伸びる。3本を少しずつ遅らせると「積み上がっていく」ように見える
+            className="anim-grow"
             style={{
+              animationDelay: `${i * 0.09}s`,
               width: `${pct}%`,
               background: bg,
               display: 'flex',

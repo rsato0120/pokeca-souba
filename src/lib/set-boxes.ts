@@ -15,6 +15,10 @@ export interface SetProduct {
   cardId: string    // 対応するカードの slug（行から詳細へリンク）
   query: string     // Mercari 成約検索クエリ（未開封セット商品を狙う）
   listPrice?: number // 定価（円）。実勢が取れない時の下限表示に使う
+  // 出品**件数**を数えるときにタイトルへ要求する語（いずれか1つ含めばよい）。
+  // 検索の曖昧一致で他地域・単品まで件数に乗るのを防ぐ（フクオカが839件になっていた）。
+  // 表記ゆれがあるので漢字とカナの両方を並べる。
+  titleAny?: string[]
 }
 
 // boxId -> セット商品一覧
@@ -26,6 +30,7 @@ export const SET_BOXES: Record<string, SetProduct[]> = {
       cardId: 'pokecen-pikachu-tohoku',
       query: 'ポケモンセンター 東北 スペシャルBOX 未開封',
       listPrice: 2090,
+      titleAny: ['東北', 'トウホク'],
     },
     {
       setId: 'hiroshima',
@@ -33,6 +38,7 @@ export const SET_BOXES: Record<string, SetProduct[]> = {
       cardId: 'pokecen-pikachu-hiroshima',
       query: 'ポケモンセンター 広島 スペシャルBOX 未開封',
       listPrice: 2090,
+      titleAny: ['広島', 'ヒロシマ'],
     },
     {
       setId: 'fukuoka',
@@ -40,6 +46,7 @@ export const SET_BOXES: Record<string, SetProduct[]> = {
       cardId: 'pokecen-pikachu-fukuoka',
       query: 'ポケモンセンター 福岡 スペシャルBOX 未開封',
       listPrice: 2090,
+      titleAny: ['福岡', 'フクオカ'],
     },
   ],
 }

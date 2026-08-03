@@ -468,3 +468,74 @@ a:hover {
     padding: 0 12px;
   }
 }
+
+/* ─────────────────────────────────────────────
+   相場ティッカー（トップ最上部の流れる帯）
+   ───────────────────────────────────────────── */
+.ticker {
+  overflow: hidden;
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  background: var(--bg2);
+  margin-bottom: var(--sp-5);
+  /* 端をフェードさせて「切れている」のではなく「続いている」ように見せる */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  /* 2周ぶん描いて -50%（＝1周ぶん）動かすと継ぎ目が消える */
+  animation: ticker-scroll 90s linear infinite;
+}
+
+/* 読んでいる最中に流れ去らないよう、ホバーとフォーカスで止める */
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 9px 18px;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+  color: var(--ink-dim);
+  border-right: 1px solid var(--hair);
+}
+.ticker-item:hover { background: var(--panel); }
+.ticker-mark { font-size: 9px; }
+.ticker-name { color: var(--ink); font-weight: 600; }
+.ticker-rarity { color: var(--gold); font-size: 10px; }
+.ticker-price { color: var(--ink-dim); }
+
+/* ─────────────────────────────────────────────
+   バーの伸びるアニメーション
+   幅は既にインラインstyleで決まっているので、scaleX を 0→1 にするだけでよい
+   （width をアニメーションさせると再レイアウトが走る）
+   ───────────────────────────────────────────── */
+.anim-grow {
+  transform-origin: left center;
+  animation: grow-x 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* 動きが苦手な人・OS設定で減らしている人には動かさない。
+   ティッカーは静止した一覧として、バーは最初から最終形で見えるようにする */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .anim-grow { animation: none; }
+}
