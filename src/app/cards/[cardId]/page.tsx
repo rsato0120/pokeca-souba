@@ -644,7 +644,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       </p>
 
       {/* ── みんなの予想（投票・Supabase） ── */}
-      <CardSentiment cardId={cardId} ai={{ up: overall.up_pct, down: overall.down_pct }} />
+      <CardSentiment cardId={cardId} ai={{ up: overall.up_pct, flat: overall.flat_pct, down: overall.down_pct }} />
 
       {/* ── コレクター需要（観賞・保有価値） ── */}
       <div

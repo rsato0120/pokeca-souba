@@ -2,20 +2,32 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { getSupabase } from '@/lib/supabase'
+import { STANCES, STANCE_LABEL, STANCE_COLOR, type Stance } from '@/lib/stance'
 
-// 「みんなの予想」＝カードごとの強気/弱気投票＋一言。
+// 「みんなの予想」＝カードごとの投票＋一言。
 // AI予想の真横に置いて対比させるのがこの機能の主眼なので、AI側の確率も受け取る。
+//
+// 選択肢は AI と同じ 上昇/横ばい/下落 の3区分（2026-08-04 に強気/弱気の2択から変更）。
+// 2択だと横ばい派の行き場が無く、その票が上昇か下落に押し込まれて分布が歪むため、
+// 「AIとみんなの予想を並べて見比べる」という主眼が成立しなかった。
 
-type Stance = 'bull' | 'bear'
 type VoteRow = { stance: Stance; comment: string | null; created_at: string }
 
 const MAX_COMMENT = 50
+const MAX_NAME = 16
 
-export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up: number; down: number } }) {
+export default function CardSentiment({
+  cardId,
+  ai,
+}: {
+  cardId: string
+  ai: { up: number; flat: number; down: number }
+}) {
   const sb = getSupabase()
   const [rows, setRows] = useState<VoteRow[] | null>(null)
   const [myStance, setMyStance] = useState<Stance | null>(null)
   const [myComment, setMyComment] = useState('')
+  const [myName, setMyName] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [savedNote, setSavedNote] = useState<string | null>(null)
@@ -43,6 +55,13 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
       setMyStance(mine.stance as Stance)
       setMyComment(mine.comment ?? '')
     }
+    // 表示名は的中率ランキングでしか使わないので、取れなくても投票は成立させる
+    const { data: profile } = await client
+      .from('profiles')
+      .select('display_name')
+      .eq('user_id', session.user.id)
+      .maybeSingle()
+    if (profile?.display_name) setMyName(profile.display_name)
   }, [cardId])
 
   useEffect(() => {
@@ -63,7 +82,7 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
     return data.user?.id ?? null
   }, [])
 
-  const submit = useCallback(async (stance: Stance, comment: string) => {
+  const submit = useCallback(async (stance: Stance, comment: string, name: string) => {
     if (!sb || busy) return
     setBusy(true); setError(null); setSavedNote(null)
     const uid = await ensureUserId(sb)
@@ -78,27 +97,44 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
       )
     if (error) {
       setError('投稿に失敗しました')
-    } else {
-      setMyStance(stance)
-      setSavedNote(myStance === null ? '投票しました' : '投票を更新しました')
-      await load(sb)
+      setBusy(false)
+      return
     }
+
+    // 表示名は任意。失敗しても投票は成立しているので、ここでの失敗は投票を巻き戻さない
+    const trimmedName = name.trim().slice(0, MAX_NAME)
+    if (trimmedName !== '') {
+      await sb.from('profiles').upsert({ user_id: uid, display_name: trimmedName }, { onConflict: 'user_id' })
+    }
+
+    setMyStance(stance)
+    setSavedNote(myStance === null ? '投票しました' : '投票を更新しました')
+    await load(sb)
     setBusy(false)
   }, [sb, busy, cardId, ensureUserId, load, myStance])
 
   // 環境変数が未設定のときは何も描画しない（サイト本体は無傷のまま）
   if (!sb) return null
 
-  const bull = rows?.filter(r => r.stance === 'bull').length ?? 0
-  const bear = rows?.filter(r => r.stance === 'bear').length ?? 0
-  const total = bull + bear
-  const bullPct = total > 0 ? Math.round((bull / total) * 100) : 0
-  const bearPct = total > 0 ? 100 - bullPct : 0
+  const counts = {
+    up: rows?.filter(r => r.stance === 'up').length ?? 0,
+    flat: rows?.filter(r => r.stance === 'flat').length ?? 0,
+    down: rows?.filter(r => r.stance === 'down').length ?? 0,
+  }
+  const total = counts.up + counts.flat + counts.down
+  // 合計をぴったり100%にするため、最後の区分は引き算で出す（四捨五入で101%になるのを防ぐ）
+  const pct = {
+    up: total > 0 ? Math.round((counts.up / total) * 100) : 0,
+    flat: total > 0 ? Math.round((counts.flat / total) * 100) : 0,
+    down: 0,
+  }
+  pct.down = total > 0 ? Math.max(0, 100 - pct.up - pct.flat) : 0
+
   const comments = (rows ?? []).filter(r => r.comment && r.comment.trim() !== '').slice(0, 8)
 
   const voteBtn = (stance: Stance): React.CSSProperties => {
     const active = myStance === stance
-    const accent = stance === 'bull' ? 'var(--up)' : 'var(--down)'
+    const accent = STANCE_COLOR[stance]
     return {
       flex: 1,
       padding: '10px 12px',
@@ -115,6 +151,8 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
     }
   }
 
+  const aiPct: Record<Stance, number> = { up: ai.up, flat: ai.flat, down: ai.down }
+
   return (
     <div style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: '8px', padding: '20px', marginBottom: '22px' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '14px', gap: '8px', flexWrap: 'wrap' }}>
@@ -124,25 +162,30 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
         </span>
       </div>
 
-      {/* AI予想との対比。この並びが機能の主眼なので票が0でも枠は出す */}
+      {/* AI予想との対比。この並びが機能の主眼なので票が0でも枠は出す。
+          3区分を同じ順・同じ色で並べることで、AIと人の食い違いが一目で分かる */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
         <div style={{ border: '1px solid var(--hair)', borderRadius: '6px', padding: '10px 12px' }}>
           <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)', letterSpacing: '0.08em', marginBottom: '6px' }}>AI予想</div>
-          <div style={{ fontFamily: 'var(--mono)', fontSize: '13px' }}>
-            <span style={{ color: 'var(--up)', fontWeight: 700 }}>↑ {ai.up}%</span>
-            <span style={{ color: 'var(--down)', fontWeight: 700, marginLeft: '10px' }}>↓ {ai.down}%</span>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            {STANCES.map(s => (
+              <span key={s} style={{ color: STANCE_COLOR[s], fontWeight: 700 }}>
+                {STANCE_LABEL[s]} {aiPct[s]}%
+              </span>
+            ))}
           </div>
         </div>
         <div style={{ border: '1px solid var(--hair)', borderRadius: '6px', padding: '10px 12px' }}>
           <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)', letterSpacing: '0.08em', marginBottom: '6px' }}>みんなの予想</div>
-          <div style={{ fontFamily: 'var(--mono)', fontSize: '13px' }}>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
             {total === 0 ? (
               <span style={{ color: 'var(--ink-faint)' }}>まだ票がありません</span>
             ) : (
-              <>
-                <span style={{ color: 'var(--up)', fontWeight: 700 }}>強気 {bullPct}%</span>
-                <span style={{ color: 'var(--down)', fontWeight: 700, marginLeft: '10px' }}>弱気 {bearPct}%</span>
-              </>
+              STANCES.map(s => (
+                <span key={s} style={{ color: STANCE_COLOR[s], fontWeight: 700 }}>
+                  {STANCE_LABEL[s]} {pct[s]}%
+                </span>
+              ))
             )}
           </div>
         </div>
@@ -150,21 +193,21 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
 
       {total > 0 && (
         <div style={{ display: 'flex', height: '10px', borderRadius: '5px', overflow: 'hidden', border: '1px solid var(--hair)', marginBottom: '16px' }}>
-          <div style={{ width: `${bullPct}%`, background: 'var(--up)' }} />
-          <div style={{ width: `${bearPct}%`, background: 'var(--down)' }} />
+          {STANCES.map(s => (
+            <div key={s} style={{ width: `${pct[s]}%`, background: STANCE_COLOR[s] }} />
+          ))}
         </div>
       )}
 
       <div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
-        <button type="button" disabled={busy} onClick={() => submit('bull', myComment)} style={voteBtn('bull')}>
-          強気 {myStance === 'bull' ? '✓' : ''}
-        </button>
-        <button type="button" disabled={busy} onClick={() => submit('bear', myComment)} style={voteBtn('bear')}>
-          弱気 {myStance === 'bear' ? '✓' : ''}
-        </button>
+        {STANCES.map(s => (
+          <button key={s} type="button" disabled={busy} onClick={() => submit(s, myComment, myName)} style={voteBtn(s)}>
+            {STANCE_LABEL[s]} {myStance === s ? '✓' : ''}
+          </button>
+        ))}
       </div>
 
-      {/* 一言は任意。投票済みの人だけに出して、投票の心理的ハードルを上げない */}
+      {/* 一言・表示名は任意。投票済みの人だけに出して、投票の心理的ハードルを上げない */}
       {myStance && (
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap' }}>
           <input
@@ -179,10 +222,22 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
               color: 'var(--ink)', fontSize: '13px',
             }}
           />
+          <input
+            type="text"
+            maxLength={MAX_NAME}
+            value={myName}
+            placeholder={`表示名（任意・${MAX_NAME}字まで）`}
+            onChange={e => setMyName(e.target.value)}
+            style={{
+              flex: '0 1 150px', padding: '7px 10px', borderRadius: '6px',
+              border: '1px solid var(--hair)', background: 'var(--bg2)',
+              color: 'var(--ink)', fontSize: '13px',
+            }}
+          />
           <button
             type="button"
             disabled={busy}
-            onClick={() => submit(myStance, myComment)}
+            onClick={() => submit(myStance, myComment, myName)}
             style={{
               padding: '7px 16px', borderRadius: '6px', border: '1px solid var(--gold)',
               background: 'transparent', color: 'var(--gold)', fontFamily: 'var(--mono)',
@@ -206,11 +261,11 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
             <div key={`${c.created_at}-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'baseline', padding: '5px 0' }}>
               <span style={{
                 fontFamily: 'var(--mono)', fontSize: '10px', fontWeight: 700, flexShrink: 0,
-                color: c.stance === 'bull' ? 'var(--up)' : 'var(--down)',
-                border: `1px solid ${c.stance === 'bull' ? 'var(--up)' : 'var(--down)'}`,
+                color: STANCE_COLOR[c.stance],
+                border: `1px solid ${STANCE_COLOR[c.stance]}`,
                 borderRadius: '4px', padding: '1px 5px',
               }}>
-                {c.stance === 'bull' ? '強気' : '弱気'}
+                {STANCE_LABEL[c.stance]}
               </span>
               <span style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.6 }}>{c.comment}</span>
             </div>
@@ -220,6 +275,7 @@ export default function CardSentiment({ cardId, ai }: { cardId: string; ai: { up
 
       <p style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '12px', lineHeight: 1.7 }}>
         投票はログイン不要（1カード1票・押し直しで変更できます）。投稿内容は他の閲覧者にも表示されます。
+        表示名を入れると<a href="/ranking" style={{ color: 'var(--gold)' }}>的中率ランキング</a>に名前が出ます。
       </p>
     </div>
   )

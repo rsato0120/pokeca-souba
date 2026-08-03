@@ -16,6 +16,17 @@ create table if not exists public.card_votes (
   unique (card_id, user_id)
 );
 
+-- ── 2026-08-04: 強気/弱気の2択 → AIと同じ 上昇/横ばい/下落 の3択へ ──
+-- AI予想は up_pct / flat_pct / down_pct の3シナリオで出しているのに、投票だけ2択だと
+-- 「AIとみんなの予想を並べて見比べる」というこの機能の主眼が成立しない（横ばい派の行き場が
+-- 無く、その票が上昇か下落のどちらかに押し込まれて分布が歪む）。
+-- 既存票は bull→up / bear→down に移送する。check制約を先に外さないと update が弾かれる。
+alter table public.card_votes drop constraint if exists card_votes_stance_check;
+update public.card_votes set stance = 'up'   where stance = 'bull';
+update public.card_votes set stance = 'down' where stance = 'bear';
+alter table public.card_votes
+  add constraint card_votes_stance_check check (stance in ('up', 'flat', 'down'));
+
 -- カード詳細ページは常に card_id で引く
 create index if not exists card_votes_card_id_idx
   on public.card_votes (card_id, created_at desc);
@@ -60,3 +71,62 @@ create policy "update own vote"
 create policy "delete own vote"
   on public.card_votes for delete
   using (auth.uid() = user_id);
+
+-- ─────────────────────────────────────────────────────────────
+-- 表示名（2026-08-04 追加・的中率ランキング用）
+-- ─────────────────────────────────────────────────────────────
+-- 匿名サインインのユーザーはUUIDしか持たないので、ランキングに出す名前をここに置く。
+-- 未設定なら画面側で「ゲスト+UUID先頭4桁」を出すため、登録は任意のままでよい。
+create table if not exists public.profiles (
+  user_id      uuid primary key references auth.users(id) on delete cascade,
+  display_name text not null check (char_length(display_name) between 1 and 16),
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now()
+);
+
+drop trigger if exists profiles_touch_updated_at on public.profiles;
+create trigger profiles_touch_updated_at
+  before update on public.profiles
+  for each row execute function public.touch_updated_at();
+
+alter table public.profiles enable row level security;
+
+drop policy if exists "profiles are readable by everyone" on public.profiles;
+drop policy if exists "insert own profile"                on public.profiles;
+drop policy if exists "update own profile"                on public.profiles;
+
+create policy "profiles are readable by everyone"
+  on public.profiles for select
+  using (true);
+
+create policy "insert own profile"
+  on public.profiles for insert
+  with check (auth.uid() = user_id);
+
+create policy "update own profile"
+  on public.profiles for update
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+-- ─────────────────────────────────────────────────────────────
+-- カード別の集計ビュー（2026-08-04 追加・トップの「みんなの予想 注目カード」用）
+-- ─────────────────────────────────────────────────────────────
+-- トップページで294枚ぶんの票を1枚ずつ引くと往復が多すぎるので、集計はDB側で1回にまとめる。
+-- security_invoker=true にして card_votes のRLS（読みは全開放）をそのまま効かせる。
+-- これを付けないとビューは所有者権限で動き、RLSを迂回する隠れた抜け道になる。
+drop view if exists public.card_vote_tallies;
+create view public.card_vote_tallies with (security_invoker = true) as
+  select
+    card_id,
+    count(*)                                        as total,
+    count(*) filter (where stance = 'up')           as up_votes,
+    count(*) filter (where stance = 'flat')         as flat_votes,
+    count(*) filter (where stance = 'down')         as down_votes,
+    max(updated_at)                                 as last_voted_at
+  from public.card_votes
+  group by card_id;
+
+grant select on public.card_vote_tallies to anon, authenticated;
+
+-- PostgRESTのスキーマキャッシュを更新（新しいテーブル/ビューが即座に見えるようにする）
+notify pgrst, 'reload schema';

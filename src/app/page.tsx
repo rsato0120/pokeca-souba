@@ -8,6 +8,7 @@ import type { SearchCard } from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
 import OripaBanner from '@/components/OripaBanner'
 import BuyPicks, { type BuyPick } from '@/components/BuyPicks'
+import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -33,6 +34,17 @@ export default function TopPage() {
     rarity: card.rarity,
     box_name: boxes.find((b) => b.box_id === card.box_id)?.box_name ?? card.box_id,
     up_pct: getForecast(getCardSlug(card))?.overall.up_pct ?? null,
+  }))
+
+  // 「みんなの予想 注目カード」用の対応表。どのカードに票が入っているかはビルド時に
+  // 分からないので、id→表示情報を丸ごと渡してクライアント側で突き合わせる。
+  // 画像URLまで含めても数十KBに収まるので、票のたびに再ビルドするより軽い。
+  const pickCards: PickCard[] = cards.map((card) => ({
+    id: getCardSlug(card),
+    name: card.card_name,
+    rarity: card.rarity,
+    image: card.image_url ?? null,
+    aiUp: getForecast(getCardSlug(card))?.overall.up_pct ?? null,
   }))
 
   // 価格変化・需給データ計算
@@ -434,6 +446,11 @@ export default function TopPage() {
           })}
         </div>
       </div>
+
+      {/* ── 01b: みんなの予想 注目カード ──
+          AI予想ランキングの直後に置いて、AIと閲覧者の見立ての差がその場で見えるようにする。
+          票は Supabase にあるのでクライアント側で取得する（票が0のうちは自分で消える） */}
+      <CommunityPicks cards={pickCards} />
 
       {/* ── 本日の高値・安値更新 ── */}
       {(highUpdates.length > 0 || lowUpdates.length > 0) && (
