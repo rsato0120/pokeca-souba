@@ -33,43 +33,101 @@ function todayJST(): string {
 // 成約相場（sold_out）と分離することで、急騰（在庫減・出品価格上昇）と
 // 急落（在庫増・投げ売り）を区別できるようにする。
 interface OnSaleResult {
-  count: number | null     // 出品中の総件数（供給圧）
+  count: number | null     // 出品中の件数（供給圧）＝除外・番号照合を通した実数
   askLow: number | null    // 出品最安値帯（即購入できる床値・先行指標）
   askMid: number | null    // 出品中央値
 }
 
+// 件数のためにめくるページ数の上限。1ページ ≒ 100〜120件なので3ページで約300件まで実数で数えられる。
+// これを超える銘柄（現行弾のチェイス等）は打ち切って採用率で外挿する（下の getMercariOnSale 参照）。
+const ON_SALE_MAX_PAGES = 3
+
+// ⚠ meta.numFound を出品件数として保存してはいけない（2026-08-03 修正）
+//
+// numFound は**キーワードの曖昧一致でヒットした総数**であり、価格側で使っている除外
+// （まとめ売り・鑑定品・傷あり）も、同名別バージョンの番号照合も一切通っていない。
+// メルカリのキーワード検索はレアリティ表記を絞り込み条件として扱わないため、
+// 「カード名 + レアリティ + 弾名」で引くと**別レアリティの出品がそのまま総数に乗る**。
+//   実測（2026-08-03）:
+//     メガユキメノコex SAR(233/193) … 保存値158件 ⇔ 実数9件（¥300のRR出品が大量に混入）
+//     メガユキメノコex MA (224/193) … 保存値308件 ⇔ 実数32件
+//     メガリザードンXex MA(223/193) … 保存値936件 ⇔ 実数163件
+// カード詳細の「メルカリ出品中」がひと桁違う値を出すだけでなく、トップの
+// 「今買われている/売られているカード」も buy-signals も、この件数の前日比で並べている。
+//
+// 対策は2つで一組:
+//   (1) 検索キーワードを**カード番号**にする（呼び出し側 buildOnSaleQuery）。レアリティ表記は
+//       検索の絞り込みにならないが、"233/193" は出品タイトルにほぼ必ず書かれていて効く。
+//   (2) 返ってきた出品を価格側と**同じ関門**（isExcluded / matchesCardNo）に通し、
+//       残った数を数える。ページをめくって実数で数え、上限を超えた分だけ採用率で外挿する。
 async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice = 0, cardNo: CardNo | null = null): Promise<OnSaleResult> {
-  const page = await browser.newPage()
-  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   const keyword = encodeURIComponent(searchQuery)
-  // 価格昇順で取得 → meta.numFound で総件数、items で安値帯の出品相場を得る
-  const url = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
+  const baseUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
+
+  // 1ページ取得。ページ送りは meta.nextPageToken（空文字＝最終ページ）
+  async function fetchPage(token: string | null): Promise<{ items: MercariItem[]; total: number | null; next: string } | null> {
+    const page = await browser.newPage()
+    await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
+    try {
+      // .catch を即付与しないと、goto待機中(最大30s)に25sタイムアウトで reject した際
+      // 未処理Promiseリジェクトとなり try/catch を素通りしてプロセスごと落ちる
+      const responsePromise = page.waitForResponse(
+        r => r.url().includes('/v2/entities:search') && r.status() === 200,
+        { timeout: 25000 }
+      ).catch(() => null)
+      const url = token ? `${baseUrl}&page_token=${encodeURIComponent(token)}` : baseUrl
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
+      const response = await responsePromise
+      if (!response) return null
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let json: any = null
+      try { json = await response.json() } catch { return null }
+      if (!json) return null
+      const meta = json.meta ?? json.data?.meta ?? {}
+      const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
+      return {
+        items: json.items ?? json.data?.items ?? json.result?.items ?? [],
+        total: rawTotal != null && !isNaN(Number(rawTotal)) ? Number(rawTotal) : null,
+        next: typeof meta.nextPageToken === 'string' ? meta.nextPageToken : '',
+      }
+    } catch { return null }
+    finally { await page.close() }
+  }
+
   try {
-    // .catch を即付与しないと、goto待機中(最大30s)に25sタイムアウトで reject した際
-    // 未処理Promiseリジェクトとなり try/catch を素通りしてプロセスごと落ちる
-    const responsePromise = page.waitForResponse(
-      r => r.url().includes('/v2/entities:search') && r.status() === 200,
-      { timeout: 25000 }
-    ).catch(() => null)
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
-    const response = await responsePromise
-    if (!response) return { count: null, askLow: null, askMid: null }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let json: any = null
-    try { json = await response.json() } catch { return { count: null, askLow: null, askMid: null } }
-    if (!json) return { count: null, askLow: null, askMid: null }
+    const first = await fetchPage(null)
+    if (!first) return { count: null, askLow: null, askMid: null }
 
-    const meta = json.meta ?? json.data?.meta ?? {}
-    const rawTotal = meta.numFound ?? meta.total ?? json.numFound ?? json.totalCount
-    const count = rawTotal != null && !isNaN(Number(rawTotal)) && Number(rawTotal) > 0 ? Number(rawTotal) : null
-
-    // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）
-    const rawItems: MercariItem[] = json.items ?? json.data?.items ?? json.result?.items ?? []
     // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
-    const prices = rawItems
-      .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice))
-      .map(i => Number(i.price))
-      .sort((a, b) => a - b)
+    const keep = (i: MercariItem) =>
+      !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice)
+
+    let seen = first.items.length
+    let kept = first.items.filter(keep).length
+    let token = first.next
+    let pages = 1
+    while (token && pages < ON_SALE_MAX_PAGES) {
+      await new Promise(r => setTimeout(r, 2500 + Math.random() * 1500))
+      const next = await fetchPage(token)
+      if (!next) break
+      seen += next.items.length
+      kept += next.items.filter(keep).length
+      token = next.next
+      pages++
+    }
+
+    // 打ち切った場合だけ外挿する。価格昇順で読んでいる＝安い側にまとめ売りが偏るので
+    // 採用率は控えめに出る＝過大にならない方向に転ぶ。
+    let count: number | null = kept
+    if (token && first.total != null && seen > 0) {
+      count = Math.round(first.total * (kept / seen))
+    }
+    if (count != null && count <= 0) count = null
+
+    // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）。
+    // ⚠ ここは**1ページ目だけ**で計算する。ページを足すと高値側が入って ask_mid が上がり、
+    // 成約と突き合わせる価格ガードの基準が静かにずれるため、件数の修正と混ぜない。
+    const prices = first.items.filter(keep).map(i => Number(i.price)).sort((a, b) => a - b)
 
     let askLow: number | null = null
     let askMid: number | null = null
@@ -84,7 +142,6 @@ async function getMercariOnSale(browser: Browser, searchQuery: string, minPrice 
     }
     return { count, askLow, askMid }
   } catch { return { count: null, askLow: null, askMid: null } }
-  finally { await page.close() }
 }
 
 // スニーカーダンク: apparel_id をカード名+レアリティで検索
@@ -670,7 +727,10 @@ async function scrapeCard(
   cardName: string,
   rarity: string,
   boxName: string,
-    cardNo: CardNo | null
+    cardNo: CardNo | null,
+  // 出品検索に使う生の表記（"087/067"）。parseCardNo 後の数値だと先頭ゼロが落ちて
+  // 出品タイトルの表記と合わなくなるため、data の文字列をそのまま渡す。
+  cardNoStr: string | null
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
@@ -849,12 +909,17 @@ async function scrapeCard(
       return
     }
 
-    // 出品中はBOX名込みで検索（BOXコードM2/M4等は除外、BOX名は含めて他弾の同名カードを除外）
-    // プロモは一意なカード名のためBOX名不要。英字レアの代わりにカナ「プロモ」で件数を取る
-    const onSaleRarity = rarity === 'PROMO' ? 'プロモ' : rarity
+    // 出品中は**カード番号**で検索する（2026-08-03）。
+    // 「カード名 + レアリティ + 弾名」だとメルカリがレアリティ表記を絞り込みに使わないため、
+    // 同名の別レアリティ（SARの検索にRR）がまるごとヒットして件数がひと桁膨らんでいた。
+    // "233/193" は出品タイトルにほぼ必ず書かれており、版を確実に分離できる。
+    // 番号を書かない出品は取りこぼすが、そもそもどの版か特定できない出品なので数に入れない。
+    // プロモ（"260/SV-P" 等・番号が数字/数字でない）は従来どおりカード名＋「プロモ」で引く。
     const onSaleQuery = rarity === 'PROMO'
       ? `${cardName} プロモ`
-      : `${cardName} ${onSaleRarity} ${boxName}`.replace(/\s+/g, ' ').trim()
+      : cardNo != null && cardNoStr
+      ? `${cardName} ${cardNoStr}`
+      : `${cardName} ${rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
     const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
@@ -1032,7 +1097,7 @@ async function main() {
       const query = card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card))
+      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null)
     }
 
     if (boxes.length > 0) {

@@ -77,11 +77,18 @@ export function buildPrompt(
         ? Math.round(((latestSale - oldestSale) / Math.max(oldestSale, 1)) * 100)
         : null
 
-      const supplySignal = latestSale < 10
+      // しきい値は実データの四分位に合わせる（2026-08-03 再較正）。
+      // 旧値 10/30/80 は on_sale が meta.numFound（まとめ売り・鑑定品・別レアリティ込みの
+      // 曖昧一致ヒット数）だった頃の水準。件数を実数で数えるよう直したら全体が中央値で
+      // 1/3 に下がり、旧しきい値のままだと 54% のカードが「少ない/極めて少ない」に倒れて
+      // プロンプトが一律に強気へ寄る（逆に旧基準では 64% が「供給過多リスク」だった）。
+      // 実測分布（276枚・2026-08-03）: p25=14 / p50=28 / p75=58。
+      // 4区分がそれぞれ全体の 2〜3割になる位置に置き直し、ラベルの意味を元の粒度へ戻す。
+      const supplySignal = latestSale < 15
         ? '極めて少ない（市場タイト）'
         : latestSale < 30
         ? '少ない（需要優位）'
-        : latestSale < 80
+        : latestSale < 60
         ? '普通'
         : '多い（供給過多リスク）'
 
