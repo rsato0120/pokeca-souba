@@ -27,12 +27,27 @@ export type PickCard = {
   aiUp: number | null
 }
 
-// これ未満の票数は偏りが大きすぎるのでランキングに出さない。
-// 1票のカードが100%で最上位に来ると「みんなの予想」に見えない。
-const MIN_VOTES = 3
+// これ未満の票数は出さない。1票だけのカードは「みんなの予想」と呼べないため。
+//
+// ⚠ ここを3以上にすると節が事実上出てこない。実測（2026-08-04）で総票数21・1カード最大2票
+// なので、しきい値で足切りするより**少数票を不利に扱う並べ方**で対処する（下の smoothedUpRate）。
+const MIN_VOTES = 2
 const TOP_N = 5
 // AIと票の上昇率がこれ以上離れていたら「食い違い」として注記する
 const DIVERGENCE_PT = 25
+
+/**
+ * 並べ替えに使う上昇率。表示は生の割合だが、順位付けはこちらで行う。
+ *
+ * 生の割合でソートすると 2票2上昇(100%) が 20票17上昇(85%) を必ず上回り、
+ * ランキングが「票が少ないカード」で埋まる。上昇・下落それぞれに1票ぶんの
+ * 仮想票を足して（ラプラス平滑化）、票が少ないほど50%へ寄せる。
+ *   2/2  → 3/4  = 75%
+ *   17/20→ 18/22= 82%  ← 票数が多い方が上に来る
+ */
+function smoothedUpRate(upVotes: number, total: number): number {
+  return (upVotes + 1) / (total + 2)
+}
 
 export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
   const sb = getSupabase()
@@ -62,11 +77,11 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
       const card = byId.get(t.card_id)
       if (!card) return null   // 掲載終了カードの票は無視する
       const upPct = Math.round((t.up_votes / t.total) * 100)
-      return { card, tally: t, upPct }
+      return { card, tally: t, upPct, rank: smoothedUpRate(t.up_votes, t.total) }
     })
-    .filter((x): x is { card: PickCard; tally: Tally; upPct: number } => x !== null)
-    // 上昇率が同じなら票数が多い方を上に（1票差の偶然で順位が入れ替わらないように）
-    .sort((a, b) => b.upPct - a.upPct || b.tally.total - a.tally.total)
+    .filter((x): x is { card: PickCard; tally: Tally; upPct: number; rank: number } => x !== null)
+    // 平滑化した上昇率で並べる。同点なら票数が多い方を上に
+    .sort((a, b) => b.rank - a.rank || b.tally.total - a.tally.total)
     .slice(0, TOP_N)
 
   // 票が集まるまではセクションごと出さない。空欄が並ぶより存在しない方がよい
@@ -124,7 +139,7 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
         )}
       </div>
       <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)', marginTop: 'var(--sp-2)', lineHeight: 1.7 }}>
-        {MIN_VOTES}票以上集まったカードだけを並べています。カード詳細ページから誰でも投票できます。
+        {MIN_VOTES}票以上集まったカードを、票数が少ないほど控えめに評価して並べています。カード詳細ページから誰でも投票できます。
       </p>
     </div>
   )
