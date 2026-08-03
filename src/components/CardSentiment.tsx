@@ -101,14 +101,27 @@ export default function CardSentiment({
       return
     }
 
-    // 表示名は任意。失敗しても投票は成立しているので、ここでの失敗は投票を巻き戻さない
+    // 表示名は任意。ここで失敗しても投票は既に保存されているので巻き戻さず、
+    // 「投票は通ったが名前は保存できなかった」ことが分かる文言を出す。
+    let nameError: string | null = null
     const trimmedName = name.trim().slice(0, MAX_NAME)
     if (trimmedName !== '') {
-      await sb.from('profiles').upsert({ user_id: uid, display_name: trimmedName }, { onConflict: 'user_id' })
+      const { error: profileError } = await sb
+        .from('profiles')
+        .upsert({ user_id: uid, display_name: trimmedName }, { onConflict: 'user_id' })
+      if (profileError) {
+        // 23505=一意制約違反（他の人が使っている名前）, 23514=check違反（空白のみ/「ゲスト」始まり）
+        nameError = profileError.code === '23505'
+          ? `表示名「${trimmedName}」は既に他の方が使っています。別の名前にしてください（投票は保存済みです）`
+          : profileError.code === '23514'
+          ? 'その表示名は使えません（「ゲスト」で始まる名前は不可）。投票は保存済みです'
+          : '表示名を保存できませんでした（投票は保存済みです）'
+      }
     }
 
     setMyStance(stance)
-    setSavedNote(myStance === null ? '投票しました' : '投票を更新しました')
+    if (nameError) setError(nameError)
+    else setSavedNote(myStance === null ? '投票しました' : '投票を更新しました')
     await load(sb)
     setBusy(false)
   }, [sb, busy, cardId, ensureUserId, load, myStance])
@@ -275,7 +288,7 @@ export default function CardSentiment({
 
       <p style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '12px', lineHeight: 1.7 }}>
         投票はログイン不要（1カード1票・押し直しで変更できます）。投稿内容は他の閲覧者にも表示されます。
-        表示名を入れると<a href="/ranking" style={{ color: 'var(--gold)' }}>的中率ランキング</a>に名前が出ます。
+        表示名を入れると<a href="/ranking" style={{ color: 'var(--gold)' }}>的中率ランキング</a>に名前が出ます（先着順・他の方と同じ名前は使えません）。
       </p>
     </div>
   )

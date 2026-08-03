@@ -130,3 +130,27 @@ grant select on public.card_vote_tallies to anon, authenticated;
 
 -- PostgRESTのスキーマキャッシュを更新（新しいテーブル/ビューが即座に見えるようにする）
 notify pgrst, 'reload schema';
+
+-- ── 2026-08-04: 表示名の重複を禁止する ──
+-- 的中率ランキングは表示名でしか人を見分けられないので、同名が並ぶと誰が誰か分からない。
+-- 大文字小文字と前後の空白だけが違う名前は「同じ名前」とみなす（"Taro" と "taro " は衝突）。
+create unique index if not exists profiles_display_name_key
+  on public.profiles (lower(btrim(display_name)));
+
+-- 空白だけの名前と、未設定ユーザーの自動表示名「ゲストxxxxxx」を名乗ることを禁じる。
+-- 後者を許すと匿名の人になりすませてしまう。
+alter table public.profiles drop constraint if exists profiles_display_name_shape;
+alter table public.profiles
+  add constraint profiles_display_name_shape
+  check (btrim(display_name) <> '' and btrim(display_name) !~ '^ゲスト');
+
+notify pgrst, 'reload schema';
+
+-- 表示名を消せるように（card_votes と揃える）。delete ポリシーが無いとRLSが黙って拒否し、
+-- 「消したはずなのに名前が残り続ける」状態になる。
+drop policy if exists "delete own profile" on public.profiles;
+create policy "delete own profile"
+  on public.profiles for delete
+  using (auth.uid() = user_id);
+
+notify pgrst, 'reload schema';

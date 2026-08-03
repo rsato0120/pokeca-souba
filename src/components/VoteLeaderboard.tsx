@@ -13,8 +13,11 @@ import { FLAT_BAND_PCT } from '@/lib/stance'
 
 type Profile = { user_id: string; display_name: string }
 
+// 表示名を設定していない人の自動表示名。UUID先頭6桁＝約1600万通りで、
+// 未設定者どうしがぶつかる余地をほぼ潰す（設定済みの名前は profiles の一意索引で重複不可）。
+// この「ゲスト」始まりの名前は check 制約で自称できないようにしてある（なりすまし防止）。
 function guestName(userId: string): string {
-  return `ゲスト${userId.slice(0, 4)}`
+  return `ゲスト${userId.slice(0, 6)}`
 }
 
 export default function VoteLeaderboard({ prices, baseDate }: { prices: PriceMatrix; baseDate: string }) {
