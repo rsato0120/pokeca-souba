@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getForecast, getPriceHistory } from '@/lib/data'
 import PortfolioView, { type PortfolioCardData } from '@/components/PortfolioView'
+import KaitoriLink from '@/components/KaitoriLink'
 
 export const metadata: Metadata = {
   title: 'マイコレクション',
@@ -59,5 +60,11 @@ export default function PortfolioPage() {
     .filter(b => b.certainty === 'released')
     .map(b => ({ box_id: b.box_id, box_name: b.box_name }))
 
-  return <PortfolioView cards={portfolioCards} boxes={releasedBoxes} />
+  return (
+    <>
+      <PortfolioView cards={portfolioCards} boxes={releasedBoxes} />
+      {/* 買取導線（A8 / PR）。含み損益を見た直後＝売却を検討する動機が最も高い場所 */}
+      <KaitoriLink />
+    </>
+  )
 }

@@ -10,6 +10,7 @@ import CardCollectionControl from '@/components/CardCollectionControl'
 import CardSentiment from '@/components/CardSentiment'
 import SinceLastVisitBadge from '@/components/SinceLastVisitBadge'
 import OripaBanner from '@/components/OripaBanner'
+import KaitoriLink from '@/components/KaitoriLink'
 import CountUp from '@/components/CountUp'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
@@ -481,6 +482,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               </div>
             )
           })()}
+
+          {/* 買取導線（A8 / PR）。上の「探す」＝買う側に対して売る側の受け皿 */}
+          <KaitoriLink marginY={10} />
 
           {/* オリパ案件バナー（A8 / PR） */}
           <OripaBanner marginY={10} />
