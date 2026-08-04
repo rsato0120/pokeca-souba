@@ -12,7 +12,6 @@ import BuyPicks, { type BuyPick } from '@/components/BuyPicks'
 import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
 import PriceTicker, { type TickerItem } from '@/components/PriceTicker'
 import Sparkline from '@/components/Sparkline'
-import MarketHeatmap, { type HeatGroup } from '@/components/MarketHeatmap'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 
@@ -270,25 +269,6 @@ export default function TopPage() {
     }
   })
 
-  // ── ヒートマップ: 弾ごとに並べた全カードの前日比 ──
-  const heatGroups: HeatGroup[] = boxes
-    .filter((b) => b.certainty === 'released')
-    .map((b) => ({
-      boxId: b.box_id,
-      boxName: b.box_name,
-      cells: metrics
-        .filter((m) => m.card.box_id === b.box_id)
-        .sort((a, b2) => (b2.dayChange ?? -999) - (a.dayChange ?? -999))
-        .map((m) => ({
-          slug: m.slug,
-          name: m.card.card_name,
-          rarity: m.card.rarity,
-          mid: m.currentMid,
-          change: m.dayChange,
-        })),
-    }))
-    .filter((g) => g.cells.length > 0)
-
   // ── AI予想順位の前日比 ──
   // data/predictions に日次スナップショットがあるので、同じ式で前日の順位表を作り直して差を取る。
   // カードを追加した直後は母数が変わって順位がまとめてずれるため、
@@ -398,11 +378,6 @@ export default function TopPage() {
           .filter(b => b.certainty === 'released')
           .map(b => ({ box_id: b.box_id, box_name: b.box_name }))}
       />
-
-      {/* ── 00: 市場ヒートマップ ──
-          リストを5件ずつ見ても「今日の相場全体」は掴めないので、全カードを面で出す。
-          日ごとに絵が変わるので再訪時の見た目の変化がいちばん大きい欄でもある */}
-      <MarketHeatmap groups={heatGroups} />
 
       {/* ── ヒーロー ── */}
       {featured && (

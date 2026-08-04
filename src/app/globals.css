@@ -548,99 +548,6 @@ a:hover {
 }
 
 /* ─────────────────────────────────────────────
-   市場ヒートマップ
-   ⚠ 緑↔赤は P型/D型色覚でほぼ同じ色に潰れる。セルには数字が無いので、
-     下落セルには必ず網掛け(.heat-down)を重ねて色以外の手がかりを残すこと。
-   ───────────────────────────────────────────── */
-.heat-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-}
-
-.heat-group {
-  display: grid;
-  grid-template-columns: 108px 1fr;
-  gap: var(--sp-3);
-  align-items: center;
-}
-
-.heat-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-  letter-spacing: 0.04em;
-  text-align: right;
-  border-bottom: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.heat-label:hover { color: var(--gold); }
-
-.heat-cells {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-}
-
-.heat-cell {
-  position: relative;
-  display: block;
-  width: 15px;
-  height: 21px;
-  border-radius: 2px;
-  border-bottom: none;   /* グローバルの a の下線を打ち消す */
-  overflow: hidden;
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
-}
-
-.heat-cell:hover,
-.heat-cell:focus-visible {
-  transform: scale(1.5);
-  z-index: 2;
-  box-shadow: var(--shadow-md);
-  outline: 1px solid var(--ink);
-}
-
-/* 下落セルの網掛け＝色覚に依らない手がかり */
-.heat-down::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.55) 0 1px,
-    transparent 1px 4px
-  );
-}
-
-.heat-legend {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  flex-wrap: wrap;
-  margin-top: var(--sp-4);
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-}
-
-.heat-key {
-  position: relative;
-  display: inline-block;
-  width: 15px;
-  height: 12px;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.heat-legend-note {
-  margin-left: var(--sp-2);
-  line-height: 1.6;
-}
-
-/* ─────────────────────────────────────────────
    「あなた」の帯（保有評価額 / 前回訪問からの値動き）
    中身は localStorage 由来なので、無ければコンポーネント側で丸ごと消える
    ───────────────────────────────────────────── */
@@ -777,23 +684,10 @@ a:hover {
   .spark-path { stroke-dashoffset: 0; animation: none; }
   .holo,
   .holo::after,
-  .row-thumb,
-  .heat-cell { transition: none; }
+  .row-thumb { transition: none; }
   .holo:hover,
   .holo:focus-within { transform: none; }
   .holo:hover::after,
   .holo:focus-within::after { transform: translateX(-130%); }
   .row:hover .row-thumb { transform: none; }
-  .heat-cell:hover,
-  .heat-cell:focus-visible { transform: none; }
-}
-
-/* ヒートマップは狭い画面では弾ラベルを上に出す（横に並べると盤面が潰れる） */
-@media (max-width: 640px) {
-  .heat-group {
-    grid-template-columns: 1fr;
-    gap: var(--sp-1);
-  }
-  .heat-label { text-align: left; }
-  .heat-cell { width: 13px; height: 18px; }
 }
