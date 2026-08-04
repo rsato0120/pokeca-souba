@@ -10,6 +10,7 @@ import BoxSelector from '@/components/BoxSelector'
 import BoxPricePanel from '@/components/BoxPricePanel'
 import BoxExpectedValue from '@/components/BoxExpectedValue'
 import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
+import ThemeToggle from '@/components/ThemeToggle'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -149,6 +150,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       <header className="site-header">
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
+        <ThemeToggle />
       </header>
 
       {/* ── BOX切替（ドロップダウン選択） ── */}
@@ -225,6 +227,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             const mercariSearch = `https://jp.mercari.com/search?keyword=${q}&status=on_sale`
             const mercariUrl = `https://px.a8.net/svt/ejp?a8mat=${A8_MERCARI_MAT}&a8ejpredirect=${encodeURIComponent(mercariSearch)}`
             const rakutenUrl = buildRakutenA8Url(`https://search.rakuten.co.jp/search/mall/${q}/`)
+            // ここは色で塗りつぶした上に白文字を載せるボタンなので、ダークでも
+            // ブランド原色のまま（明るい版に差し替えると白文字が読めなくなる）。
+            // カード詳細側は枠線＋文字色なので var(--shop-*) を使う。
             const shops = [
               { name: 'メルカリで探す', url: mercariUrl, color: '#FF0211', nofollow: true },
               { name: '楽天市場で探す', url: rakutenUrl, color: '#BF0000', nofollow: true },

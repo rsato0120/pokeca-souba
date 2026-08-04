@@ -12,6 +12,7 @@ import SinceLastVisitBadge from '@/components/SinceLastVisitBadge'
 import OripaBanner from '@/components/OripaBanner'
 import KaitoriLink from '@/components/KaitoriLink'
 import CountUp from '@/components/CountUp'
+import ThemeToggle from '@/components/ThemeToggle'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -155,6 +156,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       <header className="site-header">
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
+        <ThemeToggle />
       </header>
 
       <div className="searchbar" style={{ marginBottom: '30px' }}>
@@ -439,9 +441,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             const mercariUrl = `https://px.a8.net/svt/ejp?a8mat=${A8_MERCARI_MAT}&a8ejpredirect=${encodeURIComponent(mercariSearch)}`
             const rakutenUrl = buildRakutenA8Url(`https://search.rakuten.co.jp/search/mall/${q}/`)
             const shops = [
-              { name: 'メルカリ', url: mercariUrl, color: '#FF0211', nofollow: true },
-              { name: '楽天市場', url: rakutenUrl, color: '#BF0000', nofollow: true },
-              { name: '駿河屋', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: '#FF6600', nofollow: true },
+              { name: 'メルカリ', url: mercariUrl, color: 'var(--shop-mercari)', nofollow: true },
+              { name: '楽天市場', url: rakutenUrl, color: 'var(--shop-rakuten)', nofollow: true },
+              { name: '駿河屋', url: `https://affiliate.suruga-ya.jp/modules/af/af_jump.php?user_id=5332&goods_url=${encodeURIComponent(surugayaSearch)}`, color: 'var(--shop-surugaya)', nofollow: true },
             ]
             return (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px', alignItems: 'center' }}>
@@ -582,7 +584,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                     letterSpacing: '0.06em',
                     padding: '2px 8px',
                     borderRadius: '3px',
-                    color: '#fff',
+                    color: 'var(--on-accent)',
                     background: extremeHit === 'high' ? 'var(--up)' : 'var(--down)',
                   }}
                 >

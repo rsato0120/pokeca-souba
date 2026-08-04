@@ -4,6 +4,7 @@ import { getAllCards, getCardSlug, getPriceHistory } from '@/lib/data'
 import { computeAccuracy, HORIZONS } from '@/lib/accuracy'
 import VoteLeaderboard from '@/components/VoteLeaderboard'
 import { HORIZON_DAYS, WINDOW_DAYS, type PriceMatrix } from '@/lib/vote-score'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'みんなの予想 的中率ランキング',
@@ -60,6 +61,7 @@ export default function RankingPage() {
       <header className="site-header">
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
+        <ThemeToggle />
       </header>
 
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, margin: '24px 0 6px' }}>

@@ -14,6 +14,7 @@ import PriceTicker, { type TickerItem } from '@/components/PriceTicker'
 import Sparkline from '@/components/Sparkline'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
+import ThemeToggle from '@/components/ThemeToggle'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -320,6 +321,7 @@ export default function TopPage() {
       <header className="site-header">
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
+        <ThemeToggle />
       </header>
 
       {/* 本日の値動きを流す帯。開いた瞬間に「動いている市場」だと分かるようヘッダ直下に置く */}

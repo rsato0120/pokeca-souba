@@ -13,9 +13,9 @@ export interface BuyPick {
 }
 
 const CONVICTION: Record<Conviction, { label: string; color: string; bg: string }> = {
-  high: { label: '確信度 高', color: '#146c43', bg: 'rgba(22,163,74,0.12)' },
-  mid: { label: '確信度 中', color: '#a97b1f', bg: 'rgba(169,123,31,0.12)' },
-  low: { label: '確信度 低', color: '#6b7280', bg: 'rgba(107,114,128,0.12)' },
+  high: { label: '確信度 高', color: 'var(--conf-high)', bg: 'rgba(22,163,74,0.12)' },
+  mid: { label: '確信度 中', color: 'var(--conf-mid)', bg: 'rgba(169,123,31,0.12)' },
+  low: { label: '確信度 低', color: 'var(--conf-low)', bg: 'rgba(107,114,128,0.12)' },
 }
 
 function ThesisRow({ label, text, color }: { label: string; text: string; color: string }) {

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー',
@@ -22,6 +23,7 @@ export default function PrivacyPage() {
       <header className="site-header">
         <div className="logo">相場</div>
         <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
+        <ThemeToggle />
       </header>
 
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '24px', fontWeight: 800, margin: '24px 0 18px' }}>

@@ -47,6 +47,128 @@
   /* ── 字間 ── */
   --ls-wide: 0.1em;
   --ls-wider: 0.14em;
+
+  /* ── ショップのブランド色（ダークでは彩度/明度を上げた版に差し替える） ── */
+  --shop-mercari: #ff0211;
+  --shop-rakuten: #bf0000;
+  --shop-surugaya: #ff6600;
+
+  /* ── 確信度バッジ ── */
+  --conf-high: #146c43;
+  --conf-mid: #a97b1f;
+  --conf-low: #6b7280;
+
+  /* --up/--down で塗りつぶした上に載せる文字色。
+     ダークでは --up/--down 自体を明るくするので、白のままだと読めなくなる */
+  --on-accent: #ffffff;
+
+  color-scheme: light;
+}
+
+/* ─────────────────────────────────────────────
+   ダークテーマ
+   ⚠ 適用は data-theme 属性の一本だけにしている。@media(prefers-color-scheme)
+     にも同じ変数を書くと二重管理になり、片方だけ直して色がねじれる。
+     OS設定の反映は layout.tsx の先読みスクリプトが data-theme に解決して行う。
+   ───────────────────────────────────────────── */
+:root[data-theme='dark'] {
+  --bg: #12151a;
+  --bg2: #1a1f27;
+  --panel: #181d25;
+  --hair: #2b323d;
+  --ink: #e8ebef;
+  --ink-dim: #a8b0bb;
+  --ink-faint: #7c8593;
+  --up: #4ade80;        /* 暗い面では鮮緑だと沈むので明度を上げる */
+  --down: #f87171;
+  --flat: #9ca3af;
+  --gold: #d9b45a;      /* 深金のままだと暗背景で読めない */
+  --down-deep: #4a3f28;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.55);
+
+  /* ブランド色は原色のままだと暗背景でコントラストが足りない（楽天の #bf0000 は 2.8:1） */
+  --shop-mercari: #ff5a63;
+  --shop-rakuten: #f06565;
+  --shop-surugaya: #ff9440;
+
+  --conf-high: #4ade80;
+  --conf-mid: #d9b45a;
+  --conf-low: #9ca3af;
+
+  --on-accent: #12151a;
+
+  color-scheme: dark;
+}
+
+/* カード枠・レア度バッジは明るい面を前提に作ってあるので個別に反転させる */
+:root[data-theme='dark'] .pokecard {
+  background: linear-gradient(155deg, #232932 0%, #1b2028 100%);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme='dark'] .pokecard::before {
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.16) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 65%
+  );
+}
+
+:root[data-theme='dark'] .rare-badge {
+  border-color: #4a3f28;
+  background: #2a2418;
+}
+
+:root[data-theme='dark'] .holo::after {
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.3) 47%,
+    rgba(255, 255, 255, 0.1) 53%,
+    transparent 58%
+  );
+}
+
+/* ─── テーマ切替ボタン ─── */
+.theme-toggle {
+  margin-left: var(--sp-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-pill);
+  background: var(--bg2);
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  cursor: pointer;
+  align-self: center;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ラベルの出し分けはCSSで行う（JSのstateでやるとボタンが遅れて出てヘッダが揺れる）。
+   既定＝ライト表示なので「☾ DARK」（押すとダークになる）を見せる。 */
+.theme-toggle .t-on-dark {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-toggle .t-on-light {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-toggle .t-on-dark {
+  display: inline;
 }
 
 * {
@@ -404,6 +526,11 @@ a:hover {
 
   .tagline {
     display: none;
+  }
+
+  /* タグラインが消える幅では切替ボタンが右端の担当になる */
+  .theme-toggle {
+    margin-left: auto;
   }
 
   .searchbar {
