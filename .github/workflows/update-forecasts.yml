@@ -2,8 +2,14 @@ name: Update Prices and Forecasts
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 毎日 JST 9:00 (UTC 0:00)
-  workflow_dispatch:       # GitHub画面から手動実行も可能
+    - cron: '0 0 * * *'   # 毎日 JST 9:00  → 価格 + AI予想（full）
+    - cron: '0 12 * * *'  # 毎日 JST 21:00 → 価格のみ（prices）
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'full | prices（空ならfull）'
+        required: false
+        default: ''
 
 jobs:
   update:
@@ -13,6 +19,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      # 1日2回に増やしたが、AI予想は朝の1回だけ回す。
+      # Gemini は 500RPD で掲載枚数が300弱なので、予想を2回生成すると上限を割る。
+      # 夜は価格・出品数・極値だけ更新する（相場が動くのは主にこちら）。
+      - name: Decide mode（cron遅延に左右されないよう発火scheduleで決める）
+        id: mode
+        run: |
+          case "${{ github.event.schedule }}" in
+            "0 0 * * *")  echo "mode=full"   >> "$GITHUB_OUTPUT" ;;
+            "0 12 * * *") echo "mode=prices" >> "$GITHUB_OUTPUT" ;;
+            *)            echo "mode=${{ github.event.inputs.mode || 'full' }}" >> "$GITHUB_OUTPUT" ;;
+          esac
 
       - uses: actions/setup-node@v4
         with:
@@ -36,30 +54,39 @@ jobs:
 
       # PSA鑑定枚数（予想の入力）。1弾1リクエストで軽く、失敗しても既存の psa-pop.json で予想は動く
       - name: Scrape PSA population
+        if: steps.mode.outputs.mode == 'full'
         run: npx tsx scripts/scrape-psa-pop.ts
         continue-on-error: true
 
       - name: Generate forecasts
+        if: steps.mode.outputs.mode == 'full'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npx tsx scripts/update-forecasts.ts
 
       # 「AIが買うべきカード」欄の厚い論拠（買い候補の上位数枚だけ・API消費は軽い）
       - name: Generate buy theses
+        if: steps.mode.outputs.mode == 'full'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npx tsx scripts/generate-buy-theses.ts
         continue-on-error: true
 
+      # 的中実績は「1日1件の予想」を採点する前提なので、予想を生成した回だけ記録する
       - name: Archive predictions (的中実績用)
+        if: steps.mode.outputs.mode == 'full'
         run: npx tsx scripts/archive-predictions.ts
+
+      # 画面の「最終更新」とカウントダウンが読む。commit直前に書く
+      - name: Write update stamp
+        run: npx tsx scripts/write-update-stamp.ts ${{ steps.mode.outputs.mode }}
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json
-          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices and forecasts $(date -u '+%Y-%m-%d')" && git push)
+          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json data/last-update.json
+          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices${{ steps.mode.outputs.mode == 'full' && ' and forecasts' || '' }} $(date -u '+%Y-%m-%d %H:%M')" && git push)
 
       # データ監査。commit後に回すので、落ちてもその日のデータ更新は失われない。
       # ⚠️ これまで価格の異常に最初に気づくのが**利用者**だった。異常はここに毎日出す。

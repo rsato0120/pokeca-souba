@@ -533,9 +533,267 @@ a:hover {
   to   { transform: scaleX(1); }
 }
 
+/* ─────────────────────────────────────────────
+   スパークライン（一覧行の極小折れ線）
+   pathLength=100 を打ってあるので、実際の長さに関係なく dasharray 100 で描ける
+   ───────────────────────────────────────────── */
+.spark-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: spark-draw 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes spark-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ─────────────────────────────────────────────
+   市場ヒートマップ
+   ⚠ 緑↔赤は P型/D型色覚でほぼ同じ色に潰れる。セルには数字が無いので、
+     下落セルには必ず網掛け(.heat-down)を重ねて色以外の手がかりを残すこと。
+   ───────────────────────────────────────────── */
+.heat-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.heat-group {
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  gap: var(--sp-3);
+  align-items: center;
+}
+
+.heat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  text-align: right;
+  border-bottom: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.heat-label:hover { color: var(--gold); }
+
+.heat-cells {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.heat-cell {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 21px;
+  border-radius: 2px;
+  border-bottom: none;   /* グローバルの a の下線を打ち消す */
+  overflow: hidden;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+}
+
+.heat-cell:hover,
+.heat-cell:focus-visible {
+  transform: scale(1.5);
+  z-index: 2;
+  box-shadow: var(--shadow-md);
+  outline: 1px solid var(--ink);
+}
+
+/* 下落セルの網掛け＝色覚に依らない手がかり */
+.heat-down::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.55) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+.heat-legend {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-top: var(--sp-4);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+
+.heat-key {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 12px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.heat-legend-note {
+  margin-left: var(--sp-2);
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   「あなた」の帯（保有評価額 / 前回訪問からの値動き）
+   中身は localStorage 由来なので、無ければコンポーネント側で丸ごと消える
+   ───────────────────────────────────────────── */
+.visitor-strip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-5);
+}
+
+.visitor-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+  background: var(--panel);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-pill);
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.visitor-pill:hover { border-color: var(--gold); }
+.visitor-pill-label { color: var(--ink-faint); }
+.visitor-pill-value { font-size: var(--fs-md); font-weight: 700; color: var(--ink); }
+.visitor-pill-go { color: var(--gold); }
+
+.visitor-since {
+  border: 1px solid var(--hair);
+  border-left: 2px solid var(--gold);
+  border-radius: var(--r-md);
+  background: var(--panel);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.visitor-since-head {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-2);
+}
+
+.visitor-movers {
+  display: flex;
+  flex-direction: column;
+}
+
+.visitor-mover {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+  border-bottom: none;
+  padding: 3px 0;
+}
+.visitor-mover:hover { color: var(--ink); }
+.visitor-mover-name { font-family: var(--gothic); font-size: var(--fs-base); font-weight: 700; color: var(--ink); }
+.visitor-mover-rarity { color: var(--gold); }
+
+/* 更新中であることを示す小さな点 */
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--up);
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: live-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.8); }
+}
+
+/* ─────────────────────────────────────────────
+   ホロ（カード画像の光沢）
+   .pokecard::before は常時の固定ハイライト。こちらは触った時だけ走る帯なので ::after を使う
+   ───────────────────────────────────────────── */
+.holo {
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+
+.holo::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.72) 47%,
+    rgba(255, 255, 255, 0.25) 53%,
+    transparent 62%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 1;
+}
+
+.holo:hover,
+.holo:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(20, 30, 50, 0.18);
+}
+
+.holo:hover::after,
+.holo:focus-within::after {
+  transform: translateX(130%);
+}
+
+/* 一覧のサムネもわずかに持ち上げる（行が生きている感じが出る） */
+.row-thumb {
+  transition: transform 0.15s ease-out;
+}
+.row:hover .row-thumb {
+  transform: translateY(-2px) scale(1.05);
+}
+
 /* 動きが苦手な人・OS設定で減らしている人には動かさない。
-   ティッカーは静止した一覧として、バーは最初から最終形で見えるようにする */
+   ティッカーは静止した一覧として、バーとスパークラインは最初から最終形で見えるようにする */
 @media (prefers-reduced-motion: reduce) {
   .ticker-track { animation: none; }
   .anim-grow { animation: none; }
+  .live-dot { animation: none; }
+  .spark-path { stroke-dashoffset: 0; animation: none; }
+  .holo,
+  .holo::after,
+  .row-thumb,
+  .heat-cell { transition: none; }
+  .holo:hover,
+  .holo:focus-within { transform: none; }
+  .holo:hover::after,
+  .holo:focus-within::after { transform: translateX(-130%); }
+  .row:hover .row-thumb { transform: none; }
+  .heat-cell:hover,
+  .heat-cell:focus-visible { transform: none; }
+}
+
+/* ヒートマップは狭い画面では弾ラベルを上に出す（横に並べると盤面が潰れる） */
+@media (max-width: 640px) {
+  .heat-group {
+    grid-template-columns: 1fr;
+    gap: var(--sp-1);
+  }
+  .heat-label { text-align: left; }
+  .heat-cell { width: 13px; height: 18px; }
 }

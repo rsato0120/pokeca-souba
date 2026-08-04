@@ -8,6 +8,7 @@ import PriceHistoryChart from '@/components/PriceHistoryChart'
 import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
 import CardSentiment from '@/components/CardSentiment'
+import SinceLastVisitBadge from '@/components/SinceLastVisitBadge'
 import OripaBanner from '@/components/OripaBanner'
 import CountUp from '@/components/CountUp'
 
@@ -160,6 +161,13 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         <button>予想する</button>
       </div>
 
+      {/* この端末に前回訪問の記録があれば「あなたが前回見た時からいくら動いたか」を出す。
+          スナップショットの基準はトップと同じ履歴の代表値（(low+high)/2）にすること */}
+      <SinceLastVisitBadge
+        cardId={card.id}
+        mid={latestRecord ? (Number(latestRecord.low) + Number(latestRecord.high)) / 2 : 0}
+      />
+
       {/* ── カード + バーディクト ── */}
       <div
         className="card-detail-grid"
@@ -173,7 +181,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       >
         {/* カード枠 */}
         <div className="card-detail-col-card">
-          <div className="pokecard" style={{ padding: card.image_url ? '0' : undefined, overflow: 'hidden' }}>
+          {/* holo = 触ると光沢が斜めに走る。ポケカの実物の質感に寄せた演出（CSSのみ） */}
+          <div className="pokecard holo" style={{ padding: card.image_url ? '0' : undefined, overflow: 'hidden' }}>
             {card.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img

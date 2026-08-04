@@ -5,6 +5,7 @@ import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory,
 import { getSetProducts } from '@/lib/set-boxes'
 import { computeBoxEv } from '@/lib/box-ev'
 import BoxCardList from '@/components/BoxCardList'
+import { sparkSeries } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
 import BoxPricePanel from '@/components/BoxPricePanel'
 import BoxExpectedValue from '@/components/BoxExpectedValue'
@@ -55,6 +56,13 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     card,
     forecast: getForecast(getCardSlug(card)),
   }))
+
+  // 一覧の各行に添える直近の値動き（極小の折れ線）
+  const sparks: Record<string, number[]> = {}
+  for (const card of cards) {
+    const s = sparkSeries(getPriceHistory(getCardSlug(card))?.history ?? [])
+    if (s.length >= 2) sparks[card.id] = s
+  }
 
   // BOX相場: シュリンクあり/なしの変異系列＋後方互換の混在系列。
   const boxPriceHistory = getBoxPriceHistory(boxId)
@@ -358,7 +366,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           このセットのカードはまだ登録されていません。
         </div>
       ) : (
-        <BoxCardList cardsWithForecast={cardsWithForecast} />
+        <BoxCardList cardsWithForecast={cardsWithForecast} sparks={sparks} />
       )}
 
       <div className="disclaimer" style={{ marginTop: '32px' }}>

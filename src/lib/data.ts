@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop, BuyThesis, BoxPullRates } from '@/types/pokeca'
+import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop, BuyThesis, BoxPullRates, LastUpdate } from '@/types/pokeca'
 
 function readPokeData(): PokeData {
   const filePath = path.join(process.cwd(), 'data', 'pokeca_data.json')
@@ -127,6 +127,17 @@ export function getPullRates(boxId: string): BoxPullRates | null {
     }
   }
   return pullRatesCache?.[boxId] ?? null
+}
+
+// 日次バッチの実行スタンプ（scripts/write-update-stamp.ts が書く）。
+// 無い場合（初回デプロイ・ローカル）は null を返し、画面側は「最終更新」を出さない。
+export function getLastUpdate(): LastUpdate | null {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'last-update.json')
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as LastUpdate
+  } catch {
+    return null
+  }
 }
 
 // 「AIが買うべきカード」欄の論拠（scripts/generate-buy-theses.ts が生成）。全カード分が1ファイル。

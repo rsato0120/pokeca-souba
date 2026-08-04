@@ -132,6 +132,13 @@ export interface PriceHistory {
   history: PriceRecord[]
 }
 
+// 日次バッチの実行スタンプ（scripts/write-update-stamp.ts が書く）。
+// kind='full' は価格＋AI予想、'prices' は価格だけ更新した回。
+export interface LastUpdate {
+  updated_at: string   // ISO8601（UTC）
+  kind: 'full' | 'prices'
+}
+
 // AI予想のスナップショット（的中実績の集計に使う）
 export interface PredictionRecord {
   date: string        // 予想を記録した日（JST）

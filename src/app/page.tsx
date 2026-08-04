@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate } from '@/lib/data'
 import { extremeHitToday } from '@/lib/extremes'
 import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
-import type { Card } from '@/types/pokeca'
+import { sparkSeries, prevUpPct, rankByUpPct, todayJST } from '@/lib/market'
+import type { Card, PriceRecord } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
@@ -10,6 +11,10 @@ import OripaBanner from '@/components/OripaBanner'
 import BuyPicks, { type BuyPick } from '@/components/BuyPicks'
 import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
 import PriceTicker, { type TickerItem } from '@/components/PriceTicker'
+import Sparkline from '@/components/Sparkline'
+import MarketHeatmap, { type HeatGroup } from '@/components/MarketHeatmap'
+import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
+import UpdateClock from '@/components/UpdateClock'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -52,6 +57,8 @@ export default function TopPage() {
   type CardMetrics = {
     card: Card
     slug: string
+    records: PriceRecord[]
+    spark: number[]
     currentMid: number
     dayChange: number | null
     weekChange: number | null
@@ -71,6 +78,8 @@ export default function TopPage() {
     return {
       card,
       slug,
+      records,
+      spark: sparkSeries(records),
       currentMid: today ? mid(today) : 0,
       dayChange: (() => { const v = today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null; return v !== null && Math.abs(v) > 20 ? null : v })(),
       weekChange: (() => { const v = today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
@@ -238,6 +247,90 @@ export default function TopPage() {
     thesis: buyTheses[c.card.id] ?? null,
   }))
 
+  // 「あなた」の帯（保有評価額・前回訪問からの値動き）に渡す一覧。
+  // 個人の数字はクライアントにしか無いので、材料だけ全部渡して向こうで組ませる。
+  //
+  // 前日比の基準は**そのカードの1つ前の観測**（records[1]）。
+  // 暦の前日で引くと、その日に取得できなかった薄商い銘柄は現在値と同じ日を指してしまい
+  // 変化0になる（実データでは294枚中278枚が同じ日付に固まっているので影響が大きい）。
+  // サイトの dayChange も records[1] 基準なので、こちらに揃える方が表示同士も食い違わない。
+  const psaSeries = (records: PriceRecord[]): number[] =>
+    records.filter((r) => r.psa10 != null).map((r) => r.psa10 as number)
+
+  const marketCards: MarketCard[] = metrics.map((m) => {
+    const psa = psaSeries(m.records)
+    return {
+      id: m.slug,
+      name: m.card.card_name,
+      rarity: m.card.rarity,
+      mid: Math.round(m.currentMid),
+      prevMid: m.records[1] ? Math.round(mid(m.records[1])) : null,
+      psa10: psa[0] ?? null,
+      prevPsa10: psa[1] ?? null,
+    }
+  })
+
+  // ── ヒートマップ: 弾ごとに並べた全カードの前日比 ──
+  const heatGroups: HeatGroup[] = boxes
+    .filter((b) => b.certainty === 'released')
+    .map((b) => ({
+      boxId: b.box_id,
+      boxName: b.box_name,
+      cells: metrics
+        .filter((m) => m.card.box_id === b.box_id)
+        .sort((a, b2) => (b2.dayChange ?? -999) - (a.dayChange ?? -999))
+        .map((m) => ({
+          slug: m.slug,
+          name: m.card.card_name,
+          rarity: m.card.rarity,
+          mid: m.currentMid,
+          change: m.dayChange,
+        })),
+    }))
+    .filter((g) => g.cells.length > 0)
+
+  // ── AI予想順位の前日比 ──
+  // data/predictions に日次スナップショットがあるので、同じ式で前日の順位表を作り直して差を取る。
+  // カードを追加した直後は母数が変わって順位がまとめてずれるため、
+  // 前日の記録が今日の9割に満たない日は変動を出さない（全部NEWになるのを防ぐ）。
+  const upToday = metrics
+    .map((m) => ({ id: m.slug, up: m.forecast?.overall.up_pct ?? null }))
+    .filter((e): e is { id: string; up: number } => e.up != null)
+  const upPrev = metrics
+    .map((m) => ({ id: m.slug, up: prevUpPct(m.slug) }))
+    .filter((e): e is { id: string; up: number } => e.up != null)
+  const rankNow = rankByUpPct(upToday)
+  const rankPrev = rankByUpPct(upPrev)
+  const rankComparable = upPrev.length >= upToday.length * 0.9
+  // 行に添える直近の値動き。予想だけあって価格が無いカードは空になる
+  const sparkBySlug = new Map(metrics.map((m) => [m.slug, m.spark]))
+  const rankDelta = (slug: string): number | null | 'new' => {
+    if (!rankComparable || rankNow[slug] == null) return null
+    if (rankPrev[slug] == null) return 'new'
+    return rankPrev[slug] - rankNow[slug]   // 正 = 順位が上がった
+  }
+
+  // ── 最終更新の表記 ──
+  // 日次バッチのスタンプ（data/last-update.json）があれば時刻まで出す。
+  // 無い間は価格の最新日で代用するが、**最大値ではなく最頻値**を使う。
+  // 数枚だけ翌日に取り直されることがあり、最大値だと「大半は前日のデータなのに翌日更新」に見える。
+  const dateCounts = new Map<string, number>()
+  for (const m of metrics) {
+    const d = m.records[0]?.date
+    if (d) dateCounts.set(d, (dateCounts.get(d) ?? 0) + 1)
+  }
+  const modalDate = [...dateCounts.entries()].sort((a, b) => b[1] - a[1] || b[0].localeCompare(a[0]))[0]?.[0] ?? null
+
+  const lastUpdate = getLastUpdate()
+  const updatedLabel = lastUpdate
+    ? (() => {
+        const d = new Date(Date.parse(lastUpdate.updated_at) + 9 * 3600_000)
+        return `${d.getUTCMonth() + 1}/${d.getUTCDate()} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`
+      })()
+    : modalDate
+    ? `${Number(modalDate.slice(5, 7))}/${Number(modalDate.slice(8, 10))}`
+    : null
+
   const featured = notableCards[0] ?? cardsWithForecast[0]
   const featuredSlug = featured ? getCardSlug(featured.card) : ''
   const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
@@ -251,6 +344,9 @@ export default function TopPage() {
 
       {/* 本日の値動きを流す帯。開いた瞬間に「動いている市場」だと分かるようヘッダ直下に置く */}
       <PriceTicker items={tickerItems} />
+
+      {/* 保有評価額と「前回見たときから」。この端末に記録が無ければ何も描かれない */}
+      <VisitorStrip cards={marketCards} />
 
       <div
         style={{
@@ -268,10 +364,11 @@ export default function TopPage() {
           gap: 'var(--sp-2)',
         }}
       >
-        <span>
-          {new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')} 更新
+        <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
+          {/* 最終更新は実際のバッチ実行時刻。次の更新までの残り時間は毎秒動く（＝止まっていないことが見える） */}
+          <UpdateClock updatedLabel={updatedLabel} />
           {boxes.length > 0 && (
-            <> ・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</>
+            <span>・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</span>
           )}
         </span>
         <span style={{ display: 'flex', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
@@ -302,6 +399,11 @@ export default function TopPage() {
           .map(b => ({ box_id: b.box_id, box_name: b.box_name }))}
       />
 
+      {/* ── 00: 市場ヒートマップ ──
+          リストを5件ずつ見ても「今日の相場全体」は掴めないので、全カードを面で出す。
+          日ごとに絵が変わるので再訪時の見た目の変化がいちばん大きい欄でもある */}
+      <MarketHeatmap groups={heatGroups} />
+
       {/* ── ヒーロー ── */}
       {featured && (
         // ⚠ ヒーロー全体を <Link> で包んではいけない。中に「収録弾」へのリンクがあるため
@@ -331,7 +433,8 @@ export default function TopPage() {
             aria-label={`${featured.card.card_name} ${featured.card.rarity} の詳細`}
             style={{ position: 'absolute', inset: 0, zIndex: 1, borderRadius: 'var(--r-lg)' }}
           />
-          <div className="pokecard" style={{ padding: featured.card.image_url ? '0' : undefined, overflow: 'hidden' }}>
+          {/* holo = 触ると光沢が斜めに走る。ポケカの実物の質感に寄せた演出（CSSのみ） */}
+          <div className="pokecard holo" style={{ padding: featured.card.image_url ? '0' : undefined, overflow: 'hidden' }}>
             {featured.card.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -435,6 +538,7 @@ export default function TopPage() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {notableCards.map(({ card, forecast }, i) => {
             const slug = getCardSlug(card)
+            const delta = rankDelta(slug)
             const rankStyle: React.CSSProperties = {
               fontFamily: 'var(--mincho)',
               fontSize: i < 2 ? 'var(--fs-xl)' : 'var(--fs-lg)',
@@ -447,7 +551,21 @@ export default function TopPage() {
             const m3High = forecast?.price_forecast.m3_high
             return (
               <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '34px 40px 1fr auto' }}>
-                <div style={rankStyle}>{i + 1}</div>
+                <div>
+                  <div style={rankStyle}>{i + 1}</div>
+                  {/* AI予想順位の前日比。順位が動いていること自体が「生きている」合図になる */}
+                  {delta != null && (
+                    <div
+                      style={{
+                        fontFamily: 'var(--mono)', fontSize: '9px', textAlign: 'center', marginTop: '1px',
+                        color: delta === 'new' ? 'var(--gold)' : delta > 0 ? 'var(--up)' : delta < 0 ? 'var(--down)' : 'var(--ink-faint)',
+                      }}
+                      title={delta === 'new' ? '前日は予想がなかったカード' : `AI予想順位の前日比（${rankNow[slug]}位）`}
+                    >
+                      {delta === 'new' ? 'NEW' : delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '—'}
+                    </div>
+                  )}
+                </div>
                 {card.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={card.image_url} alt={card.card_name} className="row-thumb" />
@@ -468,8 +586,11 @@ export default function TopPage() {
                     </div>
                   )}
                 </div>
-                <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)', textAlign: 'right' }}>
-                  {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
+                  <Sparkline values={sparkBySlug.get(slug) ?? []} />
+                  <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>
+                    {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
+                  </span>
                 </div>
               </Link>
             )
@@ -521,6 +642,9 @@ export default function TopPage() {
                   <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>
                     {hit === 'high' ? '更新' : '買い時水準'}
                   </div>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2px' }}>
+                    <Sparkline values={m.spark} />
+                  </div>
                 </div>
               </Link>
             ))}
@@ -571,6 +695,9 @@ export default function TopPage() {
                       </span>
                     )}
                     <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2px' }}>
+                      <Sparkline values={sparkBySlug.get(slug) ?? []} />
+                    </div>
                   </div>
                 </Link>
               )
@@ -622,6 +749,9 @@ export default function TopPage() {
                       </span>
                     )}
                     <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2px' }}>
+                      <Sparkline values={sparkBySlug.get(slug) ?? []} />
+                    </div>
                   </div>
                 </Link>
               )

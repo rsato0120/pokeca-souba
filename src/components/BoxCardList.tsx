@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { Card, Forecast } from '@/types/pokeca'
 import { useCollection } from '@/hooks/useCollection'
+import Sparkline from '@/components/Sparkline'
 
 type CardEntry = {
   card: Card
@@ -13,7 +14,14 @@ type CardEntry = {
 // BWR=ブラックホワイトレア。ブラックボルト/ホワイトフレア限定の最上位レアリティ。
 const RARITY_ORDER = ['RR', 'SR', 'SA', 'SAR', 'BWR', 'MA', 'MUR', 'AR', 'UR', 'HR']
 
-export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: CardEntry[] }) {
+export default function BoxCardList({
+  cardsWithForecast,
+  sparks = {},
+}: {
+  cardsWithForecast: CardEntry[]
+  // カードID → 直近の代表値（古い順）。無い銘柄は線を出さないだけ
+  sparks?: Record<string, number[]>
+}) {
   const presentRarities = RARITY_ORDER.filter(r => cardsWithForecast.some(c => c.card.rarity === r))
   const tabs = ['全て', ...presentRarities]
   const [selected, setSelected] = useState('全て')
@@ -111,8 +119,9 @@ export default function BoxCardList({ cardsWithForecast }: { cardsWithForecast: 
                     <span style={{ fontSize: '15px', fontWeight: 700 }}>{card.card_name}</span>
                     <span className="rare-badge">{card.rarity}</span>
                   </div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', textAlign: 'right', whiteSpace: 'nowrap', padding: '14px 0' }}>
-                    {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px', fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', whiteSpace: 'nowrap', padding: '14px 0' }}>
+                    <Sparkline values={sparks[card.id] ?? []} width={56} height={18} />
+                    <span>{forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}</span>
                   </div>
                   <div className="col-up" style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: upColor, textAlign: 'right', minWidth: '60px', padding: '14px 0' }}>
                     {upPct !== null ? `↑ ${upPct}%` : '—'}
