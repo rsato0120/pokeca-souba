@@ -408,6 +408,38 @@ function matchesCardNo(title: string, card: CardNo | null): boolean {
   return true
 }
 
+/**
+ * タイトルが**そもそもこのカードなのか**を見る。
+ *
+ * 【なぜ番号照合だけでは足りないか】
+ * メルカリのキーワード検索は完全一致が少ないと**勝手に条件を緩めて別商品を返す**。
+ * 薄商いの銘柄では返ってきた大半が無関係なカードになるが、番号照合は
+ * 「番号が書かれていないタイトルは通す」ので全部素通りしていた。
+ *   実例(2026-08-06 ユーザー報告): オーロットVMAX HR(080/067) の成約検索
+ *   「オーロットVMAX HR 蒼空ストリーム」が返した4件の内訳は
+ *     ¥333  オーロットVMAX HR S7R 蒼空ストリーム 080/067  ← 本物
+ *     ¥5,900 マリィのオーロンゲex
+ *     ¥5,888 メガリザードンex SR インフェルノX
+ *     ¥5,733 メガリザードンex SR インフェルノX
+ *   本物1件が20thパーセンタイルの下端に落ち、**別カード3件の値がこのカードの相場**として
+ *   6月末から1か月以上表示され続けていた（実勢¥333〜¥800 に対し ¥5,811）。
+ *   出品が1件しか無く askLow/askMid が付かない（3件必要）ため、ask整合(R1)も働かなかった。
+ *
+ * 【判定】カード名が書かれていないタイトルは採らない。フィルタを足すだけなので、
+ * 落ちるのは「名前が書かれていない出品」だけ＝件数不足でスキップに倒れる（安全側）。
+ * 「の」「&」で区切った各片が全て含まれることを求める（"ヒガナ 決意" のような分かち書きや
+ * TAG TEAM 名の順序違いを落とさないため）。
+ */
+function normalizeForMatch(s: string): string {
+  return s.normalize('NFKC').toUpperCase().replace(/[\s・･,，、。'’"”\-−ー]/g, '')
+}
+
+export function matchesCardName(title: string, cardName: string | null): boolean {
+  if (!cardName) return true
+  const t = normalizeForMatch(title)
+  return cardName.split(/[の&]/).map(normalizeForMatch).filter(p => p.length > 0).every(p => t.includes(p))
+}
+
 interface CardNo {
   no: number
   total: number
@@ -494,7 +526,9 @@ async function scrapeMercariSoldAvg(
   lowPct = 0.2,
   highPct = 0.6,
     cardNo: CardNo | null = null,
-  trimTopPct = 0.25
+  trimTopPct = 0.25,
+  // カード名（BOX/セットは null）。検索が緩んで別カードが返ってきた時の最後の砦（matchesCardName）
+  cardName: string | null = null,
 ): Promise<MercariPriceResult | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -518,7 +552,7 @@ async function scrapeMercariSoldAvg(
       : null
     const nowSec = Date.now() / 1000
     const candidates = rawItems
-      .filter(i => !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
+      .filter(i => !isExcluded(i.name) && matchesCardName(i.name, cardName) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
       .map(i => {
         const soldAt = Number(i.updated)
         return {
@@ -600,12 +634,54 @@ export function guardPrice(opts: {
 }): { ok: true } | { ok: false; reason: string } {
   const { id, date, avg, low, high, priceSource, onSale, prev } = opts
 
-  // --- R0: 凍り付き防止（全ルールに優先する逃げ道） ---
+  // --- R4: 価格帯(low〜high)が広がりすぎていないか【R0より前に判定する】 ---
+  // 画面の「現在相場 ¥low〜¥high」は avg ではなくこの帯を出す。avg が妥当でも、成約が薄い日に
+  // 20thパーセンタイルが1件の安値に張り付くと帯だけが破綻する。
+  //   ニンフィアVMAX SA: n=15→5 に減った日に 低¥90,000 → **¥30,000** へ落ち、
+  //   出品最安¥149,999 のカードが「¥30,000〜¥142,000」と表示された。
+  //   オーロットVMAX HR: n=4 で ¥333〜¥5,733（17.2倍）。
+  // 全4,846レコードの high/low は 99パーセンタイルで 2.01倍。3.0倍は十分な余裕がある。
+  //
+  // ⚠️ **R0（凍り付き防止）より前に置くこと**。R0 は ask や前日値という「外部の文脈」が
+  // 使えない銘柄を救うための逃げ道であって、レコード単体で完結する整合性まで免除するもの
+  // ではない。17倍の帯は何日更新できていなかろうと表示として成立しない。
+  //   実際に起きた事故(2026-08-04): オーロットVMAX HR は 08-01〜08-03 の汚染レコードを
+  //   データ掃除で削除した結果 prev が 07-31（4日前）になり、**R0 が先に true を返して
+  //   R4 を飛ばし、同じ ¥333〜¥5,733 が入り直した**。掃除で空いた穴が、そのまま同じ値を
+  //   通す抜け道になっていた。表示は「現在相場 ¥333〜¥5,733」、mid が¥3,985に沈んだ結果
+  //   「3ヶ月後 +70%」の割安カードとしてトップの『AIが買うべきカード』1位に出た。
+  if (low != null && high != null && low > 0 && high / low > 3) {
+    return { ok: false, reason: `価格帯が異常に広い ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（${(high / low).toFixed(1)}倍・通常は2倍以内）` }
+  }
+
+  // --- R3: BOX シュリンクあり ⇔ なし の関係【R0より前に判定する】 ---
+  // シュリンク付きのプレミアムは実測で 1.05〜1.3倍。1.6倍を超えるのは
+  // カートン/複数BOX/セット出品の混入か、検索窓拡張による古い高値の混入である。
+  if (id.endsWith('-shrink')) {
+    const base = readLatestRecord(`${id.slice(0, -'-shrink'.length)}-noshrink`, '')
+    if (base?.avg) {
+      const r = avg / base.avg
+      if (r > 1.6 || r < 0.95) {
+        return { ok: false, reason: `シュリンク比 ${r.toFixed(2)}倍（シュリンクなし ¥${base.avg.toLocaleString()}）が想定域(0.95〜1.6)外` }
+      }
+    }
+  }
+
+  // --- R0: 凍り付き防止（裏付け系のルールだけを免除する逃げ道） ---
   // 関門で弾くと既存価格が残るため、条件が恒久的に変わった銘柄は永久に更新されなくなる。
   // 過去に別のガードで14枚が最長29日間ずっと同じ値のまま固まった事故がある。
   // 出品側が汚れて ask 基準が使えない銘柄（例: ニンフィアVMAX HR は出品検索がSA版を拾い
   // 出品¥150,000 に対し実勢の成約¥10,250 が毎日「0.07倍」で弾かれ得る）でも、
   // 3日を超えて更新できていなければ受け入れる。残る不整合は audit-data.ts が拾う。
+  //
+  // ⚠️ **免除してよいのは「裏付け」系(R1 ask整合 / R2 前日比)だけ**。
+  // 「整合性」系(R3 シュリンク比 / R4 価格帯)は上に置いてあり、ここは通過しない。
+  //   理由＝**R0 の入口は関門自身の棄却で開く**。弾く→レコードが増えない→間隔が伸びる→
+  //   4日目に同じ値が無条件で通る、というループになり、あらゆるルールが「4日遅れて通す」に
+  //   退化する。実際 2026-08-06 の再取得で、08-02以降ずっと棄却されていた蒼空ストリームBOXが
+  //   R0 経由で ¥160,573→¥258,750(+61%) を通した。これは verify-price-guard.ts に
+  //   「弾くべき」ケースとして載っている 2026-08-01 の事故そのものの再来だった。
+  //   裏付け系だけの免除なら、シュリンクなし¥102,150 との比 2.53倍 が R3 で止める。
   if (prev?.date) {
     const ageDays = Math.round((Date.parse(date) - Date.parse(prev.date)) / 86400000)
     if (ageDays > 3) return { ok: true }
@@ -660,30 +736,6 @@ export function guardPrice(opts: {
         avg / onSale.askMid >= 0.7 && avg / onSale.askMid <= 1.5
       if (!askMoved && !askAnchors) {
         return { ok: false, reason: `前日比${((jump - 1) * 100).toFixed(0)}%だが出品価格が追随せず（${prev.date} ¥${prev.avg.toLocaleString()} → ¥${avg.toLocaleString()}）` }
-      }
-    }
-  }
-
-  // --- R4: 価格帯(low〜high)が広がりすぎていないか ---
-  // 画面の「現在相場 ¥low〜¥high」は avg ではなくこの帯を出す。avg が妥当でも、成約が薄い日に
-  // 20thパーセンタイルが1件の安値に張り付くと帯だけが破綻する。
-  //   ニンフィアVMAX SA: n=15→5 に減った日に 低¥90,000 → **¥30,000** へ落ち、
-  //   出品最安¥149,999 のカードが「¥30,000〜¥142,000」と表示された。
-  //   オーロットVMAX HR: n=4 で ¥333〜¥5,733（17.2倍）。
-  // 全4,846レコードの high/low は 99パーセンタイルで 2.01倍。3.0倍は十分な余裕がある。
-  if (low != null && high != null && low > 0 && high / low > 3) {
-    return { ok: false, reason: `価格帯が異常に広い ¥${low.toLocaleString()}〜¥${high.toLocaleString()}（${(high / low).toFixed(1)}倍・通常は2倍以内）` }
-  }
-
-  // --- R3: BOX シュリンクあり ⇔ なし の関係 ---
-  // シュリンク付きのプレミアムは実測で 1.05〜1.3倍。1.6倍を超えるのは
-  // カートン/複数BOX/セット出品の混入か、検索窓拡張による古い高値の混入である。
-  if (id.endsWith('-shrink')) {
-    const base = readLatestRecord(`${id.slice(0, -'-shrink'.length)}-noshrink`, '')
-    if (base?.avg) {
-      const r = avg / base.avg
-      if (r > 1.6 || r < 0.95) {
-        return { ok: false, reason: `シュリンク比 ${r.toFixed(2)}倍（シュリンクなし ¥${base.avg.toLocaleString()}）が想定域(0.95〜1.6)外` }
       }
     }
   }
@@ -907,8 +959,18 @@ async function scrapeCard(
       sampleCount = snkrdunkCount
     } else {
       // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
+      //
+      // 名前照合(matchesCardName)を入れると、検索が緩んで別カードで水増しされていた薄商い銘柄は
+      // 件数不足に倒れる。そこで **カード番号をキーワードにした検索を控えにする**。出品タイトルに
+      // "080/067" と書く出品者は名前の表記ゆれに関係なく確実に本物なので、名前+レアリティ+弾名の
+      // クエリより素直に当たる（出品件数の集計を numFound から実数へ直した時と同じ考え方）。
+      //   オーロットVMAX HR: 「オーロットVMAX HR 蒼空ストリーム」= 本物1件＋別カード3件 だったが
+      //   「オーロットVMAX 080/067」= ¥333/¥400/¥800 の3件すべて本物。
+      const queries = cardNoStr ? [searchQuery, `${cardName} ${cardNoStr}`] : [searchQuery]
       for (let attempt = 1; attempt <= 3; attempt++) {
-        const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.2, 0.6, cardNo)
+        const q = queries[Math.min(attempt, queries.length) - 1]
+        if (attempt > 1 && q !== searchQuery) process.stdout.write(`[番号キーワードで再検索] `)
+        const result = await scrapeMercariSoldAvg(browser, q, 0.2, 0.6, cardNo, 0.25, cardName)
         if (result != null) {
           avg = result.avg; mercariLow = result.low; mercariHigh = result.high; soldTotal = result.soldTotal
           // メルカリ由来でも件数を残す。これが無いと「何件の成約で出した値か」が後から検証できず、

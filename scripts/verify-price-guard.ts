@@ -11,7 +11,7 @@
  * 価格の不具合を1件直したら、必ずここに1ケース足してから閉じること。
  * 実行: npx tsx scripts/verify-price-guard.ts
  */
-import { guardPrice } from './scrape-prices'
+import { guardPrice, matchesCardName } from './scrape-prices'
 import type { PriceRecord, PriceSource } from '../src/types/pokeca'
 
 type OnSale = { count: number | null; askLow: number | null; askMid: number | null }
@@ -155,6 +155,21 @@ const cases: Case[] = [
     prev: null,
   },
   {
+    // 2026-08-06 の再発。08-02以降ずっと棄却され続けた結果 prev が4日前になり、
+    // **R0 が R3 を飛ばして** 2026-08-01 と同じ事故（+61%）が通った。
+    // 関門の棄却そのものが R0 の入口を開けるので、整合性系のルールは免除してはいけない。
+    name: '蒼空ストリームBOX(シュリンクあり): 4日棄却され続けた後に同じ高値が R0 経由で通った再発',
+    shouldReject: true,
+    id: 'box-soukuu_stream-shrink',
+    date: '2026-08-06',
+    avg: 258750,
+    low: 232500,
+    high: 285000,
+    priceSource: 'mercari',
+    onSale: { count: 10, askLow: null, askMid: null },
+    prev: { date: '2026-08-02', avg: 160573 },
+  },
+  {
     name: '正常: 4日以上更新できていない銘柄は裏付け無しでも受け入れる（価格の凍り付き防止）',
     shouldReject: false,
     id: 'frozen-card-sr',
@@ -187,6 +202,34 @@ const cases: Case[] = [
     priceSource: 'mercari',
     onSale: { count: 3, askLow: null, askMid: null },
     prev: { date: '2026-08-02', avg: 3985 },
+  },
+  {
+    // 2026-08-04 の再発。R4 を足した直後なのに同じ値が入り直した。
+    // 汚染レコード(08-01〜08-03)をデータ掃除で削除したせいで prev が 07-31＝4日前になり、
+    // **R0(凍り付き防止)が先に true を返して R4 を飛ばした**のが原因。掃除で空けた穴が
+    // そのまま抜け道になる、という関門の順序の問題。R4 は R0 より前で判定すること。
+    name: 'オーロットVMAX HR: 前回が4日前でも壊れた帯は通さない（R0がR4を飛ばしてはいけない）',
+    shouldReject: true,
+    id: 'soukuu-stream-aurott-vmax-hr-80',
+    date: '2026-08-04',
+    avg: 3985,
+    low: 333,
+    high: 5733,
+    priceSource: 'mercari',
+    onSale: { count: 1, askLow: null, askMid: null },
+    prev: { date: '2026-07-31', avg: 5811 },
+  },
+  {
+    name: '正常: 前回が4日前でも帯が健全なら受け入れる（R4を足してもR0の逃げ道は残る）',
+    shouldReject: false,
+    id: 'frozen-card-with-sane-band-sr',
+    date: '2026-07-31',
+    avg: 5000,
+    low: 4200,
+    high: 5800,
+    priceSource: 'mercari',
+    onSale: { count: 10, askLow: 4000, askMid: 5200 },
+    prev: { date: '2026-07-25', avg: 2000, ask_low: 4000, ask_mid: 5200 },
   },
 
   // 2026-08-03: 「PSA10/素体の倍率が同格から外れる」で異常を疑ったが、メルカリ成約を実際に
@@ -245,8 +288,40 @@ for (const c of cases) {
 }
 
 console.log(`\n${cases.length - failed}/${cases.length} 件パス`)
-if (failed > 0) {
-  console.error(`\n❌ ${failed}件が期待と違う。guardPrice を直すか、期待値の根拠を再確認すること。`)
+
+// ── 採用するタイトルがそもそもこのカードか（matchesCardName） ─────────────
+// メルカリの検索は完全一致が少ないと勝手に条件を緩めて別カードを返す。関門(guardPrice)は
+// 「入ってきた数字」しか見られないので、ここで**採用前**に落とすしかない。
+console.log('\n── タイトルの名前照合（検索が緩んで別カードが返る事故） ──')
+const nameCases: Array<{ title: string; name: string; want: boolean; note?: string }> = [
+  // 2026-08-06 ユーザー報告「おすすめカードのオーロットの値段がおかしい」の実データ。
+  // 検索「オーロットVMAX HR 蒼空ストリーム」が返した4件のうち本物は1件だけだった。
+  { title: 'オーロットVMAX HR S7R 蒼空ストリーム 080/067', name: 'オーロットVMAX', want: true },
+  { title: '状態B オーロットVMAX s7R E 080/067 HR ★ ポケカ', name: 'オーロットVMAX', want: true },
+  { title: '080/067/S7R/B/HR オーロットVMAX', name: 'オーロットVMAX', want: true },
+  { title: 'メガリザードンex SR インフェルノX', name: 'オーロットVMAX', want: false },
+  { title: 'ポケモンカードex マリィのオーロンゲex', name: 'オーロットVMAX', want: false },
+  // 誤爆させてはいけない表記ゆれ（全角・分かち書き・大小文字）
+  { title: 'リーフィア Ｖ SR 070/069', name: 'リーフィアV', want: true },
+  { title: 'ヒガナ 決意 SR 蒼空ストリーム', name: 'ヒガナの決意', want: true },
+  { title: 'Ｎのゾロアークex SAR', name: 'Nのゾロアークex', want: true },
+  { title: 'ラティアス＆ラティオスGX SA 105/095', name: 'ラティアス&ラティオスGX', want: true },
+  { title: 'トウホク ピカチュウ プロモ 260/SV-P', name: 'トウホクのピカチュウ', want: true },
+  { title: 'ブラッキーVMAX SA 095/069', name: 'リーフィアV', want: false },
+  // 既知の限界: TAG TEAM 名を逆順で書いた出品は落ちる（採らないだけなので安全側）
+  { title: 'ラティオス&ラティアス GX SR', name: 'ラティアス&ラティオスGX', want: false, note: '既知の限界' },
+]
+let nameFailed = 0
+for (const c of nameCases) {
+  const got = matchesCardName(c.title, c.name)
+  const pass = got === c.want
+  if (!pass) nameFailed++
+  console.log(`${pass ? '  OK  ' : ' NG!! '} [${c.name}] ${c.title} → ${got ? '採用' : '不採用'}${c.note ? `（${c.note}）` : ''}`)
+}
+console.log(`\n${nameCases.length - nameFailed}/${nameCases.length} 件パス`)
+
+if (failed > 0 || nameFailed > 0) {
+  console.error(`\n❌ ${failed + nameFailed}件が期待と違う。guardPrice / matchesCardName を直すか、期待値の根拠を再確認すること。`)
   process.exit(1)
 }
 console.log('✅ 過去の事故はすべて関門で止まる')
