@@ -190,6 +190,17 @@
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/0/0d/SM9_Tag_Bolt_pack.jpg",
       "note": "2018-12-07発売のサン&ムーン期拡張パック。TAG TEAM GXが初登場した弾で、各GXに通常SRとスペシャルアート(SA)の2種が存在する。目玉はラティアス&ラティオスGX SA・ゲンガー&ミミッキュGX SA・ピカチュウ&ゼクロムGX SA。長期絶版で高騰。"
+    },
+    {
+      "box_id": "clay_burst",
+      "box_name": "クレイバースト",
+      "code": "SV2D",
+      "release_ym": "2023-04",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/e/ee/SV2D_Clay_Burst_pack.png",
+      "note": "2023-04-14発売の拡張パック（スノーハザードと同時発売）。ナンジャモSAR(096/071)を筆頭にSV期を代表する高額弾。長期絶版。"
     }
   ],
   "cards": [
@@ -11656,6 +11667,1098 @@
         "player": "",
         "collector": "ストームエメラルダ唯一のMUR。金加工＋レックウザ＋弾の看板が重なり、初動から最高額のチェイスカード。",
         "source": "実カード画像（pokeca.net m6）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-07-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-heracross-ar-72",
+      "card_no": "072/071",
+      "rarity": "AR",
+      "card_name": "ヘラクロス",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/072.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 130,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-fletchinder-ar-73",
+      "card_no": "073/071",
+      "rarity": "AR",
+      "card_name": "ヒノヤコマ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/073.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 80,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-raichu-ar-74",
+      "card_no": "074/071",
+      "rarity": "AR",
+      "card_name": "ライチュウ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/074.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 140,
+        "note": "ピカチュウの進化形。AR帯では人気上位。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Toshinao Aoki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-sandygast-ar-75",
+      "card_no": "075/071",
+      "rarity": "AR",
+      "card_name": "スナバァ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/075.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 90,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-tinkatink-ar-76",
+      "card_no": "076/071",
+      "rarity": "AR",
+      "card_name": "カヌチャン",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/076.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 60,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-tinkatuff-ar-77",
+      "card_no": "077/071",
+      "rarity": "AR",
+      "card_name": "ナカヌチャン",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/077.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 90,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-nacli-ar-78",
+      "card_no": "078/071",
+      "rarity": "AR",
+      "card_name": "コジオ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/078.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 70,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-tyranitar-ar-79",
+      "card_no": "079/071",
+      "rarity": "AR",
+      "card_name": "バンギラス",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/079.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "2進化",
+        "hp": 180,
+        "note": "初代から続く人気ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-grafaiai-ar-80",
+      "card_no": "080/071",
+      "rarity": "AR",
+      "card_name": "タギングル",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/080.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 90,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-maushold-ar-81",
+      "card_no": "081/071",
+      "rarity": "AR",
+      "card_name": "イッカネズミ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/081.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 60,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mizue",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-flamigo-ar-82",
+      "card_no": "082/071",
+      "rarity": "AR",
+      "card_name": "カラミンゴ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/082.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 110,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shibuzoh.",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-farigiraf-ar-83",
+      "card_no": "083/071",
+      "rarity": "AR",
+      "card_name": "リキキリン",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/083.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 140,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-forretress-ex-sr-84",
+      "card_no": "084/071",
+      "rarity": "SR",
+      "card_name": "フォレトスex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/084.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化ex",
+        "hp": 270,
+        "note": "テラスタル。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-chi-yu-ex-sr-85",
+      "card_no": "085/071",
+      "rarity": "SR",
+      "card_name": "イーユイex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/085.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たねex",
+        "hp": 190,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-bellibolt-ex-sr-86",
+      "card_no": "086/071",
+      "rarity": "SR",
+      "card_name": "ハラバリーex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/086.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化ex",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-tinkaton-ex-sr-87",
+      "card_no": "087/071",
+      "rarity": "SR",
+      "card_name": "デカヌチャンex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/087.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "2進化ex",
+        "hp": 300,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-ting-lu-ex-sr-88",
+      "card_no": "088/071",
+      "rarity": "SR",
+      "card_name": "ディンルーex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/088.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たねex",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-noivern-ex-sr-89",
+      "card_no": "089/071",
+      "rarity": "SR",
+      "card_name": "オンバーンex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/089.jpg",
+      "card_spec": {
+        "type": "竜",
+        "stage": "1進化ex",
+        "hp": 260,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-hassel-sr-90",
+      "card_no": "090/071",
+      "rarity": "SR",
+      "card_name": "サワロ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/090.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "nagimiso",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-iono-sr-91",
+      "card_no": "091/071",
+      "rarity": "SR",
+      "card_name": "ナンジャモ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/091.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "ナンジャモのフルアートSR。SAR(096)に次ぐ人気枠。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-chi-yu-ex-sar-92",
+      "card_no": "092/071",
+      "rarity": "SAR",
+      "card_name": "イーユイex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/092.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たねex",
+        "hp": 190,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-tinkaton-ex-sar-93",
+      "card_no": "093/071",
+      "rarity": "SAR",
+      "card_name": "デカヌチャンex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/093.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "2進化ex",
+        "hp": 300,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tika Matsuno",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-ting-lu-ex-sar-94",
+      "card_no": "094/071",
+      "rarity": "SAR",
+      "card_name": "ディンルーex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/094.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たねex",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "KEIICHIRO ITO",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-hassel-sar-95",
+      "card_no": "095/071",
+      "rarity": "SAR",
+      "card_name": "サワロ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/095.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-iono-sar-96",
+      "card_no": "096/071",
+      "rarity": "SAR",
+      "card_name": "ナンジャモ",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/096.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "この弾の看板カード。SV期を代表する高額サポートSAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-ting-lu-ex-ur-97",
+      "card_no": "097/071",
+      "rarity": "UR",
+      "card_name": "ディンルーex",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/097.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たねex",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-super-energy-retrieval-ur-98",
+      "card_no": "098/071",
+      "rarity": "UR",
+      "card_name": "スーパーエネルギー回収",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV2D/SV2D_98_R_JP_LG.png",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Studio Bora Inc.",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "clay-burst-kihon-kusa-energy-ur-99",
+      "card_no": "099/071",
+      "rarity": "UR",
+      "card_name": "基本草エネルギー",
+      "box_id": "clay_burst",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/sv2d/099.jpg",
+      "card_spec": {
+        "type": "エネルギー",
+        "stage": "エネルギー",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
       },
       "note": ""
     }
