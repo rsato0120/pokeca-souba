@@ -529,6 +529,14 @@ async function scrapeMercariSoldAvg(
   trimTopPct = 0.25,
   // カード名（BOX/セットは null）。検索が緩んで別カードが返ってきた時の最後の砦（matchesCardName）
   cardName: string | null = null,
+  // タイトルに対する追加条件（BOX用）。getMercariOnSale の titleMust と同じものを渡す。
+  // ⚠️ メルカリの成約検索はキーワードをトークンANDで**絞ってくれない**。実測（2026-08-13）:
+  //   "インフェルノX 未開封 シュリンクなし 1BOX" の結果114件のうち、タイトルに「シュリンクなし」
+  //   と書いてあるのは11件だけで、70件は逆の「シュリンク付き」だった。シュリンクあり側の検索と
+  //   58件が同一出品。つまり分離できておらず、あり/なしがほぼ同じ値になっていた
+  //   （インフェルノX: なし¥19,750 vs あり¥19,936。タイトルで絞ると なし は¥14,750 が実勢）。
+  //   件数(getMercariOnSale)側にだけ条件が掛かっていて、価格側は素通りだったのが原因。
+  titleMust: ((title: string) => boolean) | null = null,
 ): Promise<MercariPriceResult | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
@@ -552,7 +560,8 @@ async function scrapeMercariSoldAvg(
       : null
     const nowSec = Date.now() / 1000
     const candidates = rawItems
-      .filter(i => !isExcluded(i.name) && matchesCardName(i.name, cardName) && matchesCardNo(i.name, cardNo) && Number(i.price) > 0)
+      .filter(i => !isExcluded(i.name) && matchesCardName(i.name, cardName) && matchesCardNo(i.name, cardNo)
+        && (titleMust == null || titleMust(i.name)) && Number(i.price) > 0)
       .map(i => {
         const soldAt = Number(i.updated)
         return {
@@ -655,14 +664,32 @@ export function guardPrice(opts: {
   }
 
   // --- R3: BOX シュリンクあり ⇔ なし の関係【R0より前に判定する】 ---
-  // シュリンク付きのプレミアムは実測で 1.05〜1.3倍。1.6倍を超えるのは
+  // シュリンク付きのプレミアムは現行弾の実測で 1.05〜1.3倍。1.6倍を超えるのは
   // カートン/複数BOX/セット出品の混入か、検索窓拡張による古い高値の混入である。
+  //
+  // ⚠️ ただし上限1.6倍が効くのは「その比が突然発生した」時だけにする。
+  //
+  // 【なぜ】この 1.6 は、成約側にタイトル条件が無くシュリンクあり/なしが**分離できて
+  // いなかった頃**（＝なし≒ありで比が常に1.0付近だった頃）に決めた値だった。2026-08-13 に
+  // 分離を直したところ、絶版弾の本当のプレミアムが表に出て一斉に上限を超えた:
+  //   イーブイヒーローズ  あり¥137,500 / なし¥52,000  = 2.64倍
+  //   蒼空ストリーム      あり¥224,730 / なし¥70,725  = 3.18倍
+  // 一方、過去に実際に起きた事故（2026-08-01/08-06 の蒼空ストリーム）は 2.53倍 で、
+  // **比率だけでは正当なプレミアムと事故を分離できない**（2.53 < 2.64）。
+  //
+  // 分けられるのは「その水準が続いているか」。事故は前日比+61%で**突然**跳ねたのに対し、
+  // 絶版弾のプレミアムは毎日ほぼ同じ値で居座る（イーブイは前日比+2.8%）。
+  // よって: 比が想定域外でも、前日から±20%以内で安定していれば構造的なプレミアムとみなす。
+  // 上限3.5倍はカートン/複数BOX混入（実測4〜20倍）を残して弾くための天井。
   if (id.endsWith('-shrink')) {
     const base = readLatestRecord(`${id.slice(0, -'-shrink'.length)}-noshrink`, '')
     if (base?.avg) {
       const r = avg / base.avg
-      if (r > 1.6 || r < 0.95) {
-        return { ok: false, reason: `シュリンク比 ${r.toFixed(2)}倍（シュリンクなし ¥${base.avg.toLocaleString()}）が想定域(0.95〜1.6)外` }
+      // 前日から動いていない＝この比は今日生まれたものではない
+      const stable = prev?.avg != null && prev.avg > 0 && Math.abs(avg / prev.avg - 1) <= 0.20
+      const hi = stable || prev?.avg == null ? 3.5 : 1.6
+      if (r > hi || r < 0.95) {
+        return { ok: false, reason: `シュリンク比 ${r.toFixed(2)}倍（シュリンクなし ¥${base.avg.toLocaleString()}）が想定域(0.95〜${hi})外` }
       }
     }
   }
@@ -1133,13 +1160,17 @@ async function scrapeBox(
   label: string,
   date: string,
   stats: { succeeded: number; skipped: number; failed: number },
-  // 出品件数を絞るための弾名（表記ゆれをORで許す）とシュリンク種別。
-  // 成約側の検索クエリはこれまでどおりで、ここは件数の数え方だけに効く。
+  // 弾名（表記ゆれをORで許す）とシュリンク種別。**成約価格と出品件数の両方**に効く。
+  // 2026-08-13 まで件数側にしか掛かっておらず、価格側はメルカリの曖昧一致任せだったため
+  // シュリンクあり/なしが分離できていなかった（scrapeMercariSoldAvg の titleMust 参照）。
   titleAlts: string[],
   shrink: 'any' | 'yes' | 'no',
   titleForbidden: string[] = []
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
+  // 成約・出品で同一の条件を使う（片方だけに掛けると「価格はあり/なし混在、件数だけ分離」に
+  // なり、両者が食い違う）
+  const titleMust = boxTitleFilter(titleAlts, shrink, titleForbidden)
   try {
     let avg: number | null = null
     let boxLow = 0, boxHigh = 0
@@ -1154,7 +1185,7 @@ async function scrapeBox(
       // 中位バンドでも「高すぎ」側には戻らない。
       // trimTopPct=0: BOXは中位バンド(35-65th)を明示的に取るので、追加の高値カットはしない
       // （2026-07-27 に床値バンドから中位バンドへ戻した経緯があり、二重に下げてはいけない）
-      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65, null, 0)
+      const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65, null, 0, null, titleMust)
       if (result != null) {
         avg = result.avg; boxLow = result.low; boxHigh = result.high; soldTotal = result.soldTotal
         oldestSaleDays = result.oldestSaleDays
@@ -1172,9 +1203,7 @@ async function scrapeBox(
     avg = Math.round((boxLow + boxHigh) / 2)
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
-    const onSale = await getMercariOnSale(
-      browser, onSaleQuery, Math.round(avg * 0.4), null, boxTitleFilter(titleAlts, shrink, titleForbidden),
-    )
+    const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4), null, titleMust)
 
     // ★カードと同じ関門を通す。BOXはこれまで無防備で、成約が薄い弾で検索窓が90日超に
     // 拡張されると古い高値が混ざり +61% の偽の急騰が出ていた（蒼空ストリーム シュリンクあり）
@@ -1269,7 +1298,9 @@ async function main() {
         // "1BOX" を明示して複数BOXロットを排除
         await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`, date, stats, [box.box_name], 'any')
         // シュリンクあり/なしを分けて取得（相場が別物なので混ぜると実勢とズレる）。
-        // Mercari はキーワードをトークンAND照合するので「シュリンク付き」/「シュリンクなし」で分離できる。
+        // ⚠️ 分離しているのは**クエリではなくタイトル条件（boxTitleFilter）**。メルカリの検索は
+        // 「シュリンクなし」で引いても「シュリンク付き」の出品を大量に返す（実測で114件中70件）。
+        // クエリはあくまで母集団を寄せるためのもので、あり/なしの判定はタイトルで行う。
         await scrapeBox(browser, `box-${box.box_id}-shrink`, `${box.box_name} 未開封 シュリンク付き 1BOX`, `${box.box_name} シュリンクあり`, date, stats, [box.box_name], 'yes')
         await scrapeBox(browser, `box-${box.box_id}-noshrink`, `${box.box_name} 未開封 シュリンクなし 1BOX`, `${box.box_name} シュリンクなし`, date, stats, [box.box_name], 'no')
       }

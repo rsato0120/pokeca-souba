@@ -170,6 +170,21 @@ const cases: Case[] = [
     prev: { date: '2026-08-02', avg: 160573 },
   },
   {
+    // 2026-08-13 にシュリンク分離を直した結果、絶版弾では「あり/なし」が本当に2.6倍離れる
+    // ことが見えるようになった。上の事故(2.53倍)より比は大きいので、比率だけでは分離できない。
+    // 事故は前日比+61%で突然跳ねる／こちらは毎日同じ水準で居座る、が分かれ目。
+    name: '正常: イーブイヒーローズBOX(シュリンクあり) 絶版弾の2.64倍プレミアムは前日から安定していれば通す',
+    shouldReject: false,
+    id: 'box-eevee_heroes-shrink',
+    date: '2026-08-13',
+    avg: 137500,
+    low: 130000,
+    high: 145000,
+    priceSource: 'mercari',
+    onSale: { count: 8, askLow: null, askMid: null },
+    prev: { date: '2026-08-12', avg: 133722 },
+  },
+  {
     name: '正常: 4日以上更新できていない銘柄は裏付け無しでも受け入れる（価格の凍り付き防止）',
     shouldReject: false,
     id: 'frozen-card-sr',
