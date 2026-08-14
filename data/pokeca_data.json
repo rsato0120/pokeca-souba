@@ -106,6 +106,17 @@
       "note": "2025-08-01発売。MEGAシリーズ第1弾。メガルカリオex/メガフシギバナex/メガアブソルex/メガクチートex/メガバクーダexを収録。メガシンフォニアと同時発売。"
     },
     {
+      "box_id": "mega_symphonia",
+      "box_name": "メガシンフォニア",
+      "code": "M1S",
+      "release_ym": "2025-08",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://www.pokemon-card.com/ex/m1/assets/images/product-img-2.png",
+      "note": "2025-08-01発売。MEGAシリーズ第1弾のうちメガブレイブと同時発売の対弾。メガサーナイトex/メガラティアスex/メガガルーラex/メガユキノオーex/メガライボルトexを収録。シークレット枠29種（AR 064-075 / SR 076-086 / SAR 087-091 / MUR 092）。カード画像は pokeca.net の m1s。"
+    },
+    {
       "box_id": "black_bolt",
       "box_name": "ブラックボルト",
       "code": "SV11B",
@@ -12759,6 +12770,1137 @@
         "player": "",
         "collector": "",
         "source": "実カード画像（pokeca.net sv2d）でカード名・番号・レアリティ・HP・タイプを確認（2026-08-07）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-shuckle-ar-64",
+      "card_no": "064/063",
+      "rarity": "AR",
+      "card_name": "ツボツボ",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/064.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 80,
+        "note": "特性「はっこうジュース」。木の実がなる蔓を背景にした描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "OKUBO",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "特性「はっこうジュース」。木の実がなる蔓を背景にした描き下ろしAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-ninjask-ar-65",
+      "card_no": "065/063",
+      "rarity": "AR",
+      "card_name": "テッカニン",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/065.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 80,
+        "note": "特性「からぬけ」でヌケニンをベンチに出す。光の差す森のAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Tetsu Kayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "特性「からぬけ」でヌケニンをベンチに出す。光の差す森のAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-litleo-ar-66",
+      "card_no": "066/063",
+      "rarity": "AR",
+      "card_name": "シシコ",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/066.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 70,
+        "note": "南欧の路地裏を歩くシシコのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Teeziro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "南欧の路地裏を歩くシシコのAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-snover-ar-67",
+      "card_no": "067/063",
+      "rarity": "AR",
+      "card_name": "ユキカブリ",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/067.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 90,
+        "note": "雪の積もった路地のユキカブリ。メガユキノオーexの進化前。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Nurikabe",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "雪の積もった路地のユキカブリ。メガユキノオーexの進化前。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-clawitzer-ar-68",
+      "card_no": "068/063",
+      "rarity": "AR",
+      "card_name": "ブロスター",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/068.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 130,
+        "note": "特性「バックリロード」。滝を背景にした描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "特性「バックリロード」。滝を背景にした描き下ろしAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-inteleon-ar-69",
+      "card_no": "069/063",
+      "rarity": "AR",
+      "card_name": "インテレオン",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/069.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "2進化",
+        "hp": 150,
+        "note": "ガラル御三家の最終進化。水しぶきの中を跳ぶ構図のAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Ligray",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ガラル御三家の最終進化。水しぶきの中を跳ぶ構図のAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-helioptile-ar-70",
+      "card_no": "070/063",
+      "rarity": "AR",
+      "card_name": "エリキテル",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/070.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 70,
+        "note": "流星の降る砂漠に群れるエリキテルのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Akira Komayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "流星の降る砂漠に群れるエリキテルのAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-alakazam-ar-71",
+      "card_no": "071/063",
+      "rarity": "AR",
+      "card_name": "フーディン",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/071.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "2進化",
+        "hp": 140,
+        "note": "初代の人気ポケモン。特性「サイコドロー」。岩山を背景にしたAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Aya Kusube",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "初代の人気ポケモン。特性「サイコドロー」。岩山を背景にしたAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-shedinja-ar-72",
+      "card_no": "072/063",
+      "rarity": "AR",
+      "card_name": "ヌケニン",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/072.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 60,
+        "note": "特性「もろいぬけがら」。テッカニン(065)と対になる構図のAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Tetsu Kayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "特性「もろいぬけがら」。テッカニン(065)と対になる構図のAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-houndstone-ar-73",
+      "card_no": "073/063",
+      "rarity": "AR",
+      "card_name": "ハカドッグ",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/073.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 140,
+        "note": "花に囲まれた墓地を思わせる描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Arai Kiriko",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "花に囲まれた墓地を思わせる描き下ろしAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-delibird-ar-74",
+      "card_no": "074/063",
+      "rarity": "AR",
+      "card_name": "デリバード",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/074.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 90,
+        "note": "ワザ「ファストギフト」は先攻1ターン目から使える。雪原に並ぶデリバードのAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Takeshi Nakamura",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ワザ「ファストギフト」は先攻1ターン目から使える。雪原に並ぶデリバードのAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-stufful-ar-75",
+      "card_no": "075/063",
+      "rarity": "AR",
+      "card_name": "ヌイコグマ",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/075.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 70,
+        "note": "散らかった子供部屋のヌイコグマ。生活感のある人気構図のAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "OKACHEKE",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "散らかった子供部屋のヌイコグマ。生活感のある人気構図のAR。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-abomasnow-ex-sr-76",
+      "card_no": "076/063",
+      "rarity": "SR",
+      "card_name": "メガユキノオーex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/076.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "メガシンカex",
+        "hp": 350,
+        "note": "SR版。ユキノオーのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。ユキノオーのメガシンカex。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-manectric-ex-sr-77",
+      "card_no": "077/063",
+      "rarity": "SR",
+      "card_name": "メガライボルトex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/077.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "メガシンカex",
+        "hp": 330,
+        "note": "SR版。ライボルトのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。ライボルトのメガシンカex。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-gardevoir-ex-sr-78",
+      "card_no": "078/063",
+      "rarity": "SR",
+      "card_name": "メガサーナイトex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/078.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "SR版。本弾の看板であるサーナイトのメガシンカex。ワザ「メガシンフォニア」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。本弾の看板であるサーナイトのメガシンカex。ワザ「メガシンフォニア」。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-latias-ex-sr-79",
+      "card_no": "079/063",
+      "rarity": "SR",
+      "card_name": "メガラティアスex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/079.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "SR版。ラティアスのメガシンカex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。ラティアスのメガシンカex。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-kangaskhan-ex-sr-80",
+      "card_no": "080/063",
+      "rarity": "SR",
+      "card_name": "メガガルーラex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/080.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 300,
+        "note": "SR版。ガルーラのメガシンカex。特性「おつかいダッシュ」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。ガルーラのメガシンカex。特性「おつかいダッシュ」。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-nakayoshi-poffin-sr-81",
+      "card_no": "081/063",
+      "rarity": "SR",
+      "card_name": "なかよしポフィン",
+      "box_id": "mega_symphonia",
+      "is_reprint": true,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/081.jpg",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": "HP70以下のたねポケモンを2枚ベンチに出すグッズ。競技での定番カードが本弾で初のSR化。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AYUMI ODASHIMA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "HP70以下のたねポケモンを2枚ベンチに出すグッズ。競技での定番カードが本弾で初のSR化。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-rare-candy-sr-82",
+      "card_no": "082/063",
+      "rarity": "SR",
+      "card_name": "ふしぎなアメ",
+      "box_id": "mega_symphonia",
+      "is_reprint": true,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/082.jpg",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": "2進化を飛ばして進化させる定番グッズのSR版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Studio Bora Inc.",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2進化を飛ばして進化させる定番グッズのSR版。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-signal-sr-83",
+      "card_no": "083/063",
+      "rarity": "SR",
+      "card_name": "メガシグナル",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/083.jpg",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": "山札からメガシンカexを1枚手札に加えるグッズ。本弾のデッキ必須級。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "inose yukie",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "山札からメガシンカexを1枚手札に加えるグッズ。本弾のデッキ必須級。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-acerola-mischief-sr-84",
+      "card_no": "084/063",
+      "rarity": "SR",
+      "card_name": "アセロラのいたずら",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/084.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR版。サイド2枚以下でのみ使えるアセロラのサポート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。サイド2枚以下でのみ使えるアセロラのサポート。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-wally-compassion-sr-85",
+      "card_no": "085/063",
+      "rarity": "SR",
+      "card_name": "ミツルの思いやり",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/085.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR版。メガシンカexのHPを全回復するミツルのサポート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Iori Suzuki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SR版。メガシンカexのHPを全回復するミツルのサポート。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mystery-garden-sr-86",
+      "card_no": "086/063",
+      "rarity": "SR",
+      "card_name": "ミステリーガーデン",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/086.jpg",
+      "card_spec": {
+        "type": "スタジアム",
+        "stage": "スタジアム",
+        "hp": 0,
+        "note": "エネルギーをトラッシュして山札を引けるスタジアム。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "AYUMI ODASHIMA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "エネルギーをトラッシュして山札を引けるスタジアム。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-gardevoir-ex-sar-87",
+      "card_no": "087/063",
+      "rarity": "SAR",
+      "card_name": "メガサーナイトex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/087.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "SAR版。本弾の最注目カード。キルリアを背に佇む描き下ろし。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Raita Kazama",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR版。本弾の最注目カード。キルリアを背に佇む描き下ろし。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-latias-ex-sar-88",
+      "card_no": "088/063",
+      "rarity": "SAR",
+      "card_name": "メガラティアスex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/088.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 280,
+        "note": "SAR版。街の上空を飛ぶ躍動感のある構図。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR版。街の上空を飛ぶ躍動感のある構図。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-kangaskhan-ex-sar-89",
+      "card_no": "089/063",
+      "rarity": "SAR",
+      "card_name": "メガガルーラex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/089.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "メガシンカex",
+        "hp": 300,
+        "note": "SAR版。親子が街を駆ける賑やかな構図。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "GOTO minori",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR版。親子が街を駆ける賑やかな構図。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-acerola-mischief-sar-90",
+      "card_no": "090/063",
+      "rarity": "SAR",
+      "card_name": "アセロラのいたずら",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/090.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SAR版。ゴーストポケモンに囲まれたアセロラ。人気キャラ×人気絵師の組み合わせ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "sui",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR版。ゴーストポケモンに囲まれたアセロラ。人気キャラ×人気絵師の組み合わせ。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-wally-compassion-sar-91",
+      "card_no": "091/063",
+      "rarity": "SAR",
+      "card_name": "ミツルの思いやり",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/091.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SAR版。花畑に座るミツル。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Jiro Sasumo",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAR版。花畑に座るミツル。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "mega-symphonia-mega-gardevoir-ex-mur-92",
+      "card_no": "092/063",
+      "rarity": "MUR",
+      "card_name": "メガサーナイトex",
+      "box_id": "mega_symphonia",
+      "is_reprint": false,
+      "image_url": "https://www.pokeca.net/data/pokeca/product/m1s/092.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "本弾唯一のMUR（金）。メガサーナイトex。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "low",
+          "artwork_type": "original",
+          "rarity": "MUR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "本弾唯一のMUR（金）。メガサーナイトex。",
+        "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
       },
       "note": ""
     }
