@@ -212,6 +212,16 @@
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/e/ee/SV2D_Clay_Burst_pack.png",
       "note": "2023-04-14発売の拡張パック（スノーハザードと同時発売）。ナンジャモSAR(096/071)を筆頭にSV期を代表する高額弾。長期絶版。"
+    },
+    {
+      "box_id": "start_deck_100",
+      "box_name": "スタートデッキ100 バトルコレクション",
+      "code": "MC",
+      "release_ym": "2025-12",
+      "certainty": "released",
+      "pack_price_yen": 891,
+      "pack_image_url": "https://www.pokemon-card.com/ex/mc/assets/images/home/image_package.png",
+      "note": "2025-12-19発売。100種類のデッキからランダムで1つ手に入る商品。AR14種とMUR1種（メガリザードンYex・金のNo.001デッキ）に高値が付く。カード番号は743〜766/742。"
     }
   ],
   "cards": [
@@ -13901,6 +13911,591 @@
         "player": "",
         "collector": "本弾唯一のMUR（金）。メガサーナイトex。",
         "source": "実カード画像（pokeca.net m1s）でカード名・番号・HP・タイプ・イラストレーターを確認（2026-08-13）"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-erikas-tangela-ar-743",
+      "card_no": "743/742",
+      "rarity": "AR",
+      "card_name": "エリカのモンジャラ",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_743_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 80,
+        "note": "エリカのポケモンとして描かれたモンジャラ。草花に囲まれた描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "buchi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "エリカのポケモンとして描かれたモンジャラ。草花に囲まれた描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-salazzle-ar-744",
+      "card_no": "744/742",
+      "rarity": "AR",
+      "card_name": "エンニュート",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_744_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "ヤトウモリから進化。夜の岩場を思わせる描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Dsuke",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ヤトウモリから進化。夜の岩場を思わせる描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-scorbunny-ar-745",
+      "card_no": "745/742",
+      "rarity": "AR",
+      "card_name": "ヒバニー",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_745_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ガラルの御三家。人気の高いたねポケモンの描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ガラルの御三家。人気の高いたねポケモンの描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-weavile-ar-746",
+      "card_no": "746/742",
+      "rarity": "AR",
+      "card_name": "マニューラ",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_746_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 100,
+        "note": "ニューラから進化。雪の街並みに群れで現れる構図の描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Uninori",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ニューラから進化。雪の街並みに群れで現れる構図の描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-vikavolt-ar-747",
+      "card_no": "747/742",
+      "rarity": "AR",
+      "card_name": "クワガノン",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_747_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "2進化",
+        "hp": 160,
+        "note": "デンヂムシから進化する2進化。森を背景にした描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Tonji Matsuno",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "デンヂムシから進化する2進化。森を背景にした描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-marill-ar-748",
+      "card_no": "748/742",
+      "rarity": "AR",
+      "card_name": "マリル",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_748_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 70,
+        "note": "淡い色面で描かれた描き下ろしAR。Rondの作風が出た1枚。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Rond",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "淡い色面で描かれた描き下ろしAR。Rondの作風が出た1枚。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-banette-ar-749",
+      "card_no": "749/742",
+      "rarity": "AR",
+      "card_name": "ジュペッタ",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_749_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 90,
+        "note": "カゲボウズから進化。ぬいぐるみの質感を活かした描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "YASHIRO Nanaco",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "カゲボウズから進化。ぬいぐるみの質感を活かした描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-slurpuff-ar-750",
+      "card_no": "750/742",
+      "rarity": "AR",
+      "card_name": "ペロリーム",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_750_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "ペロッパフから進化。お菓子のモチーフを活かした描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Yoshimoto Yoshimon",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ペロッパフから進化。お菓子のモチーフを活かした描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-hitmontop-ar-751",
+      "card_no": "751/742",
+      "rarity": "AR",
+      "card_name": "カポエラー",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_751_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 100,
+        "note": "逆立ちで回るポーズを活かした描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "osare",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "逆立ちで回るポーズを活かした描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-carbink-ar-752",
+      "card_no": "752/742",
+      "rarity": "AR",
+      "card_name": "メレシー",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_752_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 90,
+        "note": "宝石の質感を描いた描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "sui",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "宝石の質感を描いた描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-mightyena-ar-753",
+      "card_no": "753/742",
+      "rarity": "AR",
+      "card_name": "グラエナ",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_753_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "ポチエナから進化。群れの構図で描かれた描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Yano Keiji",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ポチエナから進化。群れの構図で描かれた描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-mawile-ar-754",
+      "card_no": "754/742",
+      "rarity": "AR",
+      "card_name": "クチート",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_754_R_JP_LG.png",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "たね",
+        "hp": 90,
+        "note": "sowsowによる描き下ろしAR。大きな顎がモチーフ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "sowsow",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "sowsowによる描き下ろしAR。大きな顎がモチーフ。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-eevee-ar-755",
+      "card_no": "755/742",
+      "rarity": "AR",
+      "card_name": "イーブイ",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_755_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 50,
+        "note": "本商品のAR最高額。イーブイ人気とAR仕様が重なった1枚。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Makura Tami",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "本商品のAR最高額。イーブイ人気とAR仕様が重なった1枚。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-aokis-staraptor-ar-756",
+      "card_no": "756/742",
+      "rarity": "AR",
+      "card_name": "アオキのムクホーク",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_756_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "2進化",
+        "hp": 150,
+        "note": "アオキのポケモンとして描かれたムクホーク。2進化の描き下ろしAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "アオキのポケモンとして描かれたムクホーク。2進化の描き下ろしAR。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
+      },
+      "note": ""
+    },
+    {
+      "id": "start-deck-100-mega-charizard-y-ex-mur-766",
+      "card_no": "766/742",
+      "rarity": "MUR",
+      "card_name": "メガリザードンYex",
+      "box_id": "start_deck_100",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/MC/MC_766_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "メガシンカex",
+        "hp": 360,
+        "note": "金文字のNo.001デッキにのみ入る最高レアリティ。排出率は約0.1%とされ、本商品の目玉。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "MUR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "金文字のNo.001デッキにのみ入る最高レアリティ。排出率は約0.1%とされ、本商品の目玉。",
+        "source": "limitlesstcg.com/cards/jp/MC でカード名・番号・タイプ・HP・進化段階・イラストレーターを確認（2026-08-15）。746マニューラ・748マリルは実カード画像でも目視確認。"
       },
       "note": ""
     }
