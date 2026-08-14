@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate } from '@/lib/data'
 import { extremeHitToday } from '@/lib/extremes'
 import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
+import { isDeckUtilityCard } from '@/lib/card-kind'
 import { sparkSeries, prevUpPct, rankByUpPct, todayJST } from '@/lib/market'
 import type { Card, PriceRecord } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
@@ -106,7 +107,7 @@ export default function TopPage() {
   // 今買われているカード: 出品数が減ったカード（SR除外）
   // on_sale件数の前日比減少 = 在庫が捌けている = 買い需要の実態シグナル
   const buyingCards = [...metrics]
-    .filter(m => m.card.rarity !== 'SR' && m.onSale != null)
+    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && !isDeckUtilityCard(m.card))
     .filter(m => {
       const slug = m.slug
       const history = getPriceHistory(slug)
@@ -127,7 +128,7 @@ export default function TopPage() {
   // 今売られているカード: 出品数が増えたカード（SR除外）
   // on_sale件数の前日比増加 = 売り圧が高まっている = 売り需要の実態シグナル
   const sellingCards = [...metrics]
-    .filter(m => m.card.rarity !== 'SR' && m.onSale != null)
+    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && !isDeckUtilityCard(m.card))
     .filter(m => {
       const slug = m.slug
       const history = getPriceHistory(slug)
@@ -195,11 +196,12 @@ export default function TopPage() {
     return gain != null && gain > 0                                // 本線が現在より上
   }
   const notableFromMetrics = [...metrics]
-    .filter(m => isRising(m.forecast))
+    .filter(m => isRising(m.forecast) && !isDeckUtilityCard(m.card))
     .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
   // 価格データがまだ無いカードも拾えるよう、不足分は「上昇予想」のAI予想順で補完
   const notableBackfill = cardsWithForecast.filter(
-    c => isRising(c.forecast) && !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
+    c => isRising(c.forecast) && !isDeckUtilityCard(c.card)
+      && !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
   )
   const risingPool = notableFromMetrics.length >= 5
     ? notableFromMetrics

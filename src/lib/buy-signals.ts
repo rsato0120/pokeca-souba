@@ -1,4 +1,5 @@
 import type { Card, Forecast, PriceRecord, PriceExtremes } from '@/types/pokeca'
+import { isDeckUtilityCard } from '@/lib/card-kind'
 
 // 「AIが買うべきカード」候補の決定論的な選定。
 // トップページ（表示）と scripts/generate-buy-theses.ts（AI論拠生成の対象選び）で
@@ -35,6 +36,7 @@ const POP_SCORE: Record<string, number> = { high: 1, mid: 0, unknown: 0 }
 export function scoreBuy(input: BuyInput): BuyCandidate | null {
   const { card, slug, forecast, history, extremes } = input
   if (!forecast) return null
+  if (isDeckUtilityCard(card)) return null
 
   const pf = forecast.price_forecast
   const curMid = (pf.current_low + pf.current_high) / 2
