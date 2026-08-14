@@ -58,82 +58,87 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
               color: 'inherit',
             }}
           >
-            {/* ヘッダ行 */}
-            <div style={{ display: 'flex', gap: 'var(--sp-4)', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'center', minWidth: 0, flex: 1 }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--mincho)', fontSize: 'var(--fs-lg)', fontWeight: 800,
-                    color: 'var(--gold)', minWidth: '24px', textAlign: 'center',
-                  }}
-                >
-                  {i + 1}
-                </span>
-                {card.image_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={card.image_url} alt={card.card_name} className="row-thumb buy-thumb" referrerPolicy="no-referrer" />
-                ) : (
-                  <div className="row-thumb buy-thumb row-thumb-ph">{card.rarity}</div>
-                )}
-                <div style={{ minWidth: 0 }}>
-                  <div className="row-name">
+            {/* 順位・札 と 中身の2カラム。札を縦に大きく見せつつ、その横を
+                論拠で埋める（1カラムで積むと札の右側が丸ごと空洞になる） */}
+            <div className="buy-grid">
+              <span
+                className="buy-rank"
+                style={{
+                  fontFamily: 'var(--mincho)', fontSize: 'var(--fs-lg)', fontWeight: 800,
+                  color: 'var(--gold)', textAlign: 'center', lineHeight: 1.2,
+                }}
+              >
+                {i + 1}
+              </span>
+              {card.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={card.image_url} alt={card.card_name} className="row-thumb buy-thumb" referrerPolicy="no-referrer" />
+              ) : (
+                <div className="row-thumb buy-thumb row-thumb-ph">{card.rarity}</div>
+              )}
+
+              <div className="buy-head" style={{ minWidth: 0 }}>
+                <div style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'baseline' }}>
+                  <div className="row-name" style={{ minWidth: 0, flex: 1 }}>
                     {card.card_name}
                     <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                   </div>
-                  <div className="row-meta">{boxName} ・ {card.card_no}</div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-sm)', marginTop: '2px' }}>
-                    <span style={{ color: 'var(--ink)' }}>¥{Math.round(mid).toLocaleString()}</span>
-                    <span style={{ color: 'var(--ink-faint)' }}> → 3ヶ月後 </span>
-                    <span style={{ color: upsidePct >= 0 ? 'var(--up)' : 'var(--down)', fontWeight: 700 }}>
-                      {upsidePct >= 0 ? '+' : ''}{Math.round(upsidePct)}%
-                    </span>
-                    {upPct != null && <span style={{ color: 'var(--ink-faint)' }}> ・ 上昇確率 {upPct}%</span>}
-                  </div>
-                </div>
-              </div>
-              {conv && (
-                <span
-                  style={{
-                    flexShrink: 0, fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', fontWeight: 700,
-                    color: conv.color, background: conv.bg, borderRadius: '999px',
-                    padding: '3px 10px', whiteSpace: 'nowrap',
-                  }}
-                >
-                  {conv.label}
-                </span>
-              )}
-            </div>
-
-            {/* 論拠（厚い内容） */}
-            {thesis ? (
-              <div style={{ marginTop: 'var(--sp-3)' }}>
-                {thesis.headline && (
-                  <div style={{ fontFamily: 'var(--mincho)', fontSize: 'var(--fs-md)', fontWeight: 700, color: 'var(--ink)', lineHeight: 1.5 }}>
-                    「{thesis.headline}」
-                  </div>
-                )}
-                <ThesisRow label="割安" text={thesis.valuation} color="var(--up)" />
-                <ThesisRow label="買い時" text={thesis.timing} color="var(--gold)" />
-                <ThesisRow label="材料" text={thesis.catalyst} color="var(--ink-dim)" />
-                <ThesisRow label="注意" text={thesis.risk} color="var(--down)" />
-              </div>
-            ) : (
-              factors.length > 0 && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--sp-2)', marginTop: 'var(--sp-3)' }}>
-                  {factors.map((f, j) => (
+                  {conv && (
                     <span
-                      key={j}
                       style={{
-                        fontSize: 'var(--fs-xs)', fontFamily: 'var(--mono)', color: 'var(--ink-dim)',
-                        border: '1px solid var(--hair)', borderRadius: '999px', padding: '3px 10px', background: 'var(--bg2)',
+                        flexShrink: 0, fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', fontWeight: 700,
+                        color: conv.color, background: conv.bg, borderRadius: '999px',
+                        padding: '3px 10px', whiteSpace: 'nowrap',
                       }}
                     >
-                      {f}
+                      {conv.label}
                     </span>
-                  ))}
+                  )}
                 </div>
-              )
-            )}
+                <div className="row-meta">{boxName} ・ {card.card_no}</div>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-sm)', marginTop: '2px' }}>
+                  <span style={{ color: 'var(--ink)' }}>¥{Math.round(mid).toLocaleString()}</span>
+                  <span style={{ color: 'var(--ink-faint)' }}> → 3ヶ月後 </span>
+                  <span style={{ color: upsidePct >= 0 ? 'var(--up)' : 'var(--down)', fontWeight: 700 }}>
+                    {upsidePct >= 0 ? '+' : ''}{Math.round(upsidePct)}%
+                  </span>
+                  {upPct != null && <span style={{ color: 'var(--ink-faint)' }}> ・ 上昇確率 {upPct}%</span>}
+                </div>
+              </div>
+
+              {/* 論拠（厚い内容）。PCは札の横、狭い画面では全幅に落とす（.buy-body） */}
+              <div className="buy-body">
+                {thesis ? (
+                  <div>
+                    {thesis.headline && (
+                      <div style={{ fontFamily: 'var(--mincho)', fontSize: 'var(--fs-md)', fontWeight: 700, color: 'var(--ink)', lineHeight: 1.5 }}>
+                        「{thesis.headline}」
+                      </div>
+                    )}
+                    <ThesisRow label="割安" text={thesis.valuation} color="var(--up)" />
+                    <ThesisRow label="買い時" text={thesis.timing} color="var(--gold)" />
+                    <ThesisRow label="材料" text={thesis.catalyst} color="var(--ink-dim)" />
+                    <ThesisRow label="注意" text={thesis.risk} color="var(--down)" />
+                  </div>
+                ) : (
+                  factors.length > 0 && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--sp-2)', marginTop: 'var(--sp-3)' }}>
+                      {factors.map((f, j) => (
+                        <span
+                          key={j}
+                          style={{
+                            fontSize: 'var(--fs-xs)', fontFamily: 'var(--mono)', color: 'var(--ink-dim)',
+                            border: '1px solid var(--hair)', borderRadius: '999px', padding: '3px 10px', background: 'var(--bg2)',
+                          }}
+                        >
+                          {f}
+                        </span>
+                      ))}
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
           </Link>
         )
       })}

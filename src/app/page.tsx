@@ -529,7 +529,7 @@ export default function TopPage() {
             const m3Low = forecast?.price_forecast.m3_low
             const m3High = forecast?.price_forecast.m3_high
             return (
-              <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '34px 40px 1fr auto' }}>
+              <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '34px var(--thumb-w) 1fr auto' }}>
                 <div>
                   <div style={rankStyle}>{i + 1}</div>
                   {/* AI予想順位の前日比。順位が動いていること自体が「生きている」合図になる */}
@@ -566,7 +566,7 @@ export default function TopPage() {
                   )}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
-                  <Sparkline values={sparkBySlug.get(slug) ?? []} />
+                  <Sparkline values={sparkBySlug.get(slug) ?? []} wide />
                   <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>
                     {forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}
                   </span>
@@ -592,7 +592,7 @@ export default function TopPage() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {[...highUpdates, ...lowUpdates].map(({ m, ex, hit }) => (
-              <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '40px 1fr auto' }}>
+              <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: 'var(--thumb-w) 1fr auto' }}>
                 {m.card.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={m.card.image_url} alt={m.card.card_name} className="row-thumb" />
@@ -622,7 +622,7 @@ export default function TopPage() {
                     {hit === 'high' ? '更新' : '買い時水準'}
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2px' }}>
-                    <Sparkline values={m.spark} />
+                    <Sparkline values={m.spark} wide />
                   </div>
                 </div>
               </Link>
@@ -646,7 +646,7 @@ export default function TopPage() {
               const change = weekChange ?? dayChange
               const upPct = forecast?.overall.up_pct ?? null
               return (
-                <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '40px 1fr auto' }}>
+                <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: 'var(--thumb-w) 1fr auto' }}>
                   {card.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={card.image_url} alt={card.card_name} className="row-thumb" />
@@ -675,7 +675,7 @@ export default function TopPage() {
                     )}
                     <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2px' }}>
-                      <Sparkline values={sparkBySlug.get(slug) ?? []} />
+                      <Sparkline values={sparkBySlug.get(slug) ?? []} wide />
                     </div>
                   </div>
                 </Link>
@@ -700,7 +700,7 @@ export default function TopPage() {
               const change = weekChange ?? dayChange
               const downPct = forecast?.overall.down_pct ?? null
               return (
-                <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '40px 1fr auto' }}>
+                <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: 'var(--thumb-w) 1fr auto' }}>
                   {card.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={card.image_url} alt={card.card_name} className="row-thumb" />
@@ -729,7 +729,7 @@ export default function TopPage() {
                     )}
                     <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>{weekChange != null ? '7日比' : '前日比'}</div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2px' }}>
-                      <Sparkline values={sparkBySlug.get(slug) ?? []} />
+                      <Sparkline values={sparkBySlug.get(slug) ?? []} wide />
                     </div>
                   </div>
                 </Link>

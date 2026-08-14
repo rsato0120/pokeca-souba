@@ -34,6 +34,9 @@
   --fs-xl: 26px;   /* ページ見出し・主要数値 */
   --fs-2xl: 32px;  /* ヒーロー数値 */
 
+  /* 一覧サムネの幅。.row の grid 列幅もこれを参照する（PCで一段拡大する） */
+  --thumb-w: 40px;
+
   /* ── 角丸 ── */
   --r-sm: 4px;
   --r-md: 8px;
@@ -413,6 +416,22 @@ a:hover {
   padding: var(--sp-4) var(--sp-5);
 }
 
+/* ─── AIが買うべきカード ─── */
+/* 順位 / 札 / 中身 の3列。中身（見出し＋論拠）が札の横に回り込むので、
+   札を大きくしても右側に空洞ができない。 */
+.buy-grid {
+  display: grid;
+  grid-template-columns: 24px var(--thumb-w) 1fr;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: start;
+}
+
+/* 狭い画面では論拠を全幅に落とす。札の横に置いたままだと1行に2〜3文字しか
+   入らず読めない。PC（min-width:900px）でだけ札の横へ回り込ませる。 */
+.buy-body {
+  grid-column: 1 / -1;
+}
+
 /* ─── カード行（ランキング・リスト共通） ─── */
 .row {
   display: grid;
@@ -429,8 +448,8 @@ a:hover {
 }
 
 .row-thumb {
-  width: 40px;
-  height: 56px;
+  width: var(--thumb-w);
+  height: calc(var(--thumb-w) * 88 / 63);
   object-fit: cover;
   border-radius: var(--r-sm);
   background: var(--bg2);
@@ -522,27 +541,62 @@ a:hover {
     --fs-lg: 24px;
     --fs-xl: 31px;
     --fs-2xl: 38px;
+    /* サムネはカード比率(63:88)を保ったまま拡大。
+       .row の grid 列幅も同じ変数を見ているので一緒に広がる。 */
+    --thumb-w: 52px;
   }
 
-  /* 文字が大きくなるぶん本文の折り返しが早まるので、段組みの幅も広げる */
+  /* 文字が大きくなるぶん本文の折り返しが早まるので少しだけ広げる。
+     広げ過ぎると .row の 1fr が伸びて名前と右端(スパークライン等)の間が
+     空洞になるため 900px で止める。 */
   .wrap {
-    max-width: 1000px;
-  }
-
-  /* 一覧のサムネはカード比率(63:88)を保ったまま拡大 */
-  .row-thumb {
-    width: 56px;
-    height: 78px;
+    max-width: 900px;
   }
 
   .row-thumb-ph {
     font-size: 11px;
   }
 
-  /* 「AIが買うべきカード」は看板セクションなので札をさらに大きく見せる */
+  /* 行の左（名前・価格）と右端（スパークライン）の間が空洞になるので、
+     図を伸ばして埋める。横だけ伸びる指定はコンポーネント側にある。 */
+  .spark-wide {
+    width: 220px;
+    height: 32px;
+  }
+
+  /* 「AIが買うべきカード」は看板セクションなので札をさらに大きく見せる。
+     .buy-grid の札の列幅も同じ値にすること（ズレると中身が札に潜り込む）。 */
   .buy-thumb {
-    width: 84px;
-    height: 117px;
+    width: 96px;
+    height: 134px;
+  }
+
+  .buy-grid {
+    grid-template-columns: 28px 96px 1fr;
+  }
+
+  /* 札を2行にまたがらせ、その横に見出し(1行目)と論拠(2行目)を積む。
+     1行目だけに札を置くと行の高さが札に引き伸ばされ、見出しと論拠の間が
+     札のぶんだけ空く。行をまたぐ指定を入れると自動配置が崩れるので、
+     4要素とも列と行を明示する。 */
+  .buy-rank {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .buy-grid .buy-thumb {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .buy-head {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .buy-body {
+    grid-column: 3;
+    grid-row: 2;
   }
 }
 

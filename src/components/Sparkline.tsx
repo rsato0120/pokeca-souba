@@ -11,11 +11,16 @@ export default function Sparkline({
   width = 72,
   height = 22,
   animate = true,
+  wide = false,
 }: {
   values: number[]          // 古い順
   width?: number
   height?: number
   animate?: boolean
+  // PCの行は右端が空くので、一覧では横に伸ばして余白を埋める（実幅はCSSの
+  // .spark-wide が持つ）。preserveAspectRatio を切って横だけ伸ばし、線の太さは
+  // non-scaling-stroke で一定に保つ。
+  wide?: boolean
 }) {
   if (values.length < 2) return null
 
@@ -40,10 +45,11 @@ export default function Sparkline({
 
   return (
     <svg
-      className="spark"
+      className={wide ? 'spark spark-wide' : 'spark'}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio={wide ? 'none' : undefined}
       aria-hidden="true"
       style={{ display: 'block', color, overflow: 'visible' }}
     >
@@ -58,8 +64,11 @@ export default function Sparkline({
         strokeWidth={1.75}
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect={wide ? 'non-scaling-stroke' : undefined}
       />
-      <circle cx={x(values.length - 1)} cy={y(last)} r={2.1} fill="currentColor" />
+      {/* 終点の丸は横伸ばしすると楕円に潰れるので wide では出さない
+          （値は必ず隣にテキストで出ている） */}
+      {!wide && <circle cx={x(values.length - 1)} cy={y(last)} r={2.1} fill="currentColor" />}
     </svg>
   )
 }
