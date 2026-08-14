@@ -59,8 +59,13 @@ export default function SearchBar({ cards }: { cards: SearchCard[] }) {
             ✕
           </button>
         ) : (
-          <button disabled style={{ background: 'none', color: 'var(--ink-faint)', cursor: 'default' }}>
-            🔍
+          // 絵文字の🔍は環境ごとに色も形も変わる（Windowsでは青紫の別物になる）ので、
+          // 線画のSVGにして currentColor で他のUIと同じ色に揃える
+          <button disabled aria-hidden="true" style={{ background: 'none', color: 'var(--ink-faint)', cursor: 'default', display: 'flex', alignItems: 'center' }}>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <line x1="15.4" y1="15.4" x2="20.5" y2="20.5" />
+            </svg>
           </button>
         )}
       </div>
