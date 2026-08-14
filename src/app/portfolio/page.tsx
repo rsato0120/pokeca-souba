@@ -63,8 +63,12 @@ export default function PortfolioPage() {
   return (
     <>
       <PortfolioView cards={portfolioCards} boxes={releasedBoxes} />
-      {/* 買取導線（A8 / PR）。含み損益を見た直後＝売却を検討する動機が最も高い場所 */}
-      <KaitoriLink />
+      {/* 買取導線（A8 / PR）。含み損益を見た直後＝売却を検討する動機が最も高い場所。
+          ⚠ PortfolioView と同じ幅の段に入れること。素で置くと画面幅いっぱいに
+          伸びて左端に貼りつき、ページの一部に見えない。 */}
+      <div style={{ maxWidth: '680px', margin: '0 auto', padding: '0 16px 32px' }}>
+        <KaitoriLink />
+      </div>
     </>
   )
 }
