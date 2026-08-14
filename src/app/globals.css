@@ -416,6 +416,95 @@ a:hover {
   padding: var(--sp-4) var(--sp-5);
 }
 
+/* ─── 関連カード（カード詳細の左カラム） ─── */
+
+/* ⚠ グリッド項目の既定は min-width:auto なので、中身（横スクロールの関連リスト）が
+   列そのものを押し広げる。モバイルで列が1000px超に伸び、カード画像が画面外へ
+   飛んだ。横スクロールさせたい親には min-width:0 が必須。 */
+.card-detail-col-card {
+  min-width: 0;
+}
+
+.related {
+  margin-top: var(--sp-5);
+  min-width: 0;
+}
+
+.related-head {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--sp-2);
+}
+
+.related-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.related-item {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  padding: 6px;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-md);
+  background: var(--panel);
+  color: inherit;
+  min-width: 0;
+}
+
+.related-item:hover {
+  border-color: var(--gold);
+}
+
+.related-thumb {
+  width: 34px;
+  height: 47px;
+  object-fit: cover;
+  border-radius: 3px;
+  background: var(--bg2);
+  flex-shrink: 0;
+}
+
+.related-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+.related-name {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.related-rarity {
+  font-family: var(--mono);
+  color: var(--gold);
+  margin-left: 4px;
+}
+
+.related-box,
+.related-price {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.related-price {
+  color: var(--ink-dim);
+}
+
 /* ─── AIが買うべきカード ─── */
 /* 順位 / 札 / 中身 の3列。中身（見出し＋論拠）が札の横に回り込むので、
    札を大きくしても右側に空洞ができない。 */
@@ -673,9 +762,23 @@ a:hover {
     grid-template-columns: 1fr !important;
   }
 
-  .card-detail-col-card {
+  /* カード画像だけを中央の220pxに収める。列そのものを絞ると、下に置いた
+     関連カードまで220pxに閉じ込められて横スクロールにできない */
+  .card-detail-figure {
     max-width: 220px;
     margin: 0 auto;
+  }
+
+  /* 関連カードは横スクロールに切り替える。縦に積んだままだと本文＝AI予想が
+     画面外まで押し下げられる */
+  .related-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .related-item {
+    min-width: 150px;
   }
 
   /* 価格チャートをスクロール可能に */

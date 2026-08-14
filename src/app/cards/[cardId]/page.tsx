@@ -12,6 +12,8 @@ import SinceLastVisitBadge from '@/components/SinceLastVisitBadge'
 import OripaBanner from '@/components/OripaBanner'
 import KaitoriLink from '@/components/KaitoriLink'
 import CountUp from '@/components/CountUp'
+import RelatedCards, { type RelatedItem } from '@/components/RelatedCards'
+import { pickRelated } from '@/lib/related'
 import ThemeToggle from '@/components/ThemeToggle'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
@@ -116,6 +118,25 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       ? { label: '値下がり注意', dot: '🔴', color: 'var(--down)' }
       : { label: '様子見', dot: '🟡', color: 'var(--flat)' }
 
+  // 同じカードの別バージョン（左カラムの空きに置く）。価格は代表値の降順に並べたいので
+  // 価格取得関数を渡す。履歴が無いカードは 0 として最後尾に落ちる。
+  const priceOfCard = (c: typeof card): number => {
+    const r = getPriceHistory(c.id)?.history?.[0]
+    if (!r) return 0
+    return r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2
+  }
+  const relatedItems: RelatedItem[] = pickRelated(card, getAllCards(), priceOfCard).map(c => {
+    const p = priceOfCard(c)
+    return {
+      id: getCardSlug(c),
+      name: c.card_name,
+      rarity: c.rarity,
+      boxName: getBoxById(c.box_id)?.box_name ?? c.box_id,
+      image: c.image_url ?? null,
+      price: p > 0 ? Math.round(p) : null,
+    }
+  })
+
   const latestRecord = priceHistory?.history?.[0] ?? null
   const latestAvg = latestRecord?.avg ?? null
   const latestOnSale = latestRecord?.on_sale ?? null
@@ -184,6 +205,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       >
         {/* カード枠 */}
         <div className="card-detail-col-card">
+          <div className="card-detail-figure">
           {/* holo = 触ると光沢が斜めに走る。ポケカの実物の質感に寄せた演出（CSSのみ） */}
           <div className="pokecard holo" style={{ padding: card.image_url ? '0' : undefined, overflow: 'hidden' }}>
             {card.image_url ? (
@@ -219,6 +241,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               {signal.dot} {signal.label}
             </span>
           </div>
+          </div>
+
+          {/* 左カラムはカード画像の下が丸ごと空くので、同じカードの別バージョンを置く。
+              相場を比べたい対象そのもの（同じレックウザでもSR/SA/VMAXで桁が違う） */}
+          <RelatedCards items={relatedItems} />
         </div>
 
         {/* バーディクト */}
