@@ -125,7 +125,10 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
                   {card.aiUp != null && (
                     <div className="row-meta" style={{ color: diverges ? 'var(--gold)' : 'var(--ink-faint)' }}>
                       AI予想 上昇確率 {card.aiUp}%
-                      {diverges && <>（みんなの予想と{upPct > card.aiUp ? '違って強気' : '違って弱気'}）</>}
+                      {/* 主語を必ず書く。「違って強気」だと直前の「AI予想」に係って読め、
+                          AIが強気だと逆に取れる（実際に強気なのは票の側）。語彙も
+                          上昇/横ばい/下落に揃える（強気/弱気は3区分へ移行した時の取り残し） */}
+                      {diverges && <>　{upPct > card.aiUp ? 'みんなの方が上昇寄り' : 'AIの方が上昇寄り'}</>}
                     </div>
                   )}
                 </div>
