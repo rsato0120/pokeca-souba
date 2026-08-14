@@ -57,7 +57,11 @@ export default function Sparkline({
       <path
         // pathLength を固定すると、実際の長さに関係なく dasharray 100 で描画量を制御できる
         pathLength={100}
-        className={animate ? 'spark-path' : undefined}
+        // ⚠ wide では描画アニメを付けない。non-scaling-stroke は破線の長さを
+        //   「変形前の座標系」で測るため pathLength=100 の正規化が効かなくなり、
+        //   dasharray:100 が本物の破線になって線が途中で切れる（実際に出た不具合）。
+        //   線の太さを一定に保つ方を優先し、アニメは落とす。
+        className={animate && !wide ? 'spark-path' : undefined}
         d={line}
         fill="none"
         stroke="currentColor"
