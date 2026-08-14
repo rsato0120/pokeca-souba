@@ -43,11 +43,13 @@ export type Rank = {
   need: number
 }
 
+// 敷居は 2026-08-15 に引き上げた（3万/15万/100万 → 10万/50万/300万）。
+// マスターボールが手の届く額だと最高段の価値が薄れるため、上ほど大きく開ける。
 export const RANKS: Rank[] = [
   { id: 'monster', name: 'モンスターボール', need: 0 },
-  { id: 'super', name: 'スーパーボール', need: 30_000 },
-  { id: 'hyper', name: 'ハイパーボール', need: 150_000 },
-  { id: 'master', name: 'マスターボール', need: 1_000_000 },
+  { id: 'super', name: 'スーパーボール', need: 100_000 },
+  { id: 'hyper', name: 'ハイパーボール', need: 500_000 },
+  { id: 'master', name: 'マスターボール', need: 3_000_000 },
 ]
 
 export type RankState = {
