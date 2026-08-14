@@ -71,9 +71,9 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
                 </span>
                 {card.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={card.image_url} alt={card.card_name} className="row-thumb" referrerPolicy="no-referrer" />
+                  <img src={card.image_url} alt={card.card_name} className="row-thumb buy-thumb" referrerPolicy="no-referrer" />
                 ) : (
-                  <div className="row-thumb row-thumb-ph">{card.rarity}</div>
+                  <div className="row-thumb buy-thumb row-thumb-ph">{card.rarity}</div>
                 )}
                 <div style={{ minWidth: 0 }}>
                   <div className="row-name">

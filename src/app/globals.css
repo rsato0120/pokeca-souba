@@ -509,6 +509,43 @@ a:hover {
   line-height: 1.7;
 }
 
+/* ─── PC対応 ───
+   スケールはスマホ基準で組んであるため、PCの広い画面では文字もサムネも小さく
+   間延びして見える。トークンを一段上げるだけで全画面が揃って追従する
+   （個別コンポーネントに px を直書きしないこと）。 */
+@media (min-width: 900px) {
+  :root {
+    --fs-xs: 12px;
+    --fs-sm: 14px;
+    --fs-base: 16px;
+    --fs-md: 19px;
+    --fs-lg: 24px;
+    --fs-xl: 31px;
+    --fs-2xl: 38px;
+  }
+
+  /* 文字が大きくなるぶん本文の折り返しが早まるので、段組みの幅も広げる */
+  .wrap {
+    max-width: 1000px;
+  }
+
+  /* 一覧のサムネはカード比率(63:88)を保ったまま拡大 */
+  .row-thumb {
+    width: 56px;
+    height: 78px;
+  }
+
+  .row-thumb-ph {
+    font-size: 11px;
+  }
+
+  /* 「AIが買うべきカード」は看板セクションなので札をさらに大きく見せる */
+  .buy-thumb {
+    width: 84px;
+    height: 117px;
+  }
+}
+
 /* ─── スマートフォン対応 ─── */
 @media (max-width: 640px) {
   .wrap {
