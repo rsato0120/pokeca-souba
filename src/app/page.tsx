@@ -351,9 +351,8 @@ export default function TopPage() {
         <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
           {/* 最終更新は実際のバッチ実行時刻。次の更新までの残り時間は毎秒動く（＝止まっていないことが見える） */}
           <UpdateClock updatedLabel={updatedLabel} />
-          {boxes.length > 0 && (
-            <span>・ 対象 {boxes.map((b) => b.box_name).join('／')} ほか</span>
-          )}
+          {/* 「対象 ◯◯／◯◯／…」の弾の羅列は、弾が増えるほど行数を食うだけで
+              読まれないので撤去した（下のドロップダウンで選べる） */}
         </span>
         <span style={{ display: 'flex', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
           <Link href="/accuracy" className="pill">AI的中実績 →</Link>
@@ -380,7 +379,7 @@ export default function TopPage() {
       <BoxSelector
         boxes={boxes
           .filter(b => b.certainty === 'released')
-          .map(b => ({ box_id: b.box_id, box_name: b.box_name }))}
+          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
       />
 
       {/* ── ヒーロー ── */}

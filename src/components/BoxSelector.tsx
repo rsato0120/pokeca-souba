@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 interface BoxOption {
   box_id: string
   box_name: string
+  release_ym?: string   // "2025-12" 形式。発売年でグループ分けするのに使う
 }
 
 interface Props {
@@ -18,6 +19,24 @@ interface Props {
 // 弾が何個増えても1行で収まり、横スクロールにならない。
 export default function BoxSelector({ boxes, current, marginTop = 12, marginBottom = 32 }: Props) {
   const router = useRouter()
+
+  // 弾が増えるほど一覧が縦に伸びて選びにくいので、発売年でグループに畳む。
+  // 新しい年が上（探すのはたいてい新しい弾）。年が分からない弾は最後に「その他」でまとめる。
+  const groups = (() => {
+    const byYear = new Map<string, BoxOption[]>()
+    for (const b of boxes) {
+      const year = /^\d{4}/.exec(b.release_ym ?? '')?.[0] ?? ''
+      const key = year || 'その他'
+      const list = byYear.get(key)
+      if (list) list.push(b)
+      else byYear.set(key, [b])
+    }
+    return [...byYear.entries()].sort((a, b) => {
+      if (a[0] === 'その他') return 1
+      if (b[0] === 'その他') return -1
+      return b[0].localeCompare(a[0])
+    })
+  })()
 
   return (
     <div style={{ position: 'relative', display: 'inline-block', marginTop, marginBottom }}>
@@ -45,10 +64,14 @@ export default function BoxSelector({ boxes, current, marginTop = 12, marginBott
         <option value="" disabled>
           弾を選ぶ…
         </option>
-        {boxes.map((b) => (
-          <option key={b.box_id} value={b.box_id}>
-            {b.box_name}
-          </option>
+        {groups.map(([year, list]) => (
+          <optgroup key={year} label={year === 'その他' ? 'その他' : `${year}年`}>
+            {list.map((b) => (
+              <option key={b.box_id} value={b.box_id}>
+                {b.box_name}
+              </option>
+            ))}
+          </optgroup>
         ))}
       </select>
       {/* ▾ アイコン */}
