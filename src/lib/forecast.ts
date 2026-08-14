@@ -364,10 +364,41 @@ function isValidTrend(v: unknown): v is Trend {
   return v === 'up' || v === 'flat' || v === 'down'
 }
 
+// モデルの応答から最初のJSONオブジェクトだけを取り出す。
+//
+// responseMimeType を json にしていても、本文の後ろに注記や2つ目のオブジェクトが
+// 付いてくることがあり、そのまま JSON.parse すると
+// "Unexpected non-whitespace character after JSON at position N" で落ちる
+// （論拠生成で実際に6件中2件が失敗した）。最初の { から対応する } までを
+// 波括弧の深さで切り出す。文字列リテラル内の括弧は数えない。
+function extractJsonObject(text: string): string {
+  const start = text.indexOf('{')
+  if (start < 0) return text
+  let depth = 0
+  let inStr = false
+  let escaped = false
+  for (let i = start; i < text.length; i++) {
+    const ch = text[i]
+    if (inStr) {
+      if (escaped) escaped = false
+      else if (ch === '\\') escaped = true
+      else if (ch === '"') inStr = false
+      continue
+    }
+    if (ch === '"') inStr = true
+    else if (ch === '{') depth++
+    else if (ch === '}') {
+      depth--
+      if (depth === 0) return text.slice(start, i + 1)
+    }
+  }
+  return text.slice(start)
+}
+
 function parseForecastJson(raw: string, card: Card, currentLow: number, currentHigh: number): Forecast {
   // コードブロックが混入した場合に除去
   const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-  const parsed = JSON.parse(cleaned)
+  const parsed = JSON.parse(extractJsonObject(cleaned))
 
   // 必須フィールド検証
   if (!isValidTrend(parsed.collector_view?.trend)) throw new Error('invalid collector_view.trend')
@@ -522,16 +553,31 @@ function buildBuyThesisPrompt(input: BuyThesisInput): string {
   lines.push(`- 品薄度: ${scarcityLabel[common.scarcity] ?? common.scarcity} / 再録: ${reprintLabel[common.reprint_status] ?? common.reprint_status} / キャラ人気: ${common.character_popularity}`)
   lines.push(`- 補足: ${card.evidence_notes.collector}`)
 
-  return `あなたはポケモンカードのコレクター相場に精通したアナリストです。
+  return `あなたはポケモンカードのコレクター相場に詳しい書き手です。
 以下のカードは、当サイトのシグナル分析で「いま買い妙味がある」と選定されました。
-その根拠を、コレクター視点で**具体的な数値・固有名詞を交えて厚く**言語化してください。
+その根拠を、**コレクターが読んですっと入ってくる日本語**で書いてください。
 一般論（「希少だから上がる」等）で終わらせず、このカード固有の材料に必ず接続すること。
 
 ## カードのデータ
 ${lines.join('\n')}
 
+## 文体ルール（最重要・ここを外さないこと）
+- 読者はポケモンカードのコレクター。**金融レポート調にしない**。友人に説明するくらいの調子で書く。
+- **1文は50字前後で切る**。1文に主張を2つ以上詰め込まない。長くなったら2文に割る。
+- **1文に数値は最大2つまで**。数値を並べるだけにせず、「だから何なのか」を必ず添える。
+- **同じ内容を言い換えて重ねない。**
+  - 悪い例:「PSA10相場との乖離が4.3倍と鑑定品需要とのギャップが大きく、素体価格の割安感が際立っています」
+    → 「乖離」「ギャップ」「割安感」が全部同じことの言い換えで、情報が増えていない。
+  - 良い例:「PSA10は素体の4.3倍で取引されています。自分で鑑定に出すつもりなら、いまの素体価格は狙い目です」
+- **硬い言い回しを使わない。**「〜を孕む」「〜が際立つ」「〜を裏付ける」「〜の様相」「〜に位置し」は禁止。
+  - 悪い例:「価格がさらに下振れする流動性リスクを孕んでいます」
+  - 良い例:「買い手が少ないので、売りたいときに値を下げないと売れないことがあります」
+- 専門語はその場で意味が分かる書き方にする（「薄商い」→「取引が少ない」、「押し目」→「一時的に下がった今」）。
+- 体言止めにしない。「です・ます」で結ぶ。
+- 主語を省きすぎない。何の価格の話かが分かるように書く（素体なのかPSA10なのか）。
+
 ## 出力ルール
-1. 各項目は日本語で1〜2文、このカードの数値・材料を必ず引用する。
+1. 各項目は1〜2文。このカード固有の材料に必ず触れる（数値は必要な分だけでよい）。
 2. valuation は「なぜ今の価格が割安/妥当か」（レンジ内の位置・PSA比・弾内での位置づけ 等）。
 3. timing は「なぜ今が買い時か」（押し目・在庫減・回転・発売からの経過 等）。
 4. catalyst は「今後の上昇材料」（絶版・キャラ/絵師人気・描き下ろし・鑑定妙味 等）。
@@ -570,7 +616,7 @@ export async function generateBuyThesis(input: BuyThesisInput): Promise<BuyThesi
     try {
       const result = await model.generateContent(prompt)
       const cleaned = result.response.text().replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-      const parsed = JSON.parse(cleaned)
+      const parsed = JSON.parse(extractJsonObject(cleaned))
       return {
         card_id: input.card.id,
         generated_at: new Date().toISOString(),
