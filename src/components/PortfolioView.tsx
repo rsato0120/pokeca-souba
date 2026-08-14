@@ -5,6 +5,8 @@ import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts'
 import { useCollection, useCostBasis, psaKey } from '@/hooks/useCollection'
+import { computeBadges } from '@/lib/badges'
+import CollectionBadges from '@/components/CollectionBadges'
 
 export type PortfolioCardData = {
   id: string
@@ -124,6 +126,29 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   const periodDiff = firstVal > 0 ? lastVal - firstVal : null
   const periodPct = firstVal > 0 ? ((lastVal - firstVal) / firstVal) * 100 : null
 
+  // ── 称号バッジ ──
+  // 弾コンプの判定は「掲載カードの種類数」が要るので、保有ぶんではなく cards 全件から数える。
+  // 素体とPSA10は同じカードなので、種類の数え方は素体1枚＝1種で揃える（psaKey は別扱いしない）。
+  const badges = (() => {
+    const boxTotal: Record<string, number> = {}
+    for (const c of cards) boxTotal[c.box_name] = (boxTotal[c.box_name] ?? 0) + 1
+
+    const ownedIds = new Set<string>()
+    for (const h of holdings) ownedIds.add(h.card.id)
+    const boxOwned: Record<string, number> = {}
+    for (const c of cards) if (ownedIds.has(c.id)) boxOwned[c.box_name] = (boxOwned[c.box_name] ?? 0) + 1
+
+    return computeBadges({
+      totalValue: currentTotal,
+      totalQty,
+      psa10Qty: holdings.filter(h => h.variant === 'psa10').reduce((s, h) => s + h.qty, 0),
+      boxOwned,
+      boxTotal,
+      plPct: costedHoldings.length > 0 ? plPct : null,
+      topUnitPrice: holdings.reduce((m, h) => Math.max(m, h.unitPrice), 0),
+    })
+  })()
+
   const rangeBtn = (r: Range): React.CSSProperties => ({
     padding: '4px 12px',
     borderRadius: '6px',
@@ -223,6 +248,9 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
           </p>
         )}
       </div>
+
+      {/* 称号バッジ */}
+      <CollectionBadges earned={badges.earned} next={badges.next} />
 
       {/* 含み損益（買値を入れた保有のみ） */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px', marginBottom: '16px' }}>
