@@ -19,6 +19,12 @@ export interface SetProduct {
   // 検索の曖昧一致で他地域・単品まで件数に乗るのを防ぐ（フクオカが839件になっていた）。
   // 表記ゆれがあるので漢字とカナの両方を並べる。
   titleAny?: string[]
+  // 出品**件数**と成約の両方でタイトルに必ず要る語（全部含むこと）。
+  // ⚠ titleAny（地域名）＋「BOX」だけだと、その店で買った**別商品**のBOXが全部通る。
+  //   「ポケモンセンターフクオカ産 シュリンク付きBOX」のような出品が数に乗り、
+  //   フクオカだけ809件（東北10・広島9）に膨らんでいた（2026-08-15 修正）。
+  //   商品名そのものを要求して初めて同一商品の件数になる。
+  titleAll?: string[]
 }
 
 // boxId -> セット商品一覧
@@ -30,6 +36,7 @@ export const SET_BOXES: Record<string, SetProduct[]> = {
       cardId: 'pokecen-pikachu-tohoku',
       query: 'ポケモンセンター 東北 スペシャルBOX 未開封',
       listPrice: 2090,
+      titleAll: ['スペシャル'],
       titleAny: ['東北', 'トウホク'],
     },
     {
@@ -38,6 +45,7 @@ export const SET_BOXES: Record<string, SetProduct[]> = {
       cardId: 'pokecen-pikachu-hiroshima',
       query: 'ポケモンセンター 広島 スペシャルBOX 未開封',
       listPrice: 2090,
+      titleAll: ['スペシャル'],
       titleAny: ['広島', 'ヒロシマ'],
     },
     {
@@ -46,6 +54,7 @@ export const SET_BOXES: Record<string, SetProduct[]> = {
       cardId: 'pokecen-pikachu-fukuoka',
       query: 'ポケモンセンター 福岡 スペシャルBOX 未開封',
       listPrice: 2090,
+      titleAll: ['スペシャル'],
       titleAny: ['福岡', 'フクオカ'],
     },
   ],

@@ -127,9 +127,21 @@ async function getMercariOnSale(
 
     // 打ち切った場合だけ外挿する。価格昇順で読んでいる＝安い側にまとめ売りが偏るので
     // 採用率は控えめに出る＝過大にならない方向に転ぶ。
+    //
+    // ⚠ ただし外挿してよいのは「検索クエリが的を射ている」時だけ。numFound はメルカリの
+    //   あいまい一致の総数なので、フィルタで大半を捨てている＝クエリが的外れな場合は
+    //   母数として使えない。ポケセン福岡のスペシャルBOXは、店名「ポケモンセンターフクオカ」が
+    //   無関係な出品に大量に書かれるため numFound=911（東北34・広島28）に膨らみ、
+    //   外挿で809件になっていた。採用率が低い時は読めた実数（＝下限）をそのまま使う。
+    const keepRate = seen > 0 ? kept / seen : 0
+    // 件数がおかしい時の切り分け用。ONSALE_DEBUG=1 で母数と採用率、通過したタイトルを出す
+    if (process.env.ONSALE_DEBUG === '1') {
+      console.log(`\n    [debug] q="${searchQuery}" numFound=${first.total} seen=${seen} kept=${kept} keepRate=${(keepRate * 100).toFixed(0)}% pages=${pages} tokenLeft=${!!token}`)
+      for (const i of first.items.filter(keep).slice(0, 10)) console.log(`      ¥${i.price} ${String(i.name).slice(0, 56)}`)
+    }
     let count: number | null = kept
-    if (token && first.total != null && seen > 0) {
-      count = Math.round(first.total * (kept / seen))
+    if (token && first.total != null && seen > 0 && keepRate >= 0.5) {
+      count = Math.round(first.total * keepRate)
     }
     if (count != null && count <= 0) count = null
 
@@ -302,7 +314,17 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
 // 実勢が1/5以下になる（ポケセン福岡: 本体¥17,654 に対し ¥1,300〜4,000 で並ぶ）。
 // 相場にも件数にも混ぜてはいけない。
 const EXCLUDE_KEYWORDS = ['傷あり', 'ジャンク', 'まとめ', 'PSA', 'BGS', 'CGC', '割れ', '折れ', 'コンプ', '全種', 'セット', '複数', '大量', 'カートン', 'サプライのみ', 'プロモなし', 'プロモ無し', 'プロモカードなし']
-const EXCLUDE_PATTERNS = [/[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[1-9][0-9]+\s*枚/, /[2-9０-９]\s*枚/, /[2-9０-９]\s*[点種]/, /[2-9０-９]\s*(BOX|ボックス|箱)/i, /[1-9][0-9]+\s*(BOX|ボックス|箱)/i]
+const EXCLUDE_PATTERNS = [
+  /[2-9０-９]枚\s*セット/, /まとめ/, /セット\s*[2-9０-９]/, /[1-9][0-9]+\s*枚/, /[2-9０-９]\s*枚/,
+  /[2-9０-９]\s*[点種]/, /[2-9０-９]\s*(BOX|ボックス|箱)/i, /[1-9][0-9]+\s*(BOX|ボックス|箱)/i,
+  // 抜き取り品の言い回しは無限に増えるので、キーワード完全一致ではなくパターンで受ける。
+  // 「プロモカード無し」は EXCLUDE_KEYWORDS の 'プロモ無し' に部分一致しないため素通りしていた
+  // （ポケセン福岡の出品件数が膨らんだ一因）。
+  /プロモ.{0,4}(なし|無し|無|抜き|抜け|欠品)/,
+  /(カード|中身|本体).{0,3}(なし|無し|抜き)/,
+  /サプライ(のみ|だけ)/,
+  /空箱/,
+]
 
 // レアリティ表記をトークンとして数える（"MEGA" の中の "MA" 等に部分一致しないよう境界を見る）
 const RARITY_TOKEN_RE = /(?:^|[^A-Za-z])(SAR|SR|AR|UR|RR|MA|HR|MUR)(?![A-Za-z])/g
@@ -1058,7 +1080,22 @@ async function scrapeCard(
       : cardNo != null && cardNoStr
       ? `${cardName} ${cardNoStr}`
       : `${cardName} ${rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo)
+
+    // PROMO は番号照合（matchesCardNo）が効かないので、名前だけだとメルカリの
+    // あいまい一致で他地域・他プロモまで数に入る。実際「フクオカのピカチュウ」が
+    // 804件（トウホク10件・ヒロシマ9件）に膨らんでいた。カード名を「の」で割った
+    // 2文字以上の語が**全部**タイトルにあることを要求して数える。
+    // 語順が逆の出品（「ピカチュウ フクオカ」）も拾えるよう、含有判定は順不同。
+    const promoMust = rarity === 'PROMO'
+      ? (title: string) => {
+          const t = title.replace(/\s+/g, '')
+          return cardName
+            .split(/[の・\s]/)
+            .filter(w => w.length >= 2)
+            .every(w => t.includes(w))
+        }
+      : null
+    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 
@@ -1133,17 +1170,22 @@ async function scrapeCard(
 // forbidden: これが書かれていたら不採用。姉妹商品（他地域のスペシャルBOX）を弾くのに使う。
 //   3地域まとめ売りは "トウホク ヒロシマ フクオカ" のように全部書くので、
 //   「自分の地域が書いてある」だけでは通ってしまう。カード側で兄弟レアリティを見るのと同じ考え方。
-function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden: string[] = []): (title: string) => boolean {
+// required: これが**全部**書かれていること。セット商品で「地域名＋BOX」しか見ないと、
+//   その店で買った別商品のBOX（「ポケモンセンターフクオカ産 シュリンク付きBOX」等）まで
+//   同じ商品として数えてしまうため、商品名そのもの（例「スペシャル」）を要求する。
+function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden: string[] = [], required: string[] = []): (title: string) => boolean {
   // 出品タイトルは弾名に空白や中黒を挟むことが多い（"ストーム エメラルダ"）ので詰めて比較する
   const squash = (s: string) => s.replace(/[\s　・]/g, '')
   const needles = alts.map(squash).filter(n => n !== '')
   const banned = forbidden.map(squash).filter(n => n !== '')
+  const musts = required.map(squash).filter(n => n !== '')
   const NO_SHRINK = /シュリンク\s*(なし|無し|無|レス)/
   const HAS_SHRINK = /シュリンク\s*(付|あり|有)/
 
   return (title: string) => {
     const flat = squash(title)
     if (needles.length > 0 && !needles.some(n => flat.includes(n))) return false
+    if (musts.length > 0 && !musts.every(n => flat.includes(n))) return false
     if (banned.some(n => flat.includes(n))) return false
     // 「BOX/ボックス/箱」表記が無いものは単品・パラパラの可能性が高いので数えない
     if (!/BOX|ＢＯＸ|ボックス|箱/i.test(title)) return false
@@ -1165,12 +1207,13 @@ async function scrapeBox(
   // シュリンクあり/なしが分離できていなかった（scrapeMercariSoldAvg の titleMust 参照）。
   titleAlts: string[],
   shrink: 'any' | 'yes' | 'no',
-  titleForbidden: string[] = []
+  titleForbidden: string[] = [],
+  titleRequired: string[] = []
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   // 成約・出品で同一の条件を使う（片方だけに掛けると「価格はあり/なし混在、件数だけ分離」に
   // なり、両者が食い違う）
-  const titleMust = boxTitleFilter(titleAlts, shrink, titleForbidden)
+  const titleMust = boxTitleFilter(titleAlts, shrink, titleForbidden, titleRequired)
   try {
     let avg: number | null = null
     let boxLow = 0, boxHigh = 0
@@ -1317,7 +1360,7 @@ async function main() {
           const others = products.filter(o => o.setId !== p.setId).flatMap(o => o.titleAny ?? [o.label])
           await scrapeBox(
             browser, `box-${boxId}-${p.setId}`, p.query, `${boxMap.get(boxId) ?? boxId} ${p.label}セット`,
-            date, stats, p.titleAny ?? [p.label], 'any', others,
+            date, stats, p.titleAny ?? [p.label], 'any', others, p.titleAll ?? [],
           )
         }
       }
