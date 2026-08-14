@@ -5,7 +5,7 @@ import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts'
 import { useCollection, useCostBasis, psaKey } from '@/hooks/useCollection'
-import { computeBadges } from '@/lib/badges'
+import { computeBadges, computeRank } from '@/lib/badges'
 import CollectionBadges from '@/components/CollectionBadges'
 
 export type PortfolioCardData = {
@@ -249,8 +249,8 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
         )}
       </div>
 
-      {/* 称号バッジ */}
-      <CollectionBadges earned={badges.earned} next={badges.next} />
+      {/* 総合ランク（ボール）＋称号バッジ */}
+      <CollectionBadges rank={computeRank(currentTotal)} earned={badges.earned} next={badges.next} />
 
       {/* 含み損益（買値を入れた保有のみ） */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px', marginBottom: '16px' }}>

@@ -28,6 +28,49 @@ export type Badge = {
   progress: number    // 0..1（未達バッジの進捗バー用）
 }
 
+// ── 総合ランク（ボール4段） ──
+//
+// コレクション全体の「格」を1つだけ大きく出す。名乗りやすさが要なので、
+// 評価額いっぽんで決める（複数指標を混ぜた合成スコアは、なぜその段なのかが
+// 読み手に分からなくなる）。枚数やPSA10は下の系統別バッジが受け持つ。
+
+export type RankId = 'monster' | 'super' | 'hyper' | 'master'
+
+export type Rank = {
+  id: RankId
+  name: string
+  /** この段に必要な評価額 */
+  need: number
+}
+
+export const RANKS: Rank[] = [
+  { id: 'monster', name: 'モンスターボール', need: 0 },
+  { id: 'super', name: 'スーパーボール', need: 30_000 },
+  { id: 'hyper', name: 'ハイパーボール', need: 150_000 },
+  { id: 'master', name: 'マスターボール', need: 1_000_000 },
+]
+
+export type RankState = {
+  rank: Rank
+  next: Rank | null
+  /** 次の段までの進捗 0..1（最高段なら1） */
+  progress: number
+  /** 「¥327,123 / ¥1,000,000」 */
+  detail: string
+}
+
+export function computeRank(totalValue: number): RankState {
+  const idx = RANKS.reduce((acc, r, i) => (totalValue >= r.need ? i : acc), 0)
+  const rank = RANKS[idx]
+  const next = RANKS[idx + 1] ?? null
+  if (!next) {
+    return { rank, next: null, progress: 1, detail: yen(totalValue) }
+  }
+  const span = next.need - rank.need
+  const progress = span > 0 ? Math.max(0, Math.min(1, (totalValue - rank.need) / span)) : 0
+  return { rank, next, progress, detail: `${yen(totalValue)} / ${yen(next.need)}` }
+}
+
 type Tier = { id: string; name: string; need: number; desc: string }
 
 type Family = {
@@ -40,19 +83,6 @@ type Family = {
 const yen = (v: number) => `¥${Math.round(v).toLocaleString()}`
 
 const FAMILIES: Family[] = [
-  {
-    // 評価額。石高になぞらえる（サイトの明朝＋相場師の世界観に合わせた遊び）
-    key: 'value',
-    value: i => i.totalValue,
-    format: yen,
-    tiers: [
-      { id: 'value-1', name: '一万石', need: 10_000, desc: '評価額 1万円' },
-      { id: 'value-2', name: '五万石', need: 50_000, desc: '評価額 5万円' },
-      { id: 'value-3', name: '十万石', need: 100_000, desc: '評価額 10万円' },
-      { id: 'value-4', name: '五十万石', need: 500_000, desc: '評価額 50万円' },
-      { id: 'value-5', name: '百万石', need: 1_000_000, desc: '評価額 100万円' },
-    ],
-  },
   {
     key: 'qty',
     value: i => i.totalQty,
