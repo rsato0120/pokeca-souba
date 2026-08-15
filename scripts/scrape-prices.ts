@@ -68,6 +68,11 @@ async function getMercariOnSale(
   // タイトルに対する追加条件。BOXはカード番号が無く番号照合が使えないので、
   // 「弾名が書かれていること」「BOX表記があること」をここで担保する。
   titleMust: ((title: string) => boolean) | null = null,
+  // カード名。**そもそもこのカードか**を見る最後の砦。価格側(scrapeMercariSoldAvg)には
+  // 前からあったが件数側には無く、検索が緩んで別カードが返った時に件数だけ水増しされていた
+  // （例「ナンジャモ SAR」で別セットのナンジャモSARやナンジャモのハラバリーexが混ざる）。
+  // BOX/セットはカード名を持たないので null。
+  cardName: string | null = null,
 ): Promise<OnSaleResult> {
   const keyword = encodeURIComponent(searchQuery)
   const baseUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
@@ -108,7 +113,8 @@ async function getMercariOnSale(
 
     // minPrice: BOXの出品検索が1パック/単品を拾い床値が¥数百に化けるのを防ぐ（カードは既定0で無影響）
     const keep = (i: MercariItem) =>
-      !isExcluded(i.name) && matchesCardNo(i.name, cardNo) && Number(i.price) >= Math.max(1, minPrice)
+      !isExcluded(i.name) && matchesCardName(i.name, cardName) && matchesCardNo(i.name, cardNo)
+      && Number(i.price) >= Math.max(1, minPrice)
       && (titleMust == null || titleMust(i.name))
 
     let seen = first.items.length
@@ -1095,7 +1101,7 @@ async function scrapeCard(
             .every(w => t.includes(w))
         }
       : null
-    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust)
+    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 
