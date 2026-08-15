@@ -7,6 +7,7 @@ import {
 import { useCollection, useCostBasis, psaKey } from '@/hooks/useCollection'
 import { computeBadges, computeRank } from '@/lib/badges'
 import CollectionBadges from '@/components/CollectionBadges'
+import CollectionRank from '@/components/CollectionRank'
 
 export type PortfolioCardData = {
   id: string
@@ -251,6 +252,9 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
 
       {/* 総合ランク（ボール）＋称号バッジ */}
       <CollectionBadges rank={computeRank(currentTotal)} earned={badges.earned} next={badges.next} />
+
+      {/* 登録者の中での位置（オプトイン・Supabase未設定なら何も出ない） */}
+      <CollectionRank totalYen={currentTotal} kinds={holdings.length} qty={totalQty} />
 
       {/* 含み損益（買値を入れた保有のみ） */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px', marginBottom: '16px' }}>

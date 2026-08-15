@@ -154,3 +154,79 @@ create policy "delete own profile"
   using (auth.uid() = user_id);
 
 notify pgrst, 'reload schema';
+
+-- ─────────────────────────────────────────────────────────────
+-- コレクション総額の分布（2026-08-15 追加・マイコレクションの「上位◯%」用）
+-- ─────────────────────────────────────────────────────────────
+-- マイコレクション本体は今までどおり localStorage 完結（所持カードの中身はサーバーに送らない）。
+-- ここに置くのは **評価額の合計という数値ひとつ** だけで、何を持っているかは一切送らない。
+create table if not exists public.collection_totals (
+  user_id    uuid primary key references auth.users(id) on delete cascade,
+  -- 上限は釣り上げ対策。所持枚数はクライアントが自己申告するので、桁を間違えた入力や
+  -- 悪意ある水増しがそのまま分布の上端を壊さないよう10億円で頭を止める。
+  total_yen  bigint not null check (total_yen >= 0 and total_yen <= 1000000000),
+  kinds      int not null check (kinds between 0 and 100000),  -- 種類数（1枚豪華型と数量型を分けて見るため）
+  qty        int not null check (qty between 0 and 1000000),   -- 総枚数
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+drop trigger if exists collection_totals_touch_updated_at on public.collection_totals;
+create trigger collection_totals_touch_updated_at
+  before update on public.collection_totals
+  for each row execute function public.touch_updated_at();
+
+alter table public.collection_totals enable row level security;
+
+drop policy if exists "read own total"   on public.collection_totals;
+drop policy if exists "insert own total" on public.collection_totals;
+drop policy if exists "update own total" on public.collection_totals;
+drop policy if exists "delete own total" on public.collection_totals;
+
+-- ⚠️ card_votes と違い select は `using (true)` にしない。
+-- 票は公開前提の意見だが、こちらは個人の資産額。全開放すると
+-- 「誰でも全ユーザーの総額一覧を引ける」＝資産額リストになってしまう。
+-- 他人の数字はこの下の集計関数（分布の要約）ごしにしか出さない。
+create policy "read own total"
+  on public.collection_totals for select
+  using (auth.uid() = user_id);
+
+create policy "insert own total"
+  on public.collection_totals for insert
+  with check (auth.uid() = user_id);
+
+create policy "update own total"
+  on public.collection_totals for update
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+create policy "delete own total"
+  on public.collection_totals for delete
+  using (auth.uid() = user_id);
+
+-- 自分の位置と分布の要約だけを返す。RLS（自分の行しか読めない）を意図的に迂回するので
+-- security definer にするが、**返すのは順位と代表値だけで、個々の行は決して返さない**。
+-- search_path を固定しないと、呼び出し側の search_path 経由で別スキーマの同名テーブルを
+-- 掴まされる余地が残る（security definer の定石）。
+create or replace function public.collection_percentile(mine bigint)
+returns table (my_rank int, sample_count int, median_yen bigint, p90_yen bigint)
+language sql
+security definer
+set search_path = public, pg_temp
+stable
+as $$
+  select
+    -- 自分より上の人数＋1＝順位。同額は同順位になる
+    (count(*) filter (where total_yen > mine) + 1)::int,
+    count(*)::int,
+    coalesce(percentile_cont(0.5) within group (order by total_yen), 0)::bigint,
+    coalesce(percentile_cont(0.9) within group (order by total_yen), 0)::bigint
+  from public.collection_totals;
+$$;
+
+-- 引数を変えて何度も呼べば分布の形は推測できるが、それは分位点を出す機能の性質上どうしても残る。
+-- 個人と金額の結びつきは漏れない（誰の額かは決して返らない）ので許容する。
+revoke all on function public.collection_percentile(bigint) from public;
+grant execute on function public.collection_percentile(bigint) to anon, authenticated;
+
+notify pgrst, 'reload schema';
