@@ -222,6 +222,17 @@
       "pack_price_yen": 891,
       "pack_image_url": "https://www.pokemon-card.com/ex/mc/assets/images/home/image_package.png",
       "note": "2025-12-19発売。100種類のデッキからランダムで1つ手に入る商品。AR14種とMUR1種（メガリザードンYex・金のNo.001デッキ）に高値が付く。カード番号は743〜766/742。"
+    },
+    {
+      "box_id": "shiny_treasure",
+      "box_name": "シャイニートレジャーex",
+      "code": "SV4a",
+      "release_ym": "2023-12",
+      "certainty": "released",
+      "pack_price_yen": 550,
+      "packs_per_box": 10,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/b/ba/SV4a_Shiny_Treasure_ex_pack.png",
+      "note": "2023-12-01発売のハイクラスパック（1パック10枚・1BOX10パック）。色違いポケモンをS/SSRで大量収録した年末の総集編弾。2026年に絶版化して相場が再燃し、BOX買取は定価の約4倍まで上昇。ミュウex SAR(347)が最高額。"
     }
   ],
   "cards": [
@@ -14691,6 +14702,708 @@
         "player": "",
         "collector": "No.032デッキ限定のSAR。リーリエ人気とNaoki Saitoの描き下ろしが重なった1枚。",
         "source": "limitlesstcg.com/cards/jp/MC でカード名・タイプ・HP・進化段階・イラストレーターを確認、snkrdunkの<title>で番号を照合（2026-08-15）。"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-charmander-s-210",
+      "card_no": "210/190",
+      "rarity": "S",
+      "card_name": "ヒトカゲ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_210_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ワザ「まるやけ」=場のスタジアムをトラッシュ／「ひをはく」30ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "sowsow",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "sowsow の色違いヒトカゲ。リザードン系の進化前として単体でもコレクター需要が厚く、S帯ではピカチュウに次ぐ人気枠。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-pikachu-s-236",
+      "card_no": "236/190",
+      "rarity": "S",
+      "card_name": "ピカチュウ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_236_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ワザ「なきごえ」=次の相手の番、受けたポケモンのワザダメージ-20／「ピカボルト」30ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違い（金色）ピカチュウ。S帯のトップ相場で、この弾のS枠を代表するカード。ピカチュウの色違いは常に別格の需要がある。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-mimikyu-s-265",
+      "card_no": "265/190",
+      "rarity": "S",
+      "card_name": "ミミッキュ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_265_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 70,
+        "note": "特性「しんぴのまもり」=ポケモンex・Vのワザダメージを受けない／ワザ「ゴーストアイ」=ダメカン7個。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Nelnal",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いミミッキュ。AR版(341)と同スペックで、同弾内に2種ある人気キャラ。S帯ではヒトカゲと並ぶ上位。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-mew-ex-ssr-327",
+      "card_no": "327/190",
+      "rarity": "SSR",
+      "card_name": "ミュウex",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_327_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 180,
+        "note": "特性「リスタート」=手札が3枚になるまで引く／ワザ「ゲノムハック」=相手のワザをコピー。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いミュウexのSSR。SAR(347)と同カードで、SAR高騰の受け皿としてSSR帯トップ相場。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-gardevoir-ex-ssr-328",
+      "card_no": "328/190",
+      "rarity": "SSR",
+      "card_name": "サーナイトex",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_328_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "2進化ポケモン",
+        "hp": 310,
+        "note": "特性「サイコエンブレイス」=トラッシュから基本超エネを付けダメカン2個／ワザ「ミラクルフォース」190。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "N-DESIGN Inc.",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いサーナイトexのSSR。サーナイトはイラスト人気・キャラ人気とも高くSSR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-charizard-ex-ssr-331",
+      "card_no": "331/190",
+      "rarity": "SSR",
+      "card_name": "リザードンex",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_331_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "2進化ポケモン",
+        "hp": 330,
+        "note": "特性「れんごくしはい」=進化時に基本炎エネを3枚まで加速／ワザ「バーニングダーク」=180＋相手のサイド枚数×30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違い（黒銀）リザードンexのSSR。黒炎の支配者の看板カードの色違い版で、ミュウexSSRと並ぶSSR帯トップ。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-wugtrio-ar-338",
+      "card_no": "338/190",
+      "rarity": "AR",
+      "card_name": "ウミトリオ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_338_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化ポケモン",
+        "hp": 90,
+        "note": "ワザ「ずつき」30／「うみほりトンネル」=コイン3回、オモテの数×3枚を相手の山札からトラッシュ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tetsu Kayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "海底のトンネルを描いた描き下ろしAR。キャラ人気は中位でAR帯では下位寄りの相場。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-palafin-ar-339",
+      "card_no": "339/190",
+      "rarity": "AR",
+      "card_name": "イルカマン",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_339_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化ポケモン",
+        "hp": 150,
+        "note": "ワザ「ジェットパンチ」30＋ベンチにも30／「ジャスティスキック」=ベンチから出た番のみ210ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "akagi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "マイティフォルムへの変身を描いたAR。パルデア新ポケモンでキャラ人気は中位。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-pawmi-ar-340",
+      "card_no": "340/190",
+      "rarity": "AR",
+      "card_name": "パモ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_340_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 60,
+        "note": "ワザ「なぐる」10／「エレキック」20。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "REND",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "REND による小動物系AR。かわいい系ARとして一定の需要があるが、キャラ人気は中位。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-mimikyu-ar-341",
+      "card_no": "341/190",
+      "rarity": "AR",
+      "card_name": "ミミッキュ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_341_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 70,
+        "note": "特性「しんぴのまもり」=ポケモンex・Vのワザダメージを受けない／ワザ「ゴーストアイ」=ダメカン7個。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "初代カードの絵師・有田満弘によるミミッキュAR。作家人気とキャラ人気が重なり、この弾のAR帯で最高額。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-mew-ex-sar-347",
+      "card_no": "347/190",
+      "rarity": "SAR",
+      "card_name": "ミュウex",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_347_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 180,
+        "note": "SSR(327)と同スペックの特別イラスト版。特性「リスタート」／ワザ「ゲノムハック」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "USGMEN",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "USGMEN による幻想的な描き下ろし。この弾の最高額カードで、シャイニートレジャーexのチェイスそのもの。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-gardevoir-ex-sar-348",
+      "card_no": "348/190",
+      "rarity": "SAR",
+      "card_name": "サーナイトex",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_348_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "2進化ポケモン",
+        "hp": 310,
+        "note": "SSR(328)と同スペックの特別イラスト版。特性「サイコエンブレイス」／ワザ「ミラクルフォース」190。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Kuroimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Kuroimori による幻想的なサーナイトSAR。女性的シルエットのポケモンSARは安定して高値がつく定番枠。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-charizard-ex-sar-349",
+      "card_no": "349/190",
+      "rarity": "SAR",
+      "card_name": "リザードンex",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_349_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "2進化ポケモン",
+        "hp": 330,
+        "note": "SSR(331)と同スペックの特別イラスト版。特性「れんごくしはい」／ワザ「バーニングダーク」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "AKIRA EGAWA による黒リザードンのSAR。ミュウexSARに次ぐこの弾の第2チェイスで、リザードン人気により長期的に堅い。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-iono-sar-350",
+      "card_no": "350/190",
+      "rarity": "SAR",
+      "card_name": "ナンジャモ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_350_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。おたがいに手札を山札の下にもどし、サイドの残り枚数ぶん引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "hanabushi",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "hanabushi による2枚目のナンジャモSAR（クレイバースト096とは別イラスト）。ナンジャモはポケカ全体でも屈指の人気キャラでトレーナーズSARの筆頭。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-nemona-sar-351",
+      "card_no": "351/190",
+      "rarity": "SAR",
+      "card_name": "ネモ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_351_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の山札を3枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aspara",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "aspara による躍動感のあるネモSAR。主人公のライバル枠で、女性キャラSARとして安定した需要がある。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-perrin-sar-352",
+      "card_no": "352/190",
+      "rarity": "SAR",
+      "card_name": "ネルケ",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_352_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手の手札を見て、その中のサポートの枚数×2枚ぶん山札を引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Taiga Kayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "DLC「碧の円盤」の写真家ネルケのSAR。登場が新しくキャラ人気が成熟していないため、SAR帯では下位寄りの相場。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-arven-sar-353",
+      "card_no": "353/190",
+      "rarity": "SAR",
+      "card_name": "ペパー",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_353_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札から「グッズ」と「ポケモンのどうぐ」を1枚ずつ手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "aspara",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "aspara によるペパーSAR。構築での実需が長く続いた人気サポートだが、男性キャラのためSAR帯では中位。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-treasure-penny-sar-354",
+      "card_no": "354/190",
+      "rarity": "SAR",
+      "card_name": "ボタン",
+      "box_id": "shiny_treasure",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV4a/SV4a_354_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の場のたねポケモン1匹を、ついているカードごと手札にもどす。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "aspara",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "aspara によるボタンSAR。スター団のボスで人気が高く、ナンジャモに次ぐトレーナーズSARの上位枠。",
+        "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
       },
       "note": ""
     }

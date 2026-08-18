@@ -12,7 +12,8 @@ type CardEntry = {
 
 // SA=特別アート(SwSh期), HR=ハイパーレア。イーブイヒーローズ等の旧弾で使用。
 // BWR=ブラックホワイトレア。ブラックボルト/ホワイトフレア限定の最上位レアリティ。
-const RARITY_ORDER = ['RR', 'SR', 'SA', 'SAR', 'BWR', 'MA', 'MUR', 'AR', 'UR', 'HR']
+// S=色違いレア, SSR=色違いスーパーレア。シャイニートレジャーex等のハイクラスパックで使用。
+const RARITY_ORDER = ['RR', 'S', 'SSR', 'SR', 'SA', 'SAR', 'BWR', 'MA', 'MUR', 'AR', 'UR', 'HR']
 
 export default function BoxCardList({
   cardsWithForecast,
