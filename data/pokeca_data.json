@@ -233,6 +233,17 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/b/ba/SV4a_Shiny_Treasure_ex_pack.png",
       "note": "2023-12-01発売のハイクラスパック（1パック10枚・1BOX10パック）。色違いポケモンをS/SSRで大量収録した年末の総集編弾。2026年に絶版化して相場が再燃し、BOX買取は定価の約4倍まで上昇。ミュウex SAR(347)が最高額。"
+    },
+    {
+      "box_id": "vstar_universe",
+      "box_name": "VSTARユニバース",
+      "code": "S12a",
+      "release_ym": "2022-12",
+      "certainty": "released",
+      "pack_price_yen": 550,
+      "packs_per_box": 10,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/7/79/S12a_VSTAR_Universe_pack.jpg",
+      "note": "2022-12-02発売のハイクラスパック（1パック10枚・1BOX10パック）。剣盾期の総集編としてVSTAR/VMAXを網羅し、斉藤こうきのAR群とSAR/URを大量収録。長期絶版でピカチュウAR(205)が突出した最高額。"
     }
   ],
   "cards": [
@@ -15404,6 +15415,708 @@
         "player": "",
         "collector": "aspara によるボタンSAR。スター団のボスで人気が高く、ナンジャモに次ぐトレーナーズSARの上位枠。",
         "source": "limitlesstcg.com/cards/jp/SV4a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-mew-ar-183",
+      "card_no": "183/172",
+      "rarity": "AR",
+      "card_name": "ミュウ",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_183_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 60,
+        "note": "特性「ふしぎなしっぽ」=バトル場にいるとき山札を上から6枚見てグッズを1枚手札に／ワザ「サイコショット」30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Ryota Murayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "幻のポケモン・ミュウのAR。ミュウVMAXデッキの必須枠として実需が長く続いた上に、キャラ人気も高くAR帯の第2位相場。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-riolu-ar-201",
+      "card_no": "201/172",
+      "rarity": "AR",
+      "card_name": "リオル",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_201_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 60,
+        "note": "ワザ「けたぐり」=闘エネ2個で50ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Kouki Saitou",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斉藤こうきによるAR群の1枚。ルカリオの進化前として人気があり、AR帯では中位以上の相場。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-pikachu-ar-205",
+      "card_no": "205/172",
+      "rarity": "AR",
+      "card_name": "ピカチュウ",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_205_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 60,
+        "note": "特性「ピカダッシュ」=エネルギーがついているならにげるエネが0／ワザ「きまぐれタックル」コイン判定。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Kouki Saitou",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斉藤こうきが描いた「木の上のピカチュウ」。この弾のトップレアで、AR でありながらSAR/URを上回る最高額。ポケカ全体でも指折りの人気ARとして長期的に堅い。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-turtwig-ar-206",
+      "card_no": "206/172",
+      "rarity": "AR",
+      "card_name": "ナエトル",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_206_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 80,
+        "note": "ワザ「かみつく」10／「とびだしヘッド」20。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kouki Saitou",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斉藤こうきのAR。シンオウ御三家の草枠で、同弾のAR群のなかでは中位の相場。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-mareep-ar-209",
+      "card_no": "209/172",
+      "rarity": "AR",
+      "card_name": "メリープ",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_209_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 60,
+        "note": "ワザ「うしろげり」10／「エレキボール」30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kouki Saitou",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斉藤こうきのAR。牧歌的な構図でイラスト評価が高く、かわいい系ARとして安定した需要がある。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-leafeon-vstar-sar-210",
+      "card_no": "210/172",
+      "rarity": "SAR",
+      "card_name": "リーフィアVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_210_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "VSTAR",
+        "hp": 260,
+        "note": "VSTARパワー「アイビースター」=相手のベンチを1匹バトル場に／ワザ「リーフガード」180＋次の番ダメージ-30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Jiro Sasumo",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "イーブイ進化系のSAR。イーブイズはコレクター人気が厚く、SAR帯で安定した中位以上の相場。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-charizard-v-sar-211",
+      "card_no": "211/172",
+      "rarity": "SAR",
+      "card_name": "リザードンV",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_211_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 220,
+        "note": "ワザ「やきつくす」90＋相手のどうぐをトラッシュ／「ヒートブラスト」180。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Oswaldo KATO",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Oswaldo KATO による夕景のリザードンV。リザードン人気でSAR帯の上位に定着している。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-simisear-vstar-sar-214",
+      "card_no": "214/172",
+      "rarity": "SAR",
+      "card_name": "バオッキーVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_214_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "VSTAR",
+        "hp": 260,
+        "note": "ワザ「ひのたまフィーバー」=山札を5枚までトラッシュしその枚数×40追加／VSTARパワー「エンバースター」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "nagano",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "nagano による独特の色彩のSAR。キャラ人気は高くないが作家性でコレクター評価が高く、SAR帯の中位以上を維持。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-glaceon-vstar-sar-217",
+      "card_no": "217/172",
+      "rarity": "SAR",
+      "card_name": "グレイシアVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_217_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "VSTAR",
+        "hp": 260,
+        "note": "ワザ「つららショット」180＋にげられない／VSTARパワー「クリスタルスター」220＋次の番ダメージ・効果を受けない。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Gemi",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Gemi による氷景のグレイシアSAR。イーブイズ人気＋作家人気が重なりSAR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-raikou-v-sar-218",
+      "card_no": "218/172",
+      "rarity": "SAR",
+      "card_name": "ライコウV",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_218_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 200,
+        "note": "特性「しゅんそく」=バトル場にいるとき山札を1枚引く／ワザ「ライトニングロンド」20＋ベンチの数×20。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "nagimiso",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "nagimiso による疾走感のあるライコウV。伝説三犬の人気と作家人気が重なるSAR帯上位の定番。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-mewtwo-vstar-sar-221",
+      "card_no": "221/172",
+      "rarity": "SAR",
+      "card_name": "ミュウツーVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_221_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "VSTAR",
+        "hp": 280,
+        "note": "ワザ「サイコパージ」=超エネを3枚までトラッシュしその枚数×90／VSTARパワー「スターレイド」=相手のポケモンV全員に120。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "GOSSAN",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "GOSSAN によるミュウツーVSTAR。ミュウツーの知名度と迫力ある構図でこの弾のSAR最高額。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-lucario-vstar-sar-226",
+      "card_no": "226/172",
+      "rarity": "SAR",
+      "card_name": "ルカリオVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_226_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "VSTAR",
+        "hp": 270,
+        "note": "ワザ「ファイティングナックル」120（相手がVならさらに120）／VSTARパワー「はどうスター」=相手の場のエネの数×70。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "hncl",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ルカリオのSAR。キャラ人気は高いがSAR帯では中位の相場で、リオルAR(201)との組み合わせ需要がある。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-kai-sar-236",
+      "card_no": "236/172",
+      "rarity": "SAR",
+      "card_name": "カイ",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_236_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札から水ポケモンとグッズを1枚ずつ手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Naoki Saito によるカイのSAR。水デッキの必須サポートとして実需が長く続き、女性キャラSARとしてこの弾のトレーナーズ最高額。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-cynthia-ambition-sar-239",
+      "card_no": "239/172",
+      "rarity": "SAR",
+      "card_name": "シロナの覇気",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_239_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。手札が5枚（前の番に自分のポケモンがきぜつしていたなら8枚）になるように引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Atsuya Uki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "宇木敦哉による「シロナの覇気」SAR。シロナはシリーズ屈指の人気キャラで、作家人気と重なりSAR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-origin-palkia-vstar-ur-259",
+      "card_no": "259/172",
+      "rarity": "UR",
+      "card_name": "オリジンパルキアVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_259_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "VSTAR",
+        "hp": 280,
+        "note": "VSTARパワー「スターポータル」=トラッシュから水エネを3枚まで加速／ワザ「あくうのうねり」60＋相手ベンチの数×20。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。オリジンフォルムのパルキアは人気が高く、UR帯の中位相場。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-origin-dialga-vstar-ur-260",
+      "card_no": "260/172",
+      "rarity": "UR",
+      "card_name": "オリジンディアルガVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_260_R_JP_LG.png",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "VSTAR",
+        "hp": 280,
+        "note": "ワザ「メタルブラスト」=ついている鋼エネの数×40追加／VSTARパワー「スタークロノス」=もう1回自分の番を始める。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。「もう1回自分の番」という象徴的な効果でプレイヤー人気も高く、UR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-giratina-vstar-ur-261",
+      "card_no": "261/172",
+      "rarity": "UR",
+      "card_name": "ギラティナVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_261_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "VSTAR",
+        "hp": 280,
+        "note": "ワザ「ロストインパクト」／VSTARパワー「スターレクイエム」=ロストゾーンが10枚以上なら相手のバトルポケモンをきぜつ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。ロストギラティナは剣盾末期を代表する強力デッキで、キャラ人気と合わせてこの弾のUR最高額。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vstar-universe-arceus-vstar-ur-262",
+      "card_no": "262/172",
+      "rarity": "UR",
+      "card_name": "アルセウスVSTAR",
+      "box_id": "vstar_universe",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12a/S12a_262_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "VSTAR",
+        "hp": 280,
+        "note": "VSTARパワー「スターバース」=山札から好きなカードを2枚手札に／ワザ「トリニティノヴァ」=基本エネを3枚まで加速。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AKIRA EGAWA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。「スターバース」は剣盾期を象徴するカードで、環境の顔だった実績からUR帯の上位を維持。",
+        "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
       },
       "note": ""
     }
