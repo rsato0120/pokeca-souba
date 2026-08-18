@@ -255,6 +255,17 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/4/45/S8b_VMAX_Climax_pack.jpg",
       "note": "2021-12-03発売のハイクラスパック（1パック11枚・1BOX10パック）。剣盾期のV/VMAXを網羅した総集編で、CSR（キャラクタースーパーレア）が目玉。長期絶版でBOX相場は定価の約5倍まで上昇している。"
+    },
+    {
+      "box_id": "shiny_star_v",
+      "box_name": "シャイニースターV",
+      "code": "S4a",
+      "release_ym": "2020-11",
+      "certainty": "released",
+      "pack_price_yen": 550,
+      "packs_per_box": 10,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/a/a6/S4a_Shiny_Star_V_pack.jpg",
+      "note": "2020-11-20発売のハイクラスパック（1パック10枚・1BOX10パック）。色違いポケモン127種を収録した「色違い弾」の元祖で、リザードンV/VMAXのSSRが突出したチェイス。長期絶版でBOX相場は定価の約3倍。"
     }
   ],
   "cards": [
@@ -16830,6 +16841,630 @@
         "player": "",
         "collector": "ゴールド仕様のUR。レックウザ人気＋金加工でこの弾のUR最高額。",
         "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-skyla-sr-195",
+      "card_no": "195/190",
+      "rarity": "SR",
+      "card_name": "フウロ",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_195_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からトレーナーズを1枚選び、手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kirisAki によるフウロのSR。イッシュのジムリーダーで女性キャラ人気が高く、マリィに次ぐこの弾のトレーナーズ上位。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-poke-kid-sr-197",
+      "card_no": "197/190",
+      "rarity": "SR",
+      "card_name": "ポケモンごっこ",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_197_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からポケモンを1枚選び、手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "佐野助による「ポケモンごっこ」のSR。ピカチュウの着ぐるみを着た子どものイラストが人気で、キャラ物SRとして根強い需要がある。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-marnie-sr-198",
+      "card_no": "198/190",
+      "rarity": "SR",
+      "card_name": "マリィ",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_198_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。おたがいに手札を山札の下にもどし、自分は5枚・相手は4枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斎藤ナオキによるマリィのSR。剣盾期のトレーナーズSRを代表するカードで、この弾のトレーナーズ最高額。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-rowlet-s-200",
+      "card_no": "200/190",
+      "rarity": "S",
+      "card_name": "モクロー",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_200_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 50,
+        "note": "特性「スカイサーカス」=この番「とりつかい」を使っていればワザのエネルギーが0／ワザ「かぜのつぶて」ベンチに60。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Akira Komayama",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "駒屋アキラによる色違いモクロー。かわいい系の色違いで、S帯では上位の相場。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-suicune-s-221",
+      "card_no": "221/190",
+      "rarity": "S",
+      "card_name": "スイクン",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_221_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 120,
+        "note": "ワザ「スプラッシュ」20／「オーロラループ」130（水エネ2個を手札に戻す）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Kagemaru Himeno",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "姫野かげまるによる色違いスイクン。旧世代から続く人気絵師＋伝説ポケモンで、S帯の最高額枠。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-yamper-s-238",
+      "card_no": "238/190",
+      "rarity": "S",
+      "card_name": "ワンパチ",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_238_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ワザ「ほえる」=相手のバトルポケモンを入れ替え／「バチバチ」10。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "sowsow",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "sowsow による色違いワンパチ。作家人気でS帯の中位以上を維持している。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-charizard-v-ssr-307",
+      "card_no": "307/190",
+      "rarity": "SSR",
+      "card_name": "リザードンV",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_307_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 220,
+        "note": "ワザ「ツメできりさく」80／「ほのおのうず」220（エネを2個トラッシュ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違い（黒）リザードンVのSSR。通常版が存在せずこの弾でしか手に入らないため、VMAX(308)に次ぐチェイス。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-charizard-vmax-ssr-308",
+      "card_no": "308/190",
+      "rarity": "SSR",
+      "card_name": "リザードンVMAX",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_308_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "VMAX",
+        "hp": 330,
+        "note": "ワザ「ツメできりさく」100／「キョダイゴクエン」300（エネを2個トラッシュ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違い（黒）リザードンVMAXのSSR。シャイニースターVの看板であり最高額カード。剣盾期の色違いリザードンとして長期的に堅い。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-lapras-v-ssr-311",
+      "card_no": "311/190",
+      "rarity": "SSR",
+      "card_name": "ラプラスV",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_311_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 210,
+        "note": "ワザ「ウェーブバック」=水エネをつけてベンチと入れ替え／「オーシャンループ」210（水エネ2個を手札に戻す）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いラプラスVのSSR。ラプラスVMAX(312)と対になるが、V側はSSR帯では下位寄りの相場。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-lapras-vmax-ssr-312",
+      "card_no": "312/190",
+      "rarity": "SSR",
+      "card_name": "ラプラスVMAX",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_312_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "VMAX",
+        "hp": 320,
+        "note": "ワザ「キョダイポンプ」=ついている水エネの数×30ダメージ追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いラプラスVMAXのSSR。ラプラスは知名度が高く、リザードン・メタモンに次ぐSSR帯の中位。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-ditto-v-ssr-323",
+      "card_no": "323/190",
+      "rarity": "SSR",
+      "card_name": "メタモンV",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_323_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 170,
+        "note": "特性「Vへんげ」=トラッシュのたねポケモンVと入れ替わる／ワザ「ペタッとつく」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Saki Hayashiro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いメタモンVのSSR。メタモンの色違いは青みがかった配色で人気があり、SSR帯の中位以上。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-ditto-vmax-ssr-324",
+      "card_no": "324/190",
+      "rarity": "SSR",
+      "card_name": "メタモンVMAX",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S4a/S4a_324_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "VMAX",
+        "hp": 320,
+        "note": "ワザ「ダイヘンシン」=相手のバトルポケモンのワザを1つ選んでこのワザとして使う。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "PLANETA Tsuji",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "色違いメタモンVMAXのSSR。リザードンを除けばこの弾のSSR最高額で、ネタ性の高い変身ギミックも人気。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-eternatus-v-ur-327",
+      "card_no": "327/190",
+      "rarity": "UR",
+      "card_name": "ムゲンダイナV",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571250_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 220,
+        "note": "ワザ「パワーアクセラレーター」30＋ベンチに悪エネ加速／「ダイナマックスほう」120＋相手がVMAXなら120追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。剣盾の看板伝説だがUR帯では中位の相場。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-eternatus-vmax-ur-328",
+      "card_no": "328/190",
+      "rarity": "UR",
+      "card_name": "ムゲンダイナVMAX",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571251_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "VMAX",
+        "hp": 340,
+        "note": "特性「ムゲンゾーン」=全員が悪ならベンチを8匹に／ワザ「ドレッドエンド」=悪ポケモンの数×30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。剣盾期に環境を席巻したデッキの中心で、実需の記憶からUR帯の中位以上。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-zacian-v-ur-329",
+      "card_no": "329/190",
+      "rarity": "UR",
+      "card_name": "ザシアンV",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571252_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "たね",
+        "hp": 220,
+        "note": "特性「ふとうのつるぎ」=山札の上3枚から鋼エネを加速／ワザ「ブレイブキャリバー」230。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。剣盾期を代表する強力カードで、この弾のUR最高額。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "shiny-star-v-zamazenta-v-ur-330",
+      "card_no": "330/190",
+      "rarity": "UR",
+      "card_name": "ザマゼンタV",
+      "box_id": "shiny_star_v",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571253_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "たね",
+        "hp": 230,
+        "note": "特性「ふくつのたて」=ポケモンVMAXのワザのダメージを受けない／ワザ「アサルトタックル」130。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "D",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。ザシアン(329)と対になる伝説で、UR帯の中位。",
+        "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
       },
       "note": ""
     }
