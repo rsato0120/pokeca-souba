@@ -244,6 +244,17 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/7/79/S12a_VSTAR_Universe_pack.jpg",
       "note": "2022-12-02発売のハイクラスパック（1パック10枚・1BOX10パック）。剣盾期の総集編としてVSTAR/VMAXを網羅し、斉藤こうきのAR群とSAR/URを大量収録。長期絶版でピカチュウAR(205)が突出した最高額。"
+    },
+    {
+      "box_id": "vmax_climax",
+      "box_name": "VMAXクライマックス",
+      "code": "S8b",
+      "release_ym": "2021-12",
+      "certainty": "released",
+      "pack_price_yen": 550,
+      "packs_per_box": 10,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/4/45/S8b_VMAX_Climax_pack.jpg",
+      "note": "2021-12-03発売のハイクラスパック（1パック11枚・1BOX10パック）。剣盾期のV/VMAXを網羅した総集編で、CSR（キャラクタースーパーレア）が目玉。長期絶版でBOX相場は定価の約5倍まで上昇している。"
     }
   ],
   "cards": [
@@ -16117,6 +16128,708 @@
         "player": "",
         "collector": "ゴールド仕様のUR。「スターバース」は剣盾期を象徴するカードで、環境の顔だった実績からUR帯の上位を維持。",
         "source": "limitlesstcg.com/cards/jp/S12a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-blaziken-v-csr-216",
+      "card_no": "216/184",
+      "rarity": "CSR",
+      "card_name": "バシャーモV",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_216_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 210,
+        "note": "ワザ「とびひざげり」50／「ほのおのうず」210（エネを2個トラッシュ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "nagimiso",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "nagimiso による夕景のバシャーモV。作家人気が高くCSR帯の中位以上を維持している。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-pikachu-v-csr-222",
+      "card_no": "222/184",
+      "rarity": "CSR",
+      "card_name": "ピカチュウV",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_222_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 190,
+        "note": "ワザ「じゅうでん」=山札から雷エネを2枚まで加速／「10まんボルト」200＋エネを全トラッシュ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Ryota Murayama",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ピカチュウVMAX(223)と対になるCSR。ピカチュウのキャラ人気でCSR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-pikachu-vmax-csr-223",
+      "card_no": "223/184",
+      "rarity": "CSR",
+      "card_name": "ピカチュウVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_223_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "ワザ「キョダイボルテッカー」120＋エネを全トラッシュで150追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Souichirou Gunjima",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "権島蒼一郎による街を駆けるピカチュウVMAX。ピカチュウCSRはこの弾でミミッキュVMAXと並ぶトップ級の相場。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-sylveon-v-csr-231",
+      "card_no": "231/184",
+      "rarity": "CSR",
+      "card_name": "ニンフィアV",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_231_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 200,
+        "note": "特性「ドリームギフト」=山札からグッズを1枚手札に（使うと番が終わる）／ワザ「マジカルショット」60。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Megumi Mizutani",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ニンフィアVMAX(232)と対になるCSR。イーブイズはコレクター人気が厚くCSR帯の中位以上。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-sylveon-vmax-csr-232",
+      "card_no": "232/184",
+      "rarity": "CSR",
+      "card_name": "ニンフィアVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_232_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "ワザ「プレシャスタッチ」=ベンチにエネを付けHP120回復／「ダイハーモニー」70＋ベンチのタイプ数×30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "sui",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "sui による淡色のニンフィアVMAX。イーブイズ人気＋作家人気でCSR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-mimikyu-v-csr-233",
+      "card_no": "233/184",
+      "rarity": "CSR",
+      "card_name": "ミミッキュV",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_233_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 160,
+        "note": "特性「ダミードール」=ベンチから出した番は相手のワザのダメージを受けない／ワザ「うらやむひとみ」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "saino misaki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ミミッキュVMAX(234)と対になるCSR。ミミッキュはこの弾で最も人気のあるキャラの一角。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-mimikyu-vmax-csr-234",
+      "card_no": "234/184",
+      "rarity": "CSR",
+      "card_name": "ミミッキュVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_234_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "VMAX",
+        "hp": 300,
+        "note": "ワザ「オカルトナンバー」=ダメカン4個（「アセロラの予感」を使っていれば13個）／「ダイシャドー」120＋手札1枚トラッシュ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斎藤ナオキによるミミッキュVMAX。アセロラの予感(255)と絵が繋がる仕掛けで有名で、この弾のCSR最高額。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-umbreon-v-csr-244",
+      "card_no": "244/184",
+      "rarity": "CSR",
+      "card_name": "ブラッキーV",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_244_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 200,
+        "note": "ワザ「くろいまなざし」30＋にげられない／「げっこうのやいば」80＋ダメカンがのっていれば80追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Ligton",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ブラッキーVMAX(245)と対になるCSR。ブラッキーはイーブイズで最も人気が高くCSR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-umbreon-vmax-csr-245",
+      "card_no": "245/184",
+      "rarity": "CSR",
+      "card_name": "ブラッキーVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_245_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "特性「ダークシグナル」=進化時に相手のベンチを1匹バトル場へ／ワザ「ダイアーク」160。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "kawayoo",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kawayoo によるブラッキーVMAX。イーブイヒーローズのSA版ほどではないがCSR帯のトップ級で、海外人気も厚い。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-rayquaza-vmax-csr-252",
+      "card_no": "252/184",
+      "rarity": "CSR",
+      "card_name": "レックウザVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_252_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "VMAX",
+        "hp": 320,
+        "note": "特性「そうくうのはどう」=手札を全てトラッシュして3枚引く／ワザ「ダイバースト」=炎・雷エネをトラッシュした枚数×80追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Hideki Ishikawa",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "CSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "石川英樹によるレックウザVMAX。蒼空ストリームのSAに次ぐレックウザ枠で、CSR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-acerola-premonition-sr-255",
+      "card_no": "255/184",
+      "rarity": "SR",
+      "card_name": "アセロラの予感",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_255_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手の手札を見て、その中のトレーナーズの枚数ぶん山札を引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "yuu",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "yuu による、この弾を象徴するトレーナーズSR。ミミッキュVMAX(234)と絵が繋がる演出で人気が爆発し、S8bの最高額カード。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-galarian-friends-sr-258",
+      "card_no": "258/184",
+      "rarity": "SR",
+      "card_name": "ガラルの仲間たち",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_258_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の山札を3枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Sanosuke Sakuma",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "佐野助によるガラルのジムリーダー集合絵。効果は地味だが「集合イラスト」の希少性でSR帯の上位に定着。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-bea-sr-261",
+      "card_no": "261/184",
+      "rarity": "SR",
+      "card_name": "サイトウ",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_261_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札を上から5枚トラッシュし、その中のエネルギーをベンチの闘ポケモンにつける。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Souichirou Gunjima",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "権島蒼一郎によるサイトウのSR。女性キャラSRとして安定した需要があり、SR帯の中位。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-gloria-sr-276",
+      "card_no": "276/184",
+      "rarity": "SR",
+      "card_name": "ユウリ",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_276_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からたねポケモン（ルールを持つポケモンを除く）を3枚までベンチに出す。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "斎藤ナオキによる主人公ユウリのSR。アセロラの予感に次ぐこの弾の第2チェイスで、作家人気と主人公補正が重なる。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-nessa-sr-277",
+      "card_no": "277/184",
+      "rarity": "SR",
+      "card_name": "ルリナ",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8b/S8b_277_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。トラッシュから水ポケモンと水エネルギーを合計4枚まで手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "saino misaki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "saino misaki によるルリナのSR。人気ジムリーダーでSR帯の上位を維持している。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-pikachu-vmax-ur-279",
+      "card_no": "279/184",
+      "rarity": "UR",
+      "card_name": "ピカチュウVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571530_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "CSR(223)と同スペックのゴールド仕様。ワザ「キョダイボルテッカー」120＋エネを全トラッシュで150追加。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。ピカチュウ＋金加工でUR帯のトップ級。この弾のUR最高額を争う。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-mew-vmax-ur-280",
+      "card_no": "280/184",
+      "rarity": "UR",
+      "card_name": "ミュウVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571531_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "ゴールド仕様。ワザ「クロスフュージョンストライク」=ベンチのフュージョンのワザを使う／「ダイミラクル」130（相手にかかっている効果を受けない）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。ミュウVMAXは剣盾期の主力デッキで実需もあり、UR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
+      },
+      "note": ""
+    },
+    {
+      "id": "vmax-climax-rayquaza-vmax-ur-284",
+      "card_no": "284/184",
+      "rarity": "UR",
+      "card_name": "レックウザVMAX",
+      "box_id": "vmax_climax",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571535_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "竜",
+        "stage": "VMAX",
+        "hp": 320,
+        "note": "CSR(252)と同スペックのゴールド仕様。特性「そうくうのはどう」／ワザ「ダイバースト」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "PLANETA Mochizuki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のUR。レックウザ人気＋金加工でこの弾のUR最高額。",
+        "source": "limitlesstcg.com/cards/jp/S8b/{番号}（UR 279/280/284 は serebii.net/card/vmaxclimax/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
       },
       "note": ""
     }
