@@ -90,6 +90,42 @@ export default function TopPage() {
     }
   }).filter((c) => c.currentMid > 0)
 
+  // ── 「今日の話」をする節に混ぜてよいカードか ──
+  //
+  // 出品数の増減・前日比・本日の高値安値更新は、どれも「直近2つの観測を並べた差」で作る。
+  // ところが観測が止まっているカード（成約が薄くスクレイプが件数不足でスキップされ続ける等）が
+  // あり、その2点が1週間以上離れていることがある。日付を見ないと**先週の変化が「前日比」として
+  // 今日の欄に並ぶ**（実例: ラティアス&ラティオスGX は 8/19 の1つ前が 8/10 で9日空いていた）。
+  //
+  // そこで「サイト全体の最新日に追随していること」と「前日比の相手が古すぎないこと」の
+  // 2つを満たすカードだけを、今日を語る節に通す。
+  const FRESH_DAYS = 2     // サイト全体の最新日からこれ以上離れた観測は今日の話に混ぜない
+  const PAIR_MAX_GAP = 3   // 直近2観測がこれ以上離れていたら「前日比」と呼べない
+  const dayDiff = (a: string, b: string) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000)
+
+  // サイト全体の最新日は**最頻値**で取る。数枚だけ翌日に取り直されることがあるので、
+  // 最大値にすると1枚に引きずられて他の全カードが「古い」と判定される（最終更新の表示と同じ考え方）
+  const latestCounts = new Map<string, number>()
+  for (const m of metrics) {
+    const d = m.records[0]?.date
+    if (d) latestCounts.set(d, (latestCounts.get(d) ?? 0) + 1)
+  }
+  const siteLatest = [...latestCounts.entries()]
+    .sort((a, b) => b[1] - a[1] || b[0].localeCompare(a[0]))[0]?.[0] ?? todayJST()
+
+  // 観測が今日ぶんで、かつ直近2点が隣り合っているカードだけ true
+  const isCurrent = (m: CardMetrics): boolean => {
+    const d0 = m.records[0]?.date
+    const d1 = m.records[1]?.date
+    if (!d0 || !d1) return false
+    return dayDiff(siteLatest, d0) <= FRESH_DAYS && dayDiff(d0, d1) <= PAIR_MAX_GAP
+  }
+
+  // 価格から作るランキング枠の共通条件。グッズ・ポケモンのどうぐ・スタジアム・エネルギーは
+  // コレクター相場の話ではないので、順位を付けて推し出す枠には出さない
+  // （カード詳細・収録弾一覧・検索には引き続き出る）
+  const isRankable = (m: CardMetrics): boolean => isCurrent(m) && !isDeckUtilityCard(m.card)
+
   // 「みんなの注目ランキング」用の対応表。どのカードが見られているかはビルド時には分からないので、
   // CommunityPicks と同じく id→表示情報を丸ごと渡してクライアント側で突き合わせる。
   // 価格が欠測しているカードも開かれる（＝ランキングに載り得る）ので、metrics ではなく cards から作る。
@@ -110,6 +146,7 @@ export default function TopPage() {
   // 相場ティッカー: 本日の値動きが大きい順。上げ下げの両方を混ぜて流す。
   // 前日比が無い日（スクレイプ未実施・欠測）は7日比で代替し、それも無ければ載せない。
   const tickerItems: TickerItem[] = metrics
+    .filter(isRankable)
     .map((m) => ({ m, change: m.dayChange ?? m.weekChange }))
     .filter((x): x is { m: CardMetrics; change: number } => x.change != null && Math.abs(x.change) >= 1)
     .sort((a, b) => Math.abs(b.change) - Math.abs(a.change))
@@ -125,7 +162,7 @@ export default function TopPage() {
   // 今買われているカード: 出品数が減ったカード（SR除外）
   // on_sale件数の前日比減少 = 在庫が捌けている = 買い需要の実態シグナル
   const buyingCards = [...metrics]
-    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && !isDeckUtilityCard(m.card))
+    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && isRankable(m))
     .filter(m => {
       const slug = m.slug
       const history = getPriceHistory(slug)
@@ -146,7 +183,7 @@ export default function TopPage() {
   // 今売られているカード: 出品数が増えたカード（SR除外）
   // on_sale件数の前日比増加 = 売り圧が高まっている = 売り需要の実態シグナル
   const sellingCards = [...metrics]
-    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && !isDeckUtilityCard(m.card))
+    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && isRankable(m))
     .filter(m => {
       const slug = m.slug
       const history = getPriceHistory(slug)
@@ -167,6 +204,7 @@ export default function TopPage() {
   // 本日の高値・安値更新: 全期間の極値（data/price-extremes.json）を当日更新したカード。
   // 蓄積が浅いカードは extremeHitToday 側で除外される（新弾は初日が必ず最高かつ最安になるため）
   const extremeUpdates = metrics
+    .filter(isRankable)
     .map(m => {
       const ex = getPriceExtremes(m.slug)
       const latestDate = getPriceHistory(m.slug)?.history?.[0]?.date
@@ -182,7 +220,7 @@ export default function TopPage() {
   // 価格急騰・急落: 前日比優先、なければ週間比
   const getChange = (m: CardMetrics) => m.dayChange ?? m.weekChange ?? 0
   const getChangeLabel = (m: CardMetrics) => m.dayChange != null ? '前日比' : '7日比'
-  const changeCards = metrics.filter(m => m.dayChange != null || m.weekChange != null)
+  const changeCards = metrics.filter(m => isRankable(m) && (m.dayChange != null || m.weekChange != null))
 
   const surgeCards = [...changeCards]
     .filter(m => getChange(m) > 0)
