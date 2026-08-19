@@ -72,3 +72,26 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
 匿名ユーザーも MAU に計上される（無料枠 50,000 MAU）。現在の規模なら当分問題にならない。
 匿名サインインには IP あたりのレート制限があるので、急にバズった場合は Dashboard の
 Auth Rate Limits を確認すること。
+
+## みんなの注目ランキング（`card_view_visits`）
+
+トップの「みんなの注目ランキング」＝**直近7日でカード詳細を開かれた人数**の多い順（`TrendingCards.tsx`）。
+カード詳細を開くとその場で1件記録され、同じページに「直近7日の閲覧 N人・◯位」が出る（`CardViewCounter.tsx`）。
+
+- **数え方は 1カード・1日・1訪問者につき1**。リロード連打では増えない。二重に数えないための識別子は
+  `md5(その日の日付 + IP)` ＝**日が変われば別人になる使い捨ての値**で、IPそのものも端末IDも保存しない。
+  端末側でも「今日このカードを数えたか」を localStorage（`pokeca-viewed-v1`）に持ち、
+  2回目以降は `p_count=false`（読むだけ）で呼ぶ。
+- **⚠ このテーブルにもポリシーを1本も置かない**（`collection_totals` と同じ方針、`card_votes` とは逆）。
+  RLS を有効にしてポリシーが無い＝クライアントからは読み書きとも一切できず、出入りは
+  `record_card_view()` / `card_view_ranking()`（どちらも `security definer` ＋ `set search_path`）だけ。
+  生の行には訪問者ハッシュが入るので、票のように `using (true)` で開けてはいけない。
+- **匿名サインインは要らない**（RPC は `anon` に grant 済み）。閲覧しただけで `auth.users` は増えない。
+- 保持は31日。cron を持たないので `record_card_view()` が **1%の確率で古い行を掃除**する。
+- しきい値は `TrendingCards.tsx` の `MIN_VIEWERS`（2人未満は載せない）と `CardViewCounter.tsx` の
+  `MIN_VIEWERS` / `MIN_RANKED`。**閲覧が貯まるまではセクションもバッジも自分で消える**ので、
+  流し込んだ直後に何も出なくても壊れてはいない。
+- 「急上昇」バッジは**ひとつ前の7日**と比べて2倍以上のとき。初週は前期間が0なので付かない
+  （＝「初日は全部NEW」のような無意味な表示にならない）。
+- プライバシーポリシー（`src/app/privacy/page.tsx`）に閲覧記録の記載を追加済み。
+  ここに送るものを増やしたら必ず同じ場所を直すこと。

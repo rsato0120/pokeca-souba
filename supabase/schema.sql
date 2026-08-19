@@ -230,3 +230,118 @@ revoke all on function public.collection_percentile(bigint) from public;
 grant execute on function public.collection_percentile(bigint) to anon, authenticated;
 
 notify pgrst, 'reload schema';
+
+-- ─────────────────────────────────────────────────────────────
+-- みんなの注目ランキング（2026-08-19 追加・カード詳細の閲覧数）
+-- ─────────────────────────────────────────────────────────────
+-- 「いま何が見られているか」は価格やAI予想からは絶対に出てこない、閲覧者だけが作る指標。
+-- 相場が動く前に注目が動くことがあるので、値上がりランキングとは別の情報になる。
+--
+-- 数えるのは **1カード・1日・1訪問者につき1** で、リロード連打では増えない。
+-- 訪問者の識別は「日付を混ぜたIPのmd5」＝日が変われば別人になる使い捨ての値で、
+-- IPそのものも端末IDも保存しない（追跡には使えない）。
+create table if not exists public.card_view_visits (
+  -- pokeca_data.json のカードスラッグ。想定外の文字列で行を作らせないよう形も縛る
+  card_id    text not null check (card_id ~ '^[a-z0-9][a-z0-9_-]{0,79}$'),
+  day        date not null,
+  visitor    text not null,
+  created_at timestamptz not null default now(),
+  primary key (card_id, day, visitor)
+);
+
+-- ランキングは常に「直近N日ぶんを日付で切ってカード別に数える」
+create index if not exists card_view_visits_day_idx
+  on public.card_view_visits (day, card_id);
+
+-- ⚠ ポリシーを1本も置かない＝anon/authenticated からは読み書きとも一切できない。
+-- 生の行には訪問者ハッシュが入っているので、出入りは下の security definer 関数だけに絞る。
+-- （card_votes の「読みは全開放」をコピペしてこないこと。collection_totals と同じ方針）
+alter table public.card_view_visits enable row level security;
+
+-- 閲覧を1件記録し、そのカードの現状（直近7日の閲覧者数・順位）を返す。
+-- 記録と表示を1本にまとめてあるのは、カードを開くたびに往復を2回させないため。
+-- p_count=false で「数えずに現状だけ読む」（同じ端末が同じ日に開き直したとき用）。
+create or replace function public.record_card_view(p_card_id text, p_count boolean default true)
+-- rank は plpgsql の OUT 名としては窓関数 rank() と紛らわしいので view_rank にする
+returns table (viewers_7d int, viewers_today int, view_rank int, ranked_cards int)
+language plpgsql
+security definer
+set search_path = public, pg_temp
+volatile
+as $$
+declare
+  v_day     date := (now() at time zone 'Asia/Tokyo')::date;
+  v_ip      text;
+  v_visitor text;
+begin
+  if p_card_id is null or p_card_id !~ '^[a-z0-9][a-z0-9_-]{0,79}$' then
+    return;
+  end if;
+
+  if p_count then
+    -- nullif を挟むのは、GUC が空文字だった場合に ''::json が構文エラーで落ちるため
+    v_ip := split_part(coalesce(nullif(current_setting('request.headers', true), '')::json ->> 'x-forwarded-for', ''), ',', 1);
+    -- 日付を混ぜるので、同じ人でも日が変われば別のハッシュになる（横断的な追跡ができない）。
+    -- ヘッダが取れない環境ではランダム値にする＝重複排除は効かないが、数え落とすよりはよい
+    v_visitor := md5(v_day::text || '|' || coalesce(nullif(btrim(v_ip), ''), gen_random_uuid()::text));
+
+    -- 同じ人が同じ日に同じカードを何度開いても、ここで弾かれて1のまま
+    insert into public.card_view_visits (card_id, day, visitor)
+    values (p_card_id, v_day, v_visitor)
+    on conflict do nothing;
+
+    -- 保持は31日ぶん。cron を持たないので、書き込みのついでに1%の確率で掃除する
+    if random() < 0.01 then
+      delete from public.card_view_visits where day < v_day - 31;
+    end if;
+  end if;
+
+  return query
+  with tally as (
+    select v.card_id as cid, count(*)::int as viewers,
+           count(*) filter (where v.day = v_day)::int as today
+    from public.card_view_visits v
+    where v.day > v_day - 7
+    group by v.card_id
+  ), ranked as (
+    select t.cid, t.viewers, t.today, rank() over (order by t.viewers desc)::int as rnk
+    from tally t
+  )
+  select coalesce(r.viewers, 0), coalesce(r.today, 0), r.rnk, (select count(*)::int from tally)
+  from (select 1) as one
+  left join ranked r on r.cid = p_card_id;
+end;
+$$;
+
+revoke all on function public.record_card_view(text, boolean) from public;
+grant execute on function public.record_card_view(text, boolean) to anon, authenticated;
+
+-- トップの「みんなの注目ランキング」。返すのは **カード別の人数だけ**（行そのものは返さない）。
+-- prev_viewers＝ひとつ前の同じ長さの期間。これがあると「先週より急に見られ出した」が出せる。
+create or replace function public.card_view_ranking(p_days int default 7, p_limit int default 10)
+returns table (card_id text, viewers int, viewers_today int, prev_viewers int)
+language sql
+security definer
+set search_path = public, pg_temp
+stable
+as $$
+  with d as (
+    select (now() at time zone 'Asia/Tokyo')::date as today,
+           greatest(1, least(coalesce(p_days, 7), 31))   as span
+  )
+  select v.card_id,
+         count(*) filter (where v.day >  d.today - d.span)::int,
+         count(*) filter (where v.day =  d.today)::int,
+         count(*) filter (where v.day <= d.today - d.span)::int
+  from public.card_view_visits v cross join d
+  where v.day > d.today - d.span * 2
+  group by v.card_id
+  having count(*) filter (where v.day > d.today - d.span) > 0
+  order by count(*) filter (where v.day > d.today - d.span) desc, v.card_id
+  limit greatest(1, least(coalesce(p_limit, 10), 100));
+$$;
+
+revoke all on function public.card_view_ranking(int, int) from public;
+grant execute on function public.card_view_ranking(int, int) to anon, authenticated;
+
+notify pgrst, 'reload schema';

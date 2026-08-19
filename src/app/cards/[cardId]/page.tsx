@@ -9,6 +9,7 @@ import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
 import CardSentiment from '@/components/CardSentiment'
 import SinceLastVisitBadge from '@/components/SinceLastVisitBadge'
+import CardViewCounter from '@/components/CardViewCounter'
 import OripaBanner from '@/components/OripaBanner'
 import KaitoriLink from '@/components/KaitoriLink'
 import CountUp from '@/components/CountUp'
@@ -191,6 +192,10 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         cardId={card.id}
         mid={latestRecord ? (Number(latestRecord.low) + Number(latestRecord.high)) / 2 : 0}
       />
+
+      {/* 「このカードを何人が見ているか」＝トップの みんなの注目ランキング と同じ数字。
+          このページを開いたこと自体がその数字を作る（1カード・1日・1訪問者につき1） */}
+      <CardViewCounter cardId={card.id} />
 
       {/* ── カード + バーディクト ── */}
       <div

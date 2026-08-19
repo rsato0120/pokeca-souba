@@ -11,6 +11,7 @@ import BoxSelector from '@/components/BoxSelector'
 import OripaBanner from '@/components/OripaBanner'
 import BuyPicks, { type BuyPick } from '@/components/BuyPicks'
 import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
+import TrendingCards, { type TrendCard } from '@/components/TrendingCards'
 import PriceTicker, { type TickerItem } from '@/components/PriceTicker'
 import Sparkline from '@/components/Sparkline'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
@@ -88,6 +89,23 @@ export default function TopPage() {
       forecast: getForecast(slug),
     }
   }).filter((c) => c.currentMid > 0)
+
+  // 「みんなの注目ランキング」用の対応表。どのカードが見られているかはビルド時には分からないので、
+  // CommunityPicks と同じく id→表示情報を丸ごと渡してクライアント側で突き合わせる。
+  // 価格が欠測しているカードも開かれる（＝ランキングに載り得る）ので、metrics ではなく cards から作る。
+  const metricsBySlug = new Map(metrics.map((m) => [m.slug, m]))
+  const trendCards: TrendCard[] = cards.map((card) => {
+    const slug = getCardSlug(card)
+    const m = metricsBySlug.get(slug)
+    return {
+      id: slug,
+      name: card.card_name,
+      rarity: card.rarity,
+      image: card.image_url ?? null,
+      price: m && m.currentMid > 0 ? m.currentMid : null,
+      dayChange: m?.dayChange ?? null,
+    }
+  })
 
   // 相場ティッカー: 本日の値動きが大きい順。上げ下げの両方を混ぜて流す。
   // 前日比が無い日（スクレイプ未実施・欠測）は7日比で代替し、それも無ければ載せない。
@@ -580,6 +598,12 @@ export default function TopPage() {
           AI予想ランキングの直後に置いて、AIと閲覧者の見立ての差がその場で見えるようにする。
           票は Supabase にあるのでクライアント側で取得する（票が0のうちは自分で消える） */}
       <CommunityPicks cards={pickCards} />
+
+      {/* ── 01c: みんなの注目ランキング ──
+          他の節が全部「価格」から作られているのに対し、ここだけ閲覧者の行動が元。
+          価格が動く前の注目を拾えるので、値上がりランキングとは中身が被らない。
+          人数は Supabase 側にあるのでクライアント取得（閲覧が貯まるまでは自分で消える） */}
+      <TrendingCards cards={trendCards} />
 
       {/* ── 本日の高値・安値更新 ── */}
       {(highUpdates.length > 0 || lowUpdates.length > 0) && (
