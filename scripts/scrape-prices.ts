@@ -1081,10 +1081,17 @@ async function scrapeCard(
     // "233/193" は出品タイトルにほぼ必ず書かれており、版を確実に分離できる。
     // 番号を書かない出品は取りこぼすが、そもそもどの版か特定できない出品なので数に入れない。
     // プロモ（"260/SV-P" 等・番号が数字/数字でない）は従来どおりカード名＋「プロモ」で引く。
-    const onSaleQuery = rarity === 'PROMO'
-      ? `${cardName} プロモ`
-      : cardNo != null && cardNoStr
+    //
+    // ⚠️ 判定は「PROMOかどうか」ではなく「番号が数字/数字で取れるか」で行う（2026-08-22）。
+    // 25thプロモ（S8a-P "001/025" 等）のように**数字の番号を持つプロモ**まで名前検索に
+    // 落とすと、同名の別プロモが全部混ざって ask が実勢からかけ離れ、guardPrice の
+    // ask整合(R1)が正しい成約価格を弾いてしまう。
+    //   実測: リザードン(S8a-P 001/025) は「リザードン プロモ」で出品最安¥980 になり、
+    //   スニダン成約¥72,692 が「74.18倍」として棄却された（リザードンV/exのプロモ混入）。
+    const onSaleQuery = cardNo != null && cardNoStr
       ? `${cardName} ${cardNoStr}`
+      : rarity === 'PROMO'
+      ? `${cardName} プロモ`
       : `${cardName} ${rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
 
     // PROMO は番号照合（matchesCardNo）が効かないので、名前だけだとメルカリの
@@ -1334,7 +1341,16 @@ async function main() {
       // プロモは card_name（例「トウホクのピカチュウ」）が一意なので box_name/英字レアを付けず
       // カナ「プロモ」だけ添えてヒット件数を確保する（人工box名を付けると0件になる）
       // それ以外: BOXコード（M2/M4等）は出品タイトルに入らないため除外して一致件数を増やす
-      const query = card.rarity === 'PROMO'
+      //
+      // ⚠️ 数字の番号を持つプロモ（25thプロモ = S8a-P "001/025" 等）だけは番号で引く（2026-08-22）。
+      // このタイプは card_name が一意でない（「リザードン」のプロモは他にも大量にある）ため
+      // 「カード名＋プロモ」だと別カードの成約が混ざる。matchesCardNo は strict でない限り
+      // **番号を書かないタイトルを通す**ので、成約側は検索クエリ自体を絞る必要がある。
+      //   実測: 「カメックス プロモ」の成約¥4,529（実勢は¥15,000前後）。
+      const promoCardNo = card.rarity === 'PROMO' && cardNoFor(card) != null ? card.card_no : null
+      const query = promoCardNo
+        ? `${card.card_name} ${promoCardNo}`
+        : card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
       await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null)
