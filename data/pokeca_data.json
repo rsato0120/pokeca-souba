@@ -266,6 +266,27 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/a/a6/S4a_Shiny_Star_V_pack.jpg",
       "note": "2020-11-20発売のハイクラスパック（1パック10枚・1BOX10パック）。色違いポケモン127種を収録した「色違い弾」の元祖で、リザードンV/VMAXのSSRが突出したチェイス。長期絶版でBOX相場は定価の約3倍。"
+    },
+    {
+      "box_id": "anniv_25th",
+      "box_name": "25th ANNIVERSARY COLLECTION",
+      "code": "S8a",
+      "release_ym": "2021-10",
+      "certainty": "released",
+      "pack_price_yen": 297,
+      "packs_per_box": 16,
+      "pack_image_url": "https://www.pokemon-card.com/ex/25th/assets/images/products/20210625-1-1.png",
+      "note": "2021-10-22発売、ポケモンカードゲーム25周年の記念弾（1パック5枚・全てキラカード／うち1枚は25th仕様の基本エネルギー・1BOX16パック・定価¥4,752）。歴代の伝説ポケモンとピカチュウを集めた28種構成で、ゴールド仕様のミュウUR（030/028）が単独のチェイス。4パック購入で「プロモカードパック 25th ANNIVERSARY edition」が1パックもらえるキャンペーンとセットで展開された。"
+    },
+    {
+      "box_id": "anniv_25th_promo",
+      "box_name": "プロモカードパック 25th ANNIVERSARY edition",
+      "code": "S8a-P",
+      "release_ym": "2021-10",
+      "certainty": "released",
+      "pack_price_yen": 0,
+      "pack_image_url": "https://www.pokemon-card.com/ex/25th/assets/images/products/20210625-2-1.png",
+      "note": "2021-10-22から配布された25周年記念のプロモパック（ランダム1枚入り・全25種・すべてキラ加工）。拡張パック「25th ANNIVERSARY COLLECTION」4パック購入で1パックもらえるキャンペーン限定で、単体販売はされなかった。中身は1996年の初代リザードン/フシギバナ/カメックスから2017年のカプ・テテフGXまで、各時代の名カードを当時のイラスト・当時のカードデザインのまま復刻したもの。公式大会では使用できないコレクション専用カードで、25周年関連では最も高額な帯を形成している。"
     }
   ],
   "cards": [
@@ -17467,6 +17488,1332 @@
         "source": "limitlesstcg.com/cards/jp/S4a/{番号}（UR 327-330 は serebii.net/card/shinystarv/{番号}.shtml）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-19）"
       },
       "note": ""
+    },
+    {
+      "id": "anniv-25th-zacian-v-rr-18",
+      "card_no": "018/028",
+      "rarity": "RR",
+      "card_name": "ザシアンV",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_18_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 220,
+        "note": "特性「けんのほうこう」=山札から超エネを1枚つけて自分の番を終える／ワザ「ストームスラッシュ」60+（超エネの数×30追加）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "有田満弘による25th仕様のザシアンV。剣盾の看板伝説をシリーズ初代からの絵師が描いた1枚で、この弾のRR帯では最も評価が高い。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-zamazenta-v-rr-19",
+      "card_no": "019/028",
+      "rarity": "RR",
+      "card_name": "ザマゼンタV",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_19_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 220,
+        "note": "特性「たてのうなり」=自分の闘ポケモンがVMAXから受けるダメージを-20／ワザ「ヘビーインパクト」150。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "有田満弘による25th仕様のザマゼンタV。ザシアン(018)と対になる1枚だが、キャラ人気ではザシアンに一歩譲る。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-pikachu-v-rr-20",
+      "card_no": "020/028",
+      "rarity": "RR",
+      "card_name": "ピカチュウV",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_20_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 190,
+        "note": "ワザ「ボルテッカー」210（このポケモンにも30ダメージ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "HYOGONOSUKE",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "HYOGONOSUKE による25thのピカチュウV。25周年の主役であるピカチュウの通常V枠で、絵師人気とキャラ人気の両方が乗る。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-surfing-pikachu-v-rr-21",
+      "card_no": "021/028",
+      "rarity": "RR",
+      "card_name": "なみのりピカチュウV",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_21_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 200,
+        "note": "ワザ「なみのり」150（水エネ3個）。雷ポケモンだが水エネで動く変則カード。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "旧裏面時代の「なみのりピカチュウ」を現代のVにしたカード。VMAX(022)と組で集められるため、単体でも一定の需要がある。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-surfing-pikachu-vmax-rrr-22",
+      "card_no": "022/028",
+      "rarity": "RRR",
+      "card_name": "なみのりピカチュウVMAX",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_22_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "ワザ「ダイサーフ」160（相手のベンチ全員にも30ダメージ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "RRR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "なみのりピカチュウVMAX。サーフボードに乗るピカチュウの構図が人気で、そらをとぶ(024)と並ぶこの弾のVMAX2枚看板の片方。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-flying-pikachu-v-rr-23",
+      "card_no": "023/028",
+      "rarity": "RR",
+      "card_name": "そらをとぶピカチュウV",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_23_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 190,
+        "note": "ワザ「でんきショック」20（コインでマヒ）／「そらをとぶ」120（コインでウラなら失敗、オモテならワザのダメージ・効果を受けない）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "旧裏面時代の「そらをとぶピカチュウ」を現代のVにしたカード。風船で飛ぶピカチュウのイラストで、なみのり側と同格の扱い。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-flying-pikachu-vmax-rrr-24",
+      "card_no": "024/028",
+      "rarity": "RRR",
+      "card_name": "そらをとぶピカチュウVMAX",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_24_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "ワザ「ダイバルーン」160（次の相手の番、たねポケモンからワザのダメージを受けない）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "RRR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "そらをとぶピカチュウVMAX。巨大な風船とピカチュウの構図が25周年らしい1枚で、なみのりVMAX(022)と人気を二分する。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-professors-research-sr-29",
+      "card_no": "029/028",
+      "rarity": "SR",
+      "card_name": "博士の研究",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S8a/S8a_29_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の手札をすべてトラッシュし、山札を7枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ken Sugimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "杉森建が描くオーキド博士版「博士の研究」のSR。25周年に合わせて初代のキャラクターデザイナー本人が描いた唯一のトレーナーズで、この弾のSR枠。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-mew-ur-30",
+      "card_no": "030/028",
+      "rarity": "UR",
+      "card_name": "ミュウ",
+      "box_id": "anniv_25th",
+      "is_reprint": false,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/571822_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 60,
+        "note": "特性「ふしぎなしっぽ」=山札の上6枚からグッズを1枚手札に／ワザ「サイコショット」30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ゴールド仕様のミュウUR。この弾で唯一のURであり、実質的な当たり枠。幻のポケモンの人気に加え、25周年記念パックの最高レアという記号性で長期的に堅い。",
+        "source": "limitlesstcg.com/cards/jp/S8a/{番号}（030 は tcgplayer product 571822 と bulbapedia \"Mew (Celebrations 11)\"）で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-21）"
+      },
+      "note": ""
+    },
+    {
+      "id": "anniv-25th-promo-charizard-1",
+      "card_no": "001/025",
+      "rarity": "PROMO",
+      "card_name": "リザードン",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594633_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化",
+        "hp": 120,
+        "note": "特殊能力「エナジーバーン」=炎以外のエネルギーを全て炎として扱う／ワザ「ほのおのうず」100（エネルギー2枚をトラッシュ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1996年の初代拡張パック（旧裏面）のリザードンを、有田満弘のイラストごと復刻した1枚。ポケモンカードで最も象徴的な絵柄であり、25周年プロモの最高額カードとして別格の扱いを受けている。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-venusaur-2",
+      "card_no": "002/025",
+      "rarity": "PROMO",
+      "card_name": "フシギバナ",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594618_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "2進化",
+        "hp": 100,
+        "note": "特殊能力「エナジートランス」=自分の場の草エネルギーを好きなだけ移動できる／ワザ「ソーラービーム」60。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1996年の初代フシギバナの復刻。リザードン(001)・カメックス(003)と揃う御三家3枚組の1枚で、3枚セットで集めるコレクターが多く単体でも底堅い。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-blastoise-3",
+      "card_no": "003/025",
+      "rarity": "PROMO",
+      "card_name": "カメックス",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594619_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "2進化",
+        "hp": 100,
+        "note": "特殊能力「あまごい」=手札の水エネルギーを1度に何枚でもつけられる／ワザ「ハイドロポンプ」40+。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ken Sugimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1996年の初代カメックスの復刻で、絵は杉森建。旧裏面時代に「あまごい」で環境を作った1枚でもあり、御三家3枚組の中でリザードンに次ぐ評価。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-imposter-professor-oak-4",
+      "card_no": "004/025",
+      "rarity": "PROMO",
+      "card_name": "にせオーキドはかせ",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594620_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手の手札をすべて山札にもどさせ、切ってから新たに7枚引かせる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ken Sugimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1996年のトレーナーズ「にせオーキドはかせ」の復刻。ロケット団に扮したオーキド博士という初期特有のネタ性が人気で、トレーナーズ枠では上位。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-dark-gyarados-5",
+      "card_no": "005/025",
+      "rarity": "PROMO",
+      "card_name": "わるいギャラドス",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594621_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 70,
+        "note": "特殊能力「ファイナルビーム」=きぜつする時、コインがオモテなら水エネの数×20ダメージを相手に返す。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kagemaru Himeno",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1997年「わるいポケモン」シリーズの1枚を姫野かげまるのイラストごと復刻。ひかるコイキング(010)と対になる企画で、旧裏面世代の郷愁が強い。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-here-comes-team-rocket-6",
+      "card_no": "006/025",
+      "rarity": "PROMO",
+      "card_name": "ロケット団参上！",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594624_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。おたがいのサイドカードをすべておもてにして、対戦が終わるまでそのままにする。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ken Sugimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1997年のトレーナーズ。ムサシ・コジロウ・ニャースのトリオが描かれた数少ないカードで、キャラクター物として根強い需要がある。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-birthday-pikachu-7",
+      "card_no": "007/025",
+      "rarity": "PROMO",
+      "card_name": "＿のピカチュウ",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594628_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 50,
+        "note": "ワザ「おたんじょうび」30+（持ち主の誕生日ならコインで50ダメージ追加）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kagemaru Himeno",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "通称「お誕生日ピカチュウ」。1998年に名前欄が空欄のまま配られたプロモの復刻で、25周年プロモではリザードンに次ぐ人気。PSA鑑定数も突出して多い。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-rockets-zapdos-8",
+      "card_no": "008/025",
+      "rarity": "PROMO",
+      "card_name": "R団のサンダー",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594625_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ワザ「プラズマ」20（トラッシュから雷エネを1枚回収）／「エレクトロバーン」70（自分にも反動）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shin-ichi Yoshida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "1999年のジム拡張期、ロケット団仕様のサンダーの復刻。ダークな配色の伝説鳥という当時ならではの絵柄が評価されている。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-cleffa-9",
+      "card_no": "009/025",
+      "rarity": "PROMO",
+      "card_name": "ピィ",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594623_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 30,
+        "note": "ワザ「ピピピ」=手札をすべて山札にもどして切り、7枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kagemaru Himeno",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2000年の金銀期を代表するベイビィポケモン。姫野かげまるのやわらかいイラストが人気で、当時は「ピピピ」で対戦環境にも入っていた。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-shining-magikarp-10",
+      "card_no": "010/025",
+      "rarity": "PROMO",
+      "card_name": "ひかるコイキング",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594622_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 30,
+        "note": "ワザ「きんいろのうろこ」=おたがい2枚まで引く／「りゅうのきずな」=山札からギャラドス系を1枚手札に。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ken Sugimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2000年、ポケモンカードに初めて登場した色違いポケモン（ひかるポケモン）。金色のコイキングという記号性が強く、25周年プロモでも上位の相場を維持している。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-team-magmas-groudon-11",
+      "card_no": "011/025",
+      "rarity": "PROMO",
+      "card_name": "マグマ団のグラードン",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594631_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 100,
+        "note": "ポケボディー「パワーセーバー」=場のマグマ団のポケモンが4匹未満だとワザが使えない／ワザ「ちょくげきだん」「すりつぶす」50+。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kazuo Yazawa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2003年「マグマ団VSアクア団」の看板。当時マグマ団デッキの中心として環境を取った1枚で、悪の組織シリーズを集めるコレクターに需要がある。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-umbreon-star-12",
+      "card_no": "012/025",
+      "rarity": "PROMO",
+      "card_name": "ブラッキー☆",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594630_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ポケパワー「ダークレイ」=ベンチに出した時、相手の手札を1枚見ずにトラッシュ／ワザ「だましうち」30。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Masakazu Fukuda",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2004年のゴールドスター（☆）版ブラッキー。色違いブラッキーが枠から飛び出す構図で、イーブイズ人気とゴールドスターの希少性が重なり、リザードン・お誕生日ピカチュウに次ぐ高額帯。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-rockets-admin-13",
+      "card_no": "013/025",
+      "rarity": "PROMO",
+      "card_name": "ロケット団の幹部",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594626_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。おたがい手札を山札にもどして切り、自分のサイドの枚数ぶんまで引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ken Sugimori",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2004年のサポーター。あやしげな幹部のイラストが人気で、当時は終盤の逆転札として強力だった。トレーナーズ枠では中位。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-mew-ex-14",
+      "card_no": "014/025",
+      "rarity": "PROMO",
+      "card_name": "ミュウex",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594632_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 90,
+        "note": "ポケボディー「オールマイティー」=場のポケモン全員のワザを、エネルギーが足りていれば使える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ryo Ueda",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2005年のミュウex。相手のワザを何でも使えるという派手な効果と幻のポケモン人気で、ex期の復刻枠では上位の相場。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-gardevoir-ex-delta-15",
+      "card_no": "015/025",
+      "rarity": "PROMO",
+      "card_name": "サーナイトex δ種",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594627_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化",
+        "hp": 150,
+        "note": "ポケパワー「ふういん」=相手に封印マーカーを置きポケパワー/ポケボディーを止める／ワザ「かえんだま」80。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Masahiko Ishii",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2006年のδ（デルタ）種。本来エスパーであるサーナイトが炎タイプで登場するというδ種特有のギミックが人気で、サーナイト人気の再燃とともに評価が上がっている。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-claydol-16",
+      "card_no": "016/025",
+      "rarity": "PROMO",
+      "card_name": "ネンドール",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594629_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "1進化",
+        "hp": 80,
+        "note": "ポケパワー「コスモパワー」=手札を2枚まで山札の下にもどし、手札が6枚になるまで引く／ワザ「かいてんアタック」40。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Midori Harada",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2007年のネンドール。「コスモパワー」が当時のデッキの標準パーツとして長く使われた1枚で、対戦をやっていた世代の指名買いが中心。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-luxray-gl-lv-x-17",
+      "card_no": "017/025",
+      "rarity": "PROMO",
+      "card_name": "レントラーGL LV.X",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594635_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "LV.X",
+        "hp": 110,
+        "note": "ポケパワー「かがやくまなざし」=相手のベンチポケモンをバトル場に引きずり出す／ワザ「フラッシュインパクト」60。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2008年、ジムリーダーのデンジが持つSP（スペシャル）ポケモン。有田満弘のイラストで、LV.X期を代表する強カードの1枚として知られる。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-garchomp-c-lv-x-18",
+      "card_no": "018/025",
+      "rarity": "PROMO",
+      "card_name": "ガブリアスC LV.X",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594634_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "LV.X",
+        "hp": 110,
+        "note": "ポケパワー「いやしのいぶき」=自分のSPポケモン全員のダメージカウンターを取る／ワザ「ドラゴンダイブ」80。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shizurow",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2009年、チャンピオンのシロナが持つSPポケモン。当時最強格と呼ばれたカードで、Shizurow のイラスト人気も高く、LV.X2枚のうちでは上位。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-donphan-19",
+      "card_no": "019/025",
+      "rarity": "PROMO",
+      "card_name": "ドンファン",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594636_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "ポケボディー「かたいからだ」=受けるワザのダメージを-20／ワザ「じしん」60／「ヘビーインパクト」90。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kent Kanetsuna",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2009年の「グレートポケモン」枠。カードの枠を突き破る構図が特徴で、25周年プロモの中では入手しやすい価格帯にある。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-reshiram-20",
+      "card_no": "020/025",
+      "rarity": "PROMO",
+      "card_name": "レシラム",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594637_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 130,
+        "note": "ワザ「げきりん」20+（のっているダメカン×10追加）／「あおいほのお」120（炎エネ2個をトラッシュ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2010年、BW初期のSR（スーパーレア）仕様レシラムの復刻。カード全面にレシラムを描いた当時の全面イラストで、ゼクロム(021)と対で集められる。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-zekrom-21",
+      "card_no": "021/025",
+      "rarity": "PROMO",
+      "card_name": "ゼクロム",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594638_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 130,
+        "note": "ワザ「げきりん」20+（のっているダメカン×10追加）／「らいげき」120（自分にも40ダメージ）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2010年、BW初期のSR仕様ゼクロムの復刻。レシラム(020)と対になる全面イラストで、BW世代のコレクターに需要がある。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-mewtwo-ex-22",
+      "card_no": "022/025",
+      "rarity": "PROMO",
+      "card_name": "ミュウツーEX",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594639_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 170,
+        "note": "ワザ「エックスボール」20×（おたがいのバトル場のエネルギーの数×20）／「サイコドライブ」120。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shizurow",
+          "illustrator_popularity": "high",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2011年、ポケモンカードに初めて登場した「ポケモンEX」。圧倒的な強さで一時代を作った象徴的なカードで、ミュウツー人気も乗る。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-xerneas-ex-23",
+      "card_no": "023/025",
+      "rarity": "PROMO",
+      "card_name": "ゼルネアスEX",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594640_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "フェアリー",
+        "stage": "たね",
+        "hp": 170,
+        "note": "ワザ「ブレイクスルー」60（ベンチ1匹にも30）／「ブラストX」140（次の番は使えない）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2013年、初のフェアリータイプのポケモンEX。フェアリータイプ自体がすでに廃止された区分であり、その記念碑としての価値がある。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-m-rayquaza-ex-24",
+      "card_no": "024/025",
+      "rarity": "PROMO",
+      "card_name": "MレックウザEX",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594641_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "M進化",
+        "hp": 220,
+        "note": "古代能力「Δ進化」=手札からすぐ進化できる／ワザ「エメラルドブレイク」30×（自分のベンチの数×30）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2015年のメガレックウザEX。「エメラルドブレイク」でM進化期の環境を支配した1枚で、レックウザ人気も相まって25周年プロモの中位〜上位。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "anniv-25th-promo-tapu-lele-gx-25",
+      "card_no": "025/025",
+      "rarity": "PROMO",
+      "card_name": "カプ・テテフGX",
+      "box_id": "anniv_25th_promo",
+      "is_reprint": true,
+      "image_url": "https://tcgplayer-cdn.tcgplayer.com/product/594642_in_1000x1000.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 170,
+        "note": "特性「ワンダータッチ」=ベンチに出した時、山札からサポートを1枚手札に／ワザ「エナジードライブ」20×／GXワザ「カプキュアーGX」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "reused",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "2017年のカプ・テテフGX。「ワンダータッチ」でサン&ムーン期のあらゆるデッキに入った必須カードで、対戦勢の記憶に強く残る1枚。",
+        "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
+      },
+      "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
     }
   ],
   "market_posts": [

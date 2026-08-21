@@ -14,7 +14,7 @@ type CardEntry = {
 // BWR=ブラックホワイトレア。ブラックボルト/ホワイトフレア限定の最上位レアリティ。
 // S=色違いレア, SSR=色違いスーパーレア（シャイニートレジャーex等）。
 // CSR=キャラクタースーパーレア（VMAXクライマックス）。
-const RARITY_ORDER = ['RR', 'S', 'SSR', 'CSR', 'SR', 'SA', 'SAR', 'BWR', 'MA', 'MUR', 'AR', 'UR', 'HR']
+const RARITY_ORDER = ['RR', 'RRR', 'S', 'SSR', 'CSR', 'SR', 'SA', 'SAR', 'BWR', 'MA', 'MUR', 'AR', 'UR', 'HR']
 
 export default function BoxCardList({
   cardsWithForecast,
