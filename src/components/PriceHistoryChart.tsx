@@ -140,11 +140,35 @@ export default function PriceHistoryChart({ history, extremes = null }: Props) {
 
   // 出来高の軸は上限を実測の3倍強に取る。こうすると棒がチャート下1/3に収まり、
   // 価格の線と重ならない（株のチャートと同じ見え方）
-  const volDomain = useMemo<[number, number]>(() => {
+  const volMax = useMemo(() => {
     const vals = data.map(d => d.vol).filter((v): v is number => v != null)
-    const max = vals.length ? Math.max(...vals) : 1
-    return [0, Math.max(max * 3.4, 1)]
+    return vals.length ? Math.max(...vals) : 0
   }, [data])
+
+  const volDomain = useMemo<[number, number]>(
+    () => [0, Math.max(volMax * 3.4, 1)],
+    [volMax],
+  )
+
+  // 目盛りは domain 全体ではなく **棒が実際に届く範囲だけ** に打つ。
+  // domain の上限は棒を下1/3に押し込むための余白なので、そこまで等間隔にラベルを振ると
+  // 何も無い空白に数字が並ぶ。0 と、切りのいい刻みで実測の最大までを出す。
+  const volTicks = useMemo<number[]>(() => {
+    if (!(volMax > 0)) return [0]
+    // 2〜3本に収まる「1・2・5×10ⁿ」の刻みを選ぶ
+    const raw = volMax / 2
+    const mag = Math.pow(10, Math.floor(Math.log10(raw)))
+    const norm = raw / mag
+    const step = (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10) * mag
+    const out: number[] = []
+    for (let v = 0; v <= volMax * 1.02 && out.length < 6; v += step) {
+      out.push(Number(v.toFixed(4)))   // 0.1+0.2 の誤差でラベルが 0.30000000000000004 になるのを防ぐ
+    }
+    return out
+  }, [volMax])
+
+  // 観測が飛んだ日は「差÷日数」なので端数が出る。整数の日は整数で見せる
+  const volTick = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(1))
 
   const tabBtn = (id: Tab): React.CSSProperties => ({
     flex: '0 0 auto',
@@ -254,8 +278,9 @@ export default function PriceHistoryChart({ history, extremes = null }: Props) {
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={260}>
-          {/* right マージンは右端(最新日)のX軸ラベルが見切れないよう広めに確保する */}
-          <ComposedChart data={data} margin={{ top: 8, right: 30, bottom: 4, left: 4 }}>
+          {/* right マージンは右端(最新日)のX軸ラベルが見切れないよう広めに確保する。
+              出来高の軸を右に出す日は、その軸自体が余白の役を果たすので詰める */}
+          <ComposedChart data={data} margin={{ top: 8, right: hasVolume ? 6 : 30, bottom: 4, left: 4 }}>
             <CartesianGrid stroke="var(--hair)" strokeDasharray="2 4" vertical={false} />
             <XAxis
               dataKey="label"
@@ -272,9 +297,19 @@ export default function PriceHistoryChart({ history, extremes = null }: Props) {
               stroke="var(--hair)"
               width={60}
             />
-            {/* 出来高の軸は目盛りを出さない。棒の高さは相対的に読めれば十分で、
-                目盛りを2本出すとチャートが数字だらけになる */}
-            <YAxis yAxisId="vol" domain={volDomain} hide />
+            {/* 出来高の目盛りは価格の反対側（右）に置く。同じ側に2本並べると
+                どちらの数字か分からなくなる。棒が無いカードでは軸ごと消す */}
+            <YAxis
+              yAxisId="vol"
+              orientation="right"
+              domain={volDomain}
+              ticks={volTicks}
+              tickFormatter={volTick}
+              tick={{ fill: 'var(--ink-faint)', fontSize: 10, fontFamily: 'var(--mono)' }}
+              stroke="var(--hair)"
+              width={34}
+              hide={!hasVolume}
+            />
             <Tooltip
               contentStyle={{
                 background: 'var(--panel)',
