@@ -382,7 +382,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       )}
 
       <div className="disclaimer" style={{ marginTop: '32px' }}>
-        本サイトのランキング・予想・相場レンジは AI が公開情報をもとに生成した参考情報であり、投資や売買を助言するものではありません。
+        本サイトのランキング・予想・予想価格帯は AI が公開情報をもとに生成した参考情報であり、投資や売買を助言するものではありません。
       </div>
     </div>
   )

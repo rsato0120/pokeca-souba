@@ -679,7 +679,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             </div>
           )}
 
-          {/* 高値・安値の「数字」だけでは水準感が出ないので、いまレンジのどこにいるかを帯で出す */}
+          {/* 高値・安値の「数字」だけでは水準感が出ないので、いま値幅のどこにいるかを帯で出す */}
           {extremes && <RangePosition extremes={extremes} mid={currentMid} />}
 
           <PriceHistoryChart

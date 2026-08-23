@@ -218,7 +218,7 @@ export interface BuyThesis {
   generated_at: string
   mid: number            // 生成時点の中央値相場（鮮度確認用）
   headline: string       // 一言サマリー（例「絵師人気×品薄で下値が固い押し目」）
-  valuation: string      // 割安根拠（現値がレンジのどこか・PSA比 など）
+  valuation: string      // 割安根拠（現値が値幅のどこか・PSA比 など）
   timing: string         // 買い時根拠（押し目・在庫減・回転 など）
   catalyst: string       // 上昇材料（絶版・キャラ人気・描き下ろし など）
   risk: string           // 下落リスク（再録・供給過多・薄商い など）

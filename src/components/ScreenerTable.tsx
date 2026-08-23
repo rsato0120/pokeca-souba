@@ -30,7 +30,7 @@ export interface ScreenerRow {
   psa10: number | null
   /** 全期間の高値からの下落率(%)。0に近いほど高値圏 */
   offHigh: number | null
-  /** 全期間レンジ内の位置(0=最安, 100=最高) */
+  /** 全期間の値幅の中の位置(0=最安, 100=最高) */
   rangePos: number | null
 }
 

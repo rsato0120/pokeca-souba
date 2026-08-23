@@ -20,7 +20,7 @@ export interface BuyCandidate {
   score: number
   upsidePct: number             // AIの3ヶ月後 本線の上昇率(%)
   netUp: number                 // up_pct - down_pct
-  pricePosition: number | null  // 全期間レンジ内の位置(0=最安,1=最高)。不明は null
+  pricePosition: number | null  // 全期間の値幅の中の位置(0=最安,1=最高)。不明は null
   weekChange: number | null     // 7日変化率(%)
   factors: string[]             // 表示用の短い根拠ラベル（厚い論拠が無い時のフォールバック）
 }
@@ -52,7 +52,7 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
   const today = history[0]
   const mid = today ? midOf(today) : curMid
 
-  // 全期間レンジ内の位置（安いほど割安＝買い妙味）。記録が浅いと信頼できないので7日以上のみ。
+  // 全期間の値幅の中の位置（安いほど割安＝買い妙味）。記録が浅いと信頼できないので7日以上のみ。
   let pricePosition: number | null = null
   if (extremes && extremes.records >= 7 && extremes.high.value > extremes.low.value) {
     const raw = (mid - extremes.low.value) / (extremes.high.value - extremes.low.value)
@@ -98,7 +98,7 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
   const factors: string[] = []
   factors.push(`AI上昇確率 ${forecast.overall.up_pct}%`)
   if (upsidePct >= 5) factors.push(`3ヶ月後 +${Math.round(upsidePct)}% 予想`)
-  if (pricePosition != null && pricePosition <= 0.35) factors.push('相場レンジの下位（割安圏）')
+  if (pricePosition != null && pricePosition <= 0.35) factors.push('値幅の下のほう（割安圏）')
   if (dipBonus > 0 && weekChange != null) factors.push(`直近 ${weekChange.toFixed(1)}% の押し目`)
   if (supplyTightening) factors.push('出品数が減少（在庫が捌けている）')
   if (card.materials.common.scarcity === 'out_of_print') factors.push('絶版（流通量が細い）')

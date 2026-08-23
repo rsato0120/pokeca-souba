@@ -52,7 +52,7 @@ export default function ScreenerPage() {
       return cur > 0 ? ((m3 - cur) / cur) * 100 : null
     })()
 
-    // 全期間の高値からの下落率とレンジ内位置（株の52週高値からの下落率にあたる）
+    // 全期間の高値からの下落率と値幅の中の位置（株の52週高値からの下落率にあたる）
     const offHigh = extremes && extremes.high.value > 0 && mid > 0
       ? Math.max(0, ((extremes.high.value - mid) / extremes.high.value) * 100)
       : null

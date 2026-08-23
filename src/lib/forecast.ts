@@ -505,7 +505,7 @@ export interface BuyThesisInput {
   forecast: Forecast
   mid: number                    // 現在の中央値相場
   upsidePct: number              // 3ヶ月後 本線の上昇率(%)
-  pricePosition: number | null   // 全期間レンジ内の位置(0..1)。null=不明
+  pricePosition: number | null   // 全期間の値幅の中の位置(0..1)。null=不明
   weekChange: number | null      // 7日変化率(%)
   psa10?: number | null          // PSA10相場
   psaMultiple?: number | null    // PSA10 ÷ 素体
@@ -538,11 +538,11 @@ function buildBuyThesisPrompt(input: BuyThesisInput): string {
   lines.push(`- 現在相場: ¥${Math.round(mid).toLocaleString()}`)
   lines.push(`- AI予想: 上昇確率${forecast.overall.up_pct}% / 下落確率${forecast.overall.down_pct}% / 3ヶ月後 本線 ${upsidePct >= 0 ? '+' : ''}${Math.round(upsidePct)}%`)
   if (input.extremesLow != null && input.extremesHigh != null) {
-    lines.push(`- 全期間レンジ: 最安¥${input.extremesLow.toLocaleString()} 〜 最高¥${input.extremesHigh.toLocaleString()}`)
+    lines.push(`- 全期間の値幅: 最安¥${input.extremesLow.toLocaleString()} 〜 最高¥${input.extremesHigh.toLocaleString()}`)
   }
   if (pricePosition != null) {
-    const posLabel = pricePosition <= 0.35 ? 'レンジ下位（割安圏）' : pricePosition >= 0.7 ? 'レンジ上位（高値圏）' : 'レンジ中位'
-    lines.push(`- レンジ内の位置: ${Math.round(pricePosition * 100)}%（${posLabel}）`)
+    const posLabel = pricePosition <= 0.35 ? '値幅の下のほう（割安圏）' : pricePosition >= 0.7 ? '値幅の上のほう（高値圏）' : '値幅の中位'
+    lines.push(`- 値幅の中の位置: ${Math.round(pricePosition * 100)}%（${posLabel}）`)
   }
   if (weekChange != null) lines.push(`- 直近7日の値動き: ${weekChange >= 0 ? '+' : ''}${weekChange.toFixed(1)}%`)
   if (input.psa10 != null && input.psaMultiple != null) {
@@ -578,7 +578,7 @@ ${lines.join('\n')}
 
 ## 出力ルール
 1. 各項目は1〜2文。このカード固有の材料に必ず触れる（数値は必要な分だけでよい）。
-2. valuation は「なぜ今の価格が割安/妥当か」（レンジ内の位置・PSA比・弾内での位置づけ 等）。
+2. valuation は「なぜ今の価格が割安/妥当か」（値幅の中の位置・PSA比・弾内での位置づけ 等）。
 3. timing は「なぜ今が買い時か」（押し目・在庫減・回転・発売からの経過 等）。
 4. catalyst は「今後の上昇材料」（絶版・キャラ/絵師人気・描き下ろし・鑑定妙味 等）。
 5. risk は「下落リスク」（再録・供給過多・薄商い・高値圏 等）。必ず1つは正直に挙げる。

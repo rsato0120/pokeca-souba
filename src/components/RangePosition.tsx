@@ -1,11 +1,16 @@
 import type { PriceExtremes } from '@/types/pokeca'
 
-// 全期間レンジのどこにいるか。株の「52週高値からの下落率」にあたる指標。
+// 全期間の高値〜安値（＝値幅）のどこにいるか。株の「52週高値からの下落率」にあたる指標。
 //
 // 「¥12,000です」と言われても高いのか安いのか分からない。
 // そのカード自身の高値・安値のどこに今いるかが分かると、初めて水準の判断ができる。
 // この位置はもともと買いシグナルの内部スコア（buy-signals.ts）で使っていたが、
 // 数字として画面に出ていなかったのでここで露出させる。
+//
+// ⚠ 画面の言葉は「レンジ」ではなく **「値幅」** に揃えること。
+//   レンジは英語圏の "52-Week Range" の直訳で、日本の証券サイトでは
+//   「値幅」「高値圏／安値圏」「高値からの下落率」に分解して書くのが普通。
+//   （英語ラベルは HIGH-LOW。RANGE だと日本語側と対応が取れない）
 
 interface Props {
   extremes: PriceExtremes
@@ -29,17 +34,18 @@ export default function RangePosition({ extremes, mid }: Props) {
   const offLow = ((mid - low) / low) * 100      // 正 = 安値より上
   const signed = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`
 
-  // 位置に応じた読み。上下25%を「圏」と呼ぶ
+  // 位置に応じた読み。上下25%を「圏」と呼ぶ。
+  // 高値圏／安値圏は日本株でもそのまま使われている語なので、この2つは触らない。
   const zone =
     pos >= 75 ? { label: '高値圏', color: 'var(--up)' }
       : pos <= 25 ? { label: '安値圏', color: 'var(--down)' }
-        : { label: 'レンジ中位', color: 'var(--flat)' }
+        : { label: '中位', color: 'var(--flat)' }
 
   return (
     <div style={{ marginBottom: 'var(--sp-4)' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--sp-3)', flexWrap: 'wrap', marginBottom: 'var(--sp-2)' }}>
         <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)', letterSpacing: 'var(--ls-wide)' }}>
-          RANGE · レンジ内の位置
+          HIGH-LOW · 値幅の中の位置
         </span>
         <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-sm)', fontWeight: 700, color: zone.color }}>
           {zone.label}
