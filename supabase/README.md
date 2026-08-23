@@ -95,3 +95,58 @@ Auth Rate Limits を確認すること。
   （＝「初日は全部NEW」のような無意味な表示にならない）。
 - プライバシーポリシー（`src/app/privacy/page.tsx`）に閲覧記録の記載を追加済み。
   ここに送るものを増やしたら必ず同じ場所を直すこと。
+
+---
+
+## ウォッチリストの値動き通知（Web Push）
+
+`/watchlist` の「通知をONにする」を動かすための設定。**未設定でも壊れない** — 鍵が無ければ
+通知の枠が画面に出ず、日次バッチの送信ステップも何もせず抜ける。
+
+### 1. スキーマを流す
+
+`schema.sql` を再度流す（`push_subscriptions` テーブルと2つの関数が追加されている）。
+何度流しても壊れない書き方。
+
+### 2. VAPID鍵を作る
+
+```powershell
+npx web-push generate-vapid-keys
+```
+
+`Public Key` と `Private Key` が出る。この鍵ペアが通知の送信元の身元になるので、
+**一度決めたら変えない**（変えると既存の購読が全部無効になる）。
+
+### 3. 環境変数
+
+| 変数 | 置き場所 | 中身 |
+|---|---|---|
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | `.env.local` と **Vercel** | 公開鍵。これが無いと通知UIが出ない |
+| `VAPID_PUBLIC_KEY` | **GitHub Secrets** | 同じ公開鍵 |
+| `VAPID_PRIVATE_KEY` | **GitHub Secrets** | 秘密鍵。絶対に `NEXT_PUBLIC_` を付けないこと |
+| `VAPID_SUBJECT` | **GitHub Secrets** | `mailto:自分のメール` かサイトURL |
+| `SUPABASE_SERVICE_ROLE_KEY` | **GitHub Secrets** | 購読テーブルを読むための鍵。RLSを迂回できるので厳重に |
+| `NEXT_PUBLIC_SUPABASE_URL` | **GitHub Secrets** にも | バッチから接続するため（Vercel側は設定済みのはず） |
+
+### 4. 動作確認
+
+```powershell
+# 送らずに「今日どのカードが通知対象か」だけ見る
+npx tsx scripts/send-alerts.ts --dry
+```
+
+ブラウザ側は `/watchlist` で ☆ を登録 → 「通知をONにする」→ 許可。
+**localhost と https でしか動かない**（Service Worker の制約）。
+
+### 送る条件
+
+- 前日比 **±10%以上**（±20%を超える動きは汚染の疑いが濃いので送らない）
+- 全期間の**高値／安値を当日更新**
+
+1通に並ぶのは最大3枚＋「ほか◯件」。同じ日に複数回届いても通知欄では1つにまとまる（tagを日付で固定）。
+
+### プライバシー
+
+ウォッチリスト本体は端末の localStorage にしかない。通知をONにしたときだけ
+「プッシュの宛先（endpoint とその鍵）＋対象カードID」を預かり、OFFにすれば行ごと消える。
+名前・メール・端末IDは受け取らない。

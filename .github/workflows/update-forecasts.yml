@@ -88,6 +88,18 @@ jobs:
           git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json data/last-update.json
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices${{ steps.mode.outputs.mode == 'full' && ' and forecasts' || '' }} $(date -u '+%Y-%m-%d %H:%M')" && git push)
 
+      # ウォッチリストの値動き通知。価格を確定させてから送るので commit の後に置く。
+      # VAPID/Supabase の鍵が未設定なら中で何もせず抜ける（通知機能を有効化するまで無害）。
+      - name: Send watchlist alerts
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
+        run: npx tsx scripts/send-alerts.ts
+        continue-on-error: true
+
       # データ監査。commit後に回すので、落ちてもその日のデータ更新は失われない。
       # ⚠️ これまで価格の異常に最初に気づくのが**利用者**だった。異常はここに毎日出す。
       # Actions の run が赤くなったら「4. PSA10≦素体」「5. 同名別バージョンの逆転」あたりから見る。

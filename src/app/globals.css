@@ -1012,3 +1012,88 @@ a:hover {
   .holo:focus-within::after { transform: translateX(-130%); }
   .row:hover .row-thumb { transform: none; }
 }
+
+/* ─────────────────────────────────────────────
+   データ表（スクリーナー・ウォッチリスト）
+   横に長い数値表。1列目だけ固定して、残りを横スクロールさせる。
+
+   ⚠ 行の区切り線は <tr> ではなく <td> に置くこと。1列目に position:sticky を
+     かけると、その列だけ tr の境界線が残って他の列で消える（実機で確認）。
+   ───────────────────────────────────────────── */
+.data-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.data-table thead th {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--hair);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+  padding: var(--sp-2) var(--sp-3);
+  white-space: nowrap;
+}
+
+.data-table tbody td {
+  border-bottom: 1px solid var(--hair);
+  padding: var(--sp-2) var(--sp-3);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr:hover td {
+  background: var(--bg2);
+}
+
+/* ⚠ 全体の a には金色の下線（border-bottom）が付いている。表の中では
+   セル幅ぶんの短い線がカード名の下に走って、行の区切り線と二重に見えるので消す。 */
+.data-table a {
+  border-bottom: none;
+}
+
+/* 1列目の固定。横スクロールしてもカード名が残る */
+.data-table .dt-sticky {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--panel);
+  text-align: left;
+  min-width: 230px;
+}
+
+.data-table thead .dt-sticky {
+  z-index: 2;
+  background: var(--bg2);
+}
+
+.data-table tbody tr:hover .dt-sticky {
+  background: var(--bg2);
+}
+
+/* 数値列。等幅＋右揃えで桁を縦に揃える */
+.data-table .dt-num {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.data-table .dt-price {
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+
+.data-table .dt-sortable {
+  cursor: pointer;
+  text-align: right;
+}
+
+.data-table .dt-sortable.dt-sticky {
+  text-align: left;
+}

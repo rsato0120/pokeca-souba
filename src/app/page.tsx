@@ -17,6 +17,8 @@ import Sparkline from '@/components/Sparkline'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import ThemeToggle from '@/components/ThemeToggle'
+import MarketIndexChart, { type IndexWire } from '@/components/MarketIndexChart'
+import { getIndexMenu, getMarketIndex } from '@/lib/index-series'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -370,6 +372,19 @@ export default function TopPage() {
     ? `${Number(modalDate.slice(5, 7))}/${Number(modalDate.slice(8, 10))}`
     : null
 
+  // ── 相場指数 ──
+  // 全指数（全体・レアリティ別・弾別）をまとめて渡し、切替はクライアントで完結させる。
+  // 値は小数2桁に丸めてから焼く（生の倍精度をそのまま出すと1点あたり20桁近く食う）。
+  const indexWires: IndexWire[] = getIndexMenu().map((m) => {
+    const idx = getMarketIndex(m.key)!
+    return {
+      key: m.key,
+      label: m.label,
+      members: m.members,
+      points: idx.series.map((p) => [p.date, Math.round(p.value * 100) / 100] as [string, number]),
+    }
+  })
+
   const featured = notableCards[0] ?? cardsWithForecast[0]
   const featuredSlug = featured ? getCardSlug(featured.card) : ''
   const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
@@ -411,6 +426,8 @@ export default function TopPage() {
               読まれないので撤去した（下のドロップダウンで選べる） */}
         </span>
         <span style={{ display: 'flex', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
+          <Link href="/screener" className="pill pill-gold">スクリーナー →</Link>
+          <Link href="/watchlist" className="pill">ウォッチリスト →</Link>
           <Link href="/accuracy" className="pill">AI的中実績 →</Link>
           <Link href="/portfolio" className="pill pill-gold">マイコレクション →</Link>
         </span>
@@ -428,6 +445,10 @@ export default function TopPage() {
         価格はメルカリの成約実績とスニーカーダンクの実取引から毎日自動取得しています。
         カードごとに取引件数の多い方を採用し、出所は各カードのページに表示しています。
       </div>
+
+      {/* 市場全体の基準線。個別カードの騰落を「市場と比べて」読むための土台なので、
+          個別の枠より先に置く */}
+      <MarketIndexChart indices={indexWires} />
 
       <SearchBar cards={searchCards} />
 

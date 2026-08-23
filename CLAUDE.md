@@ -35,23 +35,45 @@ src/
     page.tsx              # トップページ（Server Component）
     boxes/[boxId]/        # 収録弾カード一覧
     cards/[cardId]/       # カード詳細
+    screener/             # カードスクリーナー（全カードを横断で絞り込み・並べ替え）
+    watchlist/            # ウォッチリスト（localStorage + 値動き通知）
   components/
     SearchBar.tsx         # 検索バー（'use client'）
+    MarketIndexChart.tsx  # 相場指数のパネル（トップ）
+    ScreenerTable.tsx     # スクリーナーの表（絞り込み・並べ替えはクライアント完結）
+    OrderBook.tsx         # 売り板（最安出品・出品中央値・出品件数）
+    RangePosition.tsx     # 全期間レンジ内の位置
   lib/
     data.ts               # JSON読み込み関数
     forecast.ts           # AI予想生成（generateForecast / adjustRankings）
+    index-series.ts       # 相場指数（等ウェイト連鎖指数）と市場比
+  hooks/
+    useWatchlist.ts       # ウォッチリスト（localStorage `pokeca-watchlist-v1`）
   types/
     pokeca.ts             # 型定義
 scripts/
   scrape-prices.ts        # Playwright + Mercariスクレイピング（Step 1）
   update-forecasts.ts     # AI予想生成バッチ（Step 2）— scrape-prices.ts の後に実行
+  send-alerts.ts          # ウォッチリストの値動き通知（Web Push）。鍵が無ければ何もしない
 data/
   pokeca_data.json        # boxes + cards
   forecasts/              # AI予想JSON
   prices/                 # 価格履歴JSON（30日rolling）— scrape-prices.ts が更新
+public/
+  sw.js                   # 通知用サービスワーカー（キャッシュはしない）
 .github/workflows/
-  update-forecasts.yml    # 毎日JST 9:00: scrape → forecast → commit の順
+  update-forecasts.yml    # 毎日JST 9:00: scrape → forecast → commit → 通知 の順
 ```
+
+## 相場指数（`src/lib/index-series.ts`）
+
+個別カードの騰落を「市場と比べて」読むための基準線。全体・レアリティ別・弾別を作る。
+
+- **等ウェイトの連鎖指数**。`index_t = index_{t-1} × trimmedMean(p_t / p_{t-1})`（両日に観測があるカードだけ）
+- **時価総額加重にしない**：¥50万のSAR1枚に指数が支配されるため
+- **代表値は刈り込み平均（上下10%カット）**。⚠ 中央値は使えない — 薄商いカードは前日据え置きが多く、
+  半数超が「変化なし」になって指数が何日も 100.00 で固まる（実装して確認済み）
+- カードの「市場比」＝ そのカードの7日比 − 同期間の指数の7日比。カード詳細では**その弾の指数**を優先する
 
 ## 重要な実装ルール
 

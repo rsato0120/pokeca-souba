@@ -345,3 +345,95 @@ revoke all on function public.card_view_ranking(int, int) from public;
 grant execute on function public.card_view_ranking(int, int) to anon, authenticated;
 
 notify pgrst, 'reload schema';
+
+-- ─────────────────────────────────────────────────────────────
+-- ウォッチリストの値動き通知（2026-08-23 追加・Web Push）
+-- ─────────────────────────────────────────────────────────────
+-- ウォッチリスト本体は端末の localStorage にしかない＝サーバーは誰が何を見ているか知らない。
+-- 通知を送るときだけ「プッシュの宛先（endpoint とその鍵）＋対象カードID」をここに預かる。
+-- 通知をOFFにすれば行ごと消える。名前・メール・端末IDは受け取らない。
+--
+-- endpoint はブラウザのプッシュサービスが発行する推測不能なURLで、これ自体が宛先の秘密。
+-- なので行の同一性は endpoint だけで決める（ログイン不要のまま更新・削除ができる）。
+create table if not exists public.push_subscriptions (
+  endpoint   text primary key,
+  p256dh     text not null,
+  auth       text not null,
+  -- 通知対象のカードID。想定外の文字列を溜めないよう、書き込み関数側で形を縛る
+  cards      text[] not null default '{}',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- 日次バッチは「対象カードに動きがあった購読」を引くので、カード配列で引ける索引を張る
+create index if not exists push_subscriptions_cards_idx
+  on public.push_subscriptions using gin (cards);
+
+-- ⚠ ポリシーを1本も置かない＝anon/authenticated からは読み書きとも一切できない。
+-- 行には他人の通知先が入っているので、出入りは下の security definer 関数だけに絞る。
+-- （読み出しは service_role キーを持つ日次バッチのみ。RLS は service_role には適用されない）
+alter table public.push_subscriptions enable row level security;
+
+-- 購読の登録・更新。同じ endpoint なら上書きする（ウォッチリストを増減したら呼び直される）。
+create or replace function public.upsert_push_subscription(
+  p_endpoint text,
+  p_p256dh   text,
+  p_auth     text,
+  p_cards    text[]
+)
+returns void
+language plpgsql
+security definer
+set search_path = public, pg_temp
+volatile
+as $$
+declare
+  v_cards text[];
+begin
+  -- 宛先として成立しない値は黙って捨てる（プッシュサービスのURLは必ず https）
+  if p_endpoint is null or p_endpoint !~ '^https://' or length(p_endpoint) > 1000 then
+    return;
+  end if;
+  if p_p256dh is null or p_auth is null or length(p_p256dh) > 300 or length(p_auth) > 300 then
+    return;
+  end if;
+
+  -- カードIDはスラッグの形をしたものだけ、最大500件まで。
+  -- ここで縛らないと、任意の文字列をいくらでも溜め込める置き場になってしまう
+  select coalesce(array_agg(c), '{}')
+    into v_cards
+    from (
+      select distinct c
+      from unnest(coalesce(p_cards, '{}')) as c
+      where c ~ '^[a-z0-9][a-z0-9_-]{0,79}$'
+      limit 500
+    ) s;
+
+  insert into public.push_subscriptions (endpoint, p256dh, auth, cards)
+  values (p_endpoint, p_p256dh, p_auth, v_cards)
+  on conflict (endpoint) do update
+    set p256dh = excluded.p256dh,
+        auth = excluded.auth,
+        cards = excluded.cards,
+        updated_at = now();
+end;
+$$;
+
+revoke all on function public.upsert_push_subscription(text, text, text, text[]) from public;
+grant execute on function public.upsert_push_subscription(text, text, text, text[]) to anon, authenticated;
+
+-- 通知をOFFにしたときの削除。endpoint を知っている＝その購読の持ち主なので本人確認は要らない。
+create or replace function public.delete_push_subscription(p_endpoint text)
+returns void
+language sql
+security definer
+set search_path = public, pg_temp
+volatile
+as $$
+  delete from public.push_subscriptions where endpoint = p_endpoint;
+$$;
+
+revoke all on function public.delete_push_subscription(text) from public;
+grant execute on function public.delete_push_subscription(text) to anon, authenticated;
+
+notify pgrst, 'reload schema';

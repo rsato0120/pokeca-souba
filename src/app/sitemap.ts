@@ -26,7 +26,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      // 全カードを横断できる唯一の一覧。カード詳細への内部リンクがここに集まるので、
+      // トップに次ぐ優先度を与える
+      url: `${SITE_URL}/screener`,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/ranking`,
+      changeFrequency: 'daily',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/accuracy`,
       changeFrequency: 'daily',
       priority: 0.7,
     },

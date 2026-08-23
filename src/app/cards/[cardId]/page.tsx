@@ -16,6 +16,11 @@ import CountUp from '@/components/CountUp'
 import RelatedCards, { type RelatedItem } from '@/components/RelatedCards'
 import { pickRelated } from '@/lib/related'
 import ThemeToggle from '@/components/ThemeToggle'
+import OrderBook from '@/components/OrderBook'
+import RangePosition from '@/components/RangePosition'
+import WatchButton from '@/components/WatchButton'
+import { getMarketIndex, indexChangePct } from '@/lib/index-series'
+import { midOf } from '@/lib/market'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -140,7 +145,6 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
   const latestRecord = priceHistory?.history?.[0] ?? null
   const latestAvg = latestRecord?.avg ?? null
-  const latestOnSale = latestRecord?.on_sale ?? null
   // avg の出所はカードごとに異なる（取引件数でスニダン/メルカリを切替）。
   // source を持たない旧レコードは断定せず中立ラベルにする。
   const avgSource = latestRecord?.source ?? null
@@ -159,6 +163,26 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const extremes = getPriceExtremes(card.id)
   const extremeHit = extremeHitToday(extremes, latestDate ?? undefined)
   const mdOf = (d: string) => `${Number(d.slice(5, 7))}/${Number(d.slice(8, 10))}`
+
+  // ── 市場比（相対力） ──
+  // このカードの7日変化率から、同じ期間の相場指数の変化率を引く。
+  // 「市場が下げた中で耐えている」のか「市場に乗っただけ」なのかは、この差でしか言えない。
+  // 比較先はまずその弾の指数、無ければ全体指数（弾の指数は同じ発売時期・同じ供給環境なので、
+  // 全体と比べるより「この弾の中で強いか」が出る）。
+  const records = priceHistory?.history ?? []
+  const currentMid = latestRecord ? midOf(latestRecord) : 0
+  const weekAgoRecord = records[7]
+  const cardWeekChange =
+    latestRecord && weekAgoRecord && midOf(weekAgoRecord) > 0
+      ? ((currentMid - midOf(weekAgoRecord)) / midOf(weekAgoRecord)) * 100
+      : null
+  const benchmark = getMarketIndex(`box:${card.box_id}`) ?? getMarketIndex('all')
+  const benchmarkPct = benchmark ? indexChangePct(benchmark, 7) : null
+  // 汚染由来の飛び（画面の他の枠と同じ ±35% ガード）は相対力にも混ぜない
+  const relStrength =
+    cardWeekChange != null && Math.abs(cardWeekChange) <= 35 && benchmarkPct != null
+      ? cardWeekChange - benchmarkPct
+      : null
 
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
@@ -440,15 +464,32 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                   </span>
                 </div>
               )}
-              {latestOnSale != null && (
+              {/* 出品中の件数は下の「売り板」で最安値・中央値と一緒に出す（ここでは重複させない） */}
+              {relStrength != null && benchmark && (
                 <div>
-                  <div className="stat-label">メルカリ 出品中</div>
-                  <span className="stat-value" style={{ fontSize: 'var(--fs-lg)', fontWeight: 600, color: 'var(--ink-dim)' }}>
-                    {latestOnSale}件
+                  <div className="stat-label">市場比（7日）</div>
+                  <span
+                    className="stat-value"
+                    style={{
+                      fontSize: 'var(--fs-lg)',
+                      fontWeight: 700,
+                      color: relStrength > 0.5 ? 'var(--up)' : relStrength < -0.5 ? 'var(--down)' : 'var(--flat)',
+                    }}
+                  >
+                    {relStrength >= 0 ? '+' : ''}{relStrength.toFixed(1)}%
                   </span>
                 </div>
               )}
             </div>
+            {relStrength != null && benchmark && benchmarkPct != null && (
+              <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-dim)', lineHeight: 1.7, marginTop: 'var(--sp-2)' }}>
+                同期間の{benchmark.key === 'all' ? '相場全体' : `「${benchmark.label}」`}は
+                <strong style={{ color: benchmarkPct >= 0 ? 'var(--up)' : 'var(--down)' }}>
+                  {benchmarkPct >= 0 ? '+' : ''}{benchmarkPct.toFixed(1)}%
+                </strong>
+                。このカードは{relStrength > 0.5 ? '市場より強い動きです' : relStrength < -0.5 ? '市場より弱い動きです' : 'ほぼ市場並みです'}。
+              </div>
+            )}
             {/* データの出所と鮮度を明示（信頼性の担保） */}
             <div className="source-note">
               {latestDate && <>{latestDate.replace(/-/g, '/')} 時点</>}
@@ -461,8 +502,17 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             </div>
           </div>
 
+          {/* 売り板（いま実際いくらで買えるか） */}
+          {latestRecord && <OrderBook latest={latestRecord} prev={records[1] ?? null} />}
+
           {/* コレクション登録（素体＋PSA10） */}
           <CardCollectionControl cardId={cardId} hasPsa10={latestPsa10 != null} />
+
+          {/* ウォッチリスト。持っていないカードを追う導線なので、
+              「コレクションに追加」（持っている前提）とは別に置く */}
+          <div style={{ marginBottom: 'var(--sp-5)' }}>
+            <WatchButton cardId={cardId} mid={Math.round(currentMid)} />
+          </div>
 
           {/* 購入リンク */}
           {(() => {
@@ -628,6 +678,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               </span>
             </div>
           )}
+
+          {/* 高値・安値の「数字」だけでは水準感が出ないので、いまレンジのどこにいるかを帯で出す */}
+          {extremes && <RangePosition extremes={extremes} mid={currentMid} />}
 
           <PriceHistoryChart
             history={priceHistory.history}
