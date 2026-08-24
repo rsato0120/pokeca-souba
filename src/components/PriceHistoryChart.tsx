@@ -18,6 +18,8 @@ interface Props {
   history: PriceRecord[]
   /** 全期間の高値・安値。素体タブでのみ水平線として描く */
   extremes?: { high: number; low: number } | null
+  /** 出来高の数え方の単位。カードは「枚」、未開封BOXは「箱」 */
+  unit?: string
 }
 
 type Tab = 'raw' | 'psa10'
@@ -47,7 +49,7 @@ interface Point {
   value: number | null
   ma7: number | null
   ma30: number | null
-  /** その日に売れた枚数（1日あたり換算）。株の出来高にあたる */
+  /** その日に売れた数（1日あたり換算）。株の出来高にあたる */
   vol: number | null
 }
 
@@ -58,7 +60,7 @@ function movingAverage(values: (number | null)[], i: number, n: number): number 
   return win.reduce((a, b) => a + b, 0) / win.length
 }
 
-export default function PriceHistoryChart({ history, extremes = null }: Props) {
+export default function PriceHistoryChart({ history, extremes = null, unit = '枚' }: Props) {
   const [tab, setTab] = useState<Tab>('raw')
   const [days, setDays] = useState<number>(30)
 
@@ -73,9 +75,14 @@ export default function PriceHistoryChart({ history, extremes = null }: Props) {
   const accent = tab === 'raw' ? 'var(--gold)' : '#6c8ebf'
 
   // ── 出来高（回転率） ──
-  // sold_total は「これまでに売れた累計」なので、前の観測との差が期間中に売れた枚数になる。
-  // 観測が飛んでいる日があるので日数で割って1日あたりに直す。
-  // 差が負になる日は検索条件の変更やメルカリ側の数え直しなので、出来高としては採らない。
+  // sold_total は メルカリ成約検索の numFound。前の観測との差を取って1日あたりに直す。
+  // 観測が飛んでいる日があるので日数で割る。
+  //
+  // ⚠ numFound は「累計」ではない。実測（2026-08-24・全銘柄の連続差分）:
+  //   カード 増2527 / 減1970 / 増減なし1965、BOX 増376 / 減419。単調増加なのは317銘柄中34だけ。
+  //   売れた数より古い成約がインデックスから落ちる数のほうが多い銘柄では、日々**減っていく**
+  //   （例: メガシンフォニアのAR/SRは9日間ずっと減少）。つまりこの棒は「新規成約 − 期限切れ」の
+  //   純増であって、実際に売れた数の下限でしかない。減った日は棒を出さない＝棒が欠ける。
   const volumeByDate = useMemo(() => {
     const asc = [...history].reverse()   // 古い順
     const m = new Map<string, number>()
@@ -321,7 +328,7 @@ export default function PriceHistoryChart({ history, extremes = null }: Props) {
               labelStyle={{ color: 'var(--ink-faint)' }}
               formatter={(value, name) => {
                 const v = Number(value)
-                if (name === 'vol') return [`${v < 1 ? v.toFixed(1) : Math.round(v)}枚/日`, '成約'] as [string, string]
+                if (name === 'vol') return [`${v < 1 ? v.toFixed(1) : Math.round(v)}${unit}/日`, '成約'] as [string, string]
                 if (name === 'ma7') return [`¥${Math.round(v).toLocaleString()}`, `${MA_SHORT}日平均`] as [string, string]
                 if (name === 'ma30') return [`¥${Math.round(v).toLocaleString()}`, `${MA_LONG}日平均`] as [string, string]
                 return [`¥${v.toLocaleString()}`, tab === 'raw' ? '相場' : 'PSA10'] as [string, string]
@@ -426,7 +433,7 @@ export default function PriceHistoryChart({ history, extremes = null }: Props) {
                 verticalAlign: 'middle',
               }}
             />
-            成約枚数（メルカリ・1日あたり）
+            成約{unit}数（メルカリ・1日あたり）
           </span>
         )}
       </div>

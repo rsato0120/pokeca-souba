@@ -191,7 +191,7 @@ export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerB
                   「{active.label}」の推移は蓄積中のため、グラフはシュリンクあり／なしを合わせた全体の推移を表示しています。
                 </div>
               )}
-              <PriceHistoryChart history={chart.history} />
+              <PriceHistoryChart history={chart.history} unit="箱" />
             </div>
           )}
         </>
