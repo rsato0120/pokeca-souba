@@ -20,6 +20,9 @@ interface Props {
   extremes?: { high: number; low: number } | null
   /** 出来高の数え方の単位。カードは「枚」、未開封BOXは「箱」 */
   unit?: string
+  /** スニダン売買履歴から数えた実成約件数（日付 -> 件数）。素体・PSA10それぞれ */
+  salesByDay?: Record<string, number>
+  psa10SalesByDay?: Record<string, number>
 }
 
 type Tab = 'raw' | 'psa10'
@@ -60,7 +63,7 @@ function movingAverage(values: (number | null)[], i: number, n: number): number 
   return win.reduce((a, b) => a + b, 0) / win.length
 }
 
-export default function PriceHistoryChart({ history, extremes = null, unit = '枚' }: Props) {
+export default function PriceHistoryChart({ history, extremes = null, unit = '枚', salesByDay, psa10SalesByDay }: Props) {
   const [tab, setTab] = useState<Tab>('raw')
   const [days, setDays] = useState<number>(30)
 
@@ -83,9 +86,25 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
   //   売れた数より古い成約がインデックスから落ちる数のほうが多い銘柄では、日々**減っていく**
   //   （例: メガシンフォニアのAR/SRは9日間ずっと減少）。つまりこの棒は「新規成約 − 期限切れ」の
   //   純増であって、実際に売れた数の下限でしかない。減った日は棒を出さない＝棒が欠ける。
+  // 出来高の出所。スニダンの実成約件数が最優先で、無い銘柄だけ numFound の差分に落ちる
+  const volSource: 'snkrdunk' | 'mercari' | null = useMemo(() => {
+    const counted = tab === 'raw' ? salesByDay : psa10SalesByDay
+    if (counted && Object.keys(counted).length >= 3) return 'snkrdunk'
+    // PSA10 の取引はスニダンにしか無い。メルカリの numFound は素体の数なので流用しない
+    if (tab === 'raw' && history.some(r => r.sold_total != null)) return 'mercari'
+    return null
+  }, [tab, salesByDay, psa10SalesByDay, history])
+
   const volumeByDate = useMemo(() => {
+    // ① スニダンの実成約件数。1取引1件を日別に数えたものなので、そのまま棒にできる
+    if (volSource === 'snkrdunk') {
+      const counted = (tab === 'raw' ? salesByDay : psa10SalesByDay) ?? {}
+      return new Map<string, number>(Object.entries(counted))
+    }
+    // ② スニダンIDが無い銘柄と未開封BOXだけ、従来の numFound 差分
     const asc = [...history].reverse()   // 古い順
     const m = new Map<string, number>()
+    if (volSource !== 'mercari') return m
     for (let i = 1; i < asc.length; i++) {
       const cur = asc[i]
       const prev = asc[i - 1]
@@ -96,9 +115,9 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
       m.set(cur.date, diff / gap)
     }
     return m
-  }, [history])
+  }, [history, tab, volSource, salesByDay, psa10SalesByDay])
 
-  const hasVolume = tab === 'raw' && volumeByDate.size >= 3
+  const hasVolume = volumeByDate.size >= 3
 
   const data = useMemo<Point[]>(() => {
     const cutoff = nowMs - days * DAY
@@ -328,7 +347,11 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
               labelStyle={{ color: 'var(--ink-faint)' }}
               formatter={(value, name) => {
                 const v = Number(value)
-                if (name === 'vol') return [`${v < 1 ? v.toFixed(1) : Math.round(v)}${unit}/日`, '成約'] as [string, string]
+                if (name === 'vol') {
+                  // スニダンは実件数なので「その日に何件」、メルカリ由来は観測間隔で割った1日あたり
+                  const n = v < 1 ? v.toFixed(1) : Math.round(v)
+                  return [volSource === 'snkrdunk' ? `${n}${unit}` : `${n}${unit}/日`, '成約'] as [string, string]
+                }
                 if (name === 'ma7') return [`¥${Math.round(v).toLocaleString()}`, `${MA_SHORT}日平均`] as [string, string]
                 if (name === 'ma30') return [`¥${Math.round(v).toLocaleString()}`, `${MA_LONG}日平均`] as [string, string]
                 return [`¥${v.toLocaleString()}`, tab === 'raw' ? '相場' : 'PSA10'] as [string, string]
@@ -433,7 +456,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
                 verticalAlign: 'middle',
               }}
             />
-            成約{unit}数（メルカリ・1日あたり）
+            成約{unit}数（{volSource === 'snkrdunk' ? 'スニダン成約' : 'メルカリ・1日あたり'}）
           </span>
         )}
       </div>

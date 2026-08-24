@@ -685,6 +685,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           <PriceHistoryChart
             history={priceHistory.history}
             extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null}
+            salesByDay={priceHistory.sales_by_day}
+            psa10SalesByDay={priceHistory.psa10_sales_by_day}
           />
         </div>
       )}

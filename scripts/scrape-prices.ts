@@ -206,7 +206,9 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
 // スニーカーダンク: 素体平均価格 + PSA10平均価格を取得
 // fetched: ページ本文を取得できたか。false は「取引が無い」ではなく**通信/レート制限で見えなかった**
 // を意味する。この2つを混同すると、取得失敗のたびにメルカリへ乗り換えて系列が方形波になる。
-async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ fetched: boolean; regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null }> {
+// regularSaleDates / psa10SaleDates = ページに載っていた**個別の取引**の日付（1取引1要素）。
+// メルカリの numFound 差分と違って実件数なので、日別に数えれば減ったり歯抜けになったりしない。
+async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ fetched: boolean; regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null; regularSaleDates: string[]; psa10SaleDates: string[] }> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
@@ -224,7 +226,7 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
         if (attempt < 4) await new Promise(r => setTimeout(r, 2000))
       }
     }
-    if (!text) return { fetched: false, regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null }
+    if (!text) return { fetched: false, regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null, regularSaleDates: [], psa10SaleDates: [] }
 
     // PSAセクション開始位置（"状態PSA" か "PSAの売買履歴" のみ。"PSA10"単体は他の箇所に出現しうるため除外）
     const psaMarkers = ['状態PSA', 'PSAの売買履歴', '状態 PSA']
@@ -249,10 +251,14 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
     const now = Date.now()
     const regularRows = [...regularSection.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+[A-D]\s+(\d{1,3}(?:,\d{3})*)/g)]
       .map(m => ({
+        d: `${m[1]}-${m[2]}-${m[3]}`,
         t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
         p: parseInt(m[4].replace(/,/g, ''), 10),
       }))
       .filter(r => r.p >= 100 && isFinite(r.t))
+    // 素体の成約日。価格の窓（45日）とは切り離し、ページに見えた取引は全部返す。
+    // 相場に採用しない銘柄（メルカリ採用・鮮度切れ）でも出来高だけは出せるようにするため
+    const regularSaleDates = regularRows.map(r => r.d)
     const newestT = regularRows.length ? Math.max(...regularRows.map(r => r.t)) : null
     const stale = newestT == null || now - newestT > REGULAR_FRESH_DAYS * 86400000
     const regularPrices = stale
@@ -276,28 +282,39 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
     const psa10Start = psa10Patterns.reduce((acc, s) => acc >= 0 ? acc : text.indexOf(s), -1)
 
     let psa10: number | null = null
+    // PSA10 の成約日。1取引=1要素（同じ日が複数入る）。呼び出し側で日別に数える
+    let psa10SaleDates: string[] = []
     if (psa10Start >= 0) {
       const psa9Patterns = ['状態PSA9の売買履歴', 'PSA9の売買履歴', 'PSA 9の売買履歴', 'PSA9の']
       const psa9Start = psa9Patterns.reduce((acc, s) => {
         const i = text.indexOf(s, psa10Start + 4)
         return acc >= 0 ? acc : (i > psa10Start ? i : -1)
       }, -1)
-      const psa10Section = text.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 2000)
+      // ⚠ 履歴テーブルの後ろには価格チャートが続き、そのY軸の目盛り（0/50,000/100,000/150,000）も
+      //   本文テキストに出る。セクションを「の売買相場」（＝チャートの見出し）の手前で切らないと、
+      //   目盛りが取引価格として平均に混ざる。実測（ポケモン151 フシギバナex SAR・2026-08-24）:
+      //   母数23件のうち3件が目盛りで、平均 ¥45,659 と出ていた。実取引だけなら ¥39,558（+15%の過大）。
+      const psa10Raw = text.slice(psa10Start, psa9Start > 0 ? psa9Start : psa10Start + 2000)
+      const chartAt = psa10Raw.indexOf('の売買相場')
+      const psa10Section = chartAt > 0 ? psa10Raw.slice(0, chartAt) : psa10Raw
       const noHistory = ['まだこの商品は取引がありません', '取引がありません', '売買履歴はまだありません']
       if (!noHistory.some(s => psa10Section.includes(s))) {
-        // 素体と同じく「YYYY/MM/DD + 金額」の売買履歴行だけを対象にし、直近90日に限る。
-        // カンマ区切りの数字を無差別に平均していた頃は、価格チャートの目盛りや関連商品価格も
-        // 混ざり、しかも古い取引が永久に平均へ残った（132銘柄中15銘柄でPSA10が1ヶ月以上
-        // 1〜2種類の値に張り付いていた）。素体より窓を長く取るのは、鑑定品は取引頻度が
-        // 低く45日だと該当ゼロになる銘柄が多いため。
+        // 「日時・状態・金額」は**セルごとに改行される**（2026/08/12 ⏎ PSA10 ⏎ 38,000）。
+        // 以前は [^\n]*? で繋いでいたため1件もマッチせず、PSA10 は常に下のフォールバック
+        // （セクション内の数字を全部平均）に落ちていた。素体側が \s+ で動いていたのと同じ形に揃える。
+        // 素体より窓を長く取るのは、鑑定品は取引頻度が低く45日だと該当ゼロになる銘柄が多いため。
         const PSA10_WINDOW_DAYS = 90
-        const psa10Rows = [...psa10Section.matchAll(/(\d{4})\/(\d{2})\/(\d{2})[^\n]*?(\d{1,3}(?:,\d{3})+)/g)]
+        const psa10AllRows = [...psa10Section.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+PSA\s?10\s+(\d{1,3}(?:,\d{3})*)/g)]
           .map(m => ({
+            d: `${m[1]}-${m[2]}-${m[3]}`,
             t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
             p: parseInt(m[4].replace(/,/g, ''), 10),
           }))
-          .filter(r => r.p >= 1000 && isFinite(r.t) && now - r.t <= PSA10_WINDOW_DAYS * 86400000)
-          .map(r => r.p)
+          .filter(r => r.p >= 1000 && isFinite(r.t))
+        // 出来高は窓で切らない（何日ぶん見えたかは銘柄ごとに違うので、見えた分は全部返して
+        // 呼び出し側で日別に積む）。価格の平均だけ90日窓に絞る。
+        psa10SaleDates = psa10AllRows.map(r => r.d)
+        const psa10Rows = psa10AllRows.filter(r => now - r.t <= PSA10_WINDOW_DAYS * 86400000).map(r => r.p)
         // 行として1件も読めない時だけ従来の「セクション内の数字を平均」に戻す。
         // スニダンのDOMが変わっても PSA10 が一斉に null になって消えることは避ける。
         const psa10Prices = psa10Rows.length > 0
@@ -310,8 +327,8 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
       }
     }
 
-    return { fetched: true, regular, regularCount, psa10, staleDays: regularStaleDays, staleRegular }
-  } catch { return { fetched: false, regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null } }
+    return { fetched: true, regular, regularCount, psa10, staleDays: regularStaleDays, staleRegular, regularSaleDates, psa10SaleDates }
+  } catch { return { fetched: false, regular: null, regularCount: 0, psa10: null, staleDays: null, staleRegular: null, regularSaleDates: [], psa10SaleDates: [] } }
   finally { await page.close() }
 }
 
@@ -798,6 +815,31 @@ export function guardPrice(opts: {
   return { ok: true }
 }
 
+// 観測した成約日の配列を「日付 -> 件数」に畳んで、既存の記録と日ごとの max を取る。
+// max なのは、スニダンの履歴が新しい取引に押し出されて古い日が見えなくなるため
+// （見えなくなった＝取引が無かった、ではない）。SALES_KEEP_DAYS より古い日は捨てる。
+const SALES_KEEP_DAYS = 120
+
+function mergeSalesByDay(
+  existing: Record<string, number> | undefined,
+  observedDates: string[] | undefined,
+  today: string
+): Record<string, number> | undefined {
+  const merged: Record<string, number> = { ...(existing ?? {}) }
+  if (observedDates?.length) {
+    const seen: Record<string, number> = {}
+    for (const d of observedDates) seen[d] = (seen[d] ?? 0) + 1
+    for (const [d, n] of Object.entries(seen)) {
+      if (d > today) continue   // 未来日付はパース事故なので採らない
+      merged[d] = Math.max(merged[d] ?? 0, n)
+    }
+  }
+  const cutoff = new Date(Date.parse(today + 'T00:00:00+09:00') - SALES_KEEP_DAYS * 86400000)
+    .toISOString().slice(0, 10)
+  for (const d of Object.keys(merged)) if (d < cutoff) delete merged[d]
+  return Object.keys(merged).length ? merged : undefined
+}
+
 function savePriceHistory(
   cardId: string,
   date: string,
@@ -809,7 +851,10 @@ function savePriceHistory(
   priceSource?: PriceSource,
   sampleCount?: number,
   soldTotal?: number | null,
-  oldestSaleDays?: number | null
+  oldestSaleDays?: number | null,
+  // スニダン売買履歴から拾った個別取引の日付（1取引1要素）
+  regularSaleDates?: string[],
+  psa10SaleDates?: string[]
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -827,6 +872,11 @@ function savePriceHistory(
       validatedOnSale = { count: null, askLow: null, askMid: null }
     }
   }
+
+  // スニダンの実成約件数を日別に積む。ページには直近の十数件しか載らないので、
+  // 毎日の観測を「日ごとの max」で重ねて履歴を作る（観測が欠けた日は前の値が残る）。
+  data.sales_by_day = mergeSalesByDay(data.sales_by_day, regularSaleDates, date)
+  data.psa10_sales_by_day = mergeSalesByDay(data.psa10_sales_by_day, psa10SaleDates, date)
 
   const record = {
     date,
@@ -949,6 +999,10 @@ async function scrapeCard(
     let snkrdunkStale: number | null = null
     let snkrdunkStaleDays: number | null = null
     let snkrdunkFetched = false
+    // スニダンの売買履歴に出ていた個別取引の日付。出来高（成約数）の元になる。
+    // 価格をスニダンから採るかどうかとは無関係に、取れた分は常に記録する
+    let snkrdunkSaleDates: string[] = []
+    let snkrdunkPsa10SaleDates: string[] = []
 
     if (apparelId) {
       // スニーカーダンクから取得（PSA10は常にスニダン由来）
@@ -959,6 +1013,8 @@ async function scrapeCard(
       psa10 = prices.psa10
       snkrdunkStale = prices.staleRegular
       snkrdunkStaleDays = prices.staleDays
+      snkrdunkSaleDates = prices.regularSaleDates
+      snkrdunkPsa10SaleDates = prices.psa10SaleDates
 
       // 取引が止まっている系列は getSnkrdunkPrices が regular=null を返す。何日止まって
       // いたかをログに出す（メルカリに落ちた理由が「取引無し」か「件数不足」か判別するため）
@@ -1159,7 +1215,7 @@ async function scrapeCard(
       return
     }
 
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
