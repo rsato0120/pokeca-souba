@@ -206,6 +206,25 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
 // スニーカーダンク: 素体平均価格 + PSA10平均価格を取得
 // fetched: ページ本文を取得できたか。false は「取引が無い」ではなく**通信/レート制限で見えなかった**
 // を意味する。この2つを混同すると、取得失敗のたびにメルカリへ乗り換えて系列が方形波になる。
+// スニダンの売買履歴は**直近3日ぶんだけ日時を相対表記で出す**（「2時間前」「1日前」「3日前」。
+// それ以前は YYYY/MM/DD）。絶対日付しか読まないと**いちばん新しい取引がまるごと落ちる**。
+// 実測（2026-08-24・4銘柄）: 全105/112/70/71行のうち 7/9/13/7 行＝6〜19%が相対表記だった。
+// 価格の平均が古い側に偏るだけでなく、出来高は今日・昨日の棒が永久に立たなくなる。
+function parseSnkrdunkSaleDate(token: string, nowMs: number): { d: string; t: number } | null {
+  const abs = token.match(/^(\d{4})\/(\d{2})\/(\d{2})$/)
+  if (abs) {
+    const d = `${abs[1]}-${abs[2]}-${abs[3]}`
+    return { d, t: Date.parse(`${d}T00:00:00+09:00`) }
+  }
+  const rel = token.match(/^(\d{1,2})(分|時間|日)前$/)
+  if (!rel) return null
+  const n = parseInt(rel[1], 10)
+  const ms = rel[2] === '日' ? n * 86400000 : rel[2] === '時間' ? n * 3600000 : n * 60000
+  // JSTの暦日に落とす（+9時間してからUTCの日付を読む）
+  const d = new Date(nowMs - ms + 9 * 3600000).toISOString().slice(0, 10)
+  return { d, t: Date.parse(`${d}T00:00:00+09:00`) }
+}
+
 // regularSaleDates / psa10SaleDates = ページに載っていた**個別の取引**の日付（1取引1要素）。
 // メルカリの numFound 差分と違って実件数なので、日別に数えれば減ったり歯抜けになったりしない。
 async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ fetched: boolean; regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null; regularSaleDates: string[]; psa10SaleDates: string[] }> {
@@ -249,13 +268,12 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
     // メルカリ直近実勢は¥11,500〜15,555だった）。止まっている系列は相場として使わない。
     const REGULAR_FRESH_DAYS = 25
     const now = Date.now()
-    const regularRows = [...regularSection.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+[A-D]\s+(\d{1,3}(?:,\d{3})*)/g)]
-      .map(m => ({
-        d: `${m[1]}-${m[2]}-${m[3]}`,
-        t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
-        p: parseInt(m[4].replace(/,/g, ''), 10),
-      }))
-      .filter(r => r.p >= 100 && isFinite(r.t))
+    const regularRows = [...regularSection.matchAll(/(\d{4}\/\d{2}\/\d{2}|\d{1,2}(?:分|時間|日)前)\s+[A-D]\s+(\d{1,3}(?:,\d{3})*)/g)]
+      .map(m => {
+        const when = parseSnkrdunkSaleDate(m[1], now)
+        return when ? { d: when.d, t: when.t, p: parseInt(m[2].replace(/,/g, ''), 10) } : null
+      })
+      .filter((r): r is { d: string; t: number; p: number } => r != null && r.p >= 100 && isFinite(r.t))
     // 素体の成約日。価格の窓（45日）とは切り離し、ページに見えた取引は全部返す。
     // 相場に採用しない銘柄（メルカリ採用・鮮度切れ）でも出来高だけは出せるようにするため
     const regularSaleDates = regularRows.map(r => r.d)
@@ -304,13 +322,12 @@ async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{
         // （セクション内の数字を全部平均）に落ちていた。素体側が \s+ で動いていたのと同じ形に揃える。
         // 素体より窓を長く取るのは、鑑定品は取引頻度が低く45日だと該当ゼロになる銘柄が多いため。
         const PSA10_WINDOW_DAYS = 90
-        const psa10AllRows = [...psa10Section.matchAll(/(\d{4})\/(\d{2})\/(\d{2})\s+PSA\s?10\s+(\d{1,3}(?:,\d{3})*)/g)]
-          .map(m => ({
-            d: `${m[1]}-${m[2]}-${m[3]}`,
-            t: Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00+09:00`),
-            p: parseInt(m[4].replace(/,/g, ''), 10),
-          }))
-          .filter(r => r.p >= 1000 && isFinite(r.t))
+        const psa10AllRows = [...psa10Section.matchAll(/(\d{4}\/\d{2}\/\d{2}|\d{1,2}(?:分|時間|日)前)\s+PSA\s?10\s+(\d{1,3}(?:,\d{3})*)/g)]
+          .map(m => {
+            const when = parseSnkrdunkSaleDate(m[1], now)
+            return when ? { d: when.d, t: when.t, p: parseInt(m[2].replace(/,/g, ''), 10) } : null
+          })
+          .filter((r): r is { d: string; t: number; p: number } => r != null && r.p >= 1000 && isFinite(r.t))
         // 出来高は窓で切らない（何日ぶん見えたかは銘柄ごとに違うので、見えた分は全部返して
         // 呼び出し側で日別に積む）。価格の平均だけ90日窓に絞る。
         psa10SaleDates = psa10AllRows.map(r => r.d)
