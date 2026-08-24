@@ -158,7 +158,17 @@ export function buildPrompt(
       psaSection = `\n## PSA10（鑑定品）相場\n`
       psaSection += `- PSA10: ¥${Math.round(psa10).toLocaleString()}（素体の${Math.round(mult * 10) / 10}倍）→ プレミアは${label}\n`
 
-      const psaSeries = priceHistory.filter(r => r.psa10 != null && Number(r.psa10) > 0)
+      // ⚠ この日より前の psa10 は信用しない。スニダンの売買履歴を読む正規表現が改行をまたげず、
+      //   PSA10 は「セクション内のカンマ付き数字を全部平均」に落ちていた＝価格チャートのY軸目盛りが
+      //   取引価格として混ざっていた（2026-08-24 に修正）。汚染の大きさは取引の薄さ次第で、
+      //   実測では ピカチュウVMAX UR が -49.5%（90日で取引3件）、サカキのカリスマSAR が -24.1%、
+      //   取引が10件以上ある銘柄は誤差1%以下だった。訂正後の値を訂正前の値と比べると、
+      //   相場が動いていないのに「PSA10が半減」という根拠がAIのプロンプトに入ってしまう。
+      //   汚染レコードは90日ローリングで自然に落ちるので、この境界もそれで自動的に無効化される。
+      const PSA10_PARSE_FIXED_ON = '2026-08-24'
+      const psaSeries = priceHistory.filter(
+        r => r.psa10 != null && Number(r.psa10) > 0 && r.date >= PSA10_PARSE_FIXED_ON,
+      )
       if (psaSeries.length >= 2) {
         const oldPsa = Number(psaSeries[psaSeries.length - 1].psa10)
         const psaChange = Math.round(((psa10 - oldPsa) / oldPsa) * 100)
