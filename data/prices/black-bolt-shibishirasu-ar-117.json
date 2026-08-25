@@ -2,6 +2,18 @@
   "card_id": "black-bolt-shibishirasu-ar-117",
   "history": [
     {
+      "date": "2026-08-25",
+      "low": 1200,
+      "high": 1350,
+      "avg": 1308,
+      "source": "mercari",
+      "sample_count": 46,
+      "sold_total": 239,
+      "oldest_sale_days": 89,
+      "on_sale": 2,
+      "psa10": 7233
+    },
+    {
       "date": "2026-08-24",
       "low": 1200,
       "high": 1350,
@@ -404,5 +416,14 @@
       "source": "mercari",
       "psa10": 7094
     }
-  ]
+  ],
+  "sales_by_day": {
+    "2026-06-01": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-08-20": 1,
+    "2026-08-16": 1,
+    "2026-07-23": 1,
+    "2026-05-15": 2
+  }
 }

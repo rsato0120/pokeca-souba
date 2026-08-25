@@ -2,6 +2,20 @@
   "card_id": "anniv-25th-zamazenta-v-rr-19",
   "history": [
     {
+      "date": "2026-08-25",
+      "low": 300,
+      "high": 400,
+      "avg": 367,
+      "source": "mercari",
+      "sample_count": 7,
+      "sold_total": 31,
+      "oldest_sale_days": 85,
+      "on_sale": 14,
+      "ask_low": 300,
+      "ask_mid": 400,
+      "psa10": 9000
+    },
+    {
       "date": "2026-08-24",
       "low": 300,
       "high": 400,
@@ -43,5 +57,14 @@
       "ask_mid": 450,
       "psa10": 7910
     }
-  ]
+  ],
+  "sales_by_day": {
+    "2026-08-12": 1,
+    "2026-06-30": 1,
+    "2026-05-21": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-07-28": 1,
+    "2026-05-13": 1
+  }
 }

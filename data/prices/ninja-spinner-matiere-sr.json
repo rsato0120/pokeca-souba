@@ -2,6 +2,20 @@
   "card_id": "ninja-spinner-matiere-sr",
   "history": [
     {
+      "date": "2026-08-25",
+      "low": 499,
+      "high": 555,
+      "avg": 523,
+      "source": "mercari",
+      "sample_count": 89,
+      "sold_total": 705,
+      "oldest_sale_days": 83,
+      "on_sale": 63,
+      "ask_low": 500,
+      "ask_mid": 800,
+      "psa10": 6300
+    },
+    {
       "date": "2026-08-24",
       "low": 499,
       "high": 555,
@@ -491,5 +505,14 @@
       "low": 550,
       "high": 666
     }
-  ]
+  ],
+  "sales_by_day": {
+    "2026-08-24": 2,
+    "2026-05-07": 1,
+    "2026-05-02": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-08-13": 1,
+    "2026-08-12": 1
+  }
 }

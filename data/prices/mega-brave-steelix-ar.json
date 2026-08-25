@@ -2,6 +2,20 @@
   "card_id": "mega-brave-steelix-ar",
   "history": [
     {
+      "date": "2026-08-25",
+      "low": 300,
+      "high": 399,
+      "avg": 357,
+      "source": "mercari",
+      "sample_count": 33,
+      "sold_total": 802,
+      "oldest_sale_days": 71,
+      "on_sale": 70,
+      "ask_low": 333,
+      "ask_mid": 400,
+      "psa10": 4502
+    },
+    {
       "date": "2026-08-24",
       "low": 300,
       "high": 399,
@@ -675,5 +689,14 @@
       "ask_mid": 450,
       "psa10": 6605
     }
-  ]
+  ],
+  "psa10_sales_by_day": {
+    "2026-08-24": 4,
+    "2026-08-22": 4,
+    "2026-08-20": 2,
+    "2026-08-18": 2,
+    "2026-08-17": 3,
+    "2026-08-13": 1,
+    "2026-08-12": 4
+  }
 }

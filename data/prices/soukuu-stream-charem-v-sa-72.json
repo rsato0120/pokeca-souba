@@ -2,6 +2,20 @@
   "card_id": "soukuu-stream-charem-v-sa-72",
   "history": [
     {
+      "date": "2026-08-25",
+      "low": 1777,
+      "high": 2388,
+      "avg": 2177,
+      "source": "mercari",
+      "sample_count": 8,
+      "sold_total": 46,
+      "oldest_sale_days": 74,
+      "on_sale": 8,
+      "ask_low": 2399,
+      "ask_mid": 2600,
+      "psa10": 12000
+    },
+    {
       "date": "2026-08-24",
       "low": 1777,
       "high": 2388,
@@ -604,5 +618,12 @@
       "avg": 1963,
       "psa10": null
     }
-  ]
+  ],
+  "sales_by_day": {
+    "2026-06-03": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-05-16": 1,
+    "2026-05-02": 1
+  }
 }
