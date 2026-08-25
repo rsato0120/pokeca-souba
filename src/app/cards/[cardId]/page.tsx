@@ -29,6 +29,22 @@ const A8_RAKUTEN_MAT = '4B60CK+20MWKY+2HOM+6C1VM'
 const A8_RAKUTEN_HGC = '0ea62065.34400275.0ea62066.204f04c0'
 const A8_RAKUTEN_AID = 'a26062027360_4B60CK_20MWKY_2HOM_6C1VM'
 
+// 市場との比較を「強い/弱い」の一語で済ませると、下げ相場で誤読される。
+// 市場-6%・カード-2%は相対的には強いが、読み手が知りたいのは「このカードは下げている」こと。
+// カード自身の方向（上げ/下げ）と、市場との差（pt）を分けて言い切る。
+function relDescription(cardPct: number, rel: number): string {
+  const gap = Math.abs(rel).toFixed(1)
+  if (Math.abs(rel) <= 0.5) return 'このカードはほぼ市場並みの動きです。'
+  if (rel > 0) {
+    return cardPct >= 0
+      ? `このカードは市場を${gap}pt 上回る値上がりです。`
+      : `このカードも下げていますが、下げ幅は市場より${gap}pt 小さく、相対的に底堅い動きです。`
+  }
+  return cardPct <= 0
+    ? `このカードは市場より${gap}pt 大きく下げています。`
+    : `このカードは値上がりしていますが、上げ幅は市場より${gap}pt 小さいです。`
+}
+
 // 楽天市場のカード別検索ページに着地するA8計測リンクを生成
 function buildRakutenA8Url(rakutenSearchUrl: string): string {
   const afl =
@@ -178,11 +194,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       : null
   const benchmark = getMarketIndex(`box:${card.box_id}`) ?? getMarketIndex('all')
   const benchmarkPct = benchmark ? indexChangePct(benchmark, 7) : null
-  // 汚染由来の飛び（画面の他の枠と同じ ±35% ガード）は相対力にも混ぜない
+  // 汚染由来の飛び（画面の他の枠と同じ ±35% ガード）は表示にも相対力にも混ぜない
+  const cardWeekShown =
+    cardWeekChange != null && Math.abs(cardWeekChange) <= 35 ? cardWeekChange : null
   const relStrength =
-    cardWeekChange != null && Math.abs(cardWeekChange) <= 35 && benchmarkPct != null
-      ? cardWeekChange - benchmarkPct
-      : null
+    cardWeekShown != null && benchmarkPct != null ? cardWeekShown - benchmarkPct : null
 
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
@@ -465,29 +481,32 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 </div>
               )}
               {/* 出品中の件数は下の「売り板」で最安値・中央値と一緒に出す（ここでは重複させない） */}
-              {relStrength != null && benchmark && (
+              {/* 「市場比」という差分だけを出すと、カード自身が上がったのか下がったのかが
+                  読み取れない（市場が-6%でカードが-2%でも「市場比+4%」は緑になる）。
+                  まずカード自身の値動きを出し、市場との比較は下の文で言葉にする。 */}
+              {cardWeekShown != null && (
                 <div>
-                  <div className="stat-label">市場比（7日）</div>
+                  <div className="stat-label">このカードの7日変化</div>
                   <span
                     className="stat-value"
                     style={{
                       fontSize: 'var(--fs-lg)',
                       fontWeight: 700,
-                      color: relStrength > 0.5 ? 'var(--up)' : relStrength < -0.5 ? 'var(--down)' : 'var(--flat)',
+                      color: cardWeekShown > 0.5 ? 'var(--up)' : cardWeekShown < -0.5 ? 'var(--down)' : 'var(--flat)',
                     }}
                   >
-                    {relStrength >= 0 ? '+' : ''}{relStrength.toFixed(1)}%
+                    {cardWeekShown >= 0 ? '+' : ''}{cardWeekShown.toFixed(1)}%
                   </span>
                 </div>
               )}
             </div>
-            {relStrength != null && benchmark && benchmarkPct != null && (
+            {relStrength != null && benchmark && benchmarkPct != null && cardWeekShown != null && (
               <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-dim)', lineHeight: 1.7, marginTop: 'var(--sp-2)' }}>
                 同期間の{benchmark.key === 'all' ? '相場全体' : `「${benchmark.label}」`}は
                 <strong style={{ color: benchmarkPct >= 0 ? 'var(--up)' : 'var(--down)' }}>
                   {benchmarkPct >= 0 ? '+' : ''}{benchmarkPct.toFixed(1)}%
                 </strong>
-                。このカードは{relStrength > 0.5 ? '市場より強い動きです' : relStrength < -0.5 ? '市場より弱い動きです' : 'ほぼ市場並みです'}。
+                。{relDescription(cardWeekShown, relStrength)}
               </div>
             )}
             {/* データの出所と鮮度を明示（信頼性の担保） */}
