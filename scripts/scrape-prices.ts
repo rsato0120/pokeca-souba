@@ -36,6 +36,8 @@ interface OnSaleResult {
   count: number | null     // 出品中の件数（供給圧）＝除外・番号照合を通した実数
   askLow: number | null    // 出品最安値帯（即購入できる床値・先行指標）
   askMid: number | null    // 出品中央値
+  /** ページ上限で打ち切ったため count が下限値（「N件以上」）であることを示す */
+  capped?: boolean
 }
 
 // 件数のためにめくるページ数の上限。1ページ ≒ 100〜120件なので3ページで約300件まで実数で数えられる。
@@ -131,14 +133,25 @@ async function getMercariOnSale(
       pages++
     }
 
-    // 打ち切った場合だけ外挿する。価格昇順で読んでいる＝安い側にまとめ売りが偏るので
-    // 採用率は控えめに出る＝過大にならない方向に転ぶ。
+    // ⚠ 外挿（numFound × 採用率）は**やめた**（2026-08-28）。
     //
-    // ⚠ ただし外挿してよいのは「検索クエリが的を射ている」時だけ。numFound はメルカリの
-    //   あいまい一致の総数なので、フィルタで大半を捨てている＝クエリが的外れな場合は
-    //   母数として使えない。ポケセン福岡のスペシャルBOXは、店名「ポケモンセンターフクオカ」が
-    //   無関係な出品に大量に書かれるため numFound=911（東北34・広島28）に膨らみ、
-    //   外挿で809件になっていた。採用率が低い時は読めた実数（＝下限）をそのまま使う。
+    // 【なぜ】打ち切りに達した系列だけが外挿値に化けるため、**同じ画面に並ぶ数字の
+    // 数え方が系列ごとに違う**状態になっていた。on_sale は絶対値ではなく系列間・前日比で
+    // 比較して使うもの（トップの「今買われている/売られているカード」、buy-signals の
+    // supplyTightening、AI予想プロンプト）なので、基準が混在すると比較そのものが壊れる。
+    //   実測(2026-08-28) ストームエメラルダ:
+    //     統合 54件（打ち切り無し＝実数） / シュリンクあり 738件（外挿） / なし 89件
+    //     → **部分(827) が全体(54) の13.7倍**。BOXの3系列だけで矛盾していた。
+    //   同じ矛盾がアビスアイ(139 vs 2)・メガブレイブ(68 vs 1)・MEGAドリームex(120 vs 54)にも出ていた。
+    //
+    // numFound はメルカリのあいまい一致の総数で、価格側の除外も番号照合も通っていない。
+    // 採用率を掛けても「的外れな母数 × 読めた範囲の採用率」でしかなく、母数が膨らむ銘柄では
+    // 何倍にも化ける（ポケセン福岡のスペシャルBOXは numFound=911 → 外挿760件。keepRate>=0.5 の
+    // ガードを足しても止まらなかった＝この推定量自体が信用できない）。
+    //
+    // 打ち切った時は**読めた実数をそのまま入れ、capped で「下限値」と印を付ける**。
+    // 全544系列のうち on_sale>300（＝確実に外挿）は6件だけなので、失う情報より
+    // 基準が揃うことの方が大きい。
     const keepRate = seen > 0 ? kept / seen : 0
     // 件数がおかしい時の切り分け用。ONSALE_DEBUG=1 で母数と採用率、通過したタイトルを出す
     if (process.env.ONSALE_DEBUG === '1') {
@@ -146,9 +159,8 @@ async function getMercariOnSale(
       for (const i of first.items.filter(keep).slice(0, 10)) console.log(`      ¥${i.price} ${String(i.name).slice(0, 56)}`)
     }
     let count: number | null = kept
-    if (token && first.total != null && seen > 0 && keepRate >= 0.5) {
-      count = Math.round(first.total * keepRate)
-    }
+    // 打ち切った＝まだ続きがある。数字は下限値なので印を付ける（画面は「N件以上」と出す）
+    const capped = !!token && kept > 0
     if (count != null && count <= 0) count = null
 
     // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）。
@@ -167,7 +179,7 @@ async function getMercariOnSale(
       askLow = percentileAt(core, 0.1)  // 10thパーセンタイル＝実質的な床値
       askMid = calcMedian(core)
     }
-    return { count, askLow, askMid }
+    return { count, askLow, askMid, capped }
   } catch { return { count: null, askLow: null, askMid: null } }
 }
 
@@ -945,6 +957,8 @@ function savePriceHistory(
     ...(soldTotal != null ? { sold_total: soldTotal } : {}),
     ...(oldestSaleDays != null ? { oldest_sale_days: oldestSaleDays } : {}),
     ...(validatedOnSale?.count != null ? { on_sale: validatedOnSale.count } : {}),
+    // ページ上限で打ち切った＝実際はもっとある。画面で「N件以上」と出すための印
+    ...(validatedOnSale?.count != null && validatedOnSale.capped ? { on_sale_capped: true } : {}),
     ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
@@ -1321,6 +1335,26 @@ function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden:
   }
 }
 
+/**
+ * 混在系列に渡す出品件数＝「シュリンクあり + なし」の当日レコードの合算。
+ * どちらか片方でも当日の件数が無ければ null を返し、混在系列は自分で数えた値に戻す
+ * （片方だけの数字を「全体」として出すと、部分の方が大きい矛盾がまた起きるため）。
+ * 片方でも打ち切り(capped)なら合算も下限値なので capped を立てる。
+ */
+function sumPartsOnSale(boxId: string, date: string): { count: number; capped: boolean } | null {
+  const parts = [`box-${boxId}-shrink`, `box-${boxId}-noshrink`].map(id => {
+    try {
+      const data: PriceHistory = JSON.parse(fs.readFileSync(path.join(pricesDir, `${id}.json`), 'utf-8'))
+      return data.history.find(r => r.date === date) ?? null
+    } catch { return null }
+  })
+  if (parts.some(r => r?.on_sale == null)) return null
+  return {
+    count: parts.reduce((a, r) => a + Number(r!.on_sale), 0),
+    capped: parts.some(r => r!.on_sale_capped === true),
+  }
+}
+
 async function scrapeBox(
   browser: Browser,
   id: string,
@@ -1334,7 +1368,10 @@ async function scrapeBox(
   titleAlts: string[],
   shrink: 'any' | 'yes' | 'no',
   titleForbidden: string[] = [],
-  titleRequired: string[] = []
+  titleRequired: string[] = [],
+  // 出品件数を自前の検索ではなく外から与える（混在系列＝あり+なしの合算に使う）。
+  // null なら従来どおり自分で数える
+  onSaleOverride: { count: number; capped: boolean } | null = null
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   // 成約・出品で同一の条件を使う（片方だけに掛けると「価格はあり/なし混在、件数だけ分離」に
@@ -1372,7 +1409,20 @@ async function scrapeBox(
     avg = Math.round((boxLow + boxHigh) / 2)
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
-    const onSale = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4), null, titleMust)
+    const scraped = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4), null, titleMust)
+    // 混在系列は件数だけ「あり+なし」で置き換える（ask は自分の検索の分布をそのまま使う）。
+    //
+    // 【なぜ自分で数えないか】検索は価格昇順で最大3ページ（約300件）しか読めない。混在系列の
+    // クエリ（"{弾名} 未開封 BOX"）は3つの中で最も広いので、安いパック単品や端数が先に300件を
+    // 埋めてしまい、**本物のBOX出品に到達する前に打ち切られる**。結果、部分が全体を超える。
+    //   実測(2026-08-28) ストームエメラルダ: 混在58 < あり173 + なし91 = 264
+    //   （混在は拾えた出品が3件未満で ask_low/ask_mid すら取れていなかった＝到達できていない証拠）
+    //   アビスアイは混在2件に対しシュリンクなし単体で124件と、さらに極端だった。
+    // 合算なら定義から 部分 ≦ 全体 が保証される。取りこぼすのは「シュリンク表記が無い出品」だが、
+    // 到達すらできていない数字を並べるより筋が通る。
+    const onSale = onSaleOverride != null
+      ? { ...scraped, count: onSaleOverride.count, capped: onSaleOverride.capped }
+      : scraped
 
     // ★カードと同じ関門を通す。BOXはこれまで無防備で、成約が薄い弾で検索窓が90日超に
     // 拡張されると古い高値が混ざり +61% の偽の急騰が出ていた（蒼空ストリーム シュリンクあり）
@@ -1472,15 +1522,21 @@ async function main() {
     if (boxes.length > 0) {
       console.log('\n── 未開封BOX ──')
       for (const box of boxes) {
-        // 混在系列（後方互換・予想の入力・変異ファイルが無い間のフォールバック表示に使う）
-        // "1BOX" を明示して複数BOXロットを排除
-        await scrapeBox(browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`, date, stats, [box.box_name], 'any')
         // シュリンクあり/なしを分けて取得（相場が別物なので混ぜると実勢とズレる）。
         // ⚠️ 分離しているのは**クエリではなくタイトル条件（boxTitleFilter）**。メルカリの検索は
         // 「シュリンクなし」で引いても「シュリンク付き」の出品を大量に返す（実測で114件中70件）。
         // クエリはあくまで母集団を寄せるためのもので、あり/なしの判定はタイトルで行う。
+        //
+        // ⚠️ **混在系列より先に走らせること**。混在の出品件数はこの2つの合算にするため
+        // （理由は scrapeBox 内 onSaleOverride のコメント）。
         await scrapeBox(browser, `box-${box.box_id}-shrink`, `${box.box_name} 未開封 シュリンク付き 1BOX`, `${box.box_name} シュリンクあり`, date, stats, [box.box_name], 'yes')
         await scrapeBox(browser, `box-${box.box_id}-noshrink`, `${box.box_name} 未開封 シュリンクなし 1BOX`, `${box.box_name} シュリンクなし`, date, stats, [box.box_name], 'no')
+        // 混在系列（後方互換・予想の入力・変異ファイルが無い間のフォールバック表示に使う）
+        // "1BOX" を明示して複数BOXロットを排除
+        await scrapeBox(
+          browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`,
+          date, stats, [box.box_name], 'any', [], [], sumPartsOnSale(box.box_id, date),
+        )
       }
     }
 
