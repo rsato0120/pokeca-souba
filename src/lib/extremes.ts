@@ -9,7 +9,9 @@ import type { PriceExtremes, PriceRecord } from '@/types/pokeca'
 export const MIN_RECORDS_FOR_BADGE = 7
 
 // 少数の取引で付いた値は実勢から外れやすいので極値に採らない（sample_count はスニダン採用時のみ入る）
-const MIN_SAMPLE_COUNT = 4
+// スクレイパー側の書き込み関門(guardPrice)も同じ値を使う。極値が「信用しない」と判定する値を
+// グラフには刻む、という食い違いを作らないため必ず共通化すること。
+export const MIN_SAMPLE_COUNT = 4
 // 前日比がこれを超える動きは相場変動でなく算出方式やノイズ由来の疑いが強い
 // （2026-06 の算出方式切替で avg だけが2倍に跳ねた事故と同じ基準）
 const MAX_DAY_CHANGE = 0.2

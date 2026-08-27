@@ -28,6 +28,8 @@ interface Case {
   priceSource: PriceSource
   onSale: OnSale | null
   prev: Partial<PriceRecord> | null
+  /** 採用した成約件数。R5（薄いサンプルを採らない）を再生するケースで指定する */
+  sampleCount?: number
 }
 
 const cases: Case[] = [
@@ -280,6 +282,77 @@ const cases: Case[] = [
     onSale: { count: 50, askLow: 8250, askMid: 8300 },
     prev: null,
   },
+
+  // ── 薄商いで日が空き、R0 が出所切替の段差を通した事故（2026-08-19） ────────
+  // ラティアス&ラティオスGX SA。スニダン n=2 の ¥515,000 が3日分入ったあと9日空き、
+  // 次にメルカリが取れた日に -61% の崖がグラフに刻まれた。前日レコードがあれば R2 が
+  // 「出品価格が追随せず」で弾いていた値。R0 は ask が汚れた銘柄(R1)を救うための逃げ道で
+  // あって、出所が変わった日の前日比(R2)まで免除してよいものではない。
+  {
+    name: 'ラティアス&ラティオスGX SA: 9日空き＋スニダン→メルカリの出所切替で-61%（R0がR2を飛ばしてはいけない）',
+    shouldReject: true,
+    id: 'tag-bolt-latias-latios-gx-sa-105',
+    date: '2026-08-19',
+    avg: 202625,
+    low: 139800,
+    high: 300000,
+    priceSource: 'mercari',
+    sampleCount: 9,
+    onSale: { count: 20, askLow: 183333, askMid: 400000 },
+    prev: { date: '2026-08-10', avg: 515000, source: 'snkrdunk', sample_count: 2, ask_low: 91000, ask_mid: 428250 },
+  },
+  {
+    name: 'ラティアス&ラティオスGX SA: その段差の元になった n=2 のスニダン値¥515,000（R5・出品最安は¥91,000）',
+    shouldReject: true,
+    id: 'tag-bolt-latias-latios-gx-sa-105',
+    date: '2026-08-08',
+    avg: 515000,
+    low: 463500,
+    high: 566500,
+    priceSource: 'snkrdunk',
+    sampleCount: 2,
+    onSale: { count: 23, askLow: 93000, askMid: 428250 },
+    prev: { date: '2026-07-29', avg: 405000, source: 'snkrdunk', sample_count: 2, ask_low: 350000, ask_mid: 530000 },
+  },
+  {
+    name: '正常: 出所が同じなら4日空きの前日比免除(R0)はこれまで通り効く',
+    shouldReject: false,
+    id: 'tag-bolt-latias-latios-gx-sr-104',
+    date: '2026-08-19',
+    avg: 6771,
+    low: 6000,
+    high: 7000,
+    priceSource: 'mercari',
+    sampleCount: 24,
+    onSale: { count: 25, askLow: 8700, askMid: 9999 },
+    prev: { date: '2026-08-14', avg: 9800, source: 'mercari', sample_count: 20, ask_low: 8700, ask_mid: 9999 },
+  },
+  {
+    name: '正常: 出所が変わっても2週間を超えて更新できていなければ受け入れる（凍り付き防止）',
+    shouldReject: false,
+    id: 'tag-bolt-latias-latios-gx-sa-105',
+    date: '2026-08-26',
+    avg: 217300,
+    low: 139800,
+    high: 300000,
+    priceSource: 'mercari',
+    sampleCount: 13,
+    onSale: { count: 20, askLow: 145000, askMid: 410000 },
+    prev: { date: '2026-07-28', avg: 346944, source: 'snkrdunk', sample_count: 4, ask_low: 350000, ask_mid: 530000 },
+  },
+  {
+    name: '正常: 出所切替でも出品中央値が新しい水準を裏付けていれば通す（ミュウex UR型の正常な切替）',
+    shouldReject: false,
+    id: 'mew-ex-ur-dummy',
+    date: '2026-08-19',
+    avg: 12970,
+    low: 11000,
+    high: 14500,
+    priceSource: 'snkrdunk',
+    sampleCount: 17,
+    onSale: { count: 40, askLow: 9800, askMid: 11111 },
+    prev: { date: '2026-08-12', avg: 7936, source: 'mercari', sample_count: 15, ask_low: 9500, ask_mid: 10800 },
+  },
 ]
 
 let failed = 0
@@ -293,6 +366,7 @@ for (const c of cases) {
     priceSource: c.priceSource,
     onSale: c.onSale as never,
     prev: c.prev as PriceRecord | null,
+    sampleCount: c.sampleCount,
   })
   const rejected = !verdict.ok
   const pass = rejected === c.shouldReject

@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
-import { updateExtremes } from '@/lib/extremes'
+import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
@@ -702,8 +702,25 @@ export function guardPrice(opts: {
   priceSource: PriceSource
   onSale: OnSaleResult | null
   prev: PriceRecord | null
+  /** 採用した成約の件数。取れなかった経路（スニダン鮮度切れ）では undefined */
+  sampleCount?: number
 }): { ok: true } | { ok: false; reason: string } {
-  const { id, date, avg, low, high, priceSource, onSale, prev } = opts
+  const { id, date, avg, low, high, priceSource, onSale, prev, sampleCount } = opts
+
+  // --- R5: 採用サンプルが薄すぎないか【R0より前に判定する】 ---
+  // 極値(src/lib/extremes.ts)は sample_count < MIN_SAMPLE_COUNT のレコードを「実勢から
+  // 外れやすい」として最初から候補にしていない。にもかかわらず書き込み側には件数の下限が
+  // 無く、同じ値がグラフと現在価格には出ていた。**極値が信用しない値を表示はする**という
+  // 食い違いが、そのまま「サイトの最高値より高い点がグラフにある」状態を作っていた。
+  //
+  // スニダン主経路は ADOPT=6 / KEEP=4 の件数ヒステリシスを自前で持っているのでここは素通りする。
+  // 実際に効くのは **メルカリ成約が取れなかった時のスニダン・フォールバック経路**で、
+  // ここだけ件数を一切見ていなかった。
+  //   実際に起きた事故: ラティアス&ラティオスGX SA — n=2 の ¥515,000 が3日分入り
+  //   （同じ日の出品最安は¥91,000〜93,000）、次にメルカリが取れた日に -61% の崖になった。
+  if (sampleCount != null && sampleCount < MIN_SAMPLE_COUNT) {
+    return { ok: false, reason: `採用サンプルが薄い（${sampleCount}件・${MIN_SAMPLE_COUNT}件未満は極値にも採らない水準）` }
+  }
 
   // --- R4: 価格帯(low〜high)が広がりすぎていないか【R0より前に判定する】 ---
   // 画面の「現在相場 ¥low〜¥high」は avg ではなくこの帯を出す。avg が妥当でも、成約が薄い日に
@@ -771,9 +788,32 @@ export function guardPrice(opts: {
   //   R0 経由で ¥160,573→¥258,750(+61%) を通した。これは verify-price-guard.ts に
   //   「弾くべき」ケースとして載っている 2026-08-01 の事故そのものの再来だった。
   //   裏付け系だけの免除なら、シュリンクなし¥102,150 との比 2.53倍 が R3 で止める。
+  //
+  // ⚠️ **出所が変わった日は R2 だけ免除しない**（R1 は従来どおり免除する）。
+  // R0 が救おうとしているのは「ask が汚れていて比が使えない」銘柄＝R1 の問題であって
+  // （上のニンフィアVMAX HR がまさにそれ）、R2 の「前日比の急変」ではない。ところが薄商いの
+  // 銘柄は *棄却されなくても* 成約が取れず勝手に日が空くため、R0 が常時開いた状態になり、
+  // スニダン⇔メルカリの水準差がそのまま段差として刻まれていた。
+  //   実際に起きた事故(2026-08-19): ラティアス&ラティオスGX SA — 8/10 スニダン¥515,000(n=2)
+  //   から9日空き、8/19 にメルカリ¥202,625(n=9) が **R0 経由で R2 を飛ばして** 通り、
+  //   グラフに -61% の崖ができた。前日レコードがあれば R2 が
+  //   「前日比-61%だが出品価格が追随せず」で弾いていた値である。
+  //   （極値側は MIN_SAMPLE_COUNT/MAX_DAY_CHANGE で両方とも不採用にしていたため、
+  //     「全期間高値¥367,963」と表示しながらグラフには¥515,000 が写る矛盾になっていた）
+  //
+  // ただし出所が恒久的に変わった銘柄が永久に凍るのは避ける。R0_SOURCE_FLIP_DAYS を超えて
+  // 更新できていなければ、出所が変わっていても受け入れる（3日ではなく2週間にすることで、
+  // 「弾く→日が空く→無条件で通る」のループが回る周期を実用上問題ない粗さまで落とす）。
+  const R0_SOURCE_FLIP_DAYS = 14
+  // R0 が開いたが出所が変わっているため R2 だけ効かせる状態
+  let askRuleExemptOnly = false
   if (prev?.date) {
     const ageDays = Math.round((Date.parse(date) - Date.parse(prev.date)) / 86400000)
-    if (ageDays > 3) return { ok: true }
+    if (ageDays > 3) {
+      const sourceFlipped = prev.source != null && prev.source !== priceSource
+      if (!sourceFlipped || ageDays > R0_SOURCE_FLIP_DAYS) return { ok: true }
+      askRuleExemptOnly = true
+    }
   }
 
   // --- R1: ask（出品価格）との整合。全ソースに適用する ---
@@ -785,7 +825,7 @@ export function guardPrice(opts: {
   //   イーブイヒーローズ(シュリンクなし): 成約¥60,500 に対し出品最安¥69,900・中央値¥169,444
   // ここで弾くと健全な成約avgまで巻き添えで凍るので、BOXは R2/R3 で守る。
   const isBoxPool = id.startsWith('box-')
-  const askRef = isBoxPool ? null : (onSale?.askMid ?? onSale?.askLow ?? null)
+  const askRef = (isBoxPool || askRuleExemptOnly) ? null : (onSale?.askMid ?? onSale?.askLow ?? null)
   if (askRef != null && askRef > 0) {
     let lo: number, hi: number
     if (priceSource === 'snkrdunk') {
@@ -1225,7 +1265,7 @@ async function scrapeCard(
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
 
     // ★全経路が通る単一の関門。ここを迂回して savePriceHistory を呼ばないこと（guardPrice 参照）
-    const verdict = guardPrice({ id, date, avg, low, high, priceSource, onSale, prev: readLatestRecord(id, date) })
+    const verdict = guardPrice({ id, date, avg, low, high, priceSource, onSale, prev: readLatestRecord(id, date), sampleCount })
     if (!verdict.ok) {
       console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
       stats.skipped++
