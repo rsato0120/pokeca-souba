@@ -23,6 +23,20 @@ export interface BuyCandidate {
   pricePosition: number | null  // 全期間の値幅の中の位置(0=最安,1=最高)。不明は null
   weekChange: number | null     // 7日変化率(%)
   factors: string[]             // 表示用の短い根拠ラベル（厚い論拠が無い時のフォールバック）
+  /** 0〜100 の「AI高騰気配」。score を画面用に正規化しただけで、順位は score と同じ */
+  heat: number
+  /** ✓ で並べる兆候。**実データで確認できたものだけ**を入れる */
+  omens: string[]
+  /** ⚠ で並べる注意点 */
+  cautions: string[]
+}
+
+// score → 0〜100 の変換。実測の分布（上位候補で概ね 20〜110）を 40〜99 に寝かせる。
+// ⚠ 「100点満点の絶対評価」ではなく候補内の相対的な強さ。0点や100点は出さない
+// （満点はモデルの確信を過大に見せる）。
+function heatOf(score: number): number {
+  const v = 40 + (score - 10) * 0.55
+  return Math.max(40, Math.min(99, Math.round(v)))
 }
 
 function midOf(r: PriceRecord): number {
@@ -106,7 +120,31 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
   if (card.materials.collector.illustrator_popularity === 'high') factors.push('人気イラストレーター')
   if (card.materials.common.character_popularity === 'high') factors.push('キャラ人気が高い')
 
-  return { card, slug, mid, score, upsidePct, netUp, pricePosition, weekChange, factors }
+  // ── 兆候（✓）と注意（⚠） ──
+  // ⚠ 実データで確認できたものだけを入れる。「海外需要上昇」「検索量増加」は
+  //   このサイトに取得経路が無いので出さない（無い数字を兆候として並べない）。
+  const omens: string[] = []
+  if (supplyTightening) omens.push('出品数減少')
+  // PSA10との価格差が開いている＝鑑定品が先に買われている
+  const withPsa = history.filter(r => r.psa10 != null && midOf(r) > 0)
+  if (withPsa.length >= 2) {
+    const nowR = Number(withPsa[0].psa10) / midOf(withPsa[0])
+    const oldR = Number(withPsa[withPsa.length - 1].psa10) / midOf(withPsa[withPsa.length - 1])
+    if (oldR > 0 && nowR / oldR >= 1.12) omens.push('PSA10価格差拡大')
+  }
+  if (pricePosition != null && pricePosition <= 0.35) omens.push('値幅の下限圏')
+  if (card.materials.common.scarcity === 'out_of_print') omens.push('絶版で流通が細い')
+  if (dipBonus > 0) omens.push('直近の押し目')
+
+  const cautions: string[] = []
+  if (thin) cautions.push('取引が薄く価格が振れやすい')
+  if (card.materials.common.reprint_status !== 'none') cautions.push('再販リスクあり')
+  if (pricePosition != null && pricePosition >= 0.85) cautions.push('値幅の上限圏')
+
+  return {
+    card, slug, mid, score, upsidePct, netUp, pricePosition, weekChange, factors,
+    heat: heatOf(score), omens, cautions,
+  }
 }
 
 // 上位候補を選ぶ。1弾に偏らないよう弾あたり上限を設ける。

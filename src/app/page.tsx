@@ -19,6 +19,11 @@ import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
 import MarketIndexChart, { type IndexWire } from '@/components/MarketIndexChart'
 import FeaturedTrio, { type TrioCard } from '@/components/FeaturedTrio'
+import MarketPulse from '@/components/MarketPulse'
+import HeatPicks, { type HeatPick } from '@/components/HeatPicks'
+import AnomalyFeed, { type AnomalyRow } from '@/components/AnomalyFeed'
+import { computeMarketTemp } from '@/lib/market-temp'
+import { selectAnomalies } from '@/lib/anomaly'
 import { getIndexMenu, getMarketIndex, indexChangePct } from '@/lib/index-series'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
@@ -308,6 +313,48 @@ export default function TopPage() {
     thesis: buyTheses[c.card.id] ?? null,
   }))
 
+  // ── 看板: AIが見つけた「まだ上がっていないカード」 ──
+  // 選定は既存の selectBuyCandidates をそのまま使う（ロジックは変えない）。
+  // 見せ方だけ、0〜100の「AI高騰気配」と兆候(✓)・注意(⚠)に組み替える。
+  const heatPicks: HeatPick[] = selectBuyCandidates(buyInputs, 3, 1).map((c) => {
+    const m = metricsBySlug.get(c.slug)
+    const fc = getForecast(c.slug)
+    return {
+      slug: c.slug,
+      name: c.card.card_name,
+      rarity: c.card.rarity,
+      cardNo: c.card.card_no,
+      image: c.card.image_url ?? null,
+      mid: c.mid,
+      dayPct: m?.dayChange ?? null,
+      heat: c.heat,
+      upPct: fc?.overall.up_pct ?? null,
+      m3Low: fc?.price_forecast.m3_low ?? null,
+      m3High: fc?.price_forecast.m3_high ?? null,
+      omens: c.omens,
+      cautions: c.cautions,
+      // 厚い論拠(BuyThesis)の見出しだけを短い理由として使う。全文はカード詳細で読ませる
+      thesis: buyTheses[c.card.id]?.headline ?? null,
+    }
+  })
+
+  // ── 看板: AI異変検知 ──
+  // 価格がまだ動いていないのに在庫・取引件数・PSA10価格差・値動きの荒さが動いている銘柄。
+  // 材料の揃わないシグナルは欠測として外し、画面に「対象外」と出す（src/lib/anomaly.ts 参照）。
+  const anomalyRows: AnomalyRow[] = selectAnomalies(
+    metrics
+      .filter(m => !isDeckUtilityCard(m.card))
+      .map(m => ({
+        card: m.card,
+        slug: m.slug,
+        history: m.records,
+        salesByDay: getPriceHistory(m.slug)?.sales_by_day,
+        latestDate: siteLatest,
+      })),
+    4,
+    2,
+  ).map(a => ({ ...a, image: a.card.image_url ?? null }))
+
   // 「あなた」の帯（保有評価額・前回訪問からの値動き）に渡す一覧。
   // 個人の数字はクライアントにしか無いので、材料だけ全部渡して向こうで組ませる。
   //
@@ -429,6 +476,25 @@ export default function TopPage() {
   const indexWeekPct = allIndex ? indexChangePct(allIndex, 7) : null
   const advCount = changeCards.filter(m => getChange(m) > 0).length
   const decCount = changeCards.filter(m => getChange(m) < 0).length
+
+  // AIの強弱。up_pct が down_pct を上回れば強気、下回れば弱気（拮抗は数えない）
+  let bullishCount = 0
+  let bearishCount = 0
+  for (const m of metrics) {
+    const o = m.forecast?.overall
+    if (!o) continue
+    if (o.up_pct > o.down_pct) bullishCount++
+    else if (o.down_pct > o.up_pct) bearishCount++
+  }
+
+  // 市場温度。指数の計算(index-series.ts)は一切触らず、読み替えだけをここで作る
+  const marketTemp = computeMarketTemp({
+    advancers: advCount,
+    decliners: decCount,
+    indexWeekPct: allIndex ? indexChangePct(allIndex, 7) : null,
+    bullish: bullishCount,
+    bearish: bearishCount,
+  })
   const advRatio = advCount + decCount > 0 ? (advCount / (advCount + decCount)) * 100 : null
   const highCount = extremeUpdates.filter(e => e.hit === 'high').length
   const lowCount = extremeUpdates.filter(e => e.hit === 'low').length
@@ -521,29 +587,44 @@ export default function TopPage() {
           <SearchBar cards={searchCards} />
         </div>
 
-        <div className="top-summary">
-          <div className="top-summary-head">
-            <span className="eyebrow" style={{ color: 'var(--accent)' }}>市場サマリー</span>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)' }}>
-              {indexLatest ? `${Number(indexLatest.date.slice(5, 7))}/${Number(indexLatest.date.slice(8, 10))} 時点` : ''}
-            </span>
-          </div>
-          {summaryRows.map((r) => (
-            <div key={r.label} className="top-summary-row">
-              <span className="top-summary-label">{r.label}</span>
-              <span className="top-summary-value">{r.value}</span>
-              <span
-                className="top-summary-sub"
-                style={{ color: r.tone === 'up' ? 'var(--up)' : r.tone === 'down' ? 'var(--down)' : 'var(--ink-faint)' }}
-              >
-                {r.sub ?? ''}
-              </span>
-            </div>
-          ))}
-          <div className="source-note" style={{ marginTop: 'var(--sp-2)' }}>
-            騰落は前日比（無い銘柄は7日比）。指数は等ウェイトの連鎖指数です。
-          </div>
+        <MarketPulse
+          index={indexLatest?.value ?? null}
+          indexDayPct={indexDayPct}
+          indexDate={indexLatest?.date ?? null}
+          temp={marketTemp}
+          advancers={advCount}
+          decliners={decCount}
+          bullish={bullishCount}
+          bearish={bearishCount}
+        />
+      </section>
+
+      {/* ── 看板① AIが見つけた、まだ上がっていないカード ──
+          サイトの強みを3秒で伝える枠なので、ファーストビュー直下に単独で置く */}
+      {heatPicks.length > 0 && (
+        <section className="sec">
+          <h2 className="flag-title">
+            AIが見つけた、<br />
+            <span style={{ color: 'var(--accent)' }}>まだ上がっていないカード。</span>
+          </h2>
+          <p className="flag-sub">
+            AIの上昇予想・割安度・在庫の減り方から、値動きが出る前の銘柄を毎日選び直しています。
+          </p>
+          <HeatPicks picks={heatPicks} />
+        </section>
+      )}
+
+      {/* ── 看板② AI異変検知 ── */}
+      <section className="sec">
+        <div className="sec-head">
+          <span className="sec-no" style={{ color: 'var(--accent)' }}>⚡</span>
+          <span className="sec-title">AI異変検知</span>
+          <span className="sec-sub">価格が動く前の需給の変化を拾う</span>
         </div>
+        <p className="flag-sub" style={{ marginBottom: 'var(--sp-4)' }}>
+          在庫・取引件数・PSA10との価格差・値動きの荒さを毎日見て、価格そのものがまだ動いていない銘柄だけを出しています。
+        </p>
+        <AnomalyFeed rows={anomalyRows} />
       </section>
 
       {/* 市場全体の基準線。個別カードの騰落を「市場と比べて」読むための土台なので、
@@ -720,13 +801,18 @@ export default function TopPage() {
         </div>
       )}
 
-      {/* ── 02: 今買われているカード ── */}
+      {/* ── 02: 在庫吸収ランキング（旧「今買われているカード」）──
+          中身の選定・並び順は変えていない。出品数が減る＝在庫が吸われている、という
+          需給の話をしている枠なので、分析側の言葉に合わせて名前だけ変えた */}
       <div className="sec">
         <div className="sec-head">
-          <span className="sec-no" style={{ color: 'var(--up)' }}>02</span>
-          <span className="sec-title">今買われているカード</span>
-          <span className="sec-sub">出品数が減少＝在庫が捌けている</span>
+          <span className="sec-no" style={{ color: 'var(--up)' }}>🧹</span>
+          <span className="sec-title">在庫吸収ランキング</span>
+          <span className="sec-sub">出品数が減少＝市場の在庫が吸われている</span>
         </div>
+        <p className="flag-sub" style={{ marginBottom: 'var(--sp-3)' }}>
+          価格がまだ動いていなくても、売り物が減っていれば次に効いてくるのは値段です。
+        </p>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {buyingCards.length === 0 ? (
             <div style={{ padding: 'var(--sp-5) 0', fontSize: 'var(--fs-base)', color: 'var(--ink-faint)' }}>データ蓄積中（毎日自動更新）</div>
@@ -774,13 +860,16 @@ export default function TopPage() {
         </div>
       </div>
 
-      {/* ── 03: 今売られているカード ── */}
+      {/* ── 03: 売り圧ランキング（旧「今売られているカード」）── */}
       <div className="sec">
         <div className="sec-head">
-          <span className="sec-no" style={{ color: 'var(--down)' }}>03</span>
-          <span className="sec-title">今売られているカード</span>
-          <span className="sec-sub">出品数が増加＝売り圧が高まっている</span>
+          <span className="sec-no" style={{ color: 'var(--down)' }}>▲</span>
+          <span className="sec-title">売り圧ランキング</span>
+          <span className="sec-sub">出品数が増加＝売りたい人が増えている</span>
         </div>
+        <p className="flag-sub" style={{ marginBottom: 'var(--sp-3)' }}>
+          手放す人が増えている銘柄です。買うなら価格が落ち着くのを待つ判断もあります。
+        </p>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {sellingCards.length === 0 ? (
             <div style={{ padding: 'var(--sp-5) 0', fontSize: 'var(--fs-base)', color: 'var(--ink-faint)' }}>データ蓄積中（毎日自動更新）</div>
