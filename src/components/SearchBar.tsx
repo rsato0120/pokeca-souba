@@ -121,7 +121,7 @@ export default function SearchBar({ cards }: { cards: SearchCard[] }) {
                   style={{
                     fontFamily: 'var(--mono)',
                     fontSize: '11px',
-                    color: 'var(--gold)',
+                    color: 'var(--accent)',
                   }}
                 >
                   {c.rarity}

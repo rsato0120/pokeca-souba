@@ -51,7 +51,7 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
               display: 'block',
               background: 'var(--panel)',
               border: '1px solid var(--hair)',
-              borderLeft: '3px solid var(--gold)',
+              borderLeft: '3px solid var(--accent)',
               borderRadius: 'var(--r-lg)',
               boxShadow: 'var(--shadow-sm)',
               padding: 'var(--sp-4) var(--sp-5)',
@@ -65,7 +65,7 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
                 className="buy-rank"
                 style={{
                   fontFamily: 'var(--mincho)', fontSize: 'var(--fs-lg)', fontWeight: 800,
-                  color: 'var(--gold)', textAlign: 'center', lineHeight: 1.2,
+                  color: 'var(--accent)', textAlign: 'center', lineHeight: 1.2,
                 }}
               >
                 {i + 1}
@@ -81,7 +81,7 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
                 <div style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'baseline' }}>
                   <div className="row-name" style={{ minWidth: 0, flex: 1 }}>
                     {card.card_name}
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                   </div>
                   {conv && (
                     <span
@@ -116,7 +116,7 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
                       </div>
                     )}
                     <ThesisRow label="割安" text={thesis.valuation} color="var(--up)" />
-                    <ThesisRow label="買い時" text={thesis.timing} color="var(--gold)" />
+                    <ThesisRow label="買い時" text={thesis.timing} color="var(--accent)" />
                     <ThesisRow label="材料" text={thesis.catalyst} color="var(--ink-dim)" />
                     <ThesisRow label="注意" text={thesis.risk} color="var(--down)" />
                   </div>

@@ -151,8 +151,8 @@ export default function CollectionRank({
           disabled={busy || registered === null}
           onClick={register}
           style={{
-            padding: '9px 18px', borderRadius: '8px', border: '1px solid var(--gold)',
-            background: 'transparent', color: 'var(--gold)', fontFamily: 'var(--mono)',
+            padding: '9px 18px', borderRadius: '8px', border: '1px solid var(--accent)',
+            background: 'transparent', color: 'var(--accent)', fontFamily: 'var(--mono)',
             fontSize: '13px', fontWeight: 700, cursor: busy ? 'default' : 'pointer',
             opacity: busy || registered === null ? 0.6 : 1,
           }}
@@ -180,7 +180,7 @@ export default function CollectionRank({
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap' }}>
             {showPct ? (
               <>
-                <span style={{ fontSize: '30px', fontWeight: 700, fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--gold)' }}>
+                <span style={{ fontSize: '30px', fontWeight: 700, fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--accent)' }}>
                   上位{topPct}%
                 </span>
                 <span style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)' }}>
@@ -189,7 +189,7 @@ export default function CollectionRank({
               </>
             ) : (
               <>
-                <span style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--gold)' }}>
+                <span style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--accent)' }}>
                   {n}人中 {rank}位
                 </span>
               </>

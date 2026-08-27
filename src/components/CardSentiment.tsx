@@ -262,8 +262,8 @@ export default function CardSentiment({
             disabled={busy}
             onClick={() => submit(myStance, myComment, myName)}
             style={{
-              padding: '7px 16px', borderRadius: '6px', border: '1px solid var(--gold)',
-              background: 'transparent', color: 'var(--gold)', fontFamily: 'var(--mono)',
+              padding: '7px 16px', borderRadius: '6px', border: '1px solid var(--accent)',
+              background: 'transparent', color: 'var(--accent)', fontFamily: 'var(--mono)',
               fontSize: '12px', fontWeight: 700, cursor: busy ? 'default' : 'pointer', opacity: busy ? 0.6 : 1,
             }}
           >
@@ -298,7 +298,7 @@ export default function CardSentiment({
 
       <p style={{ fontSize: '11px', color: 'var(--ink-faint)', marginTop: '12px', lineHeight: 1.7 }}>
         投票はログイン不要（1カード1票・押し直しで変更できます）。投稿内容は他の閲覧者にも表示されます。
-        表示名を入れると<a href="/ranking" style={{ color: 'var(--gold)' }}>的中率ランキング</a>に名前が出ます（先着順・他の方と同じ名前は使えません）。
+        表示名を入れると<a href="/ranking" style={{ color: 'var(--accent)' }}>的中率ランキング</a>に名前が出ます（先着順・他の方と同じ名前は使えません）。
       </p>
     </div>
   )

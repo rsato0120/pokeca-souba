@@ -5,7 +5,7 @@ import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { midOf } from '@/lib/market'
 import type { ScreenerRow } from '@/components/ScreenerTable'
 import WatchlistView from '@/components/WatchlistView'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 
 export const metadata: Metadata = {
   title: 'ウォッチリスト',
@@ -72,18 +72,14 @@ export default function WatchlistPage() {
       >
         ← トップへ戻る
       </Link>
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: 'var(--fs-xl)', fontWeight: 800, margin: 'var(--sp-5) 0 var(--sp-2)' }}>
         ウォッチリスト
       </h1>
       <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: 'var(--sp-5)' }}>
         買うかどうか迷っているカードを登録しておく一覧です。
-        持っているカードの評価額は<Link href="/portfolio" style={{ color: 'var(--gold)' }}>マイコレクション</Link>で管理できます。
+        持っているカードの評価額は<Link href="/portfolio" style={{ color: 'var(--accent)' }}>マイコレクション</Link>で管理できます。
       </p>
 
       <WatchlistView cards={rows} index7d={index7d} />

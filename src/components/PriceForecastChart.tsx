@@ -165,14 +165,14 @@ export default function PriceForecastChart({ history, forecast }: Props) {
   }, [tab, history, todayMs, curMid, growthM1, growthM3, latestPsa10])
 
   const accent = upPct > 0 ? 'var(--up)' : upPct < 0 ? 'var(--down)' : 'var(--flat)'
-  const actualColor = tab === 'raw' ? 'var(--gold)' : '#6c8ebf'
+  const actualColor = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
 
   const tabBtn = (id: Tab): React.CSSProperties => ({
     flex: '0 0 auto',
     padding: '9px 20px',
     borderRadius: '8px',
     // 非アクティブも明るい文字＋見える枠でモバイルでも判別できるようにする
-    border: `1px solid ${tab === id ? 'var(--gold)' : 'var(--ink-faint)'}`,
+    border: `1px solid ${tab === id ? 'var(--accent)' : 'var(--ink-faint)'}`,
     background: tab === id ? 'var(--panel)' : 'transparent',
     color: tab === id ? 'var(--ink)' : 'var(--ink-dim)',
     fontFamily: 'var(--mono)',

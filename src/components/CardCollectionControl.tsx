@@ -75,7 +75,7 @@ export default function CardCollectionControl({ cardId, hasPsa10 }: Props) {
         MY COLLECTION · コレクションに追加
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {stepper('素体', 'var(--gold)', cardId, rawQty)}
+        {stepper('素体', 'var(--accent)', cardId, rawQty)}
         {hasPsa10 && stepper('PSA10', '#6c8ebf', pKey, psaQty)}
       </div>
     </div>

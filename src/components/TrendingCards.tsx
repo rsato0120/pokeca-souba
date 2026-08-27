@@ -73,7 +73,7 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
   return (
     <div className="sec">
       <div className="sec-head">
-        <span className="sec-no" style={{ color: 'var(--gold)' }}>01c</span>
+        <span className="sec-no" style={{ color: 'var(--accent)' }}>01c</span>
         <span className="sec-title">みんなの注目ランキング</span>
         <span className="sec-sub">直近{DAYS}日でよく見られているカード</span>
       </div>
@@ -94,7 +94,7 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
               >
                 <span style={{
                   fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700,
-                  color: i < 3 ? 'var(--gold)' : 'var(--ink-faint)', textAlign: 'right',
+                  color: i < 3 ? 'var(--accent)' : 'var(--ink-faint)', textAlign: 'right',
                 }}>
                   {i + 1}
                 </span>
@@ -109,7 +109,7 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
                 <div style={{ minWidth: 0 }}>
                   <div className="row-name">
                     {card.name}
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                     {surge && (
                       <span style={{
                         fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', fontWeight: 700,
@@ -125,7 +125,7 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
                       幅ではなく scaleX を動かす（幅のアニメは再レイアウトが走る） */}
                   <div style={{ height: '4px', background: 'var(--bg2)', borderRadius: '2px', margin: '5px 0 3px', overflow: 'hidden' }}>
                     <div style={{
-                      height: '100%', background: 'var(--gold)', borderRadius: '2px',
+                      height: '100%', background: 'var(--accent)', borderRadius: '2px',
                       transform: `scaleX(${share})`, transformOrigin: 'left',
                       transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
                     }} />

@@ -26,7 +26,12 @@ export default function OrderBook({ latest, prev = null }: Props) {
   if (askLow == null && askMid == null && onSale == null) return null
 
   const prevOnSale = prev?.on_sale != null ? Number(prev.on_sale) : null
-  const onSaleDiff = onSale != null && prevOnSale != null ? onSale - prevOnSale : null
+  // 打ち切りに達した件数は「N件以上」の下限値。下限どうしの引き算は増減として読めないので
+  // （どちらも本当の件数が分からない）、前回比は片方でも打ち切りなら出さない
+  const capped = latest.on_sale_capped === true
+  const prevCapped = prev?.on_sale_capped === true
+  const onSaleDiff =
+    onSale != null && prevOnSale != null && !capped && !prevCapped ? onSale - prevOnSale : null
 
   // 最安出品と成約平均の乖離。ここが読みどころなので言葉にして添える
   const gap = askLow != null && traded > 0 ? pctDiff(askLow, traded) : null
@@ -53,7 +58,7 @@ export default function OrderBook({ latest, prev = null }: Props) {
         {cell(
           '最安出品（いま買える値）',
           askLow != null
-            ? <span style={{ color: 'var(--gold)' }}>¥{Math.round(askLow).toLocaleString()}</span>
+            ? <span style={{ color: 'var(--accent)' }}>¥{Math.round(askLow).toLocaleString()}</span>
             : <span style={{ color: 'var(--ink-faint)', fontWeight: 400 }}>—</span>,
           gap != null ? `成約平均比 ${gap >= 0 ? '+' : ''}${gap.toFixed(1)}%` : undefined,
         )}
@@ -66,7 +71,7 @@ export default function OrderBook({ latest, prev = null }: Props) {
         {cell(
           '出品中',
           onSale != null
-            ? <span style={{ color: 'var(--ink-dim)' }}>{onSale}件</span>
+            ? <span style={{ color: 'var(--ink-dim)' }}>{onSale}件{capped && '以上'}</span>
             : <span style={{ color: 'var(--ink-faint)', fontWeight: 400 }}>—</span>,
           onSaleDiff != null && onSaleDiff !== 0 ? (
             <span style={{ color: onSaleDiff > 0 ? 'var(--down)' : 'var(--up)' }}>

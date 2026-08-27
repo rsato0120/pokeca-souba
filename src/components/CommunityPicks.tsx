@@ -90,7 +90,7 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
   return (
     <div className="sec">
       <div className="sec-head">
-        <span className="sec-no" style={{ color: 'var(--gold)' }}>01b</span>
+        <span className="sec-no" style={{ color: 'var(--accent)' }}>01b</span>
         <span className="sec-title">みんなの予想 注目カード</span>
         <span className="sec-sub">閲覧者の投票が上昇に寄っているカード</span>
       </div>
@@ -112,7 +112,7 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
                 )}
                 <div>
                   <div className="row-name">{card.name}
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                   </div>
                   <div className="row-meta">
                     <span style={{ color: STANCE_COLOR.up }}>上昇 {upPct}%</span>
@@ -123,7 +123,7 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
                     {' · '}{tally.total}票
                   </div>
                   {card.aiUp != null && (
-                    <div className="row-meta" style={{ color: diverges ? 'var(--gold)' : 'var(--ink-faint)' }}>
+                    <div className="row-meta" style={{ color: diverges ? 'var(--accent)' : 'var(--ink-faint)' }}>
                       AI予想 上昇確率 {card.aiUp}%
                       {/* 主語を必ず書く。「違って強気」だと直前の「AI予想」に係って読め、
                           AIが強気だと逆に取れる（実際に強気なのは票の側）。語彙も

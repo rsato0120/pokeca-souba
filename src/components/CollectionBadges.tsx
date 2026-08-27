@@ -12,13 +12,13 @@ function EarnedBadge({ badge }: { badge: Badge }) {
       style={{
         display: 'flex', flexDirection: 'column', gap: '2px',
         padding: '10px 14px',
-        border: '1px solid var(--gold)',
+        border: '1px solid var(--accent)',
         borderRadius: 'var(--r-md)',
         background: 'linear-gradient(160deg, rgba(169,123,31,0.10), rgba(169,123,31,0.02))',
         minWidth: 0,
       }}
     >
-      <span style={{ fontFamily: 'var(--mincho)', fontSize: 'var(--fs-md)', fontWeight: 800, color: 'var(--gold)', lineHeight: 1.3 }}>
+      <span style={{ fontFamily: 'var(--mincho)', fontSize: 'var(--fs-md)', fontWeight: 800, color: 'var(--accent)', lineHeight: 1.3 }}>
         {badge.name}
       </span>
       <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--ink-faint)' }}>
@@ -46,7 +46,7 @@ function NextBadge({ badge }: { badge: Badge }) {
         <div
           className="anim-grow"
           style={{
-            height: '100%', borderRadius: '999px', background: 'var(--gold)', opacity: 0.65,
+            height: '100%', borderRadius: '999px', background: 'var(--accent)', opacity: 0.65,
             width: `${(badge.progress * 100).toFixed(1)}%`,
           }}
         />
@@ -80,11 +80,11 @@ function RankHero({ state }: { state: RankState }) {
             </div>
             {/* 比率は width で持つ（inline transform は .anim-grow の scaleX(1) に潰される） */}
             <div style={{ height: '5px', borderRadius: '999px', background: 'var(--hair)', marginTop: '5px', overflow: 'hidden' }}>
-              <div className="anim-grow" style={{ height: '100%', borderRadius: '999px', background: 'var(--gold)', width: `${(state.progress * 100).toFixed(1)}%` }} />
+              <div className="anim-grow" style={{ height: '100%', borderRadius: '999px', background: 'var(--accent)', width: `${(state.progress * 100).toFixed(1)}%` }} />
             </div>
           </>
         ) : (
-          <p style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginTop: '6px' }}>
+          <p style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginTop: '6px' }}>
             最高ランク到達　{state.detail}
           </p>
         )}

@@ -93,7 +93,9 @@ export interface PriceRecord {
   // avg に採用した成約のうち最も古いものが何日前か（メルカリ由来のみ）。薄商い銘柄では成約が
   // 数ヶ月〜1年に散らばるため、「いつの取引で出した値か」を残さないと古い相場と区別できない
   oldest_sale_days?: number
-  on_sale?: number      // メルカリ出品中件数（供給圧）
+  on_sale?: number      // メルカリ出品中件数（供給圧）＝除外・番号照合を通した実数
+  /** on_sale がページ上限での打ち切り＝下限値であることを示す（画面は「N件以上」と出す） */
+  on_sale_capped?: boolean
   ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
   ask_mid?: number      // 出品中の中央値
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）

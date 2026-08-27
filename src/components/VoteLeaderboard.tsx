@@ -56,7 +56,7 @@ export default function VoteLeaderboard({ prices, baseDate }: { prices: PriceMat
   return (
     <div className="sec">
       <div className="sec-head">
-        <span className="sec-no" style={{ color: 'var(--gold)' }}>—</span>
+        <span className="sec-no" style={{ color: 'var(--accent)' }}>—</span>
         <span className="sec-title">予想的中率ランキング</span>
         <span className="sec-sub">投票から{HORIZON_DAYS}日後の値動きで採点</span>
       </div>
@@ -75,7 +75,7 @@ export default function VoteLeaderboard({ prices, baseDate }: { prices: PriceMat
             <div key={u.userId} className="row" style={{ gridTemplateColumns: '32px 1fr auto' }}>
               <div style={{
                 fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700,
-                color: i < 3 ? 'var(--gold)' : 'var(--ink-faint)',
+                color: i < 3 ? 'var(--accent)' : 'var(--ink-faint)',
               }}>
                 {i + 1}
               </div>

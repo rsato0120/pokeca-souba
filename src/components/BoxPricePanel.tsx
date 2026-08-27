@@ -89,7 +89,7 @@ export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerB
     flex: '0 0 auto',
     padding: '8px 16px',
     borderRadius: '8px',
-    border: `1px solid ${tab === id ? 'var(--gold)' : 'var(--ink-faint)'}`,
+    border: `1px solid ${tab === id ? 'var(--accent)' : 'var(--ink-faint)'}`,
     background: tab === id ? 'var(--panel)' : 'transparent',
     color: tab === id ? 'var(--ink)' : 'var(--ink-dim)',
     fontFamily: 'var(--mono)',

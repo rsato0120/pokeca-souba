@@ -5,12 +5,13 @@ import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory,
 import { getSetProducts } from '@/lib/set-boxes'
 import { computeBoxEv } from '@/lib/box-ev'
 import BoxCardList from '@/components/BoxCardList'
+import BeeHonpoBanner from '@/components/BeeHonpoBanner'
 import { sparkSeries } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
 import BoxPricePanel from '@/components/BoxPricePanel'
 import BoxExpectedValue from '@/components/BoxExpectedValue'
 import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -147,11 +148,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       >
         ← トップへ戻る
       </Link>
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       {/* ── BOX切替（ドロップダウン選択） ── */}
       <BoxSelector
@@ -289,6 +286,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             )
           })()}
 
+          {/* bee本舗バナー（A8 / PR）。「探す」で外部に出る直前が最も意図が合う */}
+          <BeeHonpoBanner marginY={10} />
+
           {/* Xシェアボタン */}
           {(() => {
             const tweetText = [
@@ -339,7 +339,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       {priceRanking.length > 0 && (
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid var(--hair)' }}>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--gold)', letterSpacing: '0.12em' }}>RANKING</span>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.12em' }}>RANKING</span>
             <span style={{ fontFamily: 'var(--mincho)', fontSize: '17px', fontWeight: 700 }}>価格変動ランキング</span>
             <span className="section-sub" style={{ fontSize: '11px', color: 'var(--ink-faint)', marginLeft: 'auto' }}>7日間変化率順</span>
           </div>

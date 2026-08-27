@@ -16,9 +16,10 @@ import PriceTicker, { type TickerItem } from '@/components/PriceTicker'
 import Sparkline from '@/components/Sparkline'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 import MarketIndexChart, { type IndexWire } from '@/components/MarketIndexChart'
-import { getIndexMenu, getMarketIndex } from '@/lib/index-series'
+import FeaturedTrio, { type TrioCard } from '@/components/FeaturedTrio'
+import { getIndexMenu, getMarketIndex, indexChangePct } from '@/lib/index-series'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
   const box = boxes.find((b) => b.box_id === card.box_id)
@@ -385,17 +386,77 @@ export default function TopPage() {
     }
   })
 
-  const featured = notableCards[0] ?? cardsWithForecast[0]
-  const featuredSlug = featured ? getCardSlug(featured.card) : ''
-  const featuredBox = featured ? getBoxById(featured.card.box_id) : undefined
+  // ── 今日の注目カード（3枚） ──
+  // 上昇確率の高い順（notableCards は既に弾の偏りをならしてある）。
+  // 現在相場・前日比は metrics から引く（forecast の current_low/high は予想生成時点の値なので、
+  // 「今いくらか」を出す枠ではスクレイプ由来の実測を使う）
+  const trioCards: TrioCard[] = notableCards.slice(0, 3).map(({ card, forecast }) => {
+    const slug = getCardSlug(card)
+    const m = metricsBySlug.get(slug)
+    const o = forecast?.overall
+    const stance = o
+      ? (o.up_pct >= o.flat_pct && o.up_pct >= o.down_pct
+          ? '強気'
+          : o.down_pct >= o.flat_pct
+          ? '弱気'
+          : '中立')
+      : null
+    return {
+      slug,
+      name: card.card_name,
+      rarity: card.rarity,
+      cardNo: card.card_no,
+      boxId: card.box_id,
+      boxName: getBoxById(card.box_id)?.box_name ?? card.box_id,
+      image: card.image_url ?? null,
+      mid: m && m.currentMid > 0 ? Math.round(m.currentMid) : null,
+      changePct: m?.dayChange ?? m?.weekChange ?? null,
+      changeLabel: m?.dayChange != null ? '前日比' : m?.weekChange != null ? '7日比' : null,
+      upPct: o?.up_pct ?? null,
+      stance,
+    }
+  })
+
+  // ── 市場サマリー（ヒーロー右） ──
+  // ⚠ ここに出してよいのは**実データで裏付けられる指標だけ**。
+  //   「取引件数(24h)」「総取引額(24h)」は出さない。成約数はスニダン売買履歴が唯一の実データ源で、
+  //   BOXは61系列すべてに sales_by_day が無く、カードも直近7日の充填率が23.2%しかない
+  //   （2026-08-28 実測）。24時間の件数も金額も裏が取れないので、置けば飾りの嘘になる。
+  //   代わりに騰落銘柄数（advance/decline）を出す。指数と意味が繋がっていて実データで出せる。
+  const allIndex = getMarketIndex('all')
+  const indexLatest = allIndex?.series[allIndex.series.length - 1] ?? null
+  const indexDayPct = allIndex ? indexChangePct(allIndex, 1) : null
+  const indexWeekPct = allIndex ? indexChangePct(allIndex, 7) : null
+  const advCount = changeCards.filter(m => getChange(m) > 0).length
+  const decCount = changeCards.filter(m => getChange(m) < 0).length
+  const advRatio = advCount + decCount > 0 ? (advCount / (advCount + decCount)) * 100 : null
+  const highCount = extremeUpdates.filter(e => e.hit === 'high').length
+  const lowCount = extremeUpdates.filter(e => e.hit === 'low').length
+
+  const summaryRows: { label: string; value: string; sub: string | null; tone: 'up' | 'down' | 'flat' }[] = [
+    {
+      label: '総合指数',
+      value: indexLatest ? indexLatest.value.toFixed(2) : '—',
+      sub: indexDayPct != null ? `前日 ${indexDayPct >= 0 ? '+' : ''}${indexDayPct.toFixed(2)}%` : null,
+      tone: indexDayPct == null ? 'flat' : indexDayPct > 0 ? 'up' : indexDayPct < 0 ? 'down' : 'flat',
+    },
+    {
+      label: '値上がり / 値下がり',
+      value: `${advCount} / ${decCount}`,
+      sub: advRatio != null ? `上昇比率 ${advRatio.toFixed(0)}%` : null,
+      tone: advRatio == null ? 'flat' : advRatio > 55 ? 'up' : advRatio < 45 ? 'down' : 'flat',
+    },
+    {
+      label: '高値 / 安値 更新',
+      value: `${highCount} / ${lowCount}`,
+      sub: indexWeekPct != null ? `指数7日 ${indexWeekPct >= 0 ? '+' : ''}${indexWeekPct.toFixed(2)}%` : null,
+      tone: highCount === lowCount ? 'flat' : highCount > lowCount ? 'up' : 'down',
+    },
+  ]
 
   return (
     <div className="wrap">
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       {/* 本日の値動きを流す帯。開いた瞬間に「動いている市場」だと分かるようヘッダ直下に置く */}
       <PriceTicker items={tickerItems} />
@@ -426,10 +487,10 @@ export default function TopPage() {
               読まれないので撤去した（下のドロップダウンで選べる） */}
         </span>
         <span style={{ display: 'flex', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
-          <Link href="/screener" className="pill pill-gold">スクリーナー →</Link>
+          <Link href="/screener" className="pill pill-accent">スクリーナー →</Link>
           <Link href="/watchlist" className="pill">ウォッチリスト →</Link>
           <Link href="/accuracy" className="pill">AI的中実績 →</Link>
-          <Link href="/portfolio" className="pill pill-gold">マイコレクション →</Link>
+          <Link href="/portfolio" className="pill pill-accent">マイコレクション →</Link>
         </span>
       </div>
 
@@ -446,11 +507,48 @@ export default function TopPage() {
         カードごとに取引件数の多い方を採用し、出所は各カードのページに表示しています。
       </div>
 
+      {/* ── ヒーロー: 何のサイトかを1行で言い切り、その場で検索させる ──
+          右は市場サマリー。**実データで裏付けられる3指標だけ**を置いている（summaryRows のコメント参照） */}
+      <section className="top-hero">
+        <div>
+          <h1 className="top-hero-title">
+            ポケモンカードの<br />
+            <span style={{ color: 'var(--accent)' }}>「これから」</span>が分かる。
+          </h1>
+          <p className="top-hero-sub">
+            現在の相場から、AIが今後の価格を根拠つきで予想します。
+          </p>
+          <SearchBar cards={searchCards} />
+        </div>
+
+        <div className="top-summary">
+          <div className="top-summary-head">
+            <span className="eyebrow" style={{ color: 'var(--accent)' }}>市場サマリー</span>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-faint)' }}>
+              {indexLatest ? `${Number(indexLatest.date.slice(5, 7))}/${Number(indexLatest.date.slice(8, 10))} 時点` : ''}
+            </span>
+          </div>
+          {summaryRows.map((r) => (
+            <div key={r.label} className="top-summary-row">
+              <span className="top-summary-label">{r.label}</span>
+              <span className="top-summary-value">{r.value}</span>
+              <span
+                className="top-summary-sub"
+                style={{ color: r.tone === 'up' ? 'var(--up)' : r.tone === 'down' ? 'var(--down)' : 'var(--ink-faint)' }}
+              >
+                {r.sub ?? ''}
+              </span>
+            </div>
+          ))}
+          <div className="source-note" style={{ marginTop: 'var(--sp-2)' }}>
+            騰落は前日比（無い銘柄は7日比）。指数は等ウェイトの連鎖指数です。
+          </div>
+        </div>
+      </section>
+
       {/* 市場全体の基準線。個別カードの騰落を「市場と比べて」読むための土台なので、
           個別の枠より先に置く */}
       <MarketIndexChart indices={indexWires} />
-
-      <SearchBar cards={searchCards} />
 
       {/* ── BOXナビ（ドロップダウン選択） ── */}
       <BoxSelector
@@ -459,111 +557,20 @@ export default function TopPage() {
           .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
       />
 
-      {/* ── ヒーロー ── */}
-      {featured && (
-        // ⚠ ヒーロー全体を <Link> で包んではいけない。中に「収録弾」へのリンクがあるため
-        // <a> の入れ子になり、HTMLとして不正＝トップページ全体が hydration に失敗して
-        // クライアントで再描画されていた（React error #418）。
-        // カード全体をクリック可能にしたまま入れ子を避けるため、外側のリンクは
-        // 絶対配置のオーバーレイにし、内側のリンクを z-index で上に出す。
-        <div
-          className="hero-grid"
-          style={{
-            position: 'relative',
-            display: 'grid',
-            gridTemplateColumns: '180px 1fr',
-            gap: 'var(--sp-6)',
-            alignItems: 'center',
-            background: 'var(--bg2)',
-            border: '1px solid var(--hair)',
-            borderRadius: 'var(--r-lg)',
-            boxShadow: 'var(--shadow-sm)',
-            padding: 'var(--sp-5)',
-            marginBottom: 'var(--sp-7)',
-            borderBottomColor: 'var(--hair)',
-          }}
-        >
-          <Link
-            href={`/cards/${featuredSlug}`}
-            aria-label={`${featured.card.card_name} ${featured.card.rarity} の詳細`}
-            style={{ position: 'absolute', inset: 0, zIndex: 1, borderRadius: 'var(--r-lg)' }}
-          />
-          {/* holo = 触ると光沢が斜めに走る。ポケカの実物の質感に寄せた演出（CSSのみ） */}
-          <div className="pokecard holo" style={{ padding: featured.card.image_url ? '0' : undefined, overflow: 'hidden' }}>
-            {featured.card.image_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={featured.card.image_url}
-                alt={`${featured.card.card_name} ${featured.card.rarity}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : (
-              <div className="ph">
-                <span className="big">{featured.card.card_name}</span>
-                <span>カード画像</span>
-              </div>
-            )}
-            <div className="no">{featured.card.card_no} ・ {featured.card.rarity}</div>
+      {/* ── 今日の注目カード（3枚） ──
+          旧: 1枚だけを大きく出すヒーロー。すぐ下の「01」の1位と必ず同じカードになり
+          先頭2ブロックが同じ情報を繰り返していたので3枚に広げた（FeaturedTrio.tsx 参照） */}
+      {trioCards.length > 0 && (
+        <div className="sec">
+          <div className="sec-head">
+            <span className="sec-no" style={{ color: 'var(--accent)' }}>◆</span>
+            <span className="sec-title">今日の注目カード</span>
+            <span className="sec-sub">AIの上昇確率が高い順</span>
           </div>
-          <div>
-            <div className="eyebrow" style={{ color: 'var(--gold)', marginBottom: 'var(--sp-2)' }}>
-              FEATURED · 今週の注目
-            </div>
-            <h2
-              className="hero-title"
-              style={{
-                fontFamily: 'var(--mincho)',
-                fontSize: 'var(--fs-xl)',
-                fontWeight: 800,
-                lineHeight: 1.3,
-                marginBottom: 'var(--sp-2)',
-                color: 'var(--ink)',
-              }}
-            >
-              {featured.card.card_name} {featured.card.rarity}
-            </h2>
-            <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', marginBottom: 'var(--sp-3)' }}>
-              {featured.card.evidence_notes.collector}
-            </p>
-            <div
-              style={{
-                display: 'flex',
-                gap: 'var(--sp-5)',
-                fontFamily: 'var(--mono)',
-                flexWrap: 'wrap',
-              }}
-            >
-              <div>
-                <div className="stat-label">収録弾</div>
-                <Link
-                  href={`/boxes/${featured.card.box_id}`}
-                  // オーバーレイのカードリンクより上に出す（でないとクリックが吸われる）
-                  style={{ position: 'relative', zIndex: 2, fontSize: '17px', color: 'var(--ink)', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
-                >
-                  {featuredBox?.box_name ?? featured.card.box_id}
-                </Link>
-              </div>
-              {featured.forecast && (
-                <>
-                  <div>
-                    <div className="stat-label">現在相場</div>
-                    <div style={{ fontSize: 'var(--fs-md)', color: 'var(--ink)' }}>
-                      ¥{featured.forecast.price_forecast.current_low.toLocaleString()}〜¥{featured.forecast.price_forecast.current_high.toLocaleString()}
-                    </div>
-                  </div>
-                  <div>
-                    {/* up_pct は上昇率ではなく「上昇シナリオの確率」 */}
-                    <div className="stat-label">上昇する確率</div>
-                    <div style={{ fontSize: 'var(--fs-md)', color: 'var(--up)' }}>
-                      {featured.forecast.overall.up_pct}%
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
+          <FeaturedTrio cards={trioCards} />
         </div>
       )}
+
 
       {/* オリパ案件バナー（A8 / PR） */}
       <OripaBanner marginY={4} />
@@ -572,7 +579,7 @@ export default function TopPage() {
       {buyPicks.length > 0 && (
         <div className="sec">
           <div className="sec-head">
-            <span className="sec-no" style={{ color: 'var(--gold)' }}>★</span>
+            <span className="sec-no" style={{ color: 'var(--accent)' }}>★</span>
             <span className="sec-title">AIが買うべきカード</span>
             <span className="sec-sub">割安度・AI予想・買い時シグナルから選定</span>
           </div>
@@ -598,7 +605,7 @@ export default function TopPage() {
               fontFamily: 'var(--mincho)',
               fontSize: i < 2 ? 'var(--fs-xl)' : 'var(--fs-lg)',
               fontWeight: 800,
-              color: i < 2 ? 'var(--gold)' : 'var(--ink-faint)',
+              color: i < 2 ? 'var(--accent)' : 'var(--ink-faint)',
               textAlign: 'center',
               minWidth: '34px',
             }
@@ -613,7 +620,7 @@ export default function TopPage() {
                     <div
                       style={{
                         fontFamily: 'var(--mono)', fontSize: '9px', textAlign: 'center', marginTop: '1px',
-                        color: delta === 'new' ? 'var(--gold)' : delta > 0 ? 'var(--up)' : delta < 0 ? 'var(--down)' : 'var(--ink-faint)',
+                        color: delta === 'new' ? 'var(--accent)' : delta > 0 ? 'var(--up)' : delta < 0 ? 'var(--down)' : 'var(--ink-faint)',
                       }}
                       title={delta === 'new' ? '前日は予想がなかったカード' : `AI予想順位の前日比（${rankNow[slug]}位）`}
                     >
@@ -629,7 +636,7 @@ export default function TopPage() {
                 )}
                 <div>
                   <div className="row-name">{card.card_name}
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                   </div>
                   <div className="row-meta">
                     {formatBoxName(card, boxes)} ・ {card.card_no}
@@ -668,7 +675,7 @@ export default function TopPage() {
       {(highUpdates.length > 0 || lowUpdates.length > 0) && (
         <div className="sec">
           <div className="sec-head">
-            <span className="sec-no" style={{ color: 'var(--gold)' }}>★</span>
+            <span className="sec-no" style={{ color: 'var(--accent)' }}>★</span>
             <span className="sec-title">本日 最高値・最安値を更新したカード</span>
             <span className="sec-sub">計測開始以降でいちばん高い／安い水準</span>
           </div>
@@ -683,7 +690,7 @@ export default function TopPage() {
                 )}
                 <div>
                   <div className="row-name">{m.card.card_name}
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{m.card.rarity}</span>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{m.card.rarity}</span>
                   </div>
                   <div className="row-meta">
                     ¥{Math.round(m.currentMid).toLocaleString()}
@@ -737,7 +744,7 @@ export default function TopPage() {
                   )}
                   <div>
                     <div className="row-name">{card.card_name}
-                      <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                     </div>
                     <div className="row-meta">
                       ¥{Math.round(currentMid).toLocaleString()}
@@ -791,7 +798,7 @@ export default function TopPage() {
                   )}
                   <div>
                     <div className="row-name">{card.card_name}
-                      <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--gold)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent)', marginLeft: 'var(--sp-1)' }}>{card.rarity}</span>
                     </div>
                     <div className="row-meta">
                       ¥{Math.round(currentMid).toLocaleString()}
@@ -826,11 +833,13 @@ export default function TopPage() {
         <div className="sec">
           <div className="sec-head">
             <span className="sec-no">04</span>
-            <span className="sec-title">価格急落・急騰</span>
-            <span className="sec-sub">実際の成約価格の変化率</span>
+            <span className="sec-title">値動きランキング</span>
+            <span className="sec-sub">実際の成約価格の変化率とAIの注目度</span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-5)' }}>
+          {/* 3カラム（急騰／急落／AI注目）。上げ・下げ・AIの見立てを横に並べて突き合わせられる形にする。
+              3列目だけ軸が違う（実績ではなく予想）ので、見出しの色をアクセントにして区別する */}
+          <div className="rank-cols">
             {/* 急騰 */}
             <div>
               <div className="eyebrow" style={{ color: 'var(--up)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>▲ 急騰</div>
@@ -887,6 +896,39 @@ export default function TopPage() {
                     </div>
                     <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--down)', textAlign: 'right', whiteSpace: 'nowrap' }}>
                       {change.toFixed(1)}%
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* AI注目。左2列が「実際に動いた実績」なのに対し、ここだけ「これから上がるとAIが見ている」＝
+                軸が違う。数字も変化率ではなく上昇シナリオの確率なので、単位を明記して混同を防ぐ */}
+            <div>
+              <div className="eyebrow" style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>◆ AI注目</div>
+              {notableCards.length === 0 ? (
+                <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ蓄積中</div>
+              ) : notableCards.slice(0, 5).map(({ card, forecast }) => {
+                const slug = getCardSlug(card)
+                const m = metricsBySlug.get(slug)
+                return (
+                  <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
+                    {card.image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={card.image_url} alt={card.card_name} className="row-thumb" style={{ width: '36px', height: '50px' }} />
+                    ) : (
+                      <div className="row-thumb row-thumb-ph" style={{ width: '36px', height: '50px' }}>{card.rarity}</div>
+                    )}
+                    <div style={{ minWidth: 0 }}>
+                      <div className="row-name" style={{ fontSize: 'var(--fs-base)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{card.card_name}</div>
+                      <div className="row-meta">
+                        {card.rarity}
+                        {m && m.currentMid > 0 ? ` · ¥${Math.round(m.currentMid).toLocaleString()}` : ''}
+                      </div>
+                      <div className="row-meta">上昇確率</div>
+                    </div>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--accent)', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                      {forecast?.overall.up_pct != null ? `${forecast.overall.up_pct}%` : '—'}
                     </div>
                   </Link>
                 )

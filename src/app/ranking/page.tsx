@@ -4,7 +4,7 @@ import { getAllCards, getCardSlug, getPriceHistory } from '@/lib/data'
 import { computeAccuracy, HORIZONS } from '@/lib/accuracy'
 import VoteLeaderboard from '@/components/VoteLeaderboard'
 import { HORIZON_DAYS, WINDOW_DAYS, type PriceMatrix } from '@/lib/vote-score'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 
 export const metadata: Metadata = {
   title: 'みんなの予想 的中率ランキング',
@@ -58,18 +58,14 @@ export default function RankingPage() {
       >
         ← トップへ戻る
       </Link>
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, margin: '24px 0 6px' }}>
         みんなの予想 的中率ランキング
       </h1>
       <p style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.8, marginBottom: '24px' }}>
         カード詳細ページの「みんなの予想」に投じられた票を、投票から{HORIZON_DAYS}日後の実際の相場と照合しています。
-        判定の日数と式は<Link href="/accuracy" style={{ color: 'var(--gold)' }}>AI予想の的中実績</Link>と同じなので、
+        判定の日数と式は<Link href="/accuracy" style={{ color: 'var(--accent)' }}>AI予想の的中実績</Link>と同じなので、
         同じ土俵で見比べられます。
       </p>
 
@@ -94,7 +90,7 @@ export default function RankingPage() {
 
       <p style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.8, marginTop: '24px' }}>
         ※ 直近{WINDOW_DAYS}日ぶんの投票を対象にしたローリング集計です。順位は毎日入れ替わります。
-        投票は<Link href="/" style={{ color: 'var(--gold)' }}>各カードのページ</Link>から、ログイン不要で参加できます。
+        投票は<Link href="/" style={{ color: 'var(--accent)' }}>各カードのページ</Link>から、ログイン不要で参加できます。
       </p>
     </div>
   )

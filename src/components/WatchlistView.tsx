@@ -60,10 +60,10 @@ export default function WatchlistView({ cards, index7d }: Props) {
         </div>
         <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: 'var(--sp-4)' }}>
           気になるカードのページか
-          <Link href="/screener" style={{ color: 'var(--gold)' }}>スクリーナー</Link>
+          <Link href="/screener" style={{ color: 'var(--accent)' }}>スクリーナー</Link>
           で ☆ を押すと、ここに並びます。持っていないカードの値動きを追うための一覧です。
         </p>
-        <Link href="/screener" className="pill pill-gold">スクリーナーで探す →</Link>
+        <Link href="/screener" className="pill pill-accent">スクリーナーで探す →</Link>
       </div>
     )
   }

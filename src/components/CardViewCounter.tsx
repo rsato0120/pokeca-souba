@@ -67,19 +67,19 @@ export default function CardViewCounter({ cardId }: { cardId: string }) {
       style={{
         display: 'inline-flex', alignItems: 'baseline', gap: 'var(--sp-2)', flexWrap: 'wrap',
         fontFamily: 'var(--mono)', fontSize: 'var(--fs-xs)',
-        border: '1px solid color-mix(in srgb, var(--gold) 35%, var(--hair))',
-        background: 'color-mix(in srgb, var(--gold) 7%, var(--panel))',
+        border: '1px solid color-mix(in srgb, var(--accent) 35%, var(--hair))',
+        background: 'color-mix(in srgb, var(--accent) 7%, var(--panel))',
         borderRadius: 'var(--r-pill)', padding: '4px 12px', marginBottom: 'var(--sp-3)',
       }}
     >
       <span style={{ color: 'var(--ink-faint)' }}>直近7日の閲覧</span>
-      <span style={{ color: 'var(--gold)', fontWeight: 700 }}>{stat.viewers_7d}人</span>
+      <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{stat.viewers_7d}人</span>
       {stat.viewers_today > 0 && (
         <span style={{ color: 'var(--ink-faint)' }}>（今日 {stat.viewers_today}人）</span>
       )}
       {showRank && (
         <span style={{ color: 'var(--ink-dim)' }}>
-          注目度 {stat.ranked_cards}枚中 <strong style={{ color: 'var(--gold)' }}>{stat.view_rank}位</strong>
+          注目度 {stat.ranked_cards}枚中 <strong style={{ color: 'var(--accent)' }}>{stat.view_rank}位</strong>
         </span>
       )}
     </div>

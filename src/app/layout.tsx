@@ -60,11 +60,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         {/* テーマの先読み。描画前に data-theme を確定させないと、
-            SSRのライト配色が一瞬出てからダークに変わる（白い閃光）。
-            保存された選択 > OS設定 > ライト の順。JSが無い場合はライトのまま。 */}
+            SSRの配色が一瞬出てから切り替わる（白い閃光）。
+            保存された選択 > OS設定 > ダーク の順。
+            ⚠ 既定をダークにしている（2026-08-28）。相場アプリはダークが標準的で、
+            OSが「ライト」と明示している人にはライトのままなので押し付けにはならない。
+            matchMedia('(prefers-color-scheme: light)') が真の時だけライトにする＝
+            no-preference の環境はダークに倒れる。 */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('pokeca-theme-v1');var d=s==='dark'||s==='light'?s:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',d);}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem('pokeca-theme-v1');var d=s==='dark'||s==='light'?s:(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',d);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
           }}
         />
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />

@@ -153,7 +153,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   const rangeBtn = (r: Range): React.CSSProperties => ({
     padding: '4px 12px',
     borderRadius: '6px',
-    border: `1px solid ${range === r ? 'var(--gold)' : 'var(--hair)'}`,
+    border: `1px solid ${range === r ? 'var(--accent)' : 'var(--hair)'}`,
     background: range === r ? 'var(--panel)' : 'transparent',
     color: range === r ? 'var(--ink)' : 'var(--ink-faint)',
     fontFamily: 'var(--mono)',
@@ -240,7 +240,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                 labelStyle={{ color: 'var(--ink-faint)' }}
                 formatter={(v) => [`¥${Number(v).toLocaleString()}`, '評価額'] as [string, string]}
               />
-              <Line type="monotone" dataKey="value" stroke="var(--gold)" strokeWidth={2.5} dot={{ r: 2, fill: 'var(--gold)', strokeWidth: 0 }} isAnimationActive={false} />
+              <Line type="monotone" dataKey="value" stroke="var(--accent)" strokeWidth={2.5} dot={{ r: 2, fill: 'var(--accent)', strokeWidth: 0 }} isAnimationActive={false} />
             </LineChart>
           </ResponsiveContainer>
         ) : (
@@ -402,7 +402,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                       onClick={() => setQty(h.key, h.qty - 1)}
                       style={{ width: '26px', height: '26px', borderRadius: '50%', border: '1px solid var(--hair)', background: 'transparent', color: 'var(--ink-dim)', fontSize: '16px', lineHeight: 1, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     >−</button>
-                    <span style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 700, minWidth: '20px', textAlign: 'center', color: isPsa ? '#6c8ebf' : 'var(--gold)' }}>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 700, minWidth: '20px', textAlign: 'center', color: isPsa ? '#6c8ebf' : 'var(--accent)' }}>
                       {h.qty}
                     </span>
                     <button

@@ -10,8 +10,10 @@
   --up: #16a34a;        /* 上昇＝鮮やかな緑 */
   --down: #dc2626;      /* 下落＝鮮やかな赤 */
   --flat: #6b7280;      /* 横ばい＝グレー */
-  --gold: #a97b1f;      /* アクセント（白地でも読める深めの金） */
-  --down-deep: #ece3cf; /* リンク下線（淡い金） */
+  --accent: #5b46c9;    /* アクセント（白地でも読める深めの紫。旧: 金 #a97b1f） */
+  --accent-soft: #ede9fb; /* アクセントの淡い面（バッジ地・選択中の背景） */
+  --accent-ink: #ffffff;  /* アクセント面にのせる文字色 */
+  --down-deep: #ded7f5; /* リンク下線（淡い紫） */
   --mono: var(--font-mono), monospace;
   --mincho: var(--font-mincho), serif;
   --gothic: var(--font-gothic), sans-serif;
@@ -85,8 +87,10 @@
   --up: #4ade80;        /* 暗い面では鮮緑だと沈むので明度を上げる */
   --down: #f87171;
   --flat: #9ca3af;
-  --gold: #d9b45a;      /* 深金のままだと暗背景で読めない */
-  --down-deep: #4a3f28;
+  --accent: #8f7dff;    /* 暗背景では深紫が沈むので明度を上げる */
+  --accent-soft: #241f3d; /* 暗背景でのアクセント淡面 */
+  --accent-ink: #12101f;
+  --down-deep: #3b3363;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.55);
@@ -156,8 +160,8 @@
 }
 
 .theme-toggle:hover {
-  color: var(--gold);
-  border-color: var(--gold);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ラベルの出し分けはCSSで行う（JSのstateでやるとボタンが遅れて出てヘッダが揺れる）。
@@ -196,13 +200,13 @@ body {
 }
 
 a {
-  color: var(--gold);
+  color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--down-deep);
 }
 
 a:hover {
-  border-bottom-color: var(--gold);
+  border-bottom-color: var(--accent);
 }
 
 /* ─── 共通ラッパー ─── */
@@ -215,20 +219,62 @@ a:hover {
 /* ─── ヘッダー ─── */
 .site-header {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 26px 0 18px;
-  border-bottom: 2px solid var(--gold);
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0 14px;
+  border-bottom: 1px solid var(--hair);
   margin-bottom: 6px;
+}
+
+.logo-link { text-decoration: none; flex: 0 0 auto; }
+.logo-link:hover { text-decoration: none; }
+
+/* ナビ。行き先のあるタブだけを並べる（SiteHeader.tsx 参照）。
+   横に溢れる幅では横スクロールさせる＝折り返してヘッダの高さが変わるのを避ける */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.site-nav::-webkit-scrollbar { display: none; }
+
+.site-nav-item {
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav-item:hover {
+  color: var(--ink);
+  background: var(--bg2);
+  text-decoration: none;
+}
+
+/* 現在地。色だけだと見落とすので淡い面を敷く */
+.site-nav-item.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
 }
 
 .logo {
   font-family: var(--mincho);
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 800;
   letter-spacing: 0.18em;
   position: relative;
   color: var(--ink);
+  display: inline-block;
+  /* SOUBA の分だけ右に場所を空ける（position:absolute で幅を持たないため） */
+  padding-right: 62px;
 }
 
 .logo::after {
@@ -237,10 +283,10 @@ a:hover {
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.28em;
-  color: var(--gold);
+  color: var(--accent);
   position: absolute;
-  bottom: 5px;
-  left: calc(100% + 10px);
+  bottom: 4px;
+  right: 0;
   white-space: nowrap;
 }
 
@@ -275,10 +321,10 @@ a:hover {
 
 .searchbar button {
   background: transparent;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--accent);
   border-radius: 4px;
   padding: 0 22px;
-  color: var(--gold);
+  color: var(--accent);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -288,7 +334,7 @@ a:hover {
 }
 
 .searchbar button:hover {
-  background: var(--gold);
+  background: var(--accent);
   color: var(--bg);
 }
 
@@ -355,7 +401,7 @@ a:hover {
   font-family: var(--mono);
   font-size: 12px;
   font-weight: 600;
-  color: var(--gold);
+  color: var(--accent);
   border: 1px solid #e3d3a6;
   background: #f7f0dd;
   padding: 2px 8px;
@@ -383,7 +429,7 @@ a:hover {
   font-family: var(--mono);
   font-size: var(--fs-sm);
   letter-spacing: var(--ls-wide);
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .sec-title {
@@ -458,7 +504,7 @@ a:hover {
 }
 
 .related-item:hover {
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
 .related-thumb {
@@ -487,7 +533,7 @@ a:hover {
 
 .related-rarity {
   font-family: var(--mono);
-  color: var(--gold);
+  color: var(--accent);
   margin-left: 4px;
 }
 
@@ -594,9 +640,9 @@ a:hover {
   color: var(--ink-dim);
 }
 
-.pill-gold {
-  border-color: var(--gold);
-  color: var(--gold);
+.pill-accent {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* ─── データ出所の注記 ─── */
@@ -836,7 +882,7 @@ a:hover {
 .ticker-item:hover { background: var(--panel); }
 .ticker-mark { font-size: 9px; }
 .ticker-name { color: var(--ink); font-weight: 600; }
-.ticker-rarity { color: var(--gold); font-size: 10px; }
+.ticker-rarity { color: var(--accent); font-size: 10px; }
 .ticker-price { color: var(--ink-dim); }
 
 /* ─────────────────────────────────────────────
@@ -894,14 +940,14 @@ a:hover {
   padding: 6px 14px;
   box-shadow: var(--shadow-sm);
 }
-.visitor-pill:hover { border-color: var(--gold); }
+.visitor-pill:hover { border-color: var(--accent); }
 .visitor-pill-label { color: var(--ink-faint); }
 .visitor-pill-value { font-size: var(--fs-md); font-weight: 700; color: var(--ink); }
-.visitor-pill-go { color: var(--gold); }
+.visitor-pill-go { color: var(--accent); }
 
 .visitor-since {
   border: 1px solid var(--hair);
-  border-left: 2px solid var(--gold);
+  border-left: 2px solid var(--accent);
   border-radius: var(--r-md);
   background: var(--panel);
   padding: var(--sp-3) var(--sp-4);
@@ -933,7 +979,7 @@ a:hover {
 }
 .visitor-mover:hover { color: var(--ink); }
 .visitor-mover-name { font-family: var(--gothic); font-size: var(--fs-base); font-weight: 700; color: var(--ink); }
-.visitor-mover-rarity { color: var(--gold); }
+.visitor-mover-rarity { color: var(--accent); }
 
 /* 更新中であることを示す小さな点 */
 .live-dot {
@@ -1096,4 +1142,215 @@ a:hover {
 
 .data-table .dt-sortable.dt-sticky {
   text-align: left;
+}
+
+/* ─── トップのヒーロー（コピー＋検索 / 市場サマリー） ─── */
+.top-hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 340px);
+  gap: var(--sp-6);
+  align-items: start;
+  padding: var(--sp-6) 0 var(--sp-7);
+}
+
+.top-hero-title {
+  font-family: var(--mincho);
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0 0 var(--sp-3);
+}
+
+.top-hero-sub {
+  font-size: var(--fs-base);
+  color: var(--ink-dim);
+  line-height: 1.8;
+  margin: 0 0 var(--sp-5);
+}
+
+/* ヒーロー内の検索は下マージンを持たせない（枠の余白で見せる） */
+.top-hero .searchbar { margin-bottom: 0; }
+
+.top-summary {
+  background: var(--bg2);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-4);
+}
+
+.top-summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--hair);
+  margin-bottom: var(--sp-2);
+}
+
+/* ラベル / 値 / 補足 の3列。値は右揃えにして桁を縦に揃える */
+.top-summary-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'label value' 'label sub';
+  gap: 0 var(--sp-3);
+  align-items: center;
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--hair);
+}
+.top-summary-row:last-of-type { border-bottom: 0; }
+
+.top-summary-label {
+  grid-area: label;
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+.top-summary-value {
+  grid-area: value;
+  font-family: var(--mono);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+}
+
+.top-summary-sub {
+  grid-area: sub;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .top-hero {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+    padding: var(--sp-5) 0 var(--sp-6);
+  }
+  .top-hero-title { font-size: 28px; }
+}
+
+/* ─── 今日の注目カード（3枚） ─── */
+.trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+}
+
+.trio-card {
+  position: relative;
+  background: var(--bg2);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.trio-card:hover { border-color: var(--accent); }
+
+.trio-head { display: flex; gap: var(--sp-3); align-items: flex-start; min-width: 0; }
+
+.trio-thumb {
+  width: 54px;
+  height: 75px;
+  flex: 0 0 auto;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+
+.trio-thumb-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  border: 1px solid var(--hair);
+}
+
+.trio-name {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  /* 2行で打ち切る。長い名前で3枚のカード高さがバラつくのを防ぐ */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.trio-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+.trio-box {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--ink-dim);
+  margin-top: 4px;
+  border-bottom-color: var(--hair);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trio-price {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-top: auto;
+}
+
+.trio-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.trio-stance {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: var(--r-pill);
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .trio { grid-template-columns: 1fr; }
+  .trio-price { font-size: 20px; }
+}
+
+/* ─── 3カラムのランキング（急騰／急落／AI注目） ─── */
+.rank-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+
+/* 3列は狭すぎるので、タブレット幅で2列、スマホで1列に落とす */
+@media (max-width: 900px) {
+  .rank-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .rank-cols { grid-template-columns: 1fr; gap: var(--sp-4); }
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { computeAccuracy, HORIZONS, type Dir } from '@/lib/accuracy'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 
 export const metadata: Metadata = {
   title: 'AI予想 的中実績',
@@ -28,11 +28,7 @@ export default function AccuracyPage() {
       >
         ← トップへ戻る
       </Link>
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '26px', fontWeight: 800, margin: '24px 0 6px' }}>
         AI予想 的中実績
@@ -47,7 +43,7 @@ export default function AccuracyPage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '28px' }}>
           {HORIZONS.map(h => {
             const s = acc.byHorizon[h]
-            const color = s.rate >= 60 ? 'var(--up)' : s.rate >= 40 ? 'var(--gold)' : 'var(--down)'
+            const color = s.rate >= 60 ? 'var(--up)' : s.rate >= 40 ? 'var(--accent)' : 'var(--down)'
             return (
               <div key={h} style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px' }}>
                 <div style={{ fontSize: '11px', color: 'var(--ink-faint)', fontFamily: 'var(--mono)', letterSpacing: '0.06em', marginBottom: '8px' }}>
@@ -77,7 +73,7 @@ export default function AccuracyPage() {
           <p style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.8 }}>
             予想の記録を開始しました（{acc.firstPredictionDate ?? '—'} 〜）。
             <br />
-            最初の判定（7日後予想）は <strong style={{ color: 'var(--gold)' }}>{firstResultDate ?? '—'}</strong> 頃から表示されます。
+            最初の判定（7日後予想）は <strong style={{ color: 'var(--accent)' }}>{firstResultDate ?? '—'}</strong> 頃から表示されます。
           </p>
           <p style={{ fontSize: '12px', color: 'var(--ink-faint)', marginTop: '12px', fontFamily: 'var(--mono)' }}>
             記録済み予想: {acc.totalPredictions.toLocaleString()} 件

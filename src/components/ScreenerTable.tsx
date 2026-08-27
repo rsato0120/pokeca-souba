@@ -162,9 +162,9 @@ export default function ScreenerTable({ rows, boxes, rarities, index7d }: Props)
     letterSpacing: '0.04em',
     padding: '6px 12px',
     borderRadius: 'var(--r-pill)',
-    border: `1px solid ${on ? 'var(--gold)' : 'var(--hair)'}`,
-    background: on ? 'color-mix(in srgb, var(--gold) 12%, transparent)' : 'transparent',
-    color: on ? 'var(--gold)' : 'var(--ink-dim)',
+    border: `1px solid ${on ? 'var(--accent)' : 'var(--hair)'}`,
+    background: on ? 'color-mix(in srgb, var(--accent) 12%, transparent)' : 'transparent',
+    color: on ? 'var(--accent)' : 'var(--ink-dim)',
     cursor: 'pointer',
     fontWeight: on ? 700 : 500,
   })
@@ -254,7 +254,7 @@ export default function ScreenerTable({ rows, boxes, rarities, index7d }: Props)
                   className="dt-sortable"
                   onClick={() => toggleSort(c.key)}
                   title={c.help}
-                  style={{ color: sort === c.key ? 'var(--gold)' : undefined, minWidth: c.width }}
+                  style={{ color: sort === c.key ? 'var(--accent)' : undefined, minWidth: c.width }}
                 >
                   {c.label} {sort === c.key && (dir === 'asc' ? '▲' : '▼')}
                 </th>
@@ -293,7 +293,7 @@ export default function ScreenerTable({ rows, boxes, rarities, index7d }: Props)
                   <td className="dt-num" style={{ color: week.color }}>{week.text}</td>
                   <td className="dt-num" style={{ color: rel.color }}>{rel.text}</td>
                   <td className="dt-num" style={{ color: 'var(--ink-dim)' }}>{r.onSale ?? '—'}</td>
-                  <td className="dt-num" style={{ color: 'var(--gold)' }}>
+                  <td className="dt-num" style={{ color: 'var(--accent)' }}>
                     {r.upPct != null ? `${r.upPct}%` : '—'}
                   </td>
                   <td className="dt-num" style={{ color: 'var(--ink-dim)' }}>

@@ -15,7 +15,7 @@ import KaitoriLink from '@/components/KaitoriLink'
 import CountUp from '@/components/CountUp'
 import RelatedCards, { type RelatedItem } from '@/components/RelatedCards'
 import { pickRelated } from '@/lib/related'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 import OrderBook from '@/components/OrderBook'
 import RangePosition from '@/components/RangePosition'
 import WatchButton from '@/components/WatchButton'
@@ -215,11 +215,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       >
         ← トップへ戻る
       </Link>
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       <div className="searchbar" style={{ marginBottom: '30px' }}>
         <input type="text" placeholder="カード名で検索" defaultValue={card.card_name} />
@@ -463,7 +459,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             <div style={{ display: 'flex', gap: 'var(--sp-6)', flexWrap: 'wrap', alignItems: 'baseline' }}>
               <div>
                 <div className="stat-label">{avgSourceLabel}</div>
-                <span className="stat-value" style={{ color: 'var(--gold)' }}>
+                <span className="stat-value" style={{ color: 'var(--accent)' }}>
                   {latestAvg != null ? <CountUp value={latestAvg} prefix="¥" /> : '—'}
                 </span>
               </div>
@@ -858,7 +854,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 style={{
                   fontFamily: 'var(--mono)',
                   fontSize: '12px',
-                  color: accent === 'collector' ? 'var(--gold)' : 'var(--ink)',
+                  color: accent === 'collector' ? 'var(--accent)' : 'var(--ink)',
                 }}
               >
                 {v}

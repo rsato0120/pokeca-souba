@@ -75,7 +75,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
   const hasPeriodData = (d: number) =>
     history.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
 
-  const accent = tab === 'raw' ? 'var(--gold)' : '#6c8ebf'
+  const accent = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
 
   // ── 出来高（回転率） ──
   // sold_total は メルカリ成約検索の numFound。前の観測との差を取って1日あたりに直す。
@@ -144,9 +144,17 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
   }, [history, tab, days, nowMs, volumeByDate])
 
   const hasData = data.some(d => d.value != null)
-  // 移動平均は点が少ないと線にならないので、表示期間に十分な点がある時だけ出す
-  const showMa7 = tab === 'raw' && data.filter(d => d.ma7 != null).length >= 4
-  const showMa30 = tab === 'raw' && days >= 30 && data.filter(d => d.ma30 != null).length >= 6
+  // 移動平均は点が少ないと線にならないので、表示期間に十分な点がある時だけ出す。
+  //
+  // ⚠ さらに「窓 < 表示期間」を要求する。窓が表示期間と同じだと、各点の平均が**画面に
+  // 写っていない日**から取られる割合が大きくなりすぎる。7日表示にMA7を重ねた場合、
+  // 左端の点は7点中6点(86%)が表示外、7点平均でも43%が表示外になる。
+  // しかも実測（全366銘柄）では MA7 の振れ幅は実価格の0.96倍で**平坦にならない**ので、
+  // 読み手には「写っている値動きをならした線」に見えてしまう。見えない過去に引かれて
+  // 動く線は、平坦で無意味な線より誤読を生む。
+  // MA30 側は元から days >= 30 で期間条件を持っていたが、MA7 だけ抜けていた。
+  const showMa7 = tab === 'raw' && days > MA_SHORT && data.filter(d => d.ma7 != null).length >= 4
+  const showMa30 = tab === 'raw' && days >= MA_LONG && data.filter(d => d.ma30 != null).length >= 6
 
   // Y軸domain: 'auto'だと線が底に張り付き変動が潰れるので、実データのmin/maxに
   // レンジ比例パディングを付けて変動が中央に見えるようにする
@@ -201,7 +209,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
     padding: '9px 20px',
     borderRadius: '8px',
     // 非アクティブも明るい文字＋見える枠でモバイルでも判別できるようにする
-    border: `1px solid ${tab === id ? 'var(--gold)' : 'var(--ink-faint)'}`,
+    border: `1px solid ${tab === id ? 'var(--accent)' : 'var(--ink-faint)'}`,
     background: tab === id ? 'var(--panel)' : 'transparent',
     color: tab === id ? 'var(--ink)' : 'var(--ink-dim)',
     fontFamily: 'var(--mono)',

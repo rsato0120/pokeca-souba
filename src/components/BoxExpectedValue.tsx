@@ -88,7 +88,7 @@ export default function BoxExpectedValue({ ev, boxName }: { ev: BoxEv; boxName: 
               <span style={{ ...cell, color: 'var(--ink-faint)' }}>{ev.listedKinds}/{ev.totalKinds}</span>
               <span />
               <span />
-              <span style={{ ...cell, fontWeight: 700, color: 'var(--gold)' }}>¥{ev.ev.toLocaleString()}</span>
+              <span style={{ ...cell, fontWeight: 700, color: 'var(--accent)' }}>¥{ev.ev.toLocaleString()}</span>
             </div>
           </div>
         </div>

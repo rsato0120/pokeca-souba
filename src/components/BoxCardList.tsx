@@ -47,8 +47,8 @@ export default function BoxCardList({
               style={{
                 padding: '5px 14px',
                 borderRadius: '20px',
-                border: `1px solid ${active ? 'var(--gold)' : 'var(--hair)'}`,
-                background: active ? 'var(--gold)' : 'transparent',
+                border: `1px solid ${active ? 'var(--accent)' : 'var(--hair)'}`,
+                background: active ? 'var(--accent)' : 'transparent',
                 color: active ? '#000' : 'var(--ink-dim)',
                 fontFamily: 'var(--mono)',
                 fontSize: '12px',
@@ -94,7 +94,7 @@ export default function BoxCardList({
           filtered.map(({ card, forecast }) => {
             const upPct = forecast?.overall.up_pct ?? null
             const upColor = upPct !== null
-              ? upPct >= 50 ? 'var(--up)' : upPct >= 35 ? 'var(--gold)' : 'var(--ink-faint)'
+              ? upPct >= 50 ? 'var(--up)' : upPct >= 35 ? 'var(--accent)' : 'var(--ink-faint)'
               : 'var(--ink-faint)'
             const qty = getQty(card.id)
             return (
@@ -107,7 +107,7 @@ export default function BoxCardList({
                   gap: '16px',
                   alignItems: 'center',
                   borderBottom: '1px solid var(--hair)',
-                  background: qty > 0 ? 'rgba(var(--gold-rgb, 212,175,55), 0.06)' : undefined,
+                  background: qty > 0 ? 'rgba(var(--accent-rgb, 212,175,55), 0.06)' : undefined,
                 }}
               >
                 <Link
@@ -145,7 +145,7 @@ export default function BoxCardList({
                   <span style={{
                     fontFamily: 'var(--mono)', fontSize: '13px', fontWeight: 600,
                     minWidth: '16px', textAlign: 'center',
-                    color: qty > 0 ? 'var(--gold)' : 'var(--ink-faint)',
+                    color: qty > 0 ? 'var(--accent)' : 'var(--ink-faint)',
                   }}>
                     {qty}
                   </span>

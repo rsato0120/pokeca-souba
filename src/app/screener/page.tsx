@@ -4,7 +4,7 @@ import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, ge
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { midOf } from '@/lib/market'
 import ScreenerTable, { type ScreenerRow } from '@/components/ScreenerTable'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from "@/components/SiteHeader"
 
 export const metadata: Metadata = {
   title: 'カードスクリーナー',
@@ -99,11 +99,7 @@ export default function ScreenerPage() {
       >
         ← トップへ戻る
       </Link>
-      <header className="site-header">
-        <div className="logo">相場</div>
-        <div className="tagline">ポケモンカードの価値を、AIが読み解く</div>
-        <ThemeToggle />
-      </header>
+      <SiteHeader />
 
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: 'var(--fs-xl)', fontWeight: 800, margin: 'var(--sp-5) 0 var(--sp-2)' }}>
         カードスクリーナー
@@ -114,7 +110,7 @@ export default function ScreenerPage() {
         {index7d != null && (
           <>
             {' '}「市場比」は7日比から
-            <Link href="/" style={{ color: 'var(--gold)' }}>相場指数</Link>
+            <Link href="/" style={{ color: 'var(--accent)' }}>相場指数</Link>
             の同期間（{index7d >= 0 ? '+' : ''}{index7d.toFixed(2)}%）を引いた値で、正なら市場より強いカードです。
           </>
         )}
