@@ -381,11 +381,20 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               </div>
               <div style={{ textAlign: 'right' }}>
                 {/* up_pct は「上昇シナリオの確率」であって上昇率ではない。
-                    隣に予想価格が並ぶため、単位を明示しないと値上がり率と誤読される。 */}
+                    隣に予想価格が並ぶため、単位を明示しないと値上がり率と誤読される。
+                    ⚠ スタブ（予想未生成）では出さない。stubForecast の 35% は
+                    骨組みを描くためのダミーで、そのまま出すと未生成のカードが
+                    全部「上昇確率35%」で並び、生成済みと見分けが付かなくなる。 */}
                 <div className="stat-label">6ヶ月以内に上昇する確率</div>
-                <div className="stat-value" style={{ color: signal.color }}>
-                  {overall.up_pct}%
-                </div>
+                {isStub ? (
+                  <div className="stat-value" style={{ color: 'var(--ink-faint)', fontSize: '15px', fontWeight: 400 }}>
+                    予想を準備中
+                  </div>
+                ) : (
+                  <div className="stat-value" style={{ color: signal.color }}>
+                    {overall.up_pct}%
+                  </div>
+                )}
               </div>
             </div>
             <div
@@ -706,63 +715,74 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </div>
       )}
 
-      {/* ── 総合シナリオ ── */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'baseline',
-          justifyContent: 'space-between',
-          gap: 'var(--sp-2)',
-          flexWrap: 'wrap',
-          fontSize: 'var(--fs-sm)',
-          color: 'var(--ink-faint)',
-          letterSpacing: '0.06em',
-          marginBottom: 'var(--sp-2)',
-        }}
-      >
-        <span>総合シナリオ（今後 6ヶ月）</span>
-        <span style={{ fontSize: 'var(--fs-xs)' }}>上昇・横ばい・下落それぞれの確率</span>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          height: '36px',
-          borderRadius: '5px',
-          overflow: 'hidden',
-          border: '1px solid var(--hair)',
-          marginBottom: '26px',
-        }}
-      >
-        {[
-          { pct: overall.up_pct, bg: 'var(--up)', label: `↑ ${overall.up_pct}%` },
-          { pct: overall.flat_pct, bg: 'var(--flat)', label: `→ ${overall.flat_pct}%` },
-          { pct: overall.down_pct, bg: 'var(--down)', label: `↓ ${overall.down_pct}%` },
-        ].map(({ pct, bg, label }, i) => (
-          <div
-            key={label}
-            // 左から伸びる。3本を少しずつ遅らせると「積み上がっていく」ように見える
-            className="anim-grow"
-            style={{
-              animationDelay: `${i * 0.09}s`,
-              width: `${pct}%`,
-              background: bg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: 'var(--mono)',
-              fontSize: '12px',
-              fontWeight: 600,
-              color: 'var(--bg)',
-            }}
-          >
-            {label}
-          </div>
-        ))}
-      </div>
+      {/* 予想が未生成のカードでは総合シナリオを出さない。stubForecast の
+          up35/flat45/down20 は骨組み用の固定値で、棒にすると未生成カードが
+          全部同じ配分で並び、生成済みと区別が付かなくなる。 */}
+      {isStub ? (
+        <div className="source-note" style={{ marginBottom: '26px' }}>
+          このカードのAI予想はまだ生成されていません（毎日の自動更新で作成されます）。
+        </div>
+      ) : (
+        <>
+        {/* ── 総合シナリオ ── */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+            gap: 'var(--sp-2)',
+            flexWrap: 'wrap',
+            fontSize: 'var(--fs-sm)',
+            color: 'var(--ink-faint)',
+            letterSpacing: '0.06em',
+            marginBottom: 'var(--sp-2)',
+          }}
+        >
+          <span>総合シナリオ（今後 6ヶ月）</span>
+          <span style={{ fontSize: 'var(--fs-xs)' }}>上昇・横ばい・下落それぞれの確率</span>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            height: '36px',
+            borderRadius: '5px',
+            overflow: 'hidden',
+            border: '1px solid var(--hair)',
+            marginBottom: '26px',
+          }}
+        >
+          {[
+            { pct: overall.up_pct, bg: 'var(--up)', label: `↑ ${overall.up_pct}%` },
+            { pct: overall.flat_pct, bg: 'var(--flat)', label: `→ ${overall.flat_pct}%` },
+            { pct: overall.down_pct, bg: 'var(--down)', label: `↓ ${overall.down_pct}%` },
+          ].map(({ pct, bg, label }, i) => (
+            <div
+              key={label}
+              // 左から伸びる。3本を少しずつ遅らせると「積み上がっていく」ように見える
+              className="anim-grow"
+              style={{
+                animationDelay: `${i * 0.09}s`,
+                width: `${pct}%`,
+                background: bg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontFamily: 'var(--mono)',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: 'var(--bg)',
+              }}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
 
-      <p style={{ fontSize: '14px', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: '18px' }}>
-        {overall.reason}
-      </p>
+        <p style={{ fontSize: '14px', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: '18px' }}>
+          {overall.reason}
+        </p>
+        </>
+      )}
 
       {/* ── みんなの予想（投票・Supabase） ── */}
       <CardSentiment cardId={cardId} ai={{ up: overall.up_pct, flat: overall.flat_pct, down: overall.down_pct }} />

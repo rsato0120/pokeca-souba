@@ -585,6 +585,16 @@ export default function TopPage() {
             現在の相場から、AIが今後の価格を根拠つきで予想します。
           </p>
           <SearchBar cards={searchCards} />
+          {/* 弾から探す導線は検索のすぐ下に置く。以前は看板セクションと指数チャートの下に
+              あり、ファーストビューから完全に外れていた。「名前で探す」と「弾から探す」は
+              同じ“探す”行為なので隣り合っている方が迷わない */}
+          <BoxSelector
+            marginTop={12}
+            marginBottom={0}
+            boxes={boxes
+              .filter(b => b.certainty === 'released')
+              .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
+          />
         </div>
 
         <MarketPulse
@@ -630,13 +640,6 @@ export default function TopPage() {
       {/* 市場全体の基準線。個別カードの騰落を「市場と比べて」読むための土台なので、
           個別の枠より先に置く */}
       <MarketIndexChart indices={indexWires} />
-
-      {/* ── BOXナビ（ドロップダウン選択） ── */}
-      <BoxSelector
-        boxes={boxes
-          .filter(b => b.certainty === 'released')
-          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
-      />
 
       {/* ── 今日の注目カード（3枚） ──
           旧: 1枚だけを大きく出すヒーロー。すぐ下の「01」の1位と必ず同じカードになり
