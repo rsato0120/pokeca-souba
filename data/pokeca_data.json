@@ -287,6 +287,50 @@
       "pack_price_yen": 0,
       "pack_image_url": "https://www.pokemon-card.com/ex/25th/assets/images/products/20210625-2-1.png",
       "note": "2021-10-22から配布された25周年記念のプロモパック（ランダム1枚入り・全25種・すべてキラ加工）。拡張パック「25th ANNIVERSARY COLLECTION」4パック購入で1パックもらえるキャンペーン限定で、単体販売はされなかった。中身は1996年の初代リザードン/フシギバナ/カメックスから2017年のカプ・テテフGXまで、各時代の名カードを当時のイラスト・当時のカードデザインのまま復刻したもの。公式大会では使用できないコレクション専用カードで、25周年関連では最も高額な帯を形成している。"
+    },
+    {
+      "box_id": "crimson_haze",
+      "box_name": "クリムゾンヘイズ",
+      "code": "SV5a",
+      "release_ym": "2024-03",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://s3.limitlesstcg.com/sets/jp/SV5a.png",
+      "note": "2024-03-22発売の強化拡張パック（1パック5枚・1BOX30パック）。DLC「碧の円盤」のキタカミ／ブルーベリー学園のポケモンを収録。シークレット枠は AR 067-078 / SR 079-088 / SAR 089-093 / UR 094-096。ゲッコウガex SAR(090)が突出した最高額で、サザレ・スイレンのお世話の女性トレーナーSARが続く。本サイトは相場が動く高額帯13枚を掲載。"
+    },
+    {
+      "box_id": "night_wanderer",
+      "box_name": "ナイトワンダラー",
+      "code": "SV6a",
+      "release_ym": "2024-06",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://s3.limitlesstcg.com/sets/jp/SV6a.png",
+      "note": "2024-06-07発売の強化拡張パック（1パック5枚・1BOX30パック）。DLC「藍の円盤」のお面ポケモンとモモワロウを軸にした悪タイプ中心の弾。シークレット枠は AR 065-076 / SR 077-086 / SAR 087-091 / UR 092-094。SAR5種のうち4種を kantaro が担当。相場は4弾中で最も低く、キチキギスex SAR(089)が最高額。本サイトは相場が動く高額帯10枚を掲載。"
+    },
+    {
+      "box_id": "paradise_dragona",
+      "box_name": "楽園ドラゴーナ",
+      "code": "SV7a",
+      "release_ym": "2024-09",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://s3.limitlesstcg.com/sets/jp/SV7a.png",
+      "note": "2024-09-13発売の強化拡張パック（1パック5枚・1BOX30パック）。ドラゴンタイプを軸に構成された弾。シークレット枠は AR 065-076 / SR 077-086 / SAR 087-091 / UR 092-094。ラティアスex SAR(087)とルチアのアピール SAR(091)が並んで最高額で、2枚だけが突出した二強構成。本サイトは相場が動く高額帯10枚を掲載。"
+    },
+    {
+      "box_id": "terastal_fest",
+      "box_name": "テラスタルフェスex",
+      "code": "SV8a",
+      "release_ym": "2024-12",
+      "certainty": "released",
+      "pack_price_yen": 550,
+      "packs_per_box": 10,
+      "pack_image_url": "https://s3.limitlesstcg.com/sets/jp/SV8a.png",
+      "note": "2024-12-06発売のハイクラスパック（1パック10枚・1BOX10パック）。イーブイと進化系「ブイズ」全8種をテラスタルのポケモンexとしてSARで揃えた年末の総集編弾。イーブイex SARは2種（223 tono / 224 Natsuko Shoji été）。ブラッキーex SAR(217)が突出した最高額で、ピカチュウex UR(236)がそれに次ぐ。キャラ人気が全カードに乗るためコレクター需要が非常に厚い。本サイトは相場が動く高額帯21枚を掲載。"
     }
   ],
   "cards": [
@@ -18814,6 +18858,2112 @@
         "source": "pokemon-card.com/ex/25th/s8aP/（収録25種と公式紹介文）+ pokeca.net/product/13104-13128（番号・タイプ・HP・ステージ・ワザ）+ bulbapedia の初出カードページ（イラストレーター）を1枚ずつ突き合わせて確認（2026-08-21）"
       },
       "note": "当時のイラスト・カードデザインをそのまま復刻した25周年プロモ。公式大会では使用できない。"
+    },
+    {
+      "id": "crimson-haze-infernape-ar-70",
+      "card_no": "70/066",
+      "rarity": "AR",
+      "card_name": "ゴウカザル",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_70_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化",
+        "hp": 140,
+        "note": "2進化の炎ポケモン。シンオウ御三家ヒコザル系の最終進化。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Krgc",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Krgc による描き下ろしAR。シンオウ御三家の最終進化として一定のコレクター需要はあるが、AR帯では中位の相場。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-hisuian-growlithe-ar-75",
+      "card_no": "75/066",
+      "rarity": "AR",
+      "card_name": "ヒスイ ガーディ",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_75_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 80,
+        "note": "たねの闘ポケモン。ヒスイのすがたのガーディ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "GIDORA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "GIDORA によるヒスイガーディのAR。作家人気が高く、ヒスイ地方のリージョンフォームはコレクター人気も安定。AR帯ではイーブイに次ぐ。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-eevee-ar-78",
+      "card_no": "78/066",
+      "rarity": "AR",
+      "card_name": "イーブイ",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_78_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 50,
+        "note": "特性で山札から進化先を直接のせて進化できる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Narumi Sato",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Narumi Sato によるイーブイAR。イーブイはポケカ全体で最も安定した需要があるキャラで、この弾のAR帯で最高額。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-scream-tail-ex-sr-82",
+      "card_no": "82/066",
+      "rarity": "SR",
+      "card_name": "サケブシッポex",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_82_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 190,
+        "note": "たねの超ポケモンex。パラドックス（古代）のプクリンの姿をしたポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "PLANETA Hiiragi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "PLANETA Hiiragi による通常イラストSR。古代パラドックス勢はキャラ人気が成熟しておらず、SR帯では中位。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-greninja-ex-sr-83",
+      "card_no": "83/066",
+      "rarity": "SR",
+      "card_name": "ゲッコウガex",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_83_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 310,
+        "note": "2進化の闘ポケモンex。HP310。SAR(090)と同スペックの通常イラスト版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "5ban Graphics による通常イラストSR。SAR(090)が突出して高いため、その受け皿としてSR帯トップの相場。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-lacey-sr-87",
+      "card_no": "87/066",
+      "rarity": "SR",
+      "card_name": "サザレ",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_87_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。ブルーベリー学園の四天王サザレ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Naoki Saito による通常イラストSR。SAR(092)の受け皿で、女性トレーナーSRとして安定した需要がある。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-lanas-aid-sr-88",
+      "card_no": "88/066",
+      "rarity": "SR",
+      "card_name": "スイレンのお世話",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_88_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分のトラッシュからポケモンと基本エネルギーを合計3枚まで手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Atsushi Furusawa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Atsushi Furusawa による通常イラストSR。回収サポートとして構築での実需が長く、SR帯ではゲッコウガexと並ぶ上位。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-sinistcha-ex-sar-89",
+      "card_no": "89/066",
+      "rarity": "SAR",
+      "card_name": "ヤバソチャex",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_89_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 240,
+        "note": "1進化の草ポケモンex。エネルギー回収と全体回復を持つ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Saboteri",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Saboteri による描き下ろしSAR。キタカミの新ポケモンでキャラ人気が成熟しておらず、SAR帯では下位。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-greninja-ex-sar-90",
+      "card_no": "90/066",
+      "rarity": "SAR",
+      "card_name": "ゲッコウガex",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_90_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 310,
+        "note": "2進化の闘ポケモンex。HP310。1つ目のワザで山札を探し、2つ目でエネ2枚をトラッシュし相手2匹に120ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "akagi",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "akagi による描き下ろしSAR。ゲッコウガはポケカ屈指の人気キャラで、この弾のチェイスそのもの。2位のサザレSARに4倍近い差をつける単独トップ。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-bloodmoon-ursaluna-ex-sar-91",
+      "card_no": "91/066",
+      "rarity": "SAR",
+      "card_name": "ガチグマ アカツキex",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_91_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 260,
+        "note": "たねの無色ポケモンex。特性で相手が取ったサイド枚数に応じて「ブラッドムーン」の必要エネが減る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "MINAMINAMI Take",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "MINAMINAMI Take による描き下ろしSAR。構築での実需が強かったカードだが、キャラ人気は中位でSAR帯では下位寄り。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-lacey-sar-92",
+      "card_no": "92/066",
+      "rarity": "SAR",
+      "card_name": "サザレ",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_92_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。手札のポケモンを2枚まで山札にもどし、その枚数ぶん山札からポケモンを手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "GIDORA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "GIDORA によるサザレSAR。ブルーベリー学園の四天王で、女性トレーナーSARとして人気が高くこの弾の第2チェイス。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-lanas-aid-sar-93",
+      "card_no": "93/066",
+      "rarity": "SAR",
+      "card_name": "スイレンのお世話",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_93_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分のトラッシュからポケモン（ルールを持つポケモンをのぞく）と基本エネルギーを合計3枚まで手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Toshinao Aoki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Toshinao Aoki によるスイレンSAR。アローラの試練の少女スイレンは根強い人気があり、構築実需と重なってSAR帯の上位。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "crimson-haze-emergency-board-ur-95",
+      "card_no": "95/066",
+      "rarity": "UR",
+      "card_name": "緊急ボード",
+      "box_id": "crimson_haze",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV5a/SV5a_95_R_JP_LG.png",
+      "card_spec": {
+        "type": "ポケモンのどうぐ",
+        "stage": "ポケモンのどうぐ",
+        "hp": 0,
+        "note": "ポケモンのどうぐ。ついているポケモンの逃げるエネルギーを1個ぶん少なくし、残りHPが30以下なら0にする。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Toyste Beach",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "low"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "この弾のURで最も高い。逃げエネを軽くするどうぐとして構築採用が長く続き、プレイヤー需要で値持ちしている実用UR。",
+        "source": "limitlesstcg.com/cards/jp/SV5a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-fezandipiti-ex-sr-81",
+      "card_no": "81/064",
+      "rarity": "SR",
+      "card_name": "キチキギスex",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_81_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 210,
+        "note": "たねの悪ポケモンex。特性で前の番に自分のポケモンがきぜつしていれば3枚引ける。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "5ban Graphics による通常イラストSR。ドロー特性で構築採用が非常に長く続いたカードで、プレイヤー需要によりこの弾のSR帯トップ。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-colress-tenacity-sr-83",
+      "card_no": "83/064",
+      "rarity": "SR",
+      "card_name": "アクロマの執念",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_83_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からスタジアム1枚とエネルギー1枚を手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "hncl",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "hncl による通常イラストSR。スタジアムとエネを同時に持ってくる実用サポートで、SR帯ではキチキギスexに次ぐ。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-okidogi-ex-sar-87",
+      "card_no": "87/064",
+      "rarity": "SAR",
+      "card_name": "イイネイヌex",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_87_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 250,
+        "note": "たねの悪ポケモンex。お面ポケモンの1体。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kantaro による描き下ろしSAR。お面ポケモン3種のうちHPが最も高いが、キャラ人気は成熟しておらずSAR帯では下位。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-munkidori-ex-sar-88",
+      "card_no": "88/064",
+      "rarity": "SAR",
+      "card_name": "マシマシラex",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_88_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 210,
+        "note": "たねの悪ポケモンex。お面ポケモンの1体。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kantaro による描き下ろしSAR。ダメカン操作で構築採用があったが、キャラ人気が弱くSAR帯では最下位。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-fezandipiti-ex-sar-89",
+      "card_no": "89/064",
+      "rarity": "SAR",
+      "card_name": "キチキギスex",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_89_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 210,
+        "note": "SR(081)と同スペックの特別イラスト版。特性でドローできる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kantaro による描き下ろしSAR。長期にわたる構築需要とSAR人気が重なり、この弾の最高額。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-pecharunt-ex-sar-90",
+      "card_no": "90/064",
+      "rarity": "SAR",
+      "card_name": "モモワロウex",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_90_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 190,
+        "note": "たねの悪ポケモンex。特性で悪ポケモンをベンチに出しどく状態にする。ワザは相手が取ったサイド枚数×60ダメージ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kantaro による描き下ろしSAR。「藍の円盤」の幻ポケモンで、構築でも長く使われた。SAR帯ではキチキギスexに次ぐ。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-cassiopeia-sar-91",
+      "card_no": "91/064",
+      "rarity": "SAR",
+      "card_name": "カシオペア",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_91_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。手札がこのカード1枚だけの時に使える。山札から2枚まで選んで手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "burari",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "burari によるカシオペアSAR。ブルーベリー学園の正体を隠した人物で、女性トレーナーSARとしてモモワロウexと同水準の相場。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-pecharunt-ex-ur-92",
+      "card_no": "92/064",
+      "rarity": "UR",
+      "card_name": "モモワロウex",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_92_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 190,
+        "note": "SAR(090)と同スペックの金加工版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "aky CG Works によるUR。幻ポケモンのURとして、構築需要とコレクター需要の両方がある。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-earthen-vessel-ur-93",
+      "card_no": "93/064",
+      "rarity": "UR",
+      "card_name": "大地の器",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_93_R_JP_LG.png",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "グッズ",
+        "hp": 0,
+        "note": "グッズ。手札を1枚トラッシュし、山札から基本エネルギーを2枚まで手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "AYUMI ODASHIMA",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "low"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "エネ加速の定番グッズ。実用URとして構築需要で値持ちするが、この弾のURでは最も安い。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "night-wanderer-hourglass-of-power-ur-94",
+      "card_no": "94/064",
+      "rarity": "UR",
+      "card_name": "力の砂時計",
+      "box_id": "night_wanderer",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV6a/SV6a_94_R_JP_LG.png",
+      "card_spec": {
+        "type": "ポケモンのどうぐ",
+        "stage": "ポケモンのどうぐ",
+        "hp": 0,
+        "note": "ポケモンのどうぐ。自分の番の終わりに、ついているポケモンがバトル場にいるなら、トラッシュから基本エネを1枚つけられる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Studio Bora Inc.",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "low"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "この弾のURで最も高い。エネ回収のどうぐとして構築採用が続き、プレイヤー需要で支えられている実用UR。",
+        "source": "limitlesstcg.com/cards/jp/SV6a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-latios-ar-70",
+      "card_no": "70/064",
+      "rarity": "AR",
+      "card_name": "ラティオス",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_70_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 120,
+        "note": "たねの超ポケモン。HP120。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "OKACHEKE",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "OKACHEKE によるラティオスAR。同じ絵師のラティアスex SAR(087)と対になる構図で、セット需要がある。この弾のAR帯で最高額。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-black-kyurem-ex-sr-77",
+      "card_no": "77/064",
+      "rarity": "SR",
+      "card_name": "ブラックキュレムex",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_77_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 230,
+        "note": "たねの水ポケモンex。HP230。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "N-DESIGN Inc.",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "N-DESIGN Inc. による通常イラストSR。キュレムのフォルムチェンジは一定の人気があるが、SR帯では中位。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-latias-ex-sr-78",
+      "card_no": "78/064",
+      "rarity": "SR",
+      "card_name": "ラティアスex",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_78_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 210,
+        "note": "たねの超ポケモンex。特性で自分のたねポケモン全員の逃げるエネルギーが0になる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "takuyoa による通常イラストSR。SAR(087)が突出しているためその受け皿になっており、SR帯ではルチアのアピールに次ぐ。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-lucias-appeal-sr-86",
+      "card_no": "86/064",
+      "rarity": "SR",
+      "card_name": "ルチアのアピール",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_86_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手のベンチのたねポケモン1匹をバトル場と入れ替え、こんらんにする。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "En Morikura",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "En Morikura による通常イラストSR。ルチアはシンオウのコンテストアイドルで女性トレーナー人気が高く、SR帯トップ。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-latias-ex-sar-87",
+      "card_no": "87/064",
+      "rarity": "SAR",
+      "card_name": "ラティアスex",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_87_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 210,
+        "note": "特性「スカイエスコート」=自分のたねポケモン全員の逃げエネが0／ワザ「インフィニットブレード」200ダメージ（次の番ワザが使えない）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "OKACHEKE",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "OKACHEKE による描き下ろしSAR。ラティアスは初代映画以来の根強い人気があり、構築での実需とも重なってこの弾の最高額（ルチアのアピールSARと同水準）。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-archaludon-ex-sar-88",
+      "card_no": "88/064",
+      "rarity": "SAR",
+      "card_name": "ブリジュラスex",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_88_R_JP_LG.png",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "1進化",
+        "hp": 300,
+        "note": "1進化の鋼ポケモンex。特性「ごうきんビルド」=進化時にトラッシュから基本鋼エネを2枚まで加速／ワザ「メタルディフェンダー」220。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Shinya Mizuno",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Shinya Mizuno による描き下ろしSAR。構築での実需は強かったが、キャラ人気が中位でSAR帯では下位寄り。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-alolan-exeggutor-ex-sar-89",
+      "card_no": "89/064",
+      "rarity": "SAR",
+      "card_name": "アローラ ナッシーex",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_89_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "1進化",
+        "hp": 300,
+        "note": "1進化の竜ポケモンex。HP300。ワザ「トロピカルフィーバー」でエネ加速、「ブンブンスフェーン」はコインで相手のたねポケモンをきぜつさせる。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Yuriko Akase",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Yuriko Akase による描き下ろしSAR。アローラナッシーはネタ的な人気が高くこの弾の看板ポケモン。SAR帯では二強に次ぐ3番手。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-amarys-sar-90",
+      "card_no": "90/064",
+      "rarity": "SAR",
+      "card_name": "カキツバタ",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_90_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札の上から7枚を見て、ポケモン1枚とトレーナーズ1枚を手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "DOM",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "DOM によるカキツバタSAR。ブルーベリー学園の四天王で鋼タイプ使い。女性トレーナーSARだがルチアほどのキャラ人気は無く、SAR帯では下位。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-lucias-appeal-sar-91",
+      "card_no": "91/064",
+      "rarity": "SAR",
+      "card_name": "ルチアのアピール",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_91_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手のベンチのたねポケモン1匹をバトル場と入れ替え、こんらんにする。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Nobusawa/Mochipuyo",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Nobusawa/Mochipuyo によるルチアSAR。女性トレーナーSARの中でも人気が高く、ラティアスex SARと並ぶこの弾の最高額。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradise-dragona-alolan-exeggutor-ex-ur-92",
+      "card_no": "92/064",
+      "rarity": "UR",
+      "card_name": "アローラ ナッシーex",
+      "box_id": "paradise_dragona",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV7a/SV7a_92_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "1進化",
+        "hp": 300,
+        "note": "SAR(089)と同スペックの金加工版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "G",
+          "rotation": "far",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "aky CG Works によるUR。この弾のURで最も高い。アローラナッシーの人気がそのままUR相場に出ている。",
+        "source": "limitlesstcg.com/cards/jp/SV7a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-leafeon-ex-sar-200",
+      "card_no": "200/187",
+      "rarity": "SAR",
+      "card_name": "リーフィアex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_200_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "1進化の草ポケモンex。イーブイから進化。HP270。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Jiro Sasumo",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Jiro Sasumo による描き下ろしSAR。ブイズの中では草タイプの人気枠で、エーフィexと並ぶ中位帯。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-flareon-ex-sar-202",
+      "card_no": "202/187",
+      "rarity": "SAR",
+      "card_name": "ブースターex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_202_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "1進化の炎ポケモンex。イーブイから進化。HP270。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Nurikabe",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Nurikabe による描き下ろしSAR。初代ブイズ3種の1体で安定した需要があるが、ブイズ内では中位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-vaporeon-ex-sar-205",
+      "card_no": "205/187",
+      "rarity": "SAR",
+      "card_name": "シャワーズex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_205_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "1進化の水ポケモンex。イーブイから進化。HP280。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Narano",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Narano による描き下ろしSAR。初代ブイズ3種の1体。ブイズ内では中位だが、初代勢は長期的に堅い。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-glaceon-ex-sar-206",
+      "card_no": "206/187",
+      "rarity": "SAR",
+      "card_name": "グレイシアex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_206_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "1進化の水ポケモンex。イーブイから進化。HP270。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Kamome Shirahama",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Kamome Shirahama（漫画家・魔女の下僕と魔王のツノ）による描き下ろしSAR。作家人気が乗りブイズ内では上位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-jolteon-ex-sar-209",
+      "card_no": "209/187",
+      "rarity": "SAR",
+      "card_name": "サンダースex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_209_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 260,
+        "note": "1進化の雷ポケモンex。イーブイから進化。HP260。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "kantaro",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "kantaro による描き下ろしSAR。初代ブイズ3種の1体で、ブイズ内では中位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-espeon-ex-sar-211",
+      "card_no": "211/187",
+      "rarity": "SAR",
+      "card_name": "エーフィex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_211_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "1進化の超ポケモンex。イーブイから進化。HP270。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "sui",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "sui による描き下ろしSAR。ブラッキーと対になる第2世代ブイズで、女性人気が高くブイズ内では上位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-sylveon-ex-sar-212",
+      "card_no": "212/187",
+      "rarity": "SAR",
+      "card_name": "ニンフィアex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_212_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "1進化の超ポケモンex。イーブイから進化。ワザ「マジカルチャーム」160／「エンジェライト」で相手のベンチを山札にもどす。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Cona Nitanda",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Cona Nitanda による描き下ろしSAR。ブイズ内でブラッキーexに次ぐ第2位で、この弾の準チェイス。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-umbreon-ex-sar-217",
+      "card_no": "217/187",
+      "rarity": "SAR",
+      "card_name": "ブラッキーex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_217_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "1進化の悪ポケモンex。イーブイから進化。ワザ「ムーンミラージュ」でこんらん／「オニキス」はエネを全てトラッシュしサイドを1枚取る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "YASHIRO Nanaco",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "YASHIRO Nanaco による描き下ろしSAR。ブラッキーはブイズ最大の人気キャラで、この弾の単独チェイス。2位のニンフィアexに3倍以上の差をつける。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-eevee-ex-sar-223",
+      "card_no": "223/187",
+      "rarity": "SAR",
+      "card_name": "イーブイex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_223_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 200,
+        "note": "たねの無色ポケモンex。HP200。ブイズ全種の進化元。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "tono",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "tono による描き下ろしSAR。イーブイex SARは2種あり、こちらは223番。ブイズを集めるコレクターが必ず一緒に買う枠。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-eevee-ex-sar-224",
+      "card_no": "224/187",
+      "rarity": "SAR",
+      "card_name": "イーブイex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_224_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 200,
+        "note": "たねの無色ポケモンex。HP200。223と同スペックの別イラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Natsuko Shoji été",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "パティシエ Natsuko Shoji（été）による描き下ろしSAR。異業種アーティストの起用で話題になった1枚で、223と同水準の相場。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-iron-valiant-ex-sar-213",
+      "card_no": "213/187",
+      "rarity": "SAR",
+      "card_name": "テツノブジンex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_213_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 220,
+        "note": "たねの超ポケモンex。未来パラドックス。HP220。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "danciao",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "danciao による描き下ろしSAR。未来パラドックス勢はキャラ人気が中位で、ブイズ以外のSAR帯では中位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-roaring-moon-ex-sar-218",
+      "card_no": "218/187",
+      "rarity": "SAR",
+      "card_name": "トドロクツキex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_218_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 230,
+        "note": "たねの悪ポケモンex。古代パラドックス。HP230。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Shinji Kanda",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Shinji Kanda による描き下ろしSAR。古代パラドックス勢で最も人気が高く構築実需も強い。ブイズ以外では最高額。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-dragapult-ex-sar-221",
+      "card_no": "221/187",
+      "rarity": "SAR",
+      "card_name": "ドラパルトex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_221_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "2進化",
+        "hp": 320,
+        "note": "2進化の竜ポケモンex。HP320。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Jerky",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Jerky による描き下ろしSAR。長期にわたり環境の中心だったカードで、プレイヤー需要が下支えしている。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-raging-bolt-ex-sar-222",
+      "card_no": "222/187",
+      "rarity": "SAR",
+      "card_name": "タケルライコex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_222_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "たね",
+        "hp": 240,
+        "note": "たねの竜ポケモンex。古代パラドックス。HP240。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Uninori",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Uninori による描き下ろしSAR。構築での実需は非常に強かったが、キャラ人気は中位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-bloodmoon-ursaluna-ex-sar-225",
+      "card_no": "225/187",
+      "rarity": "SAR",
+      "card_name": "ガチグマ アカツキex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_225_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 260,
+        "note": "たねの無色ポケモンex。HP260。クリムゾンヘイズ(SV5a 091)の再録にあたる別イラスト。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Yano Keiji",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Yano Keiji による描き下ろしSAR。SV5a版とは別イラストで、同キャラのSARが2種存在する形。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-crispin-sar-227",
+      "card_no": "227/187",
+      "rarity": "SAR",
+      "card_name": "アカマツ",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_227_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からタイプの違う基本エネを2枚まで選び、1枚を手札に、もう1枚を自分のポケモンにつける。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Tomowaka",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Tomowaka によるアカマツSAR。「藍の円盤」の四天王。エネ加速サポートとして構築実需が強かった。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-kogas-trap-sar-228",
+      "card_no": "228/187",
+      "rarity": "SAR",
+      "card_name": "アンズの秘技",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_228_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の悪ポケモン2匹までに山札から基本悪エネをつけ、バトル場につけたならどく状態にする。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Ligton",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Ligton によるアンズSAR。カントー四天王の娘で、和風のイラストが評価されている。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-kieran-sar-230",
+      "card_no": "230/187",
+      "rarity": "SAR",
+      "card_name": "スグリ",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_230_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。バトル場のポケモンをベンチと入れ替えるか、この番 ex・V へのダメージを+30する。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Iori Suzuki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Iori Suzuki によるスグリSAR。「藍の円盤」のライバル。構築実需が強く、トレーナーズSAR帯では上位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-drayton-sar-231",
+      "card_no": "231/187",
+      "rarity": "SAR",
+      "card_name": "タロ",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_231_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。手札を山札にもどして4枚引く。相手のサイドが残り3枚以下なら8枚引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "Tomowaka",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Tomowaka によるタロSAR。ブルーベリー学園の四天王で、アカマツと同じ絵師・同水準の相場。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-pikachu-ex-ur-236",
+      "card_no": "236/187",
+      "rarity": "UR",
+      "card_name": "ピカチュウex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_236_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 200,
+        "note": "たねの雷ポケモンex。HP200。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "aky CG Works によるUR。ピカチュウは常に別格の需要があり、この弾のURで突出して高い。ブイズ以外ではブラッキーexに次ぐ相場。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
+    },
+    {
+      "id": "terastal-fest-terapagos-ex-ur-237",
+      "card_no": "237/187",
+      "rarity": "UR",
+      "card_name": "テラパゴスex",
+      "box_id": "terastal_fest",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SV8a/SV8a_237_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 230,
+        "note": "たねの無色ポケモンex。HP230。この弾のテーマであるテラスタルの象徴ポケモン。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "H",
+          "rotation": "mid",
+          "competitive_usage": "mid"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "5ban Graphics によるUR。弾のテーマポケモンだが、ピカチュウexほどのキャラ人気は無くUR帯では下位。",
+        "source": "limitlesstcg.com/cards/jp/SV8a/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認（2026-08-27）"
+      },
+      "note": ""
     }
   ],
   "market_posts": [
