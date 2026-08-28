@@ -1235,7 +1235,15 @@ async function scrapeCard(
             .every(w => t.includes(w))
         }
       : null
-    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName)
+    // 出品にも下限価格を置く（2026-08-28）。BOXには avg×0.4 の床があったのに、カードは
+    // 0＝床なしだった。番号照合を通っても、状態記載が独特で isExcluded に引っかからない
+    // 傷あり品やパーツ売りが混ざり、**実勢の1割以下の出品が ask_low を作る**。
+    //   実例: レックウザVMAX SA(083/067) 成約¥666,742 に対し ask_low が ¥49,000 まで落ちた日がある。
+    //   同弾の通常HR(082)が¥34,685 なので、その帯の出品が紛れ込んだのと区別が付かない。
+    // ask_low は「いま出せばいくらで買えるか」の指標なので、割安な出品は残したい。
+    // 実勢の25%を床にすると、40%引きの掘り出し物は通り、桁が違うものだけ落ちる。
+    const askFloor = avg != null && avg > 0 ? Math.round(avg * 0.25) : 0
+    const onSale = await getMercariOnSale(browser, onSaleQuery, askFloor, cardNo, promoMust, cardName)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 

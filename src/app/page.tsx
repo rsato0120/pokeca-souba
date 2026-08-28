@@ -316,9 +316,24 @@ export default function TopPage() {
   }))
 
   // ── 看板: AIが見つけた「まだ上がっていないカード」 ──
-  // 選定は既存の selectBuyCandidates をそのまま使う（ロジックは変えない）。
-  // 見せ方だけ、0〜100の「AI高騰気配」と兆候(✓)・注意(⚠)に組み替える。
-  const heatPicks: HeatPick[] = selectBuyCandidates(buyInputs, 3, 1).map((c) => {
+  //
+  // ⚠ 下の「AIが買うべきカード」(BuyPicks) と**同じ母集団から選ぶと上位が丸かぶりする**。
+  //   どちらも selectBuyCandidates(buyInputs) を呼んでいたため、看板の3枚は
+  //   買うべきカードの1〜3位とまったく同じ並びだった＝看板が独自機能になっていない。
+  //
+  // ここは名前どおり「**まだ上がっていない**」に絞る。直近7日の値動きが小さい
+  // （±3%以内）カードだけを候補にし、すでに動いた銘柄は急騰ランキングと
+  // 「買うべきカード」に任せる。これで2つの枠の役割が分かれる:
+  //   看板 … これから動きそうだが、まだ動いていない
+  //   買うべきカード … 動きの有無を問わず、いま買う妙味が大きい
+  const STILL_QUIET_PCT = 3
+  const quietInputs = buyInputs.filter((b) => {
+    const m = metricsBySlug.get(b.slug)
+    const w = m?.weekChange
+    // 7日変化が取れないカードは「動いていない」と断定できないので候補にしない
+    return w != null && Math.abs(w) <= STILL_QUIET_PCT
+  })
+  const heatPicks: HeatPick[] = selectBuyCandidates(quietInputs, 3, 1).map((c) => {
     const m = metricsBySlug.get(c.slug)
     const fc = getForecast(c.slug)
     return {

@@ -64,6 +64,14 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npx tsx scripts/update-forecasts.ts
 
+      # 予想は1日の上限(500RPD)に収めるため一部しか作り直さない。ランキングの
+      # スプレッドは**全 forecasts に当て直す**必要があるのでここで実行する
+      # （API消費ゼロ。update-forecasts.ts 内でやると作り直した集合の中だけの
+      #   相対配分になり、据え置き銘柄と基準がズレる）。
+      - name: Respread rankings (no API)
+        if: steps.mode.outputs.mode == 'full'
+        run: npx tsx scripts/respread-rankings.ts
+
       # 「AIが買うべきカード」欄の厚い論拠（買い候補の上位数枚だけ・API消費は軽い）
       - name: Generate buy theses
         if: steps.mode.outputs.mode == 'full'
