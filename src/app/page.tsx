@@ -666,7 +666,7 @@ export default function TopPage() {
             <span className="sec-title">未開封BOXランキング</span>
             <span className="sec-sub">直近7日の値動き順・定価比つき</span>
           </div>
-          <BoxRanking rows={boxRanking.slice(0, 10)} />
+          <BoxRanking rows={boxRanking.slice(0, 5)} />
         </div>
       )}
 
