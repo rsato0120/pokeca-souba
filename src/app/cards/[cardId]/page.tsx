@@ -5,6 +5,7 @@ import { getAllCards, getCardBySlug, getBoxById, getForecast, getPriceHistory, g
 import { extremeHitToday } from '@/lib/extremes'
 import type { Forecast } from '@/types/pokeca'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
+import CardCharts from '@/components/CardCharts'
 import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
 import CardSentiment from '@/components/CardSentiment'
@@ -87,11 +88,7 @@ export function generateStaticParams() {
 const TREND_LABEL = { up: '▲ 上昇', flat: '→ 横ばい', down: '▼ 下落' } as const
 const TREND_COLOR = { up: 'var(--up)', flat: 'var(--flat)', down: 'var(--down)' } as const
 
-const CHAR_POP_LABEL: Record<string, string> = { high: '高', mid: '中', unknown: '—' }
-const ILLUST_POP_LABEL: Record<string, string> = { high: '高', mid: '中', unknown: '—' }
 const ARTWORK_LABEL: Record<string, string> = { original: '描き下ろし', reused: '流用', unknown: '—' }
-const SCARCITY_LABEL: Record<string, string> = { normal: '通常', scarce: '品薄', out_of_print: '絶版' }
-const REPRINT_LABEL: Record<string, string> = { none: 'なし', reprinted: '再録済', reprint_planned: '予定あり' }
 
 // スタブfallback
 function stubForecast(card_no: string, rarity: string): Forecast {
@@ -638,89 +635,70 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       </div>
 
       {/* ── 価格推移＋AI予想（素体/PSA10タブ） ── */}
+      {/* グラフはタブで切り替える。統合はしない（CardCharts.tsx のコメント参照）。
+          以前は同じページの離れた位置に似たグラフが2枚あり、どちらを見ればいいのか
+          分からない状態だった。 */}
       {priceHistory && priceHistory.history.length > 0 && (
         <div style={{ marginBottom: '26px' }}>
-          <div
-            style={{
-              fontFamily: 'var(--mono)',
-              fontSize: '11px',
-              letterSpacing: '0.14em',
-              color: 'var(--ink-faint)',
-              marginBottom: '12px',
-            }}
-          >
-            PRICE &amp; AI FORECAST · 価格推移とAI予想
-          </div>
-          <PriceForecastChart history={priceHistory.history} forecast={price_forecast} />
-        </div>
-      )}
-
-      {/* ── 過去価格推移グラフ（詳細） ── */}
-      {priceHistory && priceHistory.history.length > 0 && (
-        <div style={{ marginBottom: '26px' }}>
-          <div
-            style={{
-              fontFamily: 'var(--mono)',
-              fontSize: '11px',
-              letterSpacing: '0.14em',
-              color: 'var(--ink-faint)',
-              marginBottom: '12px',
-            }}
-          >
-            PRICE HISTORY · 価格推移（詳細）
-          </div>
-
-          {/* 全期間の高値・安値。当日更新なら見出しにバッジを出す */}
-          {extremes && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '10px',
-                fontSize: '12px',
-                color: 'var(--ink-dim)',
-                marginBottom: '10px',
-              }}
-            >
-              <span>
-                最高 <strong style={{ color: 'var(--up)' }}>¥{extremes.high.value.toLocaleString()}</strong>
-                <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.high.date)}）</span>
-              </span>
-              <span style={{ color: 'var(--hair)' }}>|</span>
-              <span>
-                最安 <strong style={{ color: 'var(--down)' }}>¥{extremes.low.value.toLocaleString()}</strong>
-                <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.low.date)}）</span>
-              </span>
-              {extremeHit && (
-                <span
+          <CardCharts
+            forecastChart={<PriceForecastChart history={priceHistory.history} forecast={price_forecast} />}
+            historyExtras={
+              <>
+              {/* 全期間の高値・安値。当日更新なら見出しにバッジを出す */}
+              {extremes && (
+                <div
                   style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '11px',
-                    letterSpacing: '0.06em',
-                    padding: '2px 8px',
-                    borderRadius: '3px',
-                    color: 'var(--on-accent)',
-                    background: extremeHit === 'high' ? 'var(--up)' : 'var(--down)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '10px',
+                    fontSize: '12px',
+                    color: 'var(--ink-dim)',
+                    marginBottom: '10px',
                   }}
                 >
-                  {extremeHit === 'high' ? '🔺 本日 最高値更新' : '🔻 本日 最安値更新'}
-                </span>
+                  <span>
+                    最高 <strong style={{ color: 'var(--up)' }}>¥{extremes.high.value.toLocaleString()}</strong>
+                    <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.high.date)}）</span>
+                  </span>
+                  <span style={{ color: 'var(--hair)' }}>|</span>
+                  <span>
+                    最安 <strong style={{ color: 'var(--down)' }}>¥{extremes.low.value.toLocaleString()}</strong>
+                    <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.low.date)}）</span>
+                  </span>
+                  {extremeHit && (
+                    <span
+                      style={{
+                        fontFamily: 'var(--mono)',
+                        fontSize: '11px',
+                        letterSpacing: '0.06em',
+                        padding: '2px 8px',
+                        borderRadius: '3px',
+                        color: 'var(--on-accent)',
+                        background: extremeHit === 'high' ? 'var(--up)' : 'var(--down)',
+                      }}
+                    >
+                      {extremeHit === 'high' ? '🔺 本日 最高値更新' : '🔻 本日 最安値更新'}
+                    </span>
+                  )}
+                  <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>
+                    （{mdOf(extremes.since)}以降の計測）
+                  </span>
+                </div>
               )}
-              <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>
-                （{mdOf(extremes.since)}以降の計測）
-              </span>
-            </div>
-          )}
 
-          {/* 高値・安値の「数字」だけでは水準感が出ないので、いま値幅のどこにいるかを帯で出す */}
-          {extremes && <RangePosition extremes={extremes} mid={currentMid} />}
-
-          <PriceHistoryChart
-            history={priceHistory.history}
-            extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null}
-            salesByDay={priceHistory.sales_by_day}
-            psa10SalesByDay={priceHistory.psa10_sales_by_day}
+              {/* 高値・安値の「数字」だけでは水準感が出ないので、いま値幅のどこにいるかを帯で出す */}
+              {extremes && <RangePosition extremes={extremes} mid={currentMid} />}
+              </>
+            }
+            historyChart={
+              <PriceHistoryChart
+                history={priceHistory.history}
+                extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null}
+                salesByDay={priceHistory.sales_by_day}
+                psa10SalesByDay={priceHistory.psa10_sales_by_day}
+              />
+            }
           />
         </div>
       )}
@@ -847,7 +825,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </p>
       </div>
 
-      {/* ── 根拠データ ── */}
+      {/* ── イラスト情報 ──
+          旧「EVIDENCE · 予想の根拠データ」。6項目のうち 絵師人気・キャラ人気・品薄度・
+          再録状況の4つは AI投資スコアの内訳（CardScorePanel）に**重み付きで**入ったため、
+          同じ値を素のまま二度出す枠になっていた。スコアに含まれない
+          イラストレーター名と描き下ろし/流用だけを残す。 */}
       <div style={{ marginBottom: '24px' }}>
         <h2
           style={{
@@ -859,16 +841,12 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             fontWeight: 500,
           }}
         >
-          EVIDENCE · 予想の根拠データ
+          ILLUSTRATION · イラスト情報
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 36px' }}>
           {[
             { k: 'イラストレーター', v: card.materials.collector.illustrator, accent: 'collector' },
-            { k: '絵師人気', v: ILLUST_POP_LABEL[card.materials.collector.illustrator_popularity], accent: 'collector' },
-            { k: 'キャラ人気', v: CHAR_POP_LABEL[card.materials.common.character_popularity], accent: 'collector' },
             { k: 'イラスト', v: ARTWORK_LABEL[card.materials.collector.artwork_type], accent: 'collector' },
-            { k: '品薄度', v: SCARCITY_LABEL[card.materials.common.scarcity], accent: null },
-            { k: '再録状況', v: REPRINT_LABEL[card.materials.common.reprint_status], accent: null },
           ].map(({ k, v, accent }) => (
             <div
               key={k}

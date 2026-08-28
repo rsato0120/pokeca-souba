@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant } from '@/lib/data'
 import { extremeHitToday } from '@/lib/extremes'
 import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
 import { isDeckUtilityCard } from '@/lib/card-kind'
@@ -26,6 +26,8 @@ import { computeMarketTemp } from '@/lib/market-temp'
 import { selectAnomalies } from '@/lib/anomaly'
 import AccuracyStrip from '@/components/AccuracyStrip'
 import { computeAccuracy } from '@/lib/accuracy'
+import BoxRanking from '@/components/BoxRanking'
+import { buildBoxRanking } from '@/lib/box-ranking'
 import { getIndexMenu, getMarketIndex, indexChangePct } from '@/lib/index-series'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
@@ -489,6 +491,16 @@ export default function TopPage() {
   //   BOXは61系列すべてに sales_by_day が無く、カードも直近7日の充填率が23.2%しかない
   //   （2026-08-28 実測）。24時間の件数も金額も裏が取れないので、置けば飾りの嘘になる。
   //   代わりに騰落銘柄数（advance/decline）を出す。指数と意味が繋がっていて実データで出せる。
+  // 未開封BOXのランキング。カードのランキングはあるのにBOXには無かった
+  const boxRanking = buildBoxRanking(
+    boxes.map((box) => ({
+      box,
+      noshrink: getBoxPriceVariant(box.box_id, 'noshrink')?.history ?? null,
+      mixed: getBoxPriceHistory(box.box_id)?.history ?? null,
+      shrink: getBoxPriceVariant(box.box_id, 'shrink')?.history ?? null,
+    })),
+  )
+
   // AI予想の的中実績（/accuracy と同じ計算をそのまま使う）
   const accuracy = computeAccuracy()
 
@@ -802,6 +814,21 @@ export default function TopPage() {
               </Link>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* ── BOXランキング ──
+          カード側にはランキングが揃っているのにBOXには無かった。並びは7日変化率の降順で、
+          定価比は情報として添えるだけにしている（絶版弾は定価比が桁違いなので、
+          倍率で並べると常に古い弾が上位を独占して「いま動いている弾」が見えなくなる）。 */}
+      {boxRanking.length > 0 && (
+        <div className="sec">
+          <div className="sec-head">
+            <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
+            <span className="sec-title">未開封BOXランキング</span>
+            <span className="sec-sub">直近7日の値動き順・定価比つき</span>
+          </div>
+          <BoxRanking rows={boxRanking.slice(0, 10)} />
         </div>
       )}
 
