@@ -654,6 +654,22 @@ export default function TopPage() {
           個別の枠より先に置く */}
       <MarketIndexChart indices={indexWires} />
 
+      {/* ── BOXランキング ──
+          指数(市場全体) → BOX(弾ごとの市場) → 個別カード の順に絞り込む位置に置く。
+          カード側にはランキングが揃っているのにBOXには無かった。並びは7日変化率の降順で、
+          定価比は情報として添えるだけにしている（絶版弾は定価比が桁違いなので、
+          倍率で並べると常に古い弾が上位を独占して「いま動いている弾」が見えなくなる）。 */}
+      {boxRanking.length > 0 && (
+        <div className="sec">
+          <div className="sec-head">
+            <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
+            <span className="sec-title">未開封BOXランキング</span>
+            <span className="sec-sub">直近7日の値動き順・定価比つき</span>
+          </div>
+          <BoxRanking rows={boxRanking.slice(0, 10)} />
+        </div>
+      )}
+
       {/* ── 今日の注目カード（3枚） ──
           旧: 1枚だけを大きく出すヒーロー。すぐ下の「01」の1位と必ず同じカードになり
           先頭2ブロックが同じ情報を繰り返していたので3枚に広げた（FeaturedTrio.tsx 参照） */}
@@ -817,20 +833,6 @@ export default function TopPage() {
         </div>
       )}
 
-      {/* ── BOXランキング ──
-          カード側にはランキングが揃っているのにBOXには無かった。並びは7日変化率の降順で、
-          定価比は情報として添えるだけにしている（絶版弾は定価比が桁違いなので、
-          倍率で並べると常に古い弾が上位を独占して「いま動いている弾」が見えなくなる）。 */}
-      {boxRanking.length > 0 && (
-        <div className="sec">
-          <div className="sec-head">
-            <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
-            <span className="sec-title">未開封BOXランキング</span>
-            <span className="sec-sub">直近7日の値動き順・定価比つき</span>
-          </div>
-          <BoxRanking rows={boxRanking.slice(0, 10)} />
-        </div>
-      )}
 
       {/* ── 02: 在庫吸収ランキング（旧「今買われているカード」）──
           中身の選定・並び順は変えていない。出品数が減る＝在庫が吸われている、という
