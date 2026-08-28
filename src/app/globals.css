@@ -1722,3 +1722,41 @@ a:hover {
   .boxrank-thumb { width: 36px; height: 50px; }
   .boxrank-price { display: none; }
 }
+
+/* ─── BOXをコレクションに登録 ─── */
+.boxcol {
+  background: var(--bg2);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+.boxcol-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 10px 14px;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-2);
+}
+
+.boxcol-label { font-family: var(--mono); font-size: 13px; }
+.boxcol-price { color: var(--ink-faint); font-size: 11px; margin-left: 8px; }
+
+.boxcol-steps { display: flex; align-items: center; gap: var(--sp-2); flex-shrink: 0; }
+.boxcol-steps button {
+  width: 30px; height: 30px;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-sm);
+  background: var(--bg2);
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+  line-height: 1;
+}
+.boxcol-steps button:disabled { opacity: 0.35; cursor: default; }
+.boxcol-steps button:not(:disabled):hover { border-color: var(--accent); color: var(--accent); }
+.boxcol-qty { font-family: var(--mono); font-size: 15px; font-weight: 700; min-width: 20px; text-align: center; }

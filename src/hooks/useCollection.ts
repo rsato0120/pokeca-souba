@@ -10,6 +10,13 @@ export const psaKey = (cardId: string) => `${cardId}${PSA_SUFFIX}`
 export const isPsaKey = (key: string) => key.endsWith(PSA_SUFFIX)
 export const baseId = (key: string) => (isPsaKey(key) ? key.slice(0, -PSA_SUFFIX.length) : key)
 
+// 未開封BOXもコレクションに入れられる。カードIDと衝突しないよう名前空間を分ける。
+// シュリンクあり/なしは相場が別物なので別キーで持つ（同じBOXでも数千円ずれる）。
+export const BOX_PREFIX = 'box:'
+export const boxKey = (boxId: string, shrink: boolean) =>
+  `${BOX_PREFIX}${boxId}${shrink ? '#shrink' : ''}`
+export const isBoxKey = (key: string) => key.startsWith(BOX_PREFIX)
+
 // 取得価格（1枚あたりの買値）。所持枚数とはライフサイクルが別（買値だけ消したい・
 // 枚数だけ動かしたいがある）なので、同じキー空間で別ストレージに持つ。
 const COST_KEY = 'pokeca-cost-v1'

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getAllCards, getAllBoxes, getForecast, getPriceHistory } from '@/lib/data'
+import { getAllCards, getAllBoxes, getForecast, getPriceHistory, getBoxPriceHistory, getBoxPriceVariant } from '@/lib/data'
 import PortfolioView, { type PortfolioCardData } from '@/components/PortfolioView'
 import KaitoriLink from '@/components/KaitoriLink'
 
@@ -56,13 +56,58 @@ export default function PortfolioPage() {
     }
   })
 
+  // ── 未開封BOXも資産に入れる ──
+  // BOXを「もう1種類の保有」として同じ配列に流し込む。PortfolioView 側の保有ロジック
+  // （素体/PSA10の枠、評価額グラフ、含み損益）はそのまま使える。
+  //
+  // ⚠ シュリンクあり/なしは**別キー**にする。同じBOXでも相場が数千円違う
+  //   （ストームエメラルダ: あり¥13,990 / なし¥12,398）ので、まとめると評価額がずれる。
+  // ⚠ box_name は弾名ではなく「未開封BOX」で揃える。PortfolioView の弾コンプ判定が
+  //   box_name 単位で「掲載種類数」を数えるため、弾名にするとその弾の分母を
+  //   BOXのぶんだけ水増ししてコンプ率が永遠に埋まらなくなる。
+  // ⚠ psa10Current は null。BOXに鑑定品は無い。
+  const boxHoldings: PortfolioCardData[] = []
+  for (const b of boxes) {
+    if (b.certainty !== 'released') continue
+    for (const [suffix, label, shrink] of [['noshrink', 'シュリンクなし', false], ['shrink', 'シュリンクあり', true]] as const) {
+      const hist = getBoxPriceVariant(b.box_id, suffix)?.history ?? null
+      // 変異系列が無い弾は混在系列で代用する（片方しか出品が無い弾がある）
+      const series = hist ?? (shrink ? null : getBoxPriceHistory(b.box_id)?.history ?? null)
+      if (!series || series.length === 0) continue
+      const today = series[0]
+      const mid = today.avg != null ? Number(today.avg) : (Number(today.low) + Number(today.high)) / 2
+      if (!(mid > 0)) continue
+      boxHoldings.push({
+        id: `box:${b.box_id}${shrink ? '#shrink' : ''}`,
+        card_name: `${b.box_name} 未開封BOX`,
+        rarity: label,
+        card_no: b.code,
+        box_name: '未開封BOX',
+        image_url: b.pack_image_url ?? null,
+        currentLow: today.low,
+        currentHigh: today.high,
+        currentMid: Math.round(mid),
+        // BOXにAI予想は無いので3ヶ月後は出さない（無い数字を埋めない）
+        m3Low: null,
+        m3High: null,
+        history: series
+          .slice(0, 90)
+          .map(r => ({ date: r.date, mid: r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2 }))
+          .reverse(),
+        psa10Current: null,
+        psa10History: [],
+        href: `/boxes/${b.box_id}`,
+      })
+    }
+  }
+
   const releasedBoxes = boxes
     .filter(b => b.certainty === 'released')
     .map(b => ({ box_id: b.box_id, box_name: b.box_name }))
 
   return (
     <>
-      <PortfolioView cards={portfolioCards} boxes={releasedBoxes} />
+      <PortfolioView cards={[...portfolioCards, ...boxHoldings]} boxes={releasedBoxes} />
       {/* 買取導線（A8 / PR）。含み損益を見た直後＝売却を検討する動機が最も高い場所。
           ⚠ PortfolioView と同じ幅の段に入れること。素で置くと画面幅いっぱいに
           伸びて左端に貼りつき、ページの一部に見えない。 */}

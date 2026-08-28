@@ -24,6 +24,8 @@ export type PortfolioCardData = {
   history: { date: string; mid: number }[]  // 昇順・直近90日
   psa10Current: number | null
   psa10History: { date: string; mid: number }[]
+  /** 詳細へのリンク先。未指定ならカード詳細。未開封BOXは /boxes/{id} を渡す */
+  href?: string
 }
 
 type Holding = {
@@ -325,7 +327,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
             return (
               <div key={h.key} style={{ borderBottom: '1px solid var(--hair)', padding: '14px 16px' }}>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <Link href={`/cards/${card.id}`} style={{ flexShrink: 0 }}>
+                  <Link href={card.href ?? `/cards/${card.id}`} style={{ flexShrink: 0 }}>
                     {card.image_url ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={card.image_url} alt={card.card_name} referrerPolicy="no-referrer"
@@ -336,7 +338,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                   </Link>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                      <Link href={`/cards/${card.id}`} style={{ fontWeight: 700, fontSize: '14px', color: 'inherit' }}>
+                      <Link href={card.href ?? `/cards/${card.id}`} style={{ fontWeight: 700, fontSize: '14px', color: 'inherit' }}>
                         {card.card_name}
                       </Link>
                       <span className="rare-badge">{card.rarity}</span>

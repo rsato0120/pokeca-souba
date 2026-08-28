@@ -75,6 +75,13 @@ async function getMercariOnSale(
   // （例「ナンジャモ SAR」で別セットのナンジャモSARやナンジャモのハラバリーexが混ざる）。
   // BOX/セットはカード名を持たないので null。
   cardName: string | null = null,
+  // ⚠ **ask（出品価格）の算出にだけ効く下限**。件数からは引かない（2026-08-28）。
+  //   minPrice は件数とaskの両方に効く。BOXはそれで正しい（1パック単品はBOXの在庫では
+  //   ないので数に入れたくない）。カードは違う — 安い出品も「その番号の在庫」なので
+  //   件数には含めたい。件数から引くと出品数そのものが過少になる。
+  //   最初この区別をせず minPrice をカードにも渡してしまい、ask_low を直す代わりに
+  //   出品数を削る変更になっていた。
+  askMinPrice = 0,
 ): Promise<OnSaleResult> {
   const keyword = encodeURIComponent(searchQuery)
   const baseUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
@@ -166,7 +173,12 @@ async function getMercariOnSale(
     // 出品価格分布（傷あり・ジャンク等を除外し、外れ値を除いた安値帯）。
     // ⚠ ここは**1ページ目だけ**で計算する。ページを足すと高値側が入って ask_mid が上がり、
     // 成約と突き合わせる価格ガードの基準が静かにずれるため、件数の修正と混ぜない。
-    const prices = first.items.filter(keep).map(i => Number(i.price)).sort((a, b) => a - b)
+    // askMinPrice は**ここだけ**に効かせる。件数(kept)からは引かない（引数のコメント参照）。
+    const prices = first.items
+      .filter(keep)
+      .map(i => Number(i.price))
+      .filter(p => p >= askMinPrice)
+      .sort((a, b) => a - b)
 
     let askLow: number | null = null
     let askMid: number | null = null
@@ -1243,7 +1255,8 @@ async function scrapeCard(
     // ask_low は「いま出せばいくらで買えるか」の指標なので、割安な出品は残したい。
     // 実勢の25%を床にすると、40%引きの掘り出し物は通り、桁が違うものだけ落ちる。
     const askFloor = avg != null && avg > 0 ? Math.round(avg * 0.25) : 0
-    const onSale = await getMercariOnSale(browser, onSaleQuery, askFloor, cardNo, promoMust, cardName)
+    // 第3引数(minPrice)は0のまま＝**件数は削らない**。下限は第7引数で ask にだけ効かせる。
+    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName, askFloor)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 

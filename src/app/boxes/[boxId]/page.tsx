@@ -6,6 +6,7 @@ import { getSetProducts } from '@/lib/set-boxes'
 import { computeBoxEv } from '@/lib/box-ev'
 import BoxCardList from '@/components/BoxCardList'
 import BeeHonpoBanner from '@/components/BeeHonpoBanner'
+import BoxCollectionControl from '@/components/BoxCollectionControl'
 import { sparkSeries, midOf } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
 import BoxPricePanel from '@/components/BoxPricePanel'
@@ -287,6 +288,14 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               </div>
             )
           })()}
+
+          {/* 未開封BOXをコレクションに登録する。相場を見た直後が最も登録する動機が高い */}
+          <BoxCollectionControl
+            boxId={boxId}
+            boxName={box.box_name}
+            noshrinkMid={noshrinkHist?.[0] ? Math.round(noshrinkHist[0].avg ?? (noshrinkHist[0].low + noshrinkHist[0].high) / 2) : (mixedHist?.[0] ? Math.round(mixedHist[0].avg ?? (mixedHist[0].low + mixedHist[0].high) / 2) : null)}
+            shrinkMid={shrinkHist?.[0] ? Math.round(shrinkHist[0].avg ?? (shrinkHist[0].low + shrinkHist[0].high) / 2) : null}
+          />
 
           {/* bee本舗バナー（A8 / PR）。「探す」で外部に出る直前が最も意図が合う */}
           <BeeHonpoBanner marginY={10} />
