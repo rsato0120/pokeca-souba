@@ -1,11 +1,22 @@
 import { getPredictionLog } from '@/lib/data'
+import { midOf } from '@/lib/extremes'
 import type { PriceRecord } from '@/types/pokeca'
 
-// 画面に出す代表値。トップ/BOXページの既存計算と同じ (low+high)/2 に揃える。
-// ここを avg 基準に変えると表示価格が一斉にずれるので変えないこと。
-export function midOf(r: Pick<PriceRecord, 'low' | 'high'>): number {
-  return (Number(r.low) + Number(r.high)) / 2
-}
+// 画面に出す代表値。**実装は src/lib/extremes.ts の1本だけ**にして、ここは再輸出する。
+//
+// ⚠ 2026-08-28 まで、ここは (low+high)/2、extremes.ts は avg優先 と**2つに割れていた**。
+//   low/high は成約の20/80パーセンタイル帯で、avg はその区間の刈り込み平均なので
+//   メルカリ由来のレコードでは一致しない（スニダン由来は low/high を avg×0.9/×1.1 で
+//   合成しているのでたまたま一致していた）。結果、同じカードで
+//     トップ・スクリーナー・ウォッチリスト … 帯の中点
+//     カード詳細の現在価格・極値・買い候補   … avg
+//   と違う金額が出ていた。実測で **avgを持つ526枚中280枚(53%)が1%以上ズレ**、
+//   最大26.7%（リーフィアVMAX SA: avg¥61,694 vs 帯中点¥45,245）。
+//   レックウザVMAX SA では トップ¥600,150 / 詳細¥666,742 と11%食い違っていた。
+//
+//   採るのは avg。スクレイパーが代表値として算出し guardPrice が検証しているのは avg で、
+//   予想の current_low/high もそこから作られている。帯の中点は「表示用の帯」の副産物にすぎない。
+export { midOf }
 
 // スパークライン用の系列。records は新しい順なので、直近 points 点を古い順にして返す。
 //

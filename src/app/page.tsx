@@ -3,7 +3,7 @@ import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPric
 import { extremeHitToday } from '@/lib/extremes'
 import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
 import { isDeckUtilityCard } from '@/lib/card-kind'
-import { sparkSeries, prevUpPct, rankByUpPct, todayJST } from '@/lib/market'
+import { sparkSeries, prevUpPct, rankByUpPct, todayJST, midOf } from '@/lib/market'
 import type { Card, PriceRecord } from '@/types/pokeca'
 import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
@@ -76,7 +76,9 @@ export default function TopPage() {
     forecast: ReturnType<typeof getForecast>
   }
 
-  const mid = (r: { low: number; high: number }) => (r.low + r.high) / 2
+  // 代表値は src/lib/market.ts(実体は extremes.ts) の midOf に統一する。
+  // ここに独自実装を置くと、カード詳細・極値と違う金額が出る（53%のカードでズレていた）。
+  const mid = midOf
 
   const metrics: CardMetrics[] = cards.map((card) => {
     const slug = getCardSlug(card)
@@ -473,7 +475,6 @@ export default function TopPage() {
   const allIndex = getMarketIndex('all')
   const indexLatest = allIndex?.series[allIndex.series.length - 1] ?? null
   const indexDayPct = allIndex ? indexChangePct(allIndex, 1) : null
-  const indexWeekPct = allIndex ? indexChangePct(allIndex, 7) : null
   const advCount = changeCards.filter(m => getChange(m) > 0).length
   const decCount = changeCards.filter(m => getChange(m) < 0).length
 
@@ -495,30 +496,6 @@ export default function TopPage() {
     bullish: bullishCount,
     bearish: bearishCount,
   })
-  const advRatio = advCount + decCount > 0 ? (advCount / (advCount + decCount)) * 100 : null
-  const highCount = extremeUpdates.filter(e => e.hit === 'high').length
-  const lowCount = extremeUpdates.filter(e => e.hit === 'low').length
-
-  const summaryRows: { label: string; value: string; sub: string | null; tone: 'up' | 'down' | 'flat' }[] = [
-    {
-      label: '総合指数',
-      value: indexLatest ? indexLatest.value.toFixed(2) : '—',
-      sub: indexDayPct != null ? `前日 ${indexDayPct >= 0 ? '+' : ''}${indexDayPct.toFixed(2)}%` : null,
-      tone: indexDayPct == null ? 'flat' : indexDayPct > 0 ? 'up' : indexDayPct < 0 ? 'down' : 'flat',
-    },
-    {
-      label: '値上がり / 値下がり',
-      value: `${advCount} / ${decCount}`,
-      sub: advRatio != null ? `上昇比率 ${advRatio.toFixed(0)}%` : null,
-      tone: advRatio == null ? 'flat' : advRatio > 55 ? 'up' : advRatio < 45 ? 'down' : 'flat',
-    },
-    {
-      label: '高値 / 安値 更新',
-      value: `${highCount} / ${lowCount}`,
-      sub: indexWeekPct != null ? `指数7日 ${indexWeekPct >= 0 ? '+' : ''}${indexWeekPct.toFixed(2)}%` : null,
-      tone: highCount === lowCount ? 'flat' : highCount > lowCount ? 'up' : 'down',
-    },
-  ]
 
   return (
     <div className="wrap">

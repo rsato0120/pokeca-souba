@@ -6,7 +6,7 @@ import { getSetProducts } from '@/lib/set-boxes'
 import { computeBoxEv } from '@/lib/box-ev'
 import BoxCardList from '@/components/BoxCardList'
 import BeeHonpoBanner from '@/components/BeeHonpoBanner'
-import { sparkSeries } from '@/lib/market'
+import { sparkSeries, midOf } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
 import BoxPricePanel from '@/components/BoxPricePanel'
 import BoxExpectedValue from '@/components/BoxExpectedValue'
@@ -103,7 +103,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
   const showBoxSection = !!(setRows || repLatest)
 
   // 価格変動ランキング（このBOX内）
-  const mid = (r: { low: number; high: number }) => (r.low + r.high) / 2
+  // 代表値は src/lib/market.ts(実体は extremes.ts) の midOf に統一する。
+  // ここに独自実装を置くと、カード詳細・極値と違う金額が出る（53%のカードでズレていた）。
+  const mid = midOf
   type CardChange = { card: typeof cards[number]; slug: string; currentMid: number; weekChange: number | null; dayChange: number | null }
   const cardChanges: CardChange[] = cards.map((card) => {
     const slug = getCardSlug(card)
