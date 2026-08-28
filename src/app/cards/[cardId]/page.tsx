@@ -17,6 +17,8 @@ import RelatedCards, { type RelatedItem } from '@/components/RelatedCards'
 import { pickRelated } from '@/lib/related'
 import SiteHeader from "@/components/SiteHeader"
 import OrderBook from '@/components/OrderBook'
+import CardScorePanel from '@/components/CardScorePanel'
+import { computeCardScore } from '@/lib/score'
 import RangePosition from '@/components/RangePosition'
 import WatchButton from '@/components/WatchButton'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
@@ -174,6 +176,14 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const latestPsa10Record = priceHistory?.history?.find(r => r.psa10 != null) ?? null
   const latestPsa10 = latestPsa10Record?.psa10 ?? null
   const latestPsa10Date = latestPsa10Record?.date ?? null
+
+  // AI投資スコアと予想の根拠。材料が足りないカードは null（枠ごと出さない）
+  const cardScore = computeCardScore({
+    card,
+    forecast: realForecast,
+    history: priceHistory?.history ?? [],
+    extremes: getPriceExtremes(card.id),
+  })
 
   // 全期間の高値・安値（履歴は90日で消えるので data/price-extremes.json から）
   const extremes = getPriceExtremes(card.id)
@@ -724,7 +734,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         </div>
       ) : (
         <>
-        {/* ── 総合シナリオ ── */}
+        {cardScore && <CardScorePanel score={cardScore} />}
+
+      {/* ── 総合シナリオ ── */}
         <div
           style={{
             display: 'flex',

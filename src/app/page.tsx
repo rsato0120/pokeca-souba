@@ -24,6 +24,8 @@ import HeatPicks, { type HeatPick } from '@/components/HeatPicks'
 import AnomalyFeed, { type AnomalyRow } from '@/components/AnomalyFeed'
 import { computeMarketTemp } from '@/lib/market-temp'
 import { selectAnomalies } from '@/lib/anomaly'
+import AccuracyStrip from '@/components/AccuracyStrip'
+import { computeAccuracy } from '@/lib/accuracy'
 import { getIndexMenu, getMarketIndex, indexChangePct } from '@/lib/index-series'
 
 function formatBoxName(card: Card, boxes: ReturnType<typeof getAllBoxes>): string {
@@ -487,6 +489,9 @@ export default function TopPage() {
   //   BOXは61系列すべてに sales_by_day が無く、カードも直近7日の充填率が23.2%しかない
   //   （2026-08-28 実測）。24時間の件数も金額も裏が取れないので、置けば飾りの嘘になる。
   //   代わりに騰落銘柄数（advance/decline）を出す。指数と意味が繋がっていて実データで出せる。
+  // AI予想の的中実績（/accuracy と同じ計算をそのまま使う）
+  const accuracy = computeAccuracy()
+
   const allIndex = getMarketIndex('all')
   const indexLatest = allIndex?.series[allIndex.series.length - 1] ?? null
   const indexDayPct = allIndex ? indexChangePct(allIndex, 1) : null
@@ -615,6 +620,10 @@ export default function TopPage() {
           <HeatPicks picks={heatPicks} />
         </section>
       )}
+
+      {/* AI予想の的中実績。「AIが見つけた」と言い切る直後に、その予想がどれだけ
+          当たってきたかを置く（材料は /accuracy と同じ computeAccuracy） */}
+      <AccuracyStrip summary={accuracy} />
 
       {/* ── 看板② AI異変検知 ── */}
       <section className="sec">

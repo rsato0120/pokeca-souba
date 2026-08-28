@@ -1534,3 +1534,98 @@ a:hover {
   .flag-title { font-size: 24px; }
   .pulse-index { font-size: 34px; }
 }
+
+/* ─── AI予想実績のダイジェスト ─── */
+.acc-strip {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--sp-5);
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--hair);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+
+.acc-rate {
+  font-family: var(--mono);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.acc-rate-unit { font-size: 16px; color: var(--ink-dim); }
+.acc-sub { font-size: 10px; color: var(--ink-faint); font-family: var(--mono); }
+
+.acc-dirs { display: flex; gap: var(--sp-5); flex-wrap: wrap; }
+.acc-dir-rate { font-family: var(--mono); font-size: var(--fs-md); font-weight: 700; line-height: 1.3; }
+.acc-dir-n { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+
+.acc-link {
+  font-size: var(--fs-sm);
+  color: var(--accent);
+  white-space: nowrap;
+  border-bottom-color: var(--hair);
+}
+
+@media (max-width: 760px) {
+  .acc-strip { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .acc-rate { font-size: 28px; }
+}
+
+/* ─── AI投資スコア（カード詳細） ─── */
+.score-panel {
+  background: var(--panel);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+
+.score-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-5);
+  align-items: center;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--hair);
+  margin-bottom: var(--sp-3);
+}
+
+.score-total { font-family: var(--mono); font-size: 40px; font-weight: 700; color: var(--accent); line-height: 1.1; }
+.score-total-max { font-size: 15px; color: var(--ink-faint); font-weight: 400; }
+
+.score-bars { display: flex; flex-direction: column; gap: 5px; }
+.score-bar-row { display: grid; grid-template-columns: 52px 1fr 26px; gap: var(--sp-2); align-items: center; }
+.score-bar-label { font-size: 10px; color: var(--ink-dim); }
+.score-bar-track { height: 6px; background: var(--bg); border-radius: var(--r-pill); overflow: hidden; }
+.score-bar-fill { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-strong), var(--accent)); border-radius: var(--r-pill); }
+.score-bar-val { font-family: var(--mono); font-size: 10px; color: var(--ink-dim); text-align: right; }
+
+/* 内訳は 0 を中央にした発散バー。プラスは右、マイナスは左に伸びる */
+.score-factors { display: flex; flex-direction: column; gap: 4px; margin-bottom: var(--sp-3); }
+.score-factor {
+  display: grid;
+  grid-template-columns: 82px 1fr 34px minmax(0, 1.3fr);
+  gap: var(--sp-2);
+  align-items: center;
+  font-size: 11px;
+}
+.score-factor-label { color: var(--ink-dim); }
+.score-factor-bar { position: relative; height: 8px; background: var(--bg); border-radius: 2px; }
+/* 中央の0線 */
+.score-factor-bar::before {
+  content: ''; position: absolute; left: 50%; top: -1px; bottom: -1px;
+  width: 1px; background: var(--hair);
+}
+.score-factor-fill { position: absolute; top: 0; bottom: 0; border-radius: 2px; }
+.score-factor-pts { font-family: var(--mono); font-weight: 700; text-align: right; }
+.score-factor-detail { color: var(--ink-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .score-head { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .score-factor { grid-template-columns: 68px 1fr 30px; }
+  .score-factor-detail { display: none; }
+}
