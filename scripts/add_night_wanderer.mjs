@@ -20,7 +20,7 @@ const BOX_ENTRY = {
   certainty: 'released',
   pack_price_yen: 180,
   packs_per_box: 30,
-  pack_image_url: 'https://s3.limitlesstcg.com/sets/jp/SV6a.png',
+  pack_image_url: 'https://archives.bulbagarden.net/media/upload/f/f4/SV6a_Night_Wanderer_pack.png',
   note: '2024-06-07発売の強化拡張パック（1パック5枚・1BOX30パック）。DLC「藍の円盤」のお面ポケモンとモモワロウを軸にした悪タイプ中心の弾。シークレット枠は AR 065-076 / SR 077-086 / SAR 087-091 / UR 092-094。SAR5種のうち4種を kantaro が担当。相場は4弾中で最も低く、キチキギスex SAR(089)が最高額。本サイトは相場が動く高額帯10枚を掲載。',
 }
 

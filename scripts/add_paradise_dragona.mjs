@@ -19,7 +19,7 @@ const BOX_ENTRY = {
   certainty: 'released',
   pack_price_yen: 180,
   packs_per_box: 30,
-  pack_image_url: 'https://s3.limitlesstcg.com/sets/jp/SV7a.png',
+  pack_image_url: 'https://archives.bulbagarden.net/media/upload/4/45/SV7a_Paradise_Dragona_pack.png',
   note: '2024-09-13発売の強化拡張パック（1パック5枚・1BOX30パック）。ドラゴンタイプを軸に構成された弾。シークレット枠は AR 065-076 / SR 077-086 / SAR 087-091 / UR 092-094。ラティアスex SAR(087)とルチアのアピール SAR(091)が並んで最高額で、2枚だけが突出した二強構成。本サイトは相場が動く高額帯10枚を掲載。',
 }
 

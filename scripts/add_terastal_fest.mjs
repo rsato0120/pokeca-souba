@@ -21,7 +21,7 @@ const BOX_ENTRY = {
   certainty: 'released',
   pack_price_yen: 550,
   packs_per_box: 10,
-  pack_image_url: 'https://s3.limitlesstcg.com/sets/jp/SV8a.png',
+  pack_image_url: 'https://archives.bulbagarden.net/media/upload/b/b4/SV8a_Terastal_Fest_ex_pack.png',
   note: '2024-12-06発売のハイクラスパック（1パック10枚・1BOX10パック）。イーブイと進化系「ブイズ」全8種をテラスタルのポケモンexとしてSARで揃えた年末の総集編弾。イーブイex SARは2種（223 tono / 224 Natsuko Shoji été）。ブラッキーex SAR(217)が突出した最高額で、ピカチュウex UR(236)がそれに次ぐ。キャラ人気が全カードに乗るためコレクター需要が非常に厚い。本サイトは相場が動く高額帯21枚を掲載。',
 }
 

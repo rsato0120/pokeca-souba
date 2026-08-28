@@ -20,7 +20,7 @@ const BOX_ENTRY = {
   certainty: 'released',
   pack_price_yen: 180,
   packs_per_box: 30,
-  pack_image_url: 'https://s3.limitlesstcg.com/sets/jp/SV5a.png',
+  pack_image_url: 'https://archives.bulbagarden.net/media/upload/c/c9/SV5a_Crimson_Haze_pack.png',
   note: '2024-03-22発売の強化拡張パック（1パック5枚・1BOX30パック）。DLC「碧の円盤」のキタカミ／ブルーベリー学園のポケモンを収録。シークレット枠は AR 067-078 / SR 079-088 / SAR 089-093 / UR 094-096。ゲッコウガex SAR(090)が突出した最高額で、サザレ・スイレンのお世話の女性トレーナーSARが続く。本サイトは相場が動く高額帯13枚を掲載。',
 }
 
