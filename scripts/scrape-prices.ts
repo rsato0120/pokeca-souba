@@ -1389,31 +1389,40 @@ async function scrapeCard(
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 
-    // ── 価格をスニダンから採ったカードは ask もスニダンに揃える ──
-    // guardPrice R1 は「成約 vs 出品」の整合を見る関門なので、**同じ市場同士**で比べるのが本来。
-    // スニダン成約 × メルカリ出品 は市場が違うぶん常にズレを抱えていた（スニダンは状態A・
-    // 手数料込みなので、比の上限を 3.5倍まで緩めてようやく通していた＝関門が働いていない）。
-    // 件数(count)はスニダンから取れないのでメルカリのまま。ask だけ差し替える。
+    // ── スニダンの商品ページから 出品数 と ask を採る ──
+    //
+    // ⚠ **出品数と ask で採用条件が違う**（2026-08-29）。
+    //
+    // 出品数(count): apparelId があれば**常に**スニダンを採る。
+    //   スニダンの usedListingCount はその商品固有の実数で、丸めも打ち切りも無い。
+    //   メルカリの件数は曖昧一致＋3ページ打ち切りがあり、打ち切ると「N件以上」の下限値。
+    //   実測: ブラッキーex SAR 344件 vs メルカリ71件、メガリザードンXex MA 816件 vs 189件。
+    //   スニダンIDは471枚に登録済みなので、常に採ることで **85%が同じ基準**になり、
+    //   むしろ出所の混在が減る（価格の出所に紐付けると164枚にしかならなかった）。
+    //
+    // ask: **価格の出所が snkrdunk の時だけ**スニダンを採る。
+    //   guardPrice R1 は「成約 vs 出品」の整合を見る関門なので、同じ市場同士で比べる必要がある。
+    //   メルカリ成約 × スニダン出品 にすると、手数料込み・状態A基準のぶん常に高く出て
+    //   関門が誤爆する。ここは price の出所に必ず合わせる。
+    //
+    // ⚠ どちらも出所を記録する（ask_source / on_sale_source）。混ざったまま引き算すると
+    //   偽の増減が出る（src/lib/on-sale.ts）。BOXで同じ事故を起こしている。
     let onSale = mercariOnSale
     let askSource: 'mercari' | 'snkrdunk' = 'mercari'
     let onSaleSource: 'mercari' | 'snkrdunk' = 'mercari'
-    if (priceSource === 'snkrdunk' && apparelId) {
+    if (apparelId) {
       const sd = await getSnkrdunkAsk(browser, apparelId)
-      // 出品数もスニダンの実数（usedListingCount）を優先する。メルカリの件数は
-      // 曖昧一致と3ページ打ち切りの制約があり、打ち切ると「N件以上」の下限値にしかならない。
-      // スニダンはその商品固有の実数なので丸めも打ち切りも無い。
-      // ⚠ 出所が混ざると系列間の比較（在庫吸収/売り圧ランキング・異変検知）が壊れるので、
-      //   on_sale_source を必ず残す。BOXで同じ事故を起こしている。
-      if (sd.askLow != null || sd.onSale != null) {
+      const useAsk = priceSource === 'snkrdunk' && sd.askLow != null
+      if (useAsk || sd.onSale != null) {
         onSale = {
           ...mercariOnSale,
-          ...(sd.askLow != null ? { askLow: sd.askLow, askMid: sd.askMid } : {}),
+          ...(useAsk ? { askLow: sd.askLow, askMid: sd.askMid } : {}),
           ...(sd.onSale != null ? { count: sd.onSale, capped: false } : {}),
         }
-        if (sd.askLow != null) askSource = 'snkrdunk'
+        if (useAsk) askSource = 'snkrdunk'
         if (sd.onSale != null) onSaleSource = 'snkrdunk'
         const parts = [
-          sd.askLow != null ? `ask ¥${sd.askLow.toLocaleString()}〜` : null,
+          useAsk ? `ask ¥${sd.askLow!.toLocaleString()}〜` : null,
           sd.onSale != null ? `出品${sd.onSale}件` : null,
         ].filter(Boolean).join(' / ')
         process.stdout.write(`[スニダン ${parts}] `)
