@@ -144,6 +144,8 @@ export interface PriceHistory {
   // sold_total（メルカリ numFound）の前日差と違い、個別の取引を数えているので減らないし歯抜けにもならない。
   // ページに載る履歴は十数件〜数十件で打ち切られるため、毎日の観測を日ごとに max で積み上げる
   // （見えなかった日は前の観測が残る／見え方が増えた日は増えた側を採る）。
+  /** 成約APIを最後に引いた日（YYYY-MM-DD）。周期実行の判定に使う */
+  sales_fetched_at?: string
   sales_by_day?: Record<string, number>        // 素体（状態A〜D）
   psa10_sales_by_day?: Record<string, number>  // PSA10
 }

@@ -4,6 +4,7 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
+import { getSnkrdunkSales } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
@@ -1028,6 +1029,22 @@ export function guardPrice(opts: {
 // max なのは、スニダンの履歴が新しい取引に押し出されて古い日が見えなくなるため
 // （見えなくなった＝取引が無かった、ではない）。SALES_KEEP_DAYS より古い日は捨てる。
 const SALES_KEEP_DAYS = 120
+// 成約APIで遡る日数。1ページ1000件なので通常これで1リクエストに収まる。
+// ⚠ 素体4状態＋PSA10で5リクエスト/枚。471枚だと約2,400リクエストになるため、
+//   ここを伸ばすとページ送りが増えて日次の所要時間が跳ねる。
+const SALES_API_DAYS = 120
+// 成約APIを何日ごとに引き直すか。全カードがこの周期で一巡する
+const SALES_API_REFRESH_DAYS = 3
+
+/** 成約APIを最後に引いてから何日経ったか。一度も引いていなければ null */
+function salesFetchedAgeDays(cardId: string, today: string): number | null {
+  try {
+    const data = JSON.parse(fs.readFileSync(path.join(pricesDir, `${cardId}.json`), "utf-8")) as PriceHistory
+    const at = data.sales_fetched_at
+    if (!at) return null
+    return Math.round((Date.parse(today) - Date.parse(at)) / 86400000)
+  } catch { return null }
+}
 
 function mergeSalesByDay(
   existing: Record<string, number> | undefined,
@@ -1068,6 +1085,8 @@ function savePriceHistory(
   askSource?: 'mercari' | 'snkrdunk',
   /** 出品件数の出所。系列間で混ざると比較が壊れるので必ず残す */
   onSaleSource?: 'mercari' | 'snkrdunk',
+  /** 成約APIを引いた日。null なら今回は引いていないので既存値を保つ */
+  salesFetchedAt?: string | null,
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -1088,6 +1107,7 @@ function savePriceHistory(
 
   // スニダンの実成約件数を日別に積む。ページには直近の十数件しか載らないので、
   // 毎日の観測を「日ごとの max」で重ねて履歴を作る（観測が欠けた日は前の値が残る）。
+  if (salesFetchedAt) data.sales_fetched_at = salesFetchedAt
   data.sales_by_day = mergeSalesByDay(data.sales_by_day, regularSaleDates, date)
   data.psa10_sales_by_day = mergeSalesByDay(data.psa10_sales_by_day, psa10SaleDates, date)
 
@@ -1219,6 +1239,7 @@ async function scrapeCard(
     let snkrdunkFetched = false
     // スニダンの売買履歴に出ていた個別取引の日付。出来高（成約数）の元になる。
     // 価格をスニダンから採るかどうかとは無関係に、取れた分は常に記録する
+    let salesFetchedAt: string | null = null
     let snkrdunkSaleDates: string[] = []
     let snkrdunkPsa10SaleDates: string[] = []
 
@@ -1233,6 +1254,28 @@ async function scrapeCard(
       snkrdunkStaleDays = prices.staleDays
       snkrdunkSaleDates = prices.regularSaleDates
       snkrdunkPsa10SaleDates = prices.psa10SaleDates
+
+      // ── 成約日は**公式APIを優先**する（2026-08-30）──
+      // HTMLの売買履歴タブはページに載る十数件しか見えず、当日近辺は「3時間前」の相対表記。
+      // その結果 sales_by_day は歯抜けで、直近7日に成約日を持つカードは556枚中213枚(38%)しか
+      // 無かった（出来高グラフが成立しない原因）。APIは1回1000件・絶対日付で返る。
+      // 実測(ブラッキーex SAR / 2026-08-25): A3件+D1件+PSA10 9件=13件 で提示値と一致。
+      // 取得できなかった状態は**足さない**（0件と欠測を混同しないため、HTML由来の値を残す）。
+      // ⚠ 毎日は叩かない。素体4状態＋PSA10で5リクエスト/枚あり、実測で1枚34秒
+      //   （471枚なら約4.4時間）。日次バッチの既存処理に上乗せすると収まらない。
+      //   成約履歴は積み上げ式（mergeSalesByDay が日ごとに max を取る）ので毎日取り直す
+      //   必要は無い。取得日を記録して SALES_API_REFRESH_DAYS 周期で回し、全カードが
+      //   その日数以内に一巡するようにする。
+      const salesAge = salesFetchedAgeDays(id, date)
+      if (salesAge == null || salesAge >= SALES_API_REFRESH_DAYS) try {
+        const api = await getSnkrdunkSales(browser, apparelId, SALES_API_DAYS)
+        if (api.regular.length > 0) snkrdunkSaleDates = api.regular
+        if (api.psa10.length > 0) snkrdunkPsa10SaleDates = api.psa10
+        if (api.regular.length > 0 || api.psa10.length > 0) {
+          process.stdout.write(`[成約API 素体${api.regular.length}/PSA10 ${api.psa10.length}] `)
+        }
+        salesFetchedAt = date
+      } catch { /* APIが落ちてもHTML由来の値で続行する */ }
 
       // 取引が止まっている系列は getSnkrdunkPrices が regular=null を返す。何日止まって
       // いたかをログに出す（メルカリに落ちた理由が「取引無し」か「件数不足」か判別するため）
@@ -1483,7 +1526,7 @@ async function scrapeCard(
       return
     }
 
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, askSource, onSaleSource)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, askSource, onSaleSource, salesFetchedAt)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
@@ -1762,6 +1805,21 @@ async function main() {
   }
 
   console.log(`\n完了: ${stats.succeeded}件更新, ${stats.skipped}件スキップ, ${stats.failed}件失敗`)
+
+  // ── 更新スタンプ ──
+  // 画面の「最終更新」はこれを見る。これまでワークフローの別ステップ
+  // （write-update-stamp.ts）でしか書いておらず、**ワークフロー外でスクレイプしても
+  // 更新されなかった**。実際 8/29〜30 に取り直したのに表示は 8/27 のまま止まっていた。
+  // 価格を書き換えた本人がスタンプも書くのが自然なので、ここで書く。
+  // ⚠ 弾やカードを絞った実行では書かない。サイト全体を更新していないのに
+  //   「最終更新＝いま」と出すのは嘘になる。
+  // ⚠ kind は 'prices'。AI予想はこのスクリプトでは触らないので、
+  //   予想まで回した回は従来どおりワークフローが 'full' で上書きする。
+  if (!boxFilter && stats.succeeded > 0) {
+    const stamp = { updated_at: new Date().toISOString(), kind: 'prices' as const }
+    fs.writeFileSync(path.join(process.cwd(), 'data', 'last-update.json'), JSON.stringify(stamp, null, 2), 'utf-8')
+    console.log(`更新スタンプを書きました: ${stamp.updated_at} (prices)`)
+  }
 }
 
 // 直接実行された時だけスクレイプする。guardPrice の回帰テスト(verify-price-guard.ts)が
