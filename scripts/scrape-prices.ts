@@ -249,6 +249,75 @@ function parseSnkrdunkSaleDate(token: string, nowMs: number): { d: string; t: nu
   return { d, t: Date.parse(`${d}T00:00:00+09:00`) }
 }
 
+/**
+ * スニダンの商品ページから **状態別の最安値**（「A ¥14,999〜」）を取る。
+ *
+ * 【なぜ要るか】ask（最安出品・出品中央値）はこれまでメルカリの曖昧一致から作っていた。
+ * 番号照合を通しても状態記載の癖で桁違いの出品が紛れ、ask_low が実勢の1割まで落ちる
+ * ことがある（レックウザVMAX SA: 成約¥666,742 に対し ask_low ¥49,000）。
+ * スニダンの値は**その商品ページ固有**なので曖昧一致が原理的に起きない。
+ *
+ * さらに guardPrice R1 は「成約 vs 出品」の整合を見る関門なので、**同じ市場同士**で
+ * 比べるのが本来の姿。価格をスニダンから採っているカード（実測165枚・31%）で
+ * メルカリの出品と突き合わせるのは、市場が違うぶん常にズレを抱えていた。
+ *
+ * ⚠ 出品**数**はスニダンからは取れない（2026-08-29 に商品ページのHTMLを直接確認）。
+ *   埋め込みJSONは状態ごとに
+ *     {"conditionId":20,"usedMinPrice":70000,"text":"C","hasListing":true,"listingCount":1}
+ *   の形だが、**listingCount は件数の少ない状態にしか出ない**。実測(ブラッキーex SAR):
+ *     A 最安¥55,000 件数なし / B ¥49,802 件数なし / PSA10 ¥92,500 件数なし
+ *     C ¥70,000 件数1 / BGS9.5 ¥97,000 件数3 / ARS10+ 件数2
+ *   主力のA・B・PSA10に件数が付かないので、合計しても過少になる。
+ *   商品全体の usedListingCount / usedListingCountText はこのページのHTMLには無い。
+ *   よって**件数は従来どおりメルカリから取る**。
+ * ⚠ 売買履歴ページ(/sales-histories)にはこの表示が無いので、商品ページを別に1回読む。
+ *   価格の出所がスニダンに決まったカードだけ取りに行き、無駄な往復を増やさない。
+ */
+async function getSnkrdunkAsk(browser: Browser, apparelId: number): Promise<{ askLow: number | null; askMid: number | null }> {
+  const page = await browser.newPage()
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
+  try {
+    // ⚠ 読むのは**埋め込みJSON**であって描画後のテキストではない。テキスト側は
+    //   「出品待ち」「¥55,000〜」のような表示文字列で、状態名との対応が改行に依存するため
+    //   レイアウト変更で静かに壊れる。JSONは1エントリに状態と金額が揃っている。
+    let html = ''
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        await page.goto(`https://snkrdunk.com/apparels/${apparelId}`, { waitUntil: 'load', timeout: 20000 })
+        await new Promise(r => setTimeout(r, 2000))
+        html = await page.content()
+        if (html && html.length > 100000) break
+      } catch {
+        if (attempt < 3) await new Promise(r => setTimeout(r, 2000))
+      }
+    }
+    if (!html) return { askLow: null, askMid: null }
+
+    // 素体の状態だけを採る。鑑定品(PSA/BGS/ARS)を混ぜると、素体¥15,000のカードで
+    // ask が¥38,000 に化ける。text は "未使用" "S" "A" "B" "C" "D" のいずれか。
+    const RAW_CONDITIONS = new Set(['未使用', 'S', 'A', 'B', 'C', 'D'])
+    const prices: number[] = []
+    for (const m of html.matchAll(/\{"conditionId":\d+,[^{}]*?\}/g)) {
+      const block = m[0]
+      const label = block.match(/"text":"([^"]+)"/)?.[1]
+      if (!label || !RAW_CONDITIONS.has(label)) continue
+      if (!block.includes('"hasListing":true')) continue
+      const v = Number(block.match(/"usedMinPrice":(\d+)/)?.[1])
+      if (Number.isFinite(v) && v > 0) prices.push(v)
+    }
+    if (prices.length === 0) return { askLow: null, askMid: null }
+
+    prices.sort((a, b) => a - b)
+    return {
+      // 最安＝いま一番安く買える状態の値
+      askLow: prices[0],
+      // 中央値。状態が1つしか出品されていなければその値になる
+      askMid: calcMedian(prices),
+    }
+  } catch { return { askLow: null, askMid: null } }
+  finally { await page.close() }
+}
+
 // regularSaleDates / psa10SaleDates = ページに載っていた**個別の取引**の日付（1取引1要素）。
 // メルカリの numFound 差分と違って実件数なので、日別に数えれば減ったり歯抜けになったりしない。
 async function getSnkrdunkPrices(browser: Browser, apparelId: number): Promise<{ fetched: boolean; regular: number | null; regularCount: number; psa10: number | null; staleDays: number | null; staleRegular: number | null; regularSaleDates: string[]; psa10SaleDates: string[] }> {
@@ -728,8 +797,10 @@ export function guardPrice(opts: {
   prev: PriceRecord | null
   /** 採用した成約の件数。取れなかった経路（スニダン鮮度切れ）では undefined */
   sampleCount?: number
+  /** ask の出所。成約と同じ市場なら R1 の許容幅を締める */
+  askSource?: 'mercari' | 'snkrdunk'
 }): { ok: true } | { ok: false; reason: string } {
-  const { id, date, avg, low, high, priceSource, onSale, prev, sampleCount } = opts
+  const { id, date, avg, low, high, priceSource, onSale, prev, sampleCount, askSource } = opts
 
   // --- R5: 採用サンプルが薄すぎないか【R0より前に判定する】 ---
   // 極値(src/lib/extremes.ts)は sample_count < MIN_SAMPLE_COUNT のレコードを「実勢から
@@ -852,7 +923,17 @@ export function guardPrice(opts: {
   const askRef = (isBoxPool || askRuleExemptOnly) ? null : (onSale?.askMid ?? onSale?.askLow ?? null)
   if (askRef != null && askRef > 0) {
     let lo: number, hi: number
-    if (priceSource === 'snkrdunk') {
+    if (priceSource === 'snkrdunk' && askSource === 'snkrdunk') {
+      // ★成約も出品も同じ市場（2026-08-29 に ask をスニダンから取れるようにした）。
+      // 市場差を吸収するための緩い上限（3.5倍）が要らなくなるので締める。
+      // askRef はスニダンの「状態別の最安値」なので、成約平均がその 0.5〜2.5倍から
+      // 外れるのは、パースの取り違えか片方が別カードを指している時。
+      // ⚠ この幅はまだ実データで検証していない。初回の全件取得のあと分布を見て詰めること
+      //   （締めすぎると正しい価格まで弾いて欠測になるので、まずは広めから入る）。
+      lo = 0.5
+      hi = 2.5
+    } else if (priceSource === 'snkrdunk') {
+      // スニダン成約 × メルカリ出品。市場が違うので比は素直に出ない。
       // スニダンは「状態A=美品」かつ手数料込み表示なので、メルカリ出品より高いのは設計通り。
       // ただし安価帯は最低取引価格の影響で ¥1,000〜1,700 に張り付き、実勢の2〜3倍に化ける。
       // この帯だけ上限を締める（実例A の ¥1,517 vs 出品中央値¥739＝2.05倍を止める）。
@@ -935,7 +1016,9 @@ function savePriceHistory(
   oldestSaleDays?: number | null,
   // スニダン売買履歴から拾った個別取引の日付（1取引1要素）
   regularSaleDates?: string[],
-  psa10SaleDates?: string[]
+  psa10SaleDates?: string[],
+  /** ask の出所。成約(source)と違う市場のことがあるので別に持つ */
+  askSource?: 'mercari' | 'snkrdunk',
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -973,6 +1056,8 @@ function savePriceHistory(
     ...(validatedOnSale?.count != null && validatedOnSale.capped ? { on_sale_capped: true } : {}),
     ...(validatedOnSale?.askLow != null ? { ask_low: validatedOnSale.askLow } : {}),
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
+    // ask の出所。成約(source)と違う市場のことがあるので別に持つ
+    ...(validatedOnSale?.askLow != null && askSource ? { ask_source: askSource } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
@@ -1256,9 +1341,26 @@ async function scrapeCard(
     // 実勢の25%を床にすると、40%引きの掘り出し物は通り、桁が違うものだけ落ちる。
     const askFloor = avg != null && avg > 0 ? Math.round(avg * 0.25) : 0
     // 第3引数(minPrice)は0のまま＝**件数は削らない**。下限は第7引数で ask にだけ効かせる。
-    const onSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName, askFloor)
+    const mercariOnSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName, askFloor)
     // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
     await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
+
+    // ── 価格をスニダンから採ったカードは ask もスニダンに揃える ──
+    // guardPrice R1 は「成約 vs 出品」の整合を見る関門なので、**同じ市場同士**で比べるのが本来。
+    // スニダン成約 × メルカリ出品 は市場が違うぶん常にズレを抱えていた（スニダンは状態A・
+    // 手数料込みなので、比の上限を 3.5倍まで緩めてようやく通していた＝関門が働いていない）。
+    // 件数(count)はスニダンから取れないのでメルカリのまま。ask だけ差し替える。
+    let onSale = mercariOnSale
+    let askSource: 'mercari' | 'snkrdunk' = 'mercari'
+    if (priceSource === 'snkrdunk' && apparelId) {
+      const sd = await getSnkrdunkAsk(browser, apparelId)
+      if (sd.askLow != null) {
+        onSale = { ...mercariOnSale, askLow: sd.askLow, askMid: sd.askMid }
+        askSource = 'snkrdunk'
+        process.stdout.write(`[askはスニダン ¥${sd.askLow.toLocaleString()}〜] `)
+      }
+      await new Promise(r => setTimeout(r, 2000 + Math.random() * 1500))
+    }
 
     // メルカリ成約検索は同名の別バージョン（通常版⇔SR⇔SA）を拾うことがあり、実勢から
     // 桁違いにずれる。出品価格帯と突き合わせて明らかに整合しない成約平均は採用しない。
@@ -1300,14 +1402,14 @@ async function scrapeCard(
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
 
     // ★全経路が通る単一の関門。ここを迂回して savePriceHistory を呼ばないこと（guardPrice 参照）
-    const verdict = guardPrice({ id, date, avg, low, high, priceSource, onSale, prev: readLatestRecord(id, date), sampleCount })
+    const verdict = guardPrice({ id, date, avg, low, high, priceSource, onSale, prev: readLatestRecord(id, date), sampleCount, askSource })
     if (!verdict.ok) {
       console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
       stats.skipped++
       return
     }
 
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, askSource)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {

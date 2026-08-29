@@ -98,6 +98,12 @@ export interface PriceRecord {
   on_sale_capped?: boolean
   ask_low?: number      // 出品中の最安値帯（即購入できる床値・先行指標）
   ask_mid?: number      // 出品中の中央値
+  /**
+   * ask の出所。avg(source) と違う市場のことがあるので別に持つ。
+   * 'snkrdunk' … その商品ページの状態別最安値。曖昧一致が起きないので正確
+   * 'mercari'  … 出品検索から番号照合を通して集計したもの
+   */
+  ask_source?: 'mercari' | 'snkrdunk'
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
 }
 
