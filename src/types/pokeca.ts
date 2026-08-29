@@ -104,6 +104,8 @@ export interface PriceRecord {
    * 'mercari'  … 出品検索から番号照合を通して集計したもの
    */
   ask_source?: 'mercari' | 'snkrdunk'
+  /** on_sale の出所。'snkrdunk' はその商品固有の実数、'mercari' は出品検索の集計（打ち切りあり） */
+  on_sale_source?: 'mercari' | 'snkrdunk'
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
 }
 

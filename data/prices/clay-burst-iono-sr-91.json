@@ -2,13 +2,26 @@
   "card_id": "clay-burst-iono-sr-91",
   "history": [
     {
+      "date": "2026-08-29",
+      "low": 3434,
+      "high": 4198,
+      "avg": 3816,
+      "source": "snkrdunk",
+      "sample_count": 11,
+      "on_sale": 174,
+      "ask_low": 4400,
+      "ask_mid": 4450,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19591
+    },
+    {
       "date": "2026-08-27",
       "low": 3434,
       "high": 4198,
       "avg": 3816,
       "source": "snkrdunk",
       "sample_count": 11,
-      "on_sale": 115,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 19814
@@ -20,7 +33,6 @@
       "avg": 3816,
       "source": "snkrdunk",
       "sample_count": 11,
-      "on_sale": 113,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 19814
@@ -32,7 +44,6 @@
       "avg": 3667,
       "source": "snkrdunk",
       "sample_count": 9,
-      "on_sale": 116,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 19724
@@ -44,7 +55,6 @@
       "avg": 3744,
       "source": "snkrdunk",
       "sample_count": 9,
-      "on_sale": 117,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 26521
@@ -56,7 +66,6 @@
       "avg": 3744,
       "source": "snkrdunk",
       "sample_count": 9,
-      "on_sale": 119,
       "ask_low": 4155,
       "ask_mid": 5000,
       "psa10": 26733
@@ -68,7 +77,6 @@
       "avg": 3925,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 117,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 26733
@@ -80,7 +88,6 @@
       "avg": 3843,
       "source": "snkrdunk",
       "sample_count": 7,
-      "on_sale": 119,
       "ask_low": 4150,
       "ask_mid": 5000,
       "psa10": 26733
@@ -92,7 +99,6 @@
       "avg": 3817,
       "source": "snkrdunk",
       "sample_count": 6,
-      "on_sale": 120,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 26675
@@ -104,7 +110,6 @@
       "avg": 3817,
       "source": "snkrdunk",
       "sample_count": 6,
-      "on_sale": 120,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 27308
@@ -116,7 +121,6 @@
       "avg": 4112,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 120,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 27583
@@ -128,7 +132,6 @@
       "avg": 4112,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 118,
       "ask_low": 4200,
       "ask_mid": 5000,
       "psa10": 27575
@@ -140,7 +143,6 @@
       "avg": 4278,
       "source": "snkrdunk",
       "sample_count": 9,
-      "on_sale": 115,
       "ask_low": 4222,
       "ask_mid": 5043,
       "psa10": 27687
@@ -152,7 +154,6 @@
       "avg": 4200,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 112,
       "ask_low": 4444,
       "ask_mid": 5175,
       "psa10": 27687
@@ -164,7 +165,6 @@
       "avg": 4200,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 115,
       "ask_low": 4444,
       "ask_mid": 5070,
       "psa10": 27275
@@ -176,7 +176,6 @@
       "avg": 4157,
       "source": "snkrdunk",
       "sample_count": 7,
-      "on_sale": 115,
       "ask_low": 4500,
       "ask_mid": 5200,
       "psa10": 27150
@@ -188,7 +187,6 @@
       "avg": 4350,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 115,
       "ask_low": 4500,
       "ask_mid": 5200,
       "psa10": 25652
@@ -200,7 +198,6 @@
       "avg": 4350,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 113,
       "ask_low": 4500,
       "ask_mid": 5280,
       "psa10": 25581
@@ -212,7 +209,6 @@
       "avg": 4200,
       "source": "snkrdunk",
       "sample_count": 9,
-      "on_sale": 113,
       "ask_low": 4799,
       "ask_mid": 5315,
       "psa10": 25690
@@ -224,7 +220,6 @@
       "avg": 4500,
       "source": "snkrdunk",
       "sample_count": 8,
-      "on_sale": 114,
       "ask_low": 4600,
       "ask_mid": 5330,
       "psa10": 25817
@@ -259,13 +254,16 @@
     "2026-08-05": 1,
     "2026-07-18": 1,
     "2026-08-21": 1,
-    "2026-08-26": 2
+    "2026-08-26": 2,
+    "2026-08-27": 2
   },
   "psa10_sales_by_day": {
     "2026-08-25": 4,
     "2026-08-24": 10,
     "2026-08-22": 9,
     "2026-08-21": 5,
-    "2026-08-23": 4
+    "2026-08-23": 4,
+    "2026-08-29": 15,
+    "2026-08-28": 4
   }
 }

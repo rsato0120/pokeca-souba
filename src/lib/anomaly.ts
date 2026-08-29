@@ -1,5 +1,6 @@
 import type { Card, PriceRecord } from '@/types/pokeca'
 import { isDeckUtilityCard } from '@/lib/card-kind'
+import { onSaleChangeOverDays } from '@/lib/on-sale'
 
 // AI異変検知 — **価格がまだ動いていないのに、その手前の量が動いている**カードを拾う。
 //
@@ -104,30 +105,22 @@ export function detectAnomaly(input: AnomalyInput): AnomalyCard | null {
   const missing: string[] = []
 
   // ── ① 出品数の急減（在庫が吸われている） ──
-  const withSale = history.filter(r => r.on_sale != null)
-  if (withSale.length >= 2) {
-    const now = Number(withSale[0].on_sale)
-    // 7日前後を基準にする。無ければ直近の1つ前
-    const base = baseRecord(withSale, latestDate, 7) ?? withSale[1]
-    const was = Number(base.on_sale)
-    // 打ち切り(下限値)どうし・片側だけの比較は増減として読めないので使わない
-    const capped = withSale[0].on_sale_capped === true || base.on_sale_capped === true
-    if (!capped && was > 0 && base.date !== withSale[0].date) {
-      const pct = ((was - now) / was) * 100   // 減少を正にする
-      if (pct >= 20) {
-        signals.push({
-          key: 'supply',
-          label: '出品数',
-          pct: -Math.abs(pct),   // 表示は「-34%」の向き
-          detail: `${was}件 → ${now}件`,
-          points: pct >= 50 ? 3 : pct >= 35 ? 2 : 1,
-        })
-      }
-    } else if (capped) {
-      missing.push('出品数（打ち切りで下限値のため比較不可）')
+  // 打ち切り・出所違いの判定は src/lib/on-sale.ts に集約している
+  // （スニダンの実数とメルカリの集計は桁が違うので引き算してはいけない）
+  const sale = onSaleChangeOverDays(history, 7)
+  if (sale != null) {
+    const pct = -sale.changePct   // 減少を正にする
+    if (pct >= 20) {
+      signals.push({
+        key: 'supply',
+        label: '出品数',
+        pct: -Math.abs(pct),   // 表示は「-34%」の向き
+        detail: `${sale.prev}件 → ${sale.now}件`,
+        points: pct >= 50 ? 3 : pct >= 35 ? 2 : 1,
+      })
     }
   } else {
-    missing.push('出品数')
+    missing.push('出品数（観測不足・打ち切り・出所の切替のいずれか）')
   }
 
   // ── ② 取引件数の急増 ──

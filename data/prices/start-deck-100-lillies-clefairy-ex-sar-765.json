@@ -2,13 +2,26 @@
   "card_id": "start-deck-100-lillies-clefairy-ex-sar-765",
   "history": [
     {
+      "date": "2026-08-29",
+      "low": 41693,
+      "high": 50958,
+      "avg": 46325,
+      "source": "snkrdunk",
+      "sample_count": 48,
+      "on_sale": 258,
+      "ask_low": 31888,
+      "ask_mid": 33000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 122744
+    },
+    {
       "date": "2026-08-27",
       "low": 42116,
       "high": 51475,
       "avg": 46795,
       "source": "snkrdunk",
       "sample_count": 49,
-      "on_sale": 80,
       "ask_low": 39999,
       "ask_mid": 48000,
       "psa10": 135707
@@ -20,7 +33,6 @@
       "avg": 46693,
       "source": "snkrdunk",
       "sample_count": 49,
-      "on_sale": 82,
       "ask_low": 39999,
       "ask_mid": 48000,
       "psa10": 136967
@@ -32,7 +44,6 @@
       "avg": 47851,
       "source": "snkrdunk",
       "sample_count": 49,
-      "on_sale": 79,
       "ask_low": 39999,
       "ask_mid": 48278,
       "psa10": 139437
@@ -44,7 +55,6 @@
       "avg": 43289,
       "source": "snkrdunk",
       "sample_count": 25,
-      "on_sale": 78,
       "ask_low": 39000,
       "ask_mid": 48888,
       "psa10": 153410
@@ -56,7 +66,6 @@
       "avg": 43218,
       "source": "snkrdunk",
       "sample_count": 24,
-      "on_sale": 72,
       "ask_low": 40000,
       "ask_mid": 49000,
       "psa10": 159810
@@ -68,7 +77,6 @@
       "avg": 43488,
       "source": "snkrdunk",
       "sample_count": 23,
-      "on_sale": 69,
       "ask_low": 39999,
       "ask_mid": 49999,
       "psa10": 163694
@@ -80,7 +88,6 @@
       "avg": 43668,
       "source": "snkrdunk",
       "sample_count": 24,
-      "on_sale": 65,
       "ask_low": 40500,
       "ask_mid": 49999,
       "psa10": 164294
@@ -92,7 +99,6 @@
       "avg": 44078,
       "source": "snkrdunk",
       "sample_count": 26,
-      "on_sale": 63,
       "ask_low": 41999,
       "ask_mid": 50000,
       "psa10": 164294
@@ -104,7 +110,6 @@
       "avg": 44616,
       "source": "snkrdunk",
       "sample_count": 26,
-      "on_sale": 65,
       "ask_low": 41600,
       "ask_mid": 50000,
       "psa10": 164294
@@ -116,7 +121,6 @@
       "avg": 44932,
       "source": "snkrdunk",
       "sample_count": 29,
-      "on_sale": 65,
       "ask_low": 41600,
       "ask_mid": 50999,
       "psa10": 164294
@@ -128,7 +132,6 @@
       "avg": 45760,
       "source": "snkrdunk",
       "sample_count": 32,
-      "on_sale": 68,
       "ask_low": 41500,
       "ask_mid": 50000,
       "psa10": 164674
@@ -140,7 +143,6 @@
       "avg": 43787,
       "source": "snkrdunk",
       "sample_count": 28,
-      "on_sale": 67,
       "ask_low": 44444,
       "ask_mid": 50999,
       "psa10": 166371
@@ -169,8 +171,6 @@
     "2026-07-04": 1,
     "2026-05-27": 1,
     "2026-05-01": 1,
-    "2026-04-29": 1,
-    "2026-04-28": 1,
     "2026-08-04": 1,
     "2026-08-01": 2,
     "2026-07-09": 1,
@@ -179,7 +179,10 @@
     "2026-06-12": 1,
     "2026-06-09": 2,
     "2026-06-08": 1,
-    "2026-08-26": 12
+    "2026-08-26": 12,
+    "2026-08-29": 2,
+    "2026-08-28": 3,
+    "2026-08-27": 1
   },
   "psa10_sales_by_day": {
     "2026-08-24": 3,
@@ -189,6 +192,9 @@
     "2026-08-17": 1,
     "2026-08-16": 6,
     "2026-08-25": 4,
-    "2026-08-27": 1
+    "2026-08-27": 1,
+    "2026-08-29": 3,
+    "2026-08-28": 5,
+    "2026-08-26": 1
   }
 }

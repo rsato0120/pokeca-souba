@@ -189,6 +189,8 @@ export function computeCardScore(input: {
     { label: 'PSA需要', value: psaScore, detail: '鑑定品と素体の価格差' },
     { label: '在庫', value: supplyScore, detail: '出品数の増減' },
     { label: '流動性', value: liquidityScore, detail: '取引を観測できた日数' },
+    // 高いほど「全期間の値幅の中で安い位置」＝高値掴みになりにくい
+    { label: '割安度', value: positionScore, detail: '全期間の値幅の中での位置' },
   ]
 
   return { total, factors: factors.sort((a, b) => b.points - a.points), bars, missing }

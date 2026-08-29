@@ -273,7 +273,7 @@ function parseSnkrdunkSaleDate(token: string, nowMs: number): { d: string; t: nu
  * ⚠ 売買履歴ページ(/sales-histories)にはこの表示が無いので、商品ページを別に1回読む。
  *   価格の出所がスニダンに決まったカードだけ取りに行き、無駄な往復を増やさない。
  */
-async function getSnkrdunkAsk(browser: Browser, apparelId: number): Promise<{ askLow: number | null; askMid: number | null }> {
+async function getSnkrdunkAsk(browser: Browser, apparelId: number): Promise<{ askLow: number | null; askMid: number | null; onSale: number | null }> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
@@ -291,13 +291,52 @@ async function getSnkrdunkAsk(browser: Browser, apparelId: number): Promise<{ as
         if (attempt < 3) await new Promise(r => setTimeout(r, 2000))
       }
     }
-    if (!html) return { askLow: null, askMid: null }
+    if (!html) return { askLow: null, askMid: null, onSale: null }
 
+    // RSCのペイロードは \\" でエスケープされている。1段ほどいてから素直に読む
+    // （エスケープ段数に依存した正規表現はページ構成が変わると静かに壊れる）。
+    const flat = html.replace(/\\+"/g, '"')
+
+    // ── 総出品数 ──
+    // 商品オブジェクトは  "apparelId":455596,"apparelData":{"id":455596,...}  の形。
+    //   usedListingCount … 中古の実数（シングルカードはこちら）
+    //   listingCount     … 新品の実数（未開封BOX/パックはこちら）
+    // ⚠ usedListingCountText は画面表示用で100件以上が "99+" に丸められる。**数値の方を使う**。
+    // ⚠ 状態別チップの listingCount とは**別物**。あちらは件数の少ない状態にしか出ないので合算不可
+    //   （実測: A・B・PSA10 は hasListing:true でも件数なし / C=1・BGS9.5=3 には付く）。
+    // ⚠ 関連商品・ランキングにも同じキーがあるので、**自分の apparelId にアンカーする**。
+    let onSale: number | null = null
+    {
+      // ⚠ `"apparelId":<id>` は**複数箇所に出る**（実測: 455596 は 4箇所）。最初の出現は
+      //   apparelData を持たない別コンポーネントのpropsで、そこを掴むと件数が取れない。
+      //   出品数を持つブロックは `"apparelId":<id>,"apparelData":{...}` の並び。
+      //   候補を全部見て、**直後に usedListingCount がある出現**を採る。
+      const candidates: number[] = []
+      for (const m of flat.matchAll(new RegExp(`"apparelId":${apparelId}\\b`, 'g'))) {
+        if (m.index != null) candidates.push(m.index)
+      }
+      for (const m of flat.matchAll(new RegExp(`"apparelData":\\{"id":${apparelId}\\b`, 'g'))) {
+        if (m.index != null) candidates.push(m.index)
+      }
+      const at = candidates.find(i => flat.slice(i, i + 4000).includes('"usedListingCount"')) ?? -1
+      if (at >= 0) {
+        const seg = flat.slice(at, at + 4000)
+        const used = seg.match(/"usedListingCount":(\d+)/)
+        const brandNew = seg.match(/(?<!used)(?<!total)(?<!pb)"listingCount":(\d+)/)
+        const u = used ? Number(used[1]) : null
+        const n = brandNew ? Number(brandNew[1]) : null
+        // シングルカードは中古側、未開封BOX/パックは新品側に入る。売り物がある方を採る
+        onSale = (u ?? 0) >= (n ?? 0) ? u : n
+        if (onSale != null && onSale <= 0) onSale = null
+      }
+    }
+
+    // ── 状態別の最安値（ask）──
     // 素体の状態だけを採る。鑑定品(PSA/BGS/ARS)を混ぜると、素体¥15,000のカードで
     // ask が¥38,000 に化ける。text は "未使用" "S" "A" "B" "C" "D" のいずれか。
     const RAW_CONDITIONS = new Set(['未使用', 'S', 'A', 'B', 'C', 'D'])
     const prices: number[] = []
-    for (const m of html.matchAll(/\{"conditionId":\d+,[^{}]*?\}/g)) {
+    for (const m of flat.matchAll(/\{"conditionId":\d+,[^{}]*?\}/g)) {
       const block = m[0]
       const label = block.match(/"text":"([^"]+)"/)?.[1]
       if (!label || !RAW_CONDITIONS.has(label)) continue
@@ -305,7 +344,8 @@ async function getSnkrdunkAsk(browser: Browser, apparelId: number): Promise<{ as
       const v = Number(block.match(/"usedMinPrice":(\d+)/)?.[1])
       if (Number.isFinite(v) && v > 0) prices.push(v)
     }
-    if (prices.length === 0) return { askLow: null, askMid: null }
+
+    if (prices.length === 0) return { askLow: null, askMid: null, onSale }
 
     prices.sort((a, b) => a - b)
     return {
@@ -313,8 +353,9 @@ async function getSnkrdunkAsk(browser: Browser, apparelId: number): Promise<{ as
       askLow: prices[0],
       // 中央値。状態が1つしか出品されていなければその値になる
       askMid: calcMedian(prices),
+      onSale,
     }
-  } catch { return { askLow: null, askMid: null } }
+  } catch { return { askLow: null, askMid: null, onSale: null } }
   finally { await page.close() }
 }
 
@@ -1019,6 +1060,8 @@ function savePriceHistory(
   psa10SaleDates?: string[],
   /** ask の出所。成約(source)と違う市場のことがあるので別に持つ */
   askSource?: 'mercari' | 'snkrdunk',
+  /** 出品件数の出所。系列間で混ざると比較が壊れるので必ず残す */
+  onSaleSource?: 'mercari' | 'snkrdunk',
 ): void {
   const filePath = path.join(pricesDir, `${cardId}.json`)
   let data: PriceHistory = { card_id: cardId, history: [] }
@@ -1058,6 +1101,7 @@ function savePriceHistory(
     ...(validatedOnSale?.askMid != null ? { ask_mid: validatedOnSale.askMid } : {}),
     // ask の出所。成約(source)と違う市場のことがあるので別に持つ
     ...(validatedOnSale?.askLow != null && askSource ? { ask_source: askSource } : {}),
+    ...(validatedOnSale?.count != null && onSaleSource ? { on_sale_source: onSaleSource } : {}),
     ...(psa10 != null ? { psa10 } : { psa10: null }),
   }
 
@@ -1352,12 +1396,27 @@ async function scrapeCard(
     // 件数(count)はスニダンから取れないのでメルカリのまま。ask だけ差し替える。
     let onSale = mercariOnSale
     let askSource: 'mercari' | 'snkrdunk' = 'mercari'
+    let onSaleSource: 'mercari' | 'snkrdunk' = 'mercari'
     if (priceSource === 'snkrdunk' && apparelId) {
       const sd = await getSnkrdunkAsk(browser, apparelId)
-      if (sd.askLow != null) {
-        onSale = { ...mercariOnSale, askLow: sd.askLow, askMid: sd.askMid }
-        askSource = 'snkrdunk'
-        process.stdout.write(`[askはスニダン ¥${sd.askLow.toLocaleString()}〜] `)
+      // 出品数もスニダンの実数（usedListingCount）を優先する。メルカリの件数は
+      // 曖昧一致と3ページ打ち切りの制約があり、打ち切ると「N件以上」の下限値にしかならない。
+      // スニダンはその商品固有の実数なので丸めも打ち切りも無い。
+      // ⚠ 出所が混ざると系列間の比較（在庫吸収/売り圧ランキング・異変検知）が壊れるので、
+      //   on_sale_source を必ず残す。BOXで同じ事故を起こしている。
+      if (sd.askLow != null || sd.onSale != null) {
+        onSale = {
+          ...mercariOnSale,
+          ...(sd.askLow != null ? { askLow: sd.askLow, askMid: sd.askMid } : {}),
+          ...(sd.onSale != null ? { count: sd.onSale, capped: false } : {}),
+        }
+        if (sd.askLow != null) askSource = 'snkrdunk'
+        if (sd.onSale != null) onSaleSource = 'snkrdunk'
+        const parts = [
+          sd.askLow != null ? `ask ¥${sd.askLow.toLocaleString()}〜` : null,
+          sd.onSale != null ? `出品${sd.onSale}件` : null,
+        ].filter(Boolean).join(' / ')
+        process.stdout.write(`[スニダン ${parts}] `)
       }
       await new Promise(r => setTimeout(r, 2000 + Math.random() * 1500))
     }
@@ -1409,7 +1468,7 @@ async function scrapeCard(
       return
     }
 
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, askSource)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, askSource, onSaleSource)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {

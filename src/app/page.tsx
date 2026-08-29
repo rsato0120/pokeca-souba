@@ -18,12 +18,12 @@ import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
 import MarketIndexChart, { type IndexWire } from '@/components/MarketIndexChart'
-import FeaturedTrio, { type TrioCard } from '@/components/FeaturedTrio'
 import MarketPulse from '@/components/MarketPulse'
 import HeatPicks, { type HeatPick } from '@/components/HeatPicks'
 import AnomalyFeed, { type AnomalyRow } from '@/components/AnomalyFeed'
 import { computeMarketTemp } from '@/lib/market-temp'
 import { selectAnomalies } from '@/lib/anomaly'
+import { onSaleChange } from '@/lib/on-sale'
 import AccuracyStrip from '@/components/AccuracyStrip'
 import { computeAccuracy } from '@/lib/accuracy'
 import BoxRanking from '@/components/BoxRanking'
@@ -173,46 +173,26 @@ export default function TopPage() {
       changePct: change,
     }))
 
-  // 今買われているカード: 出品数が減ったカード（SR除外）
-  // on_sale件数の前日比減少 = 在庫が捌けている = 買い需要の実態シグナル
+  // 出品数の変化。**出所（スニダン/メルカリ）が違う2点は引き算しない**（src/lib/on-sale.ts）。
+  // スニダンは商品固有の実数、メルカリは検索の集計で桁がまるごと違うため、切替日に
+  // 偽の増減が出る（実測: ブラッキーex SAR はメルカリ71件 / スニダン344件）。
+  const onSaleDelta = new Map<string, ReturnType<typeof onSaleChange>>()
+  for (const m of metrics) onSaleDelta.set(m.slug, onSaleChange(m.records))
+
+  // 在庫吸収ランキング: 出品数が減ったカード（SR除外）
+  // on_sale件数の減少 = 在庫が捌けている = 買い需要の実態シグナル
   const buyingCards = [...metrics]
-    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && isRankable(m))
-    .filter(m => {
-      const slug = m.slug
-      const history = getPriceHistory(slug)
-      const yesterday = history?.history?.[1]
-      return yesterday?.on_sale != null && m.onSale! < yesterday.on_sale
-    })
-    .sort((a, b) => {
-      const histA = getPriceHistory(a.slug)?.history
-      const histB = getPriceHistory(b.slug)?.history
-      const prevA = histA?.[1]?.on_sale ?? a.onSale!
-      const prevB = histB?.[1]?.on_sale ?? b.onSale!
-      const changeA = (a.onSale! - prevA) / prevA
-      const changeB = (b.onSale! - prevB) / prevB
-      return changeA - changeB  // 減少率が大きい順
-    })
+    .filter(m => m.card.rarity !== 'SR' && isRankable(m))
+    .filter(m => (onSaleDelta.get(m.slug)?.changePct ?? 0) < 0)
+    .sort((a, b) => (onSaleDelta.get(a.slug)!.changePct) - (onSaleDelta.get(b.slug)!.changePct))
     .slice(0, 5)
 
-  // 今売られているカード: 出品数が増えたカード（SR除外）
-  // on_sale件数の前日比増加 = 売り圧が高まっている = 売り需要の実態シグナル
+  // 売り圧ランキング: 出品数が増えたカード（SR除外）
+  // on_sale件数の増加 = 売り圧が高まっている = 売り需要の実態シグナル
   const sellingCards = [...metrics]
-    .filter(m => m.card.rarity !== 'SR' && m.onSale != null && isRankable(m))
-    .filter(m => {
-      const slug = m.slug
-      const history = getPriceHistory(slug)
-      const yesterday = history?.history?.[1]
-      return yesterday?.on_sale != null && m.onSale! > yesterday.on_sale
-    })
-    .sort((a, b) => {
-      const histA = getPriceHistory(a.slug)?.history
-      const histB = getPriceHistory(b.slug)?.history
-      const prevA = histA?.[1]?.on_sale ?? a.onSale!
-      const prevB = histB?.[1]?.on_sale ?? b.onSale!
-      const changeA = (a.onSale! - prevA) / prevA
-      const changeB = (b.onSale! - prevB) / prevB
-      return changeB - changeA  // 増加率が大きい順
-    })
+    .filter(m => m.card.rarity !== 'SR' && isRankable(m))
+    .filter(m => (onSaleDelta.get(m.slug)?.changePct ?? 0) > 0)
+    .sort((a, b) => (onSaleDelta.get(b.slug)!.changePct) - (onSaleDelta.get(a.slug)!.changePct))
     .slice(0, 5)
 
   // 本日の高値・安値更新: 全期間の極値（data/price-extremes.json）を当日更新したカード。
@@ -463,36 +443,6 @@ export default function TopPage() {
     }
   })
 
-  // ── 今日の注目カード（3枚） ──
-  // 上昇確率の高い順（notableCards は既に弾の偏りをならしてある）。
-  // 現在相場・前日比は metrics から引く（forecast の current_low/high は予想生成時点の値なので、
-  // 「今いくらか」を出す枠ではスクレイプ由来の実測を使う）
-  const trioCards: TrioCard[] = notableCards.slice(0, 3).map(({ card, forecast }) => {
-    const slug = getCardSlug(card)
-    const m = metricsBySlug.get(slug)
-    const o = forecast?.overall
-    const stance = o
-      ? (o.up_pct >= o.flat_pct && o.up_pct >= o.down_pct
-          ? '強気'
-          : o.down_pct >= o.flat_pct
-          ? '弱気'
-          : '中立')
-      : null
-    return {
-      slug,
-      name: card.card_name,
-      rarity: card.rarity,
-      cardNo: card.card_no,
-      boxId: card.box_id,
-      boxName: getBoxById(card.box_id)?.box_name ?? card.box_id,
-      image: card.image_url ?? null,
-      mid: m && m.currentMid > 0 ? Math.round(m.currentMid) : null,
-      changePct: m?.dayChange ?? m?.weekChange ?? null,
-      changeLabel: m?.dayChange != null ? '前日比' : m?.weekChange != null ? '7日比' : null,
-      upPct: o?.up_pct ?? null,
-      stance,
-    }
-  })
 
   // ── 市場サマリー（ヒーロー右） ──
   // ⚠ ここに出してよいのは**実データで裏付けられる指標だけ**。
@@ -679,20 +629,11 @@ export default function TopPage() {
         </div>
       )}
 
-      {/* ── 今日の注目カード（3枚） ──
-          旧: 1枚だけを大きく出すヒーロー。すぐ下の「01」の1位と必ず同じカードになり
-          先頭2ブロックが同じ情報を繰り返していたので3枚に広げた（FeaturedTrio.tsx 参照） */}
-      {trioCards.length > 0 && (
-        <div className="sec">
-          <div className="sec-head">
-            <span className="sec-no" style={{ color: 'var(--accent)' }}>◆</span>
-            <span className="sec-title">今日の注目カード</span>
-            <span className="sec-sub">AIの上昇確率が高い順</span>
-          </div>
-          <FeaturedTrio cards={trioCards} />
-        </div>
-      )}
-
+      {/* ⚠ ここにあった「今日の注目カード（3枚）」は削除した（2026-08-29）。
+          notableCards の上位3枚を出すだけで、すぐ下の「01: AI予想 これからの注目カード」
+          （同じ5枚＋3ヶ月予想価格）と**顔ぶれも数字も同じ**だった。
+          notableCards は他に 値動きランキングの「AI注目」列でも使っており、
+          3箇所で同じ並びを見せていたので、情報が一番薄いこの枠を落とす。 */}
 
       {/* オリパ案件バナー（A8 / PR） */}
       <OripaBanner marginY={4} />

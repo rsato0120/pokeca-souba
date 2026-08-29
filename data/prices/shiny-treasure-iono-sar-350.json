@@ -2,13 +2,26 @@
   "card_id": "shiny-treasure-iono-sar-350",
   "history": [
     {
+      "date": "2026-08-29",
+      "low": 6845,
+      "high": 8367,
+      "avg": 7606,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 94,
+      "ask_low": 5400,
+      "ask_mid": 7250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 29165
+    },
+    {
       "date": "2026-08-27",
       "low": 6836,
       "high": 8356,
       "avg": 7596,
       "source": "snkrdunk",
       "sample_count": 5,
-      "on_sale": 73,
       "ask_low": 7777,
       "ask_mid": 9999,
       "psa10": 29785
@@ -20,7 +33,6 @@
       "avg": 7913,
       "source": "snkrdunk",
       "sample_count": 6,
-      "on_sale": 73,
       "ask_low": 7777,
       "ask_mid": 10000,
       "psa10": 29785
@@ -32,7 +44,6 @@
       "avg": 7913,
       "source": "snkrdunk",
       "sample_count": 6,
-      "on_sale": 73,
       "ask_low": 7777,
       "ask_mid": 10000,
       "psa10": 29785
@@ -46,7 +57,6 @@
       "sample_count": 51,
       "sold_total": 1493,
       "oldest_sale_days": 25,
-      "on_sale": 73,
       "ask_low": 7900,
       "ask_mid": 10000,
       "psa10": 45758
@@ -60,7 +70,6 @@
       "sample_count": 53,
       "sold_total": 1502,
       "oldest_sale_days": 27,
-      "on_sale": 72,
       "ask_low": 7900,
       "ask_mid": 10000,
       "psa10": 45970
@@ -74,7 +83,6 @@
       "sample_count": 52,
       "sold_total": 1497,
       "oldest_sale_days": 27,
-      "on_sale": 72,
       "ask_low": 7777,
       "ask_mid": 10000,
       "psa10": 46977
@@ -88,7 +96,6 @@
       "sample_count": 52,
       "sold_total": 1506,
       "oldest_sale_days": 26,
-      "on_sale": 72,
       "ask_low": 7777,
       "ask_mid": 10000,
       "psa10": 47040
@@ -102,7 +109,6 @@
       "sample_count": 51,
       "sold_total": 1506,
       "oldest_sale_days": 25,
-      "on_sale": 75,
       "ask_low": 7555,
       "ask_mid": 10000,
       "psa10": 45661
@@ -135,7 +141,8 @@
     "2026-05-20": 1,
     "2026-05-08": 1,
     "2026-04-30": 1,
-    "2026-05-23": 1
+    "2026-05-23": 1,
+    "2026-08-29": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 1,
@@ -143,6 +150,8 @@
     "2026-08-23": 4,
     "2026-08-22": 2,
     "2026-08-21": 3,
-    "2026-08-19": 10
+    "2026-08-19": 10,
+    "2026-08-29": 11,
+    "2026-08-28": 2
   }
 }

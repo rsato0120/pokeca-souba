@@ -2,13 +2,26 @@
   "card_id": "pokecen-pikachu-hiroshima",
   "history": [
     {
+      "date": "2026-08-29",
+      "low": 11617,
+      "high": 14199,
+      "avg": 12908,
+      "source": "snkrdunk",
+      "sample_count": 42,
+      "on_sale": 402,
+      "ask_low": 9800,
+      "ask_mid": 12000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 38450
+    },
+    {
       "date": "2026-08-27",
       "low": 11655,
       "high": 14245,
       "avg": 12950,
       "source": "snkrdunk",
       "sample_count": 42,
-      "on_sale": 81,
       "ask_low": 15500,
       "ask_mid": 17777,
       "psa10": 39426
@@ -20,7 +33,6 @@
       "avg": 12983,
       "source": "snkrdunk",
       "sample_count": 42,
-      "on_sale": 81,
       "ask_low": 16000,
       "ask_mid": 17777,
       "psa10": 40125
@@ -32,7 +44,6 @@
       "avg": 13009,
       "source": "snkrdunk",
       "sample_count": 42,
-      "on_sale": 82,
       "ask_low": 15400,
       "ask_mid": 17777,
       "psa10": 40675
@@ -44,7 +55,6 @@
       "avg": 13047,
       "source": "snkrdunk",
       "sample_count": 23,
-      "on_sale": 85,
       "ask_low": 15500,
       "ask_mid": 17400,
       "psa10": 62690
@@ -56,7 +66,6 @@
       "avg": 13391,
       "source": "snkrdunk",
       "sample_count": 25,
-      "on_sale": 82,
       "ask_low": 15500,
       "ask_mid": 17689,
       "psa10": 63376
@@ -68,7 +77,6 @@
       "avg": 14708,
       "source": "snkrdunk",
       "sample_count": 32,
-      "on_sale": 81,
       "ask_low": 16000,
       "ask_mid": 17789,
       "psa10": 64207
@@ -80,7 +88,6 @@
       "avg": 14537,
       "source": "snkrdunk",
       "sample_count": 31,
-      "on_sale": 83,
       "ask_low": 15999,
       "ask_mid": 17800,
       "psa10": 64977
@@ -92,7 +99,6 @@
       "avg": 14976,
       "source": "snkrdunk",
       "sample_count": 30,
-      "on_sale": 84,
       "ask_low": 15555,
       "ask_mid": 17777,
       "psa10": 66931
@@ -104,7 +110,6 @@
       "avg": 15027,
       "source": "snkrdunk",
       "sample_count": 30,
-      "on_sale": 81,
       "ask_low": 16000,
       "ask_mid": 17777,
       "psa10": 67199
@@ -116,7 +121,6 @@
       "avg": 15172,
       "source": "snkrdunk",
       "sample_count": 35,
-      "on_sale": 81,
       "ask_low": 16000,
       "ask_mid": 17789,
       "psa10": 67099
@@ -128,7 +132,6 @@
       "avg": 15385,
       "source": "snkrdunk",
       "sample_count": 36,
-      "on_sale": 81,
       "ask_low": 16000,
       "ask_mid": 17800,
       "psa10": 66643
@@ -140,7 +143,6 @@
       "avg": 15210,
       "source": "snkrdunk",
       "sample_count": 36,
-      "on_sale": 80,
       "ask_low": 16000,
       "ask_mid": 17844,
       "psa10": 66455
@@ -682,7 +684,6 @@
     "2026-06-05": 1,
     "2026-05-28": 2,
     "2026-05-05": 1,
-    "2026-04-28": 1,
     "2026-08-16": 1,
     "2026-07-30": 1,
     "2026-06-16": 1,
@@ -692,12 +693,14 @@
     "2026-05-18": 1,
     "2026-08-26": 2,
     "2026-08-21": 2,
-    "2026-08-27": 2
+    "2026-08-27": 2,
+    "2026-08-28": 4
   },
   "psa10_sales_by_day": {
     "2026-08-25": 18,
     "2026-08-24": 18,
     "2026-08-26": 15,
-    "2026-08-27": 17
+    "2026-08-27": 17,
+    "2026-08-29": 20
   }
 }
