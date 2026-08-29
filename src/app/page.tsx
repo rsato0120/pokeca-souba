@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getBoxById, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant } from '@/lib/data'
 import { extremeHitToday } from '@/lib/extremes'
-import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
+import { selectBuyCandidates, scoreBuy, makeHeatScale, type BuyInput } from '@/lib/buy-signals'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { sparkSeries, prevUpPct, rankByUpPct, todayJST, midOf } from '@/lib/market'
 import type { Card, PriceRecord } from '@/types/pokeca'
@@ -307,8 +307,15 @@ export default function TopPage() {
       extremes: getPriceExtremes(slug),
     }
   })
+  // 「AI高騰気配」の物差しは**全候補**から1つだけ作り、看板・買うべきカードの双方に渡す。
+  // 絞り込んだ集合ごとに作ると、同じ数字が画面によって違う意味になる。
+  const heatPoolSize = buyInputs.map(scoreBuy).filter((c) => c != null).length
+  const heatScale = makeHeatScale(
+    buyInputs.map(scoreBuy).filter((c) => c != null).map((c) => c!.score),
+  )
+
   const buyTheses = getBuyTheses()
-  const buyPicks: BuyPick[] = selectBuyCandidates(buyInputs, 6, 2).map((c) => ({
+  const buyPicks: BuyPick[] = selectBuyCandidates(buyInputs, 6, 2, heatScale).map((c) => ({
     card: c.card,
     slug: c.slug,
     boxName: formatBoxName(c.card, boxes),
@@ -337,7 +344,7 @@ export default function TopPage() {
     // 7日変化が取れないカードは「動いていない」と断定できないので候補にしない
     return w != null && Math.abs(w) <= STILL_QUIET_PCT
   })
-  const heatPicks: HeatPick[] = selectBuyCandidates(quietInputs, 3, 1).map((c) => {
+  const heatPicks: HeatPick[] = selectBuyCandidates(quietInputs, 3, 1, heatScale).map((c) => {
     const m = metricsBySlug.get(c.slug)
     const fc = getForecast(c.slug)
     return {
@@ -349,6 +356,8 @@ export default function TopPage() {
       mid: c.mid,
       dayPct: m?.dayChange ?? null,
       heat: c.heat,
+      heatPercentile: c.heatPercentile,
+      heatPool: heatPoolSize,
       upPct: fc?.overall.up_pct ?? null,
       m3Low: fc?.price_forecast.m3_low ?? null,
       m3High: fc?.price_forecast.m3_high ?? null,

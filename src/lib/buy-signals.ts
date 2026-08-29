@@ -23,20 +23,40 @@ export interface BuyCandidate {
   pricePosition: number | null  // 全期間の値幅の中の位置(0=最安,1=最高)。不明は null
   weekChange: number | null     // 7日変化率(%)
   factors: string[]             // 表示用の短い根拠ラベル（厚い論拠が無い時のフォールバック）
-  /** 0〜100 の「AI高騰気配」。score を画面用に正規化しただけで、順位は score と同じ */
+  /** 0〜100 の「AI高騰気配」。買い候補全体の中の順位（makeHeatScale で後から入れる） */
   heat: number
+  /** 候補全体で上位何%か。画面に「候補◯枚中 上位◯%」と添えるのに使う */
+  heatPercentile: number
   /** ✓ で並べる兆候。**実データで確認できたものだけ**を入れる */
   omens: string[]
   /** ⚠ で並べる注意点 */
   cautions: string[]
 }
 
-// score → 0〜100 の変換。実測の分布（上位候補で概ね 20〜110）を 40〜99 に寝かせる。
-// ⚠ 「100点満点の絶対評価」ではなく候補内の相対的な強さ。0点や100点は出さない
-// （満点はモデルの確信を過大に見せる）。
-function heatOf(score: number): number {
-  const v = 40 + (score - 10) * 0.55
-  return Math.max(40, Math.min(99, Math.round(v)))
+/**
+ * 「AI高騰気配」を **買い候補全体の中の順位（パーセンタイル）** で出す関数を作る。
+ *
+ * ⚠ 以前は `40 + (score - 10) * 0.55` という一次変換だった（2026-08-29 に置換）。
+ *   score 自体が「上昇率 + 確率 + 割安度 + 材料点」の重み付き和で単位を持たないため、
+ *   それを線形に伸ばした 66 や 83 という数字に解釈が無かった。
+ *   さらに看板（まだ上がっていないカード）は値動きの小さい銘柄に絞ってから採るので、
+ *   モメンタム由来の点が乗らず常に60前後に固まり、看板だけ低く見えていた。
+ *
+ *   パーセンタイルなら「候補61枚中の上位◯%」と読める。分布（2026-08-29 実測）は
+ *   最小-9.0 / 中央29.5 / p90 50.4 / 最大88.9 で、線形変換では中央が55前後に化けていた。
+ *
+ * 40〜99 に寝かせるのは据え置き。0点や100点は出さない（満点はモデルの確信を過大に見せる）。
+ */
+export function makeHeatScale(allScores: number[]): (score: number) => number {
+  const sorted = [...allScores].sort((a, b) => a - b)
+  return (score: number) => {
+    if (sorted.length === 0) return 40
+    // 自分以下の件数 / 全体 = パーセンタイル
+    let below = 0
+    while (below < sorted.length && sorted[below] < score) below++
+    const pct = (below / sorted.length) * 100
+    return Math.max(40, Math.min(99, Math.round(40 + pct * 0.59)))
+  }
 }
 
 function midOf(r: PriceRecord): number {
@@ -143,7 +163,9 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
 
   return {
     card, slug, mid, score, upsidePct, netUp, pricePosition, weekChange, factors,
-    heat: heatOf(score), omens, cautions,
+    // heat は候補全体が揃ってからでないと決まらない。ここでは仮値を入れ、
+    // selectBuyCandidates で全候補のスコア分布から入れ直す。
+    heat: 40, heatPercentile: 0, omens, cautions,
   }
 }
 
@@ -151,11 +173,28 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
 export function selectBuyCandidates(
   inputs: BuyInput[],
   limit = 6,
-  maxPerBox = 2
+  maxPerBox = 2,
+  // ⚠ 「AI高騰気配」の物差し。**呼び出し側が全候補から作って渡す**こと。
+  //   ここで inputs から作ると、絞り込んだ集合ごとに物差しが変わり、
+  //   同じ 66 という数字が画面によって違う意味になる（看板は値動きの小さい銘柄だけを
+  //   渡すので、その中の順位で出すと常に上位＝高い数字に化ける）。
+  //   渡さなければ inputs 内の順位になる（単独で使う呼び出し向けのフォールバック）。
+  heatScale?: (score: number) => number,
 ): BuyCandidate[] {
-  const scored = inputs
-    .map(scoreBuy)
-    .filter((c): c is BuyCandidate => c != null)
+  const raw = inputs.map(scoreBuy).filter((c): c is BuyCandidate => c != null)
+  const scale = heatScale ?? makeHeatScale(raw.map(c => c.score))
+  const allSorted = [...raw].map(c => c.score).sort((a, b) => a - b)
+
+  const scored = raw
+    .map(c => {
+      let below = 0
+      while (below < allSorted.length && allSorted[below] < c.score) below++
+      return {
+        ...c,
+        heat: scale(c.score),
+        heatPercentile: allSorted.length ? Math.round((below / allSorted.length) * 100) : 0,
+      }
+    })
     .sort((a, b) => b.score - a.score)
 
   const picked: BuyCandidate[] = []

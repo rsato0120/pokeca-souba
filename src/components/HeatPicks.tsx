@@ -18,6 +18,10 @@ export interface HeatPick {
   mid: number
   dayPct: number | null
   heat: number
+  /** 買い候補全体で上位何% か（数字の意味を画面に添えるのに使う） */
+  heatPercentile: number
+  /** 買い候補の総数 */
+  heatPool: number
   upPct: number | null
   m3Low: number | null
   m3High: number | null
@@ -78,6 +82,10 @@ export default function HeatPicks({ picks }: { picks: HeatPick[] }) {
             </div>
             <div className="heat-gauge" role="img" aria-label={`AI高騰気配 ${p.heat} / 100`}>
               <div className="heat-gauge-fill" style={{ width: `${p.heat}%` }} />
+            </div>
+            {/* 数字だけでは 66 が良いのか悪いのか分からないので、順位を言葉で添える */}
+            <div className="heat-rank-note">
+              買い候補{p.heatPool}枚中 上位{Math.max(1, 100 - p.heatPercentile)}%
             </div>
 
             <div className="heat-forecast">

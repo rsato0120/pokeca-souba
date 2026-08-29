@@ -1760,3 +1760,11 @@ a:hover {
 .boxcol-steps button:disabled { opacity: 0.35; cursor: default; }
 .boxcol-steps button:not(:disabled):hover { border-color: var(--accent); color: var(--accent); }
 .boxcol-qty { font-family: var(--mono); font-size: 15px; font-weight: 700; min-width: 20px; text-align: center; }
+
+/* 高騰気配の数字に意味を添える一行 */
+.heat-rank-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  margin-top: -6px;
+}
