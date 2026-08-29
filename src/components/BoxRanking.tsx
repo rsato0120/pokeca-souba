@@ -6,7 +6,7 @@ import type { BoxRankRow } from '@/lib/box-ranking'
 // 定価比は絶版弾だと桁が違う（タッグボルトは約79倍）ので、順位付けには使わず情報として添える。
 // 倍率で並べると常に古い弾が上位を占め、「いま動いている弾」が見えなくなる。
 
-const VARIANT_LABEL: Record<BoxRankRow['variant'], string> = {
+const VARIANT_LABEL: Record<NonNullable<BoxRankRow['onSaleVariant']>, string> = {
   noshrink: 'シュリンクなし',
   mixed: '混在',
   shrink: 'シュリンクあり',
@@ -33,8 +33,12 @@ export default function BoxRanking({ rows }: { rows: BoxRankRow[] }) {
             <span className="boxrank-main">
               <span className="boxrank-name">{r.boxName}</span>
               <span className="boxrank-meta">
-                {r.code} · {r.releaseYm} · {VARIANT_LABEL[r.variant]}
-                {r.onSale != null && <> · 出品{r.onSale}件{r.onSaleCapped && '以上'}</>}
+                {r.code} · {r.releaseYm} · 価格は{VARIANT_LABEL[r.variant]}
+                {/* 出品件数は価格と別系列（シュリンクあり優先）なので、どちらの数字か必ず添える。
+                    あり7件 / なし118件 のように逆転する弾があり、書かないと品薄の判断を誤る */}
+                {r.onSale != null && r.onSaleVariant != null && (
+                  <> · 出品は{VARIANT_LABEL[r.onSaleVariant]}{r.onSale}件{r.onSaleCapped && '以上'}</>
+                )}
               </span>
             </span>
 

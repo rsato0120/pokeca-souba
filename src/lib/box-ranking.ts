@@ -30,9 +30,11 @@ export interface BoxRankRow {
   premiumPct: number | null
   /** 7日変化率(%)。比較できる観測が無ければ null */
   weekPct: number | null
-  /** 出品件数（代表系列のもの）。打ち切りなら capped */
+  /** 出品件数。**シュリンクあり**の系列から採る（下のコメント参照）。打ち切りなら capped */
   onSale: number | null
   onSaleCapped: boolean
+  /** 出品件数をどの系列から採ったか。価格の系列と違うことがあるので明示する */
+  onSaleVariant: 'shrink' | 'noshrink' | 'mixed' | null
   latestDate: string
 }
 
@@ -42,6 +44,39 @@ export interface BoxRankingInput {
   noshrink: PriceRecord[] | null
   mixed: PriceRecord[] | null
   shrink: PriceRecord[] | null
+}
+
+/**
+ * 出品件数は **シュリンクあり** から採る。
+ *
+ * ⚠ 価格の代表値（シュリンクなし優先）と**わざと系列を変えている**。
+ *   シュリンクなしは「開けるために買う人」が見る値なので価格の基準としては正しいが、
+ *   在庫の厚みとしては未開封で保管されている「シュリンクあり」の方が意味を持つ。
+ *   実測(2026-08-30)でも中身が大きく違う:
+ *     アビスアイ      あり  7件 / なし 118件
+ *     ストームエメラルダ あり171件 / なし  96件
+ *     テラスタルフェスex あり 54件 / なし   5件
+ *   どちらを出すかで「品薄に見えるか」が逆転するので、**どの系列の数字かを必ず添える**
+ *   （onSaleVariant を返し、画面のラベルに出す）。
+ * あり系列に件数が無い弾は なし → 混在 の順に落とす（0件と欠測を混同しない）。
+ */
+function pickOnSale(
+  shrink: PriceRecord[] | null,
+  noshrink: PriceRecord[] | null,
+  mixed: PriceRecord[] | null,
+): Pick<BoxRankRow, 'onSale' | 'onSaleCapped' | 'onSaleVariant'> {
+  const order: [PriceRecord[] | null, BoxRankRow['onSaleVariant']][] = [
+    [shrink, 'shrink'],
+    [noshrink, 'noshrink'],
+    [mixed, 'mixed'],
+  ]
+  for (const [hist, variant] of order) {
+    const r = hist?.[0]
+    if (r?.on_sale != null) {
+      return { onSale: Number(r.on_sale), onSaleCapped: r.on_sale_capped === true, onSaleVariant: variant }
+    }
+  }
+  return { onSale: null, onSaleCapped: false, onSaleVariant: null }
 }
 
 export function buildBoxRanking(inputs: BoxRankingInput[]): BoxRankRow[] {
@@ -82,8 +117,7 @@ export function buildBoxRanking(inputs: BoxRankingInput[]): BoxRankRow[] {
       msrp: msrp > 0 ? msrp : null,
       premiumPct: msrp > 0 ? Math.round((mid / msrp - 1) * 100) : null,
       weekPct,
-      onSale: today.on_sale ?? null,
-      onSaleCapped: today.on_sale_capped === true,
+      ...pickOnSale(shrink, noshrink, mixed),
       latestDate: today.date,
     })
   }
