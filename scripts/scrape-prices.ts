@@ -82,6 +82,12 @@ async function getMercariOnSale(
   //   最初この区別をせず minPrice をカードにも渡してしまい、ask_low を直す代わりに
   //   出品数を削る変更になっていた。
   askMinPrice = 0,
+  // めくるページ数の上限。既定は3（カード）。
+  // ⚠ 検索は**価格の安い順**に読むので、上限が低いと**高い側の出品が丸ごと窓の外**になる。
+  //   BOXのシュリンクありは実測で keepRate 7%・seen=113・tokenLeft=true となり、
+  //   「8件」と出ていたが実際は下限値でしかなかった（アビスアイ）。
+  //   シュリンクはプレミアが乗って高い側に固まるため、3ページでは届かない。
+  maxPages = ON_SALE_MAX_PAGES,
 ): Promise<OnSaleResult> {
   const keyword = encodeURIComponent(searchQuery)
   const baseUrl = `https://jp.mercari.com/search?keyword=${keyword}&status=on_sale&item_types=buy_now&sort=price&order=asc`
@@ -130,7 +136,7 @@ async function getMercariOnSale(
     let kept = first.items.filter(keep).length
     let token = first.next
     let pages = 1
-    while (token && pages < ON_SALE_MAX_PAGES) {
+    while (token && pages < maxPages) {
       await new Promise(r => setTimeout(r, 2500 + Math.random() * 1500))
       const next = await fetchPage(token)
       if (!next) break
@@ -1600,7 +1606,11 @@ async function scrapeBox(
     avg = Math.round((boxLow + boxHigh) / 2)
     // 出品中（"1BOX"を外して広めに取得）。床値は成約avgの40%未満（＝1パック/単品）を除外
     const onSaleQuery = searchQuery.replace(' 1BOX', ' BOX')
-    const scraped = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4), null, titleMust)
+    // BOXは12ページまでめくる。価格の安い順に読む都合上、3ページだと**シュリンクありが窓の外**に
+    // 落ちて実数の数分の一しか数えられない（アビスアイ: 8件と出ていたが tokenLeft=true の下限値）。
+    // BOXは全部で60系列ほどしか無いので、ページを増やしても日次の所要時間への影響は小さい。
+    const BOX_MAX_PAGES = 12
+    const scraped = await getMercariOnSale(browser, onSaleQuery, Math.round(avg * 0.4), null, titleMust, null, 0, BOX_MAX_PAGES)
     // 混在系列は件数だけ「あり+なし」で置き換える（ask は自分の検索の分布をそのまま使う）。
     //
     // 【なぜ自分で数えないか】検索は価格昇順で最大3ページ（約300件）しか読めない。混在系列の

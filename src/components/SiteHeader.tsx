@@ -13,11 +13,13 @@ import ThemeToggle from './ThemeToggle'
 // ナビは**実在するルートだけ**を出す。`/boxes` は [boxId] しか無く一覧ページが無いので入れない
 // （トップのドロップダウンから選ぶ導線が既にある）。行き先の無いタブを飾りで置かない。
 
+// ⚠ 6項目から4項目に減らした（2026-08-30）。
+//   /ranking … スクリーナー(/screener)に並び替えがあり役割が重なるので外す
+//   /accuracy … トップの「AI予想の的中率」から直接リンクしているので外す
+//   どちらもページ自体は残しており、URLでも各所のリンクからでも到達できる。
 const NAV = [
   { href: '/', label: 'トップ' },
   { href: '/screener', label: 'カード検索' },
-  { href: '/ranking', label: 'ランキング' },
-  { href: '/accuracy', label: 'AI的中' },
   { href: '/watchlist', label: 'ウォッチ' },
   { href: '/portfolio', label: 'コレクション' },
 ] as const
