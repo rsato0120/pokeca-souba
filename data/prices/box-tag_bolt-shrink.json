@@ -2,6 +2,17 @@
   "card_id": "box-tag_bolt-shrink",
   "history": [
     {
+      "date": "2026-08-31",
+      "low": 380000,
+      "high": 390100,
+      "avg": 385050,
+      "source": "mercari",
+      "sold_total": 23,
+      "oldest_sale_days": 81,
+      "on_sale": 2,
+      "psa10": null
+    },
+    {
       "date": "2026-08-30",
       "low": 380000,
       "high": 390100,
@@ -355,5 +366,9 @@
       "ask_mid": 611111,
       "psa10": null
     }
-  ]
+  ],
+  "sales_by_day": {
+    "2026-08-30": 1
+  },
+  "sales_fetched_at": "2026-08-31"
 }
