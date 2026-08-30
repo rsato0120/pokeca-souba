@@ -4,7 +4,7 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
-import { getSnkrdunkSales, recentSalesWindow } from './snkrdunk-sales'
+import { getSnkrdunkSales, getSnkrdunkBoxSales, recentSalesWindow } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
@@ -1774,6 +1774,83 @@ async function scrapeBox(
   await new Promise(r => setTimeout(r, 2000 + Math.random() * 2000))
 }
 
+/**
+ * 未開封BOXの**実成約件数**をスニダンの成約APIから取り、sales_by_day に積む。
+ *
+ * 【なぜ要るか】
+ * BOXの出来高はこれまで sold_total（メルカリ成約検索の numFound）の前日差で出していたが、
+ * numFound は累計ではなく「インデックスに今残っている成約の在庫数」で増減する。
+ * 差分を「その日に売れた数」として棒にすると、アビスアイBOXは直近20日で棒が5日しか立たず
+ * （8/20以降10日間ゼロ＝取引が止まったように見える）、ストームエメラルダBOXは 128箱/日 という
+ * 実在しない棒が出ていた。実成約に置き換える。
+ *
+ * 【カードとの違い】scripts/snkrdunk-sales.ts の getSnkrdunkBoxSales のコメント参照。
+ *  - condition_id が無視される → **1回だけ引く**（状態別に足すと同じ取引を5回数える）
+ *  - 1ページ20件固定 → ページ送りが要る
+ *  - size がロット数、price はロット合計 → 箱数は lot を足す
+ *
+ * 【窓を短くしている理由】
+ * ホットな弾は1日200箱以上動くので、45日分を引こうとすると数百ページになる。
+ * sales_by_day は日ごとの max で積み上がるので、**毎日少しずつ重ねれば履歴は伸びる**。
+ * そこで日次では直近数日だけを引く。
+ *
+ * ⚠ ページ上限で打ち切った回は、**一番古い日を捨てる**。その日は途中までしか見えておらず、
+ *   部分的な件数を max で焼き付けてしまうため（新しい日から順に返るので、古い側だけが欠ける）。
+ */
+const BOX_SALES_DAYS = 6
+
+async function updateBoxSalesByDay(
+  browser: Browser,
+  boxIds: string[],
+  date: string,
+  ids: Record<string, number>,
+): Promise<void> {
+  console.log('\n── 未開封BOXの成約件数（スニダン成約API） ──')
+  for (const boxId of boxIds) {
+    // シュリンクあり/なしを別々に引く。スニダンでも別商品IDで管理されている
+    const parts: Record<'shrink' | 'noshrink', string[]> = { shrink: [], noshrink: [] }
+    let any = false
+    for (const variant of ['shrink', 'noshrink'] as const) {
+      const apparelId = ids[`box-${boxId}-${variant}`]
+      if (!apparelId) continue
+      try {
+        const { sales, complete } = await getSnkrdunkBoxSales(browser, apparelId, BOX_SALES_DAYS)
+        if (sales.length === 0) continue
+        // 打ち切った回は最古日が途中までなので捨てる
+        const dates = [...new Set(sales.map(s => s.date))].sort()
+        const oldest = dates[0]
+        const usable = complete ? sales : sales.filter(s => s.date !== oldest)
+        // 1取引で lot 箱動くので、日付を lot 回並べる（mergeSalesByDay が出現回数で数える）
+        const expanded: string[] = []
+        for (const s of usable) for (let i = 0; i < s.lot; i++) expanded.push(s.date)
+        parts[variant] = expanded
+        any = true
+        const boxes = expanded.length
+        process.stdout.write(`  [${boxId}/${variant}] ${usable.length}取引 ${boxes}箱${complete ? '' : '（打ち切り）'}\n`)
+      } catch {
+        process.stdout.write(`  [${boxId}/${variant}] 取得失敗\n`)
+      }
+      await new Promise(r => setTimeout(r, 1500))
+    }
+    if (!any) continue
+    mergeBoxSales(`box-${boxId}-shrink`, parts.shrink, date)
+    mergeBoxSales(`box-${boxId}-noshrink`, parts.noshrink, date)
+    // 混在系列はあり/なしの合算。⚠ 別々の商品なので足して二重計上にはならない
+    mergeBoxSales(`box-${boxId}`, [...parts.shrink, ...parts.noshrink], date)
+  }
+}
+
+/** 既存の価格ファイルに sales_by_day だけを足す（価格には一切触らない） */
+function mergeBoxSales(seriesId: string, dates: string[], date: string): void {
+  if (dates.length === 0) return
+  const file = path.join(pricesDir, `${seriesId}.json`)
+  if (!fs.existsSync(file)) return
+  const data = JSON.parse(fs.readFileSync(file, 'utf-8')) as PriceHistory
+  data.sales_by_day = mergeSalesByDay(data.sales_by_day, dates, date)
+  data.sales_fetched_at = date
+  fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n', 'utf-8')
+}
+
 async function main() {
   // 任意の引数で特定BOXだけに絞り込める（例: npx tsx scripts/scrape-prices.ts mega_brave）。
   // scrape-psa-only.ts と同じく cardId / card接頭辞も受け付ける
@@ -1787,7 +1864,11 @@ async function main() {
   // BOX_ONLY=1 でカードを飛ばし未開封BOX系列だけ取得する（代表値の算出方式を変えた直後など、
   // BOXだけ establishing run を回したい時に使う。カード257枚の再取得を避けられる）
   const boxOnly = process.env.BOX_ONLY === '1'
-  const cards = boxOnly
+  // BOX_SALES_ONLY=1 … 価格取得を一切せず、未開封BOXの**成約件数だけ**を積む。
+  //   価格側（メルカリのBOX検索）は1弾あたり数分かかるので、成約件数を入れ直したいだけの
+  //   時にそこまで回すのは無駄。sales_by_day は既存の価格ファイルに足すだけなので独立して動く。
+  const boxSalesOnly = process.env.BOX_SALES_ONLY === '1'
+  const cards = (boxOnly || boxSalesOnly)
     ? []
     : getAllCards().filter(matchesFilter)
   const boxes = getAllBoxes().filter(
@@ -1853,6 +1934,8 @@ async function main() {
     }
 
     if (boxes.length > 0) {
+      // BOX_SALES_ONLY の時は価格取得（メルカリのBOX検索）を丸ごと飛ばす
+      if (!boxSalesOnly) {
       console.log('\n── 未開封BOX ──')
       for (const box of boxes) {
         // シュリンクあり/なしを分けて取得（相場が別物なので混ぜると実勢とズレる）。
@@ -1871,6 +1954,11 @@ async function main() {
           date, stats, [box.box_name], 'any', [], [], sumPartsOnSale(box.box_id, date),
         )
       }
+      }
+
+      // ⚠ 価格の取得が終わってから成約件数を積む。価格ファイルが存在している前提で
+      //   sales_by_day だけを足す処理なので、順番を逆にすると新弾の初日に書き込み先が無い。
+      await updateBoxSalesByDay(browser, boxes.map(b => b.box_id), date, snkrdunkIds)
     }
 
     // ── セット商品（ポケセン等）: パックBOXではなく“セット”の相場を地域ごとに取得 ──

@@ -12,6 +12,13 @@ interface Props {
   shrink: PriceRecord[] | null
   noshrink: PriceRecord[] | null
   mixed: PriceRecord[] | null      // 後方互換の混在系列（フォールバック）
+  /** スニダン成約APIで数えた**日別の成約箱数**。系列ごとに別物なのでタブと対応させる。
+   *  ⚠ 出来高の棒はこれが無いと出ない（メルカリのnumFound差分は 2026-08-30 に廃止）。*/
+  salesByDay?: {
+    shrink?: Record<string, number>
+    noshrink?: Record<string, number>
+    mixed?: Record<string, number>
+  }
   msrp: number | null
   packsPerBox?: number
   packPrice?: number
@@ -55,7 +62,7 @@ function computeStats(history: PriceRecord[] | null, msrp: number | null): Stats
 
 const labelMono: React.CSSProperties = { fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }
 
-export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerBox, packPrice }: Props) {
+export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerBox, packPrice, salesByDay }: Props) {
   const hasVariant = (shrink && shrink.length > 0) || (noshrink && noshrink.length > 0)
 
   const tabs: { id: VariantId; label: string; history: PriceRecord[] | null }[] = hasVariant
@@ -76,13 +83,20 @@ export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerB
   // 「値段が取れていない」ように見えるので、点が足りない間は混在系列のグラフを出す。
   // 現在相場・定価比などの数値は選択中のタブのものを使う（グラフだけのフォールバック）。
   const MIN_CHART_POINTS = 3
-  const chart: { history: PriceRecord[]; label: string; fallback: boolean } | null =
+  // ⚠ 出来高は**実際にグラフ化した系列**のものを渡す。フォールバックで混在系列を描いて
+  //   いるのにシュリンクありの成約箱数を重ねると、価格と棒で別の市場を並べることになる。
+  //   （出所を混ぜた引き算・重ね合わせはこのプロジェクトで繰り返している事故なので固定する）
+  const salesFor = (id: VariantId) =>
+    id === 'shrink' ? salesByDay?.shrink
+      : id === 'noshrink' ? salesByDay?.noshrink
+        : salesByDay?.mixed
+  const chart: { history: PriceRecord[]; label: string; fallback: boolean; sales?: Record<string, number> } | null =
     active.history && active.history.length >= MIN_CHART_POINTS
-      ? { history: active.history, label: active.label, fallback: false }
+      ? { history: active.history, label: active.label, fallback: false, sales: salesFor(active.id) }
       : mixed && mixed.length >= MIN_CHART_POINTS
-        ? { history: mixed, label: '全体・シュリンク混在', fallback: true }
+        ? { history: mixed, label: '全体・シュリンク混在', fallback: true, sales: salesByDay?.mixed }
         : active.history && active.history.length > 0
-          ? { history: active.history, label: active.label, fallback: false }
+          ? { history: active.history, label: active.label, fallback: false, sales: salesFor(active.id) }
           : null
 
   const tabBtn = (id: VariantId): React.CSSProperties => ({
@@ -191,7 +205,7 @@ export default function BoxPricePanel({ shrink, noshrink, mixed, msrp, packsPerB
                   「{active.label}」の推移は蓄積中のため、グラフはシュリンクあり／なしを合わせた全体の推移を表示しています。
                 </div>
               )}
-              <PriceHistoryChart history={chart.history} unit="箱" />
+              <PriceHistoryChart history={chart.history} unit="箱" salesByDay={chart.sales} />
             </div>
           )}
         </>

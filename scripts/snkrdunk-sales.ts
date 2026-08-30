@@ -29,7 +29,7 @@ export const PSA10_CONDITION_ID = 22
 
 const PER_PAGE = 1000
 
-interface SaleRow { price: number; date: string; condition: string }
+interface SaleRow { price: number; date: string; condition: string; size?: string }
 
 /** "2026/08/25" → "2026-08-25"。相対表記（"1日前" 等）は絶対日付にできないので捨てる */
 function toIsoDate(raw: string): string | null {
@@ -40,13 +40,16 @@ function toIsoDate(raw: string): string | null {
 async function fetchPage(
   browser: Browser,
   apparelId: number,
-  conditionId: number,
+  conditionId: number | null,
   page: number,
 ): Promise<SaleRow[] | null> {
   const p = await browser.newPage()
   try {
+    // conditionId が null の時は付けない（未開封BOXは状態の概念が無く、
+    //  付けても無視されるうえ、状態ごとに引くと同じ取引を重複して数えてしまう）
     const url = `https://snkrdunk.com/v1/apparels/${apparelId}/sales-history`
-      + `?page=${page}&per_page=${PER_PAGE}&condition_id=${conditionId}`
+      + `?page=${page}&per_page=${PER_PAGE}`
+      + (conditionId == null ? '' : `&condition_id=${conditionId}`)
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
         const res = await p.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 })
@@ -187,4 +190,98 @@ export function recentSalesWindow(
   }
   const span = Math.round((Date.parse(today) - Date.parse(oldest)) / 86400000) + 1
   return { prices, days: span }
+}
+
+// ─────────────────────────────────────────────────────────────
+// 未開封BOX用
+// ─────────────────────────────────────────────────────────────
+//
+// BOXはシングルカードと**APIの振る舞いが違う**。実測(2026-08-30・アビスアイBOX 806644):
+//
+//  1. `condition_id` が**無視される**。18/19/22/2/3 のどれを渡しても同じ履歴が返り、
+//     各行の `condition` は空文字。未開封BOXに状態の概念が無いため。
+//     ⚠ カードと同じく4状態＋PSA10を足すと **同じ取引を5回数える**ことになる。必ず1回だけ引く。
+//  2. `per_page` が効かず **1ページ20件固定**。1000を渡しても20件。
+//     45日分を集めるには page を送る必要がある（実測: page=10 で8日前に到達）。
+//  3. 直近3日ほどが「4時間前」「1日前」の**相対表記**で返る。
+//     シングルでは相対表記を捨てているが、BOXは1ページが浅いので捨てると直近が丸ごと欠ける。
+//     ここでは暦日に落として採る（HTML経路の parseSnkrdunkSaleDate と同じ扱い）。
+//     ⚠ 「1日前」は24〜48時間前を指し2つの暦日にまたがるので、当日近辺の件数は暫定値。
+//        mergeSalesByDay が日ごとに max を取るので、翌日以降に絶対日付で確定する。
+
+const BOX_PER_PAGE = 20
+/** 何ページまで遡るか。20件/ページなので、よく売れるBOXでも2〜3週間分は入る */
+const BOX_MAX_PAGES = 40
+
+/** "4時間前" / "1日前" / "2026/08/25" を JST の暦日に落とす */
+function toIsoDateLoose(raw: string, nowMs: number): string | null {
+  const s = raw.trim()
+  const abs = /^(\d{4})\/(\d{2})\/(\d{2})$/.exec(s)
+  if (abs) return `${abs[1]}-${abs[2]}-${abs[3]}`
+  const rel = /^(\d{1,2})(分|時間|日)前$/.exec(s)
+  if (!rel) return null
+  const n = parseInt(rel[1], 10)
+  const ms = rel[2] === '日' ? n * 86400000 : rel[2] === '時間' ? n * 3600000 : n * 60000
+  return new Date(nowMs - ms + 9 * 3600000).toISOString().slice(0, 10)
+}
+
+export interface BoxSale {
+  date: string
+  /** **1箱あたり**の価格（ロット取引は price / lot に割ってある） */
+  unitPrice: number
+  /** その取引で動いた箱数。size '4個' なら 4 */
+  lot: number
+}
+
+export interface BoxSales {
+  /** 成約。1取引1要素。新しい順 */
+  sales: BoxSale[]
+  /** 取得しきったか（false＝ページ上限で打ち切った＝もっと古い取引がある） */
+  complete: boolean
+}
+
+/**
+ * BOXの `size` は**ロット数**で、`price` はそのロットの**合計額**。
+ * 実測(アビスアイ通常BOX 806644・2026-08-30): 1個 ¥8,000〜8,900 ／ 2個 ¥17,500 ／
+ * 4個 ¥36,480 ／ 5個 ¥45,000。1個あたりに直すと全部 ¥8,700〜9,200 に揃う。
+ * 割らずに平均すると ¥30,345 になり、実勢 ¥8,884 の3.4倍という別物になる。
+ * ⚠ シングルカードは size が常に空文字なのでこの処理は要らない（カード側は素通し）。
+ */
+function parseLot(size: string | undefined): number {
+  const m = /^(\d+)個$/.exec((size ?? '').trim())
+  const n = m ? parseInt(m[1], 10) : 1
+  return n >= 1 && n <= 100 ? n : 1
+}
+
+/**
+ * 未開封BOXの成約履歴を取る。**condition_id は渡さない**（上のコメント1参照）。
+ */
+export async function getSnkrdunkBoxSales(
+  browser: Browser,
+  apparelId: number,
+  sinceDays = 45,
+): Promise<BoxSales> {
+  const nowMs = Date.now()
+  const cutoff = nowMs - sinceDays * 86400000
+  const sales: BoxSale[] = []
+  let complete = false
+
+  for (let page = 1; page <= BOX_MAX_PAGES; page++) {
+    const rows = await fetchPage(browser, apparelId, null, page)
+    if (rows == null) break            // 取得失敗。そこまでで打ち切る（0件と区別できない）
+    if (rows.length === 0) { complete = true; break }
+    let reachedOld = false
+    for (const r of rows) {
+      const d = toIsoDateLoose(r.date, nowMs)
+      if (d == null) continue
+      if (Date.parse(`${d}T00:00:00+09:00`) < cutoff) { reachedOld = true; continue }
+      const lot = parseLot(r.size)
+      const total = Number(r.price)
+      if (!(total > 0)) continue
+      sales.push({ date: d, unitPrice: Math.round(total / lot), lot })
+    }
+    if (reachedOld || rows.length < BOX_PER_PAGE) { complete = true; break }
+    await new Promise(r => setTimeout(r, 300))
+  }
+  return { sales, complete }
 }

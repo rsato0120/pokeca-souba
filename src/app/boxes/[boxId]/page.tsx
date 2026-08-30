@@ -220,6 +220,11 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               shrink={shrinkHist}
               noshrink={noshrinkHist}
               mixed={mixedHist}
+              salesByDay={{
+                shrink: getBoxPriceVariant(boxId, 'shrink')?.sales_by_day,
+                noshrink: getBoxPriceVariant(boxId, 'noshrink')?.sales_by_day,
+                mixed: boxPriceHistory?.sales_by_day,
+              }}
               msrp={msrp}
               packsPerBox={box.packs_per_box}
               packPrice={box.pack_price_yen}
