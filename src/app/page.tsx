@@ -13,7 +13,8 @@ import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
 import MarketPulse from '@/components/MarketPulse'
-import HeatPicks, { type HeatPick } from '@/components/HeatPicks'
+import type { HeatPick } from '@/components/HeatPicks'
+import DailyFlipCards, { type DailyFlipCard } from '@/components/DailyFlipCards'
 import { computeMarketTemp } from '@/lib/market-temp'
 import { onSaleChange } from '@/lib/on-sale'
 import BoxRanking from '@/components/BoxRanking'
@@ -289,6 +290,77 @@ export default function TopPage() {
     bearish: bearishCount,
   })
 
+  // トップの遊び要素「今日の3枚」。価格の動き・AI選定・スニダン実成約数という
+  // 異なる3つの実データから選び、同じカードが複数枠に重ならないようにする。
+  const pickedSlugs = new Set<string>()
+  const dailyFlipCards: DailyFlipCard[] = []
+  const boxNameById = new Map(boxes.map(box => [box.box_id, box.box_name]))
+  const addDailyCard = (card: DailyFlipCard) => {
+    if (pickedSlugs.has(card.slug)) return
+    pickedSlugs.add(card.slug)
+    dailyFlipCards.push(card)
+  }
+
+  const surgePick = surgeCards[0]
+  if (surgePick) {
+    addDailyCard({
+      slug: surgePick.slug,
+      category: '今日の急騰',
+      name: surgePick.card.card_name,
+      rarity: surgePick.card.rarity,
+      boxName: boxNameById.get(surgePick.card.box_id) ?? surgePick.card.box_id,
+      image: surgePick.card.image_url ?? null,
+      price: Math.round(surgePick.currentMid),
+      metric: `+${getChange(surgePick).toFixed(1)}%`,
+      tone: 'up',
+      reason: '今日、価格が大きく動いたカード',
+    })
+  }
+
+  const aiPick = heatPicks.find(card => !pickedSlugs.has(card.slug))
+  if (aiPick) {
+    const source = metricsBySlug.get(aiPick.slug)
+    addDailyCard({
+      slug: aiPick.slug,
+      category: 'AI注目',
+      name: aiPick.name,
+      rarity: aiPick.rarity,
+      boxName: source ? (boxNameById.get(source.card.box_id) ?? source.card.box_id) : '',
+      image: aiPick.image,
+      price: aiPick.mid,
+      metric: aiPick.score == null ? '分析中' : `AI ${aiPick.score}`,
+      tone: 'ai',
+      reason: aiPick.thesis ?? 'まだ大きく動いていない注目カード',
+    })
+  }
+
+  const salesCutoff = new Date(`${siteLatest}T00:00:00+09:00`).getTime() - 6 * 86400000
+  const activeSales = metrics
+    .map(m => {
+      const sales = getPriceHistory(m.slug)?.sales_by_day
+      const count = sales
+        ? Object.entries(sales).reduce((sum, [date, n]) => Date.parse(`${date}T00:00:00+09:00`) >= salesCutoff ? sum + n : sum, 0)
+        : 0
+      return { m, count }
+    })
+    .filter(x => x.count > 0 && !pickedSlugs.has(x.m.slug) && !isDeckUtilityCard(x.m.card))
+    .sort((a, b) => b.count - a.count)[0]
+
+  if (activeSales) {
+    addDailyCard({
+      slug: activeSales.m.slug,
+      category: '取引活発',
+      name: activeSales.m.card.card_name,
+      rarity: activeSales.m.card.rarity,
+      boxName: boxNameById.get(activeSales.m.card.box_id) ?? activeSales.m.card.box_id,
+      image: activeSales.m.card.image_url ?? null,
+      price: Math.round(activeSales.m.currentMid),
+      metric: `7日 ${activeSales.count}件`,
+      tone: 'volume',
+      reason: 'スニダンで素体取引が活発なカード',
+    })
+  }
+
   return (
     <div className="wrap home-wrap">
       <SiteHeader />
@@ -377,11 +449,11 @@ export default function TopPage() {
 
       <section className="home-ai-section">
         <div className="home-panel-head">
-          <div><span>AI PICK</span><h2>今日の注目カード</h2></div>
+          <div><span>DAILY 3 CARDS</span><h2>今日の3枚</h2></div>
           <Link href="/ai">AI予想を見る →</Link>
         </div>
-        {heatPicks.length > 0 ? (
-          <HeatPicks picks={heatPicks} />
+        {dailyFlipCards.length > 0 ? (
+          <DailyFlipCards cards={dailyFlipCards} />
         ) : (
           <p className="home-empty">いまは条件を満たすカードがありません。</p>
         )}

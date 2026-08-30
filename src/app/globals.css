@@ -1981,12 +1981,170 @@ a:hover {
 .home-empty { color: var(--ink-faint); font-size: var(--fs-sm); }
 .home-pr { margin-top: var(--sp-6); }
 
+/* 今日の3枚：レイアウトを動かさず、同じ場所でカードだけを裏返す */
+.daily-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4);
+  perspective: 1200px;
+}
+
+.daily-flip-card {
+  min-width: 0;
+  min-height: 286px;
+  position: relative;
+}
+
+.daily-flip-turn {
+  width: 100%;
+  height: 100%;
+  min-height: 286px;
+  display: block;
+  border: 0;
+  border-radius: var(--r-lg);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.daily-flip-inner {
+  width: 100%;
+  height: 100%;
+  min-height: 286px;
+  display: block;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(.2,.75,.25,1);
+}
+
+.daily-flip-card.is-revealed .daily-flip-inner { transform: rotateY(180deg); }
+
+.daily-flip-back,
+.daily-flip-front {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--hair));
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  backface-visibility: hidden;
+}
+
+.daily-flip-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 30%),
+    linear-gradient(145deg, var(--accent-soft), var(--panel));
+}
+
+.daily-flip-back::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--hair));
+  border-radius: var(--r-md);
+}
+
+.daily-flip-front {
+  display: grid;
+  grid-template-rows: 132px 1fr;
+  transform: rotateY(180deg);
+}
+
+.daily-flip-category {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  z-index: 2;
+  padding: 3px 8px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  color: var(--accent);
+  font: 700 10px var(--mono);
+  letter-spacing: .06em;
+}
+
+.daily-flip-mark {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-strong);
+  color: var(--accent-ink);
+  font-family: var(--mincho);
+  font-size: var(--fs-lg);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.daily-flip-hint {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--sp-4);
+  color: var(--ink-dim);
+  font-size: var(--fs-xs);
+}
+
+.daily-flip-image {
+  width: 100%;
+  height: 132px;
+  display: block;
+  object-fit: contain;
+  padding: var(--sp-3);
+  background: linear-gradient(145deg, var(--accent-soft), var(--bg2));
+}
+
+.daily-flip-image-ph { display: grid; place-items: center; color: var(--ink-faint); font-family: var(--mono); }
+
+.daily-flip-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-3);
+}
+.daily-flip-copy > strong { overflow: hidden; font-size: var(--fs-base); text-overflow: ellipsis; white-space: nowrap; }
+.daily-flip-copy > small { overflow: hidden; color: var(--ink-faint); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.daily-flip-numbers { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-3); }
+.daily-flip-numbers b { font: 700 var(--fs-md) var(--mono); }
+.daily-flip-numbers em { font: 700 var(--fs-xs) var(--mono); font-style: normal; white-space: nowrap; }
+.daily-flip-numbers .tone-up { color: var(--up); }
+.daily-flip-numbers .tone-ai { color: var(--accent); }
+.daily-flip-numbers .tone-volume { color: var(--brand); }
+.daily-flip-reason { margin-top: var(--sp-2); color: var(--ink-dim); font-size: var(--fs-xs); line-height: 1.55; }
+.daily-flip-detail { position: absolute; right: var(--sp-3); bottom: var(--sp-3); z-index: 3; font-size: 10px; }
+
+.daily-flip-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.daily-flip-actions > span { color: var(--ink-faint); font: var(--fs-xs) var(--mono); }
+.daily-flip-actions button { padding: 8px 12px; border: 1px solid var(--accent); border-radius: var(--r-md); background: transparent; color: var(--accent); cursor: pointer; font-family: var(--gothic); }
+.daily-flip-actions button:hover { background: var(--accent-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  .daily-flip-inner { transition: none; }
+}
+
 @media (max-width: 900px) {
   .home-pulse .pulse {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'head head' 'index temp' 'day temp' 'gauge gauge' 'grid grid' 'note note';
   }
   .home-dashboard-grid { grid-template-columns: 1fr; }
+  .daily-flip-grid { grid-template-columns: 1fr; }
+  .daily-flip-card, .daily-flip-turn, .daily-flip-inner { min-height: 190px; }
+  .daily-flip-front { grid-template-columns: 118px minmax(0, 1fr); grid-template-rows: 1fr; }
+  .daily-flip-image { width: 118px; height: 190px; }
 }
 
 @media (max-width: 760px) {
@@ -2059,8 +2217,9 @@ a:hover {
 @media (max-width: 520px) {
   .home-rank-cols { grid-template-columns: 1fr; }
   .home-rank-cols > div:nth-child(2) { display: none; }
-  .home-ai-section .heat-grid { grid-template-columns: 1fr; }
-  .home-ai-section .heat-card:nth-child(n+2) { display: none; }
+  .daily-flip-card, .daily-flip-turn, .daily-flip-inner { min-height: 180px; }
+  .daily-flip-front { grid-template-columns: 104px minmax(0, 1fr); }
+  .daily-flip-image { width: 104px; height: 180px; }
 }
 
 /* ─── ランキングのページ内タブ（2026-08-30） ─────────────────────
