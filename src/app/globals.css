@@ -1986,7 +1986,6 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--sp-4);
-  perspective: 1200px;
 }
 
 .daily-flip-card {
@@ -2008,17 +2007,19 @@ a:hover {
   text-align: left;
 }
 
+.daily-flip-turn:focus:not(:focus-visible) { outline: none; }
+.daily-flip-turn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .daily-flip-inner {
   width: 100%;
   height: 100%;
   min-height: 286px;
   display: block;
   position: relative;
-  transform-style: preserve-3d;
-  transition: transform 420ms cubic-bezier(.2,.75,.25,1);
 }
-
-.daily-flip-card.is-revealed .daily-flip-inner { transform: rotateY(180deg); }
 
 .daily-flip-back,
 .daily-flip-front {
@@ -2029,7 +2030,7 @@ a:hover {
   border-radius: var(--r-lg);
   background: var(--panel);
   box-shadow: var(--shadow-sm);
-  backface-visibility: hidden;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .daily-flip-back {
@@ -2040,6 +2041,8 @@ a:hover {
   background:
     radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 30%),
     linear-gradient(145deg, var(--accent-soft), var(--panel));
+  opacity: 1;
+  transform: scale(1);
 }
 
 .daily-flip-back::before {
@@ -2053,7 +2056,21 @@ a:hover {
 .daily-flip-front {
   display: grid;
   grid-template-rows: 132px 1fr;
-  transform: rotateY(180deg);
+  opacity: 0;
+  transform: translateY(5px) scale(.985);
+  pointer-events: none;
+}
+
+.daily-flip-card.is-revealed .daily-flip-back {
+  opacity: 0;
+  transform: scale(.985);
+  pointer-events: none;
+}
+
+.daily-flip-card.is-revealed .daily-flip-front {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 
 .daily-flip-category {
@@ -2132,7 +2149,7 @@ a:hover {
 .daily-flip-actions button:hover { background: var(--accent-soft); }
 
 @media (prefers-reduced-motion: reduce) {
-  .daily-flip-inner { transition: none; }
+  .daily-flip-back, .daily-flip-front { transition: none; }
 }
 
 @media (max-width: 900px) {
