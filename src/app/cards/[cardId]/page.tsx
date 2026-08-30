@@ -24,6 +24,8 @@ import RangePosition from '@/components/RangePosition'
 import WatchButton from '@/components/WatchButton'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { midOf } from '@/lib/market'
+import ForecastNote from '@/components/ForecastNote'
+import { aiVerdict } from '@/lib/verdict'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -132,12 +134,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
   const { overall, collector_view, price_forecast } = forecast
 
-  const signal =
-    overall.up_pct >= 45
-      ? { label: '買い', dot: '🟢', color: 'var(--up)' }
-      : overall.down_pct >= 45
-      ? { label: '値下がり注意', dot: '🔴', color: 'var(--down)' }
-      : { label: '様子見', dot: '🟡', color: 'var(--flat)' }
+  // しきい値は src/lib/verdict.ts に集約（トップの買い候補選定と同じ物差しを使う）
+  const signal = aiVerdict(overall)
 
   // 同じカードの別バージョン（左カラムの空きに置く）。価格は代表値の降順に並べたいので
   // 価格取得関数を渡す。履歴が無いカードは 0 として最後尾に落ちる。
@@ -768,9 +766,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           ))}
         </div>
 
-        <p style={{ fontSize: '14px', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: '18px' }}>
-          {overall.reason}
-        </p>
+        <ForecastNote text={overall.reason} generatedAt={forecast.generated_at} size={14} />
         </>
       )}
 
@@ -820,9 +816,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         >
           観賞・保有価値
         </div>
-        <p style={{ fontSize: '13px', color: 'var(--ink-dim)', lineHeight: 1.7 }}>
-          {collector_view.reason}
-        </p>
+        <ForecastNote text={collector_view.reason} generatedAt={forecast.generated_at} size={13} />
       </div>
 
       {/* ── イラスト情報 ──

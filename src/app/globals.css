@@ -1158,6 +1158,11 @@ a:hover {
   padding: var(--sp-6) 0 var(--sp-7);
 }
 
+/* ⚠ グリッドの子は既定が min-width:auto なので、中身の min-content 幅まで**伸びる**。
+   スマホ(390px)で列を1本にしても子が426pxのままはみ出していた原因がこれ。
+   min-width:0 を入れて、コンテナ幅に従って縮むようにする。 */
+.top-hero > * { min-width: 0; }
+
 .top-hero-title {
   font-family: var(--mincho);
   font-size: 38px;
@@ -1763,4 +1768,101 @@ a:hover {
   font-size: 10px;
   color: var(--ink-faint);
   margin-top: -6px;
+}
+
+/* ─── スマホ下部固定タブ（2026-08-30） ───────────────────────────
+   PC は上部ナビ（.site-nav）、スマホは下部タブ。同じ定義（src/lib/nav.ts）を使う。
+   ⚠ 固定要素なので .wrap の下余白をタブの高さ＋ホームバー(safe-area)ぶん確保する。
+     これが無いと最後のセクションやシェアボタンがタブの下に潜って押せない。 */
+.bottom-tabs { display: none; }
+
+@media (max-width: 760px) {
+  .bottom-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background: var(--panel);
+    border-top: 1px solid var(--hair);
+    /* iPhone のホームバーぶんを内側に足す（タブ自体が隠れないように） */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .bottom-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    /* タップ目標は 56px 確保する（26px の丸ボタンで押しにくかった反省） */
+    min-height: 56px;
+    padding: 6px 2px;
+    color: var(--ink-faint);
+    text-decoration: none;
+    font-family: var(--gothic);
+  }
+
+  .bottom-tab-icon { font-size: 18px; line-height: 1; }
+  .bottom-tab-label { font-size: 10px; letter-spacing: 0.02em; }
+
+  .bottom-tab.is-active { color: var(--accent); }
+  .bottom-tab.is-active .bottom-tab-label { font-weight: 700; }
+
+  /* キーボード操作でどのタブに居るか分かるようにする */
+  .bottom-tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+    border-radius: 6px;
+  }
+
+  /* 下部タブに本文が潜らないための余白。タブ高さ56px + 余白 + safe-area */
+  .wrap {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* スマホでは上部ナビを畳む（下部タブと二重になるため）。ロゴと切替ボタンは残す */
+  .site-nav { display: none; }
+}
+
+/* ─── ランキングのページ内タブ（2026-08-30） ─────────────────────
+   値動き／閲覧／みんなの予想／BOX の切り替え。横に4つ並ぶのでスマホでは
+   はみ出さないよう等分し、ラベルを小さくする（横スクロールは作らない）。 */
+.rank-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--hair);
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+}
+
+.rank-tab {
+  flex: 1 1 0;
+  min-height: 40px;
+  padding: 8px 6px;
+  border: 1px solid var(--hair);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.rank-tab.is-active {
+  border-color: var(--accent);
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.rank-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 480px) {
+  .rank-tabs { gap: 5px; }
+  .rank-tab { font-size: 11px; padding: 8px 2px; }
 }

@@ -9,8 +9,8 @@ import BeeHonpoBanner from '@/components/BeeHonpoBanner'
 import BoxCollectionControl from '@/components/BoxCollectionControl'
 import { sparkSeries, midOf } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
-import BoxPricePanel from '@/components/BoxPricePanel'
-import BoxExpectedValue from '@/components/BoxExpectedValue'
+import BoxMarketSection from '@/components/BoxMarketSection'
+import { summarizeVariant, type BoxVariantView } from '@/lib/box-variant'
 import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
 import SiteHeader from "@/components/SiteHeader"
 
@@ -95,13 +95,10 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       })
     : null
 
-  // 表示判定＆Xシェア用の代表値（シュリンクあり→なし→混在→セット先頭 の順）
-  const repLatest = shrinkHist?.[0] ?? noshrinkHist?.[0] ?? mixedHist?.[0] ?? null
-  const repLow = repLatest ? (repLatest.low < repLatest.high ? repLatest.low : Math.round((repLatest.avg ?? repLatest.low) * 0.9)) : null
-  const repHigh = repLatest ? (repLatest.low < repLatest.high ? repLatest.high : Math.round((repLatest.avg ?? repLatest.low) * 1.1)) : null
-  const repMid = repLatest ? Math.round((repLatest.low + repLatest.high) / 2) : null
-  const repPremiumPct = msrp && repMid ? Math.round(((repMid - msrp) / msrp) * 100) : null
-  const showBoxSection = !!(setRows || repLatest)
+  // セクションを出すかの判定だけに使う。**表示する金額はここでは決めない**
+  // （シュリンクの選択に応じてクライアント側で決まる。下の boxVariants を参照）
+  const anyBoxHist = shrinkHist?.[0] ?? noshrinkHist?.[0] ?? mixedHist?.[0] ?? null
+  const showBoxSection = !!(setRows || anyBoxHist)
 
   // 価格変動ランキング（このBOX内）
   // 代表値は src/lib/market.ts(実体は extremes.ts) の midOf に統一する。
@@ -124,11 +121,31 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     }
   }).filter(c => c.currentMid > 0)
 
-  // 1BOX開封の期待値。開封目的の購入はシュリンクなしが基準になるのでそちらを優先する。
+  // 1BOX開封の期待値。
+  // ⚠ 以前はここで noshrink 固定の BOX相場を分母にしていたため、画面上部で
+  //   「シュリンクあり」を選んでいても回収率だけ「なし」の価格で計算されていた。
+  //   **系列ごとに期待値を作っておき**、どれを見せるかはタブ側（BoxMarketSection）に任せる。
   const priceMap = new Map(cardChanges.map(c => [c.card.id, Math.round(c.currentMid)]))
-  const evBoxLatest = noshrinkHist?.[0] ?? shrinkHist?.[0] ?? mixedHist?.[0] ?? null
-  const evBoxPrice = evBoxLatest ? Math.round((evBoxLatest.low + evBoxLatest.high) / 2) : null
-  const boxEv = computeBoxEv(getPullRates(boxId), cards, (c) => priceMap.get(c.id) ?? 0, evBoxPrice, msrp)
+  const pullRates = getPullRates(boxId)
+  const evFor = (mid: number | null) =>
+    computeBoxEv(pullRates, cards, (c) => priceMap.get(c.id) ?? 0, mid, msrp)
+
+  // 相場・定価比・7日推移・出品数・期待値・Xシェアが**すべて同じ系列**を向くよう1本にまとめる
+  const boxVariants: BoxVariantView[] = ([
+    ['shrink', shrinkHist, getBoxPriceVariant(boxId, 'shrink')?.sales_by_day],
+    ['noshrink', noshrinkHist, getBoxPriceVariant(boxId, 'noshrink')?.sales_by_day],
+    ['mixed', mixedHist, boxPriceHistory?.sales_by_day],
+  ] as const)
+    // 変異系列が1つでもあるなら混在は出さない（同じ相場が2度出て選択が濁るため）
+    .filter(([id]) => {
+      const hasVariant = (shrinkHist?.length ?? 0) > 0 || (noshrinkHist?.length ?? 0) > 0
+      if (id === 'mixed') return !hasVariant
+      return hasVariant
+    })
+    .map(([id, hist, sales]) => {
+      const s = summarizeVariant(id, hist, msrp, sales)
+      return { ...s, ev: evFor(s.mid) }
+    })
 
   const priceRanking = [...cardChanges].sort((a, b) => {
     const va = a.weekChange ?? a.dayChange ?? 0
@@ -136,101 +153,10 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     return vb - va
   }).slice(0, 8)
 
-  return (
-    <div className="wrap">
-      <Link
-        href="/"
-        style={{
-          fontFamily: 'var(--mono)',
-          fontSize: '12px',
-          color: 'var(--ink-faint)',
-          letterSpacing: '0.06em',
-          display: 'inline-block',
-          padding: '18px 0 10px',
-        }}
-      >
-        ← トップへ戻る
-      </Link>
-      <SiteHeader />
-
-      {/* ── BOX切替（ドロップダウン選択） ── */}
-      <BoxSelector
-        current={boxId}
-        marginTop={0}
-        marginBottom={24}
-        boxes={boxes
-          .filter(b => b.certainty === 'released')
-          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
-      />
-
-      {/* ── 収録弾ヘッダ ── */}
-      <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
-        {box.pack_image_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={box.pack_image_url}
-            alt={`${box.box_name} パックアート`}
-            referrerPolicy="no-referrer"
-            style={{
-              width: '90px',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-              flexShrink: 0,
-            }}
-          />
-        )}
-        <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '6px' }}>
-            BOX · 収録弾
-          </div>
-          <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '28px', fontWeight: 800, marginBottom: '10px' }}>
-            {box.box_name}
-          </h1>
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
-            <span>発売 {box.release_ym}</span>
-            {/* 定価0＝単体販売のない配布パック（プロモカードパック25th など） */}
-            <span>
-              {box.packs_per_box != null
-                ? `パック ¥${box.pack_price_yen}`
-                : box.pack_price_yen > 0
-                ? `定価 ¥${box.pack_price_yen.toLocaleString()}`
-                : '定価なし（キャンペーン配布）'}
-            </span>
-            <span>{cards.length}枚収録（掲載中）</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 未開封BOX相場 / セット相場 ── */}
-      {showBoxSection && (
-        <div
-          style={{
-            background: 'var(--panel)',
-            border: '1px solid var(--hair)',
-            borderRadius: '10px',
-            padding: '20px 24px',
-            marginBottom: '28px',
-          }}
-        >
-          {setRows ? (
-            <SetPricePanel rows={setRows} />
-          ) : (
-            <BoxPricePanel
-              shrink={shrinkHist}
-              noshrink={noshrinkHist}
-              mixed={mixedHist}
-              salesByDay={{
-                shrink: getBoxPriceVariant(boxId, 'shrink')?.sales_by_day,
-                noshrink: getBoxPriceVariant(boxId, 'noshrink')?.sales_by_day,
-                mixed: boxPriceHistory?.sales_by_day,
-              }}
-              msrp={msrp}
-              packsPerBox={box.packs_per_box}
-              packPrice={box.pack_price_yen}
-            />
-          )}
-
+  // 購入リンク・コレクション登録・バナー。セット商品と通常BOXの両方で同じものを出すので
+  // JSXを二重に書かず変数に切り出す。
+  const boxSectionExtras = (
+    <>
           {/* 購入リンク */}
           {(() => {
             const q = encodeURIComponent(`${box.box_name} 未開封 BOX`)
@@ -305,13 +231,98 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           {/* bee本舗バナー（A8 / PR）。「探す」で外部に出る直前が最も意図が合う */}
           <BeeHonpoBanner marginY={10} />
 
-          {/* Xシェアボタン */}
+    </>
+  )
+
+  return (
+    <div className="wrap">
+      <Link
+        href="/"
+        style={{
+          fontFamily: 'var(--mono)',
+          fontSize: '12px',
+          color: 'var(--ink-faint)',
+          letterSpacing: '0.06em',
+          display: 'inline-block',
+          padding: '18px 0 10px',
+        }}
+      >
+        ← トップへ戻る
+      </Link>
+      <SiteHeader />
+
+      {/* ── BOX切替（ドロップダウン選択） ── */}
+      <BoxSelector
+        current={boxId}
+        marginTop={0}
+        marginBottom={24}
+        boxes={boxes
+          .filter(b => b.certainty === 'released')
+          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
+      />
+
+      {/* ── 収録弾ヘッダ ── */}
+      <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+        {box.pack_image_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={box.pack_image_url}
+            alt={`${box.box_name} パックアート`}
+            referrerPolicy="no-referrer"
+            style={{
+              width: '90px',
+              height: 'auto',
+              borderRadius: '8px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+              flexShrink: 0,
+            }}
+          />
+        )}
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '6px' }}>
+            BOX · 収録弾
+          </div>
+          <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '28px', fontWeight: 800, marginBottom: '10px' }}>
+            {box.box_name}
+          </h1>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
+            <span>発売 {box.release_ym}</span>
+            {/* 定価0＝単体販売のない配布パック（プロモカードパック25th など） */}
+            <span>
+              {box.packs_per_box != null
+                ? `パック ¥${box.pack_price_yen}`
+                : box.pack_price_yen > 0
+                ? `定価 ¥${box.pack_price_yen.toLocaleString()}`
+                : '定価なし（キャンペーン配布）'}
+            </span>
+            <span>{cards.length}枚収録（掲載中）</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── 未開封BOX相場 / セット相場 ── */}
+      {showBoxSection && (
+        setRows ? (
+        <div
+          style={{
+            background: 'var(--panel)',
+            border: '1px solid var(--hair)',
+            borderRadius: '10px',
+            padding: '20px 24px',
+            marginBottom: '28px',
+          }}
+        >
+          <SetPricePanel rows={setRows} />
+
+          {boxSectionExtras}
+
+          {/* Xシェア（セット商品）。通常BOXは BoxMarketSection が選択中の系列から作る */}
           {(() => {
+            const head = setRows?.[0]
             const tweetText = [
-              `【BOX相場】${box.box_name}`,
-              repLatest ? `現在 ¥${repLow?.toLocaleString()}〜¥${repHigh?.toLocaleString()}${repPremiumPct != null ? `（定価比${repPremiumPct >= 0 ? `+${repPremiumPct}` : `${repPremiumPct}`}%）` : ''}` : '',
-              boxEv && boxEv.ev > 0 && boxEv.recoveryPct != null
-                ? `開封の期待値 ¥${boxEv.ev.toLocaleString()}以上（回収率${boxEv.recoveryPct}%）`
+              `【セット相場】${box.box_name}`,
+              head && head.low != null && head.high != null
+                ? `${head.label} 現在 ¥${head.low.toLocaleString()}〜¥${head.high.toLocaleString()}`
                 : '',
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/boxes/${boxId}`,
@@ -334,21 +345,19 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             )
           })()}
         </div>
-      )}
-
-      {/* ── 1BOX開封の期待値 ── */}
-      {boxEv && boxEv.ev > 0 && (
-        <div
-          style={{
-            background: 'var(--panel)',
-            border: '1px solid var(--hair)',
-            borderRadius: '10px',
-            padding: '20px 24px',
-            marginBottom: '28px',
-          }}
-        >
-          <BoxExpectedValue ev={boxEv} boxName={box.box_name} />
-        </div>
+        ) : (
+          <BoxMarketSection
+            variants={boxVariants}
+            mixedForChart={{ history: mixedHist, salesByDay: boxPriceHistory?.sales_by_day }}
+            msrp={msrp}
+            packsPerBox={box.packs_per_box}
+            packPrice={box.pack_price_yen}
+            boxId={boxId}
+            boxName={box.box_name}
+          >
+            {boxSectionExtras}
+          </BoxMarketSection>
+        )
       )}
 
       {/* ── 価格変動ランキング ── */}

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant } from '@/lib/data'
-import { selectBuyCandidates, scoreBuy, makeHeatScale, type BuyInput } from '@/lib/buy-signals'
+import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
+import { computeCardScore } from '@/lib/score'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { sparkSeries, todayJST, midOf } from '@/lib/market'
 import type { Card, PriceRecord } from '@/types/pokeca'
@@ -8,8 +9,6 @@ import SearchBar from '@/components/SearchBar'
 import type { SearchCard } from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
 import OripaBanner from '@/components/OripaBanner'
-import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
-import TrendingCards, { type TrendCard } from '@/components/TrendingCards'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
@@ -17,8 +16,6 @@ import MarketPulse from '@/components/MarketPulse'
 import HeatPicks, { type HeatPick } from '@/components/HeatPicks'
 import { computeMarketTemp } from '@/lib/market-temp'
 import { onSaleChange } from '@/lib/on-sale'
-import AccuracyStrip from '@/components/AccuracyStrip'
-import { computeAccuracy } from '@/lib/accuracy'
 import BoxRanking from '@/components/BoxRanking'
 import { buildBoxRanking } from '@/lib/box-ranking'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
@@ -28,14 +25,6 @@ export default function TopPage() {
   const cards = getAllCards()
   const boxes = getAllBoxes()
 
-  // 各カードに予想データを紐付け
-  const cardsWithForecast = cards
-    .map((card) => ({
-      card,
-      forecast: getForecast(getCardSlug(card)),
-    }))
-    .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
-
   // 検索用データ（Client Componentに渡す）
   const searchCards: SearchCard[] = cards.map((card) => ({
     slug: getCardSlug(card),
@@ -43,17 +32,6 @@ export default function TopPage() {
     rarity: card.rarity,
     box_name: boxes.find((b) => b.box_id === card.box_id)?.box_name ?? card.box_id,
     up_pct: getForecast(getCardSlug(card))?.overall.up_pct ?? null,
-  }))
-
-  // 「みんなの予想 注目カード」用の対応表。どのカードに票が入っているかはビルド時に
-  // 分からないので、id→表示情報を丸ごと渡してクライアント側で突き合わせる。
-  // 画像URLまで含めても数十KBに収まるので、票のたびに再ビルドするより軽い。
-  const pickCards: PickCard[] = cards.map((card) => ({
-    id: getCardSlug(card),
-    name: card.card_name,
-    rarity: card.rarity,
-    image: card.image_url ?? null,
-    aiUp: getForecast(getCardSlug(card))?.overall.up_pct ?? null,
   }))
 
   // 価格変化・需給データ計算
@@ -131,22 +109,6 @@ export default function TopPage() {
 
   const metricsBySlug = new Map(metrics.map((m) => [m.slug, m]))
 
-  // 「みんなの注目ランキング」用の対応表。どのカードが見られているかはビルド時には分からないので、
-  // CommunityPicks と同じく id→表示情報を丸ごと渡してクライアント側で突き合わせる。
-  // 価格が欠測しているカードも開かれる（＝ランキングに載り得る）ので、metrics ではなく cards から作る。
-  const trendCards: TrendCard[] = cards.map((card) => {
-    const slug = getCardSlug(card)
-    const m = metricsBySlug.get(slug)
-    return {
-      id: slug,
-      name: card.card_name,
-      rarity: card.rarity,
-      image: card.image_url ?? null,
-      price: m && m.currentMid > 0 ? m.currentMid : null,
-      dayChange: m?.dayChange ?? null,
-    }
-  })
-
 
   // 出品数の変化。**出所（スニダン/メルカリ）が違う2点は引き算しない**（src/lib/on-sale.ts）。
   // スニダンは商品固有の実数、メルカリは検索の集計で桁がまるごと違うため、切替日に
@@ -184,11 +146,14 @@ export default function TopPage() {
       extremes: getPriceExtremes(slug),
     }
   })
-  // 「AI高騰気配」の物差しは**全候補**から1つだけ作り、看板・買うべきカードの双方に渡す。
-  // 絞り込んだ集合ごとに作ると、同じ数字が画面によって違う意味になる。
-  const heatPoolSize = buyInputs.map(scoreBuy).filter((c) => c != null).length
-  const heatScale = makeHeatScale(
-    buyInputs.map(scoreBuy).filter((c) => c != null).map((c) => c!.score),
+  // ⚠ 「AI高騰気配」は廃止した（2026-08-30）。
+  //   買い候補の中の順位（パーセンタイル 40〜99）を出す指標だったが、カード詳細に
+  //   「AI投資スコア 0〜100」が別にあり、同じ「買い妙味」を2つの数字で語っていて
+  //   利用者が違いを理解できなかった（同じカードで 83 と 91 が並ぶ）。
+  //   **画面に出す数字は AI投資スコア（src/lib/score.ts）に一本化**し、
+  //   scoreBuy は「どのカードを候補に採るか」という**並び順専用**として内部に残す。
+  const scoreBySlug = new Map(
+    buyInputs.map((b) => [b.slug, computeCardScore({ card: b.card, forecast: b.forecast, history: b.history, extremes: b.extremes })?.total ?? null]),
   )
 
   const buyTheses = getBuyTheses()
@@ -211,7 +176,7 @@ export default function TopPage() {
     // 7日変化が取れないカードは「動いていない」と断定できないので候補にしない
     return w != null && Math.abs(w) <= STILL_QUIET_PCT
   })
-  const heatPicks: HeatPick[] = selectBuyCandidates(quietInputs, 3, 1, heatScale).map((c) => {
+  const heatPicks: HeatPick[] = selectBuyCandidates(quietInputs, 3, 1).map((c) => {
     const m = metricsBySlug.get(c.slug)
     const fc = getForecast(c.slug)
     return {
@@ -222,9 +187,8 @@ export default function TopPage() {
       image: c.card.image_url ?? null,
       mid: c.mid,
       dayPct: m?.dayChange ?? null,
-      heat: c.heat,
-      heatPercentile: c.heatPercentile,
-      heatPool: heatPoolSize,
+      // カード詳細と**同じ AI投資スコア**（0〜100）。別物の数字を並べない
+      score: scoreBySlug.get(c.slug) ?? null,
       upPct: fc?.overall.up_pct ?? null,
       m3Low: fc?.price_forecast.m3_low ?? null,
       m3High: fc?.price_forecast.m3_high ?? null,
@@ -300,7 +264,6 @@ export default function TopPage() {
   )
 
   // AI予想の的中実績（/accuracy と同じ計算をそのまま使う）
-  const accuracy = computeAccuracy()
 
   const allIndex = getMarketIndex('all')
   const indexLatest = allIndex?.series[allIndex.series.length - 1] ?? null
@@ -412,59 +375,40 @@ export default function TopPage() {
         />
       </section>
 
-      {/* ── 看板① AIが見つけた、まだ上がっていないカード ──
-          サイトの強みを3秒で伝える枠なので、ファーストビュー直下に単独で置く */}
-      {heatPicks.length > 0 && (
-        <section className="sec">
-          <h2 className="flag-title">
-            AIが見つけた、<br />
-            <span style={{ color: 'var(--accent)' }}>まだ上がっていないカード。</span>
-          </h2>
-          <p className="flag-sub">
-            AIの上昇予想・割安度・在庫の減り方から、値動きが出る前の銘柄を毎日選び直しています。
-          </p>
+      {/* ── AI予想への導線 ──
+          看板の「AIが見つけたカード」「AI予想の的中率」「予想結果一覧」は /ai へ移した
+          （2026-08-30）。トップで同じ情報を繰り返さない。 */}
+      <div className="sec">
+        <div className="sec-head">
+          <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
+          <span className="sec-title">AIが見つけたカード</span>
+          <span className="sec-sub"><Link href="/ai" style={{ color: 'var(--accent)' }}>もっと見る →</Link></span>
+        </div>
+        {heatPicks.length > 0 ? (
           <HeatPicks picks={heatPicks} />
-        </section>
-      )}
+        ) : (
+          <p style={{ fontSize: '13px', color: 'var(--ink-faint)', lineHeight: 1.8 }}>
+            いまは条件を満たすカードがありません。<Link href="/ai" style={{ color: 'var(--accent)' }}>AI予想</Link>で一覧を確認できます。
+          </p>
+        )}
+      </div>
 
-      {/* AI予想の的中実績。「AIが見つけた」と言い切る直後に、その予想がどれだけ
-          当たってきたかを置く（材料は /accuracy と同じ computeAccuracy） */}
-      <AccuracyStrip summary={accuracy} />
-      {/* ── BOXランキング ──
+      {/* ── 未開封BOXランキング（上位のみ） ──
           指数(市場全体) → BOX(弾ごとの市場) → 個別カード の順に絞り込む位置に置く。
-          カード側にはランキングが揃っているのにBOXには無かった。並びは7日変化率の降順で、
-          定価比は情報として添えるだけにしている（絶版弾は定価比が桁違いなので、
-          倍率で並べると常に古い弾が上位を独占して「いま動いている弾」が見えなくなる）。 */}
+          全件は /ranking の BOX タブへ。 */}
       {boxRanking.length > 0 && (
         <div className="sec">
           <div className="sec-head">
             <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
             <span className="sec-title">未開封BOXランキング</span>
-            <span className="sec-sub">直近7日の値動き順・定価比つき</span>
+            <span className="sec-sub"><Link href="/ranking" style={{ color: 'var(--accent)' }}>もっと見る →</Link></span>
           </div>
           <BoxRanking rows={boxRanking.slice(0, 5)} />
         </div>
       )}
 
-      {/* ⚠ ここにあった「今日の注目カード（3枚）」は削除した（2026-08-29）。
-          すぐ下の「01: AI予想 これからの注目カード」と顔ぶれも数字も同じだった。
-          同じ並びを使っていた値動きランキングの「AI注目」列も 2026-08-30 に削除済みで、
-          「AIが上昇を見ているカード」は 01 の1箇所だけになった。 */}
-
       {/* オリパ案件バナー（A8 / PR） */}
       <OripaBanner marginY={4} />
-
-      {/* ── 01b: みんなの予想 注目カード ──
-          AI予想ランキングの直後に置いて、AIと閲覧者の見立ての差がその場で見えるようにする。
-          票は Supabase にあるのでクライアント側で取得する（票が0のうちは自分で消える） */}
-      <CommunityPicks cards={pickCards} />
-
-      {/* ── みんなの注目ランキング（閲覧数） ──
-          他の節が全部「価格」から作られているのに対し、ここだけ閲覧者の行動が元。
-          価格が動く前の注目を拾えるので、値動きランキングとは中身が被らない。
-          （2026-08-30 に一度削ったが、他と重複しない唯一の切り口なので戻した）
-          人数は Supabase 側にあるのでクライアント取得（閲覧が貯まるまでは自分で消える） */}
-      <TrendingCards cards={trendCards} />
 
       {/* ── 04: 価格急落・急騰 ── */}
       {(surgeCards.length > 0 || dropCards.length > 0) && (
@@ -472,7 +416,7 @@ export default function TopPage() {
           <div className="sec-head">
             <span className="sec-no">04</span>
             <span className="sec-title">値動きランキング</span>
-            <span className="sec-sub">実際の成約価格の変化率</span>
+            <span className="sec-sub"><Link href="/ranking" style={{ color: 'var(--accent)' }}>もっと見る →</Link></span>
           </div>
 
           {/* 2カラム（急騰／急落）。どちらも「実際に動いた実績」で軸が揃っている。

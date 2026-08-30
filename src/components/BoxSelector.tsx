@@ -39,7 +39,10 @@ export default function BoxSelector({ boxes, current, marginTop = 12, marginBott
   })()
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block', marginTop, marginBottom }}>
+    // ⚠ maxWidth を効かせる（2026-08-30）。<select> は最長の <option> に合わせて伸びるため、
+    //   「プロモカードパック 25th ANNIVERSARY edition」のような長い弾名があると 426px になり、
+    //   390px のスマホで画面外にはみ出していた（トップのヒーロー枠ごと押し広げていた）。
+    <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%', marginTop, marginBottom }}>
       <select
         defaultValue={current ?? ''}
         onChange={(e) => {
@@ -59,6 +62,9 @@ export default function BoxSelector({ boxes, current, marginTop = 12, marginBott
           letterSpacing: '0.04em',
           cursor: 'pointer',
           minWidth: '200px',
+          maxWidth: '100%',
+          // 長い弾名でも枠内に収める（はみ出す代わりに省略される）
+          textOverflow: 'ellipsis',
         }}
       >
         <option value="" disabled>

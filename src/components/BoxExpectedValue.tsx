@@ -4,7 +4,11 @@ import { evVerdict } from '@/lib/box-ev'
 const labelMono: React.CSSProperties = { fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }
 const cell: React.CSSProperties = { fontFamily: 'var(--mono)', fontSize: '12px', textAlign: 'right' }
 
-export default function BoxExpectedValue({ ev, boxName }: { ev: BoxEv; boxName: string }) {
+// variantLabel … 回収率の分母に使った BOX相場が「シュリンクあり／なし」どちらのものか。
+// ⚠ 以前はここが noshrink 固定で、上の相場パネルが「あり」を表示していても回収率だけ
+//   「なし」の価格で計算されていた（MEGAドリームex）。呼び出し側と同じ系列を受け取り、
+//   画面にも系列名を出して取り違えを防ぐ。
+export default function BoxExpectedValue({ ev, boxName, variantLabel }: { ev: BoxEv; boxName: string; variantLabel?: string }) {
   const verdict = evVerdict(ev)
   const coveragePct = Math.round(ev.coverage * 100)
   const rows = ev.rows.filter(r => r.listed > 0)
@@ -26,7 +30,7 @@ export default function BoxExpectedValue({ ev, boxName }: { ev: BoxEv; boxName: 
 
         {ev.boxPrice != null && (
           <div>
-            <div style={labelMono}>BOX相場</div>
+            <div style={labelMono}>BOX相場{variantLabel ? `（${variantLabel}）` : ''}</div>
             <div style={{ fontFamily: 'var(--mono)', fontSize: '20px', fontWeight: 700, color: 'var(--ink-dim)' }}>
               ¥{ev.boxPrice.toLocaleString()}
             </div>
@@ -35,7 +39,7 @@ export default function BoxExpectedValue({ ev, boxName }: { ev: BoxEv; boxName: 
 
         {ev.recoveryPct != null && (
           <div>
-            <div style={labelMono}>回収率（期待値 ÷ BOX相場）</div>
+            <div style={labelMono}>回収率（期待値 ÷ BOX相場{variantLabel ? `・${variantLabel}` : ''}）</div>
             <div style={{ fontFamily: 'var(--mono)', fontSize: '20px', fontWeight: 700, color: ev.recoveryPct >= 100 ? 'var(--up)' : ev.recoveryPct >= 70 ? 'var(--flat)' : 'var(--down)' }}>
               {ev.recoveryPct}%
             </div>

@@ -1,5 +1,6 @@
 import type { Card, Forecast, PriceRecord, PriceExtremes } from '@/types/pokeca'
 import { isDeckUtilityCard } from '@/lib/card-kind'
+import { UP_VERDICT_PCT } from '@/lib/verdict'
 
 // 「AIが買うべきカード」候補の決定論的な選定。
 // トップページ（表示）と scripts/generate-buy-theses.ts（AI論拠生成の対象選び）で
@@ -82,6 +83,14 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
 
   // 「買うべき」= AIが上昇方向 かつ 本線が現在より上（押し目でも上を見ている）
   if (netUp <= 0 || upsidePct <= 2) return null
+
+  // ⚠ 画面に出るラベルと矛盾させない（2026-08-30）。
+  //   カード詳細の「AI評価」は up_pct >= UP_VERDICT_PCT を境に「買い」/「様子見」を出す。
+  //   ここが netUp（上昇−下落）だけを見ていたため、up_pct 33% / down_pct 20% のような
+  //   カードが netUp=+13 で買い候補に入り、**「AI評価: 様子見・上昇確率33%」なのに
+  //   トップの『AIが見つけたカード』に載る**という食い違いが出ていた。
+  //   同じ up_pct を同じしきい値で見て、ラベルが「買い」にならないカードは候補から外す。
+  if (forecast.overall.up_pct < UP_VERDICT_PCT) return null
 
   const today = history[0]
   const mid = today ? midOf(today) : curMid

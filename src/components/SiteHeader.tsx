@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ThemeToggle from './ThemeToggle'
+import { NAV_ITEMS, isActiveTab } from '@/lib/nav'
 
 // 全ページ共通のヘッダー。
 //
@@ -13,17 +14,10 @@ import ThemeToggle from './ThemeToggle'
 // ナビは**実在するルートだけ**を出す。`/boxes` は [boxId] しか無く一覧ページが無いので入れない
 // （トップのドロップダウンから選ぶ導線が既にある）。行き先の無いタブを飾りで置かない。
 
-// ⚠ 6項目から4項目に減らした（2026-08-30）。
-//   /ranking … スクリーナー(/screener)に並び替えがあり役割が重なるので外す
-//   /accuracy … トップの「AI予想の的中率」から直接リンクしているので外す
-//   どちらもページ自体は残しており、URLでも各所のリンクからでも到達できる。
-const NAV = [
-  { href: '/', label: 'トップ' },
-  { href: '/screener', label: 'カード検索' },
-  { href: '/watchlist', label: 'ウォッチ' },
-  { href: '/portfolio', label: 'コレクション' },
-] as const
-
+// ⚠ タブの定義は src/lib/nav.ts に集約（2026-08-30）。
+//   スマホの下部固定タブ（BottomTabs）と**同じ定義**を使う。片方だけ増やすと導線が食い違う。
+//   ホーム / AI予想 / ランキング / マイページ の4本。既存の /screener・/watchlist・
+//   /portfolio・/accuracy はURLを残したまま、この4タブの配下から到達させている。
 export default function SiteHeader() {
   const pathname = usePathname()
 
@@ -33,13 +27,17 @@ export default function SiteHeader() {
         <span className="logo">相場</span>
       </Link>
 
-      <nav className="site-nav">
-        {NAV.map(({ href, label }) => {
-          // トップだけは完全一致。他は配下ページ（/cards/xxx 等）でも親タブを点灯させたいので前方一致
-          const active = href === '/' ? pathname === '/' : pathname.startsWith(href)
+      <nav className="site-nav" aria-label="メインナビゲーション">
+        {NAV_ITEMS.map((item) => {
+          const active = isActiveTab(item, pathname)
           return (
-            <Link key={href} href={href} className={`site-nav-item${active ? ' is-active' : ''}`}>
-              {label}
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`site-nav-item${active ? ' is-active' : ''}`}
+              aria-current={active ? 'page' : undefined}
+            >
+              {item.label}
             </Link>
           )
         })}

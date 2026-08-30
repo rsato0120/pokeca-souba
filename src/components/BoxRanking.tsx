@@ -33,12 +33,10 @@ export default function BoxRanking({ rows }: { rows: BoxRankRow[] }) {
             <span className="boxrank-main">
               <span className="boxrank-name">{r.boxName}</span>
               <span className="boxrank-meta">
-                {r.code} · {r.releaseYm} · 価格は{VARIANT_LABEL[r.variant]}
-                {/* 出品件数は価格と別系列（シュリンクあり優先）なので、どちらの数字か必ず添える。
-                    あり7件 / なし118件 のように逆転する弾があり、書かないと品薄の判断を誤る */}
-                {r.onSale != null && r.onSaleVariant != null && (
-                  <> · 出品は{VARIANT_LABEL[r.onSaleVariant]}{r.onSale}件{r.onSaleCapped && '以上'}</>
-                )}
+                {r.code} · {r.releaseYm} · {VARIANT_LABEL[r.variant]}
+                {/* 出品件数は価格と**同じ系列**（2026-08-30に統一）。
+                    その系列に件数が無い弾は他系列で埋めず「—」にする。0件と欠測を混同しない */}
+                <> · 出品 {r.onSale == null ? '—' : <>{r.onSale}件{r.onSaleCapped && '以上'}</>}</>
               </span>
             </span>
 

@@ -17,11 +17,8 @@ export interface HeatPick {
   image: string | null
   mid: number
   dayPct: number | null
-  heat: number
-  /** 買い候補全体で上位何% か（数字の意味を画面に添えるのに使う） */
-  heatPercentile: number
-  /** 買い候補の総数 */
-  heatPool: number
+  /** カード詳細と同じ AI投資スコア（0〜100）。材料不足で出せなければ null */
+  score: number | null
   upPct: number | null
   m3Low: number | null
   m3High: number | null
@@ -75,18 +72,22 @@ export default function HeatPicks({ picks }: { picks: HeatPick[] }) {
               )}
             </div>
 
-            {/* AI高騰気配。順位そのものなので、数字とゲージを併記する */}
-            <div className="heat-score-row">
-              <span className="pulse-label">AI高騰気配</span>
-              <span className="heat-score">{p.heat}<span className="heat-score-max"> / 100</span></span>
-            </div>
-            <div className="heat-gauge" role="img" aria-label={`AI高騰気配 ${p.heat} / 100`}>
-              <div className="heat-gauge-fill" style={{ width: `${p.heat}%` }} />
-            </div>
-            {/* 数字だけでは 66 が良いのか悪いのか分からないので、順位を言葉で添える */}
-            <div className="heat-rank-note">
-              買い候補{p.heatPool}枚中 上位{Math.max(1, 100 - p.heatPercentile)}%
-            </div>
+            {/* ⚠ 旧「AI高騰気配」を廃止し、カード詳細と同じ AI投資スコアに一本化（2026-08-30）。
+                同じ「買い妙味」を 83 と 91 の2つの数字で語っていて違いが説明できなかった。 */}
+            {p.score != null && (
+              <>
+                <div className="heat-score-row">
+                  <span className="pulse-label">AI投資スコア</span>
+                  <span className="heat-score">{p.score}<span className="heat-score-max"> / 100</span></span>
+                </div>
+                <div className="heat-gauge" role="img" aria-label={`AI投資スコア ${p.score} / 100`}>
+                  <div className="heat-gauge-fill" style={{ width: `${p.score}%` }} />
+                </div>
+                <div className="heat-rank-note">
+                  価格トレンド・在庫・PSA10需要・希少性・人気・流動性・再販リスクの7項目から算出
+                </div>
+              </>
+            )}
 
             <div className="heat-forecast">
               {p.upPct != null && (

@@ -47,34 +47,25 @@ export interface BoxRankingInput {
 }
 
 /**
- * 出品件数は **シュリンクあり** から採る。
+ * 出品件数は **価格を採ったのと同じ系列**から採る。
  *
- * ⚠ 価格の代表値（シュリンクなし優先）と**わざと系列を変えている**。
- *   シュリンクなしは「開けるために買う人」が見る値なので価格の基準としては正しいが、
- *   在庫の厚みとしては未開封で保管されている「シュリンクあり」の方が意味を持つ。
- *   実測(2026-08-30)でも中身が大きく違う:
+ * ⚠ 2026-08-30 に変更。それまでは価格＝シュリンクなし優先／出品＝シュリンクあり優先と
+ *   **わざと系列を変えていた**（在庫の厚みは未開封保管の「あり」の方が意味を持つ、という理由）。
+ *   だが実測のとおり系列で件数が桁違いになるため、同じ行に別々の市場の数字が並び
+ *   「¥12,185 なのに出品115件」のような読み方のできない表示になっていた:
  *     アビスアイ      あり  7件 / なし 118件
  *     ストームエメラルダ あり171件 / なし  96件
  *     テラスタルフェスex あり 54件 / なし   5件
- *   どちらを出すかで「品薄に見えるか」が逆転するので、**どの系列の数字かを必ず添える**
- *   （onSaleVariant を返し、画面のラベルに出す）。
- * あり系列に件数が無い弾は なし → 混在 の順に落とす（0件と欠測を混同しない）。
+ *   1行の中では**価格・変化率・出品数をすべて同じ系列にそろえる**。
+ *   その系列に出品数が無い場合は他系列で埋めず null（画面は「—」）にする。
  */
 function pickOnSale(
-  shrink: PriceRecord[] | null,
-  noshrink: PriceRecord[] | null,
-  mixed: PriceRecord[] | null,
+  history: PriceRecord[] | null,
+  variant: BoxRankRow['variant'],
 ): Pick<BoxRankRow, 'onSale' | 'onSaleCapped' | 'onSaleVariant'> {
-  const order: [PriceRecord[] | null, BoxRankRow['onSaleVariant']][] = [
-    [shrink, 'shrink'],
-    [noshrink, 'noshrink'],
-    [mixed, 'mixed'],
-  ]
-  for (const [hist, variant] of order) {
-    const r = hist?.[0]
-    if (r?.on_sale != null) {
-      return { onSale: Number(r.on_sale), onSaleCapped: r.on_sale_capped === true, onSaleVariant: variant }
-    }
+  const r = history?.[0]
+  if (r?.on_sale != null) {
+    return { onSale: Number(r.on_sale), onSaleCapped: r.on_sale_capped === true, onSaleVariant: variant }
   }
   return { onSale: null, onSaleCapped: false, onSaleVariant: null }
 }
@@ -117,7 +108,7 @@ export function buildBoxRanking(inputs: BoxRankingInput[]): BoxRankRow[] {
       msrp: msrp > 0 ? msrp : null,
       premiumPct: msrp > 0 ? Math.round((mid / msrp - 1) * 100) : null,
       weekPct,
-      ...pickOnSale(shrink, noshrink, mixed),
+      ...pickOnSale(history, variant),
       latestDate: today.date,
     })
   }
