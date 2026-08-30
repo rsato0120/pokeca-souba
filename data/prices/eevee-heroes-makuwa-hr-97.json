@@ -10,12 +10,7 @@
       "sample_count": 5,
       "sold_total": 9,
       "oldest_sale_days": 253,
-      "on_sale": 3,
-      "ask_low": 500,
-      "ask_mid": 622,
-      "ask_source": "mercari",
-      "on_sale_source": "mercari",
-      "psa10": null
+      "psa10": 10000
     },
     {
       "date": "2026-08-29",
@@ -697,5 +692,9 @@
       "ask_mid": 500,
       "psa10": null
     }
-  ]
+  ],
+  "sales_fetched_at": "2026-08-30",
+  "psa10_sales_by_day": {
+    "2026-08-14": 1
+  }
 }

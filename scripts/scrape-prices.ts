@@ -208,7 +208,9 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
     const query = encodeURIComponent(`${cardName} ${rarity}`)
-    await page.goto(`https://snkrdunk.com/search?keyword=${query}&category=card`, {
+    // スニダン検索は `keywords`（複数形）。`keyword` だと 200 が返っても
+    // 検索結果ではなく人気商品一覧になるため、誤候補を拾う可能性がある。
+    await page.goto(`https://snkrdunk.com/search?keywords=${query}&category=card`, {
       waitUntil: 'domcontentloaded', timeout: 15000
     })
     const links = await page.evaluate(() =>
@@ -227,9 +229,12 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
     const filtered = links.filter(l =>
       l.text.includes(cardName) && rarityRe.test(l.text) && matchesCardNo(l.text, cardNo)
     )
-    if (!filtered.length) return null
-    const m = filtered[0].href.match(/\/apparels\/(\d+)/)
-    return m ? parseInt(m[1]) : null
+    // 同じ商品のリンクがページ内に複数ある場合はIDで重複排除する。
+    // 番号・名前・レアリティを満たす商品が複数残る場合は、自動登録せず手動確認に回す。
+    const apparelIds = [...new Set(filtered
+      .map(l => l.href.match(/\/apparels\/(\d+)/)?.[1])
+      .filter((id): id is string => id != null))]
+    return apparelIds.length === 1 ? parseInt(apparelIds[0], 10) : null
   } catch { return null }
   finally { await page.close() }
 }
