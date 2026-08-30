@@ -122,7 +122,6 @@ export default function TopPage() {
 
   // 価格急騰・急落: 前日比優先、なければ週間比
   const getChange = (m: CardMetrics) => m.dayChange ?? m.weekChange ?? 0
-  const getChangeLabel = (m: CardMetrics) => m.dayChange != null ? '前日比' : '7日比'
   const changeCards = metrics.filter(m => isRankable(m) && (m.dayChange != null || m.weekChange != null))
 
   const surgeCards = [...changeCards]
@@ -291,78 +290,26 @@ export default function TopPage() {
   })
 
   return (
-    <div className="wrap">
+    <div className="wrap home-wrap">
       <SiteHeader />
+      <section className="home-hero" aria-labelledby="home-title">
+        <p id="home-title">ポケモンカードの相場を、すばやく確認</p>
+        <SearchBar cards={searchCards} />
+        <BoxSelector
+          marginTop={12}
+          marginBottom={0}
+          boxes={boxes
+            .filter(b => b.certainty === 'released')
+            .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
+        />
+      </section>
 
-      {/* 本日の値動きを流す帯。開いた瞬間に「動いている市場」だと分かるようヘッダ直下に置く */}
-
-      {/* 保有評価額と「前回見たときから」。この端末に記録が無ければ何も描かれない */}
-      <VisitorStrip cards={marketCards} />
-
-      <div
-        style={{
-          fontFamily: 'var(--mono)',
-          fontSize: 'var(--fs-xs)',
-          color: 'var(--ink-faint)',
-          letterSpacing: 'var(--ls-wide)',
-          padding: 'var(--sp-2) 0 var(--sp-5)',
-          borderBottom: '1px solid var(--hair)',
-          marginBottom: 'var(--sp-6)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 'var(--sp-2)',
-        }}
-      >
-        <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>
-          {/* 最終更新は実際のバッチ実行時刻。次の更新までの残り時間は毎秒動く（＝止まっていないことが見える） */}
-          <UpdateClock updatedLabel={updatedLabel} />
-          {/* 「対象 ◯◯／◯◯／…」の弾の羅列は、弾が増えるほど行数を食うだけで
-              読まれないので撤去した（下のドロップダウンで選べる） */}
-        </span>
-        {/* ⚠ ここにあった4つのショートカット（スクリーナー・ウォッチリスト・AI的中実績・
-            マイコレクション）は削除した（2026-08-30）。同じ行き先が共通ヘッダーのナビに
-            並んでおり、開いた直後に同じリンクが2列見える状態だった。 */}
+      <div className="home-update-row">
+        <UpdateClock updatedLabel={updatedLabel} />
+        <span>価格はメルカリ成約・スニダン実取引から毎日更新</span>
       </div>
 
-      {/* 価格の出所を明示（どこの数字かが分からないと相場サイトは信用されない） */}
-      <div
-        style={{
-          fontSize: 'var(--fs-xs)',
-          color: 'var(--ink-faint)',
-          lineHeight: 1.7,
-          marginBottom: 'var(--sp-5)',
-        }}
-      >
-        価格はメルカリの成約実績とスニーカーダンクの実取引から毎日自動取得しています。
-        カードごとに取引件数の多い方を採用し、出所は各カードのページに表示しています。
-      </div>
-
-      {/* ── ヒーロー: 何のサイトかを1行で言い切り、その場で検索させる ──
-          右は市場サマリー。**実データで裏付けられる3指標だけ**を置いている（summaryRows のコメント参照） */}
-      <section className="top-hero">
-        <div>
-          <h1 className="top-hero-title">
-            ポケモンカードの<br />
-            <span style={{ color: 'var(--accent)' }}>「これから」</span>が分かる。
-          </h1>
-          <p className="top-hero-sub">
-            現在の相場から、AIが今後の価格を根拠つきで予想します。
-          </p>
-          <SearchBar cards={searchCards} />
-          {/* 弾から探す導線は検索のすぐ下に置く。以前は看板セクションと指数チャートの下に
-              あり、ファーストビューから完全に外れていた。「名前で探す」と「弾から探す」は
-              同じ“探す”行為なので隣り合っている方が迷わない */}
-          <BoxSelector
-            marginTop={12}
-            marginBottom={0}
-            boxes={boxes
-              .filter(b => b.certainty === 'released')
-              .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
-          />
-        </div>
-
+      <div className="home-pulse">
         <MarketPulse
           index={indexLatest?.value ?? null}
           indexDayPct={indexDayPct}
@@ -373,122 +320,74 @@ export default function TopPage() {
           bullish={bullishCount}
           bearish={bearishCount}
         />
-      </section>
+      </div>
 
-      {/* ── AI予想への導線 ──
-          看板の「AIが見つけたカード」「AI予想の的中率」「予想結果一覧」は /ai へ移した
-          （2026-08-30）。トップで同じ情報を繰り返さない。 */}
-      <div className="sec">
-        <div className="sec-head">
-          <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
-          <span className="sec-title">AIが見つけたカード</span>
-          <span className="sec-sub"><Link href="/ai" style={{ color: 'var(--accent)' }}>もっと見る →</Link></span>
+      <VisitorStrip cards={marketCards} />
+
+      <div className="home-dashboard-grid">
+        {(surgeCards.length > 0 || dropCards.length > 0) && (
+          <section className="home-panel">
+            <div className="home-panel-head">
+              <div><span>MARKET MOVES</span><h2>今日の値動き</h2></div>
+              <Link href="/ranking">すべて見る →</Link>
+            </div>
+            <div className="rank-cols home-rank-cols">
+              <div>
+                <div className="home-rank-label is-up">▲ 急騰</div>
+                {surgeCards.slice(0, 3).map(m => {
+                  const change = getChange(m)
+                  return (
+                    <Link key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用 */}
+                      {m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span>}
+                      <span><strong>{m.card.card_name}</strong><small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small></span>
+                      <em className="is-up">+{change.toFixed(1)}%</em>
+                    </Link>
+                  )
+                })}
+              </div>
+              <div>
+                <div className="home-rank-label is-down">▼ 急落</div>
+                {dropCards.slice(0, 3).map(m => {
+                  const change = getChange(m)
+                  return (
+                    <Link key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用 */}
+                      {m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span>}
+                      <span><strong>{m.card.card_name}</strong><small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small></span>
+                      <em className="is-down">{change.toFixed(1)}%</em>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {boxRanking.length > 0 && (
+          <section className="home-panel">
+            <div className="home-panel-head">
+              <div><span>SEALED BOX</span><h2>未開封BOX</h2></div>
+              <Link href="/ranking">すべて見る →</Link>
+            </div>
+            <BoxRanking rows={boxRanking.slice(0, 3)} />
+          </section>
+        )}
+      </div>
+
+      <section className="home-ai-section">
+        <div className="home-panel-head">
+          <div><span>AI PICK</span><h2>今日の注目カード</h2></div>
+          <Link href="/ai">AI予想を見る →</Link>
         </div>
         {heatPicks.length > 0 ? (
           <HeatPicks picks={heatPicks} />
         ) : (
-          <p style={{ fontSize: '13px', color: 'var(--ink-faint)', lineHeight: 1.8 }}>
-            いまは条件を満たすカードがありません。<Link href="/ai" style={{ color: 'var(--accent)' }}>AI予想</Link>で一覧を確認できます。
-          </p>
+          <p className="home-empty">いまは条件を満たすカードがありません。</p>
         )}
-      </div>
+      </section>
 
-      {/* ── 未開封BOXランキング（上位のみ） ──
-          指数(市場全体) → BOX(弾ごとの市場) → 個別カード の順に絞り込む位置に置く。
-          全件は /ranking の BOX タブへ。 */}
-      {boxRanking.length > 0 && (
-        <div className="sec">
-          <div className="sec-head">
-            <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
-            <span className="sec-title">未開封BOXランキング</span>
-            <span className="sec-sub"><Link href="/ranking" style={{ color: 'var(--accent)' }}>もっと見る →</Link></span>
-          </div>
-          <BoxRanking rows={boxRanking.slice(0, 5)} />
-        </div>
-      )}
-
-      {/* オリパ案件バナー（A8 / PR） */}
-      <OripaBanner marginY={4} />
-
-      {/* ── 04: 価格急落・急騰 ── */}
-      {(surgeCards.length > 0 || dropCards.length > 0) && (
-        <div className="sec">
-          <div className="sec-head">
-            <span className="sec-no">04</span>
-            <span className="sec-title">値動きランキング</span>
-            <span className="sec-sub"><Link href="/ranking" style={{ color: 'var(--accent)' }}>もっと見る →</Link></span>
-          </div>
-
-          {/* 2カラム（急騰／急落）。どちらも「実際に動いた実績」で軸が揃っている。
-              ⚠ 3列目にあった「AI注目」は削除した（2026-08-30）。あれだけ軸が違い
-              （実績ではなく予想）、しかも 01 の「AI予想 これからの注目カード」と
-              同じ notableCards を並べていたので、同じ顔ぶれを2箇所で見せていた。 */}
-          <div className="rank-cols">
-            {/* 急騰 */}
-            <div>
-              <div className="eyebrow" style={{ color: 'var(--up)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>▲ 急騰</div>
-              {surgeCards.length === 0 ? (
-                <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ蓄積中</div>
-              ) : surgeCards.map(m => {
-                const change = getChange(m)
-                const label = getChangeLabel(m)
-                return (
-                  <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
-                    {m.card.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={m.card.image_url} alt={m.card.card_name} className="row-thumb" style={{ width: '36px', height: '50px' }} />
-                    ) : (
-                      <div className="row-thumb row-thumb-ph" style={{ width: '36px', height: '50px' }}>{m.card.rarity}</div>
-                    )}
-                    <div style={{ minWidth: 0 }}>
-                      <div className="row-name" style={{ fontSize: 'var(--fs-base)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
-                      <div className="row-meta">
-                        {m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}
-                      </div>
-                      <div className="row-meta">{label}</div>
-                    </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--up)', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                      +{change.toFixed(1)}%
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-
-            {/* 急落 */}
-            <div>
-              <div className="eyebrow" style={{ color: 'var(--down)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>▼ 急落</div>
-              {dropCards.length === 0 ? (
-                <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ蓄積中</div>
-              ) : dropCards.map(m => {
-                const change = getChange(m)
-                const label = getChangeLabel(m)
-                return (
-                  <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
-                    {m.card.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={m.card.image_url} alt={m.card.card_name} className="row-thumb" style={{ width: '36px', height: '50px' }} />
-                    ) : (
-                      <div className="row-thumb row-thumb-ph" style={{ width: '36px', height: '50px' }}>{m.card.rarity}</div>
-                    )}
-                    <div style={{ minWidth: 0 }}>
-                      <div className="row-name" style={{ fontSize: 'var(--fs-base)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.card.card_name}</div>
-                      <div className="row-meta">
-                        {m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}
-                      </div>
-                      <div className="row-meta">{label}</div>
-                    </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--down)', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                      {change.toFixed(1)}%
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-
-          </div>
-        </div>
-      )}
+      <div className="home-pr"><OripaBanner marginY={4} /></div>
 
       <div className="disclaimer">
         本サイトのランキング・予想・予想価格帯は AI が公開情報をもとに生成した参考情報であり、投資や売買を助言するものではありません。実際の取引価格は市場状況により変動します。売買の判断はご自身の責任で行ってください。

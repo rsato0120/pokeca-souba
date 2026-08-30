@@ -226,9 +226,15 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 18px 0 14px;
+  min-height: 64px;
+  padding: 0;
   border-bottom: 1px solid var(--hair);
   margin-bottom: 6px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(14px);
 }
 
 .logo-link { text-decoration: none; flex: 0 0 auto; }
@@ -248,26 +254,31 @@ a:hover {
 
 .site-nav-item {
   flex: 0 0 auto;
-  padding: 7px 12px;
-  border-radius: var(--r-pill);
+  min-height: 64px;
+  padding: 0 12px;
+  border-radius: 0;
   font-size: var(--fs-sm);
   letter-spacing: 0.04em;
   color: var(--ink-dim);
   text-decoration: none;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
 }
 
 .site-nav-item:hover {
   color: var(--ink);
-  background: var(--bg2);
+  background: transparent;
   text-decoration: none;
 }
 
 /* 現在地。色だけだと見落とすので淡い面を敷く */
 .site-nav-item.is-active {
   color: var(--accent);
-  background: var(--accent-soft);
+  background: transparent;
   font-weight: 700;
+  border-bottom-color: var(--accent);
 }
 
 .logo {
@@ -301,6 +312,19 @@ a:hover {
   letter-spacing: 0.08em;
   margin-left: auto;
 }
+
+.site-search-link {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-md);
+  background: var(--bg2);
+  color: var(--ink-dim);
+}
+.site-search-link:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ─── 検索バー ─── */
 .searchbar {
@@ -1776,6 +1800,192 @@ a:hover {
      これが無いと最後のセクションやシェアボタンがタブの下に潜って押せない。 */
 .bottom-tabs { display: none; }
 
+/* ─── トップページ：検索 → 市場 → 値動き/BOX → AI の一方向レイアウト ─── */
+.home-wrap {
+  max-width: 1120px;
+}
+
+.home-hero {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--sp-7) 0 var(--sp-5);
+  text-align: center;
+}
+
+.home-hero > p {
+  margin-bottom: var(--sp-4);
+  color: var(--ink-dim);
+  font-size: var(--fs-md);
+}
+
+.home-hero .searchbar {
+  margin-bottom: 0;
+}
+
+.home-hero .searchbar input {
+  min-height: 52px;
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-hero .searchbar button {
+  min-width: 50px;
+  border-color: var(--hair);
+  border-left: 0;
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background: var(--bg2) !important;
+}
+
+.home-update-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3);
+  color: var(--ink-faint);
+  font-size: var(--fs-xs);
+}
+
+.home-pulse {
+  margin-bottom: var(--sp-5);
+}
+
+.home-pulse .pulse {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr 1.7fr;
+  grid-template-areas:
+    'head temp grid'
+    'index temp grid'
+    'day gauge grid'
+    'note note note';
+  gap: var(--sp-2) var(--sp-6);
+  align-items: center;
+  padding: var(--sp-5);
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--hair));
+  background: linear-gradient(115deg, var(--accent-soft), var(--panel) 62%);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-pulse .pulse-head { grid-area: head; border: 0; padding: 0; margin: 0; }
+.home-pulse .pulse-index { grid-area: index; }
+.home-pulse .pulse-day { grid-area: day; }
+.home-pulse .pulse-temp { grid-area: temp; margin: 0; padding: 0; border: 0; }
+.home-pulse .pulse-gauge { grid-area: gauge; }
+.home-pulse .pulse-grid { grid-area: grid; }
+.home-pulse .source-note { grid-area: note; margin-top: var(--sp-2); padding-top: var(--sp-2); border-top: 1px solid var(--hair); }
+
+.home-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-5);
+  margin: var(--sp-5) 0;
+}
+
+.home-panel,
+.home-ai-section {
+  min-width: 0;
+  padding: var(--sp-5);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-panel-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.home-panel-head span {
+  display: block;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wider);
+}
+
+.home-panel-head h2 {
+  margin-top: 2px;
+  font-size: var(--fs-lg);
+  line-height: 1.35;
+}
+
+.home-panel-head > a {
+  flex: 0 0 auto;
+  border: 0;
+  font-size: var(--fs-xs);
+}
+
+.home-rank-cols {
+  gap: var(--sp-4);
+}
+
+.home-rank-label {
+  margin-bottom: var(--sp-1);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+.home-market-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  gap: var(--sp-2);
+  align-items: center;
+  min-height: 58px;
+  border-bottom: 1px solid var(--hair);
+  color: var(--ink);
+}
+
+.home-market-row:hover { background: var(--bg2); }
+.home-market-row img,
+.home-thumb-ph {
+  width: 30px;
+  height: 42px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  background: var(--bg2);
+}
+.home-thumb-ph { display: grid; place-items: center; color: var(--ink-faint); font: 9px var(--mono); }
+.home-market-row > span { min-width: 0; display: grid; }
+.home-market-row strong { overflow: hidden; color: var(--ink); font-size: var(--fs-sm); text-overflow: ellipsis; white-space: nowrap; }
+.home-market-row small { overflow: hidden; color: var(--ink-faint); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.home-market-row em { font: 700 var(--fs-sm) var(--mono); font-style: normal; font-variant-numeric: tabular-nums; }
+.is-up { color: var(--up); }
+.is-down { color: var(--down); }
+
+.home-panel .boxrank-row {
+  grid-template-columns: 20px 36px minmax(0, 1fr) auto auto;
+  padding: 10px 0;
+}
+.home-panel .boxrank-thumb { width: 34px; height: 44px; }
+.home-panel .boxrank-meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-panel .boxrank-premium { display: none; }
+
+.home-ai-section {
+  margin-bottom: var(--sp-5);
+  background: linear-gradient(115deg, var(--accent-soft), var(--panel) 58%);
+}
+
+.home-ai-section .heat-card {
+  background: var(--panel);
+}
+
+.home-empty { color: var(--ink-faint); font-size: var(--fs-sm); }
+.home-pr { margin-top: var(--sp-6); }
+
+@media (max-width: 900px) {
+  .home-pulse .pulse {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'head head' 'index temp' 'day temp' 'gauge gauge' 'grid grid' 'note note';
+  }
+  .home-dashboard-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 760px) {
   .bottom-tabs {
     display: grid;
@@ -1825,6 +2035,29 @@ a:hover {
 
   /* スマホでは上部ナビを畳む（下部タブと二重になるため）。ロゴと切替ボタンは残す */
   .site-nav { display: none; }
+
+  .home-hero { padding: var(--sp-5) 0 var(--sp-4); }
+  .home-hero > p { font-size: var(--fs-base); }
+  .home-update-row > span:last-child { display: none; }
+  .home-pulse .pulse {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-2) var(--sp-4);
+    padding: var(--sp-4);
+  }
+  .home-pulse .pulse-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-pulse .source-note { display: none; }
+  .home-panel, .home-ai-section { padding: var(--sp-4); }
+  .home-dashboard-grid { gap: var(--sp-4); }
+  .home-rank-cols { grid-template-columns: 1fr 1fr; }
+  .home-panel .boxrank-row { grid-template-columns: 18px 32px minmax(0, 1fr) auto; }
+  .home-panel .boxrank-week { grid-column: 4; grid-row: 2; }
+}
+
+@media (max-width: 520px) {
+  .home-rank-cols { grid-template-columns: 1fr; }
+  .home-rank-cols > div:nth-child(2) { display: none; }
+  .home-ai-section .heat-grid { grid-template-columns: 1fr; }
+  .home-ai-section .heat-card:nth-child(n+2) { display: none; }
 }
 
 /* ─── ランキングのページ内タブ（2026-08-30） ─────────────────────
