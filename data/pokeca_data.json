@@ -353,6 +353,17 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/2/25/SM12a_Tag_All_Stars_pack.jpg",
       "note": "2019-10-04発売のハイクラスパック（1パック10枚・1BOX10パック）。サン&ムーン期を締めくくる総集編で、TAG TEAM GXのSA・トレーナーSR・HR・URを大量に収録した。目玉はブラッキー&ダークライGX SAとかんこうきゃくSR。長期絶版でBOX相場は定価の約30倍。"
+    },
+    {
+      "box_id": "dream_league",
+      "box_name": "ドリームリーグ",
+      "code": "SM11b",
+      "release_ym": "2019-08",
+      "certainty": "released",
+      "pack_price_yen": 162,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/9/9d/SM11b_Dream_League_pack.jpg",
+      "note": "2019-08-02発売の強化拡張パック（1パック5枚・1BOX30パック。定価は税込¥162で SM9タッグボルトと同じ）。GXのSRにトレーナーが一緒に描かれる構図と、CHR（キャラクターレア）を大量に収録したのが特徴で、絵柄人気だけで相場が作られている弾。目玉はソルガレオ&ルナアーラGX SR（リーリエ）とリーリエの全力SR。"
     }
   ],
   "cards": [
@@ -22232,6 +22243,357 @@
         "player": "",
         "collector": "買取¥2,400前後。SA(188)との差が約7.5倍と大きく、SR/SAの価格差を見る比較対象として置いている。PSA10は1,122枚。",
         "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-solgaleo-lunala-gx-sr-63",
+      "card_no": "063/049",
+      "rarity": "SR",
+      "card_name": "ソルガレオ&ルナアーラGX",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_63_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 270,
+        "note": "TAG TEAM GX。ワザ「コズミックバーン」230／GXワザ「めがみのひかりGX」200。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hideki Ishikawa",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "この弾のトップ。買取¥18,000前後。**リーリエが一緒に描かれた**構図が人気の中心で、スニダンでは素体が45日で4件動き、PSA10は45日で130件と全GX期で最も厚い。PSA10は10,917枚（鑑定総数14,300枚）。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-rosa-sr-67",
+      "card_no": "067/049",
+      "rarity": "SR",
+      "card_name": "メイ",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_67_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。英名は Rosa。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥15,000前後。kirisAki によるメイのSR。BW2の女主人公で、女性キャラSRの中でも根強い人気。出品が122件と板が厚い。PSA10は8,750枚。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-reshiram-zekrom-gx-sr-64",
+      "card_no": "064/049",
+      "rarity": "SR",
+      "card_name": "レシラム&ゼクロムGX",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_64_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "たね",
+        "hp": 270,
+        "note": "TAG TEAM GX。ワザ「ダブルブレイズ」／GXワザ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥14,000前後。斎藤ナオキによる、**Nが一緒に描かれた**構図。スニダンの素体成約が45日で8件とGX期では最多クラスで、価格がスニダン由来で入りやすい。PSA10は7,364枚。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-lillies-full-force-sr-68",
+      "card_no": "068/049",
+      "rarity": "SR",
+      "card_name": "リーリエの全力",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_68_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。英名は Lillie's Full Force。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Noriko Uono",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥14,000前後。魚野純子によるリーリエのSR。がんばリーリエ(SM4+ 119)ほどではないが、リーリエSRとして安定した人気。出品223件はこの9枚で最多、スニダンの素体成約も45日で8件と厚い。PSA10は9,215枚（鑑定総数16,359枚）。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-vileplume-gx-sr-62",
+      "card_no": "062/049",
+      "rarity": "SR",
+      "card_name": "ラフレシアGX",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_62_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "2進化",
+        "hp": 240,
+        "note": "ワザ「アレルギーボムGX」50。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kagemaru Himeno",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥3,500前後。姫野かげまるによるラフレシアGX。旧世代からの人気イラストレーターで、SR帯の中位。PSA10は4,453枚。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-ns-resolve-sr-66",
+      "card_no": "066/049",
+      "rarity": "SR",
+      "card_name": "Nの覚悟",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_66_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。英名は N's Resolve。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mana Ibe",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥2,000前後（スニダン販売¥6,900）。Nのサポートカード。レシラム&ゼクロムGX SR(064)と揃えたい需要がある。PSA10は3,152枚。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-pikachu-chr-54",
+      "card_no": "054/049",
+      "rarity": "CHR",
+      "card_name": "ピカチュウ",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_54_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 70,
+        "note": "ワザ「ボルテッカー」70。キャラクターレア＝トレーナーが一緒に描かれる仕様。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hitoshi Ariga",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "CHR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "CHR帯のトップ。買取¥12,000前後（スニダン販売¥26,500）。有賀ヒトシによるピカチュウCHR。**PSA10は16,183枚（鑑定総数18,368枚）とこの弾で最も鑑定されている**カードで、鑑定市場の主役。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-mimikyu-chr-58",
+      "card_no": "058/049",
+      "rarity": "CHR",
+      "card_name": "ミミッキュ",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_58_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 70,
+        "note": "キャラクターレア。**アセロラが一緒に描かれた**構図。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "You Iribi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "CHR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥3,000前後（スニダン販売¥12,400）。ミミッキュ＋アセロラという人気の組み合わせで、買取と実勢の差が大きい銘柄。PSA10は11,249枚。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "dream-league-piplup-chr-52",
+      "card_no": "052/049",
+      "rarity": "CHR",
+      "card_name": "ポッチャマ",
+      "box_id": "dream_league",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM11b/SM11b_52_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 60,
+        "note": "ワザ「バブルホールド」80。キャラクターレア。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tomomi Kaneko",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "CHR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥4,000前後（スニダン販売¥11,000）。CHR帯ではピカチュウに次ぐ人気。PSA10は9,325枚。",
+        "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
       },
       "note": ""
     }

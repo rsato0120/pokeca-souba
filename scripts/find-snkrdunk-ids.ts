@@ -26,7 +26,9 @@ async function main() {
           .map(a => ({ text: (a as HTMLElement).innerText.replace(/\s+/g, ' ').trim(),
                        href: (a as HTMLAnchorElement).href }))
           .filter(x => /\/apparels\/\d+$/.test(x.href)))
-        const hit = rows.find(r => r.text.includes(`[${set} ${t.no}/`))
+        // スニダンは弾コードを小文字で書くことがある（"ピカチュウ CHR[sm11b 054/049]"）ので大小無視で照合する
+        const want = `[${set} ${t.no}/`.toLowerCase()
+        const hit = rows.find(r => r.text.toLowerCase().includes(want))
         if (hit) { console.log(`${t.no}\t${hit.href.match(/(\d+)$/)![1]}\t${hit.text.slice(0, 85)}`); done = true }
         else if (rows.length) { console.log(`${t.no}\t-\t候補: ${rows.slice(0, 3).map(r => r.text.slice(0, 60)).join(' || ')}`); done = true }
       } catch { await new Promise(r => setTimeout(r, 3000)) }
