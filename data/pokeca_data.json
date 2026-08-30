@@ -342,6 +342,17 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/d/d1/SM8b_GX_Ultra_Shiny_pack.jpg",
       "note": "2018-11-02発売のハイクラスパック（1パック10枚・1BOX10パック）。通常150種＋シークレット94種の全244種で、色違いポケモン83種を収録したサン&ムーン期の総集編。目玉は色違いGXのSSRで、リザードンGX・レックウザGX・ブラッキーGXの3枚が突出して高い。長期絶版でBOX相場は定価の約30倍。"
+    },
+    {
+      "box_id": "tag_all_stars",
+      "box_name": "タッグオールスターズ",
+      "code": "SM12a",
+      "release_ym": "2019-10",
+      "certainty": "released",
+      "pack_price_yen": 550,
+      "packs_per_box": 10,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/2/25/SM12a_Tag_All_Stars_pack.jpg",
+      "note": "2019-10-04発売のハイクラスパック（1パック10枚・1BOX10パック）。サン&ムーン期を締めくくる総集編で、TAG TEAM GXのSA・トレーナーSR・HR・URを大量に収録した。目玉はブラッキー&ダークライGX SAとかんこうきゃくSR。長期絶版でBOX相場は定価の約30倍。"
     }
   ],
   "cards": [
@@ -21636,6 +21647,591 @@
         "player": "",
         "collector": "販売¥9,980前後とS帯の最高額。kirisAki のイーブイでイラスト人気が高く、イーブイズを集める層が必ず通る1枚。PSA10は1,114枚。",
         "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-umbreon-darkrai-gx-sa-182",
+      "card_no": "182/173",
+      "rarity": "SA",
+      "card_name": "ブラッキー&ダークライGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_182_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 270,
+        "note": "TAG TEAM GX。ワザ「ブラックランス」／GXワザ「ダークムーンGX」。きぜつすると相手はサイドを3枚取る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "so-taro",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "この弾の単独トップ。買取¥90,000前後（スニダン販売¥78,000）。so-taro によるSAで、ブラッキー人気＋TAG TEAM SAの希少性が重なる。PSA10は4,824枚（鑑定総数6,419枚）。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-togepi-cleffa-igglybuff-gx-sa-186",
+      "card_no": "186/173",
+      "rarity": "SA",
+      "card_name": "トゲピー&ピィ&ププリンGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_186_R_JP_LG.png",
+      "card_spec": {
+        "type": "フェアリー",
+        "stage": "たね",
+        "hp": 240,
+        "note": "TAG TEAM GX。ワザ「ローリングパニック」／GXワザ。きぜつすると相手はサイドを3枚取る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "0313",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥25,000前後。0313 による人気の高いSAで、ベビィポケモン3体の絵柄がコレクター人気を集める。PSA10は3,372枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-eevee-gx-sa-188",
+      "card_no": "188/173",
+      "rarity": "SA",
+      "card_name": "イーブイGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_188_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 160,
+        "note": "ワザ「アセンションDNA」。きぜつすると相手はサイドを2枚取る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Q-rais",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Q-rais によるイーブイGXのSA。イーブイズを集める層の定番。スニダンの素体成約は2026-07下旬の¥48,000〜60,000から8月には¥98,000〜125,000へ上昇しており、この15枚で最も値動きが速い。SR版(187)との価格差は約18倍。PSA10は2,371枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-espeon-deoxys-gx-sa-177",
+      "card_no": "177/173",
+      "rarity": "SA",
+      "card_name": "エーフィ&デオキシスGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_177_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 260,
+        "note": "TAG TEAM GX。ワザ「サイキッククラブ」。きぜつすると相手はサイドを3枚取る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hasuno",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥18,000前後（スニダン販売¥53,000）。Hasuno によるSA。エーフィ人気で安定した需要がある。PSA10は3,155枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-trevenant-dusknoir-gx-sa-179",
+      "card_no": "179/173",
+      "rarity": "SA",
+      "card_name": "オーロット&ヨノワールGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_179_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 270,
+        "note": "TAG TEAM GX。ワザ「ナイトウォッチ」。きぜつすると相手はサイドを3枚取る。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "PLANETA Tsuji",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥4,000前後。SA帯では下位だが、SR版(178)の買取¥900に対して約4.4倍でSAプレミアムは効いている。PSA10は1,029枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-sightseer-sr-192",
+      "card_no": "192/173",
+      "rarity": "SR",
+      "card_name": "かんこうきゃく",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_192_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札を上から3枚見て1枚を手札に、残りを山札の下に戻す。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SAを除けばこの弾のトップ。買取¥60,000前後。斎藤ナオキによる「かんこうきゃく」で、モブキャラのSRという意外性からGX期屈指のコレクターズアイテムになった。PSA10は5,661枚（鑑定総数12,355枚とこの弾で最多）。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-erikas-hospitality-sr-190",
+      "card_no": "190/173",
+      "rarity": "SR",
+      "card_name": "エリカのおもてなし",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_190_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手のバトル場とベンチのポケモンの数だけカードを引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kodama",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥30,000前後。kodama によるエリカのSR。タッグボルト(SM9 107)版とは別イラストで、こちらはこの弾の第2チェイス。PSA10は4,203枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-greens-exploration-sr-196",
+      "card_no": "196/173",
+      "rarity": "SR",
+      "card_name": "ブルーの探索",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_196_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の場にGXやEXがいない時、山札からトレーナーズを2枚まで手札に加える。英名は Green's Exploration。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "TOKIYA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥20,000前後。TOKIYA によるブルーのSR。初代ヒロインの人気銘柄。PSA10は3,725枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-misty-lorelei-sr-191",
+      "card_no": "191/173",
+      "rarity": "SR",
+      "card_name": "カスミ&カンナ",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_191_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。水ポケモンにエネルギーを付ける効果。英名は Misty & Lorelei。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ryuta Fuse",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥15,000前後。布施龍太によるカスミ＆カンナ。女性キャラ2人組のSRでコレクター需要が厚い。PSA10は3,414枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-reds-challenge-sr-201",
+      "card_no": "201/173",
+      "rarity": "SR",
+      "card_name": "レッドの挑戦",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_201_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。山札からポケモンとサポートを1枚ずつ手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "TOKIYA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥15,000前後。TOKIYA によるレッドのSR。初代主人公でブルーの探索(196)・グリーンの戦略(193)と3枚セットで集める層が多い。PSA10は2,543枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-blues-tactics-sr-193",
+      "card_no": "193/173",
+      "rarity": "SR",
+      "card_name": "グリーンの戦略",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_193_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。手札のグッズの枚数だけカードを引く。英名は Blue's Tactics。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "TOKIYA",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥12,000前後。TOKIYA によるグリーンのSR。初代3人組の中では最も安いが、揃えたい需要が下支えする。PSA10は2,525枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-umbreon-darkrai-gx-sr-181",
+      "card_no": "181/173",
+      "rarity": "SR",
+      "card_name": "ブラッキー&ダークライGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_181_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 270,
+        "note": "TAG TEAM GX。ワザ「ブラックランス」／GXワザ「ダークムーンGX」。SA(182)と同スペックの通常SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥10,000前後。SA(182)の約9分の1だが、SR単体でも人気カード。PSA10は1,692枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-dedenne-gx-sr-175",
+      "card_no": "175/173",
+      "rarity": "SR",
+      "card_name": "デデンネGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_175_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 160,
+        "note": "特性「デデチェンジ」＝手札を全て捨てて6枚引く。SM期からVSTAR期まで環境の必須カードだった。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kanahei",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥7,500前後。kanahei（カナヘイ）によるデデンネGXで、作家人気が突出している。競技での実需もあった。PSA10は3,636枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-togepi-cleffa-igglybuff-gx-sr-185",
+      "card_no": "185/173",
+      "rarity": "SR",
+      "card_name": "トゲピー&ピィ&ププリンGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_185_R_JP_LG.png",
+      "card_spec": {
+        "type": "フェアリー",
+        "stage": "たね",
+        "hp": 240,
+        "note": "TAG TEAM GX。ワザ「ローリングパニック」。SA(186)と同スペックの通常SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥4,000前後。SA(186)の約6分の1。PSA10は948枚とこの15枚で最も鑑定数が少ない。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "tag-all-stars-eevee-gx-sr-187",
+      "card_no": "187/173",
+      "rarity": "SR",
+      "card_name": "イーブイGX",
+      "box_id": "tag_all_stars",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM12a/SM12a_187_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 160,
+        "note": "ワザ「アセンションDNA」。SA(188)と同スペックの通常SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥2,400前後。SA(188)との差が約7.5倍と大きく、SR/SAの価格差を見る比較対象として置いている。PSA10は1,122枚。",
+        "source": "serebii.net/card/tagallstars/{番号}.shtml で名称・HP・ワザ・イラストレーターを1枚ずつ確認、SR/SAの別はスニダンのタイトル表記、相場は遊々亭(sm12a)買取一覧、PSA枚数は gemrate（2026-08-30）"
       },
       "note": ""
     }
