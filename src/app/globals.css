@@ -1345,16 +1345,12 @@ a:hover {
   .trio-price { font-size: 20px; }
 }
 
-/* ─── 3カラムのランキング（急騰／急落／AI注目） ─── */
+/* ─── 2カラムのランキング（急騰／急落） ─── */
+/* ⚠ 2026-08-30 まで3列（3列目がAI注目）。予想の列を落として2列にした */
 .rank-cols {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--sp-5);
-}
-
-/* 3列は狭すぎるので、タブレット幅で2列、スマホで1列に落とす */
-@media (max-width: 900px) {
-  .rank-cols { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
   .rank-cols { grid-template-columns: 1fr; gap: var(--sp-4); }

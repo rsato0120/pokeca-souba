@@ -173,56 +173,6 @@ export default function TopPage() {
     .sort((a, b) => getChange(a) - getChange(b))
     .slice(0, 5)
 
-  // AI注目カード: AIが本当に「上がる」と見ているカードに限定する
-  //  - 3ヶ月後の本線(m3)が現在より上（予想価格が上昇方向）
-  //  - up_pct > down_pct（ネットで上昇寄りの判断）
-  // 従来は up_pct 順だけで並べていたため、本線が下落・down_pct優勢のカードも
-  // 「注目」に入り「価格が下がって見える」違和感があった。
-  // ※直近の値動きでは絞らない（AIが+12%と見ている押し目カードを除外しないため）
-  const fcM3Gain = (fc: ReturnType<typeof getForecast>): number | null => {
-    const p = fc?.price_forecast
-    if (!p) return null
-    const cur = (p.current_low + p.current_high) / 2
-    const m3 = (p.m3_low + p.m3_high) / 2
-    return cur > 0 ? (m3 - cur) / cur : null
-  }
-  const isRising = (fc: ReturnType<typeof getForecast>): boolean => {
-    if (!fc) return false
-    if (fc.overall.up_pct <= fc.overall.down_pct) return false     // ネット上昇のみ
-    const gain = fcM3Gain(fc)
-    return gain != null && gain > 0                                // 本線が現在より上
-  }
-  const notableFromMetrics = [...metrics]
-    .filter(m => isRising(m.forecast) && !isDeckUtilityCard(m.card))
-    .sort((a, b) => (b.forecast?.overall.up_pct ?? 0) - (a.forecast?.overall.up_pct ?? 0))
-  // 価格データがまだ無いカードも拾えるよう、不足分は「上昇予想」のAI予想順で補完
-  const notableBackfill = cardsWithForecast.filter(
-    c => isRising(c.forecast) && !isDeckUtilityCard(c.card)
-      && !notableFromMetrics.some(m => m.slug === getCardSlug(c.card))
-  )
-  const risingPool = notableFromMetrics.length >= 5
-    ? notableFromMetrics
-    : [...notableFromMetrics, ...notableBackfill]
-  // 1弾に偏らないよう、各弾上限2枚で分散して選ぶ（足りなければ上限を無視して埋める）。
-  // 予想スコアのスケールが弾ごとに違っても、ホームが特定弾だけで埋まるのを防ぐ。
-  const diversifyByBox = <T extends { card: Card }>(items: T[], limit: number, maxPerBox: number): T[] => {
-    const picked: T[] = []
-    const count: Record<string, number> = {}
-    for (const it of items) {
-      if (picked.length >= limit) break
-      const b = it.card.box_id
-      if ((count[b] ?? 0) < maxPerBox) { picked.push(it); count[b] = (count[b] ?? 0) + 1 }
-    }
-    if (picked.length < limit) {
-      for (const it of items) {
-        if (picked.length >= limit) break
-        if (!picked.includes(it)) picked.push(it)
-      }
-    }
-    return picked
-  }
-  const notableCards = diversifyByBox(risingPool, 5, 2)
-
   // ── AIが買うべきカード: 決定論シグナルで候補選定 → 上位に厚いAI論拠を紐付け ──
   const buyInputs: BuyInput[] = cards.map((card) => {
     const slug = getCardSlug(card)
@@ -497,10 +447,9 @@ export default function TopPage() {
       )}
 
       {/* ⚠ ここにあった「今日の注目カード（3枚）」は削除した（2026-08-29）。
-          notableCards の上位3枚を出すだけで、すぐ下の「01: AI予想 これからの注目カード」
-          （同じ5枚＋3ヶ月予想価格）と**顔ぶれも数字も同じ**だった。
-          notableCards は他に 値動きランキングの「AI注目」列でも使っており、
-          3箇所で同じ並びを見せていたので、情報が一番薄いこの枠を落とす。 */}
+          すぐ下の「01: AI予想 これからの注目カード」と顔ぶれも数字も同じだった。
+          同じ並びを使っていた値動きランキングの「AI注目」列も 2026-08-30 に削除済みで、
+          「AIが上昇を見ているカード」は 01 の1箇所だけになった。 */}
 
       {/* オリパ案件バナー（A8 / PR） */}
       <OripaBanner marginY={4} />
@@ -523,11 +472,13 @@ export default function TopPage() {
           <div className="sec-head">
             <span className="sec-no">04</span>
             <span className="sec-title">値動きランキング</span>
-            <span className="sec-sub">実際の成約価格の変化率とAIの注目度</span>
+            <span className="sec-sub">実際の成約価格の変化率</span>
           </div>
 
-          {/* 3カラム（急騰／急落／AI注目）。上げ・下げ・AIの見立てを横に並べて突き合わせられる形にする。
-              3列目だけ軸が違う（実績ではなく予想）ので、見出しの色をアクセントにして区別する */}
+          {/* 2カラム（急騰／急落）。どちらも「実際に動いた実績」で軸が揃っている。
+              ⚠ 3列目にあった「AI注目」は削除した（2026-08-30）。あれだけ軸が違い
+              （実績ではなく予想）、しかも 01 の「AI予想 これからの注目カード」と
+              同じ notableCards を並べていたので、同じ顔ぶれを2箇所で見せていた。 */}
           <div className="rank-cols">
             {/* 急騰 */}
             <div>
@@ -591,38 +542,6 @@ export default function TopPage() {
               })}
             </div>
 
-            {/* AI注目。左2列が「実際に動いた実績」なのに対し、ここだけ「これから上がるとAIが見ている」＝
-                軸が違う。数字も変化率ではなく上昇シナリオの確率なので、単位を明記して混同を防ぐ */}
-            <div>
-              <div className="eyebrow" style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: 'var(--sp-2)' }}>◆ AI注目</div>
-              {notableCards.length === 0 ? (
-                <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ蓄積中</div>
-              ) : notableCards.slice(0, 5).map(({ card, forecast }) => {
-                const slug = getCardSlug(card)
-                const m = metricsBySlug.get(slug)
-                return (
-                  <Link key={slug} href={`/cards/${slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
-                    {card.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={card.image_url} alt={card.card_name} className="row-thumb" style={{ width: '36px', height: '50px' }} />
-                    ) : (
-                      <div className="row-thumb row-thumb-ph" style={{ width: '36px', height: '50px' }}>{card.rarity}</div>
-                    )}
-                    <div style={{ minWidth: 0 }}>
-                      <div className="row-name" style={{ fontSize: 'var(--fs-base)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{card.card_name}</div>
-                      <div className="row-meta">
-                        {card.rarity}
-                        {m && m.currentMid > 0 ? ` · ¥${Math.round(m.currentMid).toLocaleString()}` : ''}
-                      </div>
-                      <div className="row-meta">上昇確率</div>
-                    </div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-base)', fontWeight: 700, color: 'var(--accent)', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                      {forecast?.overall.up_pct != null ? `${forecast.overall.up_pct}%` : '—'}
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
           </div>
         </div>
       )}

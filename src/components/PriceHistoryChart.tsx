@@ -78,44 +78,33 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
   const accent = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
 
   // ── 出来高（回転率） ──
-  // sold_total は メルカリ成約検索の numFound。前の観測との差を取って1日あたりに直す。
-  // 観測が飛んでいる日があるので日数で割る。
   //
-  // ⚠ numFound は「累計」ではない。実測（2026-08-24・全銘柄の連続差分）:
-  //   カード 増2527 / 減1970 / 増減なし1965、BOX 増376 / 減419。単調増加なのは317銘柄中34だけ。
-  //   売れた数より古い成約がインデックスから落ちる数のほうが多い銘柄では、日々**減っていく**
-  //   （例: メガシンフォニアのAR/SRは9日間ずっと減少）。つまりこの棒は「新規成約 − 期限切れ」の
-  //   純増であって、実際に売れた数の下限でしかない。減った日は棒を出さない＝棒が欠ける。
-  // 出来高の出所。スニダンの実成約件数が最優先で、無い銘柄だけ numFound の差分に落ちる
-  const volSource: 'snkrdunk' | 'mercari' | null = useMemo(() => {
+  // 出所は**スニダンの実成約件数だけ**。1取引1件を日別に数えたものなので、そのまま棒にできる。
+  //
+  // ⚠ メルカリの sold_total（成約検索の numFound）から棒を作るのは 2026-08-30 にやめた。
+  //   numFound は「累計」ではなく、インデックスに今残っている成約の**在庫数**で、増えも減りもする。
+  //   実測（2026-08-24・全銘柄の連続差分）: カード 増2527/減1970/増減なし1965、BOX 増376/減419。
+  //   単調増加なのは317銘柄中34だけ。差分を「その日に売れた数」として棒にすると、こうなる:
+  //     - アビスアイBOX: 直近20日で棒が立つのは5日だけ、8/20以降10日間ゼロ
+  //       → 取引が止まったように見えるが、実際には毎日売れている
+  //     - ストームエメラルダBOX: 8/15と8/16に **128箱/日** の棒
+  //       → ¥17,000のBOXが1日220万円分。新規成約ではなく古い成約が入れ替わった数
+  //   どちらも「実際には起きていない数字」を成約数として出していた。出せないなら出さない。
+  //
+  // ⚠ この結果、未開封BOX 73系列すべてと、スニダンIDが無いカードでは出来高が出なくなる。
+  //   BOXで実成約を出すにはスニダンのBOX商品ID（通常BOX / シュリンクなしBOXで別ID）の
+  //   登録が要る。data/snkrdunk-ids.json に box- のキーはまだ1件も無い。
+  const volSource: 'snkrdunk' | null = useMemo(() => {
     const counted = tab === 'raw' ? salesByDay : psa10SalesByDay
     if (counted && Object.keys(counted).length >= 3) return 'snkrdunk'
-    // PSA10 の取引はスニダンにしか無い。メルカリの numFound は素体の数なので流用しない
-    if (tab === 'raw' && history.some(r => r.sold_total != null)) return 'mercari'
     return null
   }, [tab, salesByDay, psa10SalesByDay, history])
 
   const volumeByDate = useMemo(() => {
-    // ① スニダンの実成約件数。1取引1件を日別に数えたものなので、そのまま棒にできる
-    if (volSource === 'snkrdunk') {
-      const counted = (tab === 'raw' ? salesByDay : psa10SalesByDay) ?? {}
-      return new Map<string, number>(Object.entries(counted))
-    }
-    // ② スニダンIDが無い銘柄と未開封BOXだけ、従来の numFound 差分
-    const asc = [...history].reverse()   // 古い順
-    const m = new Map<string, number>()
-    if (volSource !== 'mercari') return m
-    for (let i = 1; i < asc.length; i++) {
-      const cur = asc[i]
-      const prev = asc[i - 1]
-      if (cur.sold_total == null || prev.sold_total == null) continue
-      const diff = Number(cur.sold_total) - Number(prev.sold_total)
-      if (!(diff >= 0)) continue
-      const gap = Math.max(1, Math.round((Date.parse(cur.date) - Date.parse(prev.date)) / DAY))
-      m.set(cur.date, diff / gap)
-    }
-    return m
-  }, [history, tab, volSource, salesByDay, psa10SalesByDay])
+    if (volSource !== 'snkrdunk') return new Map<string, number>()
+    const counted = (tab === 'raw' ? salesByDay : psa10SalesByDay) ?? {}
+    return new Map<string, number>(Object.entries(counted))
+  }, [tab, volSource, salesByDay, psa10SalesByDay])
 
   const hasVolume = volumeByDate.size >= 3
 
@@ -356,9 +345,9 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
               formatter={(value, name) => {
                 const v = Number(value)
                 if (name === 'vol') {
-                  // スニダンは実件数なので「その日に何件」、メルカリ由来は観測間隔で割った1日あたり
+                  // スニダンの実件数なので「その日に何件」。1日あたり換算はもう無い
                   const n = v < 1 ? v.toFixed(1) : Math.round(v)
-                  return [volSource === 'snkrdunk' ? `${n}${unit}` : `${n}${unit}/日`, '成約'] as [string, string]
+                  return [`${n}${unit}`, '成約'] as [string, string]
                 }
                 if (name === 'ma7') return [`¥${Math.round(v).toLocaleString()}`, `${MA_SHORT}日平均`] as [string, string]
                 if (name === 'ma30') return [`¥${Math.round(v).toLocaleString()}`, `${MA_LONG}日平均`] as [string, string]
@@ -464,7 +453,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
                 verticalAlign: 'middle',
               }}
             />
-            成約{unit}数（{volSource === 'snkrdunk' ? 'スニダン成約' : 'メルカリ・1日あたり'}）
+            成約{unit}数（スニダン成約）
           </span>
         )}
       </div>
