@@ -13,6 +13,8 @@ export interface ForecastContext {
   psaPop?: PsaPop | null
   /** 弾内での価格順位（1=最高額）。チェイス度の絶対位置を示し、根拠文の差別化に使う */
   boxRank?: { rank: number; total: number } | null
+  /** スニダン成約APIの日別成約件数（date → 件数）。回転率の第一の出所 */
+  salesByDay?: Record<string, number> | null
 }
 
 // ─── プロンプト構築 ──────────────────────────────────────────────
@@ -121,10 +123,35 @@ export function buildPrompt(
       }
     }
 
-    // 成約総件数（sold_total）の増分＝実際に売れた枚数。回転の速さは需要の強さを直接表す。
-    // メルカリ成約を取得した日のみ記録されるため、スニダン採用カードでは欠けることがある。
+    // 回転の速さ＝需要の強さ。出所は2つあり、**新しい方を優先する**。
+    //
+    // ⚠ 2026-08-30以降、スニダンで価格が取れるカードはメルカリ検索を丸ごと省くので、
+    //   sold_total はその日以降**更新されない**。それに気づかず差分を取ると、分母の days だけが
+    //   伸び続けて「回転が日に日に遅くなっている」という嘘のシグナルをAIに渡し続けることになる。
+    //   スニダンの日別実成約件数があるカードは必ずそちらを使う（1取引1件で歯抜けも無い）。
+    const VELOCITY_DAYS = 30
+    const velocityCutoff = Date.now() - VELOCITY_DAYS * 86400000
+    const countedDays = ctx.salesByDay
+      ? Object.entries(ctx.salesByDay).filter(([d]) => Date.parse(d) >= velocityCutoff)
+      : []
+    const labelFor = (perDay: number) =>
+      perDay >= 5 ? '非常に速い（毎日売れている＝実需が厚い）'
+        : perDay >= 1.5 ? '速い（活発に取引されている）'
+        : perDay >= 0.5 ? '普通'
+        : '遅い（買い手が少なく、値付けが崩れやすい）'
+    if (countedDays.length >= 3) {
+      const total = countedDays.reduce((a, [, n]) => a + n, 0)
+      const perDay = total / VELOCITY_DAYS
+      historySection += `
+## 取引の回転（スニダンの実成約件数）
+`
+      historySection += `- 直近${VELOCITY_DAYS}日で${total}件が成約（約${Math.round(perDay * 10) / 10}件/日） → ${labelFor(perDay)}
+`
+    }
+
+    // スニダンの実件数が無い銘柄だけ、従来どおりメルカリ成約総件数（sold_total）の増分を使う
     const withSold = priceHistory.filter(r => r.sold_total != null)
-    if (withSold.length >= 2) {
+    if (countedDays.length < 3 && withSold.length >= 2) {
       const newestSold = withSold[0]
       const oldestSold = withSold[withSold.length - 1]
       const days = Math.max(

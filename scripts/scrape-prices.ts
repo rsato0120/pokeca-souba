@@ -4,7 +4,7 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
-import { getSnkrdunkSales } from './snkrdunk-sales'
+import { getSnkrdunkSales, recentSalesWindow } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
@@ -1035,6 +1035,19 @@ const SALES_KEEP_DAYS = 120
 const SALES_API_DAYS = 120
 // 成約APIを何日ごとに引き直すか。全カードがこの周期で一巡する
 const SALES_API_REFRESH_DAYS = 3
+// 価格を作る時に見る成約の窓。短すぎると薄商いで件数が足りず、長すぎると古い相場を引きずる
+// スニダン成約APIから価格を作る窓の**上限**。getSnkrdunkPrices の REGULAR_WINDOW_DAYS と同じ45日。
+// 実際の窓は recentSalesWindow がこの範囲内で必要なだけ短く取る。
+const SNKRDUNK_PRICE_WINDOW_DAYS = 45
+// この件数に届いたら窓を打ち切る。流動的なカードほど窓が短くなり、現在の水準に追随する。
+// 30件は「平均が1件の外れ値で振られない」下限として置いた（1件の寄与が3%強）。
+const SNKRDUNK_TARGET_SALES = 30
+// APIの成約から価格を採るのに必要な件数。
+// ⚠ 極値の下限(MIN_SAMPLE_COUNT=4)ではなく、**従来のスニダン採用閾値6件**に揃える。
+//   4件で出所を切り替えると、薄い母数のまま水準が変わって「出所フリップの崖」を作る
+//   （実測: ゲッコウガex SAR は30日で4件しかなく、メルカリ¥39,125 → API¥42,333 と +8% 動いた）。
+//   6件に上げると、そういうカードはメルカリのまま据え置かれる。
+const SNKRDUNK_API_MIN_SALES = 6
 
 /** 成約APIを最後に引いてから何日経ったか。一度も引いていなければ null */
 function salesFetchedAgeDays(cardId: string, today: string): number | null {
@@ -1240,6 +1253,13 @@ async function scrapeCard(
     // スニダンの売買履歴に出ていた個別取引の日付。出来高（成約数）の元になる。
     // 価格をスニダンから採るかどうかとは無関係に、取れた分は常に記録する
     let salesFetchedAt: string | null = null
+    // 成約APIから作った価格（採れた時だけ入る）
+    let apiAvg: number | null = null
+    let apiLow = 0
+    let apiHigh = 0
+    let apiCount = 0
+    // 実際に使った窓の日数。ログに出して「相場がどれだけ新しい取引で出来ているか」を見る
+    let apiWindowDays = 0
     let snkrdunkSaleDates: string[] = []
     let snkrdunkPsa10SaleDates: string[] = []
 
@@ -1261,13 +1281,10 @@ async function scrapeCard(
       // 無かった（出来高グラフが成立しない原因）。APIは1回1000件・絶対日付で返る。
       // 実測(ブラッキーex SAR / 2026-08-25): A3件+D1件+PSA10 9件=13件 で提示値と一致。
       // 取得できなかった状態は**足さない**（0件と欠測を混同しないため、HTML由来の値を残す）。
-      // ⚠ 毎日は叩かない。素体4状態＋PSA10で5リクエスト/枚あり、実測で1枚34秒
-      //   （471枚なら約4.4時間）。日次バッチの既存処理に上乗せすると収まらない。
-      //   成約履歴は積み上げ式（mergeSalesByDay が日ごとに max を取る）ので毎日取り直す
-      //   必要は無い。取得日を記録して SALES_API_REFRESH_DAYS 周期で回し、全カードが
-      //   その日数以内に一巡するようにする。
-      const salesAge = salesFetchedAgeDays(id, date)
-      if (salesAge == null || salesAge >= SALES_API_REFRESH_DAYS) try {
+      // ⚠ **毎日叩く**。価格もここから作るようになったため（2026-08-30）。
+      //   素体4状態＋PSA10で5リクエスト/枚だが、代わりにメルカリの成約検索と出品検索を
+      //   丸ごと省けるので、1枚あたりの所要時間はむしろ減る。
+      try {
         const api = await getSnkrdunkSales(browser, apparelId, SALES_API_DAYS)
         if (api.regular.length > 0) snkrdunkSaleDates = api.regular
         if (api.psa10.length > 0) snkrdunkPsa10SaleDates = api.psa10
@@ -1275,6 +1292,29 @@ async function scrapeCard(
           process.stdout.write(`[成約API 素体${api.regular.length}/PSA10 ${api.psa10.length}] `)
         }
         salesFetchedAt = date
+
+        // ── 価格もAPIの実約定から作る ──
+        // これまでのスニダン価格はHTMLに載る十数件から作っており、n=2 で採用される事故が
+        // 起きていた（ラティアス&ラティオスGX SA の -61% の崖）。APIなら窓内の全約定が取れる。
+        //
+        // ⚠ **推定量と窓は既存のスニダンHTML価格と完全に同じにする**（単純平均・45日）。
+        //   最初メルカリと同じ sliceMean(0.2,0.5) を当てたが、あれは「20〜50パーセンタイル帯の
+        //   平均」＝構造的に中央値以下で、出品価格の上側が傷あり/まとめ売りで膨らむメルカリ用の
+        //   刈り込みだった。状態タグ付きの実約定であるスニダンに当てると定義そのものがずれる。
+        //   実測(24枚サンプル・2026-08-30): API採用に変わった5枚が -16.1%〜+16.1%、
+        //   うち4枚が -9〜-16% と**一方向に**ずれた。単純平均に揃えれば、変わるのは
+        //   母数の厚み（十数件 → 窓内の全件）だけで、数字の意味は変わらない。
+        const win0 = recentSalesWindow(api.regularSales, SNKRDUNK_PRICE_WINDOW_DAYS, SNKRDUNK_TARGET_SALES, date)
+        const win = win0.prices
+        apiWindowDays = win0.days
+        if (win.length >= SNKRDUNK_API_MIN_SALES) {
+          const sorted = [...win].sort((a, b) => a - b)
+          apiAvg = Math.round(win.reduce((a, b) => a + b, 0) / win.length)
+          // 帯だけはパーセンタイルで出す（HTML経路は帯を持たず avg を low/high に流用していた）
+          apiLow = Math.min(percentileAt(sorted, 0.2), apiAvg)
+          apiHigh = Math.max(percentileAt(sorted, 0.8), apiAvg)
+          apiCount = win.length
+        }
       } catch { /* APIが落ちてもHTML由来の値で続行する */ }
 
       // 取引が止まっている系列は getSnkrdunkPrices が regular=null を返す。何日止まって
@@ -1290,6 +1330,14 @@ async function scrapeCard(
         process.stdout.write(`[スニダン床値${why}→不採用] `)
         snkrdunkRegular = null
         snkrdunkCount = 0
+      }
+
+      // ⚠ API由来の価格も**同じ関門を通す**。HTML経路にだけ床値判定が掛かっていると、
+      //   同じスニダンの数字なのにAPIで取れた時だけ素通りしてしまう（最低価格¥100未満や、
+      //   前日の出品最安と比べて明らかに床を打っている値をそのまま採ってしまう）。
+      if (apiAvg != null && (apiAvg < SNKRDUNK_MIN_PRICE || isSnkrdunkFloorPrice(apiAvg))) {
+        process.stdout.write(`[成約API床値¥${apiAvg}→不採用] `)
+        apiAvg = null; apiLow = 0; apiHigh = 0; apiCount = 0
       }
     }
 
@@ -1323,8 +1371,21 @@ async function scrapeCard(
     let soldTotal: number | null = null
     // メルカリ成約の鮮度（採用した最古の成約が何日前か）。スニダン採用時は付けない
     let oldestSaleDays: number | null = null
-    if (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded) {
-      // 十分な取引数があるスニダン価格はそのまま採用
+    if (apiAvg != null) {
+      // ★成約APIの実約定から作った価格。**これが取れたらメルカリは一切見ない**（2026-08-30）。
+      // 窓内の全約定が母数なので、HTMLの十数件から作っていた頃より格段に厚い
+      // （実測: ブラッキーex SAR は30日で数十件）。メルカリの成約検索・出品検索を
+      // 丸ごと省けるので1枚あたりの所要時間も減る。
+      // 出品数と ask も同じスニダンの商品ページから取るので、成約・出品・件数が
+      // すべて同じ市場の値で揃う（guardPrice R1 が本来の意味で働く）。
+      avg = apiAvg
+      mercariLow = apiLow
+      mercariHigh = apiHigh
+      source = `スニダン成約API(${apiCount}件/${apiWindowDays}日)`
+      priceSource = 'snkrdunk'
+      sampleCount = apiCount
+    } else if (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded) {
+      // 十分な取引数があるスニダン価格はそのまま採用（APIが取れなかった時の従来経路）
       avg = snkrdunkRegular
       source = 'スニダン'
       priceSource = 'snkrdunk'
@@ -1434,9 +1495,6 @@ async function scrapeCard(
     // 実勢の25%を床にすると、40%引きの掘り出し物は通り、桁が違うものだけ落ちる。
     const askFloor = avg != null && avg > 0 ? Math.round(avg * 0.25) : 0
     // 第3引数(minPrice)は0のまま＝**件数は削らない**。下限は第7引数で ask にだけ効かせる。
-    const mercariOnSale = await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName, askFloor)
-    // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）
-    await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
 
     // ── スニダンの商品ページから 出品数 と ask を採る ──
     //
@@ -1456,11 +1514,38 @@ async function scrapeCard(
     //
     // ⚠ どちらも出所を記録する（ask_source / on_sale_source）。混ざったまま引き算すると
     //   偽の増減が出る（src/lib/on-sale.ts）。BOXで同じ事故を起こしている。
-    let onSale = mercariOnSale
+    // ⚠ **スニダンを先に叩く**（2026-08-30）。以前はメルカリ出品検索が先で、その後に
+    //   スニダンを見ていた。省略判定を `apiAvg != null` だけで先に下していたため、
+    //   スニダンの商品ページ取得がこけると**出品数が丸ごと欠測**した
+    //   （実測: スタートデッキ100 ピカチュウex SAR が on_sale=undefined）。
+    //   順序を入れ替え、「スニダンで出品数が実際に取れた」ことを確認してから省く。
     let askSource: 'mercari' | 'snkrdunk' = 'mercari'
     let onSaleSource: 'mercari' | 'snkrdunk' = 'mercari'
+    let sd: { askLow: number | null; askMid: number | null; onSale: number | null } =
+      { askLow: null, askMid: null, onSale: null }
     if (apparelId) {
-      const sd = await getSnkrdunkAsk(browser, apparelId)
+      sd = await getSnkrdunkAsk(browser, apparelId)
+      await new Promise(r => setTimeout(r, 2000 + Math.random() * 1500))
+    }
+
+    // ⚠ **スニダンで完結するカードはメルカリの出品検索も省く**（2026-08-30）。
+    //   価格が成約APIから、出品数と ask が商品ページから取れているなら、メルカリを叩いても
+    //   使う値が無い。3ページ分のリクエストと待機がまるごと不要になり、日次が大きく短くなる。
+    //   ⚠ 条件に `sd.onSale != null` を含めるのが要点。スニダン側がこけた回は
+    //     メルカリに落ちるので、出品数が欠測しない。
+    //   ⚠ 省いた場合 sold_total（メルカリ成約検索の numFound）も入らないが、
+    //     出来高は sales_by_day（APIの実件数）に置き換わっているので支障はない。
+    const skipMercariOnSale = apiAvg != null && sd.onSale != null
+    const mercariOnSale = skipMercariOnSale
+      ? { count: null, askLow: null, askMid: null }
+      : await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName, askFloor)
+    if (skipMercariOnSale) process.stdout.write('[メルカリ省略] ')
+    // Mercari on_saleリクエスト後の追加待機（連続リクエストによるIPブロック緩和）。
+    // メルカリを叩いていない回は待つ理由が無いので飛ばす（ここも日次の短縮に効く）
+    if (!skipMercariOnSale) await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000))
+
+    let onSale = mercariOnSale
+    if (apparelId) {
       const useAsk = priceSource === 'snkrdunk' && sd.askLow != null
       if (useAsk || sd.onSale != null) {
         onSale = {
@@ -1476,7 +1561,6 @@ async function scrapeCard(
         ].filter(Boolean).join(' / ')
         process.stdout.write(`[スニダン ${parts}] `)
       }
-      await new Promise(r => setTimeout(r, 2000 + Math.random() * 1500))
     }
 
     // メルカリ成約検索は同名の別バージョン（通常版⇔SR⇔SA）を拾うことがあり、実勢から
@@ -1694,19 +1778,24 @@ async function main() {
   // 任意の引数で特定BOXだけに絞り込める（例: npx tsx scripts/scrape-prices.ts mega_brave）。
   // scrape-psa-only.ts と同じく cardId / card接頭辞も受け付ける
   // （例: 新弾で数枚だけ「データ不足」になった時のリトライ）。BOXは box_id 一致の時だけ対象。
-  const boxFilter = process.argv[2] || null
+  // ⚠ 引数は**複数**受け付ける（例: ... a b c / カンマ区切りも可）。
+  //   1枚ずつ起動するとブラウザ立ち上げが毎回かかるので、検証時に効く。
+  const filters = process.argv.slice(2).flatMap(a => a.split(",")).map(a => a.trim()).filter(Boolean)
+  const boxFilter = filters[0] || null
+  const matchesFilter = (c: { box_id: string; id: string }) =>
+    filters.length === 0 || filters.some(f => c.box_id === f || c.id === f || c.id.startsWith(f))
   // BOX_ONLY=1 でカードを飛ばし未開封BOX系列だけ取得する（代表値の算出方式を変えた直後など、
   // BOXだけ establishing run を回したい時に使う。カード257枚の再取得を避けられる）
   const boxOnly = process.env.BOX_ONLY === '1'
   const cards = boxOnly
     ? []
-    : getAllCards().filter(c => !boxFilter || c.box_id === boxFilter || c.id === boxFilter || c.id.startsWith(boxFilter))
+    : getAllCards().filter(matchesFilter)
   const boxes = getAllBoxes().filter(
-    b => b.certainty === 'released' && b.packs_per_box != null && (!boxFilter || b.box_id === boxFilter)
+    b => b.certainty === 'released' && b.packs_per_box != null && (filters.length === 0 || filters.includes(b.box_id))
   )
   const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
   const date = todayJST()
-  const scope = boxFilter ? `［${boxFilter}のみ］` : ''
+  const scope = filters.length ? `［${filters.length > 1 ? filters.length + '件' : boxFilter}のみ］` : ''
   console.log(`${scope}${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
   const browser = await chromium.launch({

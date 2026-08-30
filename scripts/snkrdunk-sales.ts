@@ -70,35 +70,54 @@ async function collectDates(
   apparelId: number,
   conditionIds: readonly number[],
   sinceDays: number,
-): Promise<string[]> {
+): Promise<{ date: string; price: number }[]> {
   const cutoff = Date.now() - sinceDays * 86400000
-  const out: string[] = []
 
-  for (const cid of conditionIds) {
+  // ⚠ 状態ごとに**並列**で取る（2026-08-30）。直列にすると1枚あたり5リクエスト×待機で
+  //   10秒近くかかり、メルカリを省いて浮いた時間をここで食い潰していた。
+  //   同時に開くのは1枚あたり最大5ページで、カード間は従来どおり間隔を空けている。
+  const perCondition = await Promise.all(conditionIds.map(async cid => {
+    const rows: { date: string; price: number }[] = []
     for (let page = 1; page <= 5; page++) {
-      const rows = await fetchPage(browser, apparelId, cid, page)
-      if (rows == null) break          // 取得失敗。その状態は諦める（0件と区別できないので足さない）
+      const got = await fetchPage(browser, apparelId, cid, page)
+      if (got == null) break        // 取得失敗。その状態は諦める（0件と区別できないので足さない）
       let reachedOld = false
-      for (const r of rows) {
+      for (const r of got) {
         const d = toIsoDate(r.date)
-        if (d == null) continue        // 相対表記＝当日近辺。確定できないので採らない
+        if (d == null) continue     // 相対表記＝当日近辺。確定できないので採らない
         if (Date.parse(d) < cutoff) { reachedOld = true; continue }
-        out.push(d)
+        rows.push({ date: d, price: Number(r.price) })
       }
       // 1ページ目で古い日に届いた or 1000件未満＝続きが無い
-      if (reachedOld || rows.length < PER_PAGE) break
-      await new Promise(r => setTimeout(r, 800))
+      if (reachedOld || got.length < PER_PAGE) break
+      await new Promise(r => setTimeout(r, 300))
     }
-    await new Promise(r => setTimeout(r, 800))
-  }
-  return out
-}
+    return rows
+  }))
 
+  return perCondition.flat()
+}
 export interface SnkrdunkSales {
   /** 素体（A〜D）の成約日。1取引1要素 */
   regular: string[]
   /** PSA10 の成約日。1取引1要素 */
   psa10: string[]
+  /** 素体の成約（日付＋価格）。価格の算出に使う。新しい順ではなくAPIの返り順 */
+  regularSales: { date: string; price: number }[]
+  /** PSA10 の成約（日付＋価格） */
+  psa10Sales: { date: string; price: number }[]
+}
+
+/** 指定日数以内の成約価格だけを取り出す（価格算出の窓） */
+export function salesWithin(
+  sales: { date: string; price: number }[],
+  days: number,
+  today = new Date().toISOString().slice(0, 10),
+): number[] {
+  const cutoff = Date.parse(today) - days * 86400000
+  return sales
+    .filter(s => Date.parse(s.date) >= cutoff && s.price > 0)
+    .map(s => s.price)
 }
 
 /**
@@ -111,7 +130,61 @@ export async function getSnkrdunkSales(
   apparelId: number,
   sinceDays = 120,
 ): Promise<SnkrdunkSales> {
-  const regular = await collectDates(browser, apparelId, RAW_CONDITION_IDS, sinceDays)
-  const psa10 = await collectDates(browser, apparelId, [PSA10_CONDITION_ID], sinceDays)
-  return { regular, psa10 }
+  const [regularSales, psa10Sales] = await Promise.all([
+    collectDates(browser, apparelId, RAW_CONDITION_IDS, sinceDays),
+    collectDates(browser, apparelId, [PSA10_CONDITION_ID], sinceDays),
+  ])
+  return {
+    regular: regularSales.map(s => s.date),
+    psa10: psa10Sales.map(s => s.date),
+    regularSales,
+    psa10Sales,
+  }
+}
+
+/**
+ * 価格を作る窓を「必要な件数が集まる**最短**の期間」にする。
+ *
+ * 【なぜ固定窓ではだめか】
+ * HTMLから読んでいた頃のスニダン価格は仕様上は45日窓だったが、ページに載るのは直近の
+ * 数十件だけなので、流動性の高いカードでは実質「直近数日の平均」として働いていた。
+ * APIに替えて素直に45日を平均したところ、スタートデッキ100 ピカチュウex SAR が
+ * ¥135,196(n=56) → ¥177,428(n=262) と **+31%** ずれた。値が下がっている最中のカードで、
+ * 45日前の高い約定を等しく混ぜてしまうため。相場として出す数字がこれでは遅すぎる。
+ *
+ * そこで新しい順に取り、`targetCount` に届いた時点で打ち切る（`maxDays` が上限）。
+ *  - 流動的なカード … 窓が数日に縮み、現在の水準を追える
+ *  - 薄商いのカード … 窓が maxDays いっぱいに伸び、件数を確保できる（HTML経路と同じ）
+ *
+ * ⚠ 打ち切りは**日単位**で行う。件数ちょうどで切ると、同じ日の約定を安い方から数件だけ
+ *   拾って高い方を捨てる（APIの返り順に依存する）といった偏りが入る。
+ */
+export function recentSalesWindow(
+  sales: { date: string; price: number }[],
+  maxDays: number,
+  targetCount: number,
+  today = new Date().toISOString().slice(0, 10),
+): { prices: number[]; days: number } {
+  const cutoff = Date.parse(today) - maxDays * 86400000
+  const usable = sales.filter(s => s.price > 0 && Date.parse(s.date) >= cutoff)
+  if (usable.length === 0) return { prices: [], days: 0 }
+
+  // 日ごとにまとめて、新しい日から足していく
+  const byDay = new Map<string, number[]>()
+  for (const s of usable) {
+    const arr = byDay.get(s.date)
+    if (arr) arr.push(s.price)
+    else byDay.set(s.date, [s.price])
+  }
+  const days = [...byDay.keys()].sort().reverse()
+
+  const prices: number[] = []
+  let oldest = days[0]
+  for (const d of days) {
+    prices.push(...byDay.get(d)!)
+    oldest = d
+    if (prices.length >= targetCount) break
+  }
+  const span = Math.round((Date.parse(today) - Date.parse(oldest)) / 86400000) + 1
+  return { prices, days: span }
 }

@@ -9,6 +9,7 @@ import type { SearchCard } from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
 import OripaBanner from '@/components/OripaBanner'
 import CommunityPicks, { type PickCard } from '@/components/CommunityPicks'
+import TrendingCards, { type TrendCard } from '@/components/TrendingCards'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
@@ -128,10 +129,23 @@ export default function TopPage() {
   // （カード詳細・収録弾一覧・検索には引き続き出る）
   const isRankable = (m: CardMetrics): boolean => isCurrent(m) && !isDeckUtilityCard(m.card)
 
+  const metricsBySlug = new Map(metrics.map((m) => [m.slug, m]))
+
   // 「みんなの注目ランキング」用の対応表。どのカードが見られているかはビルド時には分からないので、
   // CommunityPicks と同じく id→表示情報を丸ごと渡してクライアント側で突き合わせる。
   // 価格が欠測しているカードも開かれる（＝ランキングに載り得る）ので、metrics ではなく cards から作る。
-  const metricsBySlug = new Map(metrics.map((m) => [m.slug, m]))
+  const trendCards: TrendCard[] = cards.map((card) => {
+    const slug = getCardSlug(card)
+    const m = metricsBySlug.get(slug)
+    return {
+      id: slug,
+      name: card.card_name,
+      rarity: card.rarity,
+      image: card.image_url ?? null,
+      price: m && m.currentMid > 0 ? m.currentMid : null,
+      dayChange: m?.dayChange ?? null,
+    }
+  })
 
 
   // 出品数の変化。**出所（スニダン/メルカリ）が違う2点は引き算しない**（src/lib/on-sale.ts）。
@@ -495,6 +509,13 @@ export default function TopPage() {
           AI予想ランキングの直後に置いて、AIと閲覧者の見立ての差がその場で見えるようにする。
           票は Supabase にあるのでクライアント側で取得する（票が0のうちは自分で消える） */}
       <CommunityPicks cards={pickCards} />
+
+      {/* ── みんなの注目ランキング（閲覧数） ──
+          他の節が全部「価格」から作られているのに対し、ここだけ閲覧者の行動が元。
+          価格が動く前の注目を拾えるので、値動きランキングとは中身が被らない。
+          （2026-08-30 に一度削ったが、他と重複しない唯一の切り口なので戻した）
+          人数は Supabase 側にあるのでクライアント取得（閲覧が貯まるまでは自分で消える） */}
+      <TrendingCards cards={trendCards} />
 
       {/* ── 04: 価格急落・急騰 ── */}
       {(surgeCards.length > 0 || dropCards.length > 0) && (

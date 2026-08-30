@@ -67,6 +67,9 @@ export function createForecastContextBuilder(allCards: Card[]) {
       calibration: calCache.get(boxId) ?? null,
       psaPop: getPsaPop(getCardSlug(card)),
       boxRank,
+      // スニダンの日別実成約件数。回転率シグナルの第一の出所（forecast.ts 参照）。
+      // メルカリを省くカードでは sold_total が止まるので、これが無いと回転率が嘘になる。
+      salesByDay: getPriceHistory(getCardSlug(card))?.sales_by_day ?? null,
     }
   }
 }
