@@ -21,10 +21,10 @@ const BOX_ENTRY = {
   code: 'SM8b',
   release_ym: '2018-11',
   certainty: 'released',
-  pack_price_yen: 550,
+  pack_price_yen: 540,
   packs_per_box: 10,
   pack_image_url: 'https://archives.bulbagarden.net/media/upload/d/d1/SM8b_GX_Ultra_Shiny_pack.jpg',
-  note: '2018-11-02発売のハイクラスパック（1パック10枚・1BOX10パック）。通常150種＋シークレット94種の全244種で、色違いポケモン83種を収録したサン&ムーン期の総集編。目玉は色違いGXのSSRで、リザードンGX・レックウザGX・ブラッキーGXの3枚が突出して高い。長期絶版でBOX相場は定価の約30倍。',
+  note: '2018-11-02発売のハイクラスパック（希望小売価格500円＋税・1パック10枚・1BOX10パック）。通常150種＋シークレット94種の全244種で、色違いポケモン83種を収録したサン&ムーン期の総集編。目玉は色違いGXのSSRで、リザードンGX・レックウザGX・ブラッキーGXの3枚が突出して高い。長期絶版でBOX相場は定価の約30倍。',
 }
 
 // [番号, レアリティ, カード名, slug, タイプ, ステージ, HP, イラストレーター, 絵師人気, キャラ人気, 競技採用, spec備考, collector備考]

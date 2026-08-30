@@ -338,10 +338,10 @@
       "code": "SM8b",
       "release_ym": "2018-11",
       "certainty": "released",
-      "pack_price_yen": 550,
+      "pack_price_yen": 540,
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/d/d1/SM8b_GX_Ultra_Shiny_pack.jpg",
-      "note": "2018-11-02発売のハイクラスパック（1パック10枚・1BOX10パック）。通常150種＋シークレット94種の全244種で、色違いポケモン83種を収録したサン&ムーン期の総集編。目玉は色違いGXのSSRで、リザードンGX・レックウザGX・ブラッキーGXの3枚が突出して高い。長期絶版でBOX相場は定価の約30倍。"
+      "note": "2018-11-02発売のハイクラスパック（希望小売価格500円＋税・1パック10枚・1BOX10パック）。通常150種＋シークレット94種の全244種で、色違いポケモン83種を収録したサン&ムーン期の総集編。目玉は色違いGXのSSRで、リザードンGX・レックウザGX・ブラッキーGXの3枚が突出して高い。長期絶版でBOX相場は定価の約30倍。"
     },
     {
       "box_id": "tag_all_stars",
@@ -364,6 +364,17 @@
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/9/9d/SM11b_Dream_League_pack.jpg",
       "note": "2019-08-02発売の強化拡張パック（1パック5枚・1BOX30パック。定価は税込¥162で SM9タッグボルトと同じ）。GXのSRにトレーナーが一緒に描かれる構図と、CHR（キャラクターレア）を大量に収録したのが特徴で、絵柄人気だけで相場が作られている弾。目玉はソルガレオ&ルナアーラGX SR（リーリエ）とリーリエの全力SR。"
+    },
+    {
+      "box_id": "gx_battle_boost",
+      "box_name": "GXバトルブースト",
+      "code": "SM4+",
+      "release_ym": "2017-10",
+      "certainty": "released",
+      "pack_price_yen": 540,
+      "packs_per_box": 10,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/6/6b/SM4Plus_GX_Battle_Boost_pack.jpg",
+      "note": "2017-10-20発売のハイクラスパック（希望小売価格500円＋税・1パック10枚・1BOX10パック）。全てキラカードで、ポケモンGXが1パックに1枚確定。当たりはSR6種/HR3種/UR2種の11種だけと少ないが、その筆頭が「がんばリーリエ」で、ポケカ史上でも屈指の高額カードになった。未開封BOXは買取¥900,000前後と成約がほぼ無い水準。"
     }
   ],
   "cards": [
@@ -20999,669 +21010,6 @@
       "note": ""
     },
     {
-      "id": "gx-ultra-shiny-charizard-gx-ssr-209",
-      "card_no": "209/150",
-      "rarity": "SSR",
-      "card_name": "リザードンGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_209_R_JP_LG.png",
-      "card_spec": {
-        "type": "炎",
-        "stage": "2進化",
-        "hp": 250,
-        "note": "ワザ「つばさでうつ」70／「ぐれんのあらし」300（炎エネを3個トラッシュ）／「レイジングアウトGX」=相手の山札を上から10枚トラッシュ。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "この弾の単独トップ。色違いリザードンGXのSSRで、GX期を通じても最高額帯のカード。買取¥90,000・販売¥188,000前後。PSA10は2,870枚（鑑定総数5,153枚）。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-rayquaza-gx-ssr-240",
-      "card_no": "240/150",
-      "rarity": "SSR",
-      "card_name": "レックウザGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_240_R_JP_LG.png",
-      "card_spec": {
-        "type": "竜",
-        "stage": "たね",
-        "hp": 180,
-        "note": "色違いレックウザGXのフルアート。ワザ「ドラゴンブレス」／「エメラルドブレイクGX」。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "リザードンGXに次ぐこの弾の第2チェイス。買取¥80,000前後。レックウザは色違い人気が特に厚い。PSA10は1,773枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-umbreon-gx-ssr-229",
-      "card_no": "229/150",
-      "rarity": "SSR",
-      "card_name": "ブラッキーGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_229_R_JP_LG.png",
-      "card_spec": {
-        "type": "悪",
-        "stage": "1進化",
-        "hp": 200,
-        "note": "ワザ「ひるがえす」30／「シャドーバレット」90。色違いブラッキーGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "第3チェイス。買取¥40,000前後。イーブイズの中でもブラッキーは突出して人気が高く、剣盾期のブラッキーVMAX CSRと同じ構図の需要。PSA10は2,049枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-greninja-gx-ssr-216",
-      "card_no": "216/150",
-      "rarity": "SSR",
-      "card_name": "ゲッコウガGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_216_R_JP_LG.png",
-      "card_spec": {
-        "type": "水",
-        "stage": "2進化",
-        "hp": 230,
-        "note": "ワザ「おぼろぎり」110。色違いゲッコウガGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥12,500前後。ゲッコウガは海外人気も厚い銘柄。PSA10は454枚と鑑定数が少なく、SSR帯では希少。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-mewtwo-gx-ssr-219",
-      "card_no": "219/150",
-      "rarity": "SSR",
-      "card_name": "ミュウツーGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_219_R_JP_LG.png",
-      "card_spec": {
-        "type": "超",
-        "stage": "たね",
-        "hp": 190,
-        "note": "ワザ「ちょうきゅうしゅう」60／「サイコブレイクGX」200。色違いミュウツーGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥12,500前後。ミュウツーは初代からの定番人気でコレクター需要が安定している。PSA10は2,146枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-sylveon-gx-ssr-238",
-      "card_no": "238/150",
-      "rarity": "SSR",
-      "card_name": "ニンフィアGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_238_R_JP_LG.png",
-      "card_spec": {
-        "type": "フェアリー",
-        "stage": "1進化",
-        "hp": 200,
-        "note": "ワザ「ようせいのかぜ」110。色違いニンフィアGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥12,000前後。イーブイズの中でブラッキーに次ぐ人気。PSA10は1,957枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-darkrai-gx-ssr-230",
-      "card_no": "230/150",
-      "rarity": "SSR",
-      "card_name": "ダークライGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_230_R_JP_LG.png",
-      "card_spec": {
-        "type": "悪",
-        "stage": "たね",
-        "hp": 180,
-        "note": "ワザ「やみのさけめ」130。色違いダークライGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥10,000前後。PSA10は440枚と鑑定数が少ない。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-espeon-gx-ssr-220",
-      "card_no": "220/150",
-      "rarity": "SSR",
-      "card_name": "エーフィGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_220_R_JP_LG.png",
-      "card_spec": {
-        "type": "超",
-        "stage": "1進化",
-        "hp": 200,
-        "note": "ワザ「サイケこうせん」30。色違いエーフィGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥8,000前後。ブラッキー(229)と対になるイーブイズSSR。PSA10は1,091枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-lucario-gx-ssr-224",
-      "card_no": "224/150",
-      "rarity": "SSR",
-      "card_name": "ルカリオGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_224_R_JP_LG.png",
-      "card_spec": {
-        "type": "闘",
-        "stage": "1進化",
-        "hp": 210,
-        "note": "ワザ「せんぷうきゃく」130。色違いルカリオGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥6,000前後。PSA10は343枚とこの17枚で最も鑑定数が少ない。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-hooh-gx-ssr-210",
-      "card_no": "210/150",
-      "rarity": "SSR",
-      "card_name": "ホウオウGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_210_R_JP_LG.png",
-      "card_spec": {
-        "type": "炎",
-        "stage": "たね",
-        "hp": 190,
-        "note": "ワザ「フェニックスバーン」180。色違いホウオウGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "mid"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥5,500前後。伝説枠のSSRとして中位。PSA10は989枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-reshiram-gx-ssr-211",
-      "card_no": "211/150",
-      "rarity": "SSR",
-      "card_name": "レシラムGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_211_R_JP_LG.png",
-      "card_spec": {
-        "type": "炎",
-        "stage": "たね",
-        "hp": 180,
-        "note": "ワザ「しゃくねつのはしら」110／「ヴァーミリオンGX」180。色違いレシラムGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "PLANETA Igarashi",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "mid"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥5,500前後。この弾で唯一 PLANETA Igarashi が描いたSSR。PSA10は923枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-leafeon-gx-ssr-206",
-      "card_no": "206/150",
-      "rarity": "SSR",
-      "card_name": "リーフィアGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_206_R_JP_LG.png",
-      "card_spec": {
-        "type": "草",
-        "stage": "1進化",
-        "hp": 200,
-        "note": "ワザ「ソーラービーム」110。色違いリーフィアGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "mid"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥4,500前後。イーブイズSSRの中では中位だが、8枚揃えるコレクター需要が下支えする。PSA10は831枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-glaceon-gx-ssr-215",
-      "card_no": "215/150",
-      "rarity": "SSR",
-      "card_name": "グレイシアGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_215_R_JP_LG.png",
-      "card_spec": {
-        "type": "水",
-        "stage": "1進化",
-        "hp": 200,
-        "note": "ワザ「フロストバレット」90。色違いグレイシアGXのフルアート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "mid"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥3,000前後。リーフィア(206)と対になるイーブイズSSR。PSA10は1,406枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-gardevoir-gx-ssr-237",
-      "card_no": "237/150",
-      "rarity": "SSR",
-      "card_name": "サーナイトGX",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_237_R_JP_LG.png",
-      "card_spec": {
-        "type": "フェアリー",
-        "stage": "2進化",
-        "hp": 230,
-        "note": "色違いサーナイトGXのフルアート。SM期のサーナイトGXは環境デッキの主軸だった。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "5ban Graphics",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SSR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥2,400前後。競技人気の高かったカードの色違い版。PSA10は855枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-cynthia-sr-153",
-      "card_no": "153/150",
-      "rarity": "SR",
-      "card_name": "シロナ",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_153_R_JP_LG.png",
-      "card_spec": {
-        "type": "サポート",
-        "stage": "サポート",
-        "hp": 0,
-        "note": "サポート。手札を全て山札に戻してシャッフルし、6枚引く。SM期の必須ドローサポート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "Yusuke Ohmura",
-          "illustrator_popularity": "high",
-          "artwork_type": "original",
-          "rarity": "SR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "SSRを除けばこの弾のトップ。買取¥12,000前後。大村祐介によるシロナで、女性キャラSRの代表格。PSA10は4,282枚とこの弾で最も鑑定されているカード。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-guzma-sr-152",
-      "card_no": "152/150",
-      "rarity": "SR",
-      "card_name": "グズマ",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_152_R_JP_LG.png",
-      "card_spec": {
-        "type": "サポート",
-        "stage": "サポート",
-        "hp": 0,
-        "note": "サポート。相手のベンチポケモンとバトルポケモンを入れ替え、自分も入れ替える。SM期の定番サポート。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "Hitoshi Ariga",
-          "illustrator_popularity": "mid",
-          "artwork_type": "original",
-          "rarity": "SR"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "mid"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "買取¥2,000前後。有賀ヒトシによるグズマ。PSA10は384枚と鑑定数が少ない。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
-      "id": "gx-ultra-shiny-eevee-s-201",
-      "card_no": "201/150",
-      "rarity": "S",
-      "card_name": "イーブイ",
-      "box_id": "gx_ultra_shiny",
-      "is_reprint": false,
-      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_201_R_JP_LG.png",
-      "card_spec": {
-        "type": "無",
-        "stage": "たね",
-        "hp": 60,
-        "note": "色違いイーブイ。GX/SSRではない通常の色違いレア（S）だが、この弾のS帯では突出した相場。"
-      },
-      "materials": {
-        "player": {
-          "regulation_mark": "",
-          "rotation": "unknown",
-          "competitive_usage": "none"
-        },
-        "collector": {
-          "illustrator": "kirisAki",
-          "illustrator_popularity": "high",
-          "artwork_type": "original",
-          "rarity": "S"
-        },
-        "common": {
-          "reprint_status": "none",
-          "scarcity": "out_of_print",
-          "character_popularity": "high"
-        }
-      },
-      "evidence_notes": {
-        "player": "",
-        "collector": "販売¥9,980前後とS帯の最高額。kirisAki のイーブイでイラスト人気が高く、イーブイズを集める層が必ず通る1枚。PSA10は1,114枚。",
-        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
-      },
-      "note": ""
-    },
-    {
       "id": "tag-all-stars-umbreon-darkrai-gx-sa-182",
       "card_no": "182/173",
       "rarity": "SA",
@@ -22594,6 +21942,786 @@
         "player": "",
         "collector": "買取¥4,000前後（スニダン販売¥11,000）。CHR帯ではピカチュウに次ぐ人気。PSA10は9,325枚。",
         "source": "limitlesstcg.com/cards/jp/SM11b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm11b)買取一覧とスニダン、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-charizard-gx-ssr-209",
+      "card_no": "209/150",
+      "rarity": "SSR",
+      "card_name": "リザードンGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_209_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化",
+        "hp": 250,
+        "note": "ワザ「つばさでうつ」70／「ぐれんのあらし」300（炎エネを3個トラッシュ）／「レイジングアウトGX」=相手の山札を上から10枚トラッシュ。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "この弾の単独トップ。色違いリザードンGXのSSRで、GX期を通じても最高額帯のカード。買取¥90,000・販売¥188,000前後。PSA10は2,870枚（鑑定総数5,153枚）。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-rayquaza-gx-ssr-240",
+      "card_no": "240/150",
+      "rarity": "SSR",
+      "card_name": "レックウザGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_240_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "たね",
+        "hp": 180,
+        "note": "色違いレックウザGXのフルアート。ワザ「ドラゴンブレス」／「エメラルドブレイクGX」。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "リザードンGXに次ぐこの弾の第2チェイス。買取¥80,000前後。レックウザは色違い人気が特に厚い。PSA10は1,773枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-umbreon-gx-ssr-229",
+      "card_no": "229/150",
+      "rarity": "SSR",
+      "card_name": "ブラッキーGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_229_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 200,
+        "note": "ワザ「ひるがえす」30／「シャドーバレット」90。色違いブラッキーGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "第3チェイス。買取¥40,000前後。イーブイズの中でもブラッキーは突出して人気が高く、剣盾期のブラッキーVMAX CSRと同じ構図の需要。PSA10は2,049枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-greninja-gx-ssr-216",
+      "card_no": "216/150",
+      "rarity": "SSR",
+      "card_name": "ゲッコウガGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_216_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "2進化",
+        "hp": 230,
+        "note": "ワザ「おぼろぎり」110。色違いゲッコウガGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥12,500前後。ゲッコウガは海外人気も厚い銘柄。PSA10は454枚と鑑定数が少なく、SSR帯では希少。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-mewtwo-gx-ssr-219",
+      "card_no": "219/150",
+      "rarity": "SSR",
+      "card_name": "ミュウツーGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_219_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 190,
+        "note": "ワザ「ちょうきゅうしゅう」60／「サイコブレイクGX」200。色違いミュウツーGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥12,500前後。ミュウツーは初代からの定番人気でコレクター需要が安定している。PSA10は2,146枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-sylveon-gx-ssr-238",
+      "card_no": "238/150",
+      "rarity": "SSR",
+      "card_name": "ニンフィアGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_238_R_JP_LG.png",
+      "card_spec": {
+        "type": "フェアリー",
+        "stage": "1進化",
+        "hp": 200,
+        "note": "ワザ「ようせいのかぜ」110。色違いニンフィアGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥12,000前後。イーブイズの中でブラッキーに次ぐ人気。PSA10は1,957枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-darkrai-gx-ssr-230",
+      "card_no": "230/150",
+      "rarity": "SSR",
+      "card_name": "ダークライGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_230_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 180,
+        "note": "ワザ「やみのさけめ」130。色違いダークライGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥10,000前後。PSA10は440枚と鑑定数が少ない。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-espeon-gx-ssr-220",
+      "card_no": "220/150",
+      "rarity": "SSR",
+      "card_name": "エーフィGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_220_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 200,
+        "note": "ワザ「サイケこうせん」30。色違いエーフィGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥8,000前後。ブラッキー(229)と対になるイーブイズSSR。PSA10は1,091枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-lucario-gx-ssr-224",
+      "card_no": "224/150",
+      "rarity": "SSR",
+      "card_name": "ルカリオGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_224_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "1進化",
+        "hp": 210,
+        "note": "ワザ「せんぷうきゃく」130。色違いルカリオGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥6,000前後。PSA10は343枚とこの17枚で最も鑑定数が少ない。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-hooh-gx-ssr-210",
+      "card_no": "210/150",
+      "rarity": "SSR",
+      "card_name": "ホウオウGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_210_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 190,
+        "note": "ワザ「フェニックスバーン」180。色違いホウオウGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥5,500前後。伝説枠のSSRとして中位。PSA10は989枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-reshiram-gx-ssr-211",
+      "card_no": "211/150",
+      "rarity": "SSR",
+      "card_name": "レシラムGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_211_R_JP_LG.png",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 180,
+        "note": "ワザ「しゃくねつのはしら」110／「ヴァーミリオンGX」180。色違いレシラムGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "PLANETA Igarashi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥5,500前後。この弾で唯一 PLANETA Igarashi が描いたSSR。PSA10は923枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-leafeon-gx-ssr-206",
+      "card_no": "206/150",
+      "rarity": "SSR",
+      "card_name": "リーフィアGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_206_R_JP_LG.png",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 200,
+        "note": "ワザ「ソーラービーム」110。色違いリーフィアGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥4,500前後。イーブイズSSRの中では中位だが、8枚揃えるコレクター需要が下支えする。PSA10は831枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-glaceon-gx-ssr-215",
+      "card_no": "215/150",
+      "rarity": "SSR",
+      "card_name": "グレイシアGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_215_R_JP_LG.png",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 200,
+        "note": "ワザ「フロストバレット」90。色違いグレイシアGXのフルアート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥3,000前後。リーフィア(206)と対になるイーブイズSSR。PSA10は1,406枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-gardevoir-gx-ssr-237",
+      "card_no": "237/150",
+      "rarity": "SSR",
+      "card_name": "サーナイトGX",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_237_R_JP_LG.png",
+      "card_spec": {
+        "type": "フェアリー",
+        "stage": "2進化",
+        "hp": 230,
+        "note": "色違いサーナイトGXのフルアート。SM期のサーナイトGXは環境デッキの主軸だった。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SSR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥2,400前後。競技人気の高かったカードの色違い版。PSA10は855枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-cynthia-sr-153",
+      "card_no": "153/150",
+      "rarity": "SR",
+      "card_name": "シロナ",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_153_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。手札を全て山札に戻してシャッフルし、6枚引く。SM期の必須ドローサポート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yusuke Ohmura",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "SSRを除けばこの弾のトップ。買取¥12,000前後。大村祐介によるシロナで、女性キャラSRの代表格。PSA10は4,282枚とこの弾で最も鑑定されているカード。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-guzma-sr-152",
+      "card_no": "152/150",
+      "rarity": "SR",
+      "card_name": "グズマ",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_152_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。相手のベンチポケモンとバトルポケモンを入れ替え、自分も入れ替える。SM期の定番サポート。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hitoshi Ariga",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥2,000前後。有賀ヒトシによるグズマ。PSA10は384枚と鑑定数が少ない。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-ultra-shiny-eevee-s-201",
+      "card_no": "201/150",
+      "rarity": "S",
+      "card_name": "イーブイ",
+      "box_id": "gx_ultra_shiny",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM8b/SM8b_201_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 60,
+        "note": "色違いイーブイ。GX/SSRではない通常の色違いレア（S）だが、この弾のS帯では突出した相場。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "S"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "販売¥9,980前後とS帯の最高額。kirisAki のイーブイでイラスト人気が高く、イーブイズを集める層が必ず通る1枚。PSA10は1,114枚。",
+        "source": "limitlesstcg.com/cards/jp/SM8b/{番号} で名称・番号・HP・タイプ・ステージ・イラストレーターを1枚ずつ確認、相場は遊々亭(sm08b)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-battle-boost-lillie-sr-119",
+      "card_no": "119/114",
+      "rarity": "SR",
+      "card_name": "リーリエ",
+      "box_id": "gx_battle_boost",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM4p/SM4p_119_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分の手札が6枚になるように山札を引く。最初の自分の番に使ったなら8枚になるように引く。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "通称「がんばリーリエ」。メルカリの成約平均¥402,143・最安出品¥332,222（2026-08-30実測）で、遊々亭の買取が¥400,000前後。斎藤ナオキによるリーリエで、ポケカで最も知られた高額カードの一枚。PSA10は1,212枚（鑑定総数3,164枚・GEM率38%）と鑑定が通りにくく、PSA10の相場は¥2,970,000前後まで離れる。⚠スニダンでは素体の成約が90日で0件（出品は54件あるが売れていない）＝値段が付くのはPSA10だけで、素体価格はメルカリ頼み。",
+        "source": "limitlesstcg.com/cards/jp/SM4p/{番号} で名称・番号・効果・イラストレーターを確認、相場は遊々亭(sm04plus)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-battle-boost-lusamine-sr-120",
+      "card_no": "120/114",
+      "rarity": "SR",
+      "card_name": "ルザミーネ",
+      "box_id": "gx_battle_boost",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM4p/SM4p_120_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。自分のトラッシュにあるサポートとスタジアムを合計2枚、相手に見せてから手札に加える。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "You Iribi",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥48,000／販売¥75,800前後。この弾の第2チェイス。リーリエの母という設定でセット需要がある。PSA10は880枚（鑑定総数3,411枚・GEM率26%）とがんばリーリエより通りにくい。",
+        "source": "limitlesstcg.com/cards/jp/SM4p/{番号} で名称・番号・効果・イラストレーターを確認、相場は遊々亭(sm04plus)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
+      },
+      "note": ""
+    },
+    {
+      "id": "gx-battle-boost-lana-sr-118",
+      "card_no": "118/114",
+      "rarity": "SR",
+      "card_name": "スイレン",
+      "box_id": "gx_battle_boost",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/SM4p/SM4p_118_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "サポート。[水]エネルギーがついている自分のポケモン全員のHPを、それぞれ「50」回復する。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kanako Eo",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "買取¥20,000／販売¥34,800前後。第3チェイス。SM期の島キング/クイーン系サポートSRの中では上位。PSA10は624枚（鑑定総数2,764枚・GEM率23%）と、この3枚で最も鑑定が通りにくい。",
+        "source": "limitlesstcg.com/cards/jp/SM4p/{番号} で名称・番号・効果・イラストレーターを確認、相場は遊々亭(sm04plus)買取一覧とポケカジラ販売一覧、PSA枚数は gemrate（2026-08-30）"
       },
       "note": ""
     }
