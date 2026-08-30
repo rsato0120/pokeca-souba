@@ -1963,7 +1963,10 @@ a:hover {
   padding: 10px 0;
 }
 .home-panel .boxrank-thumb { width: 34px; height: 44px; }
-.home-panel .boxrank-meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* ⚠ nowrap + ellipsis だと**末尾の出品数から削られる**（PCで232px>230pxの2px不足、
+   スマホでは3行とも切れて「出品 13…」になっていた）。メタは末尾ほど情報量が多いので、
+   切るのではなく折り返す。 */
+.home-panel .boxrank-meta { overflow: hidden; white-space: normal; line-height: 1.5; }
 .home-panel .boxrank-premium { display: none; }
 
 .home-ai-section {
