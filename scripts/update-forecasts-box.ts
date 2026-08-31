@@ -1,5 +1,7 @@
 // 特定BOXのカードだけ予想を生成する（既存の他カードを巻き込まない）
 // 使い方: npx tsx scripts/update-forecasts-box.ts mega_brave
+//   --new-only … 予想ファイルがまだ無いカードだけ生成する（弾に後からカードを足した時。
+//                 既存カードの予想を作り直さないぶん Gemini の呼び出しを節約できる）
 import * as fs from 'fs'
 import * as path from 'path'
 import { generateForecast } from '@/lib/forecast'
@@ -29,9 +31,12 @@ const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
 
 async function main() {
   const boxFilter = process.argv[2]
-  if (!boxFilter) { console.error('使い方: npx tsx scripts/update-forecasts-box.ts <box_id>'); process.exit(1) }
+  if (!boxFilter) { console.error('使い方: npx tsx scripts/update-forecasts-box.ts <box_id> [--new-only]'); process.exit(1) }
+  const newOnly = process.argv.includes('--new-only')
 
-  const cards = getAllCards().filter(c => c.box_id === boxFilter)
+  const cards = getAllCards()
+    .filter(c => c.box_id === boxFilter)
+    .filter(c => !newOnly || !fs.existsSync(path.join(forecastDir, `${getCardSlug(c)}.json`)))
   // 較正・同名カード比較には弾の全カードが要るので、文脈ビルダーには絞り込み前の全カードを渡す
   const buildContext = createForecastContextBuilder(getAllCards())
   console.log(`［${boxFilter}］${cards.length}枚の予想を生成します\n`)
