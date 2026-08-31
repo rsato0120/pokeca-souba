@@ -119,10 +119,11 @@ export default function VisitorStrip({ cards }: { cards: MarketCard[] }) {
               <Link key={c.id} href={`/cards/${c.id}`} className="visitor-mover">
                 <span className="visitor-mover-name">{c.name}</span>
                 <span className="visitor-mover-rarity">{c.rarity}</span>
-                <span style={{ color: 'var(--ink-faint)' }}>
+                <span className="visitor-mover-price">
                   ¥{Math.round(was).toLocaleString()} → ¥{Math.round(c.mid).toLocaleString()}
                 </span>
-                <span style={{ color: deltaColor(pct), fontWeight: 700 }}>
+                <span className="visitor-mover-delta" style={{ color: deltaColor(pct) }}>
+                  <span aria-hidden="true">{pct > 0 ? '↗' : '↘'} </span>
                   {pct > 0 ? '+' : ''}{pct.toFixed(1)}%
                 </span>
               </Link>

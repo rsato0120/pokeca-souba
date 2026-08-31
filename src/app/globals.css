@@ -991,24 +991,57 @@ a:hover {
 }
 
 .visitor-movers {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
 }
 
 .visitor-mover {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: var(--sp-2);
-  flex-wrap: wrap;
+  column-gap: var(--sp-2);
+  row-gap: 6px;
   font-family: var(--mono);
   font-size: var(--fs-xs);
   color: var(--ink-dim);
-  border-bottom: none;
-  padding: 3px 0;
+  background: var(--bg);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  min-width: 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.visitor-mover:hover { color: var(--ink); }
-.visitor-mover-name { font-family: var(--gothic); font-size: var(--fs-base); font-weight: 700; color: var(--ink); }
+.visitor-mover:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.visitor-mover-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--gothic);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--ink);
+}
 .visitor-mover-rarity { color: var(--accent); }
+.visitor-mover-price {
+  grid-column: 1 / -1;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.visitor-mover-delta {
+  grid-column: 1 / -1;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .visitor-movers { grid-template-columns: 1fr; }
+}
 
 /* 更新中であることを示す小さな点 */
 .live-dot {
