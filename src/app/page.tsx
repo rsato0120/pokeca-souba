@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings } from '@/lib/data'
 import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
 import { computeCardScore } from '@/lib/score'
 import { isDeckUtilityCard } from '@/lib/card-kind'
@@ -20,6 +20,7 @@ import { onSaleChange } from '@/lib/on-sale'
 import BoxRanking from '@/components/BoxRanking'
 import { buildBoxRanking } from '@/lib/box-ranking'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
+import { assessBargain } from '@/lib/bargains'
 
 
 export default function TopPage() {
@@ -94,6 +95,23 @@ export default function TopPage() {
   }
   const siteLatest = [...latestCounts.entries()]
     .sort((a, b) => b[1] - a[1] || b[0].localeCompare(a[0]))[0]?.[0] ?? todayJST()
+
+  const marketListings = getMarketListings()
+  const bargainFreshCutoff = new Date(`${siteLatest}T00:00:00+09:00`)
+  bargainFreshCutoff.setUTCDate(bargainFreshCutoff.getUTCDate() - 3)
+  const bargainFreshDate = bargainFreshCutoff.toISOString().slice(0, 10)
+  const bargainRows = marketListings?.base_date === siteLatest
+    ? cards.flatMap((card) => {
+        const slug = getCardSlug(card)
+        const latest = getPriceHistory(slug)?.history[0]
+        if (!latest || latest.date < bargainFreshDate || (latest.sample_count ?? 0) < 5) return []
+        const marketPrice = Math.round(mid(latest))
+        return (marketListings.cards[slug]?.listings ?? []).flatMap((listing) => {
+          const bargain = assessBargain(listing.price, marketPrice)
+          return bargain ? [{ card, slug, listing, marketPrice, ...bargain }] : []
+        })
+      }).sort((a, b) => b.discountPct - a.discountPct || b.savings - a.savings)
+    : []
 
   // 観測が今日ぶんで、かつ直近2点が隣り合っているカードだけ true
   const isCurrent = (m: CardMetrics): boolean => {
@@ -424,6 +442,38 @@ export default function TopPage() {
                   <small>出品 {m.onSale != null ? `${m.onSale.toLocaleString()}件` : '—'}</small>
                 </span>
               </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {bargainRows.length > 0 && (
+        <section className="home-panel home-bargain-panel">
+          <div className="home-panel-head">
+            <div><span>MARKET DEALS</span><h2>相場より安い出品</h2></div>
+            <Link href="/ranking">お買い得をもっと見る →</Link>
+          </div>
+          <div className="home-bargain-grid">
+            {bargainRows.slice(0, 5).map(({ card, slug, listing, marketPrice, savings, discountPct }) => (
+              <article key={listing.id} className="home-bargain-card">
+                <Link href={`/cards/${slug}`} className="home-bargain-info">
+                  {listing.image_url || card.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- 取得済みの出品画像またはカード画像を表示
+                    <img src={listing.image_url ?? card.image_url ?? ''} alt="" />
+                  ) : (
+                    <span className="home-bargain-image-ph">{card.rarity}</span>
+                  )}
+                  <span>
+                    <strong>{card.card_name}</strong>
+                    <small>相場 ¥{marketPrice.toLocaleString()}</small>
+                    <b>¥{listing.price.toLocaleString()}</b>
+                  </span>
+                </Link>
+                <div className="home-bargain-foot">
+                  <span>{discountPct.toFixed(1)}%安い <small>−¥{savings.toLocaleString()}</small></span>
+                  <a href={listing.url} target="_blank" rel="nofollow noreferrer">見る →</a>
+                </div>
+              </article>
             ))}
           </div>
         </section>

@@ -3,11 +3,13 @@ import fs from 'fs'
 import path from 'path'
 import { getAllCards, getCardSlug, getPriceHistory } from '@/lib/data'
 import type { Card, MarketListing, MarketListings } from '@/types/pokeca'
+import { assessBargain } from '@/lib/bargains'
 
 const OUTPUT_FILE = path.join(process.cwd(), 'data', 'market-listings.json')
 const RANKING_LIMIT = 30
 const LISTINGS_PER_CARD = 3
 const SALES_WINDOW_DAYS = 7
+const BARGAIN_CANDIDATE_LIMIT = 30
 
 type MercariItem = {
   id?: string
@@ -39,7 +41,7 @@ function matchesCardNumber(title: string, cardNo: string): boolean {
 }
 
 function isExcluded(title: string): boolean {
-  return /(PSA|BGS|ARS|CGC)\s*(10|9|8|7|6|5|4|3|2|1)|まとめ|セット|一式|複数枚|引退品|オリパ|福袋|傷あり|ジャンク|折れ|白かけ/i.test(title)
+  return /(PSA|BGS|ARS|CGC)\s*(10|9|8|7|6|5|4|3|2|1)|まとめ|セット|一式|複数枚|引退品|オリパ|福袋|傷あり|ジャンク|折れ|白かけ|アクリル|スタンド|ケース|スリーブ|プレイマット|デッキシールド|サプライ|英語版|海外版|中国語|韓国語|インドネシア|メタルカード|レプリカ|オリカ|プロモなし/i.test(title)
 }
 
 function listingImage(item: MercariItem): string | undefined {
@@ -116,7 +118,30 @@ async function main() {
     .sort((a, b) => b.sales - a.sales)
     .slice(0, RANKING_LIMIT)
 
-  console.log(`${baseDate}基準の売れ筋上位${ranked.length}枚から出品を取得します`)
+  // ask_low は既存の日次取得で全カードに入るため、ここで割安候補だけを先に絞る。
+  // 候補に対してのみ個別出品を取り、全696カードを追加で検索する負荷を避ける。
+  const bargainCandidates = histories
+    .map(({ card, history }) => {
+      const latest = history?.history[0]
+      if (!latest || latest.date < dateMinus(baseDate, 3) || (latest.sample_count ?? 0) < 5) return null
+      const marketPrice = latest.avg ?? Math.round((latest.low + latest.high) / 2)
+      const askPrice = latest.ask_low ?? 0
+      const bargain = assessBargain(askPrice, marketPrice)
+      return bargain ? { card, score: bargain.discountPct } : null
+    })
+    .filter((candidate): candidate is { card: Card; score: number } => candidate != null)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, BARGAIN_CANDIDATE_LIMIT)
+
+  const targets = new Map<string, { card: Card; sales: number }>()
+  for (const entry of ranked) targets.set(getCardSlug(entry.card), entry)
+  for (const entry of bargainCandidates) {
+    const slug = getCardSlug(entry.card)
+    if (!targets.has(slug)) targets.set(slug, { card: entry.card, sales: 0 })
+  }
+  const targetList = [...targets.values()]
+
+  console.log(`${baseDate}基準の売れ筋${ranked.length}枚＋割安候補${bargainCandidates.length}枚（重複除外後${targetList.length}枚）から出品を取得します`)
   const browser = await chromium.launch({
     headless: true,
     executablePath: process.env.CHROMIUM_PATH || undefined,
@@ -124,14 +149,14 @@ async function main() {
   })
   const result: MarketListings = { updated_at: new Date().toISOString(), base_date: baseDate, cards: {} }
   try {
-    for (const [index, { card, sales }] of ranked.entries()) {
+    for (const [index, { card, sales }] of targetList.entries()) {
       const listings = await fetchListings(browser, card)
       result.cards[getCardSlug(card)] = {
         card_id: getCardSlug(card),
         fetched_at: result.updated_at,
         listings,
       }
-      console.log(`${index + 1}/${ranked.length} ${card.card_name} ${card.rarity}: 成約${sales}件 / 出品${listings.length}件保存`)
+      console.log(`${index + 1}/${targetList.length} ${card.card_name} ${card.rarity}: 成約${sales}件 / 出品${listings.length}件保存`)
       await new Promise((resolve) => setTimeout(resolve, 1800 + Math.random() * 1200))
     }
   } finally {

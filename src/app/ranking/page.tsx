@@ -14,6 +14,8 @@ import RankingTabs, { type RankingTab } from '@/components/RankingTabs'
 import { HORIZON_DAYS, WINDOW_DAYS, type PriceMatrix } from '@/lib/vote-score'
 import SiteHeader from "@/components/SiteHeader"
 import SalesRanking, { type SalesRankRow } from '@/components/SalesRanking'
+import BargainListings, { type BargainRow } from '@/components/BargainListings'
+import { assessBargain } from '@/lib/bargains'
 
 // ランキングタブ。値動き／閲覧／みんなの予想／BOX をページ内タブで切り替える。
 //
@@ -75,6 +77,35 @@ export default function RankingPage() {
     .filter((row): row is SalesRankRow => row != null)
     .sort((a, b) => b.sales7d - a.sales7d || (a.onSale ?? Infinity) - (b.onSale ?? Infinity))
     .slice(0, 20)
+
+  const freshPriceCutoff = new Date(`${newestPriceDate}T00:00:00+09:00`)
+  freshPriceCutoff.setUTCDate(freshPriceCutoff.getUTCDate() - 3)
+  const bargainRows: BargainRow[] = marketListings?.base_date === newestPriceDate
+    ? cards.flatMap((card) => {
+        const slug = getCardSlug(card)
+        const latest = getPriceHistory(slug)?.history[0]
+        if (!latest || latest.date < freshPriceCutoff.toISOString().slice(0, 10) || (latest.sample_count ?? 0) < 5) return []
+        const marketPrice = Math.round(midOf(latest))
+        return (marketListings.cards[slug]?.listings ?? []).flatMap((listing) => {
+          const bargain = assessBargain(listing.price, marketPrice)
+          if (!bargain) return []
+          return [{
+            listingId: listing.id,
+            slug,
+            name: card.card_name,
+            rarity: card.rarity,
+            cardImage: card.image_url ?? null,
+            listingImage: listing.image_url ?? null,
+            title: listing.title,
+            listingPrice: listing.price,
+            marketPrice,
+            savings: bargain.savings,
+            discountPct: bargain.discountPct,
+            url: listing.url,
+          }]
+        })
+      }).sort((a, b) => b.discountPct - a.discountPct || b.savings - a.savings).slice(0, 30)
+    : []
 
   // ── みんなの予想タブ用の価格行列 ──
   const prices: PriceMatrix = {}
@@ -171,6 +202,12 @@ export default function RankingPage() {
       label: '売れ筋',
       note: `直近7日（${salesFrom.replaceAll('-', '/')}〜${newestPriceDate.replaceAll('-', '/')}）の実成約数順。出品中の商品はカード番号とカード名を照合したメルカリ出品です。`,
       node: <SalesRanking rows={salesRanking} />,
+    },
+    {
+      id: 'bargains',
+      label: 'お買い得',
+      note: '相場3,000円以上・15〜40%安く、価格帯別の最低差額を満たす単品出品だけを掲載しています。価格データは直近3日以内・成約5件以上に限定しています。',
+      node: <BargainListings rows={bargainRows} />,
     },
     {
       id: 'movers',
