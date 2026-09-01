@@ -102,6 +102,7 @@ function dateMinus(date: string, days: number): string {
 }
 
 async function main() {
+  const dealsOnly = process.argv.includes('--deals-only')
   const cards = getAllCards()
   const histories = cards.map((card) => ({ card, history: getPriceHistory(getCardSlug(card)) }))
   const baseDate = histories.map(({ history }) => history?.history[0]?.date ?? '').sort().at(-1) ?? ''
@@ -134,26 +135,54 @@ async function main() {
     .slice(0, BARGAIN_CANDIDATE_LIMIT)
 
   const targets = new Map<string, { card: Card; sales: number }>()
-  for (const entry of ranked) targets.set(getCardSlug(entry.card), entry)
+  if (!dealsOnly) {
+    for (const entry of ranked) targets.set(getCardSlug(entry.card), entry)
+  }
   for (const entry of bargainCandidates) {
     const slug = getCardSlug(entry.card)
     if (!targets.has(slug)) targets.set(slug, { card: entry.card, sales: 0 })
   }
+  let previous: MarketListings | null = null
+  try { previous = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf-8')) as MarketListings } catch { /* 初回は空 */ }
+  // sources 導入前の既存データは売れ筋取得で作られたものとして引き継ぐ。
+  if (previous) {
+    for (const saved of Object.values(previous.cards)) saved.sources ??= ['sales']
+  }
+  // 前回まで割安候補だったカードも1回は再確認する。候補から外れた／売り切れた変化を
+  // 見逃さず、次の差分更新で画面から消せるようにする。
+  if (dealsOnly && previous) {
+    for (const [slug, saved] of Object.entries(previous.cards)) {
+      if (!saved.sources?.includes('bargain') || targets.has(slug)) continue
+      const card = cards.find((candidate) => getCardSlug(candidate) === slug)
+      if (card) targets.set(slug, { card, sales: 0 })
+    }
+  }
   const targetList = [...targets.values()]
 
-  console.log(`${baseDate}基準の売れ筋${ranked.length}枚＋割安候補${bargainCandidates.length}枚（重複除外後${targetList.length}枚）から出品を取得します`)
+  const modeLabel = dealsOnly ? '割安差分チェック' : '通常更新'
+  console.log(`[${modeLabel}] ${baseDate}基準の売れ筋${dealsOnly ? 0 : ranked.length}枚＋割安候補${bargainCandidates.length}枚（重複除外後${targetList.length}枚）から出品を取得します`)
   const browser = await chromium.launch({
     headless: true,
     executablePath: process.env.CHROMIUM_PATH || undefined,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   })
-  const result: MarketListings = { updated_at: new Date().toISOString(), base_date: baseDate, cards: {} }
+  const fetchedAt = new Date().toISOString()
+  const result: MarketListings = dealsOnly && previous
+    ? JSON.parse(JSON.stringify(previous)) as MarketListings
+    : { updated_at: fetchedAt, base_date: baseDate, cards: {} }
+  result.base_date = baseDate
+  const bargainSlugs = new Set(bargainCandidates.map(({ card }) => getCardSlug(card)))
+  const salesSlugs = new Set(ranked.map(({ card }) => getCardSlug(card)))
   try {
     for (const [index, { card, sales }] of targetList.entries()) {
       const listings = await fetchListings(browser, card)
       result.cards[getCardSlug(card)] = {
         card_id: getCardSlug(card),
-        fetched_at: result.updated_at,
+        fetched_at: fetchedAt,
+        sources: [
+          ...(!dealsOnly && salesSlugs.has(getCardSlug(card)) ? ['sales' as const] : (result.cards[getCardSlug(card)]?.sources?.filter(source => source === 'sales') ?? [])),
+          ...(bargainSlugs.has(getCardSlug(card)) ? ['bargain' as const] : []),
+        ],
         listings,
       }
       console.log(`${index + 1}/${targetList.length} ${card.card_name} ${card.rarity}: 成約${sales}件 / 出品${listings.length}件保存`)
@@ -162,6 +191,33 @@ async function main() {
   } finally {
     await browser.close()
   }
+  // 候補から外れ、売れ筋としても保持する必要がないカードはファイルから除く。
+  for (const [slug, saved] of Object.entries(result.cards)) {
+    if ((saved.sources?.length ?? 0) === 0) delete result.cards[slug]
+  }
+
+  if (dealsOnly && previous) {
+    const marketBySlug = new Map(histories.map(({ card, history }) => {
+      const latest = history?.history[0]
+      const marketPrice = latest ? (latest.avg ?? Math.round((latest.low + latest.high) / 2)) : 0
+      return [getCardSlug(card), marketPrice] as const
+    }))
+    const signature = (data: MarketListings, slug: string): string => {
+      const marketPrice = marketBySlug.get(slug) ?? 0
+      const deal = (data.cards[slug]?.listings ?? [])
+        .filter(listing => assessBargain(listing.price, marketPrice) != null)
+        .sort((a, b) => a.price - b.price)[0]
+      return deal ? `${deal.id}:${deal.price}` : 'none'
+    }
+    const checkedSlugs = new Set([...targetList.map(({ card }) => getCardSlug(card)), ...bargainSlugs])
+    const changed = [...checkedSlugs].some(slug => signature(previous!, slug) !== signature(result, slug))
+    if (!changed) {
+      console.log('表示対象の最安出品に変更なし — ファイルは更新しません')
+      return
+    }
+    console.log('表示対象の最安出品が変更されました')
+  }
+  result.updated_at = fetchedAt
   fs.writeFileSync(OUTPUT_FILE, `${JSON.stringify(result, null, 2)}\n`, 'utf-8')
   console.log(`保存しました: ${OUTPUT_FILE}`)
 }

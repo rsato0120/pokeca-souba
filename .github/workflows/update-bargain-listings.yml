@@ -1,0 +1,43 @@
+name: Update Bargain Listings
+
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_dispatch:
+
+# 価格更新と同時に market-listings.json を触らないよう、同じ排他グループを使う。
+concurrency:
+  group: market-data-updates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browser
+        run: npx playwright install chromium --with-deps
+
+      - name: Check bargain listing changes
+        run: npx tsx scripts/scrape-market-listings.ts --deals-only
+
+      # スクリプトは表示対象の最安商品IDまたは価格が変わった時だけJSONを書き換える。
+      # 差分なしならコミットもデプロイも発生しない。
+      - name: Commit and push only when changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-listings.json
+          git diff --cached --quiet && echo "最安出品に変更なし" || (git commit -m "update bargain listings $(date -u '+%Y-%m-%d %H:%M')" && git push)

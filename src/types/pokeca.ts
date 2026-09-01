@@ -161,6 +161,8 @@ export interface MarketListing {
 export interface MarketListingCard {
   card_id: string
   fetched_at: string
+  /** このカードを取得対象にした理由。定期差分チェックの対象管理に使う */
+  sources?: Array<'sales' | 'bargain'>
   listings: MarketListing[]
 }
 
