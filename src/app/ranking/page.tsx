@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getBoxPriceHistory, getBoxPriceVariant } from '@/lib/data'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getBoxPriceHistory, getBoxPriceVariant, getMarketListings } from '@/lib/data'
 import { computeAccuracy, HORIZONS } from '@/lib/accuracy'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { midOf } from '@/lib/market'
@@ -13,6 +13,7 @@ import MoversList, { type MoverRow } from '@/components/MoversList'
 import RankingTabs, { type RankingTab } from '@/components/RankingTabs'
 import { HORIZON_DAYS, WINDOW_DAYS, type PriceMatrix } from '@/lib/vote-score'
 import SiteHeader from "@/components/SiteHeader"
+import SalesRanking, { type SalesRankRow } from '@/components/SalesRanking'
 
 // ランキングタブ。値動き／閲覧／みんなの予想／BOX をページ内タブで切り替える。
 //
@@ -38,6 +39,42 @@ export default function RankingPage() {
   const baseDate = todayJST()
   const baseMs = Date.parse(`${baseDate}T00:00:00+09:00`)
   const cards = getAllCards()
+  const marketListings = getMarketListings()
+  const newestPriceDate = cards
+    .map((card) => getPriceHistory(getCardSlug(card))?.history[0]?.date ?? '')
+    .sort()
+    .at(-1) ?? baseDate
+  const salesFromDate = new Date(`${newestPriceDate}T00:00:00+09:00`)
+  salesFromDate.setUTCDate(salesFromDate.getUTCDate() - 6)
+  const salesFrom = salesFromDate.toISOString().slice(0, 10)
+
+  const salesRanking = cards
+    .filter((card) => !isDeckUtilityCard(card))
+    .map((card) => {
+      const slug = getCardSlug(card)
+      const priceHistory = getPriceHistory(slug)
+      const latest = priceHistory?.history[0]
+      if (!latest) return null
+      const sales7d = Object.entries(priceHistory.sales_by_day ?? {})
+        .filter(([date]) => date >= salesFrom && date <= newestPriceDate)
+        .reduce((sum, [, count]) => sum + Number(count), 0)
+      if (sales7d <= 0) return null
+      const row: SalesRankRow = {
+        slug,
+        name: card.card_name,
+        rarity: card.rarity,
+        image: card.image_url ?? null,
+        mid: midOf(latest),
+        sales7d,
+        onSale: latest.on_sale ?? null,
+        onSaleCapped: latest.on_sale_capped === true,
+        listings: marketListings?.cards[slug]?.listings ?? [],
+      }
+      return row
+    })
+    .filter((row): row is SalesRankRow => row != null)
+    .sort((a, b) => b.sales7d - a.sales7d || (a.onSale ?? Infinity) - (b.onSale ?? Infinity))
+    .slice(0, 20)
 
   // ── みんなの予想タブ用の価格行列 ──
   const prices: PriceMatrix = {}
@@ -140,6 +177,12 @@ export default function RankingPage() {
       label: '閲覧',
       note: '直近で見られているカード。1カードにつき1日1訪問者まで数えています。',
       node: <TrendingCards cards={trendCards} />,
+    },
+    {
+      id: 'sales',
+      label: '売れ筋',
+      note: `直近7日（${salesFrom.replaceAll('-', '/')}〜${newestPriceDate.replaceAll('-', '/')}）の実成約数順。出品中の商品はカード番号とカード名を照合したメルカリ出品です。`,
+      node: <SalesRanking rows={salesRanking} />,
     },
     {
       id: 'votes',

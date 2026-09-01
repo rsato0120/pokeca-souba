@@ -2307,6 +2307,72 @@ a:hover {
 
 .rank-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+.market-rank-list {
+  display: grid;
+  gap: var(--sp-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.market-rank-item {
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  border-radius: var(--r-md);
+  background: var(--panel);
+}
+
+.market-rank-card {
+  display: grid;
+  grid-template-columns: 28px 42px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-bottom: none;
+}
+.market-rank-card:hover { background: var(--bg2); }
+.market-rank-number { font-family: var(--mono); color: var(--ink-faint); text-align: center; }
+.market-rank-thumb { width: 42px; height: 58px; object-fit: contain; border-radius: var(--r-sm); }
+.market-rank-thumb-placeholder { display: grid; place-items: center; background: var(--bg2); color: var(--accent); font-size: 10px; }
+.market-rank-main { min-width: 0; display: grid; gap: 4px; }
+.market-rank-main strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+.market-rank-main span { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+.market-rank-metrics, .market-rank-stock { display: grid; gap: 2px; text-align: right; white-space: nowrap; }
+.market-rank-metrics strong { font-family: var(--mono); font-size: var(--fs-md); color: var(--up); }
+.market-rank-metrics span, .market-rank-stock small { font-size: 10px; color: var(--ink-faint); }
+.market-rank-stock { min-width: 62px; font-family: var(--mono); color: var(--ink-dim); }
+
+.market-listings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--hair);
+  background: var(--hair);
+}
+.market-listing {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+  padding: 8px 10px;
+  border-bottom: none;
+  background: var(--bg);
+  font-size: 11px;
+}
+.market-listing:hover { background: var(--bg2); }
+.market-listing img { width: 32px; height: 32px; object-fit: cover; border-radius: var(--r-sm); }
+.market-listing-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-dim); }
+.market-listing strong { font-family: var(--mono); color: var(--ink); white-space: nowrap; }
+.market-rank-empty { padding: var(--sp-5); text-align: center; color: var(--ink-faint); }
+
+@media (max-width: 700px) {
+  .market-rank-card { grid-template-columns: 22px 36px minmax(0, 1fr) auto; gap: var(--sp-2); }
+  .market-rank-thumb { width: 36px; height: 50px; }
+  .market-rank-stock { display: none; }
+  .market-listings { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 480px) {
   .rank-tabs { gap: 5px; }
   .rank-tab { font-size: 11px; padding: 8px 2px; }

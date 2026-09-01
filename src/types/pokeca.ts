@@ -150,6 +150,26 @@ export interface PriceHistory {
   psa10_sales_by_day?: Record<string, number>  // PSA10
 }
 
+export interface MarketListing {
+  id: string
+  title: string
+  price: number
+  url: string
+  image_url?: string
+}
+
+export interface MarketListingCard {
+  card_id: string
+  fetched_at: string
+  listings: MarketListing[]
+}
+
+export interface MarketListings {
+  updated_at: string
+  base_date: string
+  cards: Record<string, MarketListingCard>
+}
+
 // 日次バッチの実行スタンプ（scripts/write-update-stamp.ts が書く）。
 // kind='full' は価格＋AI予想、'prices' は価格だけ更新した回。
 export interface LastUpdate {

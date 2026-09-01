@@ -52,6 +52,12 @@ jobs:
       - name: Scrape prices from Mercari
         run: npx tsx scripts/scrape-prices.ts
 
+      # 直近7日成約数の上位カードについて、現在購入できるメルカリ出品を保存する。
+      # 全カードではなく上位30枚×最大3件に絞り、日次処理とデータ量を抑える。
+      - name: Scrape listings for sales ranking
+        run: npx tsx scripts/scrape-market-listings.ts
+        continue-on-error: true
+
       # PSA鑑定枚数（予想の入力）。1弾1リクエストで軽く、失敗しても既存の psa-pop.json で予想は動く
       - name: Scrape PSA population
         if: steps.mode.outputs.mode == 'full'
@@ -93,7 +99,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json data/last-update.json
+          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json data/market-listings.json data/last-update.json
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices${{ steps.mode.outputs.mode == 'full' && ' and forecasts' || '' }} $(date -u '+%Y-%m-%d %H:%M')" && git push)
 
       # ウォッチリストの値動き通知。価格を確定させてから送るので commit の後に置く。
