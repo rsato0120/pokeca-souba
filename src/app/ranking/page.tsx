@@ -167,6 +167,12 @@ export default function RankingPage() {
 
   const tabs: RankingTab[] = [
     {
+      id: 'sales',
+      label: '売れ筋',
+      note: `直近7日（${salesFrom.replaceAll('-', '/')}〜${newestPriceDate.replaceAll('-', '/')}）の実成約数順。出品中の商品はカード番号とカード名を照合したメルカリ出品です。`,
+      node: <SalesRanking rows={salesRanking} />,
+    },
+    {
       id: 'movers',
       label: '値動き',
       note: '実際の成約価格の変化率。前日比が取れないカードは7日比で並べています。',
@@ -177,12 +183,6 @@ export default function RankingPage() {
       label: '閲覧',
       note: '直近で見られているカード。1カードにつき1日1訪問者まで数えています。',
       node: <TrendingCards cards={trendCards} />,
-    },
-    {
-      id: 'sales',
-      label: '売れ筋',
-      note: `直近7日（${salesFrom.replaceAll('-', '/')}〜${newestPriceDate.replaceAll('-', '/')}）の実成約数順。出品中の商品はカード番号とカード名を照合したメルカリ出品です。`,
-      node: <SalesRanking rows={salesRanking} />,
     },
     {
       id: 'votes',

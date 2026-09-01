@@ -125,6 +125,21 @@ export default function TopPage() {
   const getChange = (m: CardMetrics) => m.dayChange ?? m.weekChange ?? 0
   const changeCards = metrics.filter(m => isRankable(m) && (m.dayChange != null || m.weekChange != null))
 
+  // 直近7日の実成約数。トップでは上位5枚だけを見せ、詳細と個別出品は /ranking に任せる。
+  const salesCutoff = new Date(`${siteLatest}T00:00:00+09:00`).getTime() - 6 * 86400000
+  const salesLeaders = metrics
+    .map(m => {
+      const sales = getPriceHistory(m.slug)?.sales_by_day
+      const count = sales
+        ? Object.entries(sales).reduce((sum, [date, n]) => (
+            Date.parse(`${date}T00:00:00+09:00`) >= salesCutoff ? sum + n : sum
+          ), 0)
+        : 0
+      return { m, count }
+    })
+    .filter(x => x.count > 0 && !isDeckUtilityCard(x.m.card))
+    .sort((a, b) => b.count - a.count)
+
   const surgeCards = [...changeCards]
     .filter(m => getChange(m) > 0)
     .sort((a, b) => getChange(b) - getChange(a))
@@ -334,17 +349,7 @@ export default function TopPage() {
     })
   }
 
-  const salesCutoff = new Date(`${siteLatest}T00:00:00+09:00`).getTime() - 6 * 86400000
-  const activeSales = metrics
-    .map(m => {
-      const sales = getPriceHistory(m.slug)?.sales_by_day
-      const count = sales
-        ? Object.entries(sales).reduce((sum, [date, n]) => Date.parse(`${date}T00:00:00+09:00`) >= salesCutoff ? sum + n : sum, 0)
-        : 0
-      return { m, count }
-    })
-    .filter(x => x.count > 0 && !pickedSlugs.has(x.m.slug) && !isDeckUtilityCard(x.m.card))
-    .sort((a, b) => b.count - a.count)[0]
+  const activeSales = salesLeaders.find(x => !pickedSlugs.has(x.m.slug))
 
   if (activeSales) {
     addDailyCard({
@@ -395,6 +400,34 @@ export default function TopPage() {
       </div>
 
       <VisitorStrip cards={marketCards} />
+
+      {salesLeaders.length > 0 && (
+        <section className="home-panel home-sales-panel">
+          <div className="home-panel-head">
+            <div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div>
+            <Link href="/ranking">売れ筋ランキング →</Link>
+          </div>
+          <div className="home-sales-grid">
+            {salesLeaders.slice(0, 5).map(({ m, count }, index) => (
+              <Link key={m.slug} href={`/cards/${m.slug}`} className="home-sales-card">
+                <span className="home-sales-rank">{index + 1}</span>
+                {m.card.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用
+                  <img src={m.card.image_url} alt="" />
+                ) : (
+                  <span className="home-sales-image-ph">{m.card.rarity}</span>
+                )}
+                <span className="home-sales-copy">
+                  <strong>{m.card.card_name}</strong>
+                  <small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small>
+                  <b>7日間 {count}件成約</b>
+                  <small>出品 {m.onSale != null ? `${m.onSale.toLocaleString()}件` : '—'}</small>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="home-dashboard-grid">
         {(surgeCards.length > 0 || dropCards.length > 0) && (
