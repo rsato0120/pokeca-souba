@@ -2051,7 +2051,7 @@ a:hover {
 .home-bargain-panel { margin: var(--sp-5) 0; background: linear-gradient(115deg, var(--accent-soft), var(--panel) 62%); }
 .home-bargain-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--sp-2); }
 .home-bargain-card { min-width: 0; overflow: hidden; border: 1px solid var(--hair); border-radius: var(--r-md); background: var(--bg); }
-.home-bargain-card:hover { border-color: var(--accent); }
+.home-bargain-card:hover { border-color: var(--accent); transform: translateY(-1px); }
 .home-bargain-info { display: grid; grid-template-rows: 96px minmax(0, 1fr); border: 0; color: var(--ink); }
 .home-bargain-info > img,
 .home-bargain-image-ph { width: 100%; height: 96px; object-fit: cover; background: var(--bg2); }
@@ -2065,7 +2065,7 @@ a:hover {
 .home-bargain-foot { display: flex; align-items: center; justify-content: space-between; gap: 5px; padding: 7px var(--sp-2); border-top: 1px solid var(--hair); font-size: 10px; }
 .home-bargain-foot > span { color: var(--up); font-weight: 700; white-space: nowrap; }
 .home-bargain-foot small { color: var(--ink-faint); font-weight: 400; }
-.home-bargain-foot a { border: 0; white-space: nowrap; }
+.home-bargain-foot strong { color: var(--accent); font-weight: 400; white-space: nowrap; }
 
 .home-ai-section {
   margin-bottom: var(--sp-5);
@@ -2470,7 +2470,9 @@ a:hover {
   border: 1px solid var(--hair);
   border-radius: var(--r-md);
   background: var(--panel);
+  color: var(--ink);
 }
+.bargain-row:hover { border-color: var(--accent); background: var(--bg2); }
 .bargain-card-link { min-width: 0; display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: var(--sp-3); border: 0; }
 .bargain-card-link > img,
 .bargain-image-ph { width: 56px; height: 70px; object-fit: cover; border-radius: var(--r-sm); background: var(--bg2); }
@@ -2485,7 +2487,6 @@ a:hover {
 .bargain-price b { color: var(--up); font-size: var(--fs-xs); }
 .bargain-price small { color: var(--ink-faint); }
 .bargain-buy-link { padding: 8px 10px; border: 1px solid var(--accent); border-radius: var(--r-md); color: var(--accent); font-size: var(--fs-xs); white-space: nowrap; }
-.bargain-buy-link:hover { background: var(--accent-soft); }
 
 @media (max-width: 700px) {
   .market-rank-card { grid-template-columns: 22px 36px minmax(0, 1fr) auto; gap: var(--sp-2); }

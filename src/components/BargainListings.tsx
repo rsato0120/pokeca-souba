@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 
 export interface BargainRow {
   listingId: string
@@ -23,8 +23,15 @@ export default function BargainListings({ rows }: { rows: BargainRow[] }) {
   return (
     <div className="bargain-list">
       {rows.map((row) => (
-        <article key={row.listingId} className="bargain-row">
-          <Link href={`/cards/${row.slug}`} className="bargain-card-link">
+        <a
+          key={row.listingId}
+          href={mercariAffiliateUrl(row.url)}
+          target="_blank"
+          rel="nofollow noreferrer"
+          className="bargain-row"
+          aria-label={`${row.name}の出品をメルカリで見る`}
+        >
+          <span className="bargain-card-link">
             {row.listingImage || row.cardImage ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={row.listingImage ?? row.cardImage ?? ''} alt="" />
@@ -36,17 +43,20 @@ export default function BargainListings({ rows }: { rows: BargainRow[] }) {
               <small>{row.rarity} · 相場 ¥{row.marketPrice.toLocaleString()}</small>
               <span>{row.title}</span>
             </span>
-          </Link>
+          </span>
           <div className="bargain-price">
             <strong>¥{row.listingPrice.toLocaleString()}</strong>
             <b>相場より {row.discountPct.toFixed(1)}%安い</b>
             <small>−¥{row.savings.toLocaleString()}</small>
           </div>
-          <a href={row.url} target="_blank" rel="nofollow noreferrer" className="bargain-buy-link">
+          <span className="bargain-buy-link">
             メルカリで見る →
-          </a>
-        </article>
+          </span>
+        </a>
       ))}
+      {/* A8インプレッション計測タグ（メルカリ） */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={MERCARI_A8_IMPRESSION_URL} width={1} height={1} alt="" style={{ position: 'absolute', width: 1, height: 1, border: 0 }} />
     </div>
   )
 }

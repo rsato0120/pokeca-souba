@@ -20,7 +20,7 @@ import { onSaleChange } from '@/lib/on-sale'
 import BoxRanking from '@/components/BoxRanking'
 import { buildBoxRanking } from '@/lib/box-ranking'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
-import { assessBargain } from '@/lib/bargains'
+import { assessBargain, mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 
 
 export default function TopPage() {
@@ -453,10 +453,17 @@ export default function TopPage() {
             <div><span>MARKET DEALS</span><h2>相場より安い出品</h2></div>
             <Link href="/ranking">お買い得をもっと見る →</Link>
           </div>
-          <div className="home-bargain-grid">
-            {bargainRows.slice(0, 5).map(({ card, slug, listing, marketPrice, savings, discountPct }) => (
-              <article key={listing.id} className="home-bargain-card">
-                <Link href={`/cards/${slug}`} className="home-bargain-info">
+            <div className="home-bargain-grid">
+            {bargainRows.slice(0, 5).map(({ card, listing, marketPrice, savings, discountPct }) => (
+              <a
+                key={listing.id}
+                href={mercariAffiliateUrl(listing.url)}
+                target="_blank"
+                rel="nofollow noreferrer"
+                className="home-bargain-card"
+                aria-label={`${card.card_name}の出品をメルカリで見る`}
+              >
+                <span className="home-bargain-info">
                   {listing.image_url || card.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element -- 取得済みの出品画像またはカード画像を表示
                     <img src={listing.image_url ?? card.image_url ?? ''} alt="" />
@@ -468,14 +475,17 @@ export default function TopPage() {
                     <small>相場 ¥{marketPrice.toLocaleString()}</small>
                     <b>¥{listing.price.toLocaleString()}</b>
                   </span>
-                </Link>
+                </span>
                 <div className="home-bargain-foot">
                   <span>{discountPct.toFixed(1)}%安い <small>−¥{savings.toLocaleString()}</small></span>
-                  <a href={listing.url} target="_blank" rel="nofollow noreferrer">見る →</a>
+                  <strong>メルカリで見る →</strong>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
+          {/* A8インプレッション計測タグ（メルカリ） */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={MERCARI_A8_IMPRESSION_URL} width={1} height={1} alt="" style={{ position: 'absolute', width: 1, height: 1, border: 0 }} />
         </section>
       )}
 
