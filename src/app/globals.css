@@ -2312,7 +2312,28 @@ a:hover {
 }
 
 @media (max-width: 520px) {
-  .home-sales-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-sales-grid { grid-template-columns: 1fr; }
+  .home-sales-card {
+    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-rows: 88px;
+  }
+  .home-sales-card > img,
+  .home-sales-image-ph {
+    width: 64px;
+    height: 88px;
+    padding: 6px;
+  }
+  .home-sales-rank {
+    top: 5px;
+    left: 5px;
+    width: 21px;
+    height: 21px;
+  }
+  .home-sales-copy {
+    justify-content: center;
+    padding: var(--sp-2) var(--sp-3);
+  }
+  .home-sales-copy b { margin-top: 5px; }
   .home-rank-cols { grid-template-columns: 1fr; }
   .home-rank-cols > div:nth-child(2) { display: none; }
   .daily-flip-card, .daily-flip-turn, .daily-flip-inner { min-height: 180px; }
