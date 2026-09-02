@@ -2,6 +2,22 @@
   "card_id": "white-flare-zoroark-ar-141",
   "history": [
     {
+      "date": "2026-09-03",
+      "low": 2000,
+      "high": 2222,
+      "avg": 2153,
+      "source": "mercari",
+      "sample_count": 94,
+      "sold_total": 412,
+      "oldest_sale_days": 88,
+      "on_sale": 21,
+      "ask_low": 2000,
+      "ask_mid": 2000,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8007
+    },
+    {
       "date": "2026-09-02",
       "low": 2000,
       "high": 2222,
@@ -529,8 +545,7 @@
   "sales_by_day": {
     "2026-08-01": 1,
     "2026-05-09": 1,
-    "2026-05-08": 1,
-    "2026-05-04": 1
+    "2026-05-08": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 2,
@@ -558,7 +573,8 @@
     "2026-06-06": 1,
     "2026-05-29": 3,
     "2026-05-11": 1,
-    "2026-05-10": 2
+    "2026-05-10": 2,
+    "2026-08-31": 1
   },
-  "sales_fetched_at": "2026-09-02"
+  "sales_fetched_at": "2026-09-03"
 }
