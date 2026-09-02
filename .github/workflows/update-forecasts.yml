@@ -50,6 +50,11 @@ jobs:
       - name: Verify price guard
         run: npx tsx scripts/verify-price-guard.ts
 
+      # 成約APIは今日・昨日を「8時間前」「1日前」で返す。日付パーサーが壊れると
+      # 直近2日の成約数が全銘柄で消えるため、スクレイプ前に境界ケースを検証する。
+      - name: Verify sales date parser
+        run: npx tsx scripts/verify-snkrdunk-sales.ts
+
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 

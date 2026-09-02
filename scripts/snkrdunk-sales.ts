@@ -17,9 +17,9 @@ import type { Browser } from 'playwright'
  *
  * ⚠ 取れるのは**取引成立件数**であって枚数ではない。`size` が空でセット取引を判別できないため、
  *   「13件売れた」とは言えても「13枚売れた」とは断定できない。
- * ⚠ 当日・前日は相対表記のまま返ることがあり、暦日の集計は暫定値になる。
- *   絶対日付に変わってから確定する運用にする（mergeSalesByDay が日ごとに max を取るので、
- *   後から増えた分は自然に上書きされる）。
+ * ⚠ 当日・前日は相対表記のまま返ることがある。以前はその行を捨てていたため、
+ *   今日・昨日の成約数が常に欠落していた。現在は取得時刻からJSTの暦日に直して暫定集計し、
+ *   APIが絶対日付を返すようになった後の観測で確定させる。
  */
 
 /** 素体（状態A〜D）。ここだけを「素体の成約」として数える */
@@ -31,10 +31,22 @@ const PER_PAGE = 1000
 
 interface SaleRow { price: number; date: string; condition: string; size?: string }
 
-/** "2026/08/25" → "2026-08-25"。相対表記（"1日前" 等）は絶対日付にできないので捨てる */
-function toIsoDate(raw: string): string | null {
-  const m = /^(\d{4})\/(\d{2})\/(\d{2})$/.exec(raw.trim())
-  return m ? `${m[1]}-${m[2]}-${m[3]}` : null
+/** "2026/08/25" / "8時間前" / "1日前" をJSTの暦日に直す。 */
+export function parseSnkrdunkSaleDate(raw: string, nowMs = Date.now()): string | null {
+  const value = raw.trim()
+  const absolute = /^(\d{4})\/(\d{2})\/(\d{2})$/.exec(value)
+  if (absolute) return `${absolute[1]}-${absolute[2]}-${absolute[3]}`
+
+  const relative = /^(\d+)(分|時間|日)前$/.exec(value)
+  if (!relative) return null
+  const amount = Number(relative[1])
+  const unitMs = relative[2] === '日'
+    ? 86400000
+    : relative[2] === '時間'
+      ? 3600000
+      : 60000
+  // Date#toISOString はUTC表記なので、9時間足してJSTの暦日部分を得る。
+  return new Date(nowMs - amount * unitMs + 9 * 3600000).toISOString().slice(0, 10)
 }
 
 async function fetchPage(
@@ -73,8 +85,9 @@ async function collectDates(
   apparelId: number,
   conditionIds: readonly number[],
   sinceDays: number,
+  nowMs: number,
 ): Promise<{ date: string; price: number }[]> {
-  const cutoff = Date.now() - sinceDays * 86400000
+  const cutoff = nowMs - sinceDays * 86400000
 
   // ⚠ 状態ごとに**並列**で取る（2026-08-30）。直列にすると1枚あたり5リクエスト×待機で
   //   10秒近くかかり、メルカリを省いて浮いた時間をここで食い潰していた。
@@ -86,8 +99,8 @@ async function collectDates(
       if (got == null) break        // 取得失敗。その状態は諦める（0件と区別できないので足さない）
       let reachedOld = false
       for (const r of got) {
-        const d = toIsoDate(r.date)
-        if (d == null) continue     // 相対表記＝当日近辺。確定できないので採らない
+        const d = parseSnkrdunkSaleDate(r.date, nowMs)
+        if (d == null) continue
         if (Date.parse(d) < cutoff) { reachedOld = true; continue }
         rows.push({ date: d, price: Number(r.price) })
       }
@@ -133,9 +146,11 @@ export async function getSnkrdunkSales(
   apparelId: number,
   sinceDays = 120,
 ): Promise<SnkrdunkSales> {
+  // 5状態の並列リクエストが日付境界をまたいでも、全行を同じ基準時刻で集計する。
+  const nowMs = Date.now()
   const [regularSales, psa10Sales] = await Promise.all([
-    collectDates(browser, apparelId, RAW_CONDITION_IDS, sinceDays),
-    collectDates(browser, apparelId, [PSA10_CONDITION_ID], sinceDays),
+    collectDates(browser, apparelId, RAW_CONDITION_IDS, sinceDays, nowMs),
+    collectDates(browser, apparelId, [PSA10_CONDITION_ID], sinceDays, nowMs),
   ])
   return {
     regular: regularSales.map(s => s.date),
