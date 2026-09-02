@@ -375,6 +375,28 @@
       "packs_per_box": 10,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/6/6b/SM4Plus_GX_Battle_Boost_pack.jpg",
       "note": "2017-10-20発売のハイクラスパック（希望小売価格500円＋税・1パック10枚・1BOX10パック）。全てキラカードで、ポケモンGXが1パックに1枚確定。当たりはSR6種/HR3種/UR2種の11種だけと少ないが、その筆頭が「がんばリーリエ」で、ポケカ史上でも屈指の高額カードになった。未開封BOXは買取¥900,000前後と成約がほぼ無い水準。"
+    },
+    {
+      "box_id": "lost_abyss",
+      "box_name": "ロストアビス",
+      "code": "S11",
+      "release_ym": "2022-07",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/c/c5/S11_Lost_Abyss_pack.jpg",
+      "note": "2022-07-15発売の拡張パック（1パック5枚・1BOX30パック）。ロストゾーン戦術が本格登場した弾で、Shinji KandaによるギラティナVのスペシャルアートが最大のチェイス。"
+    },
+    {
+      "box_id": "paradigm_trigger",
+      "box_name": "パラダイムトリガー",
+      "code": "S12",
+      "release_ym": "2022-10",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://archives.bulbagarden.net/media/upload/b/b5/S12_Paradigm_Trigger_pack.jpg",
+      "note": "2022-10-21発売の拡張パック（1パック5枚・1BOX30パック）。ルギアVSTARとアーケオスの組み合わせが競技環境を席巻し、kawayooによるルギアVのスペシャルアートが最大のチェイス。"
     }
   ],
   "cards": [
@@ -25179,6 +25201,786 @@
         "player": "",
         "collector": "遊々亭販売¥180。RRの底値帯で、遊々亭の下限価格（¥180〜220）に張り付いている。封入枚数が多く単価が上がりにくいため、相場はほぼ横ばいが基本。イラストは5ban Graphics（CG工房名義）で、絵師買いの需要は乗りにくい。GXバトルブーストは再録主体のハイクラスパックで、この絵柄自体は初出弾からの使い回し。",
         "source": "limitlesstcg.com/cards/jp/SM4p/87 で名称・番号・HP・タイプ・ステージ・ワザ・イラストレーターを確認、価格の目安は遊々亭の販売一覧（2026-08-31）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-rotom-v-sa-104",
+      "card_no": "104/100",
+      "rarity": "SA",
+      "card_name": "ロトムV",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_104_R_JP_LG.png",
+      "card_spec": {
+        "type": "雷",
+        "stage": "ポケモンV",
+        "hp": 190,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "家電に囲まれたロトムを描いた生活感のあるスペシャルアート。ロトム人気と構築実績の両方がある。",
+        "source": "limitlesstcg.com/cards/jp/S11/104 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-aerodactyl-v-sa-106",
+      "card_no": "106/100",
+      "rarity": "SA",
+      "card_name": "プテラV",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_106_R_JP_LG.png",
+      "card_spec": {
+        "type": "闘",
+        "stage": "ポケモンV",
+        "hp": 210,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Nurikabe",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "太古のポケモンが暮らす景色を描いたスペシャルアート。ギラティナVに次ぐ弾内上位のチェイス。",
+        "source": "limitlesstcg.com/cards/jp/S11/106 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-galarian-perrserker-v-sa-109",
+      "card_no": "109/100",
+      "rarity": "SA",
+      "card_name": "ガラル ニャイキングV",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_109_R_JP_LG.png",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "ポケモンV",
+        "hp": 200,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "GOSSAN",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "荒々しい船上の構図が特徴的なスペシャルアート。流通量が少なく、弾内SAの一角を占める。",
+        "source": "limitlesstcg.com/cards/jp/S11/109 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-giratina-v-sa-111",
+      "card_no": "111/100",
+      "rarity": "SA",
+      "card_name": "ギラティナV",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_111_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Shinji Kanda",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "Shinji Kandaによる異世界的な構図。この弾を象徴する最高額チェイスで、海外需要も非常に厚い。",
+        "source": "limitlesstcg.com/cards/jp/S11/111 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-colress-experiment-sr-113",
+      "card_no": "113/100",
+      "rarity": "SR",
+      "card_name": "アクロマの実験",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_113_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ロストゾーン系デッキの中核サポート。Naoki Saitoのイラストと競技実績で需要が続く。",
+        "source": "limitlesstcg.com/cards/jp/S11/113 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-lady-sr-114",
+      "card_no": "114/100",
+      "rarity": "SR",
+      "card_name": "おじょうさま",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_114_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "saino misaki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "女性トレーナーのフルアート。コレクター需要が強く、トレーナーズSRでは弾内上位。",
+        "source": "limitlesstcg.com/cards/jp/S11/114 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-giratina-vstar-hr-120",
+      "card_no": "120/100",
+      "rarity": "HR",
+      "card_name": "ギラティナVSTAR",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_120_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンVSTAR",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ギラティナVSTARのレインボー仕様。看板ポケモン需要と競技実績を持つ。",
+        "source": "limitlesstcg.com/cards/jp/S11/120 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-colress-experiment-hr-121",
+      "card_no": "121/100",
+      "rarity": "HR",
+      "card_name": "アクロマの実験",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_121_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "アクロマの実験のHR版。SR版より流通は薄いが、ロスト系の象徴として収集需要がある。",
+        "source": "limitlesstcg.com/cards/jp/S11/121 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-lady-hr-122",
+      "card_no": "122/100",
+      "rarity": "HR",
+      "card_name": "おじょうさま",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_122_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "saino misaki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "おじょうさまのHR版。女性トレーナーのレインボー仕様として一定の需要がある。",
+        "source": "limitlesstcg.com/cards/jp/S11/122 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "lost-abyss-giratina-vstar-ur-125",
+      "card_no": "125/100",
+      "rarity": "UR",
+      "card_name": "ギラティナVSTAR",
+      "box_id": "lost_abyss",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S11/S11_125_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンVSTAR",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ギラティナVSTARのゴールド仕様。SA版ギラティナVと並ぶ看板カードの上位版。",
+        "source": "limitlesstcg.com/cards/jp/S11/125 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-unown-v-sa-103",
+      "card_no": "103/098",
+      "rarity": "SA",
+      "card_name": "アンノーンV",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_103_R_JP_LG.png",
+      "card_spec": {
+        "type": "超",
+        "stage": "ポケモンV",
+        "hp": 180,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Toshinao Aoki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "多数のアンノーンが遺跡を形作るスペシャルアート。独特の構図でコレクター人気が高い。",
+        "source": "limitlesstcg.com/cards/jp/S12/103 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-skuntank-v-sa-106",
+      "card_no": "106/098",
+      "rarity": "SA",
+      "card_name": "スカタンクV",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_106_R_JP_LG.png",
+      "card_spec": {
+        "type": "悪",
+        "stage": "ポケモンV",
+        "hp": 210,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Jiro Sasumo",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "森の中のスカタンク一家を描いたスペシャルアート。背景まで作り込まれた一枚。",
+        "source": "limitlesstcg.com/cards/jp/S12/106 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-regidrago-v-sa-108",
+      "card_no": "108/098",
+      "rarity": "SA",
+      "card_name": "レジドラゴV",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_108_R_JP_LG.png",
+      "card_spec": {
+        "type": "竜",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Hataya",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "洞窟に佇むレジドラゴを描いたスペシャルアート。ドラゴン系コレクターから支持される。",
+        "source": "limitlesstcg.com/cards/jp/S12/108 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-lugia-v-sa-110",
+      "card_no": "110/098",
+      "rarity": "SA",
+      "card_name": "ルギアV",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_110_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "ポケモンV",
+        "hp": 220,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "kawayoo",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "嵐の海を進むルギアを描いたkawayooの代表的スペシャルアート。この弾の最高額チェイス。",
+        "source": "limitlesstcg.com/cards/jp/S12/110 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-worker-sr-111",
+      "card_no": "111/098",
+      "rarity": "SR",
+      "card_name": "さぎょういん",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_111_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "鉱山の作業員を描いたトレーナーズSR。実用性とキャラクター需要を兼ねる。",
+        "source": "limitlesstcg.com/cards/jp/S12/111 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-candice-sr-113",
+      "card_no": "113/098",
+      "rarity": "SR",
+      "card_name": "スズナ",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_113_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "シンオウ地方の人気ジムリーダー。Naoki SaitoによるSRで、トレーナーズ枠の筆頭。",
+        "source": "limitlesstcg.com/cards/jp/S12/113 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-lance-sr-114",
+      "card_no": "114/098",
+      "rarity": "SR",
+      "card_name": "ワタル",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_114_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Ryuta Fuse",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "mid"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "シリーズを代表するドラゴン使いのSR。初代世代からのキャラクター人気がある。",
+        "source": "limitlesstcg.com/cards/jp/S12/114 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-lugia-vstar-hr-118",
+      "card_no": "118/098",
+      "rarity": "HR",
+      "card_name": "ルギアVSTAR",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_118_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "ポケモンVSTAR",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "PLANETA Mochizuki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ルギアVSTARのレインボー仕様。競技環境で長く活躍した看板カード。",
+        "source": "limitlesstcg.com/cards/jp/S12/118 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-candice-hr-121",
+      "card_no": "121/098",
+      "rarity": "HR",
+      "card_name": "スズナ",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_121_R_JP_LG.png",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "low"
+        },
+        "collector": {
+          "illustrator": "Naoki Saito",
+          "illustrator_popularity": "high",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "スズナのHR版。人気トレーナーのレインボー仕様として収集対象になる。",
+        "source": "limitlesstcg.com/cards/jp/S12/121 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "paradigm-trigger-lugia-vstar-ur-123",
+      "card_no": "123/098",
+      "rarity": "UR",
+      "card_name": "ルギアVSTAR",
+      "box_id": "paradigm_trigger",
+      "is_reprint": false,
+      "image_url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc/S12/S12_123_R_JP_LG.png",
+      "card_spec": {
+        "type": "無",
+        "stage": "ポケモンVSTAR",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "out",
+          "competitive_usage": "high"
+        },
+        "collector": {
+          "illustrator": "PLANETA Mochizuki",
+          "illustrator_popularity": "mid",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "scarce",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "ルギアVSTARのゴールド仕様。SA版ルギアVと並ぶ弾内の代表カード。",
+        "source": "limitlesstcg.com/cards/jp/S12/123 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
       },
       "note": ""
     }

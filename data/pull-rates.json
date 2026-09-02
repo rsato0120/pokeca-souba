@@ -651,6 +651,136 @@
           "per_card": 0.01
         }
       ]
+    },
+    "lost_abyss": {
+      "confidence": "estimated",
+      "source": "同世代の剣盾期拡張パック開封統計からの外挿。収録種類数はシークレット番号帯から確定",
+      "source_url": "https://pokemon-infomation.com/pull-rates-eeveeheroes/",
+      "groups": [
+        {
+          "id": "sr_poke",
+          "label": "SR（ポケモンV）",
+          "rarity": "SR",
+          "stages": [
+            "ポケモンV"
+          ],
+          "kinds": 8,
+          "per_card": 0.05
+        },
+        {
+          "id": "sr_support",
+          "label": "SR（サポート）",
+          "rarity": "SR",
+          "stages": [
+            "トレーナーズ"
+          ],
+          "kinds": 4,
+          "per_card": 0.075
+        },
+        {
+          "id": "sa_v",
+          "label": "SA（ポケモンV）",
+          "rarity": "SA",
+          "stages": [
+            "ポケモンV"
+          ],
+          "kinds": 4,
+          "per_card": 0.038
+        },
+        {
+          "id": "hr_poke",
+          "label": "HR（ポケモン）",
+          "rarity": "HR",
+          "stages": [
+            "ポケモンVMAX",
+            "ポケモンVSTAR"
+          ],
+          "kinds": 4,
+          "per_card": 0.025
+        },
+        {
+          "id": "hr_support",
+          "label": "HR（サポート）",
+          "rarity": "HR",
+          "stages": [
+            "トレーナーズ"
+          ],
+          "kinds": 4,
+          "per_card": 0.05
+        },
+        {
+          "id": "ur",
+          "label": "UR",
+          "rarity": "UR",
+          "kinds": 3,
+          "per_card": 0.025
+        }
+      ]
+    },
+    "paradigm_trigger": {
+      "confidence": "estimated",
+      "source": "同世代の剣盾期拡張パック開封統計からの外挿。収録種類数はシークレット番号帯から確定",
+      "source_url": "https://pokemon-infomation.com/pull-rates-eeveeheroes/",
+      "groups": [
+        {
+          "id": "sr_poke",
+          "label": "SR（ポケモンV）",
+          "rarity": "SR",
+          "stages": [
+            "ポケモンV"
+          ],
+          "kinds": 8,
+          "per_card": 0.05
+        },
+        {
+          "id": "sr_support",
+          "label": "SR（サポート）",
+          "rarity": "SR",
+          "stages": [
+            "トレーナーズ"
+          ],
+          "kinds": 4,
+          "per_card": 0.075
+        },
+        {
+          "id": "sa_v",
+          "label": "SA（ポケモンV）",
+          "rarity": "SA",
+          "stages": [
+            "ポケモンV"
+          ],
+          "kinds": 4,
+          "per_card": 0.038
+        },
+        {
+          "id": "hr_poke",
+          "label": "HR（ポケモン）",
+          "rarity": "HR",
+          "stages": [
+            "ポケモンVMAX",
+            "ポケモンVSTAR"
+          ],
+          "kinds": 4,
+          "per_card": 0.025
+        },
+        {
+          "id": "hr_support",
+          "label": "HR（サポート）",
+          "rarity": "HR",
+          "stages": [
+            "トレーナーズ"
+          ],
+          "kinds": 4,
+          "per_card": 0.05
+        },
+        {
+          "id": "ur",
+          "label": "UR",
+          "rarity": "UR",
+          "kinds": 3,
+          "per_card": 0.025
+        }
+      ]
     }
   }
 }
