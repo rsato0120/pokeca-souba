@@ -60,6 +60,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4114294036864633"
+          crossOrigin="anonymous"
+        />
         {/* テーマの先読み。描画前に data-theme を確定させないと、
             SSRの配色が一瞬出てから切り替わる（白い閃光）。
             保存された選択 > OS設定 > ダーク の順。
