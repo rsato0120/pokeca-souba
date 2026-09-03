@@ -33,11 +33,14 @@ jobs:
       - name: Check bargain listing changes
         run: npx tsx scripts/scrape-market-listings.ts --deals-only
 
-      # スクリプトは表示対象の最安商品IDまたは価格が変わった時だけJSONを書き換える。
-      # 差分なしならコミットもデプロイも発生しない。
+      - name: Update BOX bargain listings
+        run: npx tsx scripts/scrape-box-market-listings.ts
+
+      # カードは最安出品の変更時、BOXは出品の変更時か12時間ごとの鮮度更新時に保存。
+      # 差分がなければコミットもデプロイも発生しない。
       - name: Commit and push only when changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/market-listings.json
+          git add data/market-listings.json data/box-market-listings.json
           git diff --cached --quiet && echo "最安出品に変更なし" || (git commit -m "update bargain listings $(date -u '+%Y-%m-%d %H:%M')" && git push)

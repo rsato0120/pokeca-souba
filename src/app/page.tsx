@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes, getBuyTheses, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings } from '@/lib/data'
-import { selectBuyCandidates, type BuyInput } from '@/lib/buy-signals'
-import { computeCardScore } from '@/lib/score'
+import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings, getBoxMarketListings } from '@/lib/data'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { sparkSeries, todayJST, midOf } from '@/lib/market'
 import type { Card, PriceRecord } from '@/types/pokeca'
@@ -13,8 +11,7 @@ import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
 import MarketPulse from '@/components/MarketPulse'
-import type { HeatPick } from '@/components/HeatPicks'
-import DailyFlipCards, { type DailyFlipCard } from '@/components/DailyFlipCards'
+import BoxBargainListings from '@/components/BoxBargainListings'
 import { computeMarketTemp } from '@/lib/market-temp'
 import { onSaleChange } from '@/lib/on-sale'
 import BoxRanking from '@/components/BoxRanking'
@@ -22,6 +19,8 @@ import { buildBoxRanking } from '@/lib/box-ranking'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { assessBargain, mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 
+
+export const revalidate = 3600
 
 export default function TopPage() {
   const cards = getAllCards()
@@ -126,7 +125,6 @@ export default function TopPage() {
   // （カード詳細・収録弾一覧・検索には引き続き出る）
   const isRankable = (m: CardMetrics): boolean => isCurrent(m) && !isDeckUtilityCard(m.card)
 
-  const metricsBySlug = new Map(metrics.map((m) => [m.slug, m]))
 
 
   // 出品数の変化。**出所（スニダン/メルカリ）が違う2点は引き算しない**（src/lib/on-sale.ts）。
@@ -167,71 +165,6 @@ export default function TopPage() {
     .filter(m => getChange(m) < 0)
     .sort((a, b) => getChange(a) - getChange(b))
     .slice(0, 5)
-
-  // ── AIが買うべきカード: 決定論シグナルで候補選定 → 上位に厚いAI論拠を紐付け ──
-  const buyInputs: BuyInput[] = cards.map((card) => {
-    const slug = getCardSlug(card)
-    return {
-      card,
-      slug,
-      forecast: getForecast(slug),
-      history: getPriceHistory(slug)?.history ?? [],
-      extremes: getPriceExtremes(slug),
-    }
-  })
-  // ⚠ 「AI高騰気配」は廃止した（2026-08-30）。
-  //   買い候補の中の順位（パーセンタイル 40〜99）を出す指標だったが、カード詳細に
-  //   「AI投資スコア 0〜100」が別にあり、同じ「買い妙味」を2つの数字で語っていて
-  //   利用者が違いを理解できなかった（同じカードで 83 と 91 が並ぶ）。
-  //   **画面に出す数字は AI投資スコア（src/lib/score.ts）に一本化**し、
-  //   scoreBuy は「どのカードを候補に採るか」という**並び順専用**として内部に残す。
-  const scoreBySlug = new Map(
-    buyInputs.map((b) => [b.slug, computeCardScore({ card: b.card, forecast: b.forecast, history: b.history, extremes: b.extremes })?.total ?? null]),
-  )
-
-  const buyTheses = getBuyTheses()
-
-  // ── 看板: AIが見つけた「まだ上がっていないカード」 ──
-  //
-  // ⚠ 下の「AIが買うべきカード」(BuyPicks) と**同じ母集団から選ぶと上位が丸かぶりする**。
-  //   どちらも selectBuyCandidates(buyInputs) を呼んでいたため、看板の3枚は
-  //   買うべきカードの1〜3位とまったく同じ並びだった＝看板が独自機能になっていない。
-  //
-  // ここは名前どおり「**まだ上がっていない**」に絞る。直近7日の値動きが小さい
-  // （±3%以内）カードだけを候補にし、すでに動いた銘柄は急騰ランキングと
-  // 「買うべきカード」に任せる。これで2つの枠の役割が分かれる:
-  //   看板 … これから動きそうだが、まだ動いていない
-  //   買うべきカード … 動きの有無を問わず、いま買う妙味が大きい
-  const STILL_QUIET_PCT = 3
-  const quietInputs = buyInputs.filter((b) => {
-    const m = metricsBySlug.get(b.slug)
-    const w = m?.weekChange
-    // 7日変化が取れないカードは「動いていない」と断定できないので候補にしない
-    return w != null && Math.abs(w) <= STILL_QUIET_PCT
-  })
-  const heatPicks: HeatPick[] = selectBuyCandidates(quietInputs, 3, 1).map((c) => {
-    const m = metricsBySlug.get(c.slug)
-    const fc = getForecast(c.slug)
-    return {
-      slug: c.slug,
-      name: c.card.card_name,
-      rarity: c.card.rarity,
-      cardNo: c.card.card_no,
-      image: c.card.image_url ?? null,
-      mid: c.mid,
-      dayPct: m?.dayChange ?? null,
-      // カード詳細と**同じ AI投資スコア**（0〜100）。別物の数字を並べない
-      score: scoreBySlug.get(c.slug) ?? null,
-      upPct: fc?.overall.up_pct ?? null,
-      m3Low: fc?.price_forecast.m3_low ?? null,
-      m3High: fc?.price_forecast.m3_high ?? null,
-      omens: c.omens,
-      cautions: c.cautions,
-      // 厚い論拠(BuyThesis)の見出しだけを短い理由として使う。全文はカード詳細で読ませる
-      thesis: buyTheses[c.card.id]?.headline ?? null,
-    }
-  })
-
 
   // 「あなた」の帯（保有評価額・前回訪問からの値動き）に渡す一覧。
   // 個人の数字はクライアントにしか無いので、材料だけ全部渡して向こうで組ませる。
@@ -322,67 +255,6 @@ export default function TopPage() {
     bullish: bullishCount,
     bearish: bearishCount,
   })
-
-  // トップの遊び要素「今日の3枚」。価格の動き・AI選定・スニダン実成約数という
-  // 異なる3つの実データから選び、同じカードが複数枠に重ならないようにする。
-  const pickedSlugs = new Set<string>()
-  const dailyFlipCards: DailyFlipCard[] = []
-  const boxNameById = new Map(boxes.map(box => [box.box_id, box.box_name]))
-  const addDailyCard = (card: DailyFlipCard) => {
-    if (pickedSlugs.has(card.slug)) return
-    pickedSlugs.add(card.slug)
-    dailyFlipCards.push(card)
-  }
-
-  const surgePick = surgeCards[0]
-  if (surgePick) {
-    addDailyCard({
-      slug: surgePick.slug,
-      category: '今日の急騰',
-      name: surgePick.card.card_name,
-      rarity: surgePick.card.rarity,
-      boxName: boxNameById.get(surgePick.card.box_id) ?? surgePick.card.box_id,
-      image: surgePick.card.image_url ?? null,
-      price: Math.round(surgePick.currentMid),
-      metric: `+${getChange(surgePick).toFixed(1)}%`,
-      tone: 'up',
-      reason: '今日、価格が大きく動いたカード',
-    })
-  }
-
-  const aiPick = heatPicks.find(card => !pickedSlugs.has(card.slug))
-  if (aiPick) {
-    const source = metricsBySlug.get(aiPick.slug)
-    addDailyCard({
-      slug: aiPick.slug,
-      category: 'AI注目',
-      name: aiPick.name,
-      rarity: aiPick.rarity,
-      boxName: source ? (boxNameById.get(source.card.box_id) ?? source.card.box_id) : '',
-      image: aiPick.image,
-      price: aiPick.mid,
-      metric: aiPick.score == null ? '分析中' : `AI ${aiPick.score}`,
-      tone: 'ai',
-      reason: aiPick.thesis ?? 'まだ大きく動いていない注目カード',
-    })
-  }
-
-  const activeSales = salesLeaders.find(x => !pickedSlugs.has(x.m.slug))
-
-  if (activeSales) {
-    addDailyCard({
-      slug: activeSales.m.slug,
-      category: '取引活発',
-      name: activeSales.m.card.card_name,
-      rarity: activeSales.m.card.rarity,
-      boxName: boxNameById.get(activeSales.m.card.box_id) ?? activeSales.m.card.box_id,
-      image: activeSales.m.card.image_url ?? null,
-      price: Math.round(activeSales.m.currentMid),
-      metric: `7日 ${activeSales.count}件`,
-      tone: 'volume',
-      reason: 'スニダンで素体取引が活発なカード',
-    })
-  }
 
   return (
     <div className="wrap home-wrap">
@@ -540,17 +412,7 @@ export default function TopPage() {
         )}
       </div>
 
-      <section className="home-ai-section">
-        <div className="home-panel-head">
-          <div><span>DAILY 3 CARDS</span><h2>今日の3枚</h2></div>
-          <Link href="/ai">AI予想を見る →</Link>
-        </div>
-        {dailyFlipCards.length > 0 ? (
-          <DailyFlipCards cards={dailyFlipCards} />
-        ) : (
-          <p className="home-empty">いまは条件を満たすカードがありません。</p>
-        )}
-      </section>
+      <BoxBargainListings data={getBoxMarketListings()} />
 
       <div className="home-pr"><OripaBanner marginY={4} /></div>
 

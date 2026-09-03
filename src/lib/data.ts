@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import type { BoxMarketListings } from '@/lib/box-bargains'
 import type { PokeData, Card, Box, Forecast, PriceHistory, PredictionLog, PriceExtremes, PsaPop, BuyThesis, BoxPullRates, LastUpdate, MarketListings } from '@/types/pokeca'
 
 function readPokeData(): PokeData {
@@ -56,6 +57,14 @@ export function getMarketListings(): MarketListings | null {
   try {
     const filePath = path.join(process.cwd(), 'data', 'market-listings.json')
     return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as MarketListings
+  } catch {
+    return null
+  }
+}
+
+export function getBoxMarketListings(): BoxMarketListings | null {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'box-market-listings.json'), 'utf-8')) as BoxMarketListings
   } catch {
     return null
   }
