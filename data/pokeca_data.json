@@ -397,6 +397,17 @@
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/b/b5/S12_Paradigm_Trigger_pack.jpg",
       "note": "2022-10-21発売の拡張パック（1パック5枚・1BOX30パック）。ルギアVSTARとアーケオスの組み合わせが競技環境を席巻し、kawayooによるルギアVのスペシャルアートが最大のチェイス。"
+    },
+    {
+      "box_id": "battle_partners",
+      "box_name": "バトルパートナーズ",
+      "code": "SV9",
+      "release_ym": "2025-01",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "note": "2025-01-24発売。1パック5枚入り・1BOX30パック。公式商品情報: https://www.pokemon-card.com/ex/sv9/ 。AR・SR・SAR・UR全32種を掲載。",
+      "pack_image_url": "https://www.pokemon-card.com/ex/sv9/assets/images/infoProduct-img-1.png"
     }
   ],
   "cards": [
@@ -25981,6 +25992,1254 @@
         "player": "",
         "collector": "ルギアVSTARのゴールド仕様。SA版ルギアVと並ぶ弾内の代表カード。",
         "source": "limitlesstcg.com/cards/jp/S12/123 で名称・番号・HP・タイプ・ステージ・イラストレーターを確認（2026-09-02）"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-maractus-ar-101",
+      "card_no": "101/100",
+      "rarity": "AR",
+      "card_name": "マラカッチ",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047221_P_MARAKATCHI.jpg",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 110,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ounishi",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "マラカッチのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47221/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-101）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-articuno-ar-102",
+      "card_no": "102/100",
+      "rarity": "AR",
+      "card_name": "フリーザー",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047222_P_FURIZA.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 110,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kuroimori",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "フリーザーのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47222/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-102）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-wailord-ar-103",
+      "card_no": "103/100",
+      "rarity": "AR",
+      "card_name": "ホエルオー",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047223_P_HOERUO.jpg",
+      "card_spec": {
+        "type": "水",
+        "stage": "1進化",
+        "hp": 240,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Katsunori Sato",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ホエルオーのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47223/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-103）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ionos-kilowattrel-ar-104",
+      "card_no": "104/100",
+      "rarity": "AR",
+      "card_name": "ナンジャモのタイカイデン",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047224_P_NANJIXYAMONOTAIKAIDEN.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Terada Tera",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ナンジャモのタイカイデンのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47224/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-104）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-lillies-ribombee-ar-105",
+      "card_no": "105/100",
+      "rarity": "AR",
+      "card_name": "リーリエのアブリボン",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047225_P_RIRIENOABURIBON.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "1進化",
+        "hp": 70,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "saino misaki",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "リーリエのアブリボンのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47225/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-105）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-swinub-ar-106",
+      "card_no": "106/100",
+      "rarity": "AR",
+      "card_name": "ウリムー",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047226_P_URIMU.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 70,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Nakamura Ippan",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ウリムーのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47226/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-106）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-lycanroc-ar-107",
+      "card_no": "107/100",
+      "rarity": "AR",
+      "card_name": "ルガルガン",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047227_P_RUGARUGAN.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "GIDORA",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ルガルガンのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47227/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-107）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ns-zorua-ar-108",
+      "card_no": "108/100",
+      "rarity": "AR",
+      "card_name": "Nのゾロア",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047228_P_NNOZOROA.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 70,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Megumi Mizutani",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "NのゾロアのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47228/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-108）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ns-reshiram-ar-109",
+      "card_no": "109/100",
+      "rarity": "AR",
+      "card_name": "Nのレシラム",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047229_P_NNORESHIRAMU.jpg",
+      "card_spec": {
+        "type": "竜",
+        "stage": "たね",
+        "hp": 130,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Bun Toujo",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "NのレシラムのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47229/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-109）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-furret-ar-110",
+      "card_no": "110/100",
+      "rarity": "AR",
+      "card_name": "オオタチ",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047230_P_OOTACHI.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 120,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "REND",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "オオタチのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47230/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-110）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-noibat-ar-111",
+      "card_no": "111/100",
+      "rarity": "AR",
+      "card_name": "オンバット",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047231_P_ONBATTO.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 60,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "sowsow",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "オンバットのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47231/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-111）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-hops-wooloo-ar-112",
+      "card_no": "112/100",
+      "rarity": "AR",
+      "card_name": "ホップのウールー",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047232_P_HOPPUNOURU.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "たね",
+        "hp": 70,
+        "note": "AR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "MINAMINAMI Take",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ホップのウールーのAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47232/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-112）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-volcanion-ex-sr-113",
+      "card_no": "113/100",
+      "rarity": "SR",
+      "card_name": "ボルケニオンex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047233_P_BORUKENIONEX.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 220,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ボルケニオンexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47233/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-113）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ionos-bellibolt-ex-sr-114",
+      "card_no": "114/100",
+      "rarity": "SR",
+      "card_name": "ナンジャモのハラバリーex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047234_P_NANJIXYAMONOHARABARIEX.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ナンジャモのハラバリーexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47234/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-114）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-lillies-clefairy-ex-sr-115",
+      "card_no": "115/100",
+      "rarity": "SR",
+      "card_name": "リーリエのピッピex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047235_P_RIRIENOPIPPIEX.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 190,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "リーリエのピッピexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47235/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-115）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-mamoswine-ex-sr-116",
+      "card_no": "116/100",
+      "rarity": "SR",
+      "card_name": "マンムーex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047236_P_MANMUEX.jpg",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 340,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "N-DESIGN Inc.",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "マンムーexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47236/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-116）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ns-zoroark-ex-sr-117",
+      "card_no": "117/100",
+      "rarity": "SR",
+      "card_name": "Nのゾロアークex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047237_P_NNOZOROAKUEX.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "NのゾロアークexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47237/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-117）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-hops-zacian-ex-sr-118",
+      "card_no": "118/100",
+      "rarity": "SR",
+      "card_name": "ホップのザシアンex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047238_P_HOPPUNOZASHIANEX.jpg",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "たね",
+        "hp": 230,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ホップのザシアンexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47238/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-118）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-salamence-ex-sr-119",
+      "card_no": "119/100",
+      "rarity": "SR",
+      "card_name": "ボーマンダex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047239_P_BOMANDAEX.jpg",
+      "card_spec": {
+        "type": "竜",
+        "stage": "2進化",
+        "hp": 320,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ボーマンダexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47239/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-119）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-dudunsparce-ex-sr-120",
+      "card_no": "120/100",
+      "rarity": "SR",
+      "card_name": "ノココッチex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047240_P_NOKOKOTCHIEX.jpg",
+      "card_spec": {
+        "type": "無",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ノココッチexのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47240/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-120）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-iris-fighting-spirit-sr-121",
+      "card_no": "121/100",
+      "rarity": "SR",
+      "card_name": "アイリスの闘志",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047241_T_AIRISUNOTOUSHI.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "yuu",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "アイリスの闘志のSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47241/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-121）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-roughneck-sr-122",
+      "card_no": "122/100",
+      "rarity": "SR",
+      "card_name": "怖いお兄さん",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047242_T_KOWAIONIISAN.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hideki Ishikawa",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "怖いお兄さんのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47242/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-122）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-brocks-scouting-sr-123",
+      "card_no": "123/100",
+      "rarity": "SR",
+      "card_name": "タケシのスカウト",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047243_T_TAKESHINOSUKAUTO.jpg",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "SR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Teeziro",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "タケシのスカウトのSR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47243/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-123）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-volcanion-ex-sar-124",
+      "card_no": "124/100",
+      "rarity": "SAR",
+      "card_name": "ボルケニオンex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047244_P_BORUKENIONEX.jpg",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 220,
+        "note": "SAR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "akagi",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ボルケニオンexのSAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47244/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-124）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ionos-bellibolt-ex-sar-125",
+      "card_no": "125/100",
+      "rarity": "SAR",
+      "card_name": "ナンジャモのハラバリーex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047245_P_NANJIXYAMONOHARABARIEX.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "SAR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yuu Nishida",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ナンジャモのハラバリーexのSAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47245/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-125）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-lillies-clefairy-ex-sar-126",
+      "card_no": "126/100",
+      "rarity": "SAR",
+      "card_name": "リーリエのピッピex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047246_P_RIRIENOPIPPIEX.jpg",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 190,
+        "note": "SAR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Susumu Maeya",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "リーリエのピッピexのSAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47246/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-126）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ns-zoroark-ex-sar-127",
+      "card_no": "127/100",
+      "rarity": "SAR",
+      "card_name": "Nのゾロアークex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047247_P_NNOZOROAKUEX.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "SAR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Megumi Mizutani",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "NのゾロアークexのSAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47247/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-127）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-hops-zacian-ex-sar-128",
+      "card_no": "128/100",
+      "rarity": "SAR",
+      "card_name": "ホップのザシアンex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047248_P_HOPPUNOZASHIANEX.jpg",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "たね",
+        "hp": 230,
+        "note": "SAR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "DOM",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ホップのザシアンexのSAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47248/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-128）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-salamence-ex-sar-129",
+      "card_no": "129/100",
+      "rarity": "SAR",
+      "card_name": "ボーマンダex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047249_P_BOMANDAEX.jpg",
+      "card_spec": {
+        "type": "竜",
+        "stage": "2進化",
+        "hp": 320,
+        "note": "SAR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tsuyoshi Nagano",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ボーマンダexのSAR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47249/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-129）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ionos-bellibolt-ex-ur-130",
+      "card_no": "130/100",
+      "rarity": "UR",
+      "card_name": "ナンジャモのハラバリーex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047250_P_NANJIXYAMONOHARABARIEX.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "UR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "ナンジャモのハラバリーexのUR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47250/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-130）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-ns-zoroark-ex-ur-131",
+      "card_no": "131/100",
+      "rarity": "UR",
+      "card_name": "Nのゾロアークex",
+      "box_id": "battle_partners",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047251_P_NNOZOROAKUEX.jpg",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "UR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "takuyoa",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "NのゾロアークexのUR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47251/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-131）参照。2026-09-03登録。"
+      },
+      "note": ""
+    },
+    {
+      "id": "battle-partners-spiky-energy-ur-132",
+      "card_no": "132/100",
+      "rarity": "UR",
+      "card_name": "スパイクエネルギー",
+      "box_id": "battle_partners",
+      "is_reprint": true,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/SV9/047252_E_SUPAIKUENERUGI.jpg",
+      "card_spec": {
+        "type": "エネルギー",
+        "stage": "エネルギー",
+        "hp": 0,
+        "note": "UR仕様。バトルパートナーズ収録。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "reprinted",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技使用率・レギュレーション落ちの時期は未評価。",
+        "collector": "スパイクエネルギーのUR版。",
+        "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47252/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-132）参照。2026-09-03登録。"
       },
       "note": ""
     }
