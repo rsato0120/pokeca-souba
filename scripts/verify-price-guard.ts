@@ -11,8 +11,23 @@
  * 価格の不具合を1件直したら、必ずここに1ケース足してから閉じること。
  * 実行: npx tsx scripts/verify-price-guard.ts
  */
-import { guardPrice, matchesCardName } from './scrape-prices'
+import { guardPrice, matchesCardName, isUnusableSnkrdunkPrice, snkrdunkRequiredSamples, shouldHoldSnkrdunkPrice } from './scrape-prices'
+import assert from 'node:assert/strict'
 import type { PriceRecord, PriceSource } from '../src/types/pokeca'
+
+// 1,500円未満でも出品相場と整合する実約定は採用する。
+assert.equal(isUnusableSnkrdunkPrice(1150, 1000), false)
+assert.equal(isUnusableSnkrdunkPrice(1517, 561), true)
+assert.equal(isUnusableSnkrdunkPrice(1000, 400), true)
+assert.equal(isUnusableSnkrdunkPrice(NaN, null), true)
+assert.equal(isUnusableSnkrdunkPrice(0, null), true)
+assert.equal(snkrdunkRequiredSamples('mercari'), 6)
+assert.equal(snkrdunkRequiredSamples('snkrdunk'), 4)
+assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-03', '2026-09-04', true), false)
+assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-03', '2026-09-04', false), true)
+assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-01', '2026-09-04', false), true)
+assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-08-31', '2026-09-04', false), false)
+assert.equal(shouldHoldSnkrdunkPrice('mercari', '2026-09-03', '2026-09-04', false), false)
 
 type OnSale = { count: number | null; askLow: number | null; askMid: number | null }
 

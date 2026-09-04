@@ -202,17 +202,18 @@ async function getMercariOnSale(
   } catch { return { count: null, askLow: null, askMid: null } }
 }
 
-// スニーカーダンク: apparel_id をカード名+レアリティで検索
+// スニーカーダンク: カード名+番号で検索し、名前・レアリティ・番号を照合する。
 async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string, cardNo: CardNo | null): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
-    const query = encodeURIComponent(`${cardName} ${rarity}`)
+    const query = encodeURIComponent(`${cardName} ${cardNo ? String(cardNo.no).padStart(3, '0') : rarity}`)
     // スニダン検索は `keywords`（複数形）。`keyword` だと 200 が返っても
     // 検索結果ではなく人気商品一覧になるため、誤候補を拾う可能性がある。
     await page.goto(`https://snkrdunk.com/search?keywords=${query}&category=card`, {
       waitUntil: 'domcontentloaded', timeout: 15000
     })
+    await page.locator('a[href*="/apparels/"]').first().waitFor({ timeout: 10000 })
     const links = await page.evaluate(() =>
       Array.from(document.querySelectorAll('a'))
         .filter(a => (a as HTMLAnchorElement).href.includes('/apparels/'))
@@ -227,7 +228,8 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
     // 実例: リーフィアV SR(070) に SA(071) の apparel 91170 が登録され、SRがSAの価格
     // (¥19,514)を表示していた。タイトルには "[S6a 071/069]" と番号が入るのでこれで切り分ける。
     const filtered = links.filter(l =>
-      l.text.includes(cardName) && rarityRe.test(l.text) && matchesCardNo(l.text, cardNo)
+      matchesCardName(l.text, cardName) && rarityRe.test(l.text)
+      && cardNo != null && extractNoPairs(l.text).some(p => p.no === cardNo.no && p.total === cardNo.total)
     )
     // 同じ商品のリンクがページ内に複数ある場合はIDで重複排除する。
     // 番号・名前・レアリティを満たす商品が複数残る場合は、自動登録せず手動確認に回す。
@@ -1052,7 +1054,25 @@ const SNKRDUNK_TARGET_SALES = 30
 //   4件で出所を切り替えると、薄い母数のまま水準が変わって「出所フリップの崖」を作る
 //   （実測: ゲッコウガex SAR は30日で4件しかなく、メルカリ¥39,125 → API¥42,333 と +8% 動いた）。
 //   6件に上げると、そういうカードはメルカリのまま据え置かれる。
-const SNKRDUNK_API_MIN_SALES = 6
+export function snkrdunkRequiredSamples(previousSource?: PriceSource): number {
+  return previousSource === 'snkrdunk' ? 4 : 6
+}
+
+// 安いという理由だけでは除外しない。前日の出品相場から大きく離れた
+// 最低価格付近の約定だけを除外し、実際に取引された低価格帯も採用する。
+export function isUnusableSnkrdunkPrice(value: number, previousAsk: number | null): boolean {
+  return !Number.isFinite(value) || value <= 0
+    || (previousAsk != null && previousAsk > 0 && previousAsk < 3000 && value > previousAsk * 1.8)
+}
+
+export function shouldHoldSnkrdunkPrice(
+  previousSource: PriceSource | undefined, previousDate: string | undefined, today: string,
+  hasUsablePrice: boolean,
+): boolean {
+  if (previousSource !== 'snkrdunk' || !previousDate || hasUsablePrice) return false
+  const age = (Date.parse(today) - Date.parse(previousDate)) / 86400000
+  return age >= 0 && age <= 3
+}
 
 /** 成約APIを最後に引いてから何日経ったか。一度も引いていなければ null */
 function salesFetchedAgeDays(cardId: string, today: string): number | null {
@@ -1221,40 +1241,18 @@ async function scrapeCard(
     let priceSource: PriceSource | undefined
     let sampleCount: number | undefined
 
-    // スニダン素体価格は「状態A=新品のみ」で実勢より高め。取引が少数だと新品1件が
-    // そのまま相場化して高止まりするため、サンプル数が閾値を超えた時だけ信頼する。
-    // 少数サンプル時はメルカリ成約相場（実勢）を優先する。
-    //
-    // 閾値はヒステリシスを持たせる。単一閾値だと90日窓の取引件数が境界を跨ぐたびに
-    // 出典がスニダン⇔メルカリで入れ替わり、両者の水準差(安価帯で2〜3倍)がそのまま
-    // 価格の段差・1日だけのヒゲとしてグラフに出る。新規採用は厳しく、維持は緩く。
-    const SNKRDUNK_ADOPT_SAMPLES = 6   // メルカリ→スニダンに乗り換えるのに必要な件数
-    const SNKRDUNK_KEEP_SAMPLES = 4    // すでにスニダン採用中の時に維持できる件数
-    // スニダンは手数料込み表示かつ最低取引価格の影響で、安価帯の素体が ¥1,000 前後に
-    // 張り付く（メルカリ実勢 ¥350〜700 の2〜3倍）。この価格帯の素体は相場として使わない。
-    //
-    // ⚠️ 絶対額の下限だけでは足りない。実勢¥561 のメガルチャブルex MA に ¥1,517 が入った時、
-    // この閾値をわずか17円上回って素通りした。**閾値の縁は必ず破られる**ので、
-    // 前日の出品中央値と比べた相対判定(isSnkrdunkFloorPrice)を併用する。
-    const SNKRDUNK_MIN_PRICE = 1500
-    // 前日レコード。出所ヒステリシスと、上記の相対判定の基準に使う
-    // （2026-07-18 以前のレコードには source が無い）
+    // 新規採用6件・継続4件をAPIとHTMLの両方に適用する。
     const prevRecordForSource = readLatestRecord(id, date)
-    // スニダン値が「床値張り付き」かどうかを前日の出品価格から判定する。
-    // 出品が安いのに素体だけ2倍近い＝スニダンの最低取引価格に張り付いている証拠。
-    // これを落とすとメルカリ成約へフォールバックし、**正しい実勢価格が毎日入る**。
-    // （落とさずスキップだけしていると値が何日も凍り、guardPrice の凍結回避で
-    //   4日ごとに誤値が入る鋸歯になる）
-    const isSnkrdunkFloorPrice = (v: number): boolean => {
-      const prevAsk = prevRecordForSource?.ask_mid ?? prevRecordForSource?.ask_low ?? null
-      return prevAsk != null && prevAsk > 0 && prevAsk < 3000 && v > prevAsk * 1.8
-    }
+    const prevSource = prevRecordForSource?.source
+    const snkrdunkNeeded = snkrdunkRequiredSamples(prevSource)
+    const isSnkrdunkFloorPrice = (v: number): boolean => isUnusableSnkrdunkPrice(
+      v, prevRecordForSource?.ask_mid ?? prevRecordForSource?.ask_low ?? null,
+    )
     let snkrdunkRegular: number | null = null
     let snkrdunkCount = 0
     // 鮮度切れのスニダン値。メルカリも取れなかった時の最後の手段としてだけ使う
     let snkrdunkStale: number | null = null
     let snkrdunkStaleDays: number | null = null
-    let snkrdunkFetched = false
     // スニダンの売買履歴に出ていた個別取引の日付。出来高（成約数）の元になる。
     // 価格をスニダンから採るかどうかとは無関係に、取れた分は常に記録する
     let salesFetchedAt: string | null = null
@@ -1271,7 +1269,6 @@ async function scrapeCard(
     if (apparelId) {
       // スニーカーダンクから取得（PSA10は常にスニダン由来）
       const prices = await getSnkrdunkPrices(browser, apparelId)
-      snkrdunkFetched = prices.fetched
       snkrdunkRegular = prices.regular
       snkrdunkCount = prices.regularCount
       psa10 = prices.psa10
@@ -1313,7 +1310,7 @@ async function scrapeCard(
         const win0 = recentSalesWindow(api.regularSales, SNKRDUNK_PRICE_WINDOW_DAYS, SNKRDUNK_TARGET_SALES, date)
         const win = win0.prices
         apiWindowDays = win0.days
-        if (win.length >= SNKRDUNK_API_MIN_SALES) {
+        if (win.length >= snkrdunkNeeded) {
           const sorted = [...win].sort((a, b) => a - b)
           apiAvg = Math.round(win.reduce((a, b) => a + b, 0) / win.length)
           // 帯だけはパーセンタイルで出す（HTML経路は帯を持たず avg を low/high に流用していた）
@@ -1329,47 +1326,29 @@ async function scrapeCard(
         process.stdout.write(`[スニダン最新取引${prices.staleDays}日前→不採用] `)
       }
 
-      if (snkrdunkRegular != null && (snkrdunkRegular < SNKRDUNK_MIN_PRICE || isSnkrdunkFloorPrice(snkrdunkRegular))) {
-        const why = snkrdunkRegular < SNKRDUNK_MIN_PRICE
-          ? `¥${snkrdunkRegular}`
-          : `¥${snkrdunkRegular} vs 前日出品¥${prevRecordForSource?.ask_mid ?? prevRecordForSource?.ask_low}`
+      if (snkrdunkRegular != null && isSnkrdunkFloorPrice(snkrdunkRegular)) {
+        const why = `¥${snkrdunkRegular} vs 前日出品¥${prevRecordForSource?.ask_mid ?? prevRecordForSource?.ask_low}`
         process.stdout.write(`[スニダン床値${why}→不採用] `)
         snkrdunkRegular = null
         snkrdunkCount = 0
       }
 
-      // ⚠ API由来の価格も**同じ関門を通す**。HTML経路にだけ床値判定が掛かっていると、
-      //   同じスニダンの数字なのにAPIで取れた時だけ素通りしてしまう（最低価格¥100未満や、
-      //   前日の出品最安と比べて明らかに床を打っている値をそのまま採ってしまう）。
-      if (apiAvg != null && (apiAvg < SNKRDUNK_MIN_PRICE || isSnkrdunkFloorPrice(apiAvg))) {
+      // APIもHTMLと同じ出品価格との整合チェックを通す。
+      if (apiAvg != null && isSnkrdunkFloorPrice(apiAvg)) {
         process.stdout.write(`[成約API床値¥${apiAvg}→不採用] `)
         apiAvg = null; apiLow = 0; apiHigh = 0; apiCount = 0
       }
     }
 
-    const prevSource = prevRecordForSource?.source
-    const snkrdunkNeeded = prevSource === 'snkrdunk' ? SNKRDUNK_KEEP_SAMPLES : SNKRDUNK_ADOPT_SAMPLES
-
-    // スニダンの**取得自体が失敗**した時は、メルカリに乗り換えずその日を見送る。
-    // 件数ヒステリシス（ADOPT/KEEP）は「取引件数が減った時」しか守っておらず、TLSリセットや
-    // レート制限でページが空になると regular=null → 無条件でメルカリへ落ちていた。スニダン基準と
-    // メルカリ基準は水準が違うため、これが数日おきの出所フリップ＝方形波になっていた
-    // （トウコSR: ¥2,617 ⇔ ¥2,430 を7日で3往復、Nの筋書きSAR: 8日で3往復）。
-    // ただし恒久的に取得できなくなった場合に値が凍り付かないよう、直近レコードが3日以内の時だけ見送る。
-    // 「取得できなかった」は2通りある。ページ本文が空(fetched=false)と、**ページは返ったのに
-    // 売買履歴の行が1つも読めない**(regularCount=0 かつ staleDays=null＝日付行ゼロ)。後者は
-    // ソフトなレート制限で起きる。昨日まで36〜46件あった銘柄の履歴が突然0件になるのは実態では
-    // ありえないので、前日がスニダン由来ならこれも取得失敗として扱う
-    // （リーリエの決心SAR: n=36 → 翌日0件でメルカリへ落ち ¥26,141→¥21,533 の偽の下落が出た）。
-    const snkrdunkBlocked = !snkrdunkFetched || (snkrdunkCount === 0 && snkrdunkStaleDays == null && snkrdunkRegular == null)
-    if (apparelId && snkrdunkBlocked && prevSource === 'snkrdunk') {
-      const prevDate = prevRecordForSource?.date
-      const ageDays = prevDate ? Math.round((Date.parse(date) - Date.parse(prevDate)) / 86400000) : 99
-      if (ageDays <= 3) {
-        console.log(`スニダン取得失敗 — スキップ（既存価格を維持・出所フリップ回避）`)
-        stats.skipped++
-        return
-      }
+    // APIが取れた日はHTMLの取得失敗に影響されない。
+    // 一時的な取得失敗・件数不足で市場を切り替えず、最大3日間は既存価格を維持する。
+    // 新しい日付のレコードは作らず、最後に観測できた日付を残す。
+    const hasUsableSnkrdunkPrice = apiAvg != null
+      || (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded)
+    if (apparelId && shouldHoldSnkrdunkPrice(prevSource, prevRecordForSource?.date, date, hasUsableSnkrdunkPrice)) {
+      console.log('スニダン取得失敗・件数不足 — スキップ（既存価格を維持）')
+      stats.skipped++
+      return
     }
 
     let mercariLow = 0, mercariHigh = 0
@@ -1444,7 +1423,7 @@ async function scrapeCard(
       }
       // 最後の手段: 鮮度切れのスニダン直近5件平均。年に数回しか動かない超高額カードは
       // メルカリ側も番号付き成約が薄く、ここが無いと前日の誤った値が居座り続ける
-      if (avg == null && snkrdunkStale != null && snkrdunkStale >= SNKRDUNK_MIN_PRICE && !tooFarForFallback(snkrdunkStale)) {
+      if (avg == null && snkrdunkStale != null && !isSnkrdunkFloorPrice(snkrdunkStale) && !tooFarForFallback(snkrdunkStale)) {
         avg = snkrdunkStale
         source = `スニダン(鮮度切れ${snkrdunkStaleDays}日前)`
         priceSource = 'snkrdunk'
@@ -1535,13 +1514,12 @@ async function scrapeCard(
     }
 
     // ⚠ **スニダンで完結するカードはメルカリの出品検索も省く**（2026-08-30）。
-    //   価格が成約APIから、出品数と ask が商品ページから取れているなら、メルカリを叩いても
+    //   価格がスニダンから、出品数と ask が商品ページから取れているなら、メルカリを叩いても
     //   使う値が無い。3ページ分のリクエストと待機がまるごと不要になり、日次が大きく短くなる。
-    //   ⚠ 条件に `sd.onSale != null` を含めるのが要点。スニダン側がこけた回は
-    //     メルカリに落ちるので、出品数が欠測しない。
+    //   出品数と最安値の両方が取得できた時だけ省略し、欠測時はメルカリで補う。
     //   ⚠ 省いた場合 sold_total（メルカリ成約検索の numFound）も入らないが、
     //     出来高は sales_by_day（APIの実件数）に置き換わっているので支障はない。
-    const skipMercariOnSale = apiAvg != null && sd.onSale != null
+    const skipMercariOnSale = priceSource === 'snkrdunk' && sd.onSale != null && sd.askLow != null
     const mercariOnSale = skipMercariOnSale
       ? { count: null, askLow: null, askMid: null }
       : await getMercariOnSale(browser, onSaleQuery, 0, cardNo, promoMust, cardName, askFloor)

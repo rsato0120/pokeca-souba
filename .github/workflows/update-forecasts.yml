@@ -58,7 +58,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Scrape prices from Mercari
+      - name: Scrape prices (Snkrdunk first, Mercari fallback)
         run: npx tsx scripts/scrape-prices.ts
 
       # 直近7日成約数の上位カードについて、現在購入できるメルカリ出品を保存する。
