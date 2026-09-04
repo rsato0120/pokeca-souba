@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
 import GameTabs from '@/components/GameTabs'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
+import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePriceStale } from '@/lib/onepiece'
 
 export const dynamicParams = false
@@ -20,6 +21,10 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const set = sets.find(s => s.id === product.set_id)!
   const prices = getOnePiecePrices(product.id)
   const latest = prices?.history[0]
+  const searchKeyword = product.kind === 'box'
+    ? `ワンピースカード ${set.name} 未開封 BOX`
+    : `ワンピースカード ${onePieceShortName(product.name)} ${product.card_no ?? ''}`.trim()
+  const mercariUrl = mercariAffiliateUrl(`https://jp.mercari.com/search?keyword=${encodeURIComponent(searchKeyword)}&status=on_sale`)
   const yen = (value: number | undefined) => value == null ? '—' : `¥${value.toLocaleString('ja-JP')}`
   return <main className="wrap op-page"><SiteHeader /><GameTabs game="onepiece" />
     <nav className="op-breadcrumb" aria-label="パンくず"><Link href="/onepiece">ONE PIECE</Link><span> / </span><Link href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
@@ -32,7 +37,10 @@ export default async function Page({ params }: { params: Promise<{ productId: st
         <p className="op-muted">スニーカーダンク 成約平均</p><p className="op-detail-price">{latest ? yen(latest.avg) : '成約データ不足'}</p>
         <p className="op-muted">{latest ? `${latest.date}時点 · ${latest.sample_count}件の成約から算出` : '相場算出には30日以内に3件以上の成約が必要です。'}</p>
         {isOnePiecePriceStale(prices) && <p className="op-muted">取得時点で30日以上前の参考値です。最近の相場を算出できる成約件数が不足しています。</p>}
-        <a className="op-buy-link" href={product.source_url} target="_blank" rel="noreferrer">スニダンでこの商品を見る ↗</a>
+        <a className="op-buy-link" href={mercariUrl} target="_blank" rel="sponsored nofollow noreferrer">メルカリで出品を見る ↗</a>
+        <p className="op-footnote">広告・アフィリエイトリンク</p>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" />
       </div>
     </section>
     <section className="op-chart-panel"><h2>価格推移</h2>
