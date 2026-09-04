@@ -11,7 +11,7 @@ export type SearchCard = {
   up_pct: number | null
 }
 
-export default function SearchBar({ cards }: { cards: SearchCard[] }) {
+export default function SearchBar({ cards, basePath = '/cards' }: { cards: SearchCard[]; basePath?: string }) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -40,7 +40,7 @@ export default function SearchBar({ cards }: { cards: SearchCard[] }) {
   function handleSelect(slug: string) {
     setQuery('')
     setOpen(false)
-    router.push(`/cards/${slug}`)
+    router.push(`${basePath}/${slug}`)
   }
 
   return (

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import OnePieceImage from './OnePieceImage'
 import type { OnePieceProduct, OnePieceSet } from '@/types/onepiece'
 
 export type OnePieceListing = OnePieceProduct & { avg: number | null; date: string | null; count: number | null; stale: boolean }
@@ -28,18 +29,10 @@ export default function OnePieceCatalog({ products, sets, initialKind = 'all', i
     </div>
     <p className="op-muted">{visible.length}件 · スニダン成約平均 · カードは状態A／BOXは1箱単価</p>
     {!visible.length && <p className="op-empty">該当する商品がありません。検索条件を変更してください。</p>}
-    <div className="op-product-grid">{visible.map(p => <Link className="op-product" href={`/onepiece/products/${p.id}`} key={p.id}>
-      <div className={`op-product-image${p.kind === 'box' ? ' is-box' : ''}`}>
-        {/* External product imagery keeps the exact parallel visible. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        {p.image_url ? <img src={p.image_url} alt="" loading="lazy" style={{ transform: `scale(${p.image_scale ?? 1})` }} /> : <span>{p.kind === 'box' ? 'BOX' : p.card_no}</span>}
-      </div>
-      <div className="op-product-info"><span className="op-eyebrow">{sets.find(s => s.id === p.set_id)?.code} · {p.kind === 'box' ? '未開封BOX' : p.card_no}</span>
-        <h3>{p.name.split('[')[0].trim()}</h3>
-        <div className="op-price">{p.avg == null ? '成約データ不足' : `¥${p.avg.toLocaleString('ja-JP')}`}</div>
-        {p.stale && <span className="op-muted">参考値（30日以上前の相場）<br /></span>}
-        <span className="op-muted">{p.date ? `${p.date} · ${p.count ?? '—'}件` : '相場算出に必要な件数を確認中'}</span>
-      </div>
+    <div className="onepiece-market-list">{visible.map(p => <Link className="home-market-row onepiece-market-row" href={`/onepiece/products/${p.id}`} key={p.id}>
+      <OnePieceImage product={p} className="home-thumb-ph" />
+      <span><strong>{p.name.split('[')[0].trim()}</strong><small>{sets.find(s => s.id === p.set_id)?.name} · {p.card_no ?? '未開封BOX'}</small><small>{p.date ? `${p.date} · ${p.count ?? '—'}件` : '成約データ不足'}{p.stale ? ' · 30日以上前の参考値' : ''}</small></span>
+      <em>{p.avg == null ? '—' : `¥${p.avg.toLocaleString('ja-JP')}`}</em>
     </Link>)}</div>
   </section>
 }

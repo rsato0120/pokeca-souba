@@ -78,10 +78,10 @@ try {
     await visit(set.selection_url)
     const images = await page.evaluate(() => [...document.querySelectorAll('a[href*="/apparels/"]')]
       .filter(a => a.querySelector('img'))
-      .map(a => ({ id: Number(a.href.match(/\/apparels\/(\d+)/)?.[1]), src: a.querySelector('img').src,
+      .map(a => ({ id: Number(a.href.match(/\/apparels\/(\d+)/)?.[1]), src: a.querySelector('img').getAttribute('data-src') || a.querySelector('img').src,
         scale: Number(a.querySelector('img').style.transform.match(/^scale\(([\d.]+)\)$/)?.[1] ?? 1) })))
     for (const product of products.filter(p => p.set_id === set.id)) {
-      const match = images.find(i => i.id === product.snkrdunk_id && i.src.includes('snkrdunk.com/'))
+      const match = images.find(i => i.id === product.snkrdunk_id && i.src.startsWith('https://cdn.snkrdunk.com/') && !i.src.includes('/loading.'))
       if (match) { product.image_url = match.src; product.image_scale = Math.min(2.5, Math.max(1, match.scale)) }
     }
   }

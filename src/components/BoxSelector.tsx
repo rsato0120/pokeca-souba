@@ -13,11 +13,12 @@ interface Props {
   current?: string          // 現在表示中のBOX（選択状態にする）
   marginTop?: number
   marginBottom?: number
+  basePath?: string
 }
 
 // 収録弾をドロップダウンで選択 → 選んだBOXページへ遷移。
 // 弾が何個増えても1行で収まり、横スクロールにならない。
-export default function BoxSelector({ boxes, current, marginTop = 12, marginBottom = 32 }: Props) {
+export default function BoxSelector({ boxes, current, marginTop = 12, marginBottom = 32, basePath = '/boxes' }: Props) {
   const router = useRouter()
 
   // 弾が増えるほど一覧が縦に伸びて選びにくいので、発売年でグループに畳む。
@@ -46,7 +47,7 @@ export default function BoxSelector({ boxes, current, marginTop = 12, marginBott
       <select
         defaultValue={current ?? ''}
         onChange={(e) => {
-          if (e.target.value && e.target.value !== current) router.push(`/boxes/${e.target.value}`)
+          if (e.target.value && e.target.value !== current) router.push(`${basePath}/${e.target.value}`)
         }}
         style={{
           appearance: 'none',

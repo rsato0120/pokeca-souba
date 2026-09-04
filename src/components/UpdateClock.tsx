@@ -11,13 +11,13 @@ import { useEffect, useState } from 'react'
 
 const UPDATE_HOURS_JST = [9, 21]
 
-function nextUpdateMs(now: number): number {
+function nextUpdateMs(now: number, minute: number): number {
   // JSTの壁時計に直してから次の更新時刻を探し、UTCのミリ秒に戻す
   const jstNow = now + 9 * 3600_000
   const dayStart = Math.floor(jstNow / 86400_000) * 86400_000
   for (let d = 0; d <= 1; d++) {
     for (const h of UPDATE_HOURS_JST) {
-      const t = dayStart + d * 86400_000 + h * 3600_000
+      const t = dayStart + d * 86400_000 + h * 3600_000 + minute * 60_000
       if (t > jstNow) return t - 9 * 3600_000
     }
   }
@@ -31,15 +31,15 @@ function hhmmss(ms: number): string {
   return `${h}:${String(m).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
 }
 
-export default function UpdateClock({ updatedLabel }: { updatedLabel: string | null }) {
+export default function UpdateClock({ updatedLabel, minute = 0 }: { updatedLabel: string | null; minute?: number }) {
   const [left, setLeft] = useState<string | null>(null)
 
   useEffect(() => {
-    const tick = () => setLeft(hhmmss(nextUpdateMs(Date.now()) - Date.now()))
+    const tick = () => setLeft(hhmmss(nextUpdateMs(Date.now(), minute) - Date.now()))
     tick()
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [minute])
 
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--sp-2)', flexWrap: 'wrap' }}>

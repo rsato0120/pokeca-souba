@@ -2571,3 +2571,15 @@ a:hover {
   .rank-tabs { gap: 5px; }
   .rank-tab { font-size: 11px; padding: 8px 2px; }
 }
+
+/* ONE PIECE uses the Pokemon dashboard panels; only image cropping differs. */
+.onepiece-image { position: relative; display: grid; place-items: center; overflow: hidden; padding: 0; }
+.onepiece-image > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; padding: 0; background: transparent; }
+.home-market-row.onepiece-market-row { grid-template-columns: 42px minmax(0, 1fr) auto; padding: 12px 0; gap: 12px; }
+.onepiece-market-row .onepiece-image { width: 38px; height: 54px; }
+.onepiece-market-row > span > strong { font-size: var(--fs-base); }
+.onepiece-market-row em { color: var(--ink); }
+@media (max-width: 600px) {
+  .onepiece-market-row > span > strong { font-size: var(--fs-sm); white-space: normal; }
+  .onepiece-market-row em { font-size: var(--fs-sm); }
+}
