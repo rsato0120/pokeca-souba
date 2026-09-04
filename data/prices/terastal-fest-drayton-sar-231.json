@@ -2,6 +2,22 @@
   "card_id": "terastal-fest-drayton-sar-231",
   "history": [
     {
+      "date": "2026-09-05",
+      "low": 750,
+      "high": 800,
+      "avg": 796,
+      "source": "mercari",
+      "sample_count": 65,
+      "sold_total": 411,
+      "oldest_sale_days": 89,
+      "on_sale": 15,
+      "ask_low": 999,
+      "ask_mid": 1600,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6687
+    },
+    {
       "date": "2026-09-04",
       "low": 766,
       "high": 820,
@@ -126,5 +142,19 @@
       "ask_mid": 1600,
       "psa10": null
     }
-  ]
+  ],
+  "sales_fetched_at": "2026-09-05",
+  "sales_by_day": {
+    "2026-05-20": 1,
+    "2026-08-22": 1,
+    "2026-05-24": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-08-25": 3,
+    "2026-08-24": 1,
+    "2026-08-20": 1,
+    "2026-07-22": 1,
+    "2026-07-01": 1,
+    "2026-06-26": 1
+  }
 }

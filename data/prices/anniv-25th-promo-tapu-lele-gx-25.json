@@ -2,6 +2,22 @@
   "card_id": "anniv-25th-promo-tapu-lele-gx-25",
   "history": [
     {
+      "date": "2026-09-05",
+      "low": 999,
+      "high": 1100,
+      "avg": 1075,
+      "source": "mercari",
+      "sample_count": 10,
+      "sold_total": 116,
+      "oldest_sale_days": 88,
+      "on_sale": 41,
+      "ask_low": 900,
+      "ask_mid": 1300,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6475
+    },
+    {
       "date": "2026-09-04",
       "low": 999,
       "high": 1100,
@@ -182,8 +198,7 @@
   "sales_by_day": {
     "2026-07-07": 1,
     "2026-05-26": 1,
-    "2026-05-22": 1,
-    "2026-05-06": 2
+    "2026-05-22": 1
   },
   "psa10_sales_by_day": {
     "2026-08-22": 3,
@@ -223,5 +238,5 @@
     "2026-09-01": 1,
     "2026-08-31": 1
   },
-  "sales_fetched_at": "2026-09-04"
+  "sales_fetched_at": "2026-09-05"
 }

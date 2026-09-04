@@ -2,6 +2,17 @@
   "card_id": "eevee-heroes-makuwa-sr-87",
   "history": [
     {
+      "date": "2026-09-05",
+      "low": 300,
+      "high": 300,
+      "avg": 300,
+      "source": "mercari",
+      "sample_count": 5,
+      "sold_total": 12,
+      "oldest_sale_days": 341,
+      "psa10": 6400
+    },
+    {
       "date": "2026-09-04",
       "low": 300,
       "high": 300,
@@ -672,5 +683,9 @@
       "ask_mid": 400,
       "psa10": null
     }
-  ]
+  ],
+  "sales_fetched_at": "2026-09-05",
+  "psa10_sales_by_day": {
+    "2026-06-23": 1
+  }
 }
