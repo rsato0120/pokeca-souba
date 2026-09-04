@@ -10,6 +10,7 @@ import OripaBanner from '@/components/OripaBanner'
 import VisitorStrip, { type MarketCard } from '@/components/VisitorStrip'
 import UpdateClock from '@/components/UpdateClock'
 import SiteHeader from "@/components/SiteHeader"
+import GameTabs from '@/components/GameTabs'
 import MarketPulse from '@/components/MarketPulse'
 import BoxBargainListings from '@/components/BoxBargainListings'
 import { computeMarketTemp } from '@/lib/market-temp'
@@ -259,6 +260,7 @@ export default function TopPage() {
   return (
     <div className="wrap home-wrap">
       <SiteHeader />
+      <GameTabs game="pokemon" />
       <section className="home-hero" aria-labelledby="home-title">
         <p id="home-title">ポケモンカードの相場を、すばやく確認</p>
         <SearchBar cards={searchCards} />

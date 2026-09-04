@@ -23,6 +23,8 @@ interface Props {
   /** スニダン売買履歴から数えた実成約件数（日付 -> 件数）。素体・PSA10それぞれ */
   salesByDay?: Record<string, number>
   psa10SalesByDay?: Record<string, number>
+  /** Sparse transaction-date histories cannot label observation-count averages as daily MAs. */
+  movingAverages?: boolean
 }
 
 type Tab = 'raw' | 'psa10'
@@ -63,7 +65,7 @@ function movingAverage(values: (number | null)[], i: number, n: number): number 
   return win.reduce((a, b) => a + b, 0) / win.length
 }
 
-export default function PriceHistoryChart({ history, extremes = null, unit = '枚', salesByDay, psa10SalesByDay }: Props) {
+export default function PriceHistoryChart({ history, extremes = null, unit = '枚', salesByDay, psa10SalesByDay, movingAverages = true }: Props) {
   const [tab, setTab] = useState<Tab>('raw')
   const [days, setDays] = useState<number>(30)
 
@@ -142,8 +144,8 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
   // 読み手には「写っている値動きをならした線」に見えてしまう。見えない過去に引かれて
   // 動く線は、平坦で無意味な線より誤読を生む。
   // MA30 側は元から days >= 30 で期間条件を持っていたが、MA7 だけ抜けていた。
-  const showMa7 = tab === 'raw' && days > MA_SHORT && data.filter(d => d.ma7 != null).length >= 4
-  const showMa30 = tab === 'raw' && days >= MA_LONG && data.filter(d => d.ma30 != null).length >= 6
+  const showMa7 = movingAverages && tab === 'raw' && days > MA_SHORT && data.filter(d => d.ma7 != null).length >= 4
+  const showMa30 = movingAverages && tab === 'raw' && days >= MA_LONG && data.filter(d => d.ma30 != null).length >= 6
 
   // Y軸domain: 'auto'だと線が底に張り付き変動が潰れるので、実データのmin/maxに
   // レンジ比例パディングを付けて変動が中央に見えるようにする

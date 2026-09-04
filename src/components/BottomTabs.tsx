@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { NAV_ITEMS, isActiveTab } from '@/lib/nav'
+import { navItemsFor, isActiveTab } from '@/lib/nav'
 
 // スマホ用の下部固定タブ。PCでは CSS で非表示（globals.css の .bottom-tabs）。
 //
@@ -16,8 +16,8 @@ export default function BottomTabs() {
   const pathname = usePathname()
 
   return (
-    <nav className="bottom-tabs" aria-label="メインナビゲーション">
-      {NAV_ITEMS.map((item) => {
+    <nav className="bottom-tabs" aria-label="メインナビゲーション" style={{ gridTemplateColumns: `repeat(${navItemsFor(pathname).length}, 1fr)` }}>
+      {navItemsFor(pathname).map((item) => {
         const active = isActiveTab(item, pathname)
         return (
           <Link

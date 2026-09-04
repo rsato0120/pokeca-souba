@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
+import { getOnePieceCatalog } from '@/lib/onepiece'
 
 const SITE_URL = 'https://pokeca-souba.vercel.app'
 
@@ -44,5 +45,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...cardUrls,
     ...boxUrls,
+    ...['/onepiece', '/onepiece/cards', '/onepiece/boxes',
+      ...getOnePieceCatalog().sets.map(s => `/onepiece/sets/${s.id}`),
+      ...getOnePieceCatalog().products.map(p => `/onepiece/products/${p.id}`),
+    ].map(route => ({ url: `${SITE_URL}${route}`, changeFrequency: 'daily' as const, priority: .7 })),
   ]
 }

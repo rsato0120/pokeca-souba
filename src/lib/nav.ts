@@ -21,8 +21,18 @@ export const NAV_ITEMS: NavItem[] = [
   { href: '/mypage', label: 'マイページ', icon: '📁', owns: ['/watchlist', '/portfolio', '/screener'] },
 ]
 
+export const ONEPIECE_NAV_ITEMS: NavItem[] = [
+  { href: '/onepiece', label: 'ホーム', icon: '🏠', owns: ['/onepiece/sets', '/onepiece/products'] },
+  { href: '/onepiece/cards', label: 'カード', icon: '🃏', owns: [] },
+  { href: '/onepiece/boxes', label: 'BOX', icon: '📦', owns: [] },
+]
+export function navItemsFor(pathname: string): NavItem[] {
+  return pathname === '/onepiece' || pathname.startsWith('/onepiece/') ? ONEPIECE_NAV_ITEMS : NAV_ITEMS
+}
+
 /** 現在のパスがどのタブに属するか。トップだけ完全一致、他は前方一致＋owns */
 export function isActiveTab(item: NavItem, pathname: string): boolean {
+  if (item.href === '/onepiece') return pathname === item.href || item.owns.some(p => pathname.startsWith(p + '/'))
   if (item.href === '/') {
     return pathname === '/' || item.owns.some((p) => pathname.startsWith(p))
   }

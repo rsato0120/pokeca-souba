@@ -1,0 +1,40 @@
+name: Update ONE PIECE prices
+on:
+  schedule:
+    - cron: '30 0,12 * * *'
+  workflow_dispatch:
+concurrency:
+  group: market-data-updates
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/verify-onepiece.ts
+      - run: npx playwright install chromium --with-deps
+      - name: Fetch SNKRDUNK sales
+        id: scrape
+        continue-on-error: true
+        run: npx tsx scripts/scrape-onepiece-prices.ts
+      - name: Save successful observations
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/onepiece/prices/
+          if ! git diff --cached --quiet; then
+            git commit -m "Update ONE PIECE prices $(date -u '+%Y-%m-%d %H:%M')"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Report incomplete update
+        if: steps.scrape.outcome == 'failure'
+        run: exit 1

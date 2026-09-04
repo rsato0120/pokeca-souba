@@ -1,3 +1,65 @@
+.game-tabs { display: flex; gap: 4px; padding: 4px; margin: 20px 0 28px; background: var(--bg2); border: 1px solid var(--hair); border-radius: 12px; width: fit-content; }
+.game-tabs a { padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--ink-dim); text-decoration: none; }
+.game-tabs a[aria-current] { background: var(--accent-soft); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.op-page h1 { font-size: clamp(25px, 4vw, 38px); line-height: 1.4; margin: 8px 0 16px; }
+.op-page h2 { font-size: 20px; margin: 0; }
+.op-page h3 { line-height: 1.6; margin: 8px 0; }
+.op-hero { display: flex; justify-content: space-between; gap: 32px; align-items: center; padding: 32px; border: 1px solid var(--hair); border-radius: 16px; background: radial-gradient(ellipse at top right, var(--accent-soft), transparent 65%), var(--panel); }
+.op-hero p { color: var(--ink-dim); line-height: 1.8; }
+.op-eyebrow { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--accent); }
+.op-overview { display: flex; gap: 28px; flex-shrink: 0; }
+.op-overview div { display: grid; gap: 8px; text-align: center; }
+.op-overview strong { font-size: 32px; font-family: var(--mono); }
+.op-overview span, .op-muted { color: var(--ink-dim); font-size: 12px; line-height: 1.7; }
+.op-section-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 32px 0 16px; }
+.op-set-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; }
+.op-set-card { display: flex; flex-direction: column; padding: 20px 16px; text-decoration: none; color: var(--ink); background: var(--panel); border: 1px solid var(--hair); border-radius: 12px; transition: border-color .15s; }
+.op-set-card:hover, .op-set-card[aria-current], .op-product:hover { border-color: var(--accent); }
+.op-set-card .op-eyebrow span { display: block; color: var(--ink-faint); margin-top: 8px; font-size: 10px; }
+.op-set-card h3 { font-size: 14px; flex: 1; margin-bottom: 20px; }
+.op-set-card strong { font: 700 20px var(--mono); margin-top: 4px; }
+.op-toolbar { display: flex; gap: 16px; align-items: flex-end; margin-bottom: 16px; }
+.op-toolbar label { display: grid; gap: 8px; font-size: 12px; color: var(--ink-dim); }
+.op-search { flex: 1; }
+.op-toolbar input, .op-toolbar select { border: 1px solid var(--hair); background: var(--panel); color: var(--ink); padding: 12px; border-radius: 8px; font: inherit; min-height: 44px; }
+.op-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.op-filters button { cursor: pointer; border: 1px solid var(--hair); background: var(--panel); color: var(--ink-dim); padding: 10px 16px; border-radius: 24px; font: inherit; font-size: 12px; }
+.op-filters button[aria-pressed=true] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.op-product-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin-top: 16px; }
+.op-product { display: flex; gap: 16px; padding: 16px; background: var(--panel); border: 1px solid var(--hair); border-radius: 12px; text-decoration: none; color: var(--ink); min-width: 0; }
+.op-product-image { display: grid; place-items: center; width: 90px; min-width: 90px; height: 128px; background: var(--bg2); border-radius: 8px; font: 12px var(--mono); color: var(--ink-faint); overflow: hidden; }
+.op-product-image img { width: 100%; height: 100%; object-fit: contain; }
+.op-product-info { min-width: 0; }
+.op-product h3 { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.op-price { font: 700 20px var(--mono); margin: 12px 0 4px; }
+.op-empty { padding: 40px 16px; text-align: center; color: var(--ink-dim); background: var(--panel); border-radius: 12px; }
+.op-footnote { color: var(--ink-dim); font-size: 12px; line-height: 1.9; margin: 24px 0; }
+.op-footnote a, .op-hero a, .op-breadcrumb a { color: var(--accent); }
+.op-breadcrumb { font-size: 12px; margin-bottom: 24px; }
+.op-detail-hero { display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: center; padding: 32px; background: var(--panel); border: 1px solid var(--hair); border-radius: 16px; }
+.op-detail-image { display: grid; place-items: center; height: 320px; overflow: hidden; color: var(--ink-dim); background: var(--bg2); border-radius: 12px; }
+.op-detail-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.op-detail-price { font: 700 38px var(--mono); margin: 8px 0; }
+.op-buy-link { display: inline-block; margin-top: 20px; padding: 14px 20px; border-radius: 8px; background: var(--accent-strong); color: var(--accent-ink); text-decoration: none; }
+.op-chart-panel { background: var(--panel); border: 1px solid var(--hair); border-radius: 12px; padding: 24px; margin-top: 24px; }
+.op-chart-panel h2 { margin-bottom: 20px; }
+.op-table-scroll { overflow-x: auto; }
+.op-table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+.op-table th, .op-table td { padding: 12px; text-align: right; border-bottom: 1px solid var(--hair); }
+.op-table th:first-child, .op-table td:first-child { text-align: left; }
+.op-table th { color: var(--ink-dim); }
+@media (max-width: 1050px) { .op-product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .op-overview { gap: 16px; } .op-set-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width: 600px) {
+  .game-tabs { width: 100%; } .game-tabs a { flex: 1; text-align: center; padding: 12px 8px; font-size: 12px; }
+  .op-hero { display: block; padding: 24px; } .op-overview { justify-content: space-around; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--hair); }
+  .op-set-grid { display: flex; overflow-x: auto; padding-bottom: 8px; } .op-set-card { min-width: 168px; }
+  .op-product-grid { grid-template-columns: 1fr; } .op-product h3 { font-size: 14px; } .op-product-image { width: 80px; min-width: 80px; height: 112px; }
+  .op-toolbar { flex-wrap: wrap; } .op-search { min-width: 100%; } .op-toolbar select { width: 100%; } .op-toolbar label { width: 100%; }
+  .op-section-heading { align-items: flex-start; flex-direction: column; gap: 4px; } .op-filters button { padding: 10px 12px; }
+  .op-detail-hero { grid-template-columns: 1fr; gap: 24px; padding: 24px; } .op-detail-image { height: 260px; } .op-detail-price { font-size: 32px; }
+  .op-chart-panel { padding: 16px; }
+}
+
 :root {
   /* ── ライト基調（相場アプリ風・清潔/中立） ── */
   --bg: #f2f4f7;        /* ページ背景（オフホワイト） */

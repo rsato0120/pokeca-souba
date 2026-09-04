@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ThemeToggle from './ThemeToggle'
-import { NAV_ITEMS, isActiveTab } from '@/lib/nav'
+import { navItemsFor, isActiveTab } from '@/lib/nav'
 
 // 全ページ共通のヘッダー。
 //
@@ -20,15 +20,16 @@ import { NAV_ITEMS, isActiveTab } from '@/lib/nav'
 //   /portfolio・/accuracy はURLを残したまま、この4タブの配下から到達させている。
 export default function SiteHeader() {
   const pathname = usePathname()
+  const isOnePiece = pathname === '/onepiece' || pathname.startsWith('/onepiece/')
 
   return (
     <header className="site-header">
-      <Link href="/" className="logo-link">
+      <Link href={isOnePiece ? '/onepiece' : '/'} className="logo-link">
         <span className="logo">相場</span>
       </Link>
 
       <nav className="site-nav" aria-label="メインナビゲーション">
-        {NAV_ITEMS.map((item) => {
+        {navItemsFor(pathname).map((item) => {
           const active = isActiveTab(item, pathname)
           return (
             <Link
@@ -43,7 +44,7 @@ export default function SiteHeader() {
         })}
       </nav>
 
-      <Link href="/screener" className="site-search-link" aria-label="カード検索">
+      <Link href={isOnePiece ? '/onepiece/cards' : '/screener'} className="site-search-link" aria-label="カード検索">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
           <circle cx="10.5" cy="10.5" r="6.5" />
           <line x1="15.4" y1="15.4" x2="20.5" y2="20.5" />
