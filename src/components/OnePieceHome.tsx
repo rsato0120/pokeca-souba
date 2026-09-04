@@ -14,13 +14,9 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
   const lastDate = listings.flatMap(p => p.date ? [p.date] : []).sort().at(-1)
   return <main className="wrap op-page">
     <SiteHeader /><GameTabs game="onepiece" />
-    <section className="op-hero">
-      <div><p className="op-eyebrow">ONE PIECE CARD GAME · MARKET</p>
-        <h1>{set?.name ?? (kind === 'box' ? '未開封BOXの相場' : kind === 'card' ? '高額カードの相場' : '次の一枚を、相場から。')}</h1>
-        <p>コミパラ・スペシャルカードと未開封BOX。<br />スニダンの成約をもとに、価格の動きをチェック。</p>
-        {set && <p className="op-muted">{set.code} · {set.release_date}発売 <a href={set.official_url} target="_blank" rel="noreferrer">公式商品情報 ↗</a></p>}
-      </div>
-      <div className="op-overview"><div><strong>{sets.length}</strong><span>収録弾</span></div><div><strong>{products.filter(p => p.kind === 'card').length}</strong><span>高額カード</span></div><div><strong>{products.filter(p => p.kind === 'box').length}</strong><span>未開封BOX</span></div></div>
+    <section className="home-hero" aria-labelledby="onepiece-title">
+      <p id="onepiece-title">{set ? `${set.name}の相場を、すばやく確認` : kind === 'box' ? 'ONE PIECEのBOX相場を、すばやく確認' : 'ONE PIECEカードの相場を、すばやく確認'}</p>
+      {set && <p className="op-muted">{set.code} · {set.release_date}発売 <a href={set.official_url} target="_blank" rel="noreferrer">公式商品情報 ↗</a></p>}
     </section>
     <div className="op-section-heading"><h2>収録弾から探す</h2><span className="op-muted">最新成約日 {lastDate ?? '取得待ち'}</span></div>
     <div className="op-set-grid">{sets.map(s => {
