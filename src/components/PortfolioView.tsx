@@ -56,7 +56,9 @@ function deltaColor(v: number): string {
   return v > 0 ? 'var(--up)' : v < 0 ? 'var(--down)' : 'var(--ink-dim)'
 }
 
-export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioCardData[]; boxes?: { box_id: string; box_name: string }[] }) {
+export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: { game?: 'pokemon' | 'onepiece'; cards: PortfolioCardData[]; boxes?: { box_id: string; box_name: string }[] }) {
+  const isOnePiece = game === 'onepiece'
+  const homeHref = isOnePiece ? '/onepiece' : '/'
   const { col, setQty } = useCollection()
   const { cost, setCost } = useCostBasis()
   const [range, setRange] = useState<Range>(30)
@@ -65,7 +67,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   const holdings: Holding[] = []
   for (const c of cards) {
     const rawQ = col[c.id] ?? 0
-    if (rawQ > 0 && c.currentMid > 0) {
+    if (rawQ > 0 && (c.currentMid > 0 || isOnePiece)) {
       holdings.push({ key: c.id, card: c, variant: 'raw', qty: rawQ, unitPrice: c.currentMid, history: c.history, m3Low: c.m3Low, m3High: c.m3High })
     }
     const pq = col[psaKey(c.id)] ?? 0
@@ -94,7 +96,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   const diffHighPct = currentTotal > 0 ? Math.round(((m3HighTotal - currentTotal) / currentTotal) * 100) : 0
 
   // ── 取得原価と含み損益（買値を入れた保有だけを集計する） ──
-  const costedHoldings = holdings.filter(h => (cost[h.key] ?? 0) > 0)
+  const costedHoldings = holdings.filter(h => h.unitPrice > 0 && (cost[h.key] ?? 0) > 0)
   const costTotal = costedHoldings.reduce((s, h) => s + cost[h.key] * h.qty, 0)
   const costedMarket = costedHoldings.reduce((s, h) => s + h.unitPrice * h.qty, 0)
   const pl = costedMarket - costTotal
@@ -105,7 +107,9 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   const valueSeries = (() => {
     const dateSet = new Set<string>()
     holdings.forEach(h => h.history.forEach(p => dateSet.add(p.date)))
-    const dates = [...dateSet].sort().slice(-range)
+    const allDates = [...dateSet].sort()
+    const cutoff = allDates.length ? Date.parse(allDates[allDates.length - 1]) - (range - 1) * 86400000 : 0
+    const dates = isOnePiece ? allDates.filter(date => Date.parse(date) >= cutoff) : allDates.slice(-range)
     // データ開始前は最古の既知価格でバックフィルし、被覆差による段差を防ぐ
     const priceAsOf = (hist: { date: string; mid: number }[], date: string): number | null => {
       if (hist.length === 0) return null
@@ -167,7 +171,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
   if (totalQty === 0) {
     return (
       <div style={{ maxWidth: '680px', margin: '0 auto', padding: '24px 16px' }}>
-        <Link href="/" style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
+        <Link href={homeHref} style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
           ← トップ
         </Link>
         <h1 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>マイコレクション</h1>
@@ -179,7 +183,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
           <p style={{ fontSize: '12px', color: 'var(--ink-faint)', marginBottom: '16px' }}>収録弾から探す</p>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
             {boxes.map(b => (
-              <Link key={b.box_id} href={`/boxes/${b.box_id}`} style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
+              <Link key={b.box_id} href={isOnePiece ? "/onepiece/sets/" + b.box_id : "/boxes/" + b.box_id} style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
                 {b.box_name} →
               </Link>
             ))}
@@ -191,16 +195,17 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
 
   return (
     <div style={{ maxWidth: '680px', margin: '0 auto', padding: '24px 16px' }}>
-      <Link href="/" style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
+      <Link href={homeHref} style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
         ← トップ
       </Link>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '8px' }}>
         <h1 style={{ fontSize: '22px', fontWeight: 700 }}>マイコレクション</h1>
         <span style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
-          {holdings.length}種 / {totalQty}枚
+          {holdings.length}種 / {totalQty}{isOnePiece ? '点' : '枚'}
         </span>
       </div>
 
+      {isOnePiece && <p className="op-muted">相場未取得の商品は評価額・損益に含みません。価格は直近の成約記録に基づく参考値です。登録内容はこのブラウザに保存されます。</p>}
       {/* 評価額グラフ（投資アプリ風） */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px', marginBottom: '16px' }}>
         <p style={{ fontSize: '11px', color: 'var(--ink-faint)', fontFamily: 'var(--mono)', letterSpacing: '0.05em', marginBottom: '6px' }}>
@@ -214,7 +219,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
             <span style={{ fontSize: '15px', fontFamily: 'var(--mono)', fontWeight: 700, color: deltaColor(dayDiff) }}>
               {signedYen(dayDiff)}
               <span style={{ fontSize: '12px', marginLeft: '5px' }}>({dayPct >= 0 ? '+' : ''}{dayPct.toFixed(1)}%)</span>
-              <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '11px', marginLeft: '5px' }}>前日比</span>
+              <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '11px', marginLeft: '5px' }}>{isOnePiece ? '前回記録比' : '前日比'}</span>
             </span>
           )}
         </div>
@@ -226,7 +231,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
           {periodDiff != null && periodPct != null && valueSeries.length >= 2 && (
             <span style={{ fontSize: '12px', fontFamily: 'var(--mono)', color: deltaColor(periodDiff), marginLeft: '4px' }}>
               {signedYen(periodDiff)} ({periodPct >= 0 ? '+' : ''}{periodPct.toFixed(1)}%)
-              <span style={{ color: 'var(--ink-faint)', marginLeft: '4px' }}>／この{valueSeries.length}日</span>
+              <span style={{ color: 'var(--ink-faint)', marginLeft: '4px' }}>／この{valueSeries.length}{isOnePiece ? '記録' : '日'}</span>
             </span>
           )}
         </div>
@@ -253,10 +258,10 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
       </div>
 
       {/* 総合ランク（ボール）＋称号バッジ */}
-      <CollectionBadges rank={computeRank(currentTotal)} earned={badges.earned} next={badges.next} />
+      {!isOnePiece && <CollectionBadges rank={computeRank(currentTotal)} earned={badges.earned} next={badges.next} />}
 
       {/* 登録者の中での位置（オプトイン・Supabase未設定なら何も出ない） */}
-      <CollectionRank totalYen={currentTotal} kinds={holdings.length} qty={totalQty} />
+      {!isOnePiece && <CollectionRank totalYen={currentTotal} kinds={holdings.length} qty={totalQty} />}
 
       {/* 含み損益（買値を入れた保有のみ） */}
       <div style={{ background: 'var(--bg2)', border: '1px solid var(--hair)', borderRadius: '12px', padding: '20px', marginBottom: '16px' }}>
@@ -265,7 +270,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
         </p>
         {costedHoldings.length === 0 ? (
           <p style={{ fontSize: '13px', color: 'var(--ink-faint)', lineHeight: 1.7 }}>
-            下の保有リストに<strong style={{ color: 'var(--ink-dim)', fontWeight: 600 }}>買値（1枚あたり）</strong>を入れると、
+            下の保有リストに<strong style={{ color: 'var(--ink-dim)', fontWeight: 600 }}>買値（1点あたり）</strong>を入れると、
             取得原価と含み損益を計算します。入力はこの端末のブラウザにのみ保存されます。
           </p>
         ) : (
@@ -321,8 +326,8 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
             const pctHigh = h.m3High != null && h.unitPrice > 0 ? Math.round(((h.m3High - h.unitPrice) / h.unitPrice) * 100) : null
             const pctLow = h.m3Low != null && h.unitPrice > 0 ? Math.round(((h.m3Low - h.unitPrice) / h.unitPrice) * 100) : null
             const unitCost = cost[h.key] ?? 0
-            const rowPl = unitCost > 0 ? (h.unitPrice - unitCost) * h.qty : null
-            const rowPlPct = unitCost > 0 ? ((h.unitPrice - unitCost) / unitCost) * 100 : null
+            const rowPl = unitCost > 0 && h.unitPrice > 0 ? (h.unitPrice - unitCost) * h.qty : null
+            const rowPlPct = unitCost > 0 && h.unitPrice > 0 ? ((h.unitPrice - unitCost) / unitCost) * 100 : null
 
             return (
               <div key={h.key} style={{ borderBottom: '1px solid var(--hair)', padding: '14px 16px' }}>
@@ -351,7 +356,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                       <span style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: isPsa ? '#6c8ebf' : 'var(--ink-dim)' }}>
-                        ¥{h.unitPrice.toLocaleString()}
+                        {h.unitPrice > 0 ? '¥' + h.unitPrice.toLocaleString() : '相場未取得'}
                       </span>
                       {h.m3Low != null && h.m3High != null && (
                         <>
@@ -369,7 +374,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                     </div>
                     {h.qty > 1 && (
                       <div style={{ marginTop: '4px', fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)' }}>
-                        ×{h.qty}枚 = 計¥{subtotalCurrent.toLocaleString()}
+                        ×{h.qty}{isOnePiece ? '点' : '枚'} {h.unitPrice > 0 ? '= 計¥' + subtotalCurrent.toLocaleString() : '（評価額の対象外）'}
                       </div>
                     )}
                     {/* 買値入力と1銘柄の含み損益 */}
@@ -390,7 +395,7 @@ export default function PortfolioView({ cards, boxes = [] }: { cards: PortfolioC
                             color: 'var(--ink)', fontFamily: 'var(--mono)', fontSize: '12px',
                           }}
                         />
-                        <span>円/枚</span>
+                        <span>円/点</span>
                       </label>
                       {rowPl != null && rowPlPct != null && (
                         <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', fontWeight: 700, color: deltaColor(rowPl) }}>

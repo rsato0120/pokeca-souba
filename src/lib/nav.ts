@@ -25,6 +25,7 @@ export const ONEPIECE_NAV_ITEMS: NavItem[] = [
   { href: '/onepiece', label: 'ホーム', icon: '🏠', owns: ['/onepiece/sets', '/onepiece/products'] },
   { href: '/onepiece/cards', label: 'カード', icon: '🃏', owns: [] },
   { href: '/onepiece/boxes', label: 'BOX', icon: '📦', owns: [] },
+  { href: '/onepiece/portfolio', label: 'コレクション', icon: '📁', owns: [] },
 ]
 export function navItemsFor(pathname: string): NavItem[] {
   return pathname === '/onepiece' || pathname.startsWith('/onepiece/') ? ONEPIECE_NAV_ITEMS : NAV_ITEMS

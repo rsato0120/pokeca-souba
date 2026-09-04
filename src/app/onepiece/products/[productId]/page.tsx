@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
-import GameTabs from '@/components/GameTabs'
+import CardCollectionControl from '@/components/CardCollectionControl'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePriceStale } from '@/lib/onepiece'
@@ -26,7 +26,9 @@ export default async function Page({ params }: { params: Promise<{ productId: st
     : `ワンピースカード ${onePieceShortName(product.name)} ${product.card_no ?? ''}`.trim()
   const mercariUrl = mercariAffiliateUrl(`https://jp.mercari.com/search?keyword=${encodeURIComponent(searchKeyword)}&status=on_sale`)
   const yen = (value: number | undefined) => value == null ? '—' : `¥${value.toLocaleString('ja-JP')}`
-  return <main className="wrap op-page"><SiteHeader /><GameTabs game="onepiece" />
+  const tweetText = [onePieceShortName(product.name), latest ? `スニダン成約相場 ${yen(latest.avg)}（${latest.date}）` : '相場データを確認', `https://pokeca-souba.vercel.app/onepiece/products/${product.id}`, '#ワンピースカード #ワンピカード'].join('\n')
+  const extremes = prices?.history.length ? { high: Math.max(...prices.history.map(r => r.high)), low: Math.min(...prices.history.map(r => r.low)) } : null
+  return <main className="wrap op-page"><SiteHeader />
     <nav className="op-breadcrumb" aria-label="パンくず"><Link href="/onepiece">ONE PIECE</Link><span> / </span><Link href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
     <section className="op-detail-hero">
       <div className="op-detail-image">{/* eslint-disable-next-line @next/next/no-img-element */}
@@ -37,14 +39,17 @@ export default async function Page({ params }: { params: Promise<{ productId: st
         <p className="op-muted">スニーカーダンク 成約平均</p><p className="op-detail-price">{latest ? yen(latest.avg) : '成約データ不足'}</p>
         <p className="op-muted">{latest ? `${latest.date}時点 · ${latest.sample_count}件の成約から算出` : '相場算出には30日以内に3件以上の成約が必要です。'}</p>
         {isOnePiecePriceStale(prices) && <p className="op-muted">取得時点で30日以上前の参考値です。最近の相場を算出できる成約件数が不足しています。</p>}
+        <CardCollectionControl cardId={`onepiece:${product.id}`} hasPsa10={false} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} />
+        <p><Link href="/onepiece/portfolio">マイコレクションを見る →</Link></p>
         <a className="op-buy-link" href={mercariUrl} target="_blank" rel="sponsored nofollow noreferrer">メルカリで出品を見る ↗</a>
         <p className="op-footnote">広告・アフィリエイトリンク</p>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" />
       </div>
     </section>
-    <section className="op-chart-panel"><h2>価格推移</h2>
-      {(prices?.history.length ?? 0) > 1 ? <PriceHistoryChart history={prices!.history} salesByDay={prices!.sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
+    <p><a className="op-buy-link" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`} target="_blank" rel="noreferrer">𝕏 でシェア</a></p>
+    <section className="chart-shell"><h2>価格推移・詳細チャート</h2>
+      {(prices?.history.length ?? 0) > 0 ? <PriceHistoryChart extremes={extremes} history={prices!.history} salesByDay={prices!.sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
       <p className="op-footnote">各日までの直近30日以内から新しい日順に20件を目安に集計。カードは状態Aのみ、BOXは複数箱の取引を1箱単価に換算しています。グラフは取得できた実成約から算出し、取引がない日を補完しません。</p>
     </section>
     <section className="op-chart-panel"><h2>直近の相場記録</h2><div className="op-table-scroll"><table className="op-table"><thead><tr><th>成約日</th><th>平均</th><th>価格帯</th><th>算出件数</th></tr></thead><tbody>

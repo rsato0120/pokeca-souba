@@ -4,11 +4,12 @@ import { useCollection, psaKey } from '@/hooks/useCollection'
 
 interface Props {
   cardId: string
+  rawLabel?: string
   hasPsa10: boolean   // PSA10価格があるカードのみPSA枠を出す
 }
 
 // カード詳細ページでコレクションに追加するUI。素体とPSA10を別枠で登録できる。
-export default function CardCollectionControl({ cardId, hasPsa10 }: Props) {
+export default function CardCollectionControl({ cardId, hasPsa10, rawLabel = '素体' }: Props) {
   const { getQty, setQty } = useCollection()
   const rawQty = getQty(cardId)
   const pKey = psaKey(cardId)
@@ -75,7 +76,7 @@ export default function CardCollectionControl({ cardId, hasPsa10 }: Props) {
         MY COLLECTION · コレクションに追加
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {stepper('素体', 'var(--accent)', cardId, rawQty)}
+        {stepper(rawLabel, 'var(--accent)', cardId, rawQty)}
         {hasPsa10 && stepper('PSA10', '#6c8ebf', pKey, psaQty)}
       </div>
     </div>
