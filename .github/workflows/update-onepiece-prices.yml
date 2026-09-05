@@ -25,11 +25,13 @@ jobs:
         id: scrape
         continue-on-error: true
         run: npx tsx scripts/scrape-onepiece-prices.ts
+      - name: Fetch Mercari bargain listings
+        run: npx tsx scripts/scrape-onepiece-market-listings.ts
       - name: Save successful observations
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/onepiece/prices/
+          git add data/onepiece/prices/ data/onepiece/market-listings.json
           if ! git diff --cached --quiet; then
             git commit -m "Update ONE PIECE prices $(date -u '+%Y-%m-%d %H:%M')"
             git pull --rebase origin main

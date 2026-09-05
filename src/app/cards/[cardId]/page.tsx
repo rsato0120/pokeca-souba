@@ -26,6 +26,8 @@ import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { midOf } from '@/lib/market'
 import ForecastNote from '@/components/ForecastNote'
 import { aiVerdict } from '@/lib/verdict'
+import DetailBargains from '@/components/DetailBargains'
+import { getPokemonDetailBargains } from '@/lib/detail-bargains'
 
 // A8.net メルカリ素材ID（リンク・インプレッション計測タグ共通）
 const A8_MERCARI_MAT = '4B60CK+3FU6LU+5LNQ+5YJRM'
@@ -631,6 +633,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           })()}
         </div>
       </div>
+
+      <DetailBargains rows={getPokemonDetailBargains(cardId).slice(0, 3)} />
 
       {/* ── 価格推移＋AI予想（素体/PSA10タブ） ── */}
       {/* グラフはタブで切り替える。統合はしない（CardCharts.tsx のコメント参照）。

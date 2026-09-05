@@ -27,7 +27,7 @@ export default function BargainListings({ rows }: { rows: BargainRow[] }) {
           key={row.listingId}
           href={mercariAffiliateUrl(row.url)}
           target="_blank"
-          rel="nofollow noreferrer"
+          rel="sponsored nofollow noreferrer"
           className="bargain-row"
           aria-label={`${row.name}の出品をメルカリで見る`}
         >

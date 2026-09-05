@@ -5,6 +5,8 @@ import CardCollectionControl from '@/components/CardCollectionControl'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePriceStale } from '@/lib/onepiece'
+import DetailBargains from '@/components/DetailBargains'
+import { getOnePieceDetailBargains } from '@/lib/detail-bargains'
 
 export const dynamicParams = false
 export function generateStaticParams() { return getOnePieceCatalog().products.map(p => ({ productId: p.id })) }
@@ -47,6 +49,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
         <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" />
       </div>
     </section>
+    <DetailBargains rows={getOnePieceDetailBargains(product.id).slice(0, 3)} />
     <p><a className="op-buy-link" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`} target="_blank" rel="noreferrer">𝕏 でシェア</a></p>
     <section className="chart-shell"><h2>価格推移・詳細チャート</h2>
       {(prices?.history.length ?? 0) > 0 ? <PriceHistoryChart extremes={extremes} history={prices!.history} salesByDay={prices!.sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
