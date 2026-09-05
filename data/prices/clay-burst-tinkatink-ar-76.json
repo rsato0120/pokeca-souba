@@ -8,11 +8,11 @@
       "avg": 476,
       "source": "mercari",
       "sample_count": 45,
-      "sold_total": 345,
-      "oldest_sale_days": 87,
-      "on_sale": 9,
+      "sold_total": 346,
+      "oldest_sale_days": 88,
+      "on_sale": 8,
       "ask_low": 499,
-      "ask_mid": 605,
+      "ask_mid": 600,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
       "psa10": 5873
@@ -391,5 +391,8 @@
     "2026-05-16": 1,
     "2026-05-12": 1
   },
-  "sales_fetched_at": "2026-09-05"
+  "sales_fetched_at": "2026-09-05",
+  "sales_by_day": {
+    "2026-09-05": 1
+  }
 }
