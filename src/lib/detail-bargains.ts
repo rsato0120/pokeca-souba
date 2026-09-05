@@ -5,12 +5,12 @@ import { assessBargain } from './bargains'
 import { getAllCards, getCardSlug, getMarketListings, getPriceHistory } from './data'
 import { midOf } from './market'
 
-export function getPokemonDetailBargains(excludeSlug: string): BargainRow[] {
+export function getPokemonDetailBargains(cardSlug: string): BargainRow[] {
   const listings = getMarketListings()
   if (!listings) return []
   return getAllCards().flatMap(card => {
     const slug = getCardSlug(card)
-    if (slug === excludeSlug) return []
+    if (slug !== cardSlug) return []
     const latest = getPriceHistory(slug)?.history[0]
     if (!latest || latest.date < listings.base_date) return []
     const marketPrice = Math.round(midOf(latest))
@@ -26,10 +26,10 @@ export function getPokemonDetailBargains(excludeSlug: string): BargainRow[] {
   }).sort((a, b) => b.discountPct - a.discountPct || b.savings - a.savings)
 }
 
-export function getOnePieceDetailBargains(excludeId: string): BargainRow[] {
+export function getOnePieceDetailBargains(productId: string): BargainRow[] {
   try {
     const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/market-listings.json'), 'utf8')) as { rows: Array<BargainRow & { productId: string }> }
-    return data.rows.filter(row => row.productId !== excludeId)
+    return data.rows.filter(row => row.productId === productId)
       .sort((a, b) => b.discountPct - a.discountPct || b.savings - a.savings)
   } catch { return [] }
 }
