@@ -63,7 +63,7 @@ const ON_SALE_MAX_PAGES = 3
 //       検索の絞り込みにならないが、"233/193" は出品タイトルにほぼ必ず書かれていて効く。
 //   (2) 返ってきた出品を価格側と**同じ関門**（isExcluded / matchesCardNo）に通し、
 //       残った数を数える。ページをめくって実数で数え、上限を超えた分だけ採用率で外挿する。
-async function getMercariOnSale(
+export async function getMercariOnSale(
   browser: Browser,
   searchQuery: string,
   minPrice = 0,
@@ -133,14 +133,25 @@ async function getMercariOnSale(
       && Number(i.price) >= Math.max(1, minPrice)
       && (titleMust == null || titleMust(i.name))
 
+    const ids = new Set<string>()
+    const unique = (items: MercariItem[]) => items.filter(i => {
+      if (!i.id || ids.has(i.id)) return false
+      ids.add(i.id)
+      return true
+    })
+    first.items = unique(first.items)
     let seen = first.items.length
     let kept = first.items.filter(keep).length
     let token = first.next
     let pages = 1
+    const tokens = new Set<string>()
     while (token && pages < maxPages) {
+      if (tokens.has(token)) break
+      tokens.add(token)
       await new Promise(r => setTimeout(r, 2500 + Math.random() * 1500))
       const next = await fetchPage(token)
       if (!next) break
+      next.items = unique(next.items)
       seen += next.items.length
       kept += next.items.filter(keep).length
       token = next.next
@@ -597,8 +608,13 @@ function hasRarityToken(title: string, rarity: string): boolean {
   return new RegExp(`(^|[^A-Za-z])${rarity}([^A-Za-z]|$)`).test(title.toUpperCase())
 }
 
-function matchesCardNo(title: string, card: CardNo | null): boolean {
+export function matchesCardNo(title: string, card: CardNo | null): boolean {
   if (card == null) return true
+  if (card.promoSeries) {
+    const text = title.normalize('NFKC').toUpperCase().replace(/[−–]/g, '-')
+    const matches = [...text.matchAll(/(?:\b(\d{1,3})\s*\/\s*S-P\b|\bS-P\s*(\d{1,3})\b)/g)]
+    return matches.length > 0 && matches.every(m => Number(m[1] ?? m[2]) === card.no)
+  }
   const sameSet = extractNoPairs(title).filter(p => p.total === card.total)
   if (sameSet.length > 0) return sameSet.some(p => p.no === card.no)
   if (!card.strict) return true
@@ -653,6 +669,7 @@ export function matchesCardName(title: string, cardName: string | null): boolean
 interface CardNo {
   no: number
   total: number
+  promoSeries?: 'S-P'
   strict?: boolean
   /** このカードのレアリティ（strict の救済判定に使う） */
   rarity?: string
@@ -660,9 +677,11 @@ interface CardNo {
   siblingRarities?: string[]
 }
 
-// "073/067" → {no:73,total:67}。PROMO の "260/SV-P" など数字/数字でないものは null（照合しない）
-function parseCardNo(cardNo: string | undefined): CardNo | null {
+// 数字/数字と S-P プロモの番号を照合する。その他の表記は従来どおり null。
+export function parseCardNo(cardNo: string | undefined): CardNo | null {
   if (!cardNo) return null
+  const promo = cardNo.match(/^(\d{1,3})\s*\/\s*S-P$/i)
+  if (promo) return { no: Number(promo[1]), total: 0, promoSeries: 'S-P', strict: true }
   const m = cardNo.match(/^(\d{1,3})\s*[/／]\s*(\d{1,3})$/)
   return m ? { no: parseInt(m[1], 10), total: parseInt(m[2], 10) } : null
 }
@@ -1621,7 +1640,7 @@ async function scrapeCard(
 // required: これが**全部**書かれていること。セット商品で「地域名＋BOX」しか見ないと、
 //   その店で買った別商品のBOX（「ポケモンセンターフクオカ産 シュリンク付きBOX」等）まで
 //   同じ商品として数えてしまうため、商品名そのもの（例「スペシャル」）を要求する。
-function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden: string[] = [], required: string[] = []): (title: string) => boolean {
+export function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden: string[] = [], required: string[] = []): (title: string) => boolean {
   // 出品タイトルは弾名に空白や中黒を挟むことが多い（"ストーム エメラルダ"）ので詰めて比較する
   const squash = (s: string) => s.replace(/[\s　・]/g, '')
   const needles = alts.map(squash).filter(n => n !== '')
@@ -1632,6 +1651,8 @@ function boxTitleFilter(alts: string[], shrink: 'any' | 'yes' | 'no', forbidden:
 
   return (title: string) => {
     const flat = squash(title)
+    if (required.length && /(?:[2-9]|\d{2,})\s*個|開封済|開封品|サプライ|空箱/.test(title.normalize('NFKC'))) return false
+    if (required.length && /デッキシールド|デッキケース/.test(title) && !/未開封|シュリンク/.test(title)) return false
     if (needles.length > 0 && !needles.some(n => flat.includes(n))) return false
     if (musts.length > 0 && !musts.every(n => flat.includes(n))) return false
     if (banned.some(n => flat.includes(n))) return false

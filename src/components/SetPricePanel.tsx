@@ -8,6 +8,7 @@ export interface SetRow {
   low: number | null
   high: number | null
   onSale: number | null
+  onSaleCapped?: boolean
   listPrice?: number
 }
 
@@ -49,7 +50,7 @@ export default function SetPricePanel({ rows }: { rows: SetRow[] }) {
               )}
             </div>
             <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', textAlign: 'right', minWidth: '56px' }}>
-              {r.onSale != null ? `${r.onSale.toLocaleString()}件` : '—'}
+              {r.onSale != null ? `${r.onSale.toLocaleString()}件${r.onSaleCapped ? '以上' : ''}` : '—'}
             </div>
           </Link>
         ))}

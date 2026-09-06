@@ -89,8 +89,6 @@ export function generateStaticParams() {
   return getAllCards().map((card) => ({ cardId: getCardSlug(card) }))
 }
 
-const TREND_LABEL = { up: '▲ 上昇', flat: '→ 横ばい', down: '▼ 下落' } as const
-const TREND_COLOR = { up: 'var(--up)', flat: 'var(--flat)', down: 'var(--down)' } as const
 
 const ARTWORK_LABEL: Record<string, string> = { original: '描き下ろし', reused: '流用', unknown: '—' }
 
@@ -100,7 +98,6 @@ function stubForecast(card_no: string, rarity: string): Forecast {
     card_no,
     rarity,
     generated_at: '',
-    collector_view: { trend: 'up', probability: 35, reason: '予想データを準備中です。' },
     overall: { up_pct: 35, flat_pct: 45, down_pct: 20, reason: '予想データを準備中です。' },
     price_forecast: {
       current_low: 2500,
@@ -134,7 +131,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   const forecast: Forecast = realForecast ?? stubForecast(card.card_no, card.rarity)
   const priceHistory = getPriceHistory(card.id)
 
-  const { overall, collector_view, price_forecast } = forecast
+  const { overall, price_forecast } = forecast
 
   // しきい値は src/lib/verdict.ts に集約（トップの買い候補選定と同じ物差しを使う）
   const signal = aiVerdict(overall)
@@ -776,52 +773,6 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
       {/* ── みんなの予想（投票・Supabase） ── */}
       <CardSentiment cardId={cardId} ai={{ up: overall.up_pct, flat: overall.flat_pct, down: overall.down_pct }} />
-
-      {/* ── コレクター需要（観賞・保有価値） ── */}
-      <div
-        style={{
-          background: 'var(--panel)',
-          border: '1px solid var(--hair)',
-          borderRadius: '8px',
-          padding: '20px',
-          marginBottom: '22px',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-            marginBottom: '4px',
-          }}
-        >
-          <span style={{ fontFamily: 'var(--mincho)', fontSize: '16px', fontWeight: 700 }}>
-            コレクター需要
-          </span>
-          <span
-            style={{
-              fontFamily: 'var(--mono)',
-              fontSize: '11px',
-              fontWeight: 600,
-              letterSpacing: '0.06em',
-              color: TREND_COLOR[collector_view.trend],
-            }}
-          >
-            {TREND_LABEL[collector_view.trend]}
-          </span>
-        </div>
-        <div
-          style={{
-            fontSize: '11px',
-            color: 'var(--ink-faint)',
-            marginBottom: '14px',
-            letterSpacing: '0.04em',
-          }}
-        >
-          観賞・保有価値
-        </div>
-        <ForecastNote text={collector_view.reason} generatedAt={forecast.generated_at} size={13} />
-      </div>
 
       {/* ── イラスト情報 ──
           旧「EVIDENCE · 予想の根拠データ」。6項目のうち 絵師人気・キャラ人気・品薄度・

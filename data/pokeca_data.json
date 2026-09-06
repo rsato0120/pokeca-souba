@@ -31,9 +31,8 @@
       }
     },
     "output_format": {
-      "_desc": "AI出力は2軸で分けてから総合する。",
+      "_desc": "価格予想と総合見通し。",
       "player_view": "プレイヤー需要の見通し（上昇/横ばい/下落 + 根拠文）",
-      "collector_view": "コレクター需要の見通し（上昇/横ばい/下落 + 根拠文）",
       "overall": "総合（上昇◯% / 横ばい◯% / 下落◯% + 根拠文）",
       "disclaimer": "本予想は投資助言ではなく参考情報である旨を必ず明示。"
     }
@@ -419,6 +418,26 @@
       "packs_per_box": 30,
       "note": "2025-01-24発売。1パック5枚入り・1BOX30パック。公式商品情報: https://www.pokemon-card.com/ex/sv9/ 。AR・SR・SAR・UR全32種を掲載。",
       "pack_image_url": "https://www.pokemon-card.com/ex/sv9/assets/images/infoProduct-img-1.png"
+    },
+    {
+      "box_id": "incandescent_arcana",
+      "box_name": "白熱のアルカナ",
+      "code": "S11a",
+      "release_ym": "2022-09",
+      "certainty": "released",
+      "pack_price_yen": 260,
+      "packs_per_box": 20,
+      "pack_image_url": "https://www.pokemon-card.com/products/2022/images/af33240a361eb22b2dd1a43138df56dea02335a6.jpg",
+      "note": "2022年9月2日発売。公式商品情報：https://www.pokemon-card.com/products/s/s11a.html"
+    },
+    {
+      "box_id": "kanazawa_pikachu",
+      "box_name": "カナザワのピカチュウ",
+      "code": "S-P",
+      "release_ym": "2020-11",
+      "certainty": "released",
+      "pack_price_yen": 0,
+      "note": "ポケモンセンターカナザワオープン記念プロモ。配布版144/S-PとスペシャルBOX収録版147/S-Pを区別。"
     }
   ],
   "cards": [
@@ -27253,6 +27272,84 @@
         "source": "公式カード検索 https://www.pokemon-card.com/card-search/details.php/card/47252/ で名称・番号・レアリティ・画像・イラストレーターを確認。HP・タイプ・進化段階はTCGdex（https://api.tcgdex.net/v2/ja/cards/SV9-132）参照。2026-09-03登録。"
       },
       "note": ""
+    },
+    {
+      "id": "kanazawa-pikachu-144",
+      "card_no": "144/S-P",
+      "rarity": "PROMO",
+      "card_name": "カナザワのピカチュウ",
+      "box_id": "kanazawa_pikachu",
+      "is_reprint": false,
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 60,
+        "note": "来店配布版（オープン記念ロゴ入り）"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "—",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Fuzichoco",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "プロモーションカード。",
+        "collector": "来店配布版（オープン記念ロゴ入り）",
+        "source": "https://www.pokemon-card.com/info/2020/20201016_002642.html"
+      },
+      "note": "来店配布版（オープン記念ロゴ入り）",
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/20230409035254-0.webp"
+    },
+    {
+      "id": "kanazawa-pikachu-147",
+      "card_no": "147/S-P",
+      "rarity": "PROMO",
+      "card_name": "カナザワのピカチュウ",
+      "box_id": "kanazawa_pikachu",
+      "is_reprint": false,
+      "image_url": "https://www.pokemon-card.com/assets/images/card_images/large/S-P/038844_P_KANAZAWANOPIKACHUU.jpg",
+      "card_spec": {
+        "type": "雷",
+        "stage": "基本",
+        "hp": 60,
+        "note": "スペシャルBOX収録版（キラ）"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "—",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Fuzichoco",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "PROMO"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "プロモーションカード。",
+        "collector": "スペシャルBOX収録版（キラ）",
+        "source": "https://www.pokemon-card.com/info/2020/20201016_002642.html"
+      },
+      "note": "スペシャルBOX収録版（キラ）"
     }
   ],
   "market_posts": [

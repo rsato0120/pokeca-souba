@@ -90,6 +90,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
           low: dLow,
           high: dHigh,
           onSale: latest?.on_sale ?? null,
+          onSaleCapped: latest?.on_sale_capped,
           listPrice: p.listPrice,
         }
       })

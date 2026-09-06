@@ -218,7 +218,7 @@ export interface Forecast {
   card_no: string
   rarity: string
   generated_at: string
-  collector_view: ViewForecast
+  collector_view?: ViewForecast // 旧データ互換。新規生成・表示には使用しない
   overall: {
     up_pct: number
     flat_pct: number

@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import type { Box, Card, Forecast, PriceRecord, PsaPop, Trend, BuyThesis, Conviction } from '@/types/pokeca'
+import type { Box, Card, Forecast, PriceRecord, PsaPop, BuyThesis, Conviction } from '@/types/pokeca'
 import type { BoxCalibration } from './calibration'
 
 // カード単体の材料・価格履歴だけでは判断できない文脈（弾の状況・レア間の位置・自己較正）。
@@ -375,11 +375,6 @@ ${historySection}${psaSection}${popSection}${liquiditySection}${setSection}${sib
 
 ## 出力形式（JSON のみ、コードブロック不要）
 {
-  "collector_view": {
-    "trend": "up" | "flat" | "down",
-    "probability": 0〜100の整数,
-    "reason": "根拠文（日本語）"
-  },
   "overall": {
     "up_pct": 整数,
     "flat_pct": 整数,
@@ -405,10 +400,6 @@ ${historySection}${psaSection}${popSection}${liquiditySection}${setSection}${sib
 }
 
 // ─── レスポンス検証 ──────────────────────────────────────────────
-
-function isValidTrend(v: unknown): v is Trend {
-  return v === 'up' || v === 'flat' || v === 'down'
-}
 
 // モデルの応答から最初のJSONオブジェクトだけを取り出す。
 //
@@ -447,7 +438,6 @@ function parseForecastJson(raw: string, card: Card, currentLow: number, currentH
   const parsed = JSON.parse(extractJsonObject(cleaned))
 
   // 必須フィールド検証
-  if (!isValidTrend(parsed.collector_view?.trend)) throw new Error('invalid collector_view.trend')
 
   const upPct = Number(parsed.overall?.up_pct ?? 0)
   const flatPct = Number(parsed.overall?.flat_pct ?? 0)
@@ -458,11 +448,6 @@ function parseForecastJson(raw: string, card: Card, currentLow: number, currentH
     card_no: card.card_no,
     rarity: card.rarity,
     generated_at: new Date().toISOString(),
-    collector_view: {
-      trend: parsed.collector_view.trend,
-      probability: Number(parsed.collector_view.probability),
-      reason: String(parsed.collector_view.reason),
-    },
     overall: {
       up_pct: upPct,
       flat_pct: flatPct,
@@ -703,12 +688,9 @@ const POP_SCORE: Record<string, number> = { high: 2, mid: 1, unknown: 0 }
 const SCARCITY_SCORE: Record<string, number> = { out_of_print: 2, scarce: 1, normal: 0 }
 
 // 各カードの「上昇期待度」を並べ替えるための連続スコア。
-// 個別予想の up_pct を主軸に、net確信度・コレクター視点・コレクター材料でタイブレーク。
+// 個別予想の up_pct を主軸に、net確信度・カードの材料でタイブレーク。
 function rankingScore(card: Card, forecast: Forecast): number {
   const { up_pct, down_pct } = forecast.overall
-  const signed = (v: { trend: Trend; probability: number }) =>
-    (v.trend === 'up' ? 1 : v.trend === 'down' ? -1 : 0) * v.probability
-
   const material =
     (POP_SCORE[card.materials.collector.illustrator_popularity] ?? 0) +
     (POP_SCORE[card.materials.common.character_popularity] ?? 0) +
@@ -717,7 +699,6 @@ function rankingScore(card: Card, forecast: Forecast): number {
   return (
     up_pct * 1000 + // AIの上昇%を最優先バンドに
     (up_pct - down_pct) * 5 + // ネット上昇でup同値を分離
-    signed(forecast.collector_view) * 0.5 + // コレクター視点の確信度
     material
   )
 }
