@@ -6,7 +6,7 @@ export function getOnePieceCatalog(): OnePieceCatalog {
   return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/catalog.json'), 'utf8'))
 }
 export function getOnePiecePrices(id: string): OnePiecePrices | null {
-  if (!/^op\d{2}-\d+$/.test(id)) return null
+  if (!/^(?:op\d{2}|promo)-\d+$/.test(id)) return null
   try {
     return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/prices', `${id}.json`), 'utf8'))
   } catch { return null }

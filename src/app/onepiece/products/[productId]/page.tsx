@@ -6,6 +6,7 @@ import PriceHistoryChart from '@/components/PriceHistoryChart'
 import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePriceStale } from '@/lib/onepiece'
 import DetailBargains from '@/components/DetailBargains'
+import OnePieceImage from '@/components/OnePieceImage'
 import { getOnePieceDetailBargains } from '@/lib/detail-bargains'
 
 export const dynamicParams = false
@@ -33,9 +34,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   return <main className="wrap op-page"><SiteHeader />
     <nav className="op-breadcrumb" aria-label="パンくず"><Link href="/onepiece">ONE PIECE</Link><span> / </span><Link href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
     <section className="op-detail-hero">
-      <div className="op-detail-image">{/* eslint-disable-next-line @next/next/no-img-element */}
-        {product.image_url ? <img src={product.image_url} alt={onePieceShortName(product.name)} style={{ transform: `scale(${product.image_scale ?? 1})` }} /> : <span>{product.card_no ?? 'BOX'}</span>}
-      </div>
+      <OnePieceImage product={product} className={`op-detail-image ${product.kind === 'box' ? 'op-detail-box-image' : ''}`} />
       <div><p className="op-eyebrow">{set.code} · {product.card_no ?? '未開封BOX'}</p><h1>{onePieceShortName(product.name)}</h1>
         <p className="op-muted">{set.name} · {product.kind === 'card' ? '状態A（きれいな状態）' : '1箱あたり'}</p>
         <p className="op-muted">スニーカーダンク 成約平均</p><p className="op-detail-price">{latest ? yen(latest.avg) : '成約データ不足'}</p>

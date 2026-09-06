@@ -73,6 +73,6 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
       <OnePieceCatalog key={`${kind}-${setId}`} products={listings} sets={sets} initialKind={kind} initialSet={setId} />
       {set && <p className="source-note"><a href={set.official_url} target="_blank" rel="noreferrer">公式商品情報 ↗</a></p>}
     </section>}
-    <p className="disclaimer">対象はOP-13〜OP-17の選抜商品です。カードは状態A、BOXは1箱単価。相場は各記録日までの30日以内から新しい日順に20件を目安に集計（最低3件）。成約件数は取得範囲内の参考値です。</p>
+    <p className="disclaimer">掲載商品は選抜したカード・BOX・プロモです。カードは状態A、BOXは1箱単価。相場は各記録日までの30日以内から新しい日順に20件を目安に集計（最低3件）。成約件数は取得範囲内の参考値です。</p>
   </main>
 }

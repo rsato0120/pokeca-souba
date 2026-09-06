@@ -52,6 +52,22 @@
       "official_url": "https://www.onepiece-cardgame.com/products/boosters/op09.php",
       "release_date": "2024-08-31",
       "selection_url": "https://snkrdunk.com/search?keywords=%E6%96%B0%E3%81%9F%E3%81%AA%E3%82%8B%E7%9A%87%E5%B8%9D"
+    },
+    {
+      "id": "op05",
+      "code": "OP-05",
+      "name": "新時代の主役",
+      "release_date": "2023-08-26",
+      "official_url": "https://www.onepiece-cardgame.com/products/boosters/op05/",
+      "selection_url": "https://snkrdunk.com/apparels/136035"
+    },
+    {
+      "id": "promo",
+      "code": "PROMO",
+      "name": "プロモーションカード",
+      "release_date": "",
+      "official_url": "https://www.onepiece-cardgame.com/cardlist/",
+      "selection_url": "https://snkrdunk.com/articles/31060/"
     }
   ],
   "products": [
@@ -670,6 +686,39 @@
       "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/20240828053218-1.webp",
       "source_url": "https://snkrdunk.com/apparels/299926",
       "image_scale": 1
+    },
+    {
+      "id": "op05-136035",
+      "set_id": "op05",
+      "kind": "box",
+      "name": "新時代の主役 未開封BOX",
+      "card_no": null,
+      "snkrdunk_id": 136035,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/20240303014653-0.webp",
+      "image_scale": 1,
+      "source_url": "https://snkrdunk.com/apparels/136035"
+    },
+    {
+      "id": "promo-95888",
+      "set_id": "promo",
+      "kind": "card",
+      "name": "モンキー・D・ルフィ P（チャンピオンシップセット2022購入特典）[P-001]",
+      "card_no": "P-001",
+      "snkrdunk_id": 95888,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/20220909043606-1.webp",
+      "image_scale": 2.25,
+      "source_url": "https://snkrdunk.com/apparels/95888"
+    },
+    {
+      "id": "promo-94909",
+      "set_id": "promo",
+      "kind": "card",
+      "name": "モンキー・D・ルフィ P-P（プレミアムカードコレクション25周年エディション）[P-001]",
+      "card_no": "P-001",
+      "snkrdunk_id": 94909,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/20220830082917-0.webp",
+      "image_scale": 2.25,
+      "source_url": "https://snkrdunk.com/apparels/94909"
     }
   ]
 }

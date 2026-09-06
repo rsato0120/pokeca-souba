@@ -24,7 +24,7 @@ export default function OnePieceCatalog({ products, sets, initialKind = 'all', i
     </div>
     <div className="op-filters" aria-label="商品種別">{([['all', 'すべて'], ['card', '高額カード'], ['box', '未開封BOX']] as const).map(([value, label]) =>
       <button key={value} type="button" aria-pressed={kind === value} onClick={() => setKind(value)}>{label}</button>)}</div>
-    <div className="op-filters" aria-label="収録弾"><button type="button" aria-pressed={!setId} onClick={() => setSetId('')}>全5弾</button>
+    <div className="op-filters" aria-label="収録弾"><button type="button" aria-pressed={!setId} onClick={() => setSetId('')}>すべて（{sets.length}シリーズ）</button>
       {sets.map(s => <button key={s.id} type="button" aria-pressed={setId === s.id} onClick={() => setSetId(s.id)}>{s.name}</button>)}
     </div>
     <p className="op-muted">{visible.length}件 · スニダン成約平均 · カードは状態A／BOXは1箱単価</p>
