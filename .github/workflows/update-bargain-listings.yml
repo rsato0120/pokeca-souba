@@ -9,6 +9,7 @@ on:
 concurrency:
   group: market-data-updates
   cancel-in-progress: false
+  queue: max
 
 jobs:
   update:
@@ -18,6 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-node@v4
         with:
@@ -43,4 +46,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/market-listings.json data/box-market-listings.json
-          git diff --cached --quiet && echo "最安出品に変更なし" || (git commit -m "update bargain listings $(date -u '+%Y-%m-%d %H:%M')" && git push)
+          git diff --cached --quiet && echo "最安出品に変更なし" || (git commit -m "update bargain listings $(date -u '+%Y-%m-%d %H:%M')" && git pull --rebase origin "${{ github.ref_name }}" && git push)

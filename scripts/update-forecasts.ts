@@ -116,6 +116,8 @@ async function main() {
     try {
       const forecast = await generateForecast(card, price.low, price.high, price.history, buildContext(card))
       apiCallCount++
+      // タイムアウトしても、それまでに生成できた予想を後続ステップで保存できる。
+      fs.writeFileSync(path.join(forecastDir, `${cardId}.json`), JSON.stringify(forecast, null, 2), 'utf-8')
       succeeded.push({ cardId, card, forecast })
       const { up_pct, flat_pct, down_pct } = forecast.overall
       const priceStr = `¥${price.low.toLocaleString()}〜¥${price.high.toLocaleString()}`
@@ -144,6 +146,7 @@ async function main() {
 
 
   console.log(`\n完了: ${succeeded.length}枚処理, ${failed}枚失敗`)
+  if (failed > 0) process.exitCode = 1
 }
 
 main()

@@ -11,21 +11,26 @@ on:
         required: false
         default: ''
 
-concurrency:
-  group: market-data-updates
-  cancel-in-progress: false
-
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 360
+    concurrency:
+      group: market-data-updates
+      cancel-in-progress: false
+      queue: max
+    outputs:
+      mode: ${{ steps.mode.outputs.mode }}
     permissions:
       contents: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       # 1日2回に増やしたが、AI予想は朝の1回だけ回す。
-      # Gemini は 500RPD で掲載枚数が300弱なので、予想を2回生成すると上限を割る。
+      # AI予想はスクリプト内の生成上限を使い、朝の1回だけ回す。
       # 夜は価格・出品数・極値だけ更新する（相場が動くのは主にこちら）。
       - name: Decide mode（cron遅延に左右されないよう発火scheduleで決める）
         id: mode
@@ -42,7 +47,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       # 価格の関門(guardPrice)の回帰テスト。ネットワーク不要・数秒。
       # 過去に実際に起きた価格事故を毎回再生し、二度と通らないことを確認する。
@@ -64,56 +69,25 @@ jobs:
       # 直近7日成約数の上位カードについて、現在購入できるメルカリ出品を保存する。
       # 全カードではなく上位30枚×最大3件に絞り、日次処理とデータ量を抑える。
       - name: Scrape listings for sales ranking
+        timeout-minutes: 15
         run: npx tsx scripts/scrape-market-listings.ts
         continue-on-error: true
 
-      # PSA鑑定枚数（予想の入力）。1弾1リクエストで軽く、失敗しても既存の psa-pop.json で予想は動く
-      - name: Scrape PSA population
-        if: steps.mode.outputs.mode == 'full'
-        run: npx tsx scripts/scrape-psa-pop.ts
-        continue-on-error: true
-
-      - name: Generate forecasts
-        if: steps.mode.outputs.mode == 'full'
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: npx tsx scripts/update-forecasts.ts
-
-      # 予想は1日の上限(500RPD)に収めるため一部しか作り直さない。ランキングの
-      # スプレッドは**全 forecasts に当て直す**必要があるのでここで実行する
-      # （API消費ゼロ。update-forecasts.ts 内でやると作り直した集合の中だけの
-      #   相対配分になり、据え置き銘柄と基準がズレる）。
-      - name: Respread rankings (no API)
-        if: steps.mode.outputs.mode == 'full'
-        run: npx tsx scripts/respread-rankings.ts
-
-      # 「AIが買うべきカード」欄の厚い論拠（買い候補の上位数枚だけ・API消費は軽い）
-      - name: Generate buy theses
-        if: steps.mode.outputs.mode == 'full'
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: npx tsx scripts/generate-buy-theses.ts
-        continue-on-error: true
-
-      # 的中実績は「1日1件の予想」を採点する前提なので、予想を生成した回だけ記録する
-      - name: Archive predictions (的中実績用)
-        if: steps.mode.outputs.mode == 'full'
-        run: npx tsx scripts/archive-predictions.ts
-
       # 画面の「最終更新」とカウントダウンが読む。commit直前に書く
       - name: Write update stamp
-        run: npx tsx scripts/write-update-stamp.ts ${{ steps.mode.outputs.mode }}
+        run: npx tsx scripts/write-update-stamp.ts prices
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/forecasts/ data/predictions/ data/psa-pop.json data/price-extremes.json data/buy-theses.json data/market-listings.json data/last-update.json
-          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices${{ steps.mode.outputs.mode == 'full' && ' and forecasts' || '' }} $(date -u '+%Y-%m-%d %H:%M')" && git push)
+          git add data/prices/ data/price-extremes.json data/market-listings.json data/last-update.json
+          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices $(date -u '+%Y-%m-%d %H:%M')" && git pull --rebase origin "${{ github.ref_name }}" && git push)
 
       # ウォッチリストの値動き通知。価格を確定させてから送るので commit の後に置く。
       # VAPID/Supabase の鍵が未設定なら中で何もせず抜ける（通知機能を有効化するまで無害）。
       - name: Send watchlist alerts
+        timeout-minutes: 5
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -123,8 +97,95 @@ jobs:
         run: npx tsx scripts/send-alerts.ts
         continue-on-error: true
 
-      # データ監査。commit後に回すので、落ちてもその日のデータ更新は失われない。
-      # ⚠️ これまで価格の異常に最初に気づくのが**利用者**だった。異常はここに毎日出す。
-      # Actions の run が赤くなったら「4. PSA10≦素体」「5. 同名別バージョンの逆転」あたりから見る。
-      - name: Audit data (異常検知レポート)
+  forecasts:
+    needs: update
+    if: needs.update.outputs.mode == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    concurrency:
+      group: market-data-updates
+      cancel-in-progress: false
+      queue: max
+    permissions:
+      contents: write
+    steps:
+      # 待機後に、価格ジョブが保存した最新データを取得する。
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      # PSA鑑定枚数（予想の入力）。1弾1リクエストで軽く、失敗しても既存の psa-pop.json で予想は動く
+      - name: Scrape PSA population
+        timeout-minutes: 5
+        run: npx tsx scripts/scrape-psa-pop.ts
+        continue-on-error: true
+
+      - name: Generate forecasts
+        id: generate
+        timeout-minutes: 150
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npx tsx scripts/update-forecasts.ts
+
+      # 予想は1日の上限(500RPD)に収めるため一部しか作り直さない。ランキングの
+      # スプレッドは**全 forecasts に当て直す**必要があるのでここで実行する
+      # （API消費ゼロ。update-forecasts.ts 内でやると作り直した集合の中だけの
+      #   相対配分になり、据え置き銘柄と基準がズレる）。
+      - name: Respread rankings (no API)
+        run: npx tsx scripts/respread-rankings.ts
+
+      # 「AIが買うべきカード」欄の厚い論拠（買い候補の上位数枚だけ・API消費は軽い）
+      - name: Generate buy theses
+        timeout-minutes: 10
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npx tsx scripts/generate-buy-theses.ts
+        continue-on-error: true
+
+      # 的中実績は「1日1件の予想」を採点する前提なので、予想を生成した回だけ記録する
+      - name: Archive predictions (的中実績用)
+        run: npx tsx scripts/archive-predictions.ts
+
+      # 価格の更新日時は変更しない。AIが失敗しても先に保存した価格は残る。
+      - name: Commit and push forecasts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/forecasts/ data/predictions/ data/psa-pop.json data/buy-theses.json
+          if ! git diff --cached --quiet; then
+            git commit -m "update forecasts $(date -u '+%Y-%m-%d %H:%M')"
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push
+          fi
+
+      - name: Audit data after forecasts
         run: npx tsx scripts/audit-data.ts
+
+      - name: Report incomplete forecasts
+        if: always() && steps.generate.outcome == 'failure'
+        run: |
+          echo "::error::AI予想が未完了です。価格と生成済み予想の保存結果は上のステップを確認してください。"
+          exit 1
+
+  audit-prices:
+    # 監査の失敗を赤く表示しつつ、独立したAIジョブの開始は妨げない。
+    needs: update
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/audit-data.ts
