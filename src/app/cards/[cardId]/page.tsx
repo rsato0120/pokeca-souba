@@ -430,7 +430,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               >
                 {isStub ? (
                   <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '13px' }}>
-                    このカードはまだ相場データを取得できていません（毎日自動で再取得しています）。
+                    このカードのAI価格予想は準備中です。
                   </span>
                 ) : (
                   <>

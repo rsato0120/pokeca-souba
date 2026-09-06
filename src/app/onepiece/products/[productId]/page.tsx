@@ -7,6 +7,7 @@ import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePriceStale } from '@/lib/onepiece'
 import DetailBargains from '@/components/DetailBargains'
 import OnePieceImage from '@/components/OnePieceImage'
+import OnePieceCatalog from '@/components/OnePieceCatalog'
 import { getOnePieceDetailBargains } from '@/lib/detail-bargains'
 
 export const dynamicParams = false
@@ -48,6 +49,15 @@ export default async function Page({ params }: { params: Promise<{ productId: st
         <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" />
       </div>
     </section>
+    {product.kind === 'box' && <section className="chart-shell">
+      <h2>収録カード</h2>
+      <p className="op-footnote">このBOXに収録されている掲載対象カードです。</p>
+      <OnePieceCatalog containedCards sets={[set]} initialKind="card" products={products.filter(p => p.set_id === set.id && p.kind === 'card').map(p => {
+        const data = getOnePiecePrices(p.id)
+        const recent = data?.history[0]
+        return { ...p, avg: recent?.avg ?? null, date: recent?.date ?? null, count: recent?.sample_count ?? null, stale: isOnePiecePriceStale(data) }
+      })} />
+    </section>}
     <DetailBargains rows={getOnePieceDetailBargains(product.id).slice(0, 3)} />
     <p><a className="op-buy-link" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`} target="_blank" rel="noreferrer">𝕏 でシェア</a></p>
     <section className="chart-shell"><h2>価格推移・詳細チャート</h2>
