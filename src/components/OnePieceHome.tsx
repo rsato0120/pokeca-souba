@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
 import SiteHeader from './SiteHeader'
 import GameTabs from './GameTabs'
 import SearchBar from './SearchBar'
@@ -20,19 +21,15 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
   const isHome = kind === 'all' && !setId
   const fetchedAt = [...observations.values()].flatMap(p => p ? [p.fetched_at] : []).sort().at(-1)
   const updatedLabel = fetchedAt ? new Date(fetchedAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : null
-  const today = fetchedAt ? new Date(Date.parse(fetchedAt) + 9 * 3600000).toISOString().slice(0, 10) : ''
-  const cutoff = Date.parse(today) - 6 * 86400000
-  const salesLeaders = listings.filter(p => p.kind === 'card' && p.avg != null && !p.stale).map(p => ({
-    ...p, sales: Object.entries(observations.get(p.id)?.sales_by_day ?? {}).reduce((sum, [date, count]) => Date.parse(date) >= cutoff && date <= today ? sum + count : sum, 0),
-  })).filter(p => p.sales > 0).sort((a, b) => b.sales - a.sales).slice(0, 5)
-  const moves = listings.filter(p => p.kind === 'card' && p.date === today).flatMap(p => {
-    const yesterday = new Date(Date.parse(today) - 86400000).toISOString().slice(0, 10)
-    const previous = observations.get(p.id)?.history.find(r => r.date === yesterday)
-    return p.avg != null && previous?.avg ? [{ ...p, change: (p.avg / previous.avg - 1) * 100 }] : []
-  })
+  const ranking = buildOnePieceRanking(products, Object.fromEntries(observations))
+  const today = ranking.baseDate ?? ''
+  const salesLeaders = ranking.rows.filter(p => p.kind === 'card' && p.sales7d > 0)
+    .sort((a, b) => b.sales7d - a.sales7d || a.id.localeCompare(b.id)).slice(0, 5).map(p => ({ ...p, sales: p.sales7d }))
+  const moves = ranking.rows.filter(p => p.kind === 'card' && p.day != null).map(p => ({ ...p, change: p.day! }))
   const surge = moves.filter(p => p.change > 0).sort((a, b) => b.change - a.change).slice(0, 3)
   const drop = moves.filter(p => p.change < 0).sort((a, b) => a.change - b.change).slice(0, 3)
-  const boxes = listings.filter(p => p.kind === 'box')
+  const boxes = ranking.rows.filter(p => p.kind === 'box' && p.sales7d > 0)
+    .sort((a, b) => b.sales7d - a.sales7d || a.id.localeCompare(b.id)).slice(0, 5)
   const yen = (value: number | null) => value == null ? 'データ不足' : `¥${value.toLocaleString('ja-JP')}`
   return <main className="wrap home-wrap">
     <SiteHeader /><GameTabs game="onepiece" />
@@ -44,7 +41,7 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
     <div className="home-update-row"><UpdateClock updatedLabel={updatedLabel} minute={30} /><span>価格はスニダン実取引から毎日更新</span></div>
     {isHome ? <>
       <section className="home-panel home-sales-panel">
-        <div className="home-panel-head"><div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div><Link href="/onepiece/cards">カードをすべて見る →</Link></div>
+        <div className="home-panel-head"><div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div><Link href="/onepiece/ranking">売れ筋ランキング →</Link></div>
         <div className="home-sales-grid">{salesLeaders.map((p, i) => <Link key={p.id} href={`/onepiece/products/${p.id}`} className="home-sales-card">
           <span className="home-sales-rank">{i + 1}</span><OnePieceImage product={p} className="home-sales-image-ph" />
           <span className="home-sales-copy"><strong>{onePieceShortName(p.name)}</strong><small>{p.card_no} · {yen(p.avg)}</small><b>7日間 {p.sales}件成約</b><small>状態A · {p.date}</small></span>
@@ -53,7 +50,7 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
       </section>
       <div className="home-dashboard-grid">
         <section className="home-panel">
-          <div className="home-panel-head"><div><span>MARKET MOVES</span><h2>今日の値動き</h2></div><Link href="/onepiece/cards">すべて見る →</Link></div>
+          <div className="home-panel-head"><div><span>MARKET MOVES</span><h2>今日の値動き</h2></div><Link href="/onepiece/ranking?tab=up">値動きランキング →</Link></div>
           <div className="rank-cols home-rank-cols">{[{ rows: surge, tone: 'is-up', label: '▲ 急騰' }, { rows: drop, tone: 'is-down', label: '▼ 急落' }].map(group => <div key={group.tone}>
             <div className={`home-rank-label ${group.tone}`}>{group.label}</div>
             {group.rows.map(p => <Link key={p.id} className="home-market-row" href={`/onepiece/products/${p.id}`}>
@@ -63,7 +60,7 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
           </div>)}</div><p className="source-note">{today}時点。当日と前日の両方に成約相場があるカードを比較。</p>
         </section>
         <section className="home-panel">
-          <div className="home-panel-head"><div><span>SEALED BOX</span><h2>未開封BOX</h2></div><Link href="/onepiece/boxes">すべて見る →</Link></div>
+          <div className="home-panel-head"><div><span>SEALED BOX</span><h2>未開封BOX</h2></div><Link href="/onepiece/ranking?tab=boxes">BOXランキング →</Link></div>
           <div className="boxrank">{boxes.map((p, i) => <Link key={p.id} href={`/onepiece/products/${p.id}`} className="boxrank-row">
             <span className="boxrank-no">{i + 1}</span><OnePieceImage product={p} className="boxrank-thumb" />
             <span className="boxrank-main"><span className="boxrank-name">{sets.find(s => s.id === p.set_id)?.name}</span><span className="boxrank-meta">{p.set_id.toUpperCase().replace('OP', 'OP-')} · {p.date ?? '未取得'} · 1箱単価</span></span>

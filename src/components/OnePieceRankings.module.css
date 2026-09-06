@@ -1,0 +1,20 @@
+.list { list-style: none; padding: 0; margin: 0; }
+.row { display: grid; grid-template-columns: 28px 58px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--hair); color: inherit; text-decoration: none; }
+.row:hover { background: var(--panel); }
+.rank { font-size: 16px; color: var(--ink-faint); text-align: center; font-weight: 700; }
+.podium { color: var(--ink); }
+.image { width: 58px; height: 78px; object-fit: contain; }
+.copy { min-width: 0; display: grid; gap: 5px; }
+.copy strong { font-size: 14px; overflow-wrap: anywhere; }
+.copy small, .metric small, .count { font-size: 11px; color: var(--ink-faint); }
+.metric { text-align: right; display: grid; gap: 6px; }
+.metric strong { font-size: 21px; font-variant-numeric: tabular-nums; }
+.metric small { max-width: 180px; }
+.count { margin: 18px 0 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 22px 42px minmax(0, 1fr); gap: 10px; padding: 15px 0; }
+  .image { width: 42px; height: 58px; }
+  .copy strong { font-size: 13px; }
+  .metric { grid-column: 3; text-align: left; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+  .metric strong { font-size: 18px; }
+}
