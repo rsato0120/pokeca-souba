@@ -23,7 +23,7 @@ export default function CardCharts({
   /** 履歴タブの上に出す補助表示（全期間の高値安値・値幅の位置など） */
   historyExtras?: ReactNode
 }) {
-  const [tab, setTab] = useState<'forecast' | 'history'>('forecast')
+  const [tab, setTab] = useState<'forecast' | 'history'>(forecastChart ? 'forecast' : 'history')
 
   const btn = (id: 'forecast' | 'history', label: string, sub: string) => (
     <button
@@ -40,7 +40,7 @@ export default function CardCharts({
   return (
     <div className="chart-shell">
       <div className="chart-tabs">
-        {btn('forecast', '相場と予測', '実績＋AIの見通し')}
+        {forecastChart && btn('forecast', '相場と予測', '実績＋AIの見通し')}
         {btn('history', '詳細チャート', '期間切替・出来高・移動平均')}
       </div>
 

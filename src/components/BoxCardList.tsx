@@ -8,6 +8,7 @@ import Sparkline from '@/components/Sparkline'
 type CardEntry = {
   card: Card
   forecast: Forecast | null
+  currentPrice: number | null
 }
 
 // SA=特別アート(SwSh期), HR=ハイパーレア。イーブイヒーローズ等の旧弾で使用。
@@ -91,7 +92,7 @@ export default function BoxCardList({
             該当するカードがありません
           </div>
         ) : (
-          filtered.map(({ card, forecast }) => {
+          filtered.map(({ card, forecast, currentPrice }) => {
             const upPct = forecast?.overall.up_pct ?? null
             const upColor = upPct !== null
               ? upPct >= 50 ? 'var(--up)' : upPct >= 35 ? 'var(--accent)' : 'var(--ink-faint)'
@@ -123,7 +124,7 @@ export default function BoxCardList({
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px', fontFamily: 'var(--mono)', fontSize: '13px', color: 'var(--ink-dim)', whiteSpace: 'nowrap', padding: '14px 0' }}>
                     <Sparkline values={sparks[card.id] ?? []} width={56} height={18} />
-                    <span>{forecast ? `¥${forecast.price_forecast.current_low.toLocaleString()}〜` : '—'}</span>
+                    <span>{currentPrice != null ? `¥${Math.round(currentPrice).toLocaleString()}` : '—'}</span>
                   </div>
                   <div className="col-up" style={{ fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 600, color: upColor, textAlign: 'right', minWidth: '60px', padding: '14px 0' }}>
                     {upPct !== null ? `↑ ${upPct}%` : '—'}

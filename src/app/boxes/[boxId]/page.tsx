@@ -58,6 +58,10 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
   const cardsWithForecast = cards.map((card) => ({
     card,
     forecast: getForecast(getCardSlug(card)),
+    currentPrice: (() => {
+      const latest = getPriceHistory(getCardSlug(card))?.history[0]
+      return latest ? midOf(latest) : null
+    })(),
   }))
 
   // 一覧の各行に添える直近の値動き（極小の折れ線）

@@ -640,7 +640,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       {priceHistory && priceHistory.history.length > 0 && (
         <div style={{ marginBottom: '26px' }}>
           <CardCharts
-            forecastChart={<PriceForecastChart history={priceHistory.history} forecast={price_forecast} />}
+            forecastChart={realForecast ? <PriceForecastChart history={priceHistory.history} forecast={price_forecast} /> : null}
             historyExtras={
               <>
               {/* 全期間の高値・安値。当日更新なら見出しにバッジを出す */}
