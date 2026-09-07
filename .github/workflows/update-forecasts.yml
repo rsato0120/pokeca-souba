@@ -77,11 +77,24 @@ jobs:
       - name: Write update stamp
         run: npx tsx scripts/write-update-stamp.ts prices
 
+      # Keep the acquired observations recoverable if publication fails.
+      - name: Back up acquired prices
+        uses: actions/upload-artifact@v4
+        with:
+          name: acquired-prices-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
+          path: |
+            data/prices/
+            data/price-extremes.json
+            data/snkrdunk-ids.json
+            data/market-listings.json
+            data/last-update.json
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/price-extremes.json data/market-listings.json data/last-update.json
+          git add data/prices/ data/price-extremes.json data/snkrdunk-ids.json data/market-listings.json data/last-update.json
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices $(date -u '+%Y-%m-%d %H:%M')" && git pull --rebase origin "${{ github.ref_name }}" && git push)
 
       # ウォッチリストの値動き通知。価格を確定させてから送るので commit の後に置く。
