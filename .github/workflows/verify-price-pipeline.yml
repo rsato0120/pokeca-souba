@@ -1,0 +1,42 @@
+name: Verify price pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - package.json
+      - package-lock.json
+      - .node-version
+      - .github/workflows/**
+      - scripts/**
+      - src/lib/**
+      - src/types/**
+  pull_request:
+    paths:
+      - package.json
+      - package-lock.json
+      - .node-version
+      - .github/workflows/**
+      - scripts/**
+      - src/lib/**
+      - src/types/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      # Use the same clean install as the scheduled price jobs, on Linux.
+      - run: npm ci --engine-strict
+      - run: npx tsx scripts/verify-price-guard.ts
+      - run: npx tsx scripts/verify-snkrdunk-sales.ts
+      - run: npx tsx scripts/verify-onepiece.ts

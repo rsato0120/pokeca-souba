@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: .node-version
           cache: 'npm'
 
       - name: Install dependencies
@@ -115,7 +115,7 @@ jobs:
           ref: ${{ github.ref_name }}
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
       # PSA鑑定枚数（予想の入力）。1弾1リクエストで軽く、失敗しても既存の psa-pop.json で予想は動く
@@ -185,7 +185,7 @@ jobs:
           ref: ${{ github.ref_name }}
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
       - run: npx tsx scripts/audit-data.ts
