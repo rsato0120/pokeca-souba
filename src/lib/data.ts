@@ -37,6 +37,14 @@ export function getForecast(cardId: string): Forecast | null {
     const data = JSON.parse(raw)
     // 旧形式（base_low）は新形式（m1_low）に未対応なのでnullを返しstubにフォールバック
     if (data.price_forecast?.m1_low === undefined) return null
+    // 現在価格は実測を読む。朝のAI生成後・夜の価格更新でも古い起点を表示しない。
+    // 予想の目標価格と生成日時は変更しない。
+    const latest = getPriceHistory(cardId)?.history[0]
+    if (latest && Number.isFinite(latest.low) && Number.isFinite(latest.high)
+      && latest.low > 0 && latest.high >= latest.low) {
+      data.price_forecast.current_low = latest.low
+      data.price_forecast.current_high = latest.high
+    }
     return data as Forecast
   } catch {
     return null

@@ -40,3 +40,4 @@ jobs:
       - run: npx tsx scripts/verify-price-guard.ts
       - run: npx tsx scripts/verify-snkrdunk-sales.ts
       - run: npx tsx scripts/verify-onepiece.ts
+      - run: npx tsx scripts/verify-current-price.ts

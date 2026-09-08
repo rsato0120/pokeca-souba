@@ -196,7 +196,7 @@ for (const id of allIds) {
     id, date: cur.date, avg: cur.avg, low: cur.low, high: cur.high,
     priceSource: cur.source ?? 'mercari',
     onSale: { count: cur.on_sale ?? null, askLow: cur.ask_low ?? null, askMid: cur.ask_mid ?? null } as never,
-    prev,
+    prev, sampleCount: cur.sample_count, askSource: cur.ask_source,
   })
   if (!v.ok) guardHits.push(`   ${id.padEnd(44)} ${cur.date} ¥${cur.avg.toLocaleString()} ← ${v.reason}`)
 }

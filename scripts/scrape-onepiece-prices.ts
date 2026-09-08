@@ -47,7 +47,13 @@ async function main() {
           if (reachedOld || rows.length < (product.kind === 'box' ? 20 : 1000)) { complete = true; break }
           await new Promise(r => setTimeout(r, 300))
         }
-        if (!sales.length) throw new Error('No usable sales; previous data retained')
+        // 正常応答でも対象状態・期間に成約がない商品はある。取得障害と混同しない。
+        // 既存の観測日・価格を維持し、今日の架空レコードは作らない。
+        if (!sales.length && complete) {
+          console.log(`${product.id}: no eligible sales in 120 days; previous data retained`)
+          continue
+        }
+        if (!sales.length) throw new Error('Incomplete sales coverage; previous data retained')
         const previous = getOnePiecePrices(product.id)
         // A page cap can cut the oldest day in half. Discard that day, preserving older observations.
         const oldest = sales.map(s => s.date).sort()[0]
