@@ -1,46 +1,54 @@
 {
   "product_id": "op16-816932",
-  "fetched_at": "2026-09-08T09:36:49.676Z",
+  "fetched_at": "2026-09-08T22:13:47.949Z",
   "history": [
     {
-      "date": "2026-09-08",
-      "avg": 9138,
-      "low": 8940,
-      "high": 9333,
+      "date": "2026-09-09",
+      "avg": 9128,
+      "low": 9000,
+      "high": 9250,
       "source": "snkrdunk",
-      "sample_count": 29
+      "sample_count": 23
+    },
+    {
+      "date": "2026-09-08",
+      "avg": 9123,
+      "low": 9000,
+      "high": 9250,
+      "source": "snkrdunk",
+      "sample_count": 22
     },
     {
       "date": "2026-09-07",
-      "avg": 9066,
+      "avg": 9049,
       "low": 8777,
-      "high": 9333,
-      "source": "snkrdunk",
-      "sample_count": 28
-    },
-    {
-      "date": "2026-09-06",
-      "avg": 9035,
-      "low": 8777,
-      "high": 9167,
+      "high": 9250,
       "source": "snkrdunk",
       "sample_count": 21
     },
     {
+      "date": "2026-09-06",
+      "avg": 9092,
+      "low": 8777,
+      "high": 9500,
+      "source": "snkrdunk",
+      "sample_count": 23
+    },
+    {
       "date": "2026-09-05",
-      "avg": 9048,
-      "low": 8780,
+      "avg": 9098,
+      "low": 8799,
       "high": 9499,
       "source": "snkrdunk",
-      "sample_count": 28
+      "sample_count": 22
     },
     {
       "date": "2026-09-04",
-      "avg": 9211,
-      "low": 8900,
+      "avg": 9135,
+      "low": 8800,
       "high": 9500,
       "source": "snkrdunk",
-      "sample_count": 26
+      "sample_count": 20
     },
     {
       "date": "2026-09-03",
@@ -180,7 +188,7 @@
     }
   ],
   "sales_by_day": {
-    "2026-09-04": 8,
+    "2026-09-04": 10,
     "2026-09-03": 10,
     "2026-09-02": 8,
     "2026-09-01": 9,
@@ -199,11 +207,12 @@
     "2026-08-19": 26,
     "2026-08-18": 17,
     "2026-08-17": 9,
-    "2026-09-07": 7,
+    "2026-09-07": 8,
     "2026-09-06": 11,
-    "2026-09-05": 10,
-    "2026-09-08": 11
+    "2026-09-05": 2,
+    "2026-09-08": 22,
+    "2026-09-09": 1
   },
-  "coverage_start": "2026-08-19",
+  "coverage_start": "2026-08-20",
   "complete": false
 }
