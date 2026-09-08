@@ -2,6 +2,22 @@
   "card_id": "eevee-heroes-eefi-v-sr-80",
   "history": [
     {
+      "date": "2026-09-08",
+      "low": 1600,
+      "high": 2000,
+      "avg": 1861,
+      "source": "mercari",
+      "sample_count": 21,
+      "sold_total": 701,
+      "oldest_sale_days": 41,
+      "on_sale": 36,
+      "ask_low": 1744,
+      "ask_mid": 2500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12256
+    },
+    {
       "date": "2026-09-05",
       "low": 1600,
       "high": 2000,
@@ -523,10 +539,9 @@
       "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-09-05",
+  "sales_fetched_at": "2026-09-08",
   "sales_by_day": {
     "2026-06-21": 2,
-    "2026-05-08": 1,
     "2026-05-20": 1
   },
   "psa10_sales_by_day": {
@@ -540,7 +555,6 @@
     "2026-06-25": 3,
     "2026-06-18": 1,
     "2026-06-13": 1,
-    "2026-05-07": 3,
     "2026-09-02": 1,
     "2026-09-01": 1,
     "2026-08-31": 1,
