@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - package.json
+      - data/pokeca_data.json
+      - data/pack-image-bounds.json
       - package-lock.json
       - .node-version
       - .github/workflows/**
@@ -14,6 +16,8 @@ on:
   pull_request:
     paths:
       - package.json
+      - data/pokeca_data.json
+      - data/pack-image-bounds.json
       - package-lock.json
       - .node-version
       - .github/workflows/**
@@ -41,3 +45,4 @@ jobs:
       - run: npx tsx scripts/verify-snkrdunk-sales.ts
       - run: npx tsx scripts/verify-onepiece.ts
       - run: npx tsx scripts/verify-current-price.ts
+      - run: npm run verify:pack-images

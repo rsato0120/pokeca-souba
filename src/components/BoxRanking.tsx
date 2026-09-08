@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PackImage from './PackImage'
 import type { BoxRankRow } from '@/lib/box-ranking'
 
 // 未開封BOXのランキング。並びは7日変化率の降順（src/lib/box-ranking.ts 参照）。
@@ -24,8 +25,7 @@ export default function BoxRanking({ rows }: { rows: BoxRankRow[] }) {
             <span className="boxrank-no">{i + 1}</span>
 
             {r.packImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={r.packImage} alt={r.boxName} className="boxrank-thumb" referrerPolicy="no-referrer" />
+              <PackImage src={r.packImage} alt={r.boxName} className="boxrank-thumb" />
             ) : (
               <span className="boxrank-thumb boxrank-thumb-ph">{r.code}</span>
             )}

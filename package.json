@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/verify-pack-images.mjs",
     "build": "next build",
+    "prepare:pack-images": "node scripts/prepare-pack-images.mjs",
+    "verify:pack-images": "node scripts/verify-pack-images.mjs",
     "start": "next start",
     "lint": "eslint"
   },

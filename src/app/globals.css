@@ -1814,6 +1814,15 @@ a:hover {
   font-family: var(--mono); font-size: var(--fs-sm); font-weight: 700;
   color: var(--ink-faint); text-align: center;
 }
+.box-pack-art { width: 90px; height: 128px; object-fit: contain; flex-shrink: 0; }
+.box-set-header { margin-bottom: 28px; display: flex; gap: 24px; align-items: flex-start; }
+.box-set-header > div { min-width: 0; }
+.box-set-header h1 { font-size: 28px; }
+@media (max-width: 600px) {
+  .box-pack-art { width: 64px; height: 112px; }
+  .box-set-header { gap: 16px; }
+  .box-set-header h1 { font-size: 24px; }
+}
 .boxrank-thumb { width: 44px; height: 60px; object-fit: contain; border-radius: var(--r-sm); }
 .boxrank-thumb-ph {
   display: flex; align-items: center; justify-content: center;

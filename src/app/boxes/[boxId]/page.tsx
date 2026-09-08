@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import PackImage from '@/components/PackImage'
 import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getBoxPriceHistory, getBoxPriceVariant, getPriceHistory, getPullRates } from '@/lib/data'
 import { getSetProducts } from '@/lib/set-boxes'
@@ -267,27 +268,19 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       />
 
       {/* ── 収録弾ヘッダ ── */}
-      <div style={{ marginBottom: '28px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+      <div className="box-set-header">
         {box.pack_image_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <PackImage
             src={box.pack_image_url}
             alt={`${box.box_name} パックアート`}
-            referrerPolicy="no-referrer"
-            style={{
-              width: '90px',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-              flexShrink: 0,
-            }}
+            className="box-pack-art"
           />
         )}
         <div style={{ flex: 1 }}>
           <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '6px' }}>
             BOX · 収録弾
           </div>
-          <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '28px', fontWeight: 800, marginBottom: '10px' }}>
+          <h1 style={{ fontFamily: 'var(--mincho)', fontWeight: 800, marginBottom: '10px' }}>
             {box.box_name}
           </h1>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
