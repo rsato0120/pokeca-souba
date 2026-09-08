@@ -2,6 +2,22 @@
   "card_id": "incandescent-arcana-82",
   "history": [
     {
+      "date": "2026-09-09",
+      "low": 1400,
+      "high": 1680,
+      "avg": 1586,
+      "source": "mercari",
+      "sample_count": 60,
+      "sold_total": 631,
+      "oldest_sale_days": 56,
+      "on_sale": 104,
+      "ask_low": 1799,
+      "ask_mid": 2600,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12545
+    },
+    {
       "date": "2026-09-08",
       "low": 1400,
       "high": 1680,
@@ -34,7 +50,7 @@
       "psa10": 12680
     }
   ],
-  "sales_fetched_at": "2026-09-08",
+  "sales_fetched_at": "2026-09-09",
   "sales_by_day": {
     "2026-09-01": 1,
     "2026-08-18": 1,
@@ -105,6 +121,7 @@
     "2026-05-12": 1,
     "2026-05-11": 4,
     "2026-09-07": 3,
-    "2026-09-03": 5
+    "2026-09-03": 5,
+    "2026-09-08": 2
   }
 }
