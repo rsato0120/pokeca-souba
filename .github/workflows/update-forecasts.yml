@@ -64,6 +64,11 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: Scrape prices (Snkrdunk first, Mercari fallback)
+        id: scrape
+        timeout-minutes: 300
+        continue-on-error: true
+        env:
+          SCRAPE_CONCURRENCY: '3'
         run: npx tsx scripts/scrape-prices.ts
 
       # 直近7日成約数の上位カードについて、現在購入できるメルカリ出品を保存する。
@@ -73,22 +78,20 @@ jobs:
         run: npx tsx scripts/scrape-market-listings.ts
         continue-on-error: true
 
-      # 画面の「最終更新」とカウントダウンが読む。commit直前に書く
-      - name: Write update stamp
-        run: npx tsx scripts/write-update-stamp.ts prices
-
-      # Keep the acquired observations recoverable if publication fails.
+      # 更新日時は取得スクリプトが実測の保存成功時だけ書く。
+      # ステップの時間切れでも、ここまで取得した観測値を失わない。
       - name: Back up acquired prices
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: acquired-prices-${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 7
           path: |
             data/prices/
             data/price-extremes.json
             data/snkrdunk-ids.json
             data/market-listings.json
             data/last-update.json
+          retention-days: 7
 
       - name: Commit and push
         run: |
@@ -109,6 +112,12 @@ jobs:
           VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
         run: npx tsx scripts/send-alerts.ts
         continue-on-error: true
+
+      - name: Report incomplete prices
+        if: steps.scrape.outcome == 'failure'
+        run: |
+          echo "::error::価格取得が未完了です。取得済みデータの保存結果を確認してください。"
+          exit 1
 
   forecasts:
     needs: update

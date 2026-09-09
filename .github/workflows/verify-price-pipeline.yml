@@ -45,4 +45,5 @@ jobs:
       - run: npx tsx scripts/verify-snkrdunk-sales.ts
       - run: npx tsx scripts/verify-onepiece.ts
       - run: npx tsx scripts/verify-current-price.ts
+      - run: npx tsx --test scripts/bounded-workers.test.ts scripts/box-bargains.test.ts
       - run: npm run verify:pack-images

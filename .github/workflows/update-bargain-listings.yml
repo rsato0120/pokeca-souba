@@ -14,6 +14,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: write
 
@@ -28,16 +29,35 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Verify BOX bargain rules
+        run: npx tsx --test scripts/box-bargains.test.ts
 
       - name: Install Playwright browser
         run: npx playwright install chromium --with-deps
 
       - name: Check bargain listing changes
+        id: cards
+        timeout-minutes: 15
+        continue-on-error: true
         run: npx tsx scripts/scrape-market-listings.ts --deals-only
 
       - name: Update BOX bargain listings
+        id: boxes
+        timeout-minutes: 20
+        continue-on-error: true
         run: npx tsx scripts/scrape-box-market-listings.ts
+
+      - name: Back up acquired listings
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: bargain-listings-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/market-listings.json
+            data/box-market-listings.json
+          retention-days: 7
 
       # カードは最安出品の変更時、BOXは出品の変更時か12時間ごとの鮮度更新時に保存。
       # 差分がなければコミットもデプロイも発生しない。
@@ -47,3 +67,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/market-listings.json data/box-market-listings.json
           git diff --cached --quiet && echo "最安出品に変更なし" || (git commit -m "update bargain listings $(date -u '+%Y-%m-%d %H:%M')" && git pull --rebase origin "${{ github.ref_name }}" && git push)
+
+      - name: Report incomplete listings
+        if: steps.cards.outcome == 'failure' || steps.boxes.outcome == 'failure'
+        run: exit 1

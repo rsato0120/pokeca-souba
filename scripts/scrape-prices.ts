@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
+import { forEachBounded } from './bounded-workers'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
 import { getSnkrdunkSales, getSnkrdunkBoxSales, recentSalesWindow } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
@@ -1881,6 +1882,10 @@ async function main() {
   )
   const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
   const date = todayJST()
+  const concurrency = Number(process.env.SCRAPE_CONCURRENCY ?? '1')
+  // Validate before opening the browser. Each product owns a separate price file;
+  // shared extremes and ID updates use synchronous read/write in this process.
+  await forEachBounded([], concurrency, async () => {})
   const scope = filters.length ? `［${filters.length > 1 ? filters.length + '件' : boxFilter}のみ］` : ''
   console.log(`${scope}${cards.length}枚のカード＋${boxes.length}BOXの価格をスクレイピングします（${date} JST）\n`)
 
@@ -1918,7 +1923,7 @@ async function main() {
   }
 
   try {
-    for (const card of cards) {
+    await forEachBounded(cards, concurrency, async (card) => {
       const boxName = boxMap.get(card.box_id) ?? ''
       // プロモは card_name（例「トウホクのピカチュウ」）が一意なので box_name/英字レアを付けず
       // カナ「プロモ」だけ添えてヒット件数を確保する（人工box名を付けると0件になる）
@@ -1936,13 +1941,13 @@ async function main() {
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
       await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null)
-    }
+    })
 
     if (boxes.length > 0) {
       // BOX_SALES_ONLY の時は価格取得（メルカリのBOX検索）を丸ごと飛ばす
       if (!boxSalesOnly) {
       console.log('\n── 未開封BOX ──')
-      for (const box of boxes) {
+      await forEachBounded(boxes, concurrency, async (box) => {
         // シュリンクあり/なしを分けて取得（相場が別物なので混ぜると実勢とズレる）。
         // ⚠️ 分離しているのは**クエリではなくタイトル条件（boxTitleFilter）**。メルカリの検索は
         // 「シュリンクなし」で引いても「シュリンク付き」の出品を大量に返す（実測で114件中70件）。
@@ -1958,7 +1963,7 @@ async function main() {
           browser, `box-${box.box_id}`, `${box.box_name} 未開封 1BOX`, `${box.box_name} 未開封BOX`,
           date, stats, [box.box_name], 'any', [], [], sumPartsOnSale(box.box_id, date),
         )
-      }
+      })
       }
 
       // ⚠ 価格の取得が終わってから成約件数を積む。価格ファイルが存在している前提で
@@ -1997,14 +2002,19 @@ async function main() {
   //   「最終更新＝いま」と出すのは嘘になる。
   // ⚠ kind は 'prices'。AI予想はこのスクリプトでは触らないので、
   //   予想まで回した回は従来どおりワークフローが 'full' で上書きする。
-  if (!boxFilter && stats.succeeded > 0) {
+  if (!boxFilter && !boxOnly && !boxSalesOnly && stats.succeeded > 0 && stats.failed === 0) {
     const stamp = { updated_at: new Date().toISOString(), kind: 'prices' as const }
     fs.writeFileSync(path.join(process.cwd(), 'data', 'last-update.json'), JSON.stringify(stamp, null, 2), 'utf-8')
     console.log(`更新スタンプを書きました: ${stamp.updated_at} (prices)`)
+  }
+  if (stats.failed > 0 || (!boxSalesOnly && stats.succeeded === 0)) {
+    throw new Error(`価格更新が未完了です: ${stats.succeeded}件更新 / ${stats.failed}件失敗`)
   }
 }
 
 // 直接実行された時だけスクレイプする。guardPrice の回帰テスト(verify-price-guard.ts)が
 // この関数を import するため、モジュール読み込みだけでブラウザが起動しないようにしている
 const entry = (process.argv[1] ?? '').replace(/\\/g, '/')
-if (/scrape-prices\.(ts|js|mts|cts)$/.test(entry)) main()
+if (/scrape-prices\.(ts|js|mts|cts)$/.test(entry)) {
+  main().catch(error => { console.error(error); process.exitCode = 1 })
+}
