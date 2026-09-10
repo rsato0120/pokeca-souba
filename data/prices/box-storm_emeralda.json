@@ -3,13 +3,14 @@
   "history": [
     {
       "date": "2026-09-10",
-      "low": 11762,
+      "low": 11871,
       "high": 12000,
-      "avg": 11881,
+      "avg": 11936,
       "source": "mercari",
-      "sold_total": 1681,
-      "oldest_sale_days": 0,
-      "on_sale": 651,
+      "sold_total": 1617,
+      "oldest_sale_days": 1,
+      "on_sale": 668,
+      "on_sale_capped": true,
       "psa10": null
     },
     {
@@ -424,7 +425,7 @@
     "2026-09-07": 368,
     "2026-09-06": 366,
     "2026-09-09": 683,
-    "2026-09-10": 21
+    "2026-09-10": 176
   },
   "sales_fetched_at": "2026-09-10"
 }
