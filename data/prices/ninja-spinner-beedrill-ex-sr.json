@@ -2,6 +2,22 @@
   "card_id": "ninja-spinner-beedrill-ex-sr",
   "history": [
     {
+      "date": "2026-09-12",
+      "low": 300,
+      "high": 370,
+      "avg": 349,
+      "source": "mercari",
+      "sample_count": 35,
+      "sold_total": 594,
+      "oldest_sale_days": 85,
+      "on_sale": 12,
+      "ask_low": 400,
+      "ask_mid": 666,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6499
+    },
+    {
       "date": "2026-09-11",
       "low": 300,
       "high": 366,
@@ -883,5 +899,8 @@
   "sales_by_day": {
     "2026-05-24": 1
   },
-  "sales_fetched_at": "2026-09-11"
+  "sales_fetched_at": "2026-09-12",
+  "psa10_sales_by_day": {
+    "2026-09-11": 1
+  }
 }

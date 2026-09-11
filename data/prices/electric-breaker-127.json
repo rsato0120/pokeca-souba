@@ -2,6 +2,22 @@
   "card_id": "electric-breaker-127",
   "history": [
     {
+      "date": "2026-09-12",
+      "low": 1400,
+      "high": 1550,
+      "avg": 1501,
+      "source": "mercari",
+      "sample_count": 102,
+      "sold_total": 683,
+      "oldest_sale_days": 24,
+      "on_sale": 7,
+      "ask_low": 1555,
+      "ask_mid": 1700,
+      "ask_source": "mercari",
+      "on_sale_source": "mercari",
+      "psa10": null
+    },
+    {
       "date": "2026-09-11",
       "low": 1400,
       "high": 1555,
@@ -34,7 +50,7 @@
       "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-09-11",
+  "sales_fetched_at": "2026-09-12",
   "sales_by_day": {
     "2026-08-13": 2
   }
