@@ -3,15 +3,16 @@
   "history": [
     {
       "date": "2026-09-11",
-      "low": 7311,
+      "low": 7071,
       "high": 7777,
-      "avg": 7544,
+      "avg": 7424,
       "source": "mercari",
-      "sold_total": 2525,
-      "oldest_sale_days": 8,
-      "on_sale": 199,
+      "sold_total": 2533,
+      "oldest_sale_days": 6,
+      "on_sale": 177,
+      "on_sale_capped": true,
       "ask_low": 6999,
-      "ask_mid": 7555,
+      "ask_mid": 7700,
       "psa10": null
     },
     {
@@ -355,7 +356,7 @@
     "2026-09-06": 34,
     "2026-09-09": 18,
     "2026-09-10": 11,
-    "2026-09-11": 1
+    "2026-09-11": 18
   },
   "sales_fetched_at": "2026-09-11"
 }
