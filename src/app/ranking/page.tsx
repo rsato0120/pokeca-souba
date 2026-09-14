@@ -1,3 +1,4 @@
+import { priceChangePct } from '@/lib/price-change'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getBoxPriceHistory, getBoxPriceVariant, getMarketListings } from '@/lib/data'
@@ -127,18 +128,17 @@ export default function RankingPage() {
   }
 
   // ── 値動きタブ ──
-  const guard = (v: number | null, limit: number) => (v != null && Math.abs(v) <= limit ? v : null)
   const movers = cards
     .filter((c) => !isDeckUtilityCard(c))
     .map((card) => {
       const slug = getCardSlug(card)
       const rec = getPriceHistory(slug)?.history ?? []
-      const t = rec[0], y = rec[1], w = rec[7]
+      const t = rec[0]
       if (!t) return null
       const mid = midOf(t)
       if (!(mid > 0)) return null
-      const day = guard(y && midOf(y) > 0 ? ((mid - midOf(y)) / midOf(y)) * 100 : null, DAY_GUARD)
-      const week = guard(w && midOf(w) > 0 ? ((mid - midOf(w)) / midOf(w)) * 100 : null, WEEK_GUARD)
+      const day = priceChangePct(rec, 1, DAY_GUARD)
+      const week = priceChangePct(rec, 7, WEEK_GUARD)
       const changePct = day ?? week
       if (changePct == null) return null
       const row: MoverRow = {
@@ -161,7 +161,7 @@ export default function RankingPage() {
   const trendCards: TrendCard[] = cards.map((card) => {
     const slug = getCardSlug(card)
     const rec = getPriceHistory(slug)?.history ?? []
-    const t = rec[0], y = rec[1]
+    const t = rec[0]
     const mid = t ? midOf(t) : 0
     return {
       id: slug,
@@ -169,7 +169,7 @@ export default function RankingPage() {
       rarity: card.rarity,
       image: card.image_url ?? null,
       price: mid > 0 ? mid : null,
-      dayChange: guard(t && y && midOf(y) > 0 ? ((mid - midOf(y)) / midOf(y)) * 100 : null, DAY_GUARD),
+      dayChange: priceChangePct(rec, 1, DAY_GUARD),
     }
   })
 

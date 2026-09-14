@@ -1,3 +1,4 @@
+import { priceChangePct } from '@/lib/price-change'
 import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings, getBoxMarketListings } from '@/lib/data'
 import { isDeckUtilityCard } from '@/lib/card-kind'
@@ -58,16 +59,14 @@ export default function TopPage() {
     const history = getPriceHistory(slug)
     const records = history?.history ?? []
     const today = records[0]
-    const yesterday = records[1]
-    const weekAgo = records[7]
     return {
       card,
       slug,
       records,
       spark: sparkSeries(records),
       currentMid: today ? mid(today) : 0,
-      dayChange: (() => { const v = today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null; return v !== null && Math.abs(v) > 20 ? null : v })(),
-      weekChange: (() => { const v = today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
+      dayChange: priceChangePct(records, 1, 20),
+      weekChange: priceChangePct(records, 7, 35),
       onSale: today?.on_sale ?? null,
       forecast: getForecast(slug),
     }
