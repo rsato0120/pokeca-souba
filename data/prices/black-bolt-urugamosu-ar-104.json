@@ -2,6 +2,22 @@
   "card_id": "black-bolt-urugamosu-ar-104",
   "history": [
     {
+      "date": "2026-09-15",
+      "low": 1300,
+      "high": 1499,
+      "avg": 1412,
+      "source": "mercari",
+      "sample_count": 58,
+      "sold_total": 234,
+      "oldest_sale_days": 90,
+      "on_sale": 8,
+      "ask_low": 1480,
+      "ask_mid": 1499,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6849
+    },
+    {
       "date": "2026-09-14",
       "low": 1300,
       "high": 1444,
@@ -652,7 +668,6 @@
   ],
   "sales_by_day": {
     "2026-08-10": 1,
-    "2026-05-16": 1,
     "2026-05-25": 1
   },
   "psa10_sales_by_day": {
@@ -677,5 +692,5 @@
     "2026-09-06": 3,
     "2026-09-14": 1
   },
-  "sales_fetched_at": "2026-09-14"
+  "sales_fetched_at": "2026-09-15"
 }
