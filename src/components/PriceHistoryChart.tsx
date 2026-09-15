@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -12,12 +12,17 @@ import {
   Tooltip,
   ReferenceLine,
 } from 'recharts'
-import type { PriceRecord } from '@/types/pokeca'
+import type { PriceExtremes, PriceRecord } from '@/types/pokeca'
+import { computePsa10Extremes } from '@/lib/psa10-extremes'
+import RangePosition from '@/components/RangePosition'
 
 interface Props {
   history: PriceRecord[]
   /** 全期間の高値・安値。素体タブでのみ水平線として描く */
   extremes?: { high: number; low: number } | null
+  psa10History?: PriceRecord[]
+  rawExtras?: ReactNode
+  psa10ArchivedExtremes?: PriceExtremes | null
   /** 出来高の数え方の単位。カードは「枚」、未開封BOXは「箱」 */
   unit?: string
   /** スニダン売買履歴から数えた実成約件数（日付 -> 件数）。素体・PSA10それぞれ */
@@ -65,17 +70,20 @@ function movingAverage(values: (number | null)[], i: number, n: number): number 
   return win.reduce((a, b) => a + b, 0) / win.length
 }
 
-export default function PriceHistoryChart({ history, extremes = null, unit = '枚', salesByDay, psa10SalesByDay, movingAverages = true }: Props) {
+export default function PriceHistoryChart({ history, extremes = null, rawExtras, psa10History, psa10ArchivedExtremes = null, unit = '枚', salesByDay, psa10SalesByDay, movingAverages = true }: Props) {
   const [tab, setTab] = useState<Tab>('raw')
   const [days, setDays] = useState<number>(30)
 
   // 履歴にPSA10価格が1つでもあればタブを出す
-  const hasPsa = history.some(r => r.psa10 != null)
+  const psa10Extremes = useMemo(() => computePsa10Extremes(psa10History ?? history, psa10ArchivedExtremes), [history, psa10History, psa10ArchivedExtremes])
+  const latestPsa10 = (psa10History ?? history).find(r => r.psa10 != null && Number.isFinite(r.psa10) && r.psa10 > 0)?.psa10
+  const hasPsa = psa10Extremes != null
   const showPsa = hasPsa
 
-  const nowMs = history.length > 0 ? new Date(history[0].date).getTime() : 0
+  const selectedHistory = tab === 'psa10' ? psa10History ?? history : history
+  const nowMs = selectedHistory.length > 0 ? new Date(selectedHistory[0].date).getTime() : 0
   const hasPeriodData = (d: number) =>
-    history.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
+    selectedHistory.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
 
   const accent = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
 
@@ -100,7 +108,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
     const counted = tab === 'raw' ? salesByDay : psa10SalesByDay
     if (counted && Object.keys(counted).length >= 3) return 'snkrdunk'
     return null
-  }, [tab, salesByDay, psa10SalesByDay, history])
+  }, [tab, salesByDay, psa10SalesByDay])
 
   const volumeByDate = useMemo(() => {
     if (volSource !== 'snkrdunk') return new Map<string, number>()
@@ -115,7 +123,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
 
     // 移動平均は表示期間の外も使って計算する。期間で切ってから平均すると
     // 左端の数点がいつまでも欠けたままになる
-    const asc = [...history].reverse()
+    const asc = [...selectedHistory].reverse()
     const series = asc.map(r =>
       tab === 'raw'
         ? (r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2)
@@ -132,7 +140,7 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
         vol: volumeByDate.get(r.date) ?? null,
       }))
       .filter(p => new Date(p.date).getTime() >= cutoff)
-  }, [history, tab, days, nowMs, volumeByDate])
+  }, [selectedHistory, tab, days, nowMs, volumeByDate])
 
   const hasData = data.some(d => d.value != null)
   // 移動平均は点が少ないと線にならないので、表示期間に十分な点がある時だけ出す。
@@ -149,8 +157,8 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
 
   // Y軸domain: 'auto'だと線が底に張り付き変動が潰れるので、実データのmin/maxに
   // レンジ比例パディングを付けて変動が中央に見えるようにする
-  // 高値・安値の水平線は素体タブのみ（PSA10は別系列なので混ぜない）
-  const refLines = tab === 'raw' ? extremes : null
+  // タブごとの系列の極値を使い、素体とPSA10を混ぜない。
+  const refLines = useMemo(() => tab === 'raw' ? extremes : psa10Extremes ? { high: psa10Extremes.high.value, low: psa10Extremes.low.value } : null, [tab, extremes, psa10Extremes])
 
   const yDomain = useMemo<[number, number] | [string, string]>(() => {
     const vals = data.map(d => d.value).filter((v): v is number => v != null && v > 0)
@@ -247,10 +255,10 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
       >
         {showPsa && (
           <>
-            <button type="button" onClick={() => setTab('raw')} style={tabBtn('raw')}>
+            <button type="button" aria-pressed={tab === 'raw'} onClick={() => setTab('raw')} style={tabBtn('raw')}>
               素体
             </button>
-            <button type="button" onClick={() => setTab('psa10')} style={tabBtn('psa10')}>
+            <button type="button" aria-pressed={tab === 'psa10'} onClick={() => setTab('psa10')} style={tabBtn('psa10')}>
               PSA10
             </button>
           </>
@@ -283,6 +291,19 @@ export default function PriceHistoryChart({ history, extremes = null, unit = '�
           })}
         </div>
       </div>
+
+      {tab === 'raw' ? rawExtras : psa10Extremes && (
+        <div aria-label="PSA10の最高値と最安値">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 16px', fontSize: '12px', color: 'var(--ink-dim)', marginBottom: '8px' }}>
+            <span>PSA10 最高 <strong style={{ color: 'var(--up)' }}>¥{psa10Extremes.high.value.toLocaleString()}</strong>（{psa10Extremes.high.date.replaceAll('-', '/')}）</span>
+            <span>PSA10 最安 <strong style={{ color: 'var(--down)' }}>¥{psa10Extremes.low.value.toLocaleString()}</strong>（{psa10Extremes.low.date.replaceAll('-', '/')}）</span>
+          </div>
+          <p style={{ fontSize: '11px', color: 'var(--ink-faint)', margin: '0 0 12px' }}>
+            スニダンのPSA10平均相場・{psa10Extremes.since.replaceAll('-', '/')}以降の計測（全計測期間）
+          </p>
+          {latestPsa10 != null && <RangePosition extremes={psa10Extremes} mid={latestPsa10} />}
+        </div>
+      )}
 
       {/* ── チャート ── */}
       {!hasData ? (

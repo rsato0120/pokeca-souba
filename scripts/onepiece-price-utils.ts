@@ -4,11 +4,15 @@ import { parseSnkrdunkSaleDate } from './snkrdunk-sales'
 export interface Sale { date: string; price: number }
 export function parseOnePieceSale(
   row: { date: string; price: number; condition?: string; size?: string },
-  kind: 'card' | 'box', now: number,
+  kind: 'card' | 'box' | 'psa10', now: number,
 ): Sale | null {
   const date = parseSnkrdunkSaleDate(row.date, now)
   if (!date || !Number.isFinite(row.price) || row.price <= 0) return null
   if (Date.parse(date) > now + 9 * 3600000) return null
+  if (kind === 'psa10') {
+    if (row.condition?.replace(/\s/g, '') !== 'PSA10' || row.size) return null
+    return { date, price: row.price }
+  }
   if (kind === 'card') {
     // Exact product ID separates parallels; condition A separates damaged/graded cards.
     if (row.condition !== 'A' || row.size) return null

@@ -1,4 +1,6 @@
 'use client'
+
+import { marketCardHref } from '@/lib/market-links'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getSupabase } from '@/lib/supabase'
@@ -88,7 +90,7 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
             return (
               <Link
                 key={card.id}
-                href={`/cards/${card.id}`}
+                href={marketCardHref(card.id)}
                 className="row"
                 style={{ gridTemplateColumns: '22px var(--thumb-w) 1fr auto' }}
               >

@@ -432,7 +432,7 @@ function extractJsonObject(text: string): string {
   return text.slice(start)
 }
 
-function parseForecastJson(raw: string, card: Card, currentLow: number, currentHigh: number): Forecast {
+function parseForecastJson(raw: string, card: Pick<Card, 'card_no' | 'rarity'>, currentLow: number, currentHigh: number): Forecast {
   // コードブロックが混入した場合に除去
   const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
   const parsed = JSON.parse(extractJsonObject(cleaned))
@@ -736,4 +736,38 @@ export function adjustRankings(
   })
 
   return resultMap
+}
+import type { OnePieceProduct, OnePieceSet } from '../types/onepiece'
+
+/** ONE PIECEは実測データだけを材料に分析。ポケカ固有の材料を流用しない。 */
+export async function generateOnePieceForecast(product: OnePieceProduct, set: OnePieceSet, history: PriceRecord[]): Promise<Forecast> {
+  const key = process.env.GEMINI_API_KEY
+  if (!key) throw new Error('GEMINI_API_KEY is required')
+  const latest = history[0]
+  if (!latest || !(latest.avg! > 0) || history.length < 7) throw new Error('Insufficient observed history')
+  const model = new GoogleGenerativeAI(key).getGenerativeModel({ model: 'gemini-3.1-flash-lite', generationConfig: { responseMimeType: 'application/json', temperature: 0.4 } })
+  const prompt = `あなたはONE PIECEカードゲームの相場分析者です。入力の実成約データだけに基づいて日本語で予想してください。
+商品: ${product.name} / ${product.card_no ?? 'BOX'} / ${set.name} / 発売日 ${set.release_date}
+商品区分: ${product.kind}。カードは状態A、BOXは1箱の平均相場です。
+現在価格は変更しない。再販・大会実績・封入率・PSA鑑定枚数は情報なし。推測で事実を補わない。
+入力にないニュースや人気の断定は避け、履歴の日付・変動・成約件数を根拠にし、薄商いと不確実性を明記。
+最新からの観測: ${JSON.stringify(history.slice(0, 45).map(r => ({ date: r.date, avg: r.avg, count: r.sample_count })))}
+次のJSONのみを返す。overallは6か月の上昇・横ばい・下落の確率を整数で合計100、reasonは日本語200文字以内。確率は統計的な保証ではない。
+price_forecastは1・3・6か月の本線価格帯、6か月上振れ・下振れ価格帯を円の正の整数で返し、low <= highとする。
+{"overall":{"up_pct":0,"flat_pct":0,"down_pct":0,"reason":""},"price_forecast":{"m1_low":0,"m1_high":0,"m3_low":0,"m3_high":0,"m6_low":0,"m6_high":0,"up_low":0,"up_high":0,"down_low":0,"down_high":0}}`
+  const response = await model.generateContent(prompt)
+  return parseOnePieceForecast(response.response.text(), product, latest)
+}
+
+export function parseOnePieceForecast(raw: string, product: Pick<OnePieceProduct, 'card_no' | 'kind'>, latest: PriceRecord): Forecast {
+  const result = parseForecastJson(raw, { card_no: product.card_no ?? 'BOX', rarity: product.kind === 'box' ? 'BOX' : 'カード' }, latest.low, latest.high)
+  for (const p of [result.overall.up_pct, result.overall.flat_pct, result.overall.down_pct]) {
+    if (!Number.isInteger(p) || p < 0 || p > 100) throw Error('Invalid probability')
+  }
+  if (!result.overall.reason || result.overall.reason === 'undefined') throw Error('Missing reason')
+  const pf = result.price_forecast
+  for (const [low, high] of [[pf.m1_low, pf.m1_high], [pf.m3_low, pf.m3_high], [pf.m6_low, pf.m6_high], [pf.up_low, pf.up_high], [pf.down_low, pf.down_high]]) {
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high < low) throw Error('Invalid forecast range')
+  }
+  return result
 }

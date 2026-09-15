@@ -56,5 +56,194 @@
     "2026-09-10": 1
   },
   "coverage_start": "2026-05-20",
-  "complete": true
+  "complete": true,
+  "psa10_history": [
+    {
+      "date": "2026-08-30",
+      "avg": 371296,
+      "low": 360000,
+      "high": 388888,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 371296
+    },
+    {
+      "date": "2026-08-18",
+      "avg": 401129,
+      "low": 388888,
+      "high": 414000,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 401129
+    },
+    {
+      "date": "2026-07-23",
+      "avg": 416642,
+      "low": 405000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "psa10": 416642
+    },
+    {
+      "date": "2026-07-21",
+      "avg": 416882,
+      "low": 405000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 11,
+      "psa10": 416882
+    },
+    {
+      "date": "2026-07-18",
+      "avg": 418520,
+      "low": 405000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "psa10": 418520
+    },
+    {
+      "date": "2026-07-12",
+      "avg": 418356,
+      "low": 405000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "psa10": 418356
+    },
+    {
+      "date": "2026-07-11",
+      "avg": 419050,
+      "low": 405000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "psa10": 419050
+    },
+    {
+      "date": "2026-07-10",
+      "avg": 422983,
+      "low": 413000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "psa10": 422983
+    },
+    {
+      "date": "2026-07-05",
+      "avg": 440200,
+      "low": 413000,
+      "high": 488000,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "psa10": 440200
+    },
+    {
+      "date": "2026-06-26",
+      "avg": 435429,
+      "low": 430000,
+      "high": 440000,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "psa10": 435429
+    },
+    {
+      "date": "2026-06-25",
+      "avg": 436333,
+      "low": 430000,
+      "high": 440000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "psa10": 436333
+    },
+    {
+      "date": "2026-06-24",
+      "avg": 435600,
+      "low": 400000,
+      "high": 488000,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "psa10": 435600
+    },
+    {
+      "date": "2026-06-09",
+      "avg": 407556,
+      "low": 380000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "psa10": 407556
+    },
+    {
+      "date": "2026-06-03",
+      "avg": 397500,
+      "low": 380000,
+      "high": 430000,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "psa10": 397500
+    },
+    {
+      "date": "2026-05-29",
+      "avg": 386667,
+      "low": 380000,
+      "high": 400000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "psa10": 386667
+    },
+    {
+      "date": "2026-05-25",
+      "avg": 384000,
+      "low": 370000,
+      "high": 400000,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "psa10": 384000
+    },
+    {
+      "date": "2026-05-24",
+      "avg": 382500,
+      "low": 370000,
+      "high": 400000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 382500
+    },
+    {
+      "date": "2026-05-21",
+      "avg": 386667,
+      "low": 380000,
+      "high": 400000,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 386667
+    }
+  ],
+  "psa10_sales_by_day": {
+    "2026-08-30": 1,
+    "2026-08-23": 1,
+    "2026-08-18": 1,
+    "2026-07-23": 1,
+    "2026-07-21": 1,
+    "2026-07-18": 1,
+    "2026-07-12": 1,
+    "2026-07-11": 2,
+    "2026-07-10": 2,
+    "2026-07-05": 1,
+    "2026-06-26": 1,
+    "2026-06-25": 1,
+    "2026-06-24": 1,
+    "2026-06-09": 1,
+    "2026-06-03": 2,
+    "2026-05-29": 1,
+    "2026-05-25": 1,
+    "2026-05-24": 1,
+    "2026-05-21": 1,
+    "2026-05-19": 1,
+    "2026-05-18": 1
+  },
+  "psa10_archived_extremes": null,
+  "psa10_fetched_at": "2026-09-14T12:56:28.515Z"
 }

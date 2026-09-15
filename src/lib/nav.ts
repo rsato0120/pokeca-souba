@@ -22,10 +22,10 @@ export const NAV_ITEMS: NavItem[] = [
 ]
 
 export const ONEPIECE_NAV_ITEMS: NavItem[] = [
-  { href: '/onepiece', label: 'ホーム', icon: '🏠', owns: ['/onepiece/sets', '/onepiece/products'] },
-  { href: '/onepiece/cards', label: 'カード', icon: '🃏', owns: [] },
+  { href: '/onepiece', label: 'ホーム', icon: '🏠', owns: ['/onepiece/sets', '/onepiece/products', '/onepiece/cards'] },
+  { href: '/onepiece/ai', label: 'AI予想', icon: '🤖', owns: ['/onepiece/accuracy'] },
   { href: '/onepiece/ranking', label: 'ランキング', icon: '📊', owns: ['/onepiece/boxes'] },
-  { href: '/onepiece/portfolio', label: 'コレクション', icon: '📁', owns: [] },
+  { href: '/onepiece/mypage', label: 'マイページ', icon: '📁', owns: ['/onepiece/portfolio', '/onepiece/watchlist', '/onepiece/screener'] },
 ]
 export function navItemsFor(pathname: string): NavItem[] {
   return pathname === '/onepiece' || pathname.startsWith('/onepiece/') ? ONEPIECE_NAV_ITEMS : NAV_ITEMS
@@ -33,7 +33,7 @@ export function navItemsFor(pathname: string): NavItem[] {
 
 /** 現在のパスがどのタブに属するか。トップだけ完全一致、他は前方一致＋owns */
 export function isActiveTab(item: NavItem, pathname: string): boolean {
-  if (item.href === '/onepiece') return pathname === item.href || item.owns.some(p => pathname.startsWith(p + '/'))
+  if (item.href === '/onepiece') return pathname === item.href || item.owns.some(p => pathname === p || pathname.startsWith(p + '/'))
   if (item.href === '/') {
     return pathname === '/' || item.owns.some((p) => pathname.startsWith(p))
   }

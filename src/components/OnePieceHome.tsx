@@ -1,3 +1,6 @@
+import MarketIndexChart from './MarketIndexChart'
+import { buildOnePieceMarket } from '@/lib/onepiece-market'
+import { getOnePieceForecast } from '@/lib/onepiece'
 import Link from 'next/link'
 import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
 import SiteHeader from './SiteHeader'
@@ -11,6 +14,7 @@ import { getOnePieceCatalog, getOnePiecePrices, isOnePiecePriceStale, onePieceSh
 
 export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all' | 'card' | 'box'; setId?: string }) {
   const { sets, products } = getOnePieceCatalog()
+  const market = buildOnePieceMarket()
   const observations = new Map(products.map(p => [p.id, getOnePiecePrices(p.id)]))
   const listings = products.map(p => {
     const prices = observations.get(p.id) ?? null
@@ -35,11 +39,13 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
     <SiteHeader /><GameTabs game="onepiece" />
     <section className="home-hero" aria-labelledby="onepiece-title">
       <p id="onepiece-title">{set ? `${set.name}の相場を、すばやく確認` : kind === 'box' ? 'ONE PIECEのBOX相場を、すばやく確認' : 'ONE PIECEカードの相場を、すばやく確認'}</p>
-      <SearchBar basePath="/onepiece/products" cards={products.map(p => ({ slug: p.id, card_name: onePieceShortName(p.name), rarity: p.card_no ?? 'BOX', box_name: sets.find(s => s.id === p.set_id)?.name ?? '', up_pct: null }))} />
+      <SearchBar basePath="/onepiece/products" cards={products.map(p => ({ slug: p.id, card_name: onePieceShortName(p.name), rarity: p.card_no ?? 'BOX', box_name: sets.find(s => s.id === p.set_id)?.name ?? '', up_pct: getOnePieceForecast(p.id)?.overall.up_pct ?? null }))} />
       <BoxSelector basePath="/onepiece/sets" current={setId || undefined} marginTop={12} marginBottom={0} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name, release_ym: s.release_date.slice(0, 7) }))} />
     </section>
     <div className="home-update-row"><UpdateClock updatedLabel={updatedLabel} minute={30} /><span>価格はスニダン実取引から毎日更新</span></div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', margin: '16px 0' }}><Link href="/onepiece/ai" className="pill">AI予想</Link><Link href="/onepiece/screener" className="pill">詳細検索</Link><Link href="/onepiece/watchlist" className="pill">ウォッチリスト</Link><Link href="/onepiece/cards" className="pill">カード一覧</Link></div>
     {isHome ? <>
+      {market.indices.length > 0 && <section className="home-panel"><h2>ONE PIECE 相場指数</h2><MarketIndexChart indices={market.indices} /><p className="source-note">掲載カードの実測日同士を比較した等ウェイト指数。取引のない日のカード価格は補完せず、比較できる銘柄が少ない日は指数を据え置きます。</p></section>}
       <section className="home-panel home-sales-panel">
         <div className="home-panel-head"><div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div><Link href="/onepiece/ranking">売れ筋ランキング →</Link></div>
         <div className="home-sales-grid">{salesLeaders.map((p, i) => <Link key={p.id} href={`/onepiece/products/${p.id}`} className="home-sales-card">

@@ -21,7 +21,7 @@ export default function CardSentiment({
   ai,
 }: {
   cardId: string
-  ai: { up: number; flat: number; down: number }
+  ai: { up: number; flat: number; down: number } | null
 }) {
   const sb = getSupabase()
   const [rows, setRows] = useState<VoteRow[] | null>(null)
@@ -164,7 +164,7 @@ export default function CardSentiment({
     }
   }
 
-  const aiPct: Record<Stance, number> = { up: ai.up, flat: ai.flat, down: ai.down }
+  const aiPct: Record<Stance, number> | null = ai ? { up: ai.up, flat: ai.flat, down: ai.down } : null
 
   return (
     <div style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: '8px', padding: '20px', marginBottom: '22px' }}>
@@ -183,7 +183,7 @@ export default function CardSentiment({
           <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
             {STANCES.map(s => (
               <span key={s} style={{ color: STANCE_COLOR[s], fontWeight: 700 }}>
-                {STANCE_LABEL[s]} {aiPct[s]}%
+                {STANCE_LABEL[s]} {aiPct ? `${aiPct[s]}%` : '—'}
               </span>
             ))}
           </div>

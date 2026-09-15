@@ -86,7 +86,7 @@ function buildSeries(cardId: string): Series | null {
  * 連鎖指数を組む。series は「カードごとの date→価格」の集合。
  * 基準日（最初に baseMin を満たした日）を 100 とする。
  */
-function chainLink(seriesList: Series[]): IndexPoint[] {
+export function chainLink(seriesList: Series[]): IndexPoint[] {
   const dates = [...new Set(seriesList.flatMap((s) => [...s.keys()]))].sort()
   if (dates.length < 2) return []
 

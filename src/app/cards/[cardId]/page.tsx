@@ -641,57 +641,58 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
         <div style={{ marginBottom: '26px' }}>
           <CardCharts
             forecastChart={realForecast ? <PriceForecastChart history={priceHistory.history} forecast={price_forecast} /> : null}
-            historyExtras={
-              <>
-              {/* 全期間の高値・安値。当日更新なら見出しにバッジを出す */}
-              {extremes && (
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    gap: '10px',
-                    fontSize: '12px',
-                    color: 'var(--ink-dim)',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <span>
-                    最高 <strong style={{ color: 'var(--up)' }}>¥{extremes.high.value.toLocaleString()}</strong>
-                    <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.high.date)}）</span>
-                  </span>
-                  <span style={{ color: 'var(--hair)' }}>|</span>
-                  <span>
-                    最安 <strong style={{ color: 'var(--down)' }}>¥{extremes.low.value.toLocaleString()}</strong>
-                    <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.low.date)}）</span>
-                  </span>
-                  {extremeHit && (
-                    <span
-                      style={{
-                        fontFamily: 'var(--mono)',
-                        fontSize: '11px',
-                        letterSpacing: '0.06em',
-                        padding: '2px 8px',
-                        borderRadius: '3px',
-                        color: 'var(--on-accent)',
-                        background: extremeHit === 'high' ? 'var(--up)' : 'var(--down)',
-                      }}
-                    >
-                      {extremeHit === 'high' ? '🔺 本日 最高値更新' : '🔻 本日 最安値更新'}
-                    </span>
-                  )}
-                  <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>
-                    （{mdOf(extremes.since)}以降の計測）
-                  </span>
-                </div>
-              )}
-
-              {/* 高値・安値の「数字」だけでは水準感が出ないので、いま値幅のどこにいるかを帯で出す */}
-              {extremes && <RangePosition extremes={extremes} mid={currentMid} />}
-              </>
-            }
             historyChart={
               <PriceHistoryChart
+                rawExtras={
+                  <>
+                  {/* 全期間の高値・安値。当日更新なら見出しにバッジを出す */}
+                  {extremes && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: '10px',
+                        fontSize: '12px',
+                        color: 'var(--ink-dim)',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      <span>
+                        最高 <strong style={{ color: 'var(--up)' }}>¥{extremes.high.value.toLocaleString()}</strong>
+                        <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.high.date)}）</span>
+                      </span>
+                      <span style={{ color: 'var(--hair)' }}>|</span>
+                      <span>
+                        最安 <strong style={{ color: 'var(--down)' }}>¥{extremes.low.value.toLocaleString()}</strong>
+                        <span style={{ color: 'var(--ink-faint)' }}>（{mdOf(extremes.low.date)}）</span>
+                      </span>
+                      {extremeHit && (
+                        <span
+                          style={{
+                            fontFamily: 'var(--mono)',
+                            fontSize: '11px',
+                            letterSpacing: '0.06em',
+                            padding: '2px 8px',
+                            borderRadius: '3px',
+                            color: 'var(--on-accent)',
+                            background: extremeHit === 'high' ? 'var(--up)' : 'var(--down)',
+                          }}
+                        >
+                          {extremeHit === 'high' ? '🔺 本日 最高値更新' : '🔻 本日 最安値更新'}
+                        </span>
+                      )}
+                      <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>
+                        （{mdOf(extremes.since)}以降の計測）
+                      </span>
+                    </div>
+                  )}
+
+                  {/* 高値・安値の「数字」だけでは水準感が出ないので、いま値幅のどこにいるかを帯で出す */}
+                  {extremes && <RangePosition extremes={extremes} mid={currentMid} />}
+                  </>
+                }
+                psa10ArchivedExtremes={priceHistory.psa10_archived_extremes}
                 history={priceHistory.history}
                 extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null}
                 salesByDay={priceHistory.sales_by_day}

@@ -1,3 +1,13 @@
+import CardCharts from '@/components/CardCharts'
+import PriceForecastChart from '@/components/PriceForecastChart'
+import OnePieceForecast from '@/components/OnePieceForecast'
+import WatchButton from '@/components/WatchButton'
+import CardSentiment from '@/components/CardSentiment'
+import CardViewCounter from '@/components/CardViewCounter'
+import PriceExtremesSummary from '@/components/PriceExtremesSummary'
+import { onePieceMarketId } from '@/lib/market-links'
+import { onePieceRawExtremes } from '@/lib/onepiece-market'
+import { getOnePieceForecast } from '@/lib/onepiece'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
@@ -25,13 +35,16 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const set = sets.find(s => s.id === product.set_id)!
   const prices = getOnePiecePrices(product.id)
   const latest = prices?.history[0]
+  const forecast = getOnePieceForecast(product.id)
+  const psa10 = prices?.psa10_history?.[0]
+  const marketId = onePieceMarketId(product.id)
   const searchKeyword = product.kind === 'box'
     ? `ワンピースカード ${set.name} 未開封 BOX`
     : `ワンピースカード ${onePieceShortName(product.name)} ${product.card_no ?? ''}`.trim()
   const mercariUrl = mercariAffiliateUrl(`https://jp.mercari.com/search?keyword=${encodeURIComponent(searchKeyword)}&status=on_sale`)
   const yen = (value: number | undefined) => value == null ? '—' : `¥${value.toLocaleString('ja-JP')}`
   const tweetText = [onePieceShortName(product.name), latest ? `スニダン成約相場 ${yen(latest.avg)}（${latest.date}）` : '相場データを確認', `https://pokeca-souba.vercel.app/onepiece/products/${product.id}`, '#ワンピースカード #ワンピカード'].join('\n')
-  const extremes = prices?.history.length ? { high: Math.max(...prices.history.map(r => r.high)), low: Math.min(...prices.history.map(r => r.low)) } : null
+  const extremes = onePieceRawExtremes(prices)
   return <main className="wrap op-page"><SiteHeader />
     <nav className="op-breadcrumb" aria-label="パンくず"><Link href="/onepiece">ONE PIECE</Link><span> / </span><Link href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
     <section className="op-detail-hero">
@@ -41,7 +54,10 @@ export default async function Page({ params }: { params: Promise<{ productId: st
         <p className="op-muted">スニーカーダンク 成約平均</p><p className="op-detail-price">{latest ? yen(latest.avg) : '成約データ不足'}</p>
         <p className="op-muted">{latest ? `${latest.date}時点 · ${latest.sample_count}件の成約から算出` : '相場算出には30日以内に3件以上の成約が必要です。'}</p>
         {isOnePiecePriceStale(prices) && <p className="op-muted">取得時点で30日以上前の参考値です。最近の相場を算出できる成約件数が不足しています。</p>}
-        <CardCollectionControl cardId={`onepiece:${product.id}`} hasPsa10={false} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} />
+        {psa10?.psa10 != null && <p className="op-muted">PSA10相場 ¥{psa10.psa10.toLocaleString()}（{psa10.date}）</p>}
+        <WatchButton cardId={marketId} mid={latest?.avg ?? 0} />
+        <CardViewCounter cardId={marketId} />
+        <CardCollectionControl cardId={`onepiece:${product.id}`} hasPsa10={psa10?.psa10 != null} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} />
         <p><Link href="/onepiece/portfolio">マイコレクションを見る →</Link></p>
         <a className="op-buy-link" href={mercariUrl} target="_blank" rel="sponsored nofollow noreferrer">メルカリで出品を見る ↗</a>
         <p className="op-footnote">広告・アフィリエイトリンク</p>
@@ -61,9 +77,11 @@ export default async function Page({ params }: { params: Promise<{ productId: st
     <DetailBargains rows={getOnePieceDetailBargains(product.id).slice(0, 3)} />
     <p><a className="op-buy-link" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`} target="_blank" rel="noreferrer">𝕏 でシェア</a></p>
     <section className="chart-shell"><h2>価格推移・詳細チャート</h2>
-      {(prices?.history.length ?? 0) > 0 ? <PriceHistoryChart extremes={extremes} history={prices!.history} salesByDay={prices!.sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
-      <p className="op-footnote">各日までの直近30日以内から新しい日順に20件を目安に集計。カードは状態Aのみ、BOXは複数箱の取引を1箱単価に換算しています。グラフは取得できた実成約から算出し、取引がない日を補完しません。</p>
+      {(prices?.history.length ?? 0) > 0 ? <CardCharts forecastChart={forecast ? <PriceForecastChart history={prices!.history} forecast={forecast.price_forecast} /> : null} historyChart={<PriceHistoryChart rawExtras={<PriceExtremesSummary extremes={extremes} mid={latest?.avg ?? 0} />} extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null} history={prices!.history} psa10History={prices!.psa10_history} psa10ArchivedExtremes={prices!.psa10_archived_extremes} salesByDay={prices!.sales_by_day} psa10SalesByDay={prices!.psa10_sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} />} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
+      <p className="op-footnote">各日までの直近30日以内から新しい日順に20件を目安に集計。素体は状態A、PSA10は鑑定済みPSA10のみを別々に集計し、BOXは複数箱の取引を1箱単価に換算しています。グラフは取得できた実成約から算出し、取引がない日を補完しません。</p>
     </section>
+    {forecast ? <OnePieceForecast forecast={forecast} /> : <p className="source-note">AI予想は履歴と直近の成約データが十分そろった商品から生成します。</p>}
+    <CardSentiment cardId={marketId} ai={forecast ? { up: forecast.overall.up_pct, flat: forecast.overall.flat_pct, down: forecast.overall.down_pct } : null} />
     <section className="op-chart-panel"><h2>直近の相場記録</h2><div className="op-table-scroll"><table className="op-table"><thead><tr><th>成約日</th><th>平均</th><th>価格帯</th><th>算出件数</th></tr></thead><tbody>
       {prices?.history.slice(0, 10).map(r => <tr key={r.date}><td>{r.date}</td><td>{yen(r.avg)}</td><td>{yen(r.low)}〜{yen(r.high)}</td><td>{r.sample_count}件</td></tr>)}
     </tbody></table></div>{!latest && <p className="op-empty">記録なし</p>}</section>

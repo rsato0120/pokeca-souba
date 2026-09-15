@@ -8,5 +8,95 @@
     "2026-09-14": 1
   },
   "coverage_start": "2026-08-01",
-  "complete": true
+  "complete": true,
+  "psa10_history": [
+    {
+      "date": "2026-09-11",
+      "avg": 2873333,
+      "low": 2800000,
+      "high": 3000000,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 2873333
+    },
+    {
+      "date": "2026-08-08",
+      "avg": 3557500,
+      "low": 3420000,
+      "high": 3660000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 3557500
+    },
+    {
+      "date": "2026-07-28",
+      "avg": 3532000,
+      "low": 3200000,
+      "high": 3660000,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "psa10": 3532000
+    },
+    {
+      "date": "2026-07-10",
+      "avg": 3612500,
+      "low": 3200000,
+      "high": 4100000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 3612500
+    },
+    {
+      "date": "2026-07-04",
+      "avg": 3625000,
+      "low": 3200000,
+      "high": 4100000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 3625000
+    },
+    {
+      "date": "2026-07-03",
+      "avg": 3437500,
+      "low": 2900000,
+      "high": 4100000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 3437500
+    },
+    {
+      "date": "2026-06-11",
+      "avg": 3287500,
+      "low": 2600000,
+      "high": 4100000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 3287500
+    },
+    {
+      "date": "2026-06-09",
+      "avg": 3016667,
+      "low": 2600000,
+      "high": 3550000,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 3016667
+    }
+  ],
+  "psa10_sales_by_day": {
+    "2026-09-11": 1,
+    "2026-09-09": 1,
+    "2026-09-02": 1,
+    "2026-08-08": 1,
+    "2026-07-28": 2,
+    "2026-07-10": 1,
+    "2026-07-04": 1,
+    "2026-07-03": 1,
+    "2026-06-11": 1,
+    "2026-06-09": 1,
+    "2026-06-04": 1,
+    "2026-06-03": 1
+  },
+  "psa10_archived_extremes": null,
+  "psa10_fetched_at": "2026-09-14T12:56:32.601Z"
 }

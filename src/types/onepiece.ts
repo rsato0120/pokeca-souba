@@ -1,4 +1,4 @@
-import type { PriceRecord } from './pokeca'
+import type { PriceRecord, PriceExtremes } from './pokeca'
 
 export interface OnePieceSet {
   id: string
@@ -24,6 +24,11 @@ export interface OnePieceCatalog {
   products: OnePieceProduct[]
 }
 export interface OnePiecePrices {
+  raw_archived_extremes?: PriceExtremes | null
+  psa10_history?: PriceRecord[]
+  psa10_sales_by_day?: Record<string, number>
+  psa10_archived_extremes?: PriceExtremes | null
+  psa10_fetched_at?: string
   product_id: string
   fetched_at: string
   history: PriceRecord[]

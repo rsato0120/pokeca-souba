@@ -1,5 +1,7 @@
 'use client'
 
+import { marketCardHref } from '@/lib/market-links'
+
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import WatchButton from '@/components/WatchButton'
@@ -270,7 +272,7 @@ export default function ScreenerTable({ rows, boxes, rarities, index7d }: Props)
               return (
                 <tr key={r.id}>
                   <td className="dt-sticky">
-                    <Link href={`/cards/${r.id}`} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
+                    <Link href={marketCardHref(r.id)} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
                       {r.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img

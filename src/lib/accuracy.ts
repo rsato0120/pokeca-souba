@@ -1,5 +1,5 @@
 import { getAllCards, getCardSlug, getPredictionLog, getPriceHistory } from './data'
-import type { PriceRecord } from '@/types/pokeca'
+import type { PriceRecord, PredictionLog } from '@/types/pokeca'
 
 export const HORIZONS = [7, 30] as const
 export type Horizon = (typeof HORIZONS)[number]
@@ -66,9 +66,10 @@ function actualAt(historyAsc: { date: string; mid: number }[], targetDate: strin
   return best.mid
 }
 
-export function computeAccuracy(): AccuracySummary {
-  const cards = getAllCards()
-  const nameMap = new Map(cards.map(c => [getCardSlug(c), { name: c.card_name, rarity: c.rarity }]))
+export interface AccuracyEntry { id: string; name: string; rarity: string; history: PriceRecord[]; log: PredictionLog | null }
+export function computeAccuracy(entries?: AccuracyEntry[]): AccuracySummary {
+  const cards = entries ?? getAllCards().map(c => ({ id: getCardSlug(c), name: c.card_name, rarity: c.rarity, history: getPriceHistory(getCardSlug(c))?.history ?? [], log: getPredictionLog(getCardSlug(c)) }))
+  const nameMap = new Map(cards.map(c => [c.id, { name: c.name, rarity: c.rarity }]))
 
   const emptyDir = (): Record<Dir, { resolved: number; hits: number }> => ({
     up: { resolved: 0, hits: 0 }, down: { resolved: 0, hits: 0 }, flat: { resolved: 0, hits: 0 },
@@ -82,11 +83,10 @@ export function computeAccuracy(): AccuracySummary {
   let firstPredictionDate: string | null = null
 
   for (const card of cards) {
-    const cardId = getCardSlug(card)
-    const log = getPredictionLog(cardId)
+    const cardId = card.id
+    const log = card.log
     if (!log || log.predictions.length === 0) continue
-    const history = getPriceHistory(cardId)
-    const historyAsc = (history?.history ?? [])
+    const historyAsc = card.history
       .map(r => ({ date: r.date, mid: midOf(r) }))
       .sort((a, b) => a.date.localeCompare(b.date))
 

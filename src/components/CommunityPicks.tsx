@@ -1,4 +1,6 @@
 'use client'
+
+import { marketCardHref } from '@/lib/market-links'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getSupabase } from '@/lib/supabase'
@@ -103,7 +105,7 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
             const downPct = Math.max(0, 100 - upPct - flatPct)
             const diverges = card.aiUp != null && Math.abs(upPct - card.aiUp) >= DIVERGENCE_PT
             return (
-              <Link key={card.id} href={`/cards/${card.id}`} className="row" style={{ gridTemplateColumns: 'var(--thumb-w) 1fr auto' }}>
+              <Link key={card.id} href={marketCardHref(card.id)} className="row" style={{ gridTemplateColumns: 'var(--thumb-w) 1fr auto' }}>
                 {card.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={card.image} alt={card.name} className="row-thumb" referrerPolicy="no-referrer" />

@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { computeObservedExtremes } from '../src/lib/psa10-extremes'
 import { chromium } from 'playwright'
 import { getOnePieceCatalog, getOnePiecePrices } from '../src/lib/onepiece'
 import { buildOnePieceHistory, parseOnePieceSale, type Sale } from './onepiece-price-utils'
@@ -71,8 +72,10 @@ async function main() {
         }
         const history = new Map((previous?.history ?? []).map(r => [r.date, r]))
         for (const record of records) history.set(record.date, record)
-        const result: OnePiecePrices = { product_id: product.id, fetched_at: new Date(now).toISOString(),
-          history: [...history.values()].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 120),
+        const sorted = [...history.values()].sort((a, b) => b.date.localeCompare(a.date))
+        const result: OnePiecePrices = { ...previous, product_id: product.id, fetched_at: new Date(now).toISOString(),
+          history: sorted.slice(0, 120),
+          raw_archived_extremes: computeObservedExtremes(sorted.slice(120), previous?.raw_archived_extremes, r => r.avg),
           sales_by_day: counts, coverage_start: usable.map(s => s.date).sort()[0], complete }
         fs.writeFileSync(`data/onepiece/prices/${product.id}.json`, JSON.stringify(result, null, 2) + '\n')
         console.log(`${product.id}: ${sales.length} sales, ¥${result.history[0]?.avg ?? 'insufficient'} (${result.history[0]?.date ?? '-'})`)

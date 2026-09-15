@@ -138,6 +138,8 @@ export interface PsaPop {
 }
 
 export interface PriceHistory {
+  /** 保存期間から外れたPSA10平均相場の極値。表示時に現存履歴と合算する。 */
+  psa10_archived_extremes?: PriceExtremes | null
   card_id: string
   history: PriceRecord[]
   // スニダンの売買履歴から数えた**実際の成約件数**（日付 -> 件数）。

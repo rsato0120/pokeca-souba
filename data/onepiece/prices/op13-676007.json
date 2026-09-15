@@ -38,5 +38,192 @@
     "2026-09-11": 1
   },
   "coverage_start": "2026-07-06",
-  "complete": true
+  "complete": true,
+  "psa10_history": [
+    {
+      "date": "2026-09-11",
+      "avg": 817222,
+      "low": 760000,
+      "high": 888888,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 817222
+    },
+    {
+      "date": "2026-08-29",
+      "avg": 861378,
+      "low": 840000,
+      "high": 888888,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "psa10": 861378
+    },
+    {
+      "date": "2026-08-22",
+      "avg": 865648,
+      "low": 860000,
+      "high": 870000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "psa10": 865648
+    },
+    {
+      "date": "2026-08-05",
+      "avg": 859286,
+      "low": 840000,
+      "high": 870000,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "psa10": 859286
+    },
+    {
+      "date": "2026-07-31",
+      "avg": 827222,
+      "low": 759999,
+      "high": 870000,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "psa10": 827222
+    },
+    {
+      "date": "2026-07-27",
+      "avg": 816714,
+      "low": 759999,
+      "high": 870000,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "psa10": 816714
+    },
+    {
+      "date": "2026-07-25",
+      "avg": 808333,
+      "low": 759999,
+      "high": 870000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "psa10": 808333
+    },
+    {
+      "date": "2026-07-17",
+      "avg": 782857,
+      "low": 750000,
+      "high": 840000,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "psa10": 782857
+    },
+    {
+      "date": "2026-07-11",
+      "avg": 766250,
+      "low": 750000,
+      "high": 766250,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "psa10": 766250
+    },
+    {
+      "date": "2026-07-02",
+      "avg": 753333,
+      "low": 750000,
+      "high": 760000,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "psa10": 753333
+    },
+    {
+      "date": "2026-06-24",
+      "avg": 718990,
+      "low": 688888,
+      "high": 760000,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "psa10": 718990
+    },
+    {
+      "date": "2026-06-20",
+      "avg": 714240,
+      "low": 688888,
+      "high": 760000,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "psa10": 714240
+    },
+    {
+      "date": "2026-06-13",
+      "avg": 701491,
+      "low": 669999,
+      "high": 760000,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "psa10": 701491
+    },
+    {
+      "date": "2026-06-12",
+      "avg": 696990,
+      "low": 669999,
+      "high": 720000,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "psa10": 696990
+    },
+    {
+      "date": "2026-06-07",
+      "avg": 691740,
+      "low": 669999,
+      "high": 699999,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "psa10": 691740
+    },
+    {
+      "date": "2026-05-31",
+      "avg": 681088,
+      "low": 659990,
+      "high": 699000,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "psa10": 681088
+    },
+    {
+      "date": "2026-05-25",
+      "avg": 673250,
+      "low": 650000,
+      "high": 693000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 673250
+    },
+    {
+      "date": "2026-05-20",
+      "avg": 666666,
+      "low": 650000,
+      "high": 680000,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 666666
+    }
+  ],
+  "psa10_sales_by_day": {
+    "2026-09-11": 2,
+    "2026-08-29": 1,
+    "2026-08-22": 1,
+    "2026-08-05": 1,
+    "2026-07-31": 2,
+    "2026-07-27": 1,
+    "2026-07-25": 1,
+    "2026-07-17": 1,
+    "2026-07-11": 1,
+    "2026-07-02": 3,
+    "2026-06-24": 1,
+    "2026-06-20": 1,
+    "2026-06-13": 1,
+    "2026-06-12": 1,
+    "2026-06-07": 2,
+    "2026-05-31": 6,
+    "2026-05-25": 1,
+    "2026-05-20": 1,
+    "2026-05-18": 2
+  },
+  "psa10_archived_extremes": null,
+  "psa10_fetched_at": "2026-09-14T12:56:33.503Z"
 }

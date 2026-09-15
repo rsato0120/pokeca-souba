@@ -30,6 +30,10 @@ jobs:
         run: npx tsx scripts/scrape-onepiece-prices.ts
       - name: Fetch Mercari bargain listings
         run: npx tsx scripts/scrape-onepiece-market-listings.ts
+      - name: Fetch PSA10 sales
+        id: psa
+        continue-on-error: true
+        run: npx tsx scripts/scrape-onepiece-psa.ts
       - name: Save successful observations
         run: |
           git config user.name 'github-actions[bot]'
@@ -41,5 +45,41 @@ jobs:
             git push
           fi
       - name: Report incomplete update
-        if: steps.scrape.outcome == 'failure'
+        if: steps.scrape.outcome == 'failure' || steps.psa.outcome == 'failure'
+        run: exit 1
+
+  forecasts:
+    needs: update
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - name: Generate ONE PIECE forecasts and archive predictions
+        id: generate
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npx tsx scripts/update-onepiece-forecasts.ts
+      - name: Save generated forecasts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/onepiece/forecasts/ data/onepiece/predictions/
+          if ! git diff --cached --quiet; then
+            git commit -m "Update ONE PIECE forecasts $(date -u '+%Y-%m-%d %H:%M')"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Report incomplete forecasts
+        if: steps.generate.outcome == 'failure'
         run: exit 1

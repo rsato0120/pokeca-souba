@@ -18,6 +18,8 @@ import webpush from 'web-push'
 import { getAllCards, getCardSlug, getPriceHistory, getPriceExtremes } from '@/lib/data'
 import { extremeHitToday } from '@/lib/extremes'
 import { midOf } from '@/lib/market'
+import { buildOnePieceMarket, onePieceRawExtremes } from '@/lib/onepiece-market'
+import { onePieceMarketId, marketCardHref } from '@/lib/market-links'
 
 const SITE = 'https://pokeca-souba.vercel.app'
 
@@ -77,6 +79,14 @@ function collectAlerts(): Map<string, Alert> {
     })
   }
 
+  const market = buildOnePieceMarket()
+  for (const p of market.ranking.rows) {
+    const id = onePieceMarketId(p.id)
+    const extreme = extremeHitToday(onePieceRawExtremes(market.observations[p.id]), p.date)
+    const changePct = p.day != null && Math.abs(p.day) <= DAY_GUARD ? p.day : null
+    if (p.date !== market.ranking.baseDate || (extreme == null && (changePct == null || Math.abs(changePct) < ALERT_PCT))) continue
+    out.set(id, { cardId: id, name: p.name, rarity: p.kind === 'box' ? 'BOX' : 'ONE PIECE', mid: p.avg, changePct, extreme })
+  }
   return out
 }
 
@@ -95,7 +105,7 @@ function buildPayload(hits: Alert[]): { title: string; body: string; url: string
   const body = listed.join('\n') + (rest > 0 ? `\nほか${rest}件` : '')
 
   // 1枚だけならそのカードのページへ、複数ならウォッチリストへ飛ばす
-  const url = hits.length === 1 ? `${SITE}/cards/${hits[0].cardId}` : `${SITE}/watchlist`
+  const url = hits.length === 1 ? `${SITE}${marketCardHref(hits[0].cardId)}` : `${SITE}${hits.every(h => h.cardId.startsWith('onepiece-')) ? '/onepiece/watchlist' : '/watchlist'}`
   const title = hits.length === 1 ? '相場が動きました' : `ウォッチ中の${hits.length}枚が動きました`
 
   // 同じ日に2通届いても通知欄では1つにまとまるようtagを日付で固定する

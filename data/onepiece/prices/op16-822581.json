@@ -375,5 +375,51 @@
     "2026-09-05": 2
   },
   "coverage_start": "2026-05-30",
-  "complete": true
+  "complete": true,
+  "psa10_history": [
+    {
+      "date": "2026-09-14",
+      "avg": 19794,
+      "low": 19000,
+      "high": 20500,
+      "source": "snkrdunk",
+      "sample_count": 22,
+      "psa10": 19794
+    },
+    {
+      "date": "2026-09-12",
+      "avg": 22922,
+      "low": 19000,
+      "high": 24999,
+      "source": "snkrdunk",
+      "sample_count": 21,
+      "psa10": 22922
+    },
+    {
+      "date": "2026-09-06",
+      "avg": 33420,
+      "low": 24999,
+      "high": 36800,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "psa10": 33420
+    },
+    {
+      "date": "2026-08-30",
+      "avg": 35525,
+      "low": 33000,
+      "high": 36800,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "psa10": 35525
+    }
+  ],
+  "psa10_sales_by_day": {
+    "2026-09-14": 6,
+    "2026-09-12": 16,
+    "2026-09-06": 1,
+    "2026-08-30": 4
+  },
+  "psa10_archived_extremes": null,
+  "psa10_fetched_at": "2026-09-14T12:56:22.975Z"
 }

@@ -263,7 +263,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         marginTop={0}
         marginBottom={24}
         boxes={boxes
-          .filter(b => b.certainty === 'released')
+          .filter(b => b.certainty === 'released' || b.box_id === boxId)
           .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
       />
 
@@ -284,7 +284,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             {box.box_name}
           </h1>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
-            <span>発売 {box.release_ym}</span>
+            <span>{box.certainty === 'released' ? '発売' : '発売予定'} {box.release_ym}</span>
             {/* 定価0＝単体販売のない配布パック（プロモカードパック25th など） */}
             <span>
               {box.packs_per_box != null

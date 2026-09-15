@@ -1,5 +1,7 @@
 'use client'
 
+import { marketCardHref } from '@/lib/market-links'
+
 import Link from 'next/link'
 import { useMemo } from 'react'
 import { useWatchlist } from '@/hooks/useWatchlist'
@@ -7,6 +9,7 @@ import PushSubscribe from '@/components/PushSubscribe'
 import type { ScreenerRow } from '@/components/ScreenerTable'
 
 interface Props {
+  game?: 'pokemon' | 'onepiece'
   cards: ScreenerRow[]
   /** 相場指数の7日変化率(%)。「市場比」の基準 */
   index7d: number | null
@@ -18,8 +21,8 @@ function pct(v: number | null, digits = 1): { text: string; color: string } {
   return { text: `${v >= 0 ? '+' : ''}${v.toFixed(digits)}%`, color }
 }
 
-export default function WatchlistView({ cards, index7d }: Props) {
-  const { list, loaded, remove, count } = useWatchlist()
+export default function WatchlistView({ cards, index7d, game = 'pokemon' }: Props) {
+  const { list, loaded, remove } = useWatchlist()
 
   const byId = useMemo(() => new Map(cards.map((c) => [c.id, c])), [cards])
 
@@ -45,7 +48,7 @@ export default function WatchlistView({ cards, index7d }: Props) {
     )
   }
 
-  if (count === 0) {
+  if (watched.length === 0) {
     return (
       <div
         style={{
@@ -60,17 +63,17 @@ export default function WatchlistView({ cards, index7d }: Props) {
         </div>
         <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: 'var(--sp-4)' }}>
           気になるカードのページか
-          <Link href="/screener" style={{ color: 'var(--accent)' }}>スクリーナー</Link>
+          <Link href={game === 'onepiece' ? '/onepiece/screener' : '/screener'} style={{ color: 'var(--accent)' }}>スクリーナー</Link>
           で ☆ を押すと、ここに並びます。持っていないカードの値動きを追うための一覧です。
         </p>
-        <Link href="/screener" className="pill pill-accent">スクリーナーで探す →</Link>
+        <Link href={game === 'onepiece' ? '/onepiece/screener' : '/screener'} className="pill pill-accent">スクリーナーで探す →</Link>
       </div>
     )
   }
 
   return (
     <div>
-      <PushSubscribe cardIds={Object.keys(list)} />
+      <PushSubscribe cardIds={watched.map(item => item.card.id)} />
 
       <div style={{ overflowX: 'auto', border: '1px solid var(--hair)', borderRadius: 'var(--r-lg)', background: 'var(--panel)' }}>
         <table className="data-table" style={{ minWidth: '700px' }}>
@@ -96,7 +99,7 @@ export default function WatchlistView({ cards, index7d }: Props) {
               return (
                 <tr key={card.id}>
                   <td className="dt-sticky">
-                    <Link href={`/cards/${card.id}`} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
+                    <Link href={marketCardHref(card.id)} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
                       {card.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={card.image} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" className="row-thumb" />

@@ -1,4 +1,5 @@
-﻿import { chromium, type Browser } from 'playwright'
+import { computePsa10Extremes } from '../src/lib/psa10-extremes'
+import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
@@ -1198,6 +1199,8 @@ function savePriceHistory(
 
   data.history.sort((a, b) => b.date.localeCompare(a.date))
   // 90日ローリング。チャートの「90日」タブが実データで埋まる長さに合わせている
+  const psa10Archive = computePsa10Extremes(data.history.slice(90), data.psa10_archived_extremes)
+  if (psa10Archive) data.psa10_archived_extremes = psa10Archive
   data.history = data.history.slice(0, 90)
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 
