@@ -263,8 +263,8 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         marginTop={0}
         marginBottom={24}
         boxes={boxes
-          .filter(b => b.certainty === 'released' || b.box_id === boxId)
-          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
+          .filter(b => b.certainty !== 'rumored')
+          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym, certainty: b.certainty }))}
       />
 
       {/* ── 収録弾ヘッダ ── */}

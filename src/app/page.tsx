@@ -267,8 +267,8 @@ export default function TopPage() {
           marginTop={12}
           marginBottom={0}
           boxes={boxes
-            .filter(b => b.certainty === 'released')
-            .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym }))}
+            .filter(b => b.certainty !== 'rumored')
+            .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym, certainty: b.certainty }))}
         />
       </section>
 
