@@ -3,22 +3,25 @@
   "history": [
     {
       "date": "2026-09-16",
-      "low": 18500,
-      "high": 30000,
-      "avg": 24642,
+      "low": 9000,
+      "high": 12000,
+      "avg": 10896,
       "source": "snkrdunk",
-      "sample_count": 38,
-      "on_sale": 14,
-      "ask_low": 15980,
-      "ask_mid": 15990,
+      "sample_count": 180,
+      "on_sale": 57,
+      "ask_low": 8500,
+      "ask_mid": 8750,
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
-      "psa10": null
+      "psa10": 9700
     }
   ],
   "sales_fetched_at": "2026-09-16",
   "sales_by_day": {
-    "2026-09-16": 10,
+    "2026-09-16": 180,
     "2026-09-15": 28
+  },
+  "psa10_sales_by_day": {
+    "2026-09-16": 1
   }
 }
