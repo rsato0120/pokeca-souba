@@ -12,6 +12,7 @@ import GameTabs from '@/components/GameTabs'
 import OnePieceRankings from '@/components/OnePieceRankings'
 import { getOnePieceCatalog, getOnePiecePrices } from '@/lib/onepiece'
 import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
+import DailySalesShare from '@/components/DailySalesShare'
 
 export const metadata: Metadata = {
   title: 'ONE PIECEランキング — 売れ筋・値動き・BOX',
@@ -23,13 +24,17 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ t
   const market = buildOnePieceMarket()
   const { products, sets } = getOnePieceCatalog()
   const { rows, baseDate } = buildOnePieceRanking(products, Object.fromEntries(products.map(p => [p.id, getOnePiecePrices(p.id)])))
+  const dailySalesTop = rows.filter(row => row.kind === 'card' && row.salesToday > 0)
+    .sort((a, b) => b.salesToday - a.salesToday || b.sales7d - a.sales7d || a.id.localeCompare(b.id))
+    .slice(0, 3)
+    .map(row => ({ href: `/onepiece/products/${row.id}`, name: row.name.split('[')[0].trim(), sales: row.salesToday }))
   return <main className="wrap home-wrap">
     <SiteHeader /><GameTabs game="onepiece" />
     <section className="home-panel" style={{ marginTop: 'var(--sp-5)' }}>
       <div className="home-panel-head"><div><span>MARKET RANKING</span><h1 style={{ fontSize: 'clamp(18px, 3vw, 26px)', lineHeight: 1.4, margin: '8px 0' }}>ONE PIECE ランキング</h1></div><Link href="/onepiece/cards">カード一覧 →</Link></div>
       <p className="source-note">売れているカードと相場の動きを、実際の成約から。{baseDate ? `集計基準日 ${baseDate}` : 'データを集計中です。'}</p>
       <RankingTabs tabs={[
-        { id: 'market', label: '値動き・売れ筋・BOX', node: <OnePieceRankings key={tab ?? 'sales'} rows={rows} sets={sets} initialTab={tab} /> },
+        { id: 'market', label: '値動き・売れ筋・BOX', node: <><DailySalesShare date={baseDate ?? ''} rows={dailySalesTop} game="onepiece" pageUrl="https://pokeca-souba.vercel.app/onepiece/ranking" /><OnePieceRankings key={tab ?? 'sales'} rows={rows} sets={sets} initialTab={tab} /></> },
         { id: 'views', label: '閲覧', note: '実際の閲覧が蓄積するとランキングに表示されます。', node: <TrendingCards cards={market.rows.map(r => ({ id: r.id, name: r.name, rarity: r.rarity, image: r.image, price: r.mid, dayChange: r.dayChange }))} /> },
         { id: 'votes', label: 'みんなの予想', node: <><CommunityPicks cards={market.rows.map(r => ({ ...r, aiUp: r.upPct }))} /><VoteLeaderboard prices={market.matrix} baseDate={market.baseDate} /></> },
         { id: 'deals', label: 'お買い得出品', node: <BargainListings rows={products.flatMap(p => getOnePieceDetailBargains(p.id)).sort((a, b) => b.discountPct - a.discountPct).slice(0, 30)} /> },

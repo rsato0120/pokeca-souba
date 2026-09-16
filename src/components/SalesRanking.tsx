@@ -8,6 +8,7 @@ export interface SalesRankRow {
   image: string | null
   mid: number
   sales7d: number
+  salesToday: number
   onSale: number | null
   onSaleCapped: boolean
   listings: MarketListing[]

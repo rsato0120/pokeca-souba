@@ -17,6 +17,7 @@ import SiteHeader from "@/components/SiteHeader"
 import SalesRanking, { type SalesRankRow } from '@/components/SalesRanking'
 import BargainListings, { type BargainRow } from '@/components/BargainListings'
 import { assessBargain } from '@/lib/bargains'
+import DailySalesShare from '@/components/DailySalesShare'
 
 // ランキングタブ。値動き／閲覧／みんなの予想／BOX をページ内タブで切り替える。
 //
@@ -51,7 +52,7 @@ export default function RankingPage() {
   salesFromDate.setUTCDate(salesFromDate.getUTCDate() - 6)
   const salesFrom = salesFromDate.toISOString().slice(0, 10)
 
-  const salesRanking = cards
+  const salesRows = cards
     .filter((card) => !isDeckUtilityCard(card))
     .map((card) => {
       const slug = getCardSlug(card)
@@ -69,6 +70,7 @@ export default function RankingPage() {
         image: card.image_url ?? null,
         mid: midOf(latest),
         sales7d,
+        salesToday: Number(priceHistory.sales_by_day?.[newestPriceDate] ?? 0),
         onSale: latest.on_sale ?? null,
         onSaleCapped: latest.on_sale_capped === true,
         listings: marketListings?.cards[slug]?.listings ?? [],
@@ -76,8 +78,15 @@ export default function RankingPage() {
       return row
     })
     .filter((row): row is SalesRankRow => row != null)
+
+  const salesRanking = [...salesRows]
     .sort((a, b) => b.sales7d - a.sales7d || (a.onSale ?? Infinity) - (b.onSale ?? Infinity))
     .slice(0, 20)
+  const dailySalesTop = [...salesRows]
+    .filter((row) => row.salesToday > 0)
+    .sort((a, b) => b.salesToday - a.salesToday || b.sales7d - a.sales7d || a.slug.localeCompare(b.slug))
+    .slice(0, 3)
+    .map((row) => ({ href: `/cards/${row.slug}`, name: row.name, sales: row.salesToday }))
 
   const freshPriceCutoff = new Date(`${newestPriceDate}T00:00:00+09:00`)
   freshPriceCutoff.setUTCDate(freshPriceCutoff.getUTCDate() - 3)
@@ -201,7 +210,7 @@ export default function RankingPage() {
       id: 'sales',
       label: '売れ筋',
       note: `直近7日（${salesFrom.replaceAll('-', '/')}〜${newestPriceDate.replaceAll('-', '/')}）の実成約数順。出品中の商品はカード番号とカード名を照合したメルカリ出品です。`,
-      node: <SalesRanking rows={salesRanking} />,
+      node: <><DailySalesShare date={newestPriceDate} rows={dailySalesTop} game="pokemon" pageUrl="https://pokeca-souba.vercel.app/ranking" /><SalesRanking rows={salesRanking} /></>,
     },
     {
       id: 'bargains',

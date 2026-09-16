@@ -1,7 +1,7 @@
 import type { OnePiecePrices, OnePieceProduct } from '@/types/onepiece'
 
 export type OnePieceRankingRow = OnePieceProduct & {
-  avg: number; date: string; sales7d: number; day: number | null; week: number | null
+  avg: number; date: string; sales7d: number; salesToday: number; day: number | null; week: number | null
 }
 
 const dayMs = 86400000
@@ -27,7 +27,8 @@ export function buildOnePieceRanking(products: OnePieceProduct[], observations: 
     }
     const sales7d = Object.entries(data.sales_by_day ?? {}).reduce((sum, [date, count]) =>
       date >= offsetDate(6) && date <= baseDate && Number.isFinite(count) && count > 0 ? sum + count : sum, 0)
-    return [{ ...product, avg, date: latest.date, sales7d, day: change(1), week: change(7) }]
+    const salesToday = Number(data.sales_by_day?.[baseDate] ?? 0)
+    return [{ ...product, avg, date: latest.date, sales7d, salesToday, day: change(1), week: change(7) }]
   })
   return { baseDate, fetchedAt, rows }
 }
