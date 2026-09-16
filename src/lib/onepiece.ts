@@ -16,7 +16,11 @@ export function onePieceShortName(name: string): string {
   return name.split('[')[0].trim()
 }
 export function onePieceRarity(product: Pick<OnePieceProduct, 'kind' | 'name'>): string {
-  return product.kind === 'box' ? 'BOX' : product.name.match(/\b(?:SEC|SR|R|UC|C|L)\b/)?.[0] ?? 'カード'
+  if (product.kind === 'box') return 'BOX'
+  // ONE PIECE uses suffixes to distinguish parallel variants (for example
+  // SR-SPC, SEC-RSP and L-SP). Returning only the base rarity makes different
+  // products look identical in rankings and shared images.
+  return product.name.match(/\b(?:SEC|SR|R|UC|C|L|P)(?:-(?:RSP|GSP|SPC|SP|P))?\b/)?.[0] ?? 'カード'
 }
 export function isOnePiecePriceStale(prices: OnePiecePrices | null): boolean {
   return !!prices?.history[0] && Date.parse(prices.fetched_at) - Date.parse(prices.history[0].date) > 30 * 86400000
