@@ -1,6 +1,6 @@
 {
   "product_id": "op14-728159",
-  "fetched_at": "2026-09-16T06:54:01.076Z",
+  "fetched_at": "2026-09-16T18:53:51.416Z",
   "history": [
     {
       "date": "2026-09-10",
@@ -116,35 +116,35 @@
     },
     {
       "date": "2026-06-11",
-      "avg": 93750,
-      "low": 87000,
-      "high": 99999,
-      "source": "snkrdunk",
-      "sample_count": 8
-    },
-    {
-      "date": "2026-06-09",
-      "avg": 93143,
-      "low": 87000,
+      "avg": 95000,
+      "low": 90000,
       "high": 99999,
       "source": "snkrdunk",
       "sample_count": 7
     },
     {
-      "date": "2026-06-05",
-      "avg": 88400,
-      "low": 85000,
-      "high": 90000,
+      "date": "2026-06-09",
+      "avg": 94500,
+      "low": 90000,
+      "high": 99999,
       "source": "snkrdunk",
-      "sample_count": 5
+      "sample_count": 6
     },
     {
-      "date": "2026-06-02",
-      "avg": 88000,
-      "low": 85000,
+      "date": "2026-06-05",
+      "avg": 89250,
+      "low": 87000,
       "high": 90000,
       "source": "snkrdunk",
       "sample_count": 4
+    },
+    {
+      "date": "2026-06-02",
+      "avg": 89000,
+      "low": 87000,
+      "high": 90000,
+      "source": "snkrdunk",
+      "sample_count": 3
     },
     {
       "date": "2026-05-27",
@@ -197,9 +197,18 @@
     "2026-09-09": 1,
     "2026-09-10": 1
   },
-  "coverage_start": "2026-05-20",
+  "coverage_start": "2026-05-27",
   "complete": true,
   "psa10_history": [
+    {
+      "date": "2026-09-16",
+      "avg": 139604,
+      "low": 118000,
+      "high": 154800,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "psa10": 139604
+    },
     {
       "date": "2026-09-14",
       "avg": 147048,
@@ -740,10 +749,11 @@
     "2026-05-30": 1,
     "2026-05-29": 1,
     "2026-05-19": 3,
-    "2026-09-14": 1,
-    "2026-09-10": 1
+    "2026-09-14": 2,
+    "2026-09-10": 1,
+    "2026-09-16": 3
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-09-16T06:59:48.613Z",
+  "psa10_fetched_at": "2026-09-16T19:00:31.202Z",
   "raw_archived_extremes": null
 }
