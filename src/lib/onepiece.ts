@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import type { OnePieceCatalog, OnePiecePrices } from '@/types/onepiece'
+import type { OnePieceCatalog, OnePiecePrices, OnePieceProduct } from '@/types/onepiece'
 import type { Forecast, PredictionLog } from '@/types/pokeca'
 
 export function getOnePieceCatalog(): OnePieceCatalog {
@@ -14,6 +14,9 @@ export function getOnePiecePrices(id: string): OnePiecePrices | null {
 }
 export function onePieceShortName(name: string): string {
   return name.split('[')[0].trim()
+}
+export function onePieceRarity(product: Pick<OnePieceProduct, 'kind' | 'name'>): string {
+  return product.kind === 'box' ? 'BOX' : product.name.match(/\b(?:SEC|SR|R|UC|C|L)\b/)?.[0] ?? 'カード'
 }
 export function isOnePiecePriceStale(prices: OnePiecePrices | null): boolean {
   return !!prices?.history[0] && Date.parse(prices.fetched_at) - Date.parse(prices.history[0].date) > 30 * 86400000

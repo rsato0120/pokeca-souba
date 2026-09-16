@@ -3,6 +3,7 @@ import Link from 'next/link'
 export interface DailySalesShareRow {
   href: string
   name: string
+  rarity: string
   sales: number
 }
 
@@ -23,10 +24,9 @@ export default function DailySalesShare({
   const dateLabel = date.replaceAll('-', '/')
   const tweetText = [
     `【${gameName} 今日の成約数TOP3】${dateLabel}`,
-    ...rows.map((row, index) => `${index + 1}位 ${row.name} ${row.sales.toLocaleString('ja-JP')}件`),
+    ...rows.map((row, index) => `${index + 1}位 ${row.name}（${row.rarity}） ${row.sales.toLocaleString('ja-JP')}件`),
     '',
     'スニダン実成約の取得範囲内で集計',
-    pageUrl,
     game === 'pokemon' ? '#ポケカ #ポケカ相場' : '#ワンピカード #ワンピカード相場',
   ].join('\n')
 
@@ -40,7 +40,7 @@ export default function DailySalesShare({
         </div>
         <a
           className="daily-sales-share-button"
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`}
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(pageUrl)}`}
           target="_blank"
           rel="noreferrer"
         >
@@ -52,7 +52,7 @@ export default function DailySalesShare({
           <li key={row.href}>
             <Link href={row.href}>
               <span>{index + 1}</span>
-              <strong>{row.name}</strong>
+              <span className="daily-sales-share-copy"><strong>{row.name}</strong><small>{row.rarity}</small></span>
               <b>{row.sales.toLocaleString('ja-JP')}件</b>
             </Link>
           </li>

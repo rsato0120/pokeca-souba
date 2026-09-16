@@ -10,13 +10,25 @@ import Link from 'next/link'
 import SiteHeader from '@/components/SiteHeader'
 import GameTabs from '@/components/GameTabs'
 import OnePieceRankings from '@/components/OnePieceRankings'
-import { getOnePieceCatalog, getOnePiecePrices } from '@/lib/onepiece'
+import { getOnePieceCatalog, getOnePiecePrices, onePieceRarity } from '@/lib/onepiece'
 import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
 import DailySalesShare from '@/components/DailySalesShare'
 
 export const metadata: Metadata = {
   title: 'ONE PIECEランキング — 売れ筋・値動き・BOX',
   description: 'ONE PIECEカードの売れ筋、値上がり、値下がり、高額カード、未開封BOXを実成約データで比較。収録弾や期間で絞り込めます。',
+  openGraph: {
+    title: 'ワンピカード 今日の成約数TOP3',
+    description: 'スニダン実成約から、今日売れたONE PIECEカード上位3枚を集計。',
+    url: '/onepiece/ranking',
+    images: [{ url: '/api/ranking-share-image?game=onepiece', width: 1200, height: 630, alt: 'ワンピカード 今日の成約数TOP3' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ワンピカード 今日の成約数TOP3',
+    description: 'スニダン実成約から、今日売れたONE PIECEカード上位3枚を集計。',
+    images: ['/api/ranking-share-image?game=onepiece'],
+  },
 }
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
@@ -27,7 +39,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ t
   const dailySalesTop = rows.filter(row => row.kind === 'card' && row.salesToday > 0)
     .sort((a, b) => b.salesToday - a.salesToday || b.sales7d - a.sales7d || a.id.localeCompare(b.id))
     .slice(0, 3)
-    .map(row => ({ href: `/onepiece/products/${row.id}`, name: row.name.split('[')[0].trim(), sales: row.salesToday }))
+    .map(row => ({ href: `/onepiece/products/${row.id}`, name: row.name.split('[')[0].trim(), rarity: onePieceRarity(row), sales: row.salesToday }))
   return <main className="wrap home-wrap">
     <SiteHeader /><GameTabs game="onepiece" />
     <section className="home-panel" style={{ marginTop: 'var(--sp-5)' }}>

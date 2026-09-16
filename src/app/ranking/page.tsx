@@ -27,6 +27,18 @@ import DailySalesShare from '@/components/DailySalesShare'
 export const metadata: Metadata = {
   title: 'ランキング',
   description: 'ポケモンカードの値動き・閲覧数・みんなの予想の的中率・未開封BOXのランキング。実際の成約価格から算出しています。',
+  openGraph: {
+    title: 'ポケカ 今日の成約数TOP3',
+    description: 'スニダン実成約から、今日売れたポケモンカード上位3枚を集計。',
+    url: '/ranking',
+    images: [{ url: '/api/ranking-share-image?game=pokemon', width: 1200, height: 630, alt: 'ポケカ 今日の成約数TOP3' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ポケカ 今日の成約数TOP3',
+    description: 'スニダン実成約から、今日売れたポケモンカード上位3枚を集計。',
+    images: ['/api/ranking-share-image?game=pokemon'],
+  },
 }
 
 // 採点に必要な日数ぶんの価格を焼き込む（みんなの予想タブ用）。
@@ -86,7 +98,7 @@ export default function RankingPage() {
     .filter((row) => row.salesToday > 0)
     .sort((a, b) => b.salesToday - a.salesToday || b.sales7d - a.sales7d || a.slug.localeCompare(b.slug))
     .slice(0, 3)
-    .map((row) => ({ href: `/cards/${row.slug}`, name: row.name, sales: row.salesToday }))
+    .map((row) => ({ href: `/cards/${row.slug}`, name: row.name, rarity: row.rarity, sales: row.salesToday }))
 
   const freshPriceCutoff = new Date(`${newestPriceDate}T00:00:00+09:00`)
   freshPriceCutoff.setUTCDate(freshPriceCutoff.getUTCDate() - 3)

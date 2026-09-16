@@ -1,4 +1,4 @@
-import { getOnePieceCatalog, getOnePiecePrices, getOnePieceForecast, onePieceShortName } from './onepiece'
+import { getOnePieceCatalog, getOnePiecePrices, getOnePieceForecast, onePieceRarity, onePieceShortName } from './onepiece'
 import { onePieceMarketId } from './market-links'
 import { buildOnePieceRanking } from './onepiece-ranking'
 import { computeObservedExtremes } from './psa10-extremes'
@@ -22,7 +22,7 @@ export function buildOnePieceMarket() {
     const data = observations[p.id], latest = data?.history[0], rank = ranks.get(p.id)
     const ex = onePieceRawExtremes(data), forecast = getOnePieceForecast(p.id)
     const mid = latest?.avg ?? 0, pf = forecast?.price_forecast
-    return { id: onePieceMarketId(p.id), name: onePieceShortName(p.name), rarity: p.kind === 'box' ? 'BOX' : p.name.match(/\b(?:SEC|SR|R|UC|C|L)\b/)?.[0] ?? 'カード', boxId: p.set_id,
+    return { id: onePieceMarketId(p.id), name: onePieceShortName(p.name), rarity: onePieceRarity(p), boxId: p.set_id,
       boxName: sets.find(s => s.id === p.set_id)?.name ?? p.set_id, image: p.image_url, mid,
       dayChange: rank?.day ?? null, weekChange: rank?.week ?? null, onSale: latest?.on_sale ?? null,
       upPct: forecast?.overall.up_pct ?? null, upsidePct: pf && mid > 0 ? ((pf.m3_low + pf.m3_high) / 2 / mid - 1) * 100 : null,
