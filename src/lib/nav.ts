@@ -23,7 +23,7 @@ export const NAV_ITEMS: NavItem[] = [
 
 export const ONEPIECE_NAV_ITEMS: NavItem[] = [
   { href: '/onepiece', label: 'ホーム', icon: '🏠', owns: ['/onepiece/sets', '/onepiece/products', '/onepiece/cards'] },
-  { href: '/onepiece/ai', label: 'AI予想', icon: '🤖', owns: ['/onepiece/accuracy'] },
+  { href: '/onepiece/ai', label: 'AI投資スコア', icon: '🤖', owns: ['/onepiece/accuracy'] },
   { href: '/onepiece/ranking', label: 'ランキング', icon: '📊', owns: ['/onepiece/boxes'] },
   { href: '/onepiece/mypage', label: 'マイページ', icon: '📁', owns: ['/onepiece/portfolio', '/onepiece/watchlist', '/onepiece/screener'] },
 ]

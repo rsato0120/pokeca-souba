@@ -8,6 +8,7 @@ import { forEachBounded } from './bounded-workers'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
 import { getSnkrdunkSales, getSnkrdunkBoxSales, recentSalesWindow } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
+import { isBoxReleased } from '@/lib/box-release'
 
 const SNKRDUNK_IDS_FILE = path.join(process.cwd(), 'data', 'snkrdunk-ids.json')
 const EXTREMES_FILE = path.join(process.cwd(), 'data', 'price-extremes.json')
@@ -1235,7 +1236,9 @@ async function scrapeCard(
     cardNo: CardNo | null,
   // 出品検索に使う生の表記（"087/067"）。parseCardNo 後の数値だと先頭ゼロが落ちて
   // 出品タイトルの表記と合わなくなるため、data の文字列をそのまま渡す。
-  cardNoStr: string | null
+  cardNoStr: string | null,
+  /** この商品群は市場を混ぜず、スニダン価格だけを保存する。 */
+  snkrdunkOnly = false,
 ) {
   process.stdout.write(`  [${label}] スクレイピング中... `)
   try {
@@ -1398,6 +1401,10 @@ async function scrapeCard(
       source = 'スニダン'
       priceSource = 'snkrdunk'
       sampleCount = snkrdunkCount
+    } else if (snkrdunkOnly) {
+      console.log('スニダン成約が採用件数未満 — スキップ（メルカリへ切り替えない）')
+      stats.skipped++
+      return
     } else {
       // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
       //
@@ -1881,7 +1888,7 @@ async function main() {
     ? []
     : getAllCards().filter(matchesFilter)
   const boxes = getAllBoxes().filter(
-    b => b.certainty === 'released' && b.packs_per_box != null && (filters.length === 0 || filters.includes(b.box_id))
+    b => isBoxReleased(b) && b.packs_per_box != null && (filters.length === 0 || filters.includes(b.box_id))
   )
   const boxMap = new Map(getAllBoxes().map(b => [b.box_id, b.box_name]))
   const date = todayJST()
@@ -1943,7 +1950,7 @@ async function main() {
         : card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null)
+      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null, card.box_id === '30th_celebration')
     })
 
     if (boxes.length > 0) {

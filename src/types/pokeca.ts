@@ -13,8 +13,11 @@ export interface Box {
   box_name: string
   code: string
   release_ym: string
+  release_date?: string
   certainty: Certainty
   pack_price_yen: number
+  /** パックBOX以外（構築デッキ等）の商品定価。 */
+  msrp_yen?: number
   packs_per_box?: number
   pack_image_url?: string
   note: string

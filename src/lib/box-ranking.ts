@@ -1,5 +1,6 @@
 import type { Box, PriceRecord } from '@/types/pokeca'
 import { midOf } from '@/lib/extremes'
+import { isBoxReleased } from '@/lib/box-release'
 
 // 未開封BOXのランキング。カードのランキングはあるのにBOXには無く、
 // 「どの弾が伸びているか」を横並びで見る場所が無かった。
@@ -85,7 +86,7 @@ export function buildBoxRanking(inputs: BoxRankingInput[]): BoxRankRow[] {
   const rows: BoxRankRow[] = []
 
   for (const { box, noshrink, mixed, shrink } of inputs) {
-    if (box.certainty !== 'released' || box.packs_per_box == null) continue
+    if (!isBoxReleased(box)) continue
 
     // BOX詳細ページ(BoxMarketSection)の既定タブと同じ順にする。ここを変えると
     // トップと詳細で違う金額が並ぶので、必ず両方そろえること。
@@ -109,7 +110,7 @@ export function buildBoxRanking(inputs: BoxRankingInput[]): BoxRankRow[] {
         ? ((mid - midOf(weekAgo)) / midOf(weekAgo)) * 100
         : null
 
-    const msrp = box.packs_per_box * box.pack_price_yen
+    const msrp = box.msrp_yen ?? (box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : 0)
     rows.push({
       boxId: box.box_id,
       boxName: box.box_name,

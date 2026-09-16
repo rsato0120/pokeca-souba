@@ -18,6 +18,8 @@ import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePri
 import DetailBargains from '@/components/DetailBargains'
 import OnePieceImage from '@/components/OnePieceImage'
 import OnePieceCatalog from '@/components/OnePieceCatalog'
+import CardScorePanel from '@/components/CardScorePanel'
+import { computeOnePieceScore } from '@/lib/onepiece-score'
 import { getOnePieceDetailBargains } from '@/lib/detail-bargains'
 
 export const dynamicParams = false
@@ -45,6 +47,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const yen = (value: number | undefined) => value == null ? '—' : `¥${value.toLocaleString('ja-JP')}`
   const tweetText = [onePieceShortName(product.name), latest ? `スニダン成約相場 ${yen(latest.avg)}（${latest.date}）` : '相場データを確認', `https://pokeca-souba.vercel.app/onepiece/products/${product.id}`, '#ワンピースカード #ワンピカード'].join('\n')
   const extremes = onePieceRawExtremes(prices)
+  const investmentScore = computeOnePieceScore(prices, forecast)
   return <main className="wrap op-page"><SiteHeader />
     <nav className="op-breadcrumb" aria-label="パンくず"><Link href="/onepiece">ONE PIECE</Link><span> / </span><Link href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
     <section className="op-detail-hero">
@@ -80,6 +83,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
       {(prices?.history.length ?? 0) > 0 ? <CardCharts forecastChart={forecast ? <PriceForecastChart history={prices!.history} forecast={forecast.price_forecast} /> : null} historyChart={<PriceHistoryChart rawExtras={<PriceExtremesSummary extremes={extremes} mid={latest?.avg ?? 0} />} extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null} history={prices!.history} psa10History={prices!.psa10_history} psa10ArchivedExtremes={prices!.psa10_archived_extremes} salesByDay={prices!.sales_by_day} psa10SalesByDay={prices!.psa10_sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} />} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
       <p className="op-footnote">各日までの直近30日以内から新しい日順に20件を目安に集計。素体は状態A、PSA10は鑑定済みPSA10のみを別々に集計し、BOXは複数箱の取引を1箱単価に換算しています。グラフは取得できた実成約から算出し、取引がない日を補完しません。</p>
     </section>
+    {investmentScore && <CardScorePanel score={investmentScore} />}
     {forecast ? <OnePieceForecast forecast={forecast} /> : <p className="source-note">AI予想は履歴と直近の成約データが十分そろった商品から生成します。</p>}
     <CardSentiment cardId={marketId} ai={forecast ? { up: forecast.overall.up_pct, flat: forecast.overall.flat_pct, down: forecast.overall.down_pct } : null} />
     <section className="op-chart-panel"><h2>直近の相場記録</h2><div className="op-table-scroll"><table className="op-table"><thead><tr><th>成約日</th><th>平均</th><th>価格帯</th><th>算出件数</th></tr></thead><tbody>

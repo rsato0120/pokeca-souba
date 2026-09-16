@@ -43,7 +43,7 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
       <BoxSelector basePath="/onepiece/sets" current={setId || undefined} marginTop={12} marginBottom={0} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name, release_ym: s.release_date.slice(0, 7) }))} />
     </section>
     <div className="home-update-row"><UpdateClock updatedLabel={updatedLabel} minute={30} /><span>価格はスニダン実取引から毎日更新</span></div>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', margin: '16px 0' }}><Link href="/onepiece/ai" className="pill">AI予想</Link><Link href="/onepiece/screener" className="pill">詳細検索</Link><Link href="/onepiece/watchlist" className="pill">ウォッチリスト</Link><Link href="/onepiece/cards" className="pill">カード一覧</Link></div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', margin: '16px 0' }}><Link href="/onepiece/ai" className="pill">AI投資スコア</Link><Link href="/onepiece/screener" className="pill">詳細検索</Link><Link href="/onepiece/watchlist" className="pill">ウォッチリスト</Link><Link href="/onepiece/cards" className="pill">カード一覧</Link></div>
     {isHome ? <>
       {market.indices.length > 0 && <section className="home-panel"><h2>ONE PIECE 相場指数</h2><MarketIndexChart indices={market.indices} /><p className="source-note">掲載カードの実測日同士を比較した等ウェイト指数。取引のない日のカード価格は補完せず、比較できる銘柄が少ない日は指数を据え置きます。</p></section>}
       <section className="home-panel home-sales-panel">

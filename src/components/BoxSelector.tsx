@@ -1,11 +1,13 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { isBoxReleased } from '@/lib/box-release'
 
 interface BoxOption {
   box_id: string
   box_name: string
   release_ym?: string   // "2025-12" 形式。発売年でグループ分けするのに使う
+  release_date?: string
   certainty?: 'released' | 'announced' | 'rumored'
 }
 
@@ -76,7 +78,7 @@ export default function BoxSelector({ boxes, current, marginTop = 12, marginBott
           <optgroup key={year} label={year === 'その他' ? 'その他' : `${year}年`}>
             {list.map((b) => (
               <option key={b.box_id} value={b.box_id}>
-                {b.box_name}{b.certainty === 'announced' ? '（発売予定）' : ''}
+                {b.box_name}{b.certainty === 'announced' && !isBoxReleased({ certainty: b.certainty, release_date: b.release_date }) ? '（発売予定）' : ''}
               </option>
             ))}
           </optgroup>

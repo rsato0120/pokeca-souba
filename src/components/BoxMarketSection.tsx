@@ -40,6 +40,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
   const hasChoice = variants.length > 1
   const signal = boxSignal(active.premiumPct, active.weekPct)
   const hasData = active.history != null && active.history.length > 0
+  const marketLabel = active.history?.[0]?.source === 'snkrdunk' ? 'スニダン実成約' : 'メルカリ実勢'
 
   // グラフは3点未満だと折れ線にならない。混在系列で代用する場合は**必ず明記**する
   // （数値は代用しない。ここだけは「見えない」より「別物と断って見せる」方が良い）。
@@ -83,7 +84,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
     <>
       <div style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: '10px', padding: '20px 24px', marginBottom: '28px' }}>
         <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '12px' }}>
-          BOX · 未開封ボックス相場（メルカリ実勢）
+          BOX · 未開封ボックス相場（{marketLabel}）
         </div>
 
         {hasChoice && (

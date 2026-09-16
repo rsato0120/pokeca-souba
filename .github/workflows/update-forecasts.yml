@@ -71,6 +71,14 @@ jobs:
           SCRAPE_CONCURRENCY: '3'
         run: npx tsx scripts/scrape-prices.ts
 
+      # 30周年BOXは発売前からスニダンに実成約があるため、BOX相場もスニダン基準で保存する。
+      # 発売後に通常のBOX取得がメルカリ値を書いても、同日のレコードをここで上書きして出所を統一する。
+      - name: Update 30th box price from SNKRDUNK
+        run: |
+          npx tsx scripts/update-snkrdunk-box-prices.ts 30th_celebration
+          npx tsx scripts/update-snkrdunk-box-prices.ts 30th_premium_deck_set
+        continue-on-error: true
+
       # 直近7日成約数の上位カードについて、現在購入できるメルカリ出品を保存する。
       # 全カードではなく上位30枚×最大3件に絞り、日次処理とデータ量を抑える。
       - name: Scrape listings for sales ranking

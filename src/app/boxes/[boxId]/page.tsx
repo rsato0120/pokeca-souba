@@ -12,6 +12,7 @@ import { sparkSeries, midOf } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
 import BoxMarketSection from '@/components/BoxMarketSection'
 import { summarizeVariant, type BoxVariantView } from '@/lib/box-variant'
+import BoxReleaseStatus from '@/components/BoxReleaseStatus'
 import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
 import SiteHeader from "@/components/SiteHeader"
 
@@ -77,7 +78,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
   const shrinkHist = getBoxPriceVariant(boxId, 'shrink')?.history ?? null
   const noshrinkHist = getBoxPriceVariant(boxId, 'noshrink')?.history ?? null
   const mixedHist = boxPriceHistory?.history ?? null
-  const msrp = box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : null
+  const msrp = box.msrp_yen ?? (box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : null)
 
   // セット商品（ポケセン等）: パックBOXではなくセット相場を地域ごとに出す
   const setProducts = getSetProducts(boxId)
@@ -264,7 +265,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         marginBottom={24}
         boxes={boxes
           .filter(b => b.certainty !== 'rumored')
-          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym, certainty: b.certainty }))}
+          .map(b => ({ box_id: b.box_id, box_name: b.box_name, release_ym: b.release_ym, release_date: b.release_date, certainty: b.certainty }))}
       />
 
       {/* ── 収録弾ヘッダ ── */}
@@ -284,7 +285,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             {box.box_name}
           </h1>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)' }}>
-            <span>{box.certainty === 'released' ? '発売' : '発売予定'} {box.release_ym}</span>
+            <BoxReleaseStatus certainty={box.certainty} releaseDate={box.release_date} releaseYm={box.release_ym} />
             {/* 定価0＝単体販売のない配布パック（プロモカードパック25th など） */}
             <span>
               {box.packs_per_box != null
