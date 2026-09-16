@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     title: 'ポケカ 今日の成約数TOP3',
     description: 'スニダン実成約から、今日売れたポケモンカード上位3枚を集計。',
     url: '/ranking',
-    images: [{ url: '/api/ranking-share-image?game=pokemon', width: 1200, height: 630, alt: 'ポケカ 今日の成約数TOP3' }],
+    images: [{ url: `/api/ranking-share-image?game=pokemon&v=${todayJST()}`, width: 1200, height: 630, alt: 'ポケカ 今日の成約数TOP3' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ポケカ 今日の成約数TOP3',
     description: 'スニダン実成約から、今日売れたポケモンカード上位3枚を集計。',
-    images: ['/api/ranking-share-image?game=pokemon'],
+    images: [`/api/ranking-share-image?game=pokemon&v=${todayJST()}`],
   },
 }
 

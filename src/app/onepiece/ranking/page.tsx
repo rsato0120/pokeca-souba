@@ -14,6 +14,8 @@ import { getOnePieceCatalog, getOnePiecePrices, onePieceRarity } from '@/lib/one
 import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
 import DailySalesShare from '@/components/DailySalesShare'
 
+const shareImageVersion = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)
+
 export const metadata: Metadata = {
   title: 'ONE PIECEランキング — 売れ筋・値動き・BOX',
   description: 'ONE PIECEカードの売れ筋、値上がり、値下がり、高額カード、未開封BOXを実成約データで比較。収録弾や期間で絞り込めます。',
@@ -21,13 +23,13 @@ export const metadata: Metadata = {
     title: 'ワンピカード 今日の成約数TOP3',
     description: 'スニダン実成約から、今日売れたONE PIECEカード上位3枚を集計。',
     url: '/onepiece/ranking',
-    images: [{ url: '/api/ranking-share-image?game=onepiece', width: 1200, height: 630, alt: 'ワンピカード 今日の成約数TOP3' }],
+    images: [{ url: `/api/ranking-share-image?game=onepiece&v=${shareImageVersion}`, width: 1200, height: 630, alt: 'ワンピカード 今日の成約数TOP3' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ワンピカード 今日の成約数TOP3',
     description: 'スニダン実成約から、今日売れたONE PIECEカード上位3枚を集計。',
-    images: ['/api/ranking-share-image?game=onepiece'],
+    images: [`/api/ranking-share-image?game=onepiece&v=${shareImageVersion}`],
   },
 }
 
