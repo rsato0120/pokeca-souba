@@ -2,6 +2,20 @@
   "card_id": "30th-celebration-127",
   "history": [
     {
+      "date": "2026-09-17",
+      "low": 10900,
+      "high": 12000,
+      "avg": 11372,
+      "source": "snkrdunk",
+      "sample_count": 35,
+      "on_sale": 174,
+      "ask_low": 7000,
+      "ask_mid": 8500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 15200
+    },
+    {
       "date": "2026-09-16",
       "low": 14998,
       "high": 18800,
@@ -16,9 +30,13 @@
       "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-09-16",
+  "sales_fetched_at": "2026-09-17",
   "sales_by_day": {
-    "2026-09-16": 179,
-    "2026-09-15": 28
+    "2026-09-16": 448,
+    "2026-09-15": 28,
+    "2026-09-17": 35
+  },
+  "psa10_sales_by_day": {
+    "2026-09-16": 1
   }
 }
