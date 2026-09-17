@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const extremes = onePieceRawExtremes(prices)
   const investmentScore = computeOnePieceScore(prices, forecast)
   return <main className="wrap op-page"><SiteHeader />
-    <nav className="op-breadcrumb" aria-label="パンくず"><Link href="/onepiece">ONE PIECE</Link><span> / </span><Link href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
+    <nav className="op-breadcrumb" aria-label="パンくず"><Link prefetch={false} href="/onepiece">ONE PIECE</Link><span> / </span><Link prefetch={false} href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
     <section className="op-detail-hero">
       <OnePieceImage product={product} className={`op-detail-image ${product.kind === 'box' ? 'op-detail-box-image' : ''}`} />
       <div><p className="op-eyebrow">{set.code} · {product.card_no ?? '未開封BOX'}</p><h1>{onePieceShortName(product.name)}</h1>
@@ -61,7 +61,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
         <WatchButton cardId={marketId} mid={latest?.avg ?? 0} />
         <CardViewCounter cardId={marketId} />
         <CardCollectionControl cardId={`onepiece:${product.id}`} hasPsa10={psa10?.psa10 != null} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} />
-        <p><Link href="/onepiece/portfolio">マイコレクションを見る →</Link></p>
+        <p><Link prefetch={false} href="/onepiece/portfolio">マイコレクションを見る →</Link></p>
         <a className="op-buy-link" href={mercariUrl} target="_blank" rel="sponsored nofollow noreferrer">メルカリで出品を見る ↗</a>
         <p className="op-footnote">広告・アフィリエイトリンク</p>
         {/* eslint-disable-next-line @next/next/no-img-element */}

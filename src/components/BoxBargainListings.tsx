@@ -16,7 +16,7 @@ export default function BoxBargainListings({ data }: { data: BoxMarketListings |
         <div className="home-bargain-grid">
           {rows.map(({ box, variant, listing, marketPrice, savings, discountPct, fetchedAt }) => (
             <article key={listing.id} className="home-bargain-card box-deal-card">
-              <Link className="box-deal-name" href={`/boxes/${box.box_id}`}>{box.box_name} →</Link>
+              <Link prefetch={false} className="box-deal-name" href={`/boxes/${box.box_id}`}>{box.box_name} →</Link>
               <a href={mercariAffiliateUrl(listing.url)} target="_blank" rel="sponsored nofollow noreferrer" aria-label={`${box.box_name} ${VARIANT_LABEL[variant]}の出品をメルカリで見る`}>
                 <span className="home-bargain-info">
                   {listing.image_url ? (

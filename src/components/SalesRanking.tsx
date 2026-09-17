@@ -23,7 +23,7 @@ export default function SalesRanking({ rows }: { rows: SalesRankRow[] }) {
     <ol className="market-rank-list">
       {rows.map((row, index) => (
         <li key={row.slug} className="market-rank-item">
-          <Link href={`/cards/${row.slug}`} className="market-rank-card">
+          <Link prefetch={false} href={`/cards/${row.slug}`} className="market-rank-card">
             <span className="market-rank-number">{index + 1}</span>
             {row.image ? (
               // eslint-disable-next-line @next/next/no-img-element

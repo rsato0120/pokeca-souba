@@ -1,3 +1,5 @@
+import { currentPriceSeries } from './price-source'
+import { priceChangePct } from './price-change'
 import type { Card, PriceRecord } from '@/types/pokeca'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { onSaleChangeOverDays } from '@/lib/on-sale'
@@ -178,7 +180,7 @@ export function detectAnomaly(input: AnomalyInput): AnomalyCard | null {
 
   // ── ④ 値動きの荒さ（変動率の上昇） ──
   // 直近5日の日次変化の平均絶対値が、その前の10日より大きい＝どちらかに動き出す前触れ
-  const mids = history.slice(0, 16).map(midOf).filter(v => v > 0)
+  const mids = currentPriceSeries(history).slice(0, 16).map(midOf).filter(v => v > 0)
   if (mids.length >= 12) {
     const dailyAbs = (from: number, to: number) => {
       const seg = mids.slice(from, to)
@@ -208,10 +210,7 @@ export function detectAnomaly(input: AnomalyInput): AnomalyCard | null {
 
   // ── 価格自体の変化。まだ動いていないほど「予兆」としての価値が高い ──
   const base7 = baseRecord(history, latestDate, 7)
-  const pricePct =
-    base7 && base7.date !== today.date && midOf(base7) > 0
-      ? ((mid - midOf(base7)) / midOf(base7)) * 100
-      : null
+  const pricePct = base7 ? priceChangePct(history, history.indexOf(base7), Infinity) : null
 
   let score = signals.reduce((a, s) => a + s.points, 0)
   // 複数のシグナルが同時に立っている方が本物らしい

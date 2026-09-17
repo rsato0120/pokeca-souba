@@ -21,7 +21,7 @@ export default function RelatedCards({ items }: { items: RelatedItem[] }) {
       <p className="related-head">同じカードの別バージョン</p>
       <div className="related-list">
         {items.map(it => (
-          <Link key={it.id} href={`/cards/${it.id}`} className="related-item">
+          <Link prefetch={false} key={it.id} href={`/cards/${it.id}`} className="related-item">
             {it.image ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={it.image} alt={it.name} referrerPolicy="no-referrer" className="related-thumb" />

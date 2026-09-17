@@ -93,7 +93,7 @@ export default function ScreenerPage() {
 
   return (
     <div className="wrap" style={{ maxWidth: '1080px' }}>
-      <Link
+      <Link prefetch={false}
         href="/"
         style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)', letterSpacing: '0.06em', display: 'inline-block', padding: '18px 0 10px' }}
       >
@@ -110,7 +110,7 @@ export default function ScreenerPage() {
         {index7d != null && (
           <>
             {' '}「市場比」は7日比から
-            <Link href="/" style={{ color: 'var(--accent)' }}>相場指数</Link>
+            <Link prefetch={false} href="/" style={{ color: 'var(--accent)' }}>相場指数</Link>
             の同期間（{index7d >= 0 ? '+' : ''}{index7d.toFixed(2)}%）を引いた値で、正なら市場より強いカードです。
           </>
         )}

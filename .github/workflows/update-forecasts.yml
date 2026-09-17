@@ -63,7 +63,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Scrape prices (Snkrdunk first, Mercari fallback)
+      - name: Scrape prices (keep each product's price source)
         id: scrape
         timeout-minutes: 300
         continue-on-error: true
@@ -72,7 +72,7 @@ jobs:
         run: npx tsx scripts/scrape-prices.ts
 
       # 30周年BOXは発売前からスニダンに実成約があるため、BOX相場もスニダン基準で保存する。
-      # 発売後に通常のBOX取得がメルカリ値を書いても、同日のレコードをここで上書きして出所を統一する。
+      # 通常のBOX取得も取得元を固定するため、発売後もメルカリ値への切り替えは行わない。
       - name: Update 30th box price from SNKRDUNK
         run: |
           npx tsx scripts/update-snkrdunk-box-prices.ts 30th_celebration

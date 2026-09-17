@@ -85,6 +85,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
       <div style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: '10px', padding: '20px 24px', marginBottom: '28px' }}>
         <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '12px' }}>
           BOX · 未開封ボックス相場（{marketLabel}）
+          {active.history?.[0]?.date && <span> ・ {active.history[0].date.replace(/-/g, '/')} 時点</span>}
         </div>
 
         {hasChoice && (

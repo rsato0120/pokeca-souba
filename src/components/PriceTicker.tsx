@@ -23,7 +23,7 @@ export default function PriceTicker({ items }: { items: TickerItem[] }) {
   const row = (item: TickerItem, key: string) => {
     const up = item.changePct > 0
     return (
-      <Link key={key} href={`/cards/${item.slug}`} className="ticker-item">
+      <Link prefetch={false} key={key} href={`/cards/${item.slug}`} className="ticker-item">
         <span className="ticker-mark" style={{ color: up ? 'var(--up)' : 'var(--down)' }}>
           {up ? '▲' : '▼'}
         </span>

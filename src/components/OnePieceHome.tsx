@@ -43,12 +43,12 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
       <BoxSelector basePath="/onepiece/sets" current={setId || undefined} marginTop={12} marginBottom={0} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name, release_ym: s.release_date.slice(0, 7) }))} />
     </section>
     <div className="home-update-row"><UpdateClock updatedLabel={updatedLabel} minute={30} /><span>価格はスニダン実取引から毎日更新</span></div>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', margin: '16px 0' }}><Link href="/onepiece/ai" className="pill">AI投資スコア</Link><Link href="/onepiece/screener" className="pill">詳細検索</Link><Link href="/onepiece/watchlist" className="pill">ウォッチリスト</Link><Link href="/onepiece/cards" className="pill">カード一覧</Link></div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', margin: '16px 0' }}><Link prefetch={false} href="/onepiece/ai" className="pill">AI投資スコア</Link><Link prefetch={false} href="/onepiece/screener" className="pill">詳細検索</Link><Link prefetch={false} href="/onepiece/watchlist" className="pill">ウォッチリスト</Link><Link prefetch={false} href="/onepiece/cards" className="pill">カード一覧</Link></div>
     {isHome ? <>
       {market.indices.length > 0 && <section className="home-panel"><h2>ONE PIECE 相場指数</h2><MarketIndexChart indices={market.indices} /><p className="source-note">掲載カードの実測日同士を比較した等ウェイト指数。取引のない日のカード価格は補完せず、比較できる銘柄が少ない日は指数を据え置きます。</p></section>}
       <section className="home-panel home-sales-panel">
-        <div className="home-panel-head"><div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div><Link href="/onepiece/ranking">売れ筋ランキング →</Link></div>
-        <div className="home-sales-grid">{salesLeaders.map((p, i) => <Link key={p.id} href={`/onepiece/products/${p.id}`} className="home-sales-card">
+        <div className="home-panel-head"><div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div><Link prefetch={false} href="/onepiece/ranking">売れ筋ランキング →</Link></div>
+        <div className="home-sales-grid">{salesLeaders.map((p, i) => <Link prefetch={false} key={p.id} href={`/onepiece/products/${p.id}`} className="home-sales-card">
           <span className="home-sales-rank">{i + 1}</span><OnePieceImage product={p} className="home-sales-image-ph" />
           <span className="home-sales-copy"><strong>{onePieceShortName(p.name)}</strong><small>{p.card_no} · {yen(p.avg)}</small><b>7日間 {p.sales}件成約</b><small>状態A · {p.date}</small></span>
         </Link>)}</div>
@@ -56,18 +56,18 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
       </section>
       <div className="home-dashboard-grid">
         <section className="home-panel">
-          <div className="home-panel-head"><div><span>MARKET MOVES</span><h2>今日の値動き</h2></div><Link href="/onepiece/ranking?tab=up">値動きランキング →</Link></div>
+          <div className="home-panel-head"><div><span>MARKET MOVES</span><h2>今日の値動き</h2></div><Link prefetch={false} href="/onepiece/ranking?tab=up">値動きランキング →</Link></div>
           <div className="rank-cols home-rank-cols">{[{ rows: surge, tone: 'is-up', label: '▲ 急騰' }, { rows: drop, tone: 'is-down', label: '▼ 急落' }].map(group => <div key={group.tone}>
             <div className={`home-rank-label ${group.tone}`}>{group.label}</div>
-            {group.rows.map(p => <Link key={p.id} className="home-market-row" href={`/onepiece/products/${p.id}`}>
+            {group.rows.map(p => <Link prefetch={false} key={p.id} className="home-market-row" href={`/onepiece/products/${p.id}`}>
               <OnePieceImage product={p} className="home-thumb-ph" /><span><strong>{onePieceShortName(p.name)}</strong><small>{p.card_no} · {yen(p.avg)}</small></span><em className={group.tone}>{p.change > 0 ? '+' : ''}{p.change.toFixed(1)}%</em>
             </Link>)}
             {!group.rows.length && <p className="source-note">該当する記録がありません。</p>}
           </div>)}</div><p className="source-note">{today}時点。当日と前日の両方に成約相場があるカードを比較。</p>
         </section>
         <section className="home-panel">
-          <div className="home-panel-head"><div><span>SEALED BOX</span><h2>未開封BOX</h2></div><Link href="/onepiece/ranking?tab=boxes">BOXランキング →</Link></div>
-          <div className="boxrank">{boxes.map((p, i) => <Link key={p.id} href={`/onepiece/products/${p.id}`} className="boxrank-row">
+          <div className="home-panel-head"><div><span>SEALED BOX</span><h2>未開封BOX</h2></div><Link prefetch={false} href="/onepiece/ranking?tab=boxes">BOXランキング →</Link></div>
+          <div className="boxrank">{boxes.map((p, i) => <Link prefetch={false} key={p.id} href={`/onepiece/products/${p.id}`} className="boxrank-row">
             <span className="boxrank-no">{i + 1}</span><OnePieceImage product={p} className="boxrank-thumb" />
             <span className="boxrank-main"><span className="boxrank-name">{sets.find(s => s.id === p.set_id)?.name}</span><span className="boxrank-meta">{p.set_id.toUpperCase().replace('OP', 'OP-')} · {p.date ?? '未取得'} · 1箱単価</span></span>
             <span className="boxrank-price"><span className="boxrank-mid">{yen(p.avg)}</span></span>
@@ -75,7 +75,7 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
         </section>
       </div>
     </> : <section className="home-panel" style={{ marginTop: 'var(--sp-5)' }}>
-      <div className="home-panel-head"><div><span>{kind === 'box' ? 'SEALED BOX' : 'CARD MARKET'}</span><h2>{set ? `${set.name}の商品` : kind === 'box' ? '未開封BOX一覧' : 'カード一覧'}</h2></div><Link href="/onepiece">ホーム →</Link></div>
+      <div className="home-panel-head"><div><span>{kind === 'box' ? 'SEALED BOX' : 'CARD MARKET'}</span><h2>{set ? `${set.name}の商品` : kind === 'box' ? '未開封BOX一覧' : 'カード一覧'}</h2></div><Link prefetch={false} href="/onepiece">ホーム →</Link></div>
       <OnePieceCatalog key={`${kind}-${setId}`} products={listings} sets={sets} initialKind={kind} initialSet={setId} />
       {set && <p className="source-note"><a href={set.official_url} target="_blank" rel="noreferrer">公式商品情報 ↗</a></p>}
     </section>}

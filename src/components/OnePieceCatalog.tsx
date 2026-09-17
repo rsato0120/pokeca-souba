@@ -29,7 +29,7 @@ export default function OnePieceCatalog({ products, sets, initialKind = 'all', i
     </div></>}
     <p className="op-muted">{visible.length}件 · スニダン成約平均 · カードは状態A／BOXは1箱単価</p>
     {!visible.length && <p className="op-empty">該当する商品がありません。検索条件を変更してください。</p>}
-    <div className="onepiece-market-list">{visible.map(p => <Link className="home-market-row onepiece-market-row" href={`/onepiece/products/${p.id}`} key={p.id}>
+    <div className="onepiece-market-list">{visible.map(p => <Link prefetch={false} className="home-market-row onepiece-market-row" href={`/onepiece/products/${p.id}`} key={p.id}>
       <OnePieceImage product={p} className="home-thumb-ph" />
       <span><strong>{p.name.split('[')[0].trim()}</strong><small>{sets.find(s => s.id === p.set_id)?.name} · {p.card_no ?? '未開封BOX'}</small><small>{p.date ? `${p.date} · ${p.count ?? '—'}件` : '成約データ不足'}{p.stale ? ' · 30日以上前の参考値' : ''}</small></span>
       <em>{p.avg == null ? '—' : `¥${p.avg.toLocaleString('ja-JP')}`}</em>

@@ -1,4 +1,5 @@
 import { getPredictionLog } from '@/lib/data'
+import { currentPriceSeries } from './price-source'
 import { midOf } from '@/lib/extremes'
 import type { PriceRecord } from '@/types/pokeca'
 
@@ -24,7 +25,7 @@ export { midOf }
 // 薄商いのカードは記録が飛ぶので日付軸にすると点が偏って読めなくなる。
 // 形だけ見せる用途なので詰める方を採った。
 export function sparkSeries(records: PriceRecord[], points = 7): number[] {
-  return records
+  return currentPriceSeries(records)
     .slice(0, points)
     .map(midOf)
     .filter((v) => v > 0)

@@ -45,7 +45,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ t
   return <main className="wrap home-wrap">
     <SiteHeader /><GameTabs game="onepiece" />
     <section className="home-panel" style={{ marginTop: 'var(--sp-5)' }}>
-      <div className="home-panel-head"><div><span>MARKET RANKING</span><h1 style={{ fontSize: 'clamp(18px, 3vw, 26px)', lineHeight: 1.4, margin: '8px 0' }}>ONE PIECE ランキング</h1></div><Link href="/onepiece/cards">カード一覧 →</Link></div>
+      <div className="home-panel-head"><div><span>MARKET RANKING</span><h1 style={{ fontSize: 'clamp(18px, 3vw, 26px)', lineHeight: 1.4, margin: '8px 0' }}>ONE PIECE ランキング</h1></div><Link prefetch={false} href="/onepiece/cards">カード一覧 →</Link></div>
       <p className="source-note">売れているカードと相場の動きを、実際の成約から。{baseDate ? `集計基準日 ${baseDate}` : 'データを集計中です。'}</p>
       <RankingTabs tabs={[
         { id: 'market', label: '値動き・売れ筋・BOX', node: <><DailySalesShare date={baseDate ?? ''} rows={dailySalesTop} game="onepiece" pageUrl="https://pokeca-souba.vercel.app/onepiece/ranking" /><OnePieceRankings key={tab ?? 'sales'} rows={rows} sets={sets} initialTab={tab} /></> },

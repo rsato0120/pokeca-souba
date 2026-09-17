@@ -14,7 +14,7 @@ const P: React.CSSProperties = { fontSize: '13px', color: 'var(--ink-dim)', line
 export default function PrivacyPage() {
   return (
     <div className="wrap" style={{ maxWidth: '720px' }}>
-      <Link
+      <Link prefetch={false}
         href="/"
         style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)', letterSpacing: '0.06em', display: 'inline-block', padding: '18px 0 10px' }}
       >

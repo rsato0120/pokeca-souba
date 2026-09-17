@@ -21,7 +21,7 @@ export default function BoxRanking({ rows }: { rows: BoxRankRow[] }) {
       {rows.map((r, i) => {
         const tone = r.weekPct == null ? 'var(--ink-faint)' : r.weekPct > 0 ? 'var(--up)' : r.weekPct < 0 ? 'var(--down)' : 'var(--flat)'
         return (
-          <Link key={r.boxId} href={`/boxes/${r.boxId}`} className="boxrank-row">
+          <Link prefetch={false} key={r.boxId} href={`/boxes/${r.boxId}`} className="boxrank-row">
             <span className="boxrank-no">{i + 1}</span>
 
             {r.packImage ? (

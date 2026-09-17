@@ -26,7 +26,7 @@ export default function AnomalyFeed({ rows }: { rows: AnomalyRow[] }) {
         const lv = ANOMALY_LEVELS[r.level]
         return (
           <article key={r.slug} className="anom-card">
-            <Link
+            <Link prefetch={false}
               href={`/cards/${r.slug}`}
               aria-label={`${r.card.card_name} ${r.card.rarity} の詳細`}
               style={{ position: 'absolute', inset: 0, zIndex: 1, borderRadius: 'var(--r-lg)' }}

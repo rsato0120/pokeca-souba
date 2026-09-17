@@ -1,3 +1,4 @@
+import { priceChangePct } from './price-change'
 import type { Card, Forecast, PriceRecord, PriceExtremes } from '@/types/pokeca'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { UP_VERDICT_PCT } from '@/lib/verdict'
@@ -103,12 +104,7 @@ export function scoreBuy(input: BuyInput): BuyCandidate | null {
   }
 
   // 7日変化率（±35%超はノイズ扱いで無視）
-  const weekAgo = history[7]
-  let weekChange: number | null = null
-  if (today && weekAgo) {
-    const w = ((midOf(today) - midOf(weekAgo)) / midOf(weekAgo)) * 100
-    weekChange = Math.abs(w) > 35 ? null : w
-  }
+  const weekChange = priceChangePct(history, 7, 35)
 
   // 在庫トレンド（出品件数の前日比）。減少＝需要が捌けている＝買われている。
   const withSale = history.filter(r => r.on_sale != null)

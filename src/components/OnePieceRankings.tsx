@@ -51,7 +51,7 @@ export default function OnePieceRankings({ rows, sets, initialTab }: { rows: One
       <p className="source-note">{note}</p>
       <p className={styles.count} aria-live="polite">{ranked.length}件{ranked.length > 50 ? ' · 上位50件を表示' : ''}</p>
       {!visible.length && <div className="op-empty">条件に合う成約データがありません。収録弾や検索条件{moving ? '、比較期間' : ''}を変更してください。</div>}
-      <ol className={styles.list}>{visible.map((p, index) => <li key={p.id}><Link href={`/onepiece/products/${p.id}`} className={styles.row}>
+      <ol className={styles.list}>{visible.map((p, index) => <li key={p.id}><Link prefetch={false} href={`/onepiece/products/${p.id}`} className={styles.row}>
         <span className={`${styles.rank} ${index < 3 ? styles.podium : ''}`}>{index + 1}</span>
         <OnePieceImage product={p} className={styles.image} />
         <span className={styles.copy}><strong>{p.name.split('[')[0].trim()}</strong><small>{sets.find(s => s.id === p.set_id)?.name} · {p.card_no ?? '未開封BOX'}</small><small>価格記録 {p.date}</small></span>

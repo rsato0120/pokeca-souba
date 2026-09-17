@@ -1,3 +1,4 @@
+import { priceChangePct } from './price-change'
 import type { PriceRecord } from '@/types/pokeca'
 import type { BoxEv } from '@/lib/box-ev'
 
@@ -65,9 +66,8 @@ export function summarizeVariant(
   const mid = Math.round((latest.low + latest.high) / 2)
   const premiumPct = msrp ? Math.round(((mid - msrp) / msrp) * 100) : null
 
-  const prev = history?.[7] ?? null
-  const prevMid = prev ? (prev.low + prev.high) / 2 : null
-  const weekPct = prevMid ? Math.round(((mid - prevMid) / prevMid) * 100) : null
+  const change = priceChangePct(history ?? [], 7, Infinity)
+  const weekPct = change == null ? null : Math.round(change)
 
   return { ...base, low, high, mid, premiumPct, weekPct, onSale: latest.on_sale ?? null }
 }

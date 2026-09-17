@@ -11,6 +11,7 @@ import {
   Tooltip,
   ReferenceLine,
 } from 'recharts'
+import { currentPriceSeries } from '@/lib/price-source'
 import type { PriceRecord, PriceForecast } from '@/types/pokeca'
 
 interface Props {
@@ -101,7 +102,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
     // ── 過去30日（実績・実線）──
     const cutoff = todayMs - PAST_DAYS * DAY
-    const past = history
+    const past = (tab === 'raw' ? currentPriceSeries(history) : history)
       .filter(r => new Date(r.date).getTime() >= cutoff)
       .slice()
       .reverse() // 古い順
@@ -319,6 +320,9 @@ export default function PriceForecastChart({ history, forecast }: Props) {
         </LineChart>
       </ResponsiveContainer>
 
+      {tab === 'raw' && currentPriceSeries(history).length < history.length && (
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>実績は現在の取得元が続く期間のみ表示しています。</p>
+      )}
       {/* ── 凡例 ── */}
       <div
         style={{

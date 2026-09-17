@@ -20,7 +20,7 @@ export default function BottomTabs() {
       {navItemsFor(pathname).map((item) => {
         const active = isActiveTab(item, pathname)
         return (
-          <Link
+          <Link prefetch={false}
             key={item.href}
             href={item.href}
             className={`bottom-tab${active ? ' is-active' : ''}`}

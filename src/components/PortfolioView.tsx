@@ -171,7 +171,7 @@ export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: {
   if (totalQty === 0) {
     return (
       <div style={{ maxWidth: '680px', margin: '0 auto', padding: '24px 16px' }}>
-        <Link href={homeHref} style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
+        <Link prefetch={false} href={homeHref} style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
           ← トップ
         </Link>
         <h1 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>マイコレクション</h1>
@@ -183,7 +183,7 @@ export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: {
           <p style={{ fontSize: '12px', color: 'var(--ink-faint)', marginBottom: '16px' }}>収録弾から探す</p>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
             {boxes.map(b => (
-              <Link key={b.box_id} href={isOnePiece ? "/onepiece/sets/" + b.box_id : "/boxes/" + b.box_id} style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
+              <Link prefetch={false} key={b.box_id} href={isOnePiece ? "/onepiece/sets/" + b.box_id : "/boxes/" + b.box_id} style={{ padding: '8px 16px', border: '1px solid var(--hair)', borderRadius: '8px', fontSize: '13px', color: 'var(--ink-dim)' }}>
                 {b.box_name} →
               </Link>
             ))}
@@ -195,7 +195,7 @@ export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: {
 
   return (
     <div style={{ maxWidth: '680px', margin: '0 auto', padding: '24px 16px' }}>
-      <Link href={homeHref} style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
+      <Link prefetch={false} href={homeHref} style={{ fontSize: '13px', color: 'var(--ink-faint)', display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
         ← トップ
       </Link>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '8px' }}>
@@ -332,7 +332,7 @@ export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: {
             return (
               <div key={h.key} style={{ borderBottom: '1px solid var(--hair)', padding: '14px 16px' }}>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <Link href={card.href ?? `/cards/${card.id}`} style={{ flexShrink: 0 }}>
+                  <Link prefetch={false} href={card.href ?? `/cards/${card.id}`} style={{ flexShrink: 0 }}>
                     {card.image_url ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={card.image_url} alt={card.card_name} referrerPolicy="no-referrer"
@@ -343,7 +343,7 @@ export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: {
                   </Link>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                      <Link href={card.href ?? `/cards/${card.id}`} style={{ fontWeight: 700, fontSize: '14px', color: 'inherit' }}>
+                      <Link prefetch={false} href={card.href ?? `/cards/${card.id}`} style={{ fontWeight: 700, fontSize: '14px', color: 'inherit' }}>
                         {card.card_name}
                       </Link>
                       <span className="rare-badge">{card.rarity}</span>

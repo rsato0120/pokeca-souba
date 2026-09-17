@@ -28,7 +28,7 @@ function Column({ rows, dir }: { rows: MoverRow[]; dir: 'up' | 'down' }) {
       {rows.length === 0 ? (
         <div style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>データ不足</div>
       ) : rows.map((m) => (
-        <Link key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
+        <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="row" style={{ gridTemplateColumns: '36px 1fr auto', gap: 'var(--sp-2)' }}>
           {m.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={m.image} alt={m.name} className="row-thumb" style={{ width: '36px', height: '50px' }} />

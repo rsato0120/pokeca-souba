@@ -111,7 +111,7 @@ export default function BoxCardList({
                   background: qty > 0 ? 'rgba(var(--accent-rgb, 212,175,55), 0.06)' : undefined,
                 }}
               >
-                <Link
+                <Link prefetch={false}
                   href={`/cards/${card.id}`}
                   style={{ display: 'contents', color: 'inherit' }}
                 >

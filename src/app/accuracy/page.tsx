@@ -22,7 +22,7 @@ export default function AccuracyPage() {
 
   return (
     <div className="wrap" style={{ maxWidth: '760px' }}>
-      <Link
+      <Link prefetch={false}
         href="/"
         style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)', letterSpacing: '0.06em', display: 'inline-block', padding: '18px 0 10px' }}
       >
@@ -115,7 +115,7 @@ export default function AccuracyPage() {
           </h2>
           <div style={{ border: '1px solid var(--hair)', borderRadius: '8px', overflow: 'hidden' }}>
             {acc.recent.map((r, i) => (
-              <Link
+              <Link prefetch={false}
                 key={`${r.cardId}-${r.horizon}-${r.predictedOn}-${i}`}
                 href={`/cards/${r.cardId}`}
                 style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: '10px', alignItems: 'center', padding: '12px 14px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}

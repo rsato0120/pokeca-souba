@@ -1,3 +1,4 @@
+import { priceSeriesKey } from '@/lib/price-source'
 import { priceChangePct } from '@/lib/price-change'
 import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings, getBoxMarketListings } from '@/lib/data'
@@ -183,7 +184,8 @@ export default function TopPage() {
       name: m.card.card_name,
       rarity: m.card.rarity,
       mid: Math.round(m.currentMid),
-      prevMid: m.records[1] ? Math.round(mid(m.records[1])) : null,
+      seriesKey: priceSeriesKey(m.records),
+      prevMid: m.records[1] && priceChangePct(m.records, 1, Infinity) != null ? Math.round(mid(m.records[1])) : null,
       psa10: psa[0] ?? null,
       prevPsa10: psa[1] ?? null,
     }
@@ -296,11 +298,11 @@ export default function TopPage() {
         <section className="home-panel home-sales-panel">
           <div className="home-panel-head">
             <div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div>
-            <Link href="/ranking">売れ筋ランキング →</Link>
+            <Link prefetch={false} href="/ranking">売れ筋ランキング →</Link>
           </div>
           <div className="home-sales-grid">
             {salesLeaders.slice(0, 5).map(({ m, count }, index) => (
-              <Link key={m.slug} href={`/cards/${m.slug}`} className="home-sales-card">
+              <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="home-sales-card">
                 <span className="home-sales-rank">{index + 1}</span>
                 {m.card.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用
@@ -324,7 +326,7 @@ export default function TopPage() {
         <section className="home-panel home-bargain-panel">
           <div className="home-panel-head">
             <div><span>MARKET DEALS</span><h2>相場より安い出品</h2></div>
-            <Link href="/ranking">お買い得をもっと見る →</Link>
+            <Link prefetch={false} href="/ranking">お買い得をもっと見る →</Link>
           </div>
             <div className="home-bargain-grid">
             {bargainRows.slice(0, 5).map(({ card, listing, marketPrice, savings, discountPct }) => (
@@ -367,7 +369,7 @@ export default function TopPage() {
           <section className="home-panel">
             <div className="home-panel-head">
               <div><span>MARKET MOVES</span><h2>今日の値動き</h2></div>
-              <Link href="/ranking">すべて見る →</Link>
+              <Link prefetch={false} href="/ranking">すべて見る →</Link>
             </div>
             <div className="rank-cols home-rank-cols">
               <div>
@@ -375,7 +377,7 @@ export default function TopPage() {
                 {surgeCards.slice(0, 3).map(m => {
                   const change = getChange(m)
                   return (
-                    <Link key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
+                    <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
                       {/* eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用 */}
                       {m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span>}
                       <span><strong>{m.card.card_name}</strong><small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small></span>
@@ -389,7 +391,7 @@ export default function TopPage() {
                 {dropCards.slice(0, 3).map(m => {
                   const change = getChange(m)
                   return (
-                    <Link key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
+                    <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
                       {/* eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用 */}
                       {m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span>}
                       <span><strong>{m.card.card_name}</strong><small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small></span>
@@ -406,7 +408,7 @@ export default function TopPage() {
           <section className="home-panel">
             <div className="home-panel-head">
               <div><span>SEALED BOX</span><h2>未開封BOX</h2></div>
-              <Link href="/ranking">すべて見る →</Link>
+              <Link prefetch={false} href="/ranking">すべて見る →</Link>
             </div>
             <BoxRanking rows={boxRanking.slice(0, 3)} />
           </section>

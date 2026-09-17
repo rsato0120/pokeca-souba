@@ -63,10 +63,10 @@ export default function WatchlistView({ cards, index7d, game = 'pokemon' }: Prop
         </div>
         <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: 'var(--sp-4)' }}>
           気になるカードのページか
-          <Link href={game === 'onepiece' ? '/onepiece/screener' : '/screener'} style={{ color: 'var(--accent)' }}>スクリーナー</Link>
+          <Link prefetch={false} href={game === 'onepiece' ? '/onepiece/screener' : '/screener'} style={{ color: 'var(--accent)' }}>スクリーナー</Link>
           で ☆ を押すと、ここに並びます。持っていないカードの値動きを追うための一覧です。
         </p>
-        <Link href={game === 'onepiece' ? '/onepiece/screener' : '/screener'} className="pill pill-accent">スクリーナーで探す →</Link>
+        <Link prefetch={false} href={game === 'onepiece' ? '/onepiece/screener' : '/screener'} className="pill pill-accent">スクリーナーで探す →</Link>
       </div>
     )
   }
@@ -99,7 +99,7 @@ export default function WatchlistView({ cards, index7d, game = 'pokemon' }: Prop
               return (
                 <tr key={card.id}>
                   <td className="dt-sticky">
-                    <Link href={marketCardHref(card.id)} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
+                    <Link prefetch={false} href={marketCardHref(card.id)} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
                       {card.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={card.image} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" className="row-thumb" />

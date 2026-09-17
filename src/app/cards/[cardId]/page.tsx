@@ -1,3 +1,5 @@
+import { priceChangePct } from '@/lib/price-change'
+import { priceSeriesKey } from '@/lib/price-source'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
@@ -191,11 +193,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   // 全体と比べるより「この弾の中で強いか」が出る）。
   const records = priceHistory?.history ?? []
   const currentMid = latestRecord ? midOf(latestRecord) : 0
-  const weekAgoRecord = records[7]
-  const cardWeekChange =
-    latestRecord && weekAgoRecord && midOf(weekAgoRecord) > 0
-      ? ((currentMid - midOf(weekAgoRecord)) / midOf(weekAgoRecord)) * 100
-      : null
+  const cardWeekChange = priceChangePct(records, 7, 35)
   const benchmark = getMarketIndex(`box:${card.box_id}`) ?? getMarketIndex('all')
   const benchmarkPct = benchmark ? indexChangePct(benchmark, 7) : null
   // 汚染由来の飛び（画面の他の枠と同じ ±35% ガード）は表示にも相対力にも混ぜない
@@ -206,7 +204,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
 
   return (
     <div className="wrap" style={{ maxWidth: '820px' }}>
-      <Link
+      <Link prefetch={false}
         href="/"
         style={{
           fontFamily: 'var(--mono)',
@@ -227,10 +225,11 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       </div>
 
       {/* この端末に前回訪問の記録があれば「あなたが前回見た時からいくら動いたか」を出す。
-          スナップショットの基準はトップと同じ履歴の代表値（(low+high)/2）にすること */}
+          スナップショットの基準はトップと同じ履歴の代表値（avg優先）にすること */}
       <SinceLastVisitBadge
         cardId={card.id}
-        mid={latestRecord ? (Number(latestRecord.low) + Number(latestRecord.high)) / 2 : 0}
+        mid={latestRecord ? midOf(latestRecord) : 0}
+        seriesKey={priceSeriesKey(priceHistory?.history ?? [])}
       />
 
       {/* 「このカードを何人が見ているか」＝トップの みんなの注目ランキング と同じ数字。
@@ -328,7 +327,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               letterSpacing: '0.03em',
             }}
           >
-            <Link
+            <Link prefetch={false}
               href={`/boxes/${card.box_id}`}
               style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--hair)' }}
             >
@@ -460,7 +459,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             </div>
             {/* 予想の当たり外れを自分で確認できる導線（信頼性の担保） */}
             <div style={{ marginTop: 'var(--sp-3)' }}>
-              <Link href="/accuracy" className="pill">
+              <Link prefetch={false} href="/accuracy" className="pill">
                 この予想はどれくらい当たっている？ →
               </Link>
             </div>
@@ -526,7 +525,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               )}
               {avgSource === 'mercari' && <> ・ 素体価格はメルカリ成約の20〜80パーセンタイル平均</>}
               {avgSource == null && <> ・ 素体価格はメルカリ成約またはスニーカーダンク実取引の平均</>}
-              {' '}・ 毎日自動更新
+              {' '}・ 毎日取得を試行（取得できない日は前回の価格・日付を維持）
             </div>
           </div>
 

@@ -263,7 +263,7 @@ export default function RankingPage() {
       <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '24px', fontWeight: 800, margin: '8px 0 6px' }}>ランキング</h1>
       <p style={{ fontSize: '13px', color: 'var(--ink-faint)', lineHeight: 1.8, marginBottom: '20px' }}>
         すべて実際の成約データから算出しています。判定の基準は
-        <Link href="/accuracy" style={{ color: 'var(--accent)' }}>AI予想の的中実績</Link>と揃えてあります。
+        <Link prefetch={false} href="/accuracy" style={{ color: 'var(--accent)' }}>AI予想の的中実績</Link>と揃えてあります。
       </p>
 
       <RankingTabs tabs={tabs} />

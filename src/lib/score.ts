@@ -1,3 +1,4 @@
+import { currentPriceSeries } from './price-source'
 import type { Card, Forecast, PriceRecord, PriceExtremes } from '@/types/pokeca'
 
 // AI投資スコアと、予想の「根拠の内訳」。
@@ -60,7 +61,7 @@ export function computeCardScore(input: {
   const missing: string[] = []
 
   // ── 価格トレンド（7日） ──
-  const weekAgo = history.find(r => Date.parse(today.date) - Date.parse(r.date) >= 7 * DAY)
+  const weekAgo = currentPriceSeries(history).find(r => Date.parse(today.date) - Date.parse(r.date) >= 7 * DAY)
   let trendScore = 50
   if (weekAgo && midOf(weekAgo) > 0) {
     const pct = ((mid - midOf(weekAgo)) / midOf(weekAgo)) * 100

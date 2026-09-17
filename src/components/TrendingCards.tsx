@@ -88,7 +88,7 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
             const surge = r.prev_viewers > 0 && r.viewers >= r.prev_viewers * SURGE_RATIO
             const share = Math.max(0.06, r.viewers / top)   // 1位でも他が細くなりすぎないよう下限を置く
             return (
-              <Link
+              <Link prefetch={false}
                 key={card.id}
                 href={marketCardHref(card.id)}
                 className="row"

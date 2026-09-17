@@ -77,7 +77,7 @@ export default function DailyFlipCards({ cards }: { cards: DailyFlipCard[] }) {
                 </span>
                 </span>
               </button>
-              {isRevealed && <Link className="daily-flip-detail" href={`/cards/${card.slug}`}>詳細を見る →</Link>}
+              {isRevealed && <Link prefetch={false} className="daily-flip-detail" href={`/cards/${card.slug}`}>詳細を見る →</Link>}
             </article>
           )
         })}

@@ -31,7 +31,7 @@ export function buildOnePieceMarket() {
       rangePos: ex && mid > 0 && ex.high.value > ex.low.value ? Math.max(0, Math.min(100, (mid - ex.low.value) / (ex.high.value - ex.low.value) * 100)) : null }
   })
   const indexMembers = products.filter(p => p.kind === 'card' && observations[p.id]?.history.length)
-  const series = chainLink(indexMembers.map(p => new Map(observations[p.id]!.history.filter(r => (r.avg ?? 0) > 0).map(r => [r.date, r.avg!]))))
+  const series = chainLink(indexMembers.map(p => new Map(observations[p.id]!.history.filter(r => (r.avg ?? 0) > 0).map(r => [r.date, { value: r.avg!, source: r.source }]))))
   const index: MarketIndex = { key: 'onepiece', label: 'ONE PIECE 相場指数', members: indexMembers.length, series }
   const indices: IndexWire[] = series.length > 1 ? [{ key: index.key, label: index.label, members: index.members, points: series.map(p => [p.date, p.value]) }] : []
   const baseDate = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)

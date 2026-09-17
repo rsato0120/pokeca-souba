@@ -1,3 +1,4 @@
+import { priceChangePct } from './price-change'
 import type { Box, PriceRecord } from '@/types/pokeca'
 import { midOf } from '@/lib/extremes'
 import { isBoxReleased } from '@/lib/box-release'
@@ -105,10 +106,7 @@ export function buildBoxRanking(inputs: BoxRankingInput[]): BoxRankRow[] {
     if (!(mid > 0)) continue
 
     const weekAgo = history.find(r => Date.parse(today.date) - Date.parse(r.date) >= 7 * DAY)
-    const weekPct =
-      weekAgo && midOf(weekAgo) > 0 && weekAgo.date !== today.date
-        ? ((mid - midOf(weekAgo)) / midOf(weekAgo)) * 100
-        : null
+    const weekPct = weekAgo ? priceChangePct(history, history.indexOf(weekAgo), Infinity) : null
 
     const msrp = box.msrp_yen ?? (box.packs_per_box != null ? box.packs_per_box * box.pack_price_yen : 0)
     rows.push({

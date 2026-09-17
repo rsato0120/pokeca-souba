@@ -54,7 +54,7 @@ export default function AccuracyStrip({ summary }: { summary: AccuracySummary })
         </div>
       </div>
 
-      <Link href="/accuracy" className="acc-link">
+      <Link prefetch={false} href="/accuracy" className="acc-link">
         予想と結果を1件ずつ見る →
       </Link>
     </div>

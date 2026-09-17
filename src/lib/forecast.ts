@@ -1,3 +1,4 @@
+import { currentPriceSeries } from './price-source'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import type { Box, Card, Forecast, PriceRecord, PsaPop, BuyThesis, Conviction } from '@/types/pokeca'
 import type { BoxCalibration } from './calibration'
@@ -47,19 +48,20 @@ export function buildPrompt(
     unknown: '不明',
   }
 
+  const comparableHistory = currentPriceSeries(priceHistory)
   // 価格履歴の集計
   const midOf = (r: PriceRecord) => r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2
 
   let historySection = ''
-  if (priceHistory.length >= 2) {
+  if (comparableHistory.length >= 2) {
     const now = Date.now()
     const avgOf = (records: PriceRecord[]) =>
       Math.round(records.reduce((s, r) => s + midOf(r), 0) / records.length)
 
-    const p7 = priceHistory.filter(r => new Date(r.date).getTime() >= now - 7 * 86400000)
-    const p30 = priceHistory.filter(r => new Date(r.date).getTime() >= now - 30 * 86400000)
-    const oldest = priceHistory[priceHistory.length - 1]
-    const newest = priceHistory[0]
+    const p7 = comparableHistory.filter(r => new Date(r.date).getTime() >= now - 7 * 86400000)
+    const p30 = comparableHistory.filter(r => new Date(r.date).getTime() >= now - 30 * 86400000)
+    const oldest = comparableHistory[comparableHistory.length - 1]
+    const newest = comparableHistory[0]
     const oldMid = midOf(oldest)
     const newMid = midOf(newest)
     const changePct = Math.round(((newMid - oldMid) / oldMid) * 100)
@@ -68,10 +70,10 @@ export function buildPrompt(
     historySection = `\n## 実際の価格履歴（参考）\n`
     if (p7.length > 0) historySection += `- 7日間平均: ¥${avgOf(p7)}（${p7.length}日分）\n`
     if (p30.length > 0) historySection += `- 30日間平均: ¥${avgOf(p30)}（${p30.length}日分）\n`
-    historySection += `- 直近${priceHistory.length}日間の傾向: ${trendStr}（${changePct >= 0 ? '+' : ''}${changePct}%）\n`
+    historySection += `- 直近${comparableHistory.length}日間の傾向: ${trendStr}（${changePct >= 0 ? '+' : ''}${changePct}%）\n`
 
     // 在庫・需給シグナル（メルカリ出品中件数）
-    const withSale = priceHistory.filter(r => r.on_sale != null)
+    const withSale = comparableHistory.filter(r => r.on_sale != null)
     if (withSale.length > 0) {
       const latestSale = withSale[0].on_sale!
       const oldestSale = withSale[withSale.length - 1].on_sale!
@@ -150,7 +152,7 @@ export function buildPrompt(
     }
 
     // スニダンの実件数が無い銘柄だけ、従来どおりメルカリ成約総件数（sold_total）の増分を使う
-    const withSold = priceHistory.filter(r => r.sold_total != null)
+    const withSold = comparableHistory.filter(r => r.sold_total != null)
     if (countedDays.length < 3 && withSold.length >= 2) {
       const newestSold = withSold[0]
       const oldestSold = withSold[withSold.length - 1]

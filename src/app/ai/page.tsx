@@ -1,3 +1,4 @@
+import { priceChangePct } from '@/lib/price-change'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getAllCards, getCardSlug, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
@@ -39,10 +40,7 @@ export default function AiPage() {
 
   const dayPctOf = (slug: string): number | null => {
     const h = getPriceHistory(slug)?.history ?? []
-    const t = h[0], y = h[1]
-    if (!t || !y) return null
-    const v = ((midOf(t) - midOf(y)) / midOf(y)) * 100
-    return Math.abs(v) > 20 ? null : v
+    return priceChangePct(h, 1, 20)
   }
 
   const toPick = (c: ReturnType<typeof selectBuyCandidates>[number]): HeatPick => {
@@ -117,7 +115,7 @@ export default function AiPage() {
           <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
           <span className="sec-title">AI予想の的中率</span>
           <span className="sec-sub">
-            <Link href="/accuracy" style={{ color: 'var(--accent)' }}>詳しい実績を見る →</Link>
+            <Link prefetch={false} href="/accuracy" style={{ color: 'var(--accent)' }}>詳しい実績を見る →</Link>
           </span>
         </div>
         <AccuracyStrip summary={accuracy} />
@@ -138,7 +136,7 @@ export default function AiPage() {
               <span style={{ textAlign: 'right' }}>現在 → 3ヶ月後</span>
             </div>
             {forecastRows.map((r) => (
-              <Link
+              <Link prefetch={false}
                 key={r.slug}
                 href={`/cards/${r.slug}`}
                 style={{ display: 'grid', gridTemplateColumns: '1fr 92px 84px 150px', gap: '10px', alignItems: 'center', padding: '10px 14px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}

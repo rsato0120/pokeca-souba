@@ -16,11 +16,14 @@ const KEY = 'pokeca-visit-v1'
 export type VisitStore = {
   date: string
   prices: Record<string, number>
+  seriesKeys?: Record<string, string>
+  prevSeriesKeys?: Record<string, string>
   prevDate?: string
   prevPrices?: Record<string, number>
 }
 
 export type LastVisit = {
+  seriesKeys?: Record<string, string>
   date: string
   prices: Record<string, number>
 }
@@ -45,9 +48,9 @@ function read(): VisitStore | null {
 function pickPrev(store: VisitStore | null, today: string): LastVisit | null {
   if (!store) return null
   if (store.date === today) {
-    return store.prevDate && store.prevPrices ? { date: store.prevDate, prices: store.prevPrices } : null
+    return store.prevDate && store.prevPrices ? { date: store.prevDate, prices: store.prevPrices, seriesKeys: store.prevSeriesKeys } : null
   }
-  return { date: store.date, prices: store.prices }
+  return { date: store.date, prices: store.prices, seriesKeys: store.seriesKeys }
 }
 
 export function daysBetween(from: string, to: string): number {
@@ -55,7 +58,7 @@ export function daysBetween(from: string, to: string): number {
 }
 
 // トップページ用: 前回の記録を返しつつ、今日ぶんのスナップショットを書く。
-export function useLastVisit(current: Record<string, number>): { prev: LastVisit | null; ready: boolean } {
+export function useLastVisit(current: Record<string, number>, seriesKeys: Record<string, string>): { prev: LastVisit | null; ready: boolean } {
   const [state, setState] = useState<{ prev: LastVisit | null; ready: boolean }>({ prev: null, ready: false })
 
   useEffect(() => {
@@ -65,8 +68,8 @@ export function useLastVisit(current: Record<string, number>): { prev: LastVisit
 
     if (!store || store.date !== today) {
       const next: VisitStore = store
-        ? { date: today, prices: current, prevDate: store.date, prevPrices: store.prices }
-        : { date: today, prices: current }
+        ? { date: today, prices: current, seriesKeys, prevSeriesKeys: store.seriesKeys, prevDate: store.date, prevPrices: store.prices }
+        : { date: today, prices: current, seriesKeys }
       try { localStorage.setItem(KEY, JSON.stringify(next)) } catch { /* 容量超過は無視（表示は落とさない） */ }
     }
 
@@ -81,17 +84,17 @@ export function useLastVisit(current: Record<string, number>): { prev: LastVisit
 }
 
 // カード詳細用: 読むだけ（スナップショットの更新はトップページに任せる）。
-export function useVisitPrice(cardId: string): { price: number; date: string } | null {
+export function useVisitPrice(cardId: string, seriesKey?: string): { price: number; date: string } | null {
   const [v, setV] = useState<{ price: number; date: string } | null>(null)
 
   useEffect(() => {
     const prev = pickPrev(read(), todayJST())
     const price = prev?.prices[cardId]
-    if (prev && typeof price === 'number' && price > 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setV({ price, date: prev.date })
-    }
-  }, [cardId])
+    const next = prev && seriesKey && prev.seriesKeys?.[cardId] === seriesKey && typeof price === 'number' && price > 0
+      ? { price, date: prev.date } : null
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setV(next)
+  }, [cardId, seriesKey])
 
   return v
 }

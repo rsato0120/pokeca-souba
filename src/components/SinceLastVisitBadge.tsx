@@ -6,11 +6,10 @@ import { md } from '@/components/VisitorStrip'
 // スナップショットの書き込みはトップページが担当するので、ここは読むだけ。
 // （トップを一度も開いたことがない人には出ない。これは仕様）
 //
-// ⚠ 金額は出さない。このページの見出し価格は avg（取引平均）だが、スナップショットは
-//   トップと同じ (low+high)/2 で焼いている。並べると数百円ずれて見えるので変化率だけにする。
+// トップと同じ代表値・同じ取得元の連続期間だけ比較する。
 
-export default function SinceLastVisitBadge({ cardId, mid }: { cardId: string; mid: number }) {
-  const prev = useVisitPrice(cardId)
+export default function SinceLastVisitBadge({ cardId, mid, seriesKey }: { cardId: string; mid: number; seriesKey?: string }) {
+  const prev = useVisitPrice(cardId, seriesKey)
   if (!prev || mid <= 0) return null
 
   const pct = ((mid - prev.price) / prev.price) * 100

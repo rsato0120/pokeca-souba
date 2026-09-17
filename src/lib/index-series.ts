@@ -1,7 +1,7 @@
 import { getAllCards, getAllBoxes, getCardSlug, getPriceHistory } from '@/lib/data'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { midOf } from '@/lib/market'
-import type { Card } from '@/types/pokeca'
+import type { Card, PriceSource } from '@/types/pokeca'
 
 // ── 相場指数（SOUBA指数） ──
 //
@@ -52,7 +52,7 @@ export interface MarketIndex {
   members: number
 }
 
-type Series = Map<string, number>   // date -> mid
+type Series = Map<string, { value: number; source?: PriceSource }>   // date -> observation
 
 // 日次リターンの代表値は **刈り込み平均（trimmed mean）**。上下 TRIM_RATIO ずつを
 // 捨ててから残りを平均する。
@@ -77,7 +77,7 @@ function buildSeries(cardId: string): Series | null {
   const m: Series = new Map()
   for (const r of records) {
     const v = midOf(r)
-    if (v > 0) m.set(r.date, v)
+    if (v > 0) m.set(r.date, { value: v, source: r.source })
   }
   return m.size >= 2 ? m : null
 }
@@ -116,8 +116,8 @@ export function chainLink(seriesList: Series[]): IndexPoint[] {
     for (const s of seriesList) {
       const now = s.get(date)
       const prev = s.get(prevDate)
-      if (now == null || prev == null || prev <= 0) continue
-      const r = now / prev
+      if (now == null || prev == null || prev.value <= 0 || !now.source || now.source !== prev.source) continue
+      const r = now.value / prev.value
       // 汚染由来の飛びは指数に入れない（値を捏造せず、その1枚をその日だけ外す）
       if (r > MAX_DAILY_RATIO || r < 1 / MAX_DAILY_RATIO) continue
       ratios.push(r)

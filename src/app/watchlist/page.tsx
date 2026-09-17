@@ -24,7 +24,7 @@ export default function WatchlistPage() {
 
   return (
     <div className="wrap" style={{ maxWidth: '860px' }}>
-      <Link
+      <Link prefetch={false}
         href="/mypage"
         style={{ fontFamily: 'var(--mono)', fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)', letterSpacing: '0.06em', display: 'inline-block', padding: '18px 0 10px' }}
       >
@@ -37,7 +37,7 @@ export default function WatchlistPage() {
       </h1>
       <p style={{ fontSize: 'var(--fs-base)', color: 'var(--ink-dim)', lineHeight: 1.85, marginBottom: 'var(--sp-5)' }}>
         買うかどうか迷っているカードを登録しておく一覧です。
-        持っているカードの評価額は<Link href="/portfolio" style={{ color: 'var(--accent)' }}>マイコレクション</Link>で管理できます。
+        持っているカードの評価額は<Link prefetch={false} href="/portfolio" style={{ color: 'var(--accent)' }}>マイコレクション</Link>で管理できます。
         登録内容はこの端末のブラウザにのみ保存されます。
       </p>
 

@@ -31,7 +31,7 @@ export default function SetPricePanel({ rows }: { rows: SetRow[] }) {
           <span style={{ textAlign: 'right', minWidth: '56px' }}>出品中</span>
         </div>
         {rows.map(r => (
-          <Link
+          <Link prefetch={false}
             key={r.setId}
             href={`/cards/${r.cardSlug}`}
             style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '12px', alignItems: 'center', padding: '12px 14px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}

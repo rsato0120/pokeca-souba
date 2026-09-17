@@ -44,7 +44,7 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
       {picks.map(({ card, slug, boxName, mid, upsidePct, upPct, factors, thesis }, i) => {
         const conv = thesis ? CONVICTION[thesis.conviction] : null
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`/cards/${slug}`}
             style={{

@@ -1,4 +1,5 @@
 import { computePsa10Extremes } from '../src/lib/psa10-extremes'
+import { canUsePriceSource } from '../src/lib/price-source'
 import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -879,6 +880,11 @@ export function guardPrice(opts: {
 }): { ok: true } | { ok: false; reason: string } {
   const { id, date, avg, low, high, priceSource, onSale, prev, sampleCount, askSource } = opts
 
+  // Market changes are not price changes, even after a long outage.
+  if (!canUsePriceSource(prev?.source, priceSource)) {
+    return { ok: false, reason: `取得元固定（${prev?.source} → ${priceSource} は採用しない）` }
+  }
+
   // --- R5: 採用サンプルが薄すぎないか【R0より前に判定する】 ---
   // 極値(src/lib/extremes.ts)は sample_count < MIN_SAMPLE_COUNT のレコードを「実勢から
   // 外れやすい」として最初から候補にしていない。にもかかわらず書き込み側には件数の下限が
@@ -961,31 +967,10 @@ export function guardPrice(opts: {
   //   「弾くべき」ケースとして載っている 2026-08-01 の事故そのものの再来だった。
   //   裏付け系だけの免除なら、シュリンクなし¥102,150 との比 2.53倍 が R3 で止める。
   //
-  // ⚠️ **出所が変わった日は R2 だけ免除しない**（R1 は従来どおり免除する）。
-  // R0 が救おうとしているのは「ask が汚れていて比が使えない」銘柄＝R1 の問題であって
-  // （上のニンフィアVMAX HR がまさにそれ）、R2 の「前日比の急変」ではない。ところが薄商いの
-  // 銘柄は *棄却されなくても* 成約が取れず勝手に日が空くため、R0 が常時開いた状態になり、
-  // スニダン⇔メルカリの水準差がそのまま段差として刻まれていた。
-  //   実際に起きた事故(2026-08-19): ラティアス&ラティオスGX SA — 8/10 スニダン¥515,000(n=2)
-  //   から9日空き、8/19 にメルカリ¥202,625(n=9) が **R0 経由で R2 を飛ばして** 通り、
-  //   グラフに -61% の崖ができた。前日レコードがあれば R2 が
-  //   「前日比-61%だが出品価格が追随せず」で弾いていた値である。
-  //   （極値側は MIN_SAMPLE_COUNT/MAX_DAY_CHANGE で両方とも不採用にしていたため、
-  //     「全期間高値¥367,963」と表示しながらグラフには¥515,000 が写る矛盾になっていた）
-  //
-  // ただし出所が恒久的に変わった銘柄が永久に凍るのは避ける。R0_SOURCE_FLIP_DAYS を超えて
-  // 更新できていなければ、出所が変わっていても受け入れる（3日ではなく2週間にすることで、
-  // 「弾く→日が空く→無条件で通る」のループが回る周期を実用上問題ない粗さまで落とす）。
-  const R0_SOURCE_FLIP_DAYS = 14
-  // R0 が開いたが出所が変わっているため R2 だけ効かせる状態
-  let askRuleExemptOnly = false
+  // 取得元の変更は冒頭で拒否済み。同じ市場の更新だけ凍り付き防止を適用する。
   if (prev?.date) {
     const ageDays = Math.round((Date.parse(date) - Date.parse(prev.date)) / 86400000)
-    if (ageDays > 3) {
-      const sourceFlipped = prev.source != null && prev.source !== priceSource
-      if (!sourceFlipped || ageDays > R0_SOURCE_FLIP_DAYS) return { ok: true }
-      askRuleExemptOnly = true
-    }
+    if (ageDays > 3) return { ok: true }
   }
 
   // --- R1: ask（出品価格）との整合。全ソースに適用する ---
@@ -997,7 +982,7 @@ export function guardPrice(opts: {
   //   イーブイヒーローズ(シュリンクなし): 成約¥60,500 に対し出品最安¥69,900・中央値¥169,444
   // ここで弾くと健全な成約avgまで巻き添えで凍るので、BOXは R2/R3 で守る。
   const isBoxPool = id.startsWith('box-')
-  const askRef = (isBoxPool || askRuleExemptOnly) ? null : (onSale?.askMid ?? onSale?.askLow ?? null)
+  const askRef = isBoxPool ? null : (onSale?.askMid ?? onSale?.askLow ?? null)
   if (askRef != null && askRef > 0) {
     let lo: number, hi: number
     if (priceSource === 'snkrdunk' && askSource === 'snkrdunk') {
@@ -1093,7 +1078,7 @@ export function shouldHoldSnkrdunkPrice(
 ): boolean {
   if (previousSource !== 'snkrdunk' || !previousDate || hasUsablePrice) return false
   const age = (Date.parse(today) - Date.parse(previousDate)) / 86400000
-  return age >= 0 && age <= 3
+  return age >= 0
 }
 
 /** 成約APIを最後に引いてから何日経ったか。一度も引いていなければ null */
@@ -1268,7 +1253,8 @@ async function scrapeCard(
     let sampleCount: number | undefined
 
     // 新規採用6件・継続4件をAPIとHTMLの両方に適用する。
-    const prevRecordForSource = readLatestRecord(id, date)
+    // Include today's observation: a second run must keep the same market too.
+    const prevRecordForSource = readLatestRecord(id, '')
     const prevSource = prevRecordForSource?.source
     const snkrdunkNeeded = snkrdunkRequiredSamples(prevSource)
     const isSnkrdunkFloorPrice = (v: number): boolean => isUnusableSnkrdunkPrice(
@@ -1367,11 +1353,11 @@ async function scrapeCard(
     }
 
     // APIが取れた日はHTMLの取得失敗に影響されない。
-    // 一時的な取得失敗・件数不足で市場を切り替えず、最大3日間は既存価格を維持する。
+    // 取得失敗・件数不足が続いても市場を切り替えず、既存価格と観測日を維持する。
     // 新しい日付のレコードは作らず、最後に観測できた日付を残す。
     const hasUsableSnkrdunkPrice = apiAvg != null
       || (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded)
-    if (apparelId && shouldHoldSnkrdunkPrice(prevSource, prevRecordForSource?.date, date, hasUsableSnkrdunkPrice)) {
+    if (shouldHoldSnkrdunkPrice(prevSource, prevRecordForSource?.date, date, hasUsableSnkrdunkPrice)) {
       console.log('スニダン取得失敗・件数不足 — スキップ（既存価格を維持）')
       stats.skipped++
       return
@@ -1382,7 +1368,7 @@ async function scrapeCard(
     let soldTotal: number | null = null
     // メルカリ成約の鮮度（採用した最古の成約が何日前か）。スニダン採用時は付けない
     let oldestSaleDays: number | null = null
-    if (apiAvg != null) {
+    if (apiAvg != null && canUsePriceSource(prevSource, 'snkrdunk')) {
       // ★成約APIの実約定から作った価格。**これが取れたらメルカリは一切見ない**（2026-08-30）。
       // 窓内の全約定が母数なので、HTMLの十数件から作っていた頃より格段に厚い
       // （実測: ブラッキーex SAR は30日で数十件）。メルカリの成約検索・出品検索を
@@ -1395,7 +1381,7 @@ async function scrapeCard(
       source = `スニダン成約API(${apiCount}件/${apiWindowDays}日)`
       priceSource = 'snkrdunk'
       sampleCount = apiCount
-    } else if (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded) {
+    } else if (snkrdunkRegular != null && snkrdunkCount >= snkrdunkNeeded && canUsePriceSource(prevSource, 'snkrdunk')) {
       // 十分な取引数があるスニダン価格はそのまま採用（APIが取れなかった時の従来経路）
       avg = snkrdunkRegular
       source = 'スニダン'
@@ -1445,7 +1431,7 @@ async function scrapeCard(
       // 「暴落」としてグラフに刻んでしまうため、桁が変わる時は既存価格を維持する。
       const prevAvg = readLatestRecord(id, date)?.avg ?? null
       const tooFarForFallback = (v: number) => prevAvg != null && (v > prevAvg * 2 || v < prevAvg * 0.5)
-      if (avg == null && snkrdunkRegular != null && !tooFarForFallback(snkrdunkRegular)) {
+      if (avg == null && canUsePriceSource(prevSource, 'snkrdunk') && snkrdunkRegular != null && !tooFarForFallback(snkrdunkRegular)) {
         avg = snkrdunkRegular
         source = `スニダン(${snkrdunkCount}件)`
         priceSource = 'snkrdunk'
@@ -1453,7 +1439,7 @@ async function scrapeCard(
       }
       // 最後の手段: 鮮度切れのスニダン直近5件平均。年に数回しか動かない超高額カードは
       // メルカリ側も番号付き成約が薄く、ここが無いと前日の誤った値が居座り続ける
-      if (avg == null && snkrdunkStale != null && !isSnkrdunkFloorPrice(snkrdunkStale) && !tooFarForFallback(snkrdunkStale)) {
+      if (avg == null && canUsePriceSource(prevSource, 'snkrdunk') && snkrdunkStale != null && !isSnkrdunkFloorPrice(snkrdunkStale) && !tooFarForFallback(snkrdunkStale)) {
         avg = snkrdunkStale
         source = `スニダン(鮮度切れ${snkrdunkStaleDays}日前)`
         priceSource = 'snkrdunk'
@@ -1591,7 +1577,7 @@ async function scrapeCard(
       const askRatio = avg / askRef
       if (askRatio > ratioHi || askRatio < ratioLo) {
         const detail = `成約¥${avg.toLocaleString()} vs ${askRefLabel}¥${askRef.toLocaleString()}`
-        if (snkrdunkRegular != null) {
+        if (snkrdunkRegular != null && canUsePriceSource(prevSource, 'snkrdunk')) {
           process.stdout.write(`[メルカリ不整合(${detail})→スニダン${snkrdunkCount}件] `)
           avg = snkrdunkRegular
           mercariLow = 0; mercariHigh = 0
@@ -1617,6 +1603,11 @@ async function scrapeCard(
     const psa10Log = psa10 != null ? ` / PSA10¥${psa10.toLocaleString()}` : ''
 
     // ★全経路が通る単一の関門。ここを迂回して savePriceHistory を呼ばないこと（guardPrice 参照）
+    if (!canUsePriceSource(prevSource, priceSource)) {
+      console.log('取得元が異なるためスキップ（既存価格・取得日を維持）')
+      stats.skipped++
+      return
+    }
     const verdict = guardPrice({ id, date, avg, low, high, priceSource, onSale, prev: readLatestRecord(id, date), sampleCount, askSource })
     if (!verdict.ok) {
       console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
@@ -1770,7 +1761,7 @@ async function scrapeBox(
 
     // ★カードと同じ関門を通す。BOXはこれまで無防備で、成約が薄い弾で検索窓が90日超に
     // 拡張されると古い高値が混ざり +61% の偽の急騰が出ていた（蒼空ストリーム シュリンクあり）
-    const verdict = guardPrice({ id, date, avg, low: boxLow, high: boxHigh, priceSource: 'mercari', onSale, prev: readLatestRecord(id, date) })
+    const verdict = guardPrice({ id, date, avg, low: boxLow, high: boxHigh, priceSource: 'mercari', onSale, prev: readLatestRecord(id, '') })
     if (!verdict.ok) {
       console.log(`不採用: ${verdict.reason} — スキップ（既存価格を維持）`)
       stats.skipped++

@@ -6,19 +6,24 @@ import './globals.css'
 
 const GA_ID = 'G-NTDWVBC7SW'
 
+// Load only the font subsets used by the page. The production build otherwise
+// emits hundreds of preload requests for these Japanese font weights.
 const mincho = Shippori_Mincho({
+  preload: false,
   weight: ['500', '600', '700', '800'],
   subsets: ['latin'],
   variable: '--font-mincho',
 })
 
 const mono = JetBrains_Mono({
+  preload: false,
   weight: ['400', '500', '600'],
   subsets: ['latin'],
   variable: '--font-mono',
 })
 
 const gothic = Zen_Kaku_Gothic_New({
+  preload: false,
   weight: ['400', '500', '700'],
   subsets: ['latin'],
   variable: '--font-gothic',

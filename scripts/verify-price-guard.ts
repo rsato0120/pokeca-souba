@@ -26,7 +26,7 @@ assert.equal(snkrdunkRequiredSamples('snkrdunk'), 4)
 assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-03', '2026-09-04', true), false)
 assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-03', '2026-09-04', false), true)
 assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-01', '2026-09-04', false), true)
-assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-08-31', '2026-09-04', false), false)
+assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-08-31', '2026-09-04', false), true)
 assert.equal(shouldHoldSnkrdunkPrice('mercari', '2026-09-03', '2026-09-04', false), false)
 
 type OnSale = { count: number | null; askLow: number | null; askMid: number | null }
@@ -343,8 +343,8 @@ const cases: Case[] = [
     prev: { date: '2026-08-14', avg: 9800, source: 'mercari', sample_count: 20, ask_low: 8700, ask_mid: 9999 },
   },
   {
-    name: '正常: 出所が変わっても2週間を超えて更新できていなければ受け入れる（凍り付き防止）',
-    shouldReject: false,
+    name: '取得元固定: 2週間を超える欠測でも別市場に切り替えない',
+    shouldReject: true,
     id: 'tag-bolt-latias-latios-gx-sa-105',
     date: '2026-08-26',
     avg: 217300,
@@ -356,8 +356,8 @@ const cases: Case[] = [
     prev: { date: '2026-07-28', avg: 346944, source: 'snkrdunk', sample_count: 4, ask_low: 350000, ask_mid: 530000 },
   },
   {
-    name: '正常: 出所切替でも出品中央値が新しい水準を裏付けていれば通す（ミュウex UR型の正常な切替）',
-    shouldReject: false,
+    name: '取得元固定: 出品価格の裏付けがあっても別市場に切り替えない',
+    shouldReject: true,
     id: 'mew-ex-ur-dummy',
     date: '2026-08-19',
     avg: 12970,

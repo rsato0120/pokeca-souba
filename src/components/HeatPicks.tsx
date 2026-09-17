@@ -37,7 +37,7 @@ export default function HeatPicks({ picks }: { picks: HeatPick[] }) {
         const tone = p.dayPct == null ? 'var(--ink-faint)' : p.dayPct > 0 ? 'var(--up)' : p.dayPct < 0 ? 'var(--down)' : 'var(--ink-dim)'
         return (
           <article key={p.slug} className="heat-card">
-            <Link
+            <Link prefetch={false}
               href={`/cards/${p.slug}`}
               aria-label={`${p.name} ${p.rarity} の詳細`}
               style={{ position: 'absolute', inset: 0, zIndex: 1, borderRadius: 'var(--r-lg)' }}

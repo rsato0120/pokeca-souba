@@ -50,7 +50,7 @@ export default function DailySalesShare({
       <ol className="daily-sales-share-list">
         {rows.map((row, index) => (
           <li key={row.href}>
-            <Link href={row.href}>
+            <Link prefetch={false} href={row.href}>
               <span>{index + 1}</span>
               <span className="daily-sales-share-copy"><strong>{row.name}</strong><small>{row.rarity}</small></span>
               <b>{row.sales.toLocaleString('ja-JP')}件</b>

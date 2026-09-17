@@ -1,4 +1,5 @@
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
+import { priceChangePct } from './price-change'
 import { midOf } from '@/lib/market'
 import type { ScreenerRow } from '@/components/ScreenerTable'
 
@@ -20,12 +21,9 @@ export function buildScreenerRows(): ScreenerRow[] {
     const slug = getCardSlug(card)
     const records = getPriceHistory(slug)?.history ?? []
     const today = records[0]
-    const yesterday = records[1]
-    const weekAgo = records[7]
     const extremes = getPriceExtremes(slug)
     const mid = today ? midOf(today) : 0
 
-    const guard = (v: number | null, limit: number) => (v != null && Math.abs(v) <= limit ? v : null)
 
     return {
       id: slug,
@@ -35,14 +33,8 @@ export function buildScreenerRows(): ScreenerRow[] {
       boxName: boxNames.get(card.box_id) ?? card.box_id,
       image: card.image_url ?? null,
       mid: Math.round(mid),
-      dayChange: guard(
-        today && yesterday && midOf(yesterday) > 0 ? ((mid - midOf(yesterday)) / midOf(yesterday)) * 100 : null,
-        DAY_GUARD,
-      ),
-      weekChange: guard(
-        today && weekAgo && midOf(weekAgo) > 0 ? ((mid - midOf(weekAgo)) / midOf(weekAgo)) * 100 : null,
-        WEEK_GUARD,
-      ),
+      dayChange: priceChangePct(records, 1, DAY_GUARD),
+      weekChange: priceChangePct(records, 7, WEEK_GUARD),
       onSale: today?.on_sale ?? null,
       upPct: getForecast(slug)?.overall.up_pct ?? null,
       upsidePct: null,

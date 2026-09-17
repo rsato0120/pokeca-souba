@@ -45,14 +45,14 @@ export default function MyPage() {
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '32px' }}>
-        <Link href="/portfolio" style={card}>
+        <Link prefetch={false} href="/portfolio" style={card}>
           <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.08em', marginBottom: '6px' }}>COLLECTION</div>
           <div style={{ fontSize: '15px', fontWeight: 700, marginBottom: '4px' }}>マイコレクション →</div>
           <div style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.7 }}>
             持っているカード・未開封BOXの評価額、含み損益、AI予想の合計。
           </div>
         </Link>
-        <Link href="/screener" style={card}>
+        <Link prefetch={false} href="/screener" style={card}>
           <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.08em', marginBottom: '6px' }}>SCREENER</div>
           <div style={{ fontSize: '15px', fontWeight: 700, marginBottom: '4px' }}>詳細検索 →</div>
           <div style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.7 }}>
@@ -66,7 +66,7 @@ export default function MyPage() {
           <span className="sec-no" style={{ color: 'var(--brand)' }}>■</span>
           <span className="sec-title">ウォッチリスト</span>
           <span className="sec-sub">
-            <Link href="/watchlist" style={{ color: 'var(--accent)' }}>単独ページで見る →</Link>
+            <Link prefetch={false} href="/watchlist" style={{ color: 'var(--accent)' }}>単独ページで見る →</Link>
           </span>
         </div>
         <WatchlistView cards={rows} index7d={index7d} />

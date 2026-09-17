@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 import type { PriceExtremes, PriceRecord } from '@/types/pokeca'
 import { computePsa10Extremes } from '@/lib/psa10-extremes'
+import { currentPriceSeries } from '@/lib/price-source'
 import RangePosition from '@/components/RangePosition'
 
 interface Props {
@@ -80,7 +81,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
   const hasPsa = psa10Extremes != null
   const showPsa = hasPsa
 
-  const selectedHistory = tab === 'psa10' ? psa10History ?? history : history
+  const selectedHistory = useMemo(() => tab === 'psa10' ? psa10History ?? history : currentPriceSeries(history), [tab, psa10History, history])
   const nowMs = selectedHistory.length > 0 ? new Date(selectedHistory[0].date).getTime() : 0
   const hasPeriodData = (d: number) =>
     selectedHistory.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
@@ -447,6 +448,9 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
         </ResponsiveContainer>
       )}
 
+      {tab === 'raw' && selectedHistory.length < history.length && (
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>取得元が変わった前後は比較せず、現在の取得元が続く期間のみ表示しています。</p>
+      )}
       {/* ── 凡例 ── */}
       <div
         style={{

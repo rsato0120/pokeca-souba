@@ -1,3 +1,4 @@
+import { priceChangePct } from '@/lib/price-change'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PackImage from '@/components/PackImage'
@@ -117,14 +118,12 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     const history = getPriceHistory(slug)
     const records = history?.history ?? []
     const today = records[0]
-    const yesterday = records[1]
-    const weekAgo = records[7]
     return {
       card,
       slug,
       currentMid: today ? mid(today) : 0,
-      dayChange: (() => { const v = today && yesterday ? ((mid(today) - mid(yesterday)) / mid(yesterday)) * 100 : null; return v !== null && Math.abs(v) > 20 ? null : v })(),
-      weekChange: (() => { const v = today && weekAgo ? ((mid(today) - mid(weekAgo)) / mid(weekAgo)) * 100 : null; return v !== null && Math.abs(v) > 35 ? null : v })(),
+      dayChange: priceChangePct(records, 1, 20),
+      weekChange: priceChangePct(records, 7, 35),
     }
   }).filter(c => c.currentMid > 0)
 
@@ -243,7 +242,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
 
   return (
     <div className="wrap">
-      <Link
+      <Link prefetch={false}
         href="/"
         style={{
           fontFamily: 'var(--mono)',
@@ -381,7 +380,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
                 return <span style={{ color, fontWeight: 600 }}>{sign}{v.toFixed(1)}%</span>
               }
               return (
-                <Link key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '28px 1fr auto auto', gap: '12px', alignItems: 'center', padding: '11px 14px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
+                <Link prefetch={false} key={slug} href={`/cards/${slug}`} style={{ display: 'grid', gridTemplateColumns: '28px 1fr auto auto', gap: '12px', alignItems: 'center', padding: '11px 14px', borderBottom: '1px solid var(--hair)', color: 'inherit' }}>
                   <div style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)', textAlign: 'center' }}>{i + 1}</div>
                   <div>
                     <span style={{ fontSize: '14px', fontWeight: 600 }}>{card.card_name}</span>
