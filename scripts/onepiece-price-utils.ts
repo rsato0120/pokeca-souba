@@ -2,6 +2,27 @@ import type { PriceRecord } from '../src/types/pokeca'
 import { parseSnkrdunkSaleDate } from './snkrdunk-sales'
 
 export interface Sale { date: string; price: number }
+
+/**
+ * APIで今回取り直せた期間は、保存済みの件数を日付ごと置き換える。
+ * 相対日付（「1日前」など）は後日絶対日付に確定するため、足し込み・部分更新だと
+ * 仮の日付に付いた件数が残る。取引が0件の日も含めて範囲を消してから再集計する。
+ */
+export function replaceOnePieceSalesCounts(
+  previous: Record<string, number> | undefined,
+  sales: Sale[],
+  replaceFrom: string,
+  through: string,
+): Record<string, number> {
+  const counts = Object.fromEntries(Object.entries(previous ?? {})
+    .filter(([date]) => date < replaceFrom || date > through))
+  for (const sale of sales) {
+    if (sale.date < replaceFrom || sale.date > through) continue
+    counts[sale.date] = (counts[sale.date] ?? 0) + 1
+  }
+  return counts
+}
+
 export function parseOnePieceSale(
   row: { date: string; price: number; condition?: string; size?: string },
   kind: 'card' | 'box' | 'psa10', now: number,

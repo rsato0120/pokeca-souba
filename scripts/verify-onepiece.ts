@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { buildOnePieceHistory, parseOnePieceSale } from './onepiece-price-utils'
+import { buildOnePieceHistory, parseOnePieceSale, replaceOnePieceSalesCounts } from './onepiece-price-utils'
 import { getOnePieceCatalog } from '../src/lib/onepiece'
 import { isActiveTab, navItemsFor } from '../src/lib/nav'
 
@@ -21,6 +21,11 @@ assert.equal(buildOnePieceHistory(sales)[0].date, '2026-09-03')
 assert.equal(buildOnePieceHistory(sales)[0].sample_count, 3)
 assert.equal(buildOnePieceHistory(sales.slice(0, 2)).length, 0)
 assert.equal(buildOnePieceHistory([...sales, { date: '2026-07-01', price: 999999 }])[0].avg, 10000)
+assert.deepEqual(replaceOnePieceSalesCounts(
+  { '2026-08-31': 4, '2026-09-01': 99, '2026-09-02': 3 },
+  [{ date: '2026-09-01', price: 1000 }, { date: '2026-09-01', price: 1200 }],
+  '2026-09-01', '2026-09-03',
+), { '2026-08-31': 4, '2026-09-01': 2 })
 const { sets, products } = getOnePieceCatalog()
 assert.ok(sets.length >= 5)
 assert.equal(new Set(products.map(p => p.snkrdunk_id)).size, products.length)

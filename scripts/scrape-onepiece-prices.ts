@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { computeObservedExtremes } from '../src/lib/psa10-extremes'
 import { chromium } from 'playwright'
 import { getOnePieceCatalog, getOnePiecePrices } from '../src/lib/onepiece'
-import { buildOnePieceHistory, parseOnePieceSale, type Sale } from './onepiece-price-utils'
+import { buildOnePieceHistory, parseOnePieceSale, replaceOnePieceSalesCounts, type Sale } from './onepiece-price-utils'
 import type { OnePiecePrices } from '../src/types/onepiece'
 
 async function main() {
@@ -60,8 +60,12 @@ async function main() {
         const oldest = sales.map(s => s.date).sort()[0]
         const usable = complete ? sales : sales.filter(s => s.date > oldest)
         if (!usable.length) throw new Error('Incomplete first day; previous data retained')
-        const counts: Record<string, number> = { ...previous?.sales_by_day }
-        for (const date of new Set(usable.map(s => s.date))) counts[date] = usable.filter(s => s.date === date).length
+        // 取得できた期間は丸ごと置換する。「1日前」を仮の日付へ置いた古い件数や、
+        // 後から確定日が変わった取引が残って二重計上されるのを防ぐ。
+        // 打ち切り時の最古日は途中集計なので値を保存しないが、過去の不正確な件数も残さない。
+        // oldest から消し、完全に取得できた usable の日だけを戻す。
+        const replaceFrom = oldest
+        const counts = replaceOnePieceSalesCounts(previous?.sales_by_day, usable, replaceFrom, today)
         // Only publish windows for which all preceding 30 days were fetched, unless the full history ends here.
         const records = buildOnePieceHistory(usable).filter(r => complete || Date.parse(r.date) >= Date.parse(oldest) + 30 * 86400000)
         // For a capped, liquid BOX, the newest window is still complete once 20 trades fit after the cutoff.

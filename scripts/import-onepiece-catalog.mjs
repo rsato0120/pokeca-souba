@@ -28,7 +28,8 @@ const saved = fs.existsSync('data/onepiece/catalog.json') ? JSON.parse(fs.readFi
 const products = saved?.products ?? []
 try {
   for (const set of sets) {
-    if (products.filter(p => p.set_id === set.id).length === 11) {
+    if (products.filter(p => p.set_id === set.id && p.kind === 'card').length >= 20
+      && products.filter(p => p.set_id === set.id && p.kind === 'box').length === 1) {
       Object.assign(set, saved.sets.find(s => s.id === set.id))
       continue
     }
@@ -52,7 +53,8 @@ try {
     const unique = [...new Map(links.filter(l => l.id !== box.id).map(l => [l.id, l])).values()]
     const selected = unique.slice(0, 45)
     for (const entry of [...selected, box]) {
-      if (entry.id !== box.id && products.filter(p => p.set_id === set.id && p.kind === 'card').length >= 10) continue
+      if (products.some(p => p.snkrdunk_id === entry.id)) continue
+      if (entry.id !== box.id && products.filter(p => p.set_id === set.id && p.kind === 'card').length >= 20) continue
       await visit(`https://snkrdunk.com/apparels/${entry.id}`)
       const meta = await page.evaluate(() => {
         const title = document.querySelector('h1')?.textContent.trim() ?? ''
