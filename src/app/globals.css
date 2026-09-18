@@ -284,6 +284,32 @@ a:hover {
   padding: 0 22px 90px;
 }
 
+.site-footer {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 24px calc(88px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--hair);
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.site-footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 24px; }
+.site-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-underline-offset: 4px; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer p { margin: 12px 0; }
+.legal-page { max-width: 720px; }
+.legal-page .legal-back { display: inline-block; padding: 20px 0 12px; font-size: 12px; }
+.legal-page h1 { font-family: var(--mincho); font-size: 26px; margin: 24px 0; }
+.legal-page h2 { font-family: var(--mincho); font-size: 16px; margin-bottom: 8px; }
+.legal-page p { font-size: 14px; color: var(--ink-dim); line-height: 1.9; margin: 8px 0; }
+.legal-page section { margin: 24px 0; }
+.legal-page a { color: var(--accent); text-underline-offset: 4px; }
+.legal-notice { padding: 24px; background: var(--panel); border: 1px solid var(--hair); border-radius: 12px; }
+.legal-notice strong { color: var(--ink); }
+.legal-page .legal-date { font-size: 12px; }
+.legal-page .contact-link { display: inline-flex; align-items: center; min-height: 48px; margin: 8px 0; padding: 12px 20px; border-radius: 8px; background: var(--accent-strong); color: var(--accent-ink); font-size: 14px; font-weight: 700; }
+
 /* ─── ヘッダー ─── */
 .site-header {
   display: flex;

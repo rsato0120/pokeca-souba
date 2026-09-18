@@ -44,6 +44,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     ...cardUrls,
+    ...['/terms', '/contact', '/privacy'].map(route => ({
+      url: `${SITE_URL}${route}`, changeFrequency: 'monthly' as const, priority: 0.3,
+    })),
     ...boxUrls,
     ...['/onepiece/ai', '/onepiece/accuracy', '/onepiece/screener', '/onepiece', '/onepiece/cards', '/onepiece/boxes', '/onepiece/ranking',
       ...getOnePieceCatalog().sets.map(s => `/onepiece/sets/${s.id}`),

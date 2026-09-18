@@ -77,20 +77,20 @@ export default function PrivacyPage() {
         <p style={P}>
           当サイトの相場・AI予想は公開情報をもとに生成した参考情報であり、正確性・将来の価格を保証するものではありません。
           投資・売買を助言するものではなく、これらの情報に基づく判断・行動はご自身の責任で行ってください。
-          当サイトの利用により生じたいかなる損害についても、当サイトは責任を負いません。
+          責任の範囲など、詳しい利用条件は<Link prefetch={false} href="/terms">利用規約</Link>をご確認ください。
         </p>
       </div>
 
       <div style={SECTION}>
         <h2 style={H2}>お問い合わせ</h2>
         <p style={P}>
-          本ポリシーに関するお問い合わせは、当サイト運営者のSNS（X）までご連絡ください。
-          {/* TODO: 連絡先（X等）を設定 */}
+          本ポリシーに関するお問い合わせは、XのpokecaAI（@pokecaAI）までご連絡ください。
+          詳しくは<Link prefetch={false} href="/contact">お問い合わせページ</Link>をご確認ください。
         </p>
       </div>
 
       <p style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginTop: '20px' }}>
-        制定日: 2026-06-25（最終改定: 2026-08-19）
+        制定日: 2026-06-25（最終改定: 2026-09-18）
       </p>
     </div>
   )

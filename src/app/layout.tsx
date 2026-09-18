@@ -1,4 +1,5 @@
 import BottomTabs from '@/components/BottomTabs'
+import SiteFooter from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { Shippori_Mincho, JetBrains_Mono, Zen_Kaku_Gothic_New } from 'next/font/google'
 import Script from 'next/script'
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
+        <SiteFooter />
         {/* スマホ用の下部固定タブ。PCでは CSS で非表示。
             ⚠ 固定要素なので globals.css で .wrap に下余白を確保している（内容が潜らないように） */}
         <BottomTabs />
