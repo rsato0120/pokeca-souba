@@ -2,6 +2,22 @@
   "card_id": "incandescent-arcana-74",
   "history": [
     {
+      "date": "2026-09-20",
+      "low": 800,
+      "high": 999,
+      "avg": 906,
+      "source": "mercari",
+      "sample_count": 47,
+      "sold_total": 1670,
+      "oldest_sale_days": 30,
+      "on_sale": 168,
+      "ask_low": 1000,
+      "ask_mid": 1350,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7123
+    },
+    {
       "date": "2026-09-19",
       "low": 800,
       "high": 999,
@@ -210,7 +226,7 @@
       "psa10": 7711
     }
   ],
-  "sales_fetched_at": "2026-09-19",
+  "sales_fetched_at": "2026-09-20",
   "sales_by_day": {
     "2026-09-06": 1,
     "2026-08-12": 1,
@@ -315,6 +331,7 @@
     "2026-09-13": 1,
     "2026-09-14": 1,
     "2026-09-18": 7,
-    "2026-09-17": 1
+    "2026-09-17": 1,
+    "2026-09-19": 8
   }
 }
