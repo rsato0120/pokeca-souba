@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { midOf } from '@/lib/market'
+import { priceChangePct } from '@/lib/price-change'
 import ScreenerTable, { type ScreenerRow } from '@/components/ScreenerTable'
 import SiteHeader from "@/components/SiteHeader"
 
@@ -25,22 +26,15 @@ export default function ScreenerPage() {
     const slug = getCardSlug(card)
     const records = getPriceHistory(slug)?.history ?? []
     const today = records[0]
-    const yesterday = records[1]
-    const weekAgo = records[7]
     const forecast = getForecast(slug)
     const extremes = getPriceExtremes(slug)
 
     const mid = today ? midOf(today) : 0
 
-    const guard = (v: number | null, limit: number) => (v != null && Math.abs(v) <= limit ? v : null)
-    const dayChange = guard(
-      today && yesterday && midOf(yesterday) > 0 ? ((mid - midOf(yesterday)) / midOf(yesterday)) * 100 : null,
-      DAY_GUARD,
-    )
-    const weekChange = guard(
-      today && weekAgo && midOf(weekAgo) > 0 ? ((mid - midOf(weekAgo)) / midOf(weekAgo)) * 100 : null,
-      WEEK_GUARD,
-    )
+    // ランキングと同じ関門を通す。市場が切り替わった境界の値幅は、
+    // 実際の値動きではないため前日比・7日比・その並び替えに使わない。
+    const dayChange = priceChangePct(records, 1, DAY_GUARD)
+    const weekChange = priceChangePct(records, 7, WEEK_GUARD)
 
     // AIの3ヶ月後 本線の上昇率。「AIが上昇と予想」の絞り込みはこれで判定する
     // （up_pct は確率であって方向ではないので、単独だと下落予想も通ってしまう）
