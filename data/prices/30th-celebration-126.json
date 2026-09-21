@@ -2,6 +2,48 @@
   "card_id": "30th-celebration-126",
   "history": [
     {
+      "date": "2026-09-21",
+      "low": 10500,
+      "high": 11500,
+      "avg": 11011,
+      "source": "snkrdunk",
+      "sample_count": 206,
+      "on_sale": 137,
+      "ask_low": 8999,
+      "ask_mid": 10890,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11990
+    },
+    {
+      "date": "2026-09-20",
+      "low": 10500,
+      "high": 10980,
+      "avg": 10738,
+      "source": "snkrdunk",
+      "sample_count": 41,
+      "on_sale": 133,
+      "ask_low": 10000,
+      "ask_mid": 10480,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11990
+    },
+    {
+      "date": "2026-09-19",
+      "low": 10600,
+      "high": 12000,
+      "avg": 11214,
+      "source": "snkrdunk",
+      "sample_count": 46,
+      "on_sale": 131,
+      "ask_low": 9979,
+      "ask_mid": 10440,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12980
+    },
+    {
       "date": "2026-09-18",
       "low": 10000,
       "high": 12800,
@@ -39,14 +81,18 @@
       "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-09-18",
+  "sales_fetched_at": "2026-09-21",
   "sales_by_day": {
     "2026-09-16": 386,
-    "2026-09-15": 6,
+    "2026-09-15": 7,
     "2026-09-17": 617,
-    "2026-09-18": 95
+    "2026-09-18": 354,
+    "2026-09-19": 236,
+    "2026-09-20": 206
   },
   "psa10_sales_by_day": {
-    "2026-09-18": 1
+    "2026-09-18": 1,
+    "2026-09-19": 1,
+    "2026-09-20": 1
   }
 }

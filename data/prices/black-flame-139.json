@@ -2,6 +2,54 @@
   "card_id": "black-flame-139",
   "history": [
     {
+      "date": "2026-09-21",
+      "low": 5000,
+      "high": 7400,
+      "avg": 6581,
+      "source": "mercari",
+      "sample_count": 66,
+      "sold_total": 864,
+      "oldest_sale_days": 58,
+      "on_sale": 77,
+      "ask_low": 6666,
+      "ask_mid": 9990,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19804
+    },
+    {
+      "date": "2026-09-20",
+      "low": 4999,
+      "high": 7300,
+      "avg": 6535,
+      "source": "mercari",
+      "sample_count": 65,
+      "sold_total": 863,
+      "oldest_sale_days": 58,
+      "on_sale": 75,
+      "ask_low": 6999,
+      "ask_mid": 10000,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19804
+    },
+    {
+      "date": "2026-09-19",
+      "low": 4999,
+      "high": 7400,
+      "avg": 6560,
+      "source": "mercari",
+      "sample_count": 65,
+      "sold_total": 863,
+      "oldest_sale_days": 57,
+      "on_sale": 86,
+      "ask_low": 6999,
+      "ask_mid": 10000,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19057
+    },
+    {
       "date": "2026-09-18",
       "low": 4999,
       "high": 7400,
@@ -146,7 +194,7 @@
       "psa10": 21552
     }
   ],
-  "sales_fetched_at": "2026-09-18",
+  "sales_fetched_at": "2026-09-21",
   "sales_by_day": {
     "2026-09-02": 1,
     "2026-08-26": 1,
@@ -163,7 +211,9 @@
     "2026-06-02": 1,
     "2026-05-28": 1,
     "2026-05-27": 1,
-    "2026-07-14": 1
+    "2026-07-14": 1,
+    "2026-09-19": 1,
+    "2026-09-20": 1
   },
   "psa10_sales_by_day": {
     "2026-09-09": 3,
@@ -251,9 +301,6 @@
     "2026-05-25": 1,
     "2026-05-24": 1,
     "2026-05-23": 1,
-    "2026-05-22": 1,
-    "2026-05-21": 1,
-    "2026-05-20": 1,
     "2026-09-10": 3,
     "2026-09-06": 3,
     "2026-09-11": 2,
@@ -261,6 +308,8 @@
     "2026-09-15": 5,
     "2026-09-16": 3,
     "2026-09-17": 5,
-    "2026-09-18": 1
+    "2026-09-18": 4,
+    "2026-09-19": 9,
+    "2026-09-20": 14
   }
 }
