@@ -168,10 +168,13 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
     : '取引平均'
   const avgSampleCount = latestRecord?.sample_count ?? null
   const latestDate = latestRecord?.date ?? null
-  // 今日のスニダン取得が失敗(null)でも、履歴の直近の既知PSA10を表示する（チャートと整合）
+  // 今日のスニダン取得が失敗(null)でも、履歴の直近の既知PSA10を表示する（チャートと整合）。
+  // psa10 は薄商いだと数日前の成約が残るため、取得日ではなく最後の実成約日を明示する。
   const latestPsa10Record = priceHistory?.history?.find(r => r.psa10 != null) ?? null
   const latestPsa10 = latestPsa10Record?.psa10 ?? null
-  const latestPsa10Date = latestPsa10Record?.date ?? null
+  const latestPsa10Date = latestPsa10Record?.psa10_as_of
+    ?? Object.keys(priceHistory?.psa10_sales_by_day ?? {}).sort().at(-1)
+    ?? latestPsa10Record?.date
 
   // AI投資スコアと予想の根拠。材料が足りないカードは null（枠ごと出さない）
   const cardScore = computeCardScore({
@@ -479,8 +482,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 <div>
                   <div className="stat-label">
                     PSA 10（スニーカーダンク 平均）
-                    {latestPsa10Date && latestRecord && latestPsa10Date !== latestRecord.date && (
-                      <span>（{latestPsa10Date.slice(5).replace('-', '/')}時点）</span>
+                    {latestPsa10Date && (
+                      <span>（{latestPsa10Date.slice(5).replace('-', '/')}成約まで）</span>
                     )}
                   </div>
                   <span className="stat-value" style={{ color: '#6c8ebf' }}>

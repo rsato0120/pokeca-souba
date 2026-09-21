@@ -110,6 +110,8 @@ export interface PriceRecord {
   /** on_sale の出所。'snkrdunk' はその商品固有の実数、'mercari' は出品検索の集計（打ち切りあり） */
   on_sale_source?: 'mercari' | 'snkrdunk'
   psa10?: number | null // スニーカーダンク PSA10平均価格（null = 取引なし）
+  /** psa10 の平均に使った成約のうち、最も新しい成約日。取得日とは区別する。 */
+  psa10_as_of?: string
 }
 
 // 全期間の高値・安値。価格履歴は90日ローリングで消えるため、極値だけ別ファイルに積み上げる。

@@ -1056,6 +1056,10 @@ const SNKRDUNK_PRICE_WINDOW_DAYS = 45
 // この件数に届いたら窓を打ち切る。流動的なカードほど窓が短くなり、現在の水準に追随する。
 // 30件は「平均が1件の外れ値で振られない」下限として置いた（1件の寄与が3%強）。
 const SNKRDUNK_TARGET_SALES = 30
+// PSA10は薄商いなので、素体より長い90日を上限にする。ただし価格の鮮度は
+// psa10_as_of に実際の最新成約日として保存し、取得日を「PSA10の価格日」として扱わない。
+const PSA10_PRICE_WINDOW_DAYS = 90
+const PSA10_TARGET_SALES = 30
 // APIの成約から価格を採るのに必要な件数。
 // ⚠ 極値の下限(MIN_SAMPLE_COUNT=4)ではなく、**従来のスニダン採用閾値6件**に揃える。
 //   4件で出所を切り替えると、薄い母数のまま水準が変わって「出所フリップの崖」を作る
@@ -1126,6 +1130,8 @@ function savePriceHistory(
   // スニダン売買履歴から拾った個別取引の日付（1取引1要素）
   regularSaleDates?: string[],
   psa10SaleDates?: string[],
+  /** PSA10平均に含めた最も新しい成約日（価格を取得した日ではない） */
+  psa10AsOf?: string | null,
   /** ask の出所。成約(source)と違う市場のことがあるので別に持つ */
   askSource?: 'mercari' | 'snkrdunk',
   /** 出品件数の出所。系列間で混ざると比較が壊れるので必ず残す */
@@ -1173,7 +1179,7 @@ function savePriceHistory(
     // ask の出所。成約(source)と違う市場のことがあるので別に持つ
     ...(validatedOnSale?.askLow != null && askSource ? { ask_source: askSource } : {}),
     ...(validatedOnSale?.count != null && onSaleSource ? { on_sale_source: onSaleSource } : {}),
-    ...(psa10 != null ? { psa10 } : { psa10: null }),
+    ...(psa10 != null ? { psa10, ...(psa10AsOf ? { psa10_as_of: psa10AsOf } : {}) } : { psa10: null }),
   }
 
   // 極値は履歴から落ちる前に別ファイルへ退避する（更新前の1つ前のレコードをノイズ判定に使う）
@@ -1277,6 +1283,7 @@ async function scrapeCard(
     let apiWindowDays = 0
     let snkrdunkSaleDates: string[] = []
     let snkrdunkPsa10SaleDates: string[] = []
+    let psa10AsOf: string | null = null
 
     if (apparelId) {
       // スニーカーダンクから取得（PSA10は常にスニダン由来）
@@ -1330,7 +1337,21 @@ async function scrapeCard(
           apiHigh = Math.max(percentileAt(sorted, 0.8), apiAvg)
           apiCount = win.length
         }
+
+        // PSA10もHTMLの見出し・表示件数からは作らず、condition_id=22 で絞った
+        // 公式成約APIだけを使う。これで別状態やページ内の参考価格を混ぜない。
+        const psaWin = recentSalesWindow(api.psa10Sales, PSA10_PRICE_WINDOW_DAYS, PSA10_TARGET_SALES, date)
+        if (psaWin.prices.length > 0) {
+          psa10 = Math.round(psaWin.prices.reduce((a, b) => a + b, 0) / psaWin.prices.length)
+          psa10AsOf = api.psa10Sales.reduce<string | null>((latest, sale) =>
+            latest == null || sale.date > latest ? sale.date : latest, null)
+        }
       } catch { /* APIが落ちてもHTML由来の値で続行する */ }
+
+      // APIが一時的に取れない時も、HTMLから読めた実成約日を表示用に残す。
+      if (psa10AsOf == null && snkrdunkPsa10SaleDates.length > 0) {
+        psa10AsOf = snkrdunkPsa10SaleDates.reduce((latest, saleDate) => saleDate > latest ? saleDate : latest)
+      }
 
       // 取引が止まっている系列は getSnkrdunkPrices が regular=null を返す。何日止まって
       // いたかをログに出す（メルカリに落ちた理由が「取引無し」か「件数不足」か判別するため）
@@ -1615,7 +1636,7 @@ async function scrapeCard(
       return
     }
 
-    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, askSource, onSaleSource, salesFetchedAt)
+    savePriceHistory(id, date, avg, low, high, onSale, psa10, priceSource, sampleCount, soldTotal, oldestSaleDays, snkrdunkSaleDates, snkrdunkPsa10SaleDates, psa10AsOf, askSource, onSaleSource, salesFetchedAt)
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
