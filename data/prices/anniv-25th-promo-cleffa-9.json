@@ -5,17 +5,18 @@
       "date": "2026-09-21",
       "low": 1000,
       "high": 1900,
-      "avg": 1737,
+      "avg": 1700,
       "source": "mercari",
-      "sample_count": 16,
-      "sold_total": 248,
+      "sample_count": 15,
+      "sold_total": 247,
       "oldest_sale_days": 90,
-      "on_sale": 40,
+      "on_sale": 39,
       "ask_low": 1700,
       "ask_mid": 2980,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 5953
+      "psa10": 5989,
+      "psa10_as_of": "2026-09-21"
     },
     {
       "date": "2026-09-20",
@@ -513,7 +514,8 @@
     "2026-09-15": 3,
     "2026-09-17": 1,
     "2026-09-19": 2,
-    "2026-09-20": 5
+    "2026-09-20": 5,
+    "2026-09-21": 4
   },
   "sales_fetched_at": "2026-09-21"
 }
