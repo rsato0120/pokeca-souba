@@ -50,6 +50,7 @@ function todayJST(): string {
 
 const DAY_GUARD = 20
 const WEEK_GUARD = 35
+const MIN_MOVER_PRICE = 1_000
 
 export default function RankingPage() {
   const baseDate = todayJST()
@@ -157,7 +158,8 @@ export default function RankingPage() {
       const t = rec[0]
       if (!t) return null
       const mid = midOf(t)
-      if (!(mid > 0)) return null
+      // 数百円台は少額の成約でも変化率が大きく出るため、値動きランキングから除外する。
+      if (mid < MIN_MOVER_PRICE) return null
       const day = priceChangePct(rec, 1, DAY_GUARD)
       const week = priceChangePct(rec, 7, WEEK_GUARD)
       const changePct = day ?? week
@@ -233,7 +235,7 @@ export default function RankingPage() {
     {
       id: 'movers',
       label: '値動き',
-      note: '実際の成約価格の変化率。前日比が取れないカードは7日比で並べています。',
+      note: '相場¥1,000以上のカードを対象にした実際の成約価格の変化率。前日比が取れないカードは7日比で並べています。',
       node: <MoversList surge={surge} drop={drop} />,
     },
     {
