@@ -2,6 +2,23 @@
   "card_id": "eevee-heroes-eefi-v-sa-81",
   "history": [
     {
+      "date": "2026-09-23",
+      "low": 15000,
+      "high": 19000,
+      "avg": 17808,
+      "source": "mercari",
+      "sample_count": 20,
+      "sold_total": 564,
+      "oldest_sale_days": 32,
+      "on_sale": 70,
+      "ask_low": 16920,
+      "ask_mid": 20800,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 49400,
+      "psa10_as_of": "2026-09-20"
+    },
+    {
       "date": "2026-09-22",
       "low": 15000,
       "high": 19000,
@@ -1046,13 +1063,14 @@
       "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-09-22",
+  "sales_fetched_at": "2026-09-23",
   "sales_by_day": {
     "2026-08-22": 1,
     "2026-08-15": 1,
     "2026-07-05": 1,
     "2026-06-14": 1,
-    "2026-09-05": 1
+    "2026-09-05": 1,
+    "2026-09-22": 2
   },
   "psa10_sales_by_day": {
     "2026-08-24": 1,

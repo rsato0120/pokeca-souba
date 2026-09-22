@@ -2,6 +2,23 @@
   "card_id": "shiny-treasure-arven-sar-353",
   "history": [
     {
+      "date": "2026-09-23",
+      "low": 700,
+      "high": 888,
+      "avg": 825,
+      "source": "mercari",
+      "sample_count": 40,
+      "sold_total": 315,
+      "oldest_sale_days": 88,
+      "on_sale": 13,
+      "ask_low": 1111,
+      "ask_mid": 1500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5500,
+      "psa10_as_of": "2026-08-27"
+    },
+    {
       "date": "2026-09-22",
       "low": 700,
       "high": 888,
@@ -478,7 +495,6 @@
   ],
   "sales_by_day": {
     "2026-07-20": 1,
-    "2026-05-24": 1,
     "2026-09-13": 1,
     "2026-09-14": 1
   },
@@ -486,5 +502,5 @@
     "2026-08-28": 1,
     "2026-08-27": 1
   },
-  "sales_fetched_at": "2026-09-22"
+  "sales_fetched_at": "2026-09-23"
 }
