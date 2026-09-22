@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { priceChangePct } from '../src/lib/price-change'
+import { priceChangePct, priceChangePctForDays } from '../src/lib/price-change'
 import type { PriceRecord, PriceSource } from '../src/types/pokeca'
 
 const record = (avg: number, source?: PriceSource): PriceRecord => ({ date: '2026-09-14', avg, low: avg, high: avg, source })
@@ -25,4 +25,16 @@ for (const baseline of [0, NaN, Infinity]) {
   assert.equal(priceChangePct([record(110, 'mercari'), record(baseline, 'mercari')], 1, 20), null)
 }
 assert.equal(priceChangePct([record(150, 'mercari'), record(100, 'mercari')], 1, 20), null)
+
+const dated = (date: string, avg: number, source: PriceSource = 'snkrdunk', sample_count = 6): PriceRecord =>
+  ({ date, avg, low: avg, high: avg, source, sample_count })
+assert.equal(priceChangePctForDays([
+  dated('2026-09-22', 90), dated('2026-09-21', 100),
+], 1, 1, 20, 6), -10)
+assert.equal(priceChangePctForDays([
+  dated('2026-09-22', 90), dated('2026-09-13', 100),
+], 6, 8, 35, 6), null, '9日前の観測は7日比に使わない')
+assert.equal(priceChangePctForDays([
+  dated('2026-09-22', 90, 'snkrdunk', 4), dated('2026-09-21', 100),
+], 1, 1, 20, 6), null, '少数成約のスニダン価格はランキングに使わない')
 console.log('price change source-switch regression checks: OK')

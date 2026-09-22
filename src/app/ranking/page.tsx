@@ -1,4 +1,4 @@
-import { priceChangePct } from '@/lib/price-change'
+import { priceChangePctForDays } from '@/lib/price-change'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getBoxPriceHistory, getBoxPriceVariant, getMarketListings } from '@/lib/data'
@@ -51,6 +51,7 @@ function todayJST(): string {
 const DAY_GUARD = 20
 const WEEK_GUARD = 35
 const MIN_MOVER_PRICE = 1_000
+const MIN_MOVER_SNKRDUNK_SAMPLES = 6
 
 export default function RankingPage() {
   const baseDate = todayJST()
@@ -160,8 +161,9 @@ export default function RankingPage() {
       const mid = midOf(t)
       // 数百円台は少額の成約でも変化率が大きく出るため、値動きランキングから除外する。
       if (mid < MIN_MOVER_PRICE) return null
-      const day = priceChangePct(rec, 1, DAY_GUARD)
-      const week = priceChangePct(rec, 7, WEEK_GUARD)
+      // 取得間隔が空いた値や少数成約だけのスニダン価格を「今日の値動き」にしない。
+      const day = priceChangePctForDays(rec, 1, 1, DAY_GUARD, MIN_MOVER_SNKRDUNK_SAMPLES)
+      const week = priceChangePctForDays(rec, 6, 8, WEEK_GUARD, MIN_MOVER_SNKRDUNK_SAMPLES)
       const changePct = day ?? week
       if (changePct == null) return null
       const row: MoverRow = {
@@ -192,7 +194,7 @@ export default function RankingPage() {
       rarity: card.rarity,
       image: card.image_url ?? null,
       price: mid > 0 ? mid : null,
-      dayChange: priceChangePct(rec, 1, DAY_GUARD),
+      dayChange: priceChangePctForDays(rec, 1, 1, DAY_GUARD, MIN_MOVER_SNKRDUNK_SAMPLES),
     }
   })
 

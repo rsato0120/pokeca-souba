@@ -1,4 +1,4 @@
-import { priceChangePct } from '@/lib/price-change'
+import { priceChangePctForDays } from '@/lib/price-change'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getAllCards, getCardSlug, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
@@ -40,7 +40,7 @@ export default function AiPage() {
 
   const dayPctOf = (slug: string): number | null => {
     const h = getPriceHistory(slug)?.history ?? []
-    return priceChangePct(h, 1, 20)
+    return priceChangePctForDays(h, 1, 1, 20, 6)
   }
 
   const toPick = (c: ReturnType<typeof selectBuyCandidates>[number]): HeatPick => {

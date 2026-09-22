@@ -1,5 +1,5 @@
 import { priceSeriesKey } from '@/lib/price-source'
-import { priceChangePct } from '@/lib/price-change'
+import { priceChangePct, priceChangePctForDays } from '@/lib/price-change'
 import Link from 'next/link'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings, getBoxMarketListings } from '@/lib/data'
 import { isDeckUtilityCard } from '@/lib/card-kind'
@@ -66,8 +66,8 @@ export default function TopPage() {
       records,
       spark: sparkSeries(records),
       currentMid: today ? mid(today) : 0,
-      dayChange: priceChangePct(records, 1, 20),
-      weekChange: priceChangePct(records, 7, 35),
+      dayChange: priceChangePctForDays(records, 1, 1, 20, 6),
+      weekChange: priceChangePctForDays(records, 6, 8, 35, 6),
       onSale: today?.on_sale ?? null,
       forecast: getForecast(slug),
     }

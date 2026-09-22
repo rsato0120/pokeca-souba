@@ -15,3 +15,35 @@ export function priceChangePct(records: PriceRecord[], offset: number, limit: nu
   const change = ((current - baseline) / baseline) * 100
   return Math.abs(change) <= limit ? change : null
 }
+
+/**
+ * 暦日で指定した範囲にある観測だけを比較する値動き。
+ *
+ * 履歴配列の「ひとつ前」は前日とは限らない。取得が止まったカードを何日も前の価格と
+ * 比較すると、古い成約を今日の急騰・急落としてランキングに混ぜてしまう。
+ * スニダン由来は少数成約だけの価格も弾けるよう、必要件数を呼び出し側で指定できる。
+ */
+export function priceChangePctForDays(
+  records: PriceRecord[],
+  minDays: number,
+  maxDays: number,
+  limit: number,
+  minSnkrdunkSamples = 0,
+): number | null {
+  const latest = records[0]
+  if (!latest || !/^\d{4}-\d{2}-\d{2}$/.test(latest.date)) return null
+  const latestMs = Date.parse(`${latest.date}T00:00:00Z`)
+  const index = records.findIndex((record, i) => {
+    if (i === 0 || !/^\d{4}-\d{2}-\d{2}$/.test(record.date)) return false
+    const days = Math.round((latestMs - Date.parse(`${record.date}T00:00:00Z`)) / 86400000)
+    return days >= minDays && days <= maxDays
+  })
+  if (index < 0) return null
+
+  const compared = records.slice(0, index + 1)
+  if (minSnkrdunkSamples > 0 && compared.some(record =>
+    record.source === 'snkrdunk' && (record.sample_count ?? 0) < minSnkrdunkSamples,
+  )) return null
+
+  return priceChangePct(records, index, limit)
+}

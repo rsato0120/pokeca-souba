@@ -1,4 +1,4 @@
-import { priceChangePct } from '@/lib/price-change'
+import { priceChangePctForDays } from '@/lib/price-change'
 import { priceSeriesKey } from '@/lib/price-source'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -196,7 +196,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   // 全体と比べるより「この弾の中で強いか」が出る）。
   const records = priceHistory?.history ?? []
   const currentMid = latestRecord ? midOf(latestRecord) : 0
-  const cardWeekChange = priceChangePct(records, 7, 35)
+  const cardWeekChange = priceChangePctForDays(records, 6, 8, 35, 6)
   const benchmark = getMarketIndex(`box:${card.box_id}`) ?? getMarketIndex('all')
   const benchmarkPct = benchmark ? indexChangePct(benchmark, 7) : null
   // 汚染由来の飛び（画面の他の枠と同じ ±35% ガード）は表示にも相対力にも混ぜない

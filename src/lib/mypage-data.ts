@@ -1,5 +1,5 @@
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
-import { priceChangePct } from './price-change'
+import { priceChangePctForDays } from './price-change'
 import { midOf } from '@/lib/market'
 import type { ScreenerRow } from '@/components/ScreenerTable'
 
@@ -33,8 +33,8 @@ export function buildScreenerRows(): ScreenerRow[] {
       boxName: boxNames.get(card.box_id) ?? card.box_id,
       image: card.image_url ?? null,
       mid: Math.round(mid),
-      dayChange: priceChangePct(records, 1, DAY_GUARD),
-      weekChange: priceChangePct(records, 7, WEEK_GUARD),
+      dayChange: priceChangePctForDays(records, 1, 1, DAY_GUARD, 6),
+      weekChange: priceChangePctForDays(records, 6, 8, WEEK_GUARD, 6),
       onSale: today?.on_sale ?? null,
       upPct: getForecast(slug)?.overall.up_pct ?? null,
       upsidePct: null,

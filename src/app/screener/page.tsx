@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getPriceExtremes } from '@/lib/data'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
 import { midOf } from '@/lib/market'
-import { priceChangePct } from '@/lib/price-change'
+import { priceChangePctForDays } from '@/lib/price-change'
 import ScreenerTable, { type ScreenerRow } from '@/components/ScreenerTable'
 import SiteHeader from "@/components/SiteHeader"
 
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 // （スクレイプの出所フリップや誤マッチで生じる飛びを、順位や絞り込みに混ぜない）
 const DAY_GUARD = 20
 const WEEK_GUARD = 35
+const MIN_SNKRDUNK_SAMPLES = 6
 
 export default function ScreenerPage() {
   const cards = getAllCards()
@@ -33,8 +34,8 @@ export default function ScreenerPage() {
 
     // ランキングと同じ関門を通す。市場が切り替わった境界の値幅は、
     // 実際の値動きではないため前日比・7日比・その並び替えに使わない。
-    const dayChange = priceChangePct(records, 1, DAY_GUARD)
-    const weekChange = priceChangePct(records, 7, WEEK_GUARD)
+    const dayChange = priceChangePctForDays(records, 1, 1, DAY_GUARD, MIN_SNKRDUNK_SAMPLES)
+    const weekChange = priceChangePctForDays(records, 6, 8, WEEK_GUARD, MIN_SNKRDUNK_SAMPLES)
 
     // AIの3ヶ月後 本線の上昇率。「AIが上昇と予想」の絞り込みはこれで判定する
     // （up_pct は確率であって方向ではないので、単独だと下落予想も通ってしまう）
