@@ -2,16 +2,29 @@
   "card_id": "box-white_flare",
   "history": [
     {
-      "date": "2026-09-21",
-      "low": 20638,
+      "date": "2026-09-22",
+      "low": 20620,
       "high": 22000,
-      "avg": 21319,
+      "avg": 21310,
       "source": "mercari",
-      "sold_total": 2253,
+      "sold_total": 2233,
+      "oldest_sale_days": 45,
+      "on_sale": 48,
+      "ask_low": 15100,
+      "ask_mid": 19250,
+      "psa10": null
+    },
+    {
+      "date": "2026-09-21",
+      "low": 20500,
+      "high": 22000,
+      "avg": 21250,
+      "source": "mercari",
+      "sold_total": 2247,
       "oldest_sale_days": 47,
-      "on_sale": 46,
+      "on_sale": 48,
       "ask_low": 10000,
-      "ask_mid": 19999,
+      "ask_mid": 19250,
       "psa10": null
     },
     {
@@ -646,7 +659,8 @@
     "2026-09-17": 17,
     "2026-09-18": 18,
     "2026-09-19": 9,
-    "2026-09-20": 7
+    "2026-09-20": 7,
+    "2026-09-21": 5
   },
-  "sales_fetched_at": "2026-09-21"
+  "sales_fetched_at": "2026-09-22"
 }

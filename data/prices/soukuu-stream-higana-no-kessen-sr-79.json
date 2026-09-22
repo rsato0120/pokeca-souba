@@ -2,20 +2,38 @@
   "card_id": "soukuu-stream-higana-no-kessen-sr-79",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 3333,
+      "high": 4000,
+      "avg": 3998,
+      "source": "mercari",
+      "sample_count": 44,
+      "sold_total": 233,
+      "oldest_sale_days": 87,
+      "on_sale": 58,
+      "ask_low": 4000,
+      "ask_mid": 4639,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19214,
+      "psa10_as_of": "2026-09-13"
+    },
+    {
       "date": "2026-09-21",
       "low": 3333,
       "high": 4000,
       "avg": 3998,
       "source": "mercari",
       "sample_count": 44,
-      "sold_total": 234,
+      "sold_total": 233,
       "oldest_sale_days": 86,
       "on_sale": 60,
-      "ask_low": 4200,
-      "ask_mid": 4777,
+      "ask_low": 4000,
+      "ask_mid": 4888,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 19451
+      "psa10": 19214,
+      "psa10_as_of": "2026-09-13"
     },
     {
       "date": "2026-09-20",
@@ -815,5 +833,5 @@
     "2026-09-14": 2,
     "2026-09-15": 1
   },
-  "sales_fetched_at": "2026-09-21"
+  "sales_fetched_at": "2026-09-22"
 }

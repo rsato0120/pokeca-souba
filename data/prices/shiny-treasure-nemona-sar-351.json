@@ -2,12 +2,12 @@
   "card_id": "shiny-treasure-nemona-sar-351",
   "history": [
     {
-      "date": "2026-09-21",
+      "date": "2026-09-22",
       "low": 700,
-      "high": 800,
-      "avg": 795,
+      "high": 850,
+      "avg": 806,
       "source": "mercari",
-      "sample_count": 28,
+      "sample_count": 27,
       "sold_total": 181,
       "oldest_sale_days": 89,
       "on_sale": 21,
@@ -15,7 +15,25 @@
       "ask_mid": 1200,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 7611
+      "psa10": 7611,
+      "psa10_as_of": "2026-09-06"
+    },
+    {
+      "date": "2026-09-21",
+      "low": 700,
+      "high": 800,
+      "avg": 795,
+      "source": "mercari",
+      "sample_count": 28,
+      "sold_total": 181,
+      "oldest_sale_days": 90,
+      "on_sale": 21,
+      "ask_low": 999,
+      "ask_mid": 1200,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7611,
+      "psa10_as_of": "2026-09-06"
     },
     {
       "date": "2026-09-20",
@@ -473,5 +491,5 @@
     "2026-09-06": 1,
     "2026-09-07": 1
   },
-  "sales_fetched_at": "2026-09-21"
+  "sales_fetched_at": "2026-09-22"
 }

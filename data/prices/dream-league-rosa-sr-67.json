@@ -2,20 +2,38 @@
   "card_id": "dream-league-rosa-sr-67",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 22222,
+      "high": 31000,
+      "avg": 29276,
+      "source": "mercari",
+      "sample_count": 56,
+      "sold_total": 774,
+      "oldest_sale_days": 55,
+      "on_sale": 132,
+      "ask_low": 27800,
+      "ask_mid": 40500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 81769,
+      "psa10_as_of": "2026-09-22"
+    },
+    {
       "date": "2026-09-21",
       "low": 23000,
       "high": 32999,
       "avg": 29647,
       "source": "mercari",
       "sample_count": 56,
-      "sold_total": 772,
+      "sold_total": 773,
       "oldest_sale_days": 57,
       "on_sale": 133,
       "ask_low": 28300,
       "ask_mid": 42222,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 80683
+      "psa10": 84255,
+      "psa10_as_of": "2026-09-20"
     },
     {
       "date": "2026-09-20",
@@ -338,7 +356,7 @@
       "psa10": 86379
     }
   ],
-  "sales_fetched_at": "2026-09-21",
+  "sales_fetched_at": "2026-09-22",
   "sales_by_day": {
     "2026-08-10": 1,
     "2026-07-12": 1,
@@ -411,7 +429,6 @@
     "2026-05-28": 2,
     "2026-05-26": 3,
     "2026-05-25": 1,
-    "2026-05-23": 2,
     "2026-08-29": 2,
     "2026-09-02": 3,
     "2026-09-01": 4,
@@ -428,6 +445,8 @@
     "2026-09-13": 1,
     "2026-09-14": 1,
     "2026-09-15": 1,
-    "2026-09-20": 1
+    "2026-09-20": 1,
+    "2026-09-22": 1,
+    "2026-09-21": 1
   }
 }

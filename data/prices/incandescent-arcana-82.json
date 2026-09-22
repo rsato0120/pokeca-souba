@@ -2,20 +2,38 @@
   "card_id": "incandescent-arcana-82",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 1400,
+      "high": 1600,
+      "avg": 1539,
+      "source": "mercari",
+      "sample_count": 58,
+      "sold_total": 630,
+      "oldest_sale_days": 61,
+      "on_sale": 112,
+      "ask_low": 1666,
+      "ask_mid": 2500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12461,
+      "psa10_as_of": "2026-09-20"
+    },
+    {
       "date": "2026-09-21",
       "low": 1400,
       "high": 1650,
       "avg": 1555,
       "source": "mercari",
       "sample_count": 58,
-      "sold_total": 633,
-      "oldest_sale_days": 61,
+      "sold_total": 632,
+      "oldest_sale_days": 62,
       "on_sale": 112,
       "ask_low": 1799,
       "ask_mid": 2500,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 11725
+      "psa10": 12461,
+      "psa10_as_of": "2026-09-20"
     },
     {
       "date": "2026-09-20",
@@ -242,13 +260,12 @@
       "psa10": 12680
     }
   ],
-  "sales_fetched_at": "2026-09-21",
+  "sales_fetched_at": "2026-09-22",
   "sales_by_day": {
     "2026-09-01": 1,
     "2026-08-18": 1,
     "2026-08-04": 1,
     "2026-07-03": 1,
-    "2026-05-23": 1,
     "2026-09-13": 1,
     "2026-09-14": 1
   },
@@ -311,6 +328,7 @@
     "2026-09-12": 3,
     "2026-09-13": 3,
     "2026-09-14": 2,
-    "2026-09-20": 1
+    "2026-09-20": 1,
+    "2026-09-21": 1
   }
 }

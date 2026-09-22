@@ -2,20 +2,38 @@
   "card_id": "black-flame-113",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 1000,
+      "high": 1199,
+      "avg": 1099,
+      "source": "mercari",
+      "sample_count": 94,
+      "sold_total": 1519,
+      "oldest_sale_days": 20,
+      "on_sale": 60,
+      "ask_low": 1100,
+      "ask_mid": 1675,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12446,
+      "psa10_as_of": "2026-09-22"
+    },
+    {
       "date": "2026-09-21",
       "low": 1000,
       "high": 1199,
       "avg": 1104,
       "source": "mercari",
       "sample_count": 94,
-      "sold_total": 1521,
+      "sold_total": 1520,
       "oldest_sale_days": 19,
-      "on_sale": 61,
-      "ask_low": 1200,
-      "ask_mid": 1800,
+      "on_sale": 60,
+      "ask_low": 1100,
+      "ask_mid": 1780,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 12029
+      "psa10": 12485,
+      "psa10_as_of": "2026-09-21"
     },
     {
       "date": "2026-09-20",
@@ -194,7 +212,7 @@
       "psa10": 12922
     }
   ],
-  "sales_fetched_at": "2026-09-21",
+  "sales_fetched_at": "2026-09-22",
   "sales_by_day": {
     "2026-09-08": 1,
     "2026-09-07": 2,
@@ -216,7 +234,8 @@
     "2026-07-15": 1,
     "2026-06-15": 1,
     "2026-09-06": 1,
-    "2026-09-20": 2
+    "2026-09-20": 2,
+    "2026-09-21": 1
   },
   "psa10_sales_by_day": {
     "2026-09-09": 1,
@@ -278,6 +297,8 @@
     "2026-09-16": 4,
     "2026-09-18": 1,
     "2026-09-19": 2,
-    "2026-09-20": 1
+    "2026-09-20": 1,
+    "2026-09-21": 2,
+    "2026-09-22": 1
   }
 }

@@ -2,20 +2,38 @@
   "card_id": "tag-all-stars-greens-exploration-sr-196",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 30999,
+      "high": 45000,
+      "avg": 39604,
+      "source": "mercari",
+      "sample_count": 53,
+      "sold_total": 304,
+      "oldest_sale_days": 89,
+      "on_sale": 36,
+      "ask_low": 50000,
+      "ask_mid": 58500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 125107,
+      "psa10_as_of": "2026-09-22"
+    },
+    {
       "date": "2026-09-21",
       "low": 30999,
       "high": 45000,
       "avg": 40222,
       "source": "mercari",
       "sample_count": 53,
-      "sold_total": 306,
-      "oldest_sale_days": 89,
-      "on_sale": 38,
+      "sold_total": 305,
+      "oldest_sale_days": 90,
+      "on_sale": 37,
       "ask_low": 50000,
       "ask_mid": 57500,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 121170
+      "psa10": 126103,
+      "psa10_as_of": "2026-09-20"
     },
     {
       "date": "2026-09-20",
@@ -338,7 +356,7 @@
       "psa10": 140280
     }
   ],
-  "sales_fetched_at": "2026-09-21",
+  "sales_fetched_at": "2026-09-22",
   "sales_by_day": {
     "2026-07-26": 1,
     "2026-07-17": 1,
@@ -386,7 +404,6 @@
     "2026-06-06": 3,
     "2026-06-01": 1,
     "2026-05-25": 7,
-    "2026-05-23": 2,
     "2026-08-28": 2,
     "2026-09-02": 2,
     "2026-09-01": 2,
@@ -403,6 +420,8 @@
     "2026-09-15": 1,
     "2026-09-18": 2,
     "2026-09-19": 2,
-    "2026-09-20": 1
+    "2026-09-20": 1,
+    "2026-09-22": 1,
+    "2026-09-21": 1
   }
 }

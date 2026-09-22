@@ -2,20 +2,38 @@
   "card_id": "tag-all-stars-rayquaza-gx-rr-100",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 600,
+      "high": 1000,
+      "avg": 939,
+      "source": "mercari",
+      "sample_count": 42,
+      "sold_total": 387,
+      "oldest_sale_days": 90,
+      "on_sale": 72,
+      "ask_low": 999,
+      "ask_mid": 1500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10231,
+      "psa10_as_of": "2026-09-21"
+    },
+    {
       "date": "2026-09-21",
       "low": 600,
       "high": 1000,
-      "avg": 928,
+      "avg": 923,
       "source": "mercari",
-      "sample_count": 44,
-      "sold_total": 389,
+      "sample_count": 43,
+      "sold_total": 388,
       "oldest_sale_days": 90,
-      "on_sale": 71,
+      "on_sale": 72,
       "ask_low": 999,
-      "ask_mid": 1528,
+      "ask_mid": 1500,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 10137
+      "psa10": 10231,
+      "psa10_as_of": "2026-09-21"
     },
     {
       "date": "2026-09-20",
@@ -322,7 +340,7 @@
       "psa10": 10987
     }
   ],
-  "sales_fetched_at": "2026-09-21",
+  "sales_fetched_at": "2026-09-22",
   "sales_by_day": {
     "2026-08-01": 1,
     "2026-07-29": 1,
@@ -403,6 +421,7 @@
     "2026-09-17": 4,
     "2026-09-18": 1,
     "2026-09-19": 3,
-    "2026-09-20": 2
+    "2026-09-20": 2,
+    "2026-09-21": 1
   }
 }

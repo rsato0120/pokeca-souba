@@ -2,6 +2,23 @@
   "card_id": "shiny-star-v-lapras-v-ssr-311",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 500,
+      "high": 599,
+      "avg": 564,
+      "source": "mercari",
+      "sample_count": 23,
+      "sold_total": 131,
+      "oldest_sale_days": 88,
+      "on_sale": 7,
+      "ask_low": 650,
+      "ask_mid": 870,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12715,
+      "psa10_as_of": "2026-06-05"
+    },
+    {
       "date": "2026-09-21",
       "low": 500,
       "high": 599,
@@ -9,13 +26,14 @@
       "source": "mercari",
       "sample_count": 24,
       "sold_total": 133,
-      "oldest_sale_days": 89,
+      "oldest_sale_days": 90,
       "on_sale": 7,
       "ask_low": 650,
       "ask_mid": 870,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 12715
+      "psa10": 12715,
+      "psa10_as_of": "2026-06-05"
     },
     {
       "date": "2026-09-20",
@@ -465,5 +483,5 @@
   "psa10_sales_by_day": {
     "2026-06-05": 1
   },
-  "sales_fetched_at": "2026-09-21"
+  "sales_fetched_at": "2026-09-22"
 }

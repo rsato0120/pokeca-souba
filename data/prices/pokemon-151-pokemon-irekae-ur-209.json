@@ -2,6 +2,23 @@
   "card_id": "pokemon-151-pokemon-irekae-ur-209",
   "history": [
     {
+      "date": "2026-09-22",
+      "low": 900,
+      "high": 999,
+      "avg": 974,
+      "source": "mercari",
+      "sample_count": 50,
+      "sold_total": 216,
+      "oldest_sale_days": 90,
+      "on_sale": 3,
+      "ask_low": 1500,
+      "ask_mid": 2000,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10000,
+      "psa10_as_of": "2026-09-13"
+    },
+    {
       "date": "2026-09-21",
       "low": 900,
       "high": 1000,
@@ -15,7 +32,8 @@
       "ask_mid": 2000,
       "ask_source": "mercari",
       "on_sale_source": "snkrdunk",
-      "psa10": 10000
+      "psa10": 10000,
+      "psa10_as_of": "2026-09-13"
     },
     {
       "date": "2026-09-20",
@@ -749,5 +767,5 @@
     "2026-09-13": 1,
     "2026-09-14": 1
   },
-  "sales_fetched_at": "2026-09-21"
+  "sales_fetched_at": "2026-09-22"
 }
