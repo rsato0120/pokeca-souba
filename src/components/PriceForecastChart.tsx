@@ -23,7 +23,7 @@ type Tab = 'raw' | 'psa10'
 
 const DAY = 24 * 60 * 60 * 1000
 const PAST_DAYS = 30
-const FUTURE_DAYS = 90
+const FUTURE_DAYS = 180
 
 // Y軸ラベル用 ¥ 表記。10万円未満はフル円表記（狭いレンジでも目盛りが潰れない）、
 // 10万円以上だけ万表記でコンパクトにする
@@ -59,6 +59,8 @@ export default function PriceForecastChart({ history, forecast }: Props) {
   const m3Mid = (forecast.m3_low + forecast.m3_high) / 2
   const rawGrowthM1 = curMid > 0 ? m1Mid / curMid : 1
   const rawGrowthM3 = curMid > 0 ? m3Mid / curMid : 1
+  const m6Mid = (forecast.m6_low + forecast.m6_high) / 2
+  const rawGrowthM6 = curMid > 0 ? m6Mid / curMid : 1
 
   // ── PSA10予想の成長率 ──
   // PSA10自身の価格履歴のトレンド（月次・±12%にクランプ・ダンピング0.6）と、
@@ -83,11 +85,14 @@ export default function PriceForecastChart({ history, forecast }: Props) {
     const blended = ownG3 != null ? 0.55 * ownG3 + 0.45 * rawGrowthM3 : rawGrowthM3
     return Math.max(0.72, Math.min(1.55, blended)) // 3ヶ月で -28%〜+55% に収める
   })()
+  // 6か月後は、鑑定品自身の3か月トレンドを延長しつつ、AIの6か月後の素体予想も反映する。
+  const psaGrowthM6 = Math.max(0.55, Math.min(2, 0.55 * (1 + (psaGrowthM3 - 1) * 2) + 0.45 * rawGrowthM6))
   const psaGrowthM1 = 1 + (psaGrowthM3 - 1) / 3
 
   // アクティブタブの成長率（この3つを以降の描画・大きな数値で使う）
   const growthM1 = tab === 'psa10' ? psaGrowthM1 : rawGrowthM1
   const growthM3 = tab === 'psa10' ? psaGrowthM3 : rawGrowthM3
+  const growthM6 = tab === 'psa10' ? psaGrowthM6 : rawGrowthM6
   const upPct = Math.round((growthM3 - 1) * 100)
 
   // タブ横バッジ用（切替なしで素体/PSA10の見通し差を一目で示す）
@@ -122,15 +127,17 @@ export default function PriceForecastChart({ history, forecast }: Props) {
         ? (past.length ? past[past.length - 1].actual : null) ?? curMid
         : latestPsa10
 
-    // ── 未来90日（AI予想・破線）──
+    // ── 未来6か月（AI予想・破線）──
     const future: Point[] = []
     if (base != null && base > 0) {
       for (let d = 0; d <= FUTURE_DAYS; d += 5) {
-        // 0→30日は growthM1 へ、30→90日は growthM3 へ線形補間（%空間）
+        // 1・3・6か月後の予想を結ぶ。各節目の方向が異なれば、途中で反転する。
         const g =
           d <= 30
             ? 1 + (growthM1 - 1) * (d / 30)
-            : growthM1 + (growthM3 - growthM1) * ((d - 30) / 60)
+            : d <= 90
+              ? growthM1 + (growthM3 - growthM1) * ((d - 30) / 60)
+              : growthM3 + (growthM6 - growthM3) * ((d - 90) / 90)
         future.push({
           t: d,
           dateLabel: fmtMD(todayMs + d * DAY),
@@ -163,7 +170,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
       yDomain = [Math.max(0, Math.floor(lo - pad)), Math.ceil(hi + pad)]
     }
     return { data: merged, currentPrice: cur, forecastPrice: fc, yDomain }
-  }, [tab, history, todayMs, curMid, growthM1, growthM3, latestPsa10])
+  }, [tab, history, todayMs, curMid, growthM1, growthM3, growthM6, latestPsa10])
 
   const accent = upPct > 0 ? 'var(--up)' : upPct < 0 ? 'var(--down)' : 'var(--flat)'
   const actualColor = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
@@ -263,7 +270,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
             dataKey="t"
             type="number"
             domain={[-PAST_DAYS, FUTURE_DAYS]}
-            ticks={[-30, -15, 0, 30, 60, 90]}
+            ticks={[-30, -15, 0, 30, 60, 90, 180]}
             tickFormatter={(t: number) => (t === 0 ? '今日' : t > 0 ? `+${t}日` : `${-t}日前`)}
             tick={{ fill: 'var(--ink-faint)', fontSize: 11, fontFamily: 'var(--mono)' }}
             stroke="var(--hair)"
@@ -341,7 +348,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
         </span>
         <span>
           <span style={{ display: 'inline-block', width: '14px', borderTop: `2px dashed ${accent}`, marginRight: '5px', verticalAlign: 'middle' }} />
-          AI予想（未来90日）
+          AI予想（未来6か月）
         </span>
       </div>
     </div>
