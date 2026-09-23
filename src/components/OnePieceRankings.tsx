@@ -14,7 +14,7 @@ const tabs = [
 type Tab = typeof tabs[number][0]
 const yen = (n: number) => `¥${n.toLocaleString('ja-JP')}`
 
-export default function OnePieceRankings({ rows, sets, initialTab }: { rows: OnePieceRankingRow[]; sets: OnePieceSet[]; initialTab?: string }) {
+export default function OnePieceRankings({ rows, sets, initialTab, showTabs = true }: { rows: OnePieceRankingRow[]; sets: OnePieceSet[]; initialTab?: string; showTabs?: boolean }) {
   const [tab, setTab] = useState<Tab>(tabs.find(([id]) => id === initialTab)?.[0] ?? 'sales')
   const [setId, setSetId] = useState('')
   const [query, setQuery] = useState('')
@@ -33,7 +33,7 @@ export default function OnePieceRankings({ rows, sets, initialTab }: { rows: One
     : tab === 'price' || (tab === 'boxes' && boxSort === 'price') ? '記録日の成約平均価格が高い順。価格の記録日は商品ごとに異なります。'
       : '集計基準日を含む直近7日間の成約件数が多い順。成約が確認できた商品を掲載しています。'
   return <div>
-    <div className="rank-tabs" role="tablist" aria-label="ランキングの種類">{tabs.map(([id, label], index) => <button
+    {showTabs && <div className="rank-tabs" role="tablist" aria-label="ランキングの種類">{tabs.map(([id, label], index) => <button
       key={id} id={`op-tab-${id}`} type="button" role="tab" aria-selected={tab === id} aria-controls="op-ranking-panel"
       tabIndex={tab === id ? 0 : -1} className={`rank-tab${tab === id ? ' is-active' : ''}`} onClick={() => setTab(id)}
       onKeyDown={e => {
@@ -41,7 +41,7 @@ export default function OnePieceRankings({ rows, sets, initialTab }: { rows: One
         e.preventDefault()
         const next = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (index + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length
         setTab(tabs[next][0]); document.getElementById(`op-tab-${tabs[next][0]}`)?.focus()
-      }}>{label}</button>)}</div>
+      }}>{label}</button>)}</div>}
     <div className="op-toolbar">
       <label className="op-search">カード名・カード番号<input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ルフィ、OP13-118…" /></label>
       <label>収録弾<select value={setId} onChange={e => setSetId(e.target.value)}><option value="">すべての弾</option>{sets.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label>

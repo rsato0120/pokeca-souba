@@ -8,7 +8,7 @@ const title = 'テラスタルフェスex 1BOX シュリンク付き'
 test('同一商品・単箱・同じシュリンク状態のみ比較する', () => {
   assert.equal(matchesSingleBox(title, box, 'shrink', [box]), true)
   assert.equal(matchesSingleBox('テラスタルフェスex １ＢＯＸ 未開封 シュリンクなし', box, 'noshrink', [box]), true)
-  for (const invalid of [title.replace('1BOX', '2BOX'), `${title} 空箱`, `${title} 再シュリンク`, `${title} 2箱`, `${title} ×2`, `${title} プロモセット`, title.replace('付き', 'なし'), title.replace('1BOX', 'BOX'), `${title} パックのみ`]) {
+  for (const invalid of [title.replace('1BOX', '2BOX'), `${title} 空箱`, `${title} 再シュリンク`, `${title} 2箱`, `${title} ×2`, `${title} プロモセット`, `デッキビルドBOX ${title}`, title.replace('付き', 'なし'), title.replace('1BOX', 'BOX'), `${title} パックのみ`]) {
     assert.equal(matchesSingleBox(invalid, box, 'shrink', [box]), false, invalid)
   }
   const other = { ...box, box_id: 'other', box_name: 'クレイバースト' }

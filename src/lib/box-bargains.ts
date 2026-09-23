@@ -20,7 +20,7 @@ export function matchesSingleBox(title: string, box: Box, variant: DealBoxVarian
   const text = normalize(title)
   if (!text.includes(normalize(box.box_name))) return false
   if (boxes.some(other => other.box_id !== box.box_id && text.includes(normalize(other.box_name)))) return false
-  if (/空箱|空き箱|箱のみ|箱だけ|中身なし|開封済|開封品|再シュリンク|リシュリンク|サーチ|パック|セット|まとめ|カートン|ケース|オリパ|福袋|ジャンク|訳あり|難あり|傷|凹|潰|破れ|海外|英語|中国|韓国|レプリカ|プロモ|専用|予約|購入不可|売り切れ/.test(text)) return false
+  if (/空箱|空き箱|箱のみ|箱だけ|中身なし|開封済|開封品|再シュリンク|リシュリンク|サーチ|パック|セット|まとめ|カートン|ケース|デッキビルド|オリパ|福袋|ジャンク|訳あり|難あり|傷|凹|潰|破れ|海外|英語|中国|韓国|レプリカ|プロモ|専用|予約|購入不可|売り切れ/.test(text)) return false
   const counts = [...text.matchAll(/(\d+)(?:BOX|ボックス|箱)/g)]
   if (counts.length !== 1 || Number(counts[0][1]) !== 1) return false
   if (/[×✕+＋]|(?:BOX|ボックス|箱)[×✕xX]?\d|[二三四五六七八九十複数]+(?:BOX|ボックス|箱)/.test(text)) return false

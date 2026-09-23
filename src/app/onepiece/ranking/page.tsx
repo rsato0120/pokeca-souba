@@ -33,8 +33,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Page({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
-  const { tab } = await searchParams
+export default function Page() {
   const market = buildOnePieceMarket()
   const { products, sets } = getOnePieceCatalog()
   const { rows, baseDate } = buildOnePieceRanking(products, Object.fromEntries(products.map(p => [p.id, getOnePiecePrices(p.id)])))
@@ -48,10 +47,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ t
       <div className="home-panel-head"><div><span>MARKET RANKING</span><h1 style={{ fontSize: 'clamp(18px, 3vw, 26px)', lineHeight: 1.4, margin: '8px 0' }}>ONE PIECE ランキング</h1></div><Link prefetch={false} href="/onepiece/cards">カード一覧 →</Link></div>
       <p className="source-note">売れているカードと相場の動きを、実際の成約から。{baseDate ? `集計基準日 ${baseDate}` : 'データを集計中です。'}</p>
       <RankingTabs tabs={[
-        { id: 'market', label: '値動き・売れ筋・BOX', node: <><DailySalesShare date={baseDate ?? ''} rows={dailySalesTop} game="onepiece" pageUrl="https://pokeca-souba.vercel.app/onepiece/ranking" /><OnePieceRankings key={tab ?? 'sales'} rows={rows} sets={sets} initialTab={tab} /></> },
+        { id: 'sales', label: '売れ筋', note: '集計基準日を含む直近7日間の実成約数順です。', node: <><DailySalesShare date={baseDate ?? ''} rows={dailySalesTop} game="onepiece" pageUrl="https://pokeca-souba.vercel.app/onepiece/ranking" /><OnePieceRankings rows={rows} sets={sets} initialTab="sales" showTabs={false} /></> },
+        { id: 'up', label: '値上がり', note: '前日比または7日比の騰落率です。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="up" showTabs={false} /> },
+        { id: 'down', label: '値下がり', note: '前日比または7日比の騰落率です。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="down" showTabs={false} /> },
+        { id: 'price', label: '高額カード', note: '記録日の成約平均価格が高い順です。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="price" showTabs={false} /> },
+        { id: 'boxes', label: 'BOX', note: '未開封BOXの成約数または成約平均価格で比較できます。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="boxes" showTabs={false} /> },
         { id: 'views', label: '閲覧', note: '実際の閲覧が蓄積するとランキングに表示されます。', node: <TrendingCards cards={market.rows.map(r => ({ id: r.id, name: r.name, rarity: r.rarity, image: r.image, price: r.mid, dayChange: r.dayChange }))} /> },
         { id: 'votes', label: 'みんなの予想', node: <><CommunityPicks cards={market.rows.map(r => ({ ...r, aiUp: r.upPct }))} /><VoteLeaderboard prices={market.matrix} baseDate={market.baseDate} /></> },
-        { id: 'deals', label: 'お買い得出品', node: <BargainListings rows={products.flatMap(p => getOnePieceDetailBargains(p.id)).sort((a, b) => b.discountPct - a.discountPct).slice(0, 30)} /> },
+        { id: 'deals', label: 'お買い得', node: <BargainListings rows={products.flatMap(p => getOnePieceDetailBargains(p.id)).sort((a, b) => b.discountPct - a.discountPct).slice(0, 30)} /> },
       ]} />
     </section>
     <p className="disclaimer">掲載商品の取得範囲内のランキングです。カードは素体（状態A〜D）、BOXは1箱単価。成約件数は市場全体の取引数ではありません。相場は各記録日までの成約平均で、45日を超える古い価格は対象外です。</p>
