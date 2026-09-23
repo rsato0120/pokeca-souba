@@ -10,7 +10,7 @@ import Link from 'next/link'
 import SiteHeader from '@/components/SiteHeader'
 import GameTabs from '@/components/GameTabs'
 import OnePieceRankings from '@/components/OnePieceRankings'
-import { getOnePieceCatalog, getOnePiecePrices, onePieceRarity } from '@/lib/onepiece'
+import { getOnePieceCatalog, getOnePiecePrices, onePieceRarity, onePieceShortName } from '@/lib/onepiece'
 import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
 import DailySalesShare from '@/components/DailySalesShare'
 
@@ -41,7 +41,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ t
   const dailySalesTop = rows.filter(row => row.kind === 'card' && row.salesToday > 0)
     .sort((a, b) => b.salesToday - a.salesToday || b.sales7d - a.sales7d || a.id.localeCompare(b.id))
     .slice(0, 3)
-    .map(row => ({ href: `/onepiece/products/${row.id}`, name: row.name.split('[')[0].trim(), rarity: onePieceRarity(row), sales: row.salesToday }))
+    .map(row => ({ href: `/onepiece/products/${row.id}`, name: onePieceShortName(row.name), rarity: onePieceRarity(row), sales: row.salesToday }))
   return <main className="wrap home-wrap">
     <SiteHeader /><GameTabs game="onepiece" />
     <section className="home-panel" style={{ marginTop: 'var(--sp-5)' }}>
@@ -54,6 +54,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ t
         { id: 'deals', label: 'お買い得出品', node: <BargainListings rows={products.flatMap(p => getOnePieceDetailBargains(p.id)).sort((a, b) => b.discountPct - a.discountPct).slice(0, 30)} /> },
       ]} />
     </section>
-    <p className="disclaimer">掲載商品の取得範囲内のランキングです。カードは状態A、BOXは1箱単価。成約件数は市場全体の取引数ではありません。相場は各記録日までの成約平均で、30日を超える古い価格は対象外です。</p>
+    <p className="disclaimer">掲載商品の取得範囲内のランキングです。カードは素体（状態A〜D）、BOXは1箱単価。成約件数は市場全体の取引数ではありません。相場は各記録日までの成約平均で、45日を超える古い価格は対象外です。</p>
   </main>
 }

@@ -2584,7 +2584,7 @@ a:hover {
 .daily-sales-share-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
 .daily-sales-share-list a { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 8px; min-height: 52px; padding: 10px; border: 1px solid var(--hair); border-radius: var(--r-md); background: var(--panel); }
 .daily-sales-share-list a:hover { border-color: var(--accent); }
-.daily-sales-share-list span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font: 700 11px var(--mono); }
+.daily-sales-share-list a > span:first-child { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font: 700 11px var(--mono); }
 .daily-sales-share-copy { min-width: 0; display: grid; gap: 2px; }
 .daily-sales-share-list strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: 12px; }
 .daily-sales-share-copy small { color: var(--ink-faint); font: 10px var(--mono); }

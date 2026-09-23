@@ -5,6 +5,7 @@ import Link from 'next/link'
 import OnePieceImage from './OnePieceImage'
 import type { OnePieceRankingRow } from '@/lib/onepiece-ranking'
 import type { OnePieceSet } from '@/types/onepiece'
+import { onePieceShortName } from '@/lib/onepiece-name'
 import styles from './OnePieceRankings.module.css'
 
 const tabs = [
@@ -54,7 +55,7 @@ export default function OnePieceRankings({ rows, sets, initialTab }: { rows: One
       <ol className={styles.list}>{visible.map((p, index) => <li key={p.id}><Link prefetch={false} href={`/onepiece/products/${p.id}`} className={styles.row}>
         <span className={`${styles.rank} ${index < 3 ? styles.podium : ''}`}>{index + 1}</span>
         <OnePieceImage product={p} className={styles.image} />
-        <span className={styles.copy}><strong>{p.name.split('[')[0].trim()}</strong><small>{sets.find(s => s.id === p.set_id)?.name} · {p.card_no ?? '未開封BOX'}</small><small>価格記録 {p.date}</small></span>
+        <span className={styles.copy}><strong>{onePieceShortName(p.name)}</strong><small>{sets.find(s => s.id === p.set_id)?.name} · {p.card_no ?? '未開封BOX'}</small><small>価格記録 {p.date}</small></span>
         <span className={styles.metric}><strong className={moving ? (p[period]! > 0 ? 'is-up' : 'is-down') : ''}>{moving ? `${p[period]! > 0 ? '+' : ''}${p[period]!.toFixed(1)}%` : tab === 'price' || (tab === 'boxes' && boxSort === 'price') ? yen(p.avg) : `${p.sales7d.toLocaleString('ja-JP')}件`}</strong>
           <small>{moving ? `${period === 'day' ? '前日比' : '7日比'} · ${yen(p.avg)}` : tab === 'price' || (tab === 'boxes' && boxSort === 'price') ? `7日間 ${p.sales7d}件成約` : `7日間 · ${yen(p.avg)}`}</small></span>
       </Link></li>)}</ol>
