@@ -1085,6 +1085,11 @@ export function shouldHoldSnkrdunkPrice(
   return age >= 0
 }
 
+/** 古い成約を広く集めただけの平均で、既存の相場を更新しない。 */
+export function shouldHoldStaleMercariPrice(previous: PriceRecord | null | undefined, oldestSaleDays: number | null): boolean {
+  return previous != null && (oldestSaleDays ?? 0) > 30
+}
+
 /** 成約APIを最後に引いてから何日経ったか。一度も引いていなければ null */
 function salesFetchedAgeDays(cardId: string, today: string): number | null {
   try {
@@ -1472,6 +1477,12 @@ async function scrapeCard(
       console.log('データ不足 — スキップ（既存価格を維持）')
       stats.skipped++
       await new Promise(r => setTimeout(r, 1000))
+      return
+    }
+
+    if (priceSource === 'mercari' && shouldHoldStaleMercariPrice(prevRecordForSource, oldestSaleDays)) {
+      console.log(`メルカリ成約が古い（最古${oldestSaleDays}日前）— スキップ（既存価格を維持）`)
+      stats.skipped++
       return
     }
 

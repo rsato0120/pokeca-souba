@@ -41,6 +41,9 @@ export function priceChangePctForDays(
   if (index < 0) return null
 
   const compared = records.slice(0, index + 1)
+  // 長期間にわたる成約を平均した値は、取得日が今日でも「今日の相場」ではない。
+  // その値を直近の値動きに混ぜると、古い成約の混入だけで急騰・急落に見えてしまう。
+  if (compared.some(record => (record.oldest_sale_days ?? 0) > 30)) return null
   if (minSnkrdunkSamples > 0 && compared.some(record =>
     record.source === 'snkrdunk' && (record.sample_count ?? 0) < minSnkrdunkSamples,
   )) return null

@@ -11,7 +11,7 @@
  * 価格の不具合を1件直したら、必ずここに1ケース足してから閉じること。
  * 実行: npx tsx scripts/verify-price-guard.ts
  */
-import { guardPrice, matchesCardName, isUnusableSnkrdunkPrice, snkrdunkRequiredSamples, shouldHoldSnkrdunkPrice } from './scrape-prices'
+import { guardPrice, matchesCardName, isUnusableSnkrdunkPrice, snkrdunkRequiredSamples, shouldHoldSnkrdunkPrice, shouldHoldStaleMercariPrice } from './scrape-prices'
 import assert from 'node:assert/strict'
 import type { PriceRecord, PriceSource } from '../src/types/pokeca'
 
@@ -27,6 +27,8 @@ assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-03', '2026-09-04', tru
 assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-03', '2026-09-04', false), true)
 assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-09-01', '2026-09-04', false), true)
 assert.equal(shouldHoldSnkrdunkPrice('snkrdunk', '2026-08-31', '2026-09-04', false), true)
+assert.equal(shouldHoldStaleMercariPrice({ date: '2026-09-22', low: 1, high: 1, source: 'mercari' }, 84), true)
+assert.equal(shouldHoldStaleMercariPrice({ date: '2026-09-22', low: 1, high: 1, source: 'mercari' }, 30), false)
 assert.equal(shouldHoldSnkrdunkPrice('mercari', '2026-09-03', '2026-09-04', false), false)
 
 type OnSale = { count: number | null; askLow: number | null; askMid: number | null }

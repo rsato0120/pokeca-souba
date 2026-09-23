@@ -37,4 +37,7 @@ assert.equal(priceChangePctForDays([
 assert.equal(priceChangePctForDays([
   dated('2026-09-22', 90, 'snkrdunk', 4), dated('2026-09-21', 100),
 ], 1, 1, 20, 6), null, '少数成約のスニダン価格はランキングに使わない')
+assert.equal(priceChangePctForDays([
+  { ...dated('2026-09-22', 90, 'mercari'), oldest_sale_days: 84 }, dated('2026-09-21', 100, 'mercari'),
+], 1, 1, 20), null, '古い成約を含むメルカリ平均は直近の値動きに使わない')
 console.log('price change source-switch regression checks: OK')
