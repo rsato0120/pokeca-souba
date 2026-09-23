@@ -1,14 +1,22 @@
 {
   "product_id": "op01-136031",
-  "fetched_at": "2026-09-23T06:57:55.724Z",
+  "fetched_at": "2026-09-23T18:17:33.754Z",
   "history": [
     {
+      "date": "2026-09-23",
+      "avg": 40480,
+      "low": 36666,
+      "high": 43000,
+      "source": "snkrdunk",
+      "sample_count": 9
+    },
+    {
       "date": "2026-09-17",
-      "avg": 42222,
+      "avg": 42187,
       "low": 39500,
       "high": 44000,
       "source": "snkrdunk",
-      "sample_count": 9
+      "sample_count": 8
     },
     {
       "date": "2026-09-09",
@@ -269,7 +277,8 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-09-17": 2,
+    "2026-09-23": 3,
+    "2026-09-17": 1,
     "2026-09-09": 1,
     "2026-09-01": 1,
     "2026-08-30": 2,
