@@ -4,6 +4,7 @@ import { chromium } from 'playwright'
 import { getSnkrdunkBoxSales, type BoxSale } from './snkrdunk-sales'
 import type { PriceHistory, PriceRecord } from '../src/types/pokeca'
 import { canUsePriceSource } from '../src/lib/price-source'
+import { getSnkrdunkBoxListingCount } from './snkrdunk-box-listings'
 
 const root = process.cwd()
 const pricesDir = path.join(root, 'data', 'prices')
@@ -31,7 +32,7 @@ function recentSales(sales: BoxSale[], target = 20): BoxSale[] {
   return selected
 }
 
-function save(seriesId: string, sales: BoxSale[]): boolean {
+function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolean {
   const selected = recentSales(sales)
   if (selected.length === 0) return false
 
@@ -41,6 +42,10 @@ function save(seriesId: string, sales: BoxSale[]): boolean {
   const high = percentile(prices, 0.8)
   const avg = percentile(prices, 0.5)
   const record: PriceRecord = { date: today, low, high, avg, source: 'snkrdunk', sample_count: prices.length, psa10: null }
+  if (onSale != null) {
+    record.on_sale = onSale
+    record.on_sale_source = 'snkrdunk'
+  } else console.warn(`${seriesId}: 出品数を取得できませんでした（欠測として保存）`)
 
   const filePath = path.join(pricesDir, `${seriesId}.json`)
   let data: PriceHistory = { card_id: seriesId, history: [] }
@@ -79,7 +84,8 @@ async function main() {
     const directApparelId = ids[directSeriesId]
     if (directApparelId) {
       const result = await getSnkrdunkBoxSales(browser, directApparelId, 45)
-      if (!save(directSeriesId, result.sales)) {
+      const count = await getSnkrdunkBoxListingCount(browser, directApparelId)
+      if (!save(directSeriesId, result.sales, count)) {
         throw new Error(`${boxId}: スニダンの成約価格を取得できませんでした`)
       }
       return
@@ -90,12 +96,15 @@ async function main() {
       const apparelId = ids[seriesId]
       if (!apparelId) throw new Error(`スニダン商品IDがありません: ${seriesId}`)
       const result = await getSnkrdunkBoxSales(browser, apparelId, 45)
-      return { seriesId, sales: result.sales }
+      const count = await getSnkrdunkBoxListingCount(browser, apparelId)
+      return { seriesId, sales: result.sales, count }
     }))
 
     let updated = 0
-    for (const variant of variants) if (save(variant.seriesId, variant.sales)) updated++
-    if (save(`box-${boxId}`, variants.flatMap(v => v.sales))) updated++
+    for (const variant of variants) if (save(variant.seriesId, variant.sales, variant.count)) updated++
+    // 片方が欠測なら合算も欠測。取得失敗を0件として扱わない。
+    const total = variants.every(v => v.count != null) ? variants.reduce((sum, v) => sum + v.count!, 0) : null
+    if (save(`box-${boxId}`, variants.flatMap(v => v.sales), total)) updated++
     if (updated === 0) throw new Error(`${boxId}: スニダンの成約価格を取得できませんでした`)
   } finally {
     await browser.close()
