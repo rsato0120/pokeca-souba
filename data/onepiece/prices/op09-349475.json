@@ -1,6 +1,6 @@
 {
   "product_id": "op09-349475",
-  "fetched_at": "2026-09-25T06:18:50.402Z",
+  "fetched_at": "2026-09-25T18:27:29.543Z",
   "history": [
     {
       "date": "2026-07-16",
@@ -21,6 +21,15 @@
   "coverage_start": "2026-06-22",
   "complete": true,
   "psa10_history": [
+    {
+      "date": "2026-09-25",
+      "avg": 354769,
+      "low": 320000,
+      "high": 400000,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "psa10": 354769
+    },
     {
       "date": "2026-09-24",
       "avg": 359333,
@@ -613,9 +622,10 @@
     "2026-09-17": 2,
     "2026-09-18": 2,
     "2026-09-19": 2,
-    "2026-09-24": 1
+    "2026-09-24": 1,
+    "2026-09-25": 2
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-09-25T06:26:58.217Z",
+  "psa10_fetched_at": "2026-09-25T18:34:20.100Z",
   "raw_archived_extremes": null
 }
