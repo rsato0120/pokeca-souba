@@ -507,6 +507,17 @@
       "packs_per_box": 30,
       "pack_image_url": "https://archives.bulbagarden.net/media/upload/c/c6/S8_Fusion_Arts_pack.jpg",
       "note": "2021-09-24発売の拡張パック（1パック5枚・1BOX30パック）。フュージョン発想のミュウを主役にした弾で、AKIRA EGAWA によるミュウVMAX SA(119/100) が剣盾期を代表するチェイスカード。"
+    },
+    {
+      "box_id": "space_juggler",
+      "box_name": "スペースジャグラー",
+      "code": "S10P",
+      "release_ym": "2022-04",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/5d85eb64-73ab-491a-b2f1-c8ccd30d0f5e.webp?size=l",
+      "note": "2022年4月8日発売。1パック5枚入り、1BOX30パック。公式商品情報：https://www.pokemon-card.com/ex/s10/index.html"
     }
   ],
   "cards": [
@@ -34127,6 +34138,201 @@
         "source": "スニダン v1 API（レアリティ・番号）と tcgdex（HP・タイプ・イラストレーター）で確認（2026-09-10） / https://snkrdunk.com/apparels/91162"
       },
       "note": ""
+    },
+    {
+      "id": "space-juggler-69",
+      "card_no": "069/067",
+      "rarity": "SR",
+      "card_name": "スピアーV",
+      "box_id": "space_juggler",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7031f009-5b59-41fb-94d8-2521805ac715.webp?size=l",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 210,
+        "note": "スペースジャグラー収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "rotated",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Narumi Sato",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "スピアーVのSR版。",
+        "source": "TCGdex（S10P-069）とスニダン商品番号96640を照合して2026-09-25登録。"
+      },
+      "note": "スペースジャグラーの主要収録カード。"
+    },
+    {
+      "id": "space-juggler-71",
+      "card_no": "071/067",
+      "rarity": "SR",
+      "card_name": "オリジンパルキアV",
+      "box_id": "space_juggler",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b321cb04-92c6-42fb-9027-136aa8fb1cbe.webp?size=l",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 220,
+        "note": "スペースジャグラー収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "rotated",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Oswaldo KATO",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "オリジンパルキアVのSR版。",
+        "source": "TCGdex（S10P-071）とスニダン商品番号91141を照合して2026-09-25登録。"
+      },
+      "note": "スペースジャグラーの主要収録カード。"
+    },
+    {
+      "id": "space-juggler-75",
+      "card_no": "075/067",
+      "rarity": "SR",
+      "card_name": "ヒスイ オオニューラV",
+      "box_id": "space_juggler",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/c5549606-cdb1-4526-a9a2-a06873c8e8e3.webp?size=l",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 190,
+        "note": "スペースジャグラー収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "rotated",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "OKACHEKE",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "ヒスイ オオニューラVのSR版。",
+        "source": "TCGdex（S10P-075）とスニダン商品番号96646を照合して2026-09-25登録。"
+      },
+      "note": "スペースジャグラーの主要収録カード。"
+    },
+    {
+      "id": "space-juggler-77",
+      "card_no": "077/067",
+      "rarity": "SR",
+      "card_name": "カイ",
+      "box_id": "space_juggler",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/f6533466-8f11-40bf-baa0-de526230a873.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "スペースジャグラー収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "rotated",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "カイのSR版。",
+        "source": "TCGdex（S10P-077）とスニダン商品番号91142を照合して2026-09-25登録。"
+      },
+      "note": "スペースジャグラーの主要収録カード。"
+    },
+    {
+      "id": "space-juggler-88",
+      "card_no": "088/067",
+      "rarity": "UR",
+      "card_name": "ダブルターボエネルギー",
+      "box_id": "space_juggler",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/37dbd8f6-4aca-48c6-8ae9-57005c36e834.webp?size=l",
+      "card_spec": {
+        "type": "エネルギー",
+        "stage": "特殊エネルギー",
+        "hp": 0,
+        "note": "スペースジャグラー収録・UR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "rotated",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "ダブルターボエネルギーのUR版。",
+        "source": "TCGdex（S10P-088）とスニダン商品番号91144を照合して2026-09-25登録。"
+      },
+      "note": "スペースジャグラーの主要収録カード。"
     }
   ],
   "market_posts": [
