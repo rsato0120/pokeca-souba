@@ -21,6 +21,8 @@ export type MarketCard = {
 }
 
 const MOVER_MIN_PCT = 2   // これ未満は「動いた」と言えないので出さない
+const MOVER_MIN_PRICE = 3_000 // 低価格帯の小さな値動きによる変動率の膨張を避ける
+const MOVER_MIN_DIFF = 500
 const MOVER_LIMIT = 3
 
 function signedYen(v: number): string {
@@ -83,7 +85,9 @@ export default function VisitorStrip({ cards }: { cards: MarketCard[] }) {
         .map((c) => {
           if (!c.seriesKey || prev.seriesKeys?.[c.id] !== c.seriesKey) return null
           const was = prev.prices[c.id]
-          if (!was || was <= 0 || c.mid <= 0) return null
+          if (!Number.isFinite(was) || !Number.isFinite(c.mid)) return null
+          if (was < MOVER_MIN_PRICE || c.mid < MOVER_MIN_PRICE) return null
+          if (Math.abs(c.mid - was) < MOVER_MIN_DIFF) return null
           const pct = ((c.mid - was) / was) * 100
           return { c, was, pct }
         })
@@ -116,6 +120,7 @@ export default function VisitorStrip({ cards }: { cards: MarketCard[] }) {
         <div className="visitor-since">
           <div className="visitor-since-head">
             前回見たとき（{md(prev!.date)}{gap > 0 && <>・{gap}日前</>}）から動いたカード
+            <span style={{ color: 'var(--ink-faint)', fontWeight: 400 }}>（前回・現在とも3,000円以上／500円・2%以上の変動）</span>
           </div>
           <div className="visitor-movers">
             {movers.map(({ c, was, pct }) => (
