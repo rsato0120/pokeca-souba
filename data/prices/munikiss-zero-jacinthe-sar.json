@@ -2,6 +2,21 @@
   "card_id": "munikiss-zero-jacinthe-sar",
   "history": [
     {
+      "date": "2026-09-29",
+      "low": 1000,
+      "high": 1699,
+      "avg": 1300,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 44,
+      "ask_low": 1100,
+      "ask_mid": 1611,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8351,
+      "psa10_as_of": "2026-09-17"
+    },
+    {
       "date": "2026-09-28",
       "low": 1000,
       "high": 1800,
@@ -1076,15 +1091,6 @@
       "ask_low": 1300,
       "ask_mid": 1666,
       "psa10": 17364
-    },
-    {
-      "date": "2026-06-27",
-      "low": 1437,
-      "high": 1757,
-      "avg": 1597,
-      "ask_low": 1300,
-      "ask_mid": 1666,
-      "psa10": 17364
     }
   ],
   "sales_by_day": {
@@ -1113,7 +1119,8 @@
     "2026-09-22": 2,
     "2026-09-23": 1,
     "2026-09-26": 1,
-    "2026-09-27": 1
+    "2026-09-27": 1,
+    "2026-09-28": 1
   },
   "psa10_sales_by_day": {
     "2026-08-24": 3,
@@ -1146,7 +1153,7 @@
     "2026-09-17": 1,
     "2026-09-18": 1
   },
-  "sales_fetched_at": "2026-09-28",
+  "sales_fetched_at": "2026-09-29",
   "psa10_archived_extremes": {
     "high": {
       "value": 17364,
@@ -1159,7 +1166,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 1,
-    "updated_at": "2026-06-23"
+    "records": 2,
+    "updated_at": "2026-06-27"
   }
 }
