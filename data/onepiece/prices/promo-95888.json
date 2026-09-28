@@ -1,6 +1,6 @@
 {
   "product_id": "promo-95888",
-  "fetched_at": "2026-09-28T06:56:45.764Z",
+  "fetched_at": "2026-09-28T21:04:45.723Z",
   "history": [
     {
       "date": "2026-08-10",
@@ -262,13 +262,31 @@
   "complete": true,
   "psa10_history": [
     {
-      "date": "2026-09-27",
+      "date": "2026-09-29",
+      "avg": 15156,
+      "low": 15000,
+      "high": 15500,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "psa10": 15156
+    },
+    {
+      "date": "2026-09-28",
       "avg": 15181,
       "low": 15000,
       "high": 15500,
       "source": "snkrdunk",
       "sample_count": 20,
       "psa10": 15181
+    },
+    {
+      "date": "2026-09-27",
+      "avg": 15253,
+      "low": 15000,
+      "high": 15780,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "psa10": 15253
     },
     {
       "date": "2026-09-26",
@@ -1142,9 +1160,11 @@
     "2026-09-24": 1,
     "2026-09-25": 1,
     "2026-09-26": 1,
-    "2026-09-27": 7
+    "2026-09-27": 1,
+    "2026-09-29": 1,
+    "2026-09-28": 7
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-09-28T07:04:04.444Z",
+  "psa10_fetched_at": "2026-09-28T21:16:21.400Z",
   "raw_archived_extremes": null
 }
