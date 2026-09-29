@@ -2,6 +2,21 @@
   "card_id": "inferno-x-rotom-ex-sar",
   "history": [
     {
+      "date": "2026-09-30",
+      "low": 1000,
+      "high": 1500,
+      "avg": 1167,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 28,
+      "ask_low": 1500,
+      "ask_mid": 1500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6033,
+      "psa10_as_of": "2026-09-13"
+    },
+    {
       "date": "2026-09-29",
       "low": 1000,
       "high": 1500,
@@ -1114,15 +1129,6 @@
       "ask_low": 950,
       "ask_mid": 1135,
       "psa10": 7708
-    },
-    {
-      "date": "2026-06-28",
-      "low": 1230,
-      "high": 1504,
-      "avg": 1367,
-      "ask_low": 950,
-      "ask_mid": 1111,
-      "psa10": 7708
     }
   ],
   "sales_by_day": {
@@ -1180,7 +1186,7 @@
     "2026-09-13": 4,
     "2026-09-14": 3
   },
-  "sales_fetched_at": "2026-09-29",
+  "sales_fetched_at": "2026-09-30",
   "psa10_archived_extremes": {
     "high": {
       "value": 7708,
@@ -1193,7 +1199,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 2,
-    "updated_at": "2026-06-27"
+    "records": 3,
+    "updated_at": "2026-06-28"
   }
 }
