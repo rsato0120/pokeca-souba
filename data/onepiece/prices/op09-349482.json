@@ -1,6 +1,6 @@
 {
   "product_id": "op09-349482",
-  "fetched_at": "2026-09-28T21:05:02.774Z",
+  "fetched_at": "2026-09-29T07:03:27.209Z",
   "history": [
     {
       "date": "2026-08-23",
@@ -217,6 +217,15 @@
   "coverage_start": "2026-06-03",
   "complete": true,
   "psa10_history": [
+    {
+      "date": "2026-09-29",
+      "avg": 44755,
+      "low": 39999,
+      "high": 48980,
+      "source": "snkrdunk",
+      "sample_count": 21,
+      "psa10": 44755
+    },
     {
       "date": "2026-09-28",
       "avg": 44619,
@@ -867,39 +876,39 @@
     },
     {
       "date": "2026-06-06",
-      "avg": 106764,
-      "low": 98000,
+      "avg": 107595,
+      "low": 99800,
       "high": 111111,
       "source": "snkrdunk",
-      "sample_count": 19,
-      "psa10": 106764
+      "sample_count": 18,
+      "psa10": 107595
     },
     {
       "date": "2026-06-05",
-      "avg": 98914,
-      "low": 95000,
-      "high": 100000,
+      "avg": 100100,
+      "low": 98000,
+      "high": 100100,
       "source": "snkrdunk",
-      "sample_count": 7,
-      "psa10": 98914
+      "sample_count": 6,
+      "psa10": 100100
     },
     {
       "date": "2026-06-04",
-      "avg": 97400,
+      "avg": 98520,
       "low": 95000,
-      "high": 99800,
+      "high": 100000,
       "source": "snkrdunk",
-      "sample_count": 6,
-      "psa10": 97400
+      "sample_count": 5,
+      "psa10": 98520
     },
     {
       "date": "2026-06-03",
-      "avg": 96150,
-      "low": 91800,
+      "avg": 97600,
+      "low": 95000,
       "high": 99800,
       "source": "snkrdunk",
-      "sample_count": 4,
-      "psa10": 96150
+      "sample_count": 3,
+      "psa10": 97600
     },
     {
       "date": "2026-06-01",
@@ -1088,9 +1097,10 @@
     "2026-09-24": 1,
     "2026-09-25": 1,
     "2026-09-26": 1,
-    "2026-09-28": 1
+    "2026-09-28": 1,
+    "2026-09-29": 2
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-09-28T21:16:34.993Z",
+  "psa10_fetched_at": "2026-09-29T07:13:01.543Z",
   "raw_archived_extremes": null
 }
