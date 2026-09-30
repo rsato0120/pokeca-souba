@@ -1,20 +1,28 @@
 {
   "product_id": "op17-871073",
-  "fetched_at": "2026-09-29T19:35:17.212Z",
+  "fetched_at": "2026-09-30T06:52:15.732Z",
   "history": [
     {
+      "date": "2026-09-30",
+      "avg": 23520,
+      "low": 23000,
+      "high": 25000,
+      "source": "snkrdunk",
+      "sample_count": 20
+    },
+    {
       "date": "2026-09-29",
-      "avg": 23270,
-      "low": 22000,
+      "avg": 23420,
+      "low": 23000,
       "high": 24000,
       "source": "snkrdunk",
       "sample_count": 20
     },
     {
       "date": "2026-09-28",
-      "avg": 23370,
-      "low": 22000,
-      "high": 24999,
+      "avg": 23620,
+      "low": 23000,
+      "high": 25000,
       "source": "snkrdunk",
       "sample_count": 20
     },
@@ -28,19 +36,19 @@
     },
     {
       "date": "2026-09-26",
-      "avg": 23836,
-      "low": 23000,
-      "high": 25000,
-      "source": "snkrdunk",
-      "sample_count": 22
-    },
-    {
-      "date": "2026-09-25",
-      "avg": 23828,
+      "avg": 24019,
       "low": 23000,
       "high": 25000,
       "source": "snkrdunk",
       "sample_count": 21
+    },
+    {
+      "date": "2026-09-25",
+      "avg": 24020,
+      "low": 23000,
+      "high": 25000,
+      "source": "snkrdunk",
+      "sample_count": 20
     },
     {
       "date": "2026-09-24",
@@ -301,10 +309,11 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-09-29": 6,
-    "2026-09-28": 2,
-    "2026-09-27": 1,
-    "2026-09-25": 2,
+    "2026-09-30": 1,
+    "2026-09-29": 5,
+    "2026-09-28": 3,
+    "2026-09-26": 1,
+    "2026-09-25": 1,
     "2026-09-24": 1,
     "2026-09-23": 3,
     "2026-09-22": 4,
@@ -343,5 +352,5 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-09-29T19:47:39.332Z"
+  "psa10_fetched_at": "2026-09-30T06:59:57.471Z"
 }
