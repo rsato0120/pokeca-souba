@@ -32,9 +32,9 @@ export function todayJST(): string {
   return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10)
 }
 
-function read(): VisitStore | null {
+function read(key = KEY): VisitStore | null {
   try {
-    const raw = localStorage.getItem(KEY)
+    const raw = localStorage.getItem(key)
     if (!raw) return null
     const v = JSON.parse(raw) as VisitStore
     return v && typeof v.date === 'string' && v.prices ? v : null
@@ -58,19 +58,19 @@ export function daysBetween(from: string, to: string): number {
 }
 
 // トップページ用: 前回の記録を返しつつ、今日ぶんのスナップショットを書く。
-export function useLastVisit(current: Record<string, number>, seriesKeys: Record<string, string>): { prev: LastVisit | null; ready: boolean } {
+export function useLastVisit(current: Record<string, number>, seriesKeys: Record<string, string>, storageKey = KEY): { prev: LastVisit | null; ready: boolean } {
   const [state, setState] = useState<{ prev: LastVisit | null; ready: boolean }>({ prev: null, ready: false })
 
   useEffect(() => {
     const today = todayJST()
-    const store = read()
+    const store = read(storageKey)
     const prev = pickPrev(store, today)
 
     if (!store || store.date !== today) {
       const next: VisitStore = store
         ? { date: today, prices: current, seriesKeys, prevSeriesKeys: store.seriesKeys, prevDate: store.date, prevPrices: store.prices }
         : { date: today, prices: current, seriesKeys }
-      try { localStorage.setItem(KEY, JSON.stringify(next)) } catch { /* 容量超過は無視（表示は落とさない） */ }
+      try { localStorage.setItem(storageKey, JSON.stringify(next)) } catch { /* 容量超過は無視（表示は落とさない） */ }
     }
 
     // localStorageはマウント後にしか読めない（意図的なハイドレーション回避パターン）

@@ -1,4 +1,6 @@
+import PackImage from './PackImage'
 import Link from 'next/link'
+import { marketCardHref } from '@/lib/market-links'
 import type { MarketListing } from '@/types/pokeca'
 
 export interface SalesRankRow {
@@ -23,11 +25,10 @@ export default function SalesRanking({ rows }: { rows: SalesRankRow[] }) {
     <ol className="market-rank-list">
       {rows.map((row, index) => (
         <li key={row.slug} className="market-rank-item">
-          <Link prefetch={false} href={`/cards/${row.slug}`} className="market-rank-card">
+          <Link prefetch={false} href={marketCardHref(row.slug)} className="market-rank-card">
             <span className="market-rank-number">{index + 1}</span>
             {row.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={row.image} alt="" className="market-rank-thumb" />
+                            <PackImage src={row.image} alt="" className="market-rank-thumb" />
             ) : (
               <span className="market-rank-thumb market-rank-thumb-placeholder">{row.rarity}</span>
             )}

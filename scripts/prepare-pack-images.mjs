@@ -4,7 +4,9 @@ import sharp from 'sharp'
 const catalog = JSON.parse(fs.readFileSync('data/pokeca_data.json', 'utf8'))
 const file = 'data/pack-image-bounds.json'
 const bounds = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {}
-for (const box of catalog.boxes) {
+const onepiece = JSON.parse(fs.readFileSync('data/onepiece/catalog.json', 'utf8'))
+const artwork = [...catalog.boxes, ...onepiece.products.map(p => ({ box_id: p.id, pack_image_url: p.image_url }))]
+for (const box of artwork) {
   const src = box.pack_image_url
   if (!src || bounds[src]) continue
   const response = await fetch(src, { signal: AbortSignal.timeout(30000) })

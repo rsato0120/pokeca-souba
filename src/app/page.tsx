@@ -1,6 +1,6 @@
 import { priceSeriesKey } from '@/lib/price-source'
 import { priceChangePct, priceChangePctForDays } from '@/lib/price-change'
-import Link from 'next/link'
+import HomeDeals from '@/components/HomeDeals'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast, getPriceHistory, getLastUpdate, getBoxPriceHistory, getBoxPriceVariant, getMarketListings, getBoxMarketListings } from '@/lib/data'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { sparkSeries, todayJST, midOf } from '@/lib/market'
@@ -17,10 +17,10 @@ import MarketPulse from '@/components/MarketPulse'
 import BoxBargainListings from '@/components/BoxBargainListings'
 import { computeMarketTemp } from '@/lib/market-temp'
 import { onSaleChange } from '@/lib/on-sale'
-import BoxRanking from '@/components/BoxRanking'
+import HomeMarketPanels from '@/components/HomeMarketPanels'
 import { buildBoxRanking } from '@/lib/box-ranking'
 import { getMarketIndex, indexChangePct } from '@/lib/index-series'
-import { assessBargain, mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
+import { assessBargain } from '@/lib/bargains'
 
 
 export const revalidate = 3600
@@ -294,126 +294,18 @@ export default function TopPage() {
 
       <VisitorStrip cards={marketCards} />
 
-      {salesLeaders.length > 0 && (
-        <section className="home-panel home-sales-panel">
-          <div className="home-panel-head">
-            <div><span>BEST SELLERS</span><h2>いま売れているカード</h2></div>
-            <Link prefetch={false} href="/ranking">売れ筋ランキング →</Link>
-          </div>
-          <div className="home-sales-grid">
-            {salesLeaders.slice(0, 5).map(({ m, count }, index) => (
-              <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="home-sales-card">
-                <span className="home-sales-rank">{index + 1}</span>
-                {m.card.image_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用
-                  <img src={m.card.image_url} alt="" />
-                ) : (
-                  <span className="home-sales-image-ph">{m.card.rarity}</span>
-                )}
-                <span className="home-sales-copy">
-                  <strong>{m.card.card_name}</strong>
-                  <small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small>
-                  <b>7日間 {count}件成約</b>
-                  <small>出品 {m.onSale != null ? `${m.onSale.toLocaleString()}件` : '—'}</small>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {bargainRows.length > 0 && (
-        <section className="home-panel home-bargain-panel">
-          <div className="home-panel-head">
-            <div><span>MARKET DEALS</span><h2>相場より安い出品</h2></div>
-            <Link prefetch={false} href="/ranking">お買い得をもっと見る →</Link>
-          </div>
-            <div className="home-bargain-grid">
-            {bargainRows.slice(0, 5).map(({ card, listing, marketPrice, savings, discountPct }) => (
-              <a
-                key={listing.id}
-                href={mercariAffiliateUrl(listing.url)}
-                target="_blank"
-                rel="nofollow noreferrer"
-                className="home-bargain-card"
-                aria-label={`${card.card_name}の出品をメルカリで見る`}
-              >
-                <span className="home-bargain-info">
-                  {listing.image_url || card.image_url ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- 取得済みの出品画像またはカード画像を表示
-                    <img src={listing.image_url ?? card.image_url ?? ''} alt="" />
-                  ) : (
-                    <span className="home-bargain-image-ph">{card.rarity}</span>
-                  )}
-                  <span>
-                    <strong>{card.card_name}</strong>
-                    <small>相場 ¥{marketPrice.toLocaleString()}</small>
-                    <b>¥{listing.price.toLocaleString()}</b>
-                  </span>
-                </span>
-                <div className="home-bargain-foot">
-                  <span>{discountPct.toFixed(1)}%安い <small>−¥{savings.toLocaleString()}</small></span>
-                  <strong>メルカリで見る →</strong>
-                </div>
-              </a>
-            ))}
-          </div>
-          {/* A8インプレッション計測タグ（メルカリ） */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={MERCARI_A8_IMPRESSION_URL} width={1} height={1} alt="" style={{ position: 'absolute', width: 1, height: 1, border: 0 }} />
-        </section>
-      )}
-
-      <div className="home-dashboard-grid">
-        {(surgeCards.length > 0 || dropCards.length > 0) && (
-          <section className="home-panel">
-            <div className="home-panel-head">
-              <div><span>MARKET MOVES</span><h2>今日の値動き</h2></div>
-              <Link prefetch={false} href="/ranking">すべて見る →</Link>
-            </div>
-            <div className="rank-cols home-rank-cols">
-              <div>
-                <div className="home-rank-label is-up">▲ 急騰</div>
-                {surgeCards.slice(0, 3).map(m => {
-                  const change = getChange(m)
-                  return (
-                    <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
-                      {/* eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用 */}
-                      {m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span>}
-                      <span><strong>{m.card.card_name}</strong><small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small></span>
-                      <em className="is-up">+{change.toFixed(1)}%</em>
-                    </Link>
-                  )
-                })}
-              </div>
-              <div>
-                <div className="home-rank-label is-down">▼ 急落</div>
-                {dropCards.slice(0, 3).map(m => {
-                  const change = getChange(m)
-                  return (
-                    <Link prefetch={false} key={m.slug} href={`/cards/${m.slug}`} className="home-market-row">
-                      {/* eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLをそのまま使用 */}
-                      {m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span>}
-                      <span><strong>{m.card.card_name}</strong><small>{m.card.rarity} · ¥{Math.round(m.currentMid).toLocaleString()}</small></span>
-                      <em className="is-down">{change.toFixed(1)}%</em>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {boxRanking.length > 0 && (
-          <section className="home-panel">
-            <div className="home-panel-head">
-              <div><span>SEALED BOX</span><h2>未開封BOX</h2></div>
-              <Link prefetch={false} href="/ranking">すべて見る →</Link>
-            </div>
-            <BoxRanking rows={boxRanking.slice(0, 3)} />
-          </section>
-        )}
-      </div>
+      <HomeMarketPanels rankingHref="/ranking" boxes={boxRanking}
+        deals={<HomeDeals rankingHref="/ranking" rows={bargainRows.map(({card,slug,listing,marketPrice,savings,discountPct})=>({listingId:listing.id,slug,name:card.card_name,rarity:card.rarity,cardImage:card.image_url ?? null,listingImage:listing.image_url ?? null,title:listing.title,listingPrice:listing.price,marketPrice,savings,discountPct,url:listing.url}))} />}
+        sales={salesLeaders.map(({ m, count }) => ({ id: m.slug, href: '/cards/' + m.slug, name: m.card.card_name, rarity: m.card.rarity, mid: m.currentMid, sales: count, onSale: m.onSale,
+          // eslint-disable-next-line @next/next/no-img-element
+          image: m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-sales-image-ph">{m.card.rarity}</span> }))}
+        surge={surgeCards.map(m => ({ id: m.slug, href: '/cards/' + m.slug, name: m.card.card_name, rarity: m.card.rarity, mid: m.currentMid, change: getChange(m),
+          // eslint-disable-next-line @next/next/no-img-element
+          image: m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span> }))}
+        drop={dropCards.map(m => ({ id: m.slug, href: '/cards/' + m.slug, name: m.card.card_name, rarity: m.card.rarity, mid: m.currentMid, change: getChange(m),
+          // eslint-disable-next-line @next/next/no-img-element
+          image: m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span> }))}
+      />
 
       <BoxBargainListings data={getBoxMarketListings()} />
 

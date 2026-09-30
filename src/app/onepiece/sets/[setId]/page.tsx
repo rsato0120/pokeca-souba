@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import OnePieceHome from '@/components/OnePieceHome'
 import { getOnePieceCatalog } from '@/lib/onepiece'
 export const dynamicParams = false
@@ -10,5 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ setId: st
 export default async function Page({ params }: { params: Promise<{ setId: string }> }) {
   const { setId } = await params
   if (!getOnePieceCatalog().sets.some(s => s.id === setId)) notFound()
+  const box = getOnePieceCatalog().products.find(p => p.set_id === setId && p.kind === 'box')
+  if (box) redirect('/onepiece/products/' + box.id)
   return <OnePieceHome setId={setId} />
 }

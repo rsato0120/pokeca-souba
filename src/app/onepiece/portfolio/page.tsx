@@ -1,5 +1,5 @@
 import { getOnePieceForecast } from '@/lib/onepiece'
-import SiteHeader from '@/components/SiteHeader'
+import KaitoriLink from '@/components/KaitoriLink'
 import PortfolioView, { type PortfolioCardData } from '@/components/PortfolioView'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName } from '@/lib/onepiece'
 
@@ -21,5 +21,5 @@ export default function Page() {
       href: `/onepiece/products/${p.id}`,
     }
   })
-  return <main className="wrap"><SiteHeader /><PortfolioView game="onepiece" cards={cards} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name }))} /></main>
+  return <><PortfolioView game="onepiece" cards={cards} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name }))} /><div style={{ maxWidth: '680px', margin: '0 auto', padding: '0 16px 32px' }}><KaitoriLink /></div></>
 }

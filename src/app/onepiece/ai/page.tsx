@@ -1,23 +1,16 @@
-import Link from 'next/link'
-import SiteHeader from '@/components/SiteHeader'
-import ScreenerTable from '@/components/ScreenerTable'
+import AiOverview from '@/components/AiOverview'
 import { buildOnePieceMarket } from '@/lib/onepiece-market'
-import { marketCardHref, onePieceMarketId } from '@/lib/market-links'
-import { getOnePieceForecast } from '@/lib/onepiece'
+import { onePieceMarketId } from '@/lib/market-links'
+import { getOnePieceForecast, getOnePiecePredictionLog, onePieceRarity, onePieceShortName } from '@/lib/onepiece'
 import { computeOnePieceScore } from '@/lib/onepiece-score'
-export const metadata = { title: 'ONE PIECE AI投資スコア' }
+import { computeAccuracy } from '@/lib/accuracy'
+import { aiVerdict, UP_VERDICT_PCT } from '@/lib/verdict'
+export const metadata = { title: 'ONE PIECE AI予想' }
 export default function Page() {
-  const { rows, sets, index7d, products, observations } = buildOnePieceMarket()
-  const forecastRows = rows.filter(r => r.upPct != null)
-  const candidates = products.map(product => {
-    const row = rows.find(r => r.id === onePieceMarketId(product.id))
-    const score = computeOnePieceScore(observations[product.id], getOnePieceForecast(product.id))
-    return row && score ? { row, score: score.total } : null
-  }).filter((item): item is NonNullable<typeof item> => item != null).sort((a, b) => b.score - a.score).slice(0, 8)
-  return <main className="wrap"><SiteHeader /><h1>ONE PIECE AI投資スコア</h1>
-    <p className="source-note">スニダンの実成約価格・価格推移・PSA10相場・AI見通しから、実データがある項目だけで100点満点のスコアを算出します。<Link prefetch={false} href="/onepiece/accuracy">的中実績を見る →</Link></p>
-    <section className="home-panel"><h2>AI投資スコア上位</h2>{candidates.map(({ row, score }) => <Link prefetch={false} className="home-market-row" key={row.id} href={marketCardHref(row.id)}><span><strong>{row.name}</strong><small>{row.boxName} · ¥{row.mid.toLocaleString()}</small></span><em className="is-up">AI投資スコア {score} / 100</em></Link>)}{!candidates.length && <p>スコアを計算できる相場データがありません。</p>}</section>
-    <ScreenerTable rows={forecastRows} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name }))} rarities={[...new Set(forecastRows.map(r => r.rarity))]} index7d={index7d} />
-    <p className="source-note">相場データが不足している商品は生成対象外です。AI予想は将来の価格を保証しません。</p>
-  </main>
+  const { products, observations, ranking } = buildOnePieceMarket()
+  const cards = products.filter(p => p.kind === 'card')
+  const forecastRows = cards.flatMap(p => { const f = getOnePieceForecast(p.id); return f ? [{ slug: onePieceMarketId(p.id), name: onePieceShortName(p.name), rarity: onePieceRarity(p), upPct: f.overall.up_pct, verdict: aiVerdict(f.overall), cur: observations[p.id]?.history[0]?.avg ?? null, m3Low: f.price_forecast.m3_low, m3High: f.price_forecast.m3_high }] : [] }).sort((a,b) => b.upPct-a.upPct).slice(0,60)
+  const picks = cards.flatMap(p => { const f=getOnePieceForecast(p.id), data=observations[p.id], score=computeOnePieceScore(data,f), r=ranking.rows.find(r=>r.id===p.id); return f && r && f.overall.up_pct >= UP_VERDICT_PCT ? [{ slug: onePieceMarketId(p.id), name: onePieceShortName(p.name), rarity: onePieceRarity(p), cardNo: p.card_no ?? '', image: p.image_url, mid: r.avg, dayPct: r.day, score: score?.total ?? null, upPct: f.overall.up_pct, m3Low: f.price_forecast.m3_low, m3High: f.price_forecast.m3_high, omens: [], cautions: [], thesis: f.overall.reason }] : [] }).sort((a,b)=>(b.score ?? -1)-(a.score ?? -1)).slice(0,9)
+  const accuracy=computeAccuracy(cards.map(p=>({ id:onePieceMarketId(p.id),name:onePieceShortName(p.name),rarity:onePieceRarity(p),history:observations[p.id]?.history ?? [],log:getOnePiecePredictionLog(p.id) })))
+  return <AiOverview picks={picks} accuracy={accuracy} forecastRows={forecastRows} accuracyHref="/onepiece/accuracy" />
 }

@@ -44,5 +44,5 @@ export function buildOnePieceMarket() {
     }
     matrix[onePieceMarketId(product.id)] = values
   }
-  return { products, sets, observations, ranking, rows, indices, index7d: indexChangePct(index, 7), matrix, baseDate }
+  return { products, sets, observations, ranking, rows, indices, index, indexDayPct: indexChangePct(index, 1), index7d: indexChangePct(index, 7), matrix, baseDate }
 }

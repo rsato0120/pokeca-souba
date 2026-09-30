@@ -21,7 +21,7 @@ export default function BoxRanking({ rows }: { rows: BoxRankRow[] }) {
       {rows.map((r, i) => {
         const tone = r.weekPct == null ? 'var(--ink-faint)' : r.weekPct > 0 ? 'var(--up)' : r.weekPct < 0 ? 'var(--down)' : 'var(--flat)'
         return (
-          <Link prefetch={false} key={r.boxId} href={`/boxes/${r.boxId}`} className="boxrank-row">
+          <Link prefetch={false} key={r.boxId} href={r.href ?? `/boxes/${r.boxId}`} className="boxrank-row">
             <span className="boxrank-no">{i + 1}</span>
 
             {r.packImage ? (
@@ -33,7 +33,7 @@ export default function BoxRanking({ rows }: { rows: BoxRankRow[] }) {
             <span className="boxrank-main">
               <span className="boxrank-name">{r.boxName}</span>
               <span className="boxrank-meta">
-                {r.code} · {r.releaseYm} · {VARIANT_LABEL[r.variant]}
+                {r.code} · {r.releaseYm} · {r.variantLabel ?? VARIANT_LABEL[r.variant]}
                 {/* 出品件数は価格と**同じ系列**（2026-08-30に統一）。
                     その系列に件数が無い弾は他系列で埋めず「—」にする。0件と欠測を混同しない */}
                 <> · 出品 {r.onSale == null ? '—' : <>{r.onSale}件{r.onSaleCapped && '以上'}</>}</>

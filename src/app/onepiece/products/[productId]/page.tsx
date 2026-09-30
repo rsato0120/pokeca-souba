@@ -1,3 +1,7 @@
+import SearchBar from '@/components/SearchBar'
+import BoxSelector from '@/components/BoxSelector'
+import PackImage from '@/components/PackImage'
+import { aiVerdict } from '@/lib/verdict'
 import CardCharts from '@/components/CardCharts'
 import PriceForecastChart from '@/components/PriceForecastChart'
 import OnePieceForecast from '@/components/OnePieceForecast'
@@ -14,10 +18,10 @@ import SiteHeader from '@/components/SiteHeader'
 import CardCollectionControl from '@/components/CardCollectionControl'
 import PriceHistoryChart from '@/components/PriceHistoryChart'
 import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
-import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, isOnePiecePriceStale } from '@/lib/onepiece'
+import { getOnePieceCatalog, getOnePiecePrices, onePieceShortName, onePieceRarity, isOnePiecePriceStale } from '@/lib/onepiece'
 import DetailBargains from '@/components/DetailBargains'
 import OnePieceImage from '@/components/OnePieceImage'
-import OnePieceCatalog from '@/components/OnePieceCatalog'
+import OnePieceSetCards from '@/components/OnePieceSetCards'
 import CardScorePanel from '@/components/CardScorePanel'
 import { computeOnePieceScore } from '@/lib/onepiece-score'
 import { getOnePieceDetailBargains } from '@/lib/detail-bargains'
@@ -48,34 +52,32 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const tweetText = [onePieceShortName(product.name), latest ? `スニダン成約相場 ${yen(latest.avg)}（${latest.date}）` : '相場データを確認', `https://pokeca-souba.vercel.app/onepiece/products/${product.id}`, '#ワンピースカード #ワンピカード'].join('\n')
   const extremes = onePieceRawExtremes(prices)
   const investmentScore = computeOnePieceScore(prices, forecast)
-  return <main className="wrap op-page"><SiteHeader />
-    <nav className="op-breadcrumb" aria-label="パンくず"><Link prefetch={false} href="/onepiece">ONE PIECE</Link><span> / </span><Link prefetch={false} href={`/onepiece/sets/${set.id}`}>{set.name}</Link></nav>
-    <section className="op-detail-hero">
-      <OnePieceImage product={product} className={`op-detail-image ${product.kind === 'box' ? 'op-detail-box-image' : ''}`} />
-      <div><p className="op-eyebrow">{set.code} · {product.card_no ?? '未開封BOX'}</p><h1>{onePieceShortName(product.name)}</h1>
-        <p className="op-muted">{set.name} · {product.kind === 'card' ? '状態A（きれいな状態）' : '1箱あたり'}</p>
-        <p className="op-muted">スニーカーダンク 成約平均</p><p className="op-detail-price">{latest ? yen(latest.avg) : '成約データ不足'}</p>
-        <p className="op-muted">{latest ? `${latest.date}時点 · ${latest.sample_count}件の成約から算出` : '相場算出には30日以内に3件以上の成約が必要です。'}</p>
-        {isOnePiecePriceStale(prices) && <p className="op-muted">取得時点で30日以上前の参考値です。最近の相場を算出できる成約件数が不足しています。</p>}
-        {psa10?.psa10 != null && <p className="op-muted">PSA10相場 ¥{psa10.psa10.toLocaleString()}（{psa10.date}）</p>}
-        <WatchButton cardId={marketId} mid={latest?.avg ?? 0} />
-        <CardViewCounter cardId={marketId} />
-        <CardCollectionControl cardId={`onepiece:${product.id}`} hasPsa10={psa10?.psa10 != null} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} />
-        <p><Link prefetch={false} href="/onepiece/portfolio">マイコレクションを見る →</Link></p>
-        <a className="op-buy-link" href={mercariUrl} target="_blank" rel="sponsored nofollow noreferrer">メルカリで出品を見る ↗</a>
-        <p className="op-footnote">広告・アフィリエイトリンク</p>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" />
+  const signal = forecast ? aiVerdict(forecast.overall) : null
+  const controls = <><WatchButton cardId={marketId} mid={latest?.avg ?? 0} /><CardCollectionControl cardId={'onepiece:' + product.id} hasPsa10={psa10?.psa10 != null} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} /><p className="source-note"><Link prefetch={false} href="/onepiece/portfolio">マイコレクションを見る →</Link></p><a href={mercariUrl} className="pill" target="_blank" rel="sponsored nofollow noreferrer">メルカリで探す ↗</a><p className="source-note">広告・アフィリエイトリンク</p>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" /></>
+  const marketPanel = <div className="panel" style={{ background: 'var(--bg2)', marginBottom: 'var(--sp-4)' }}><div className="eyebrow" style={{ marginBottom: 'var(--sp-2)' }}>MARKET · 市場価格</div><div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}><div><div className="stat-label">スニダン実成約{product.kind === 'box' ? '・1箱単価' : '・状態A'}</div><span className="stat-value" style={{ color: 'var(--accent)' }}>{latest ? yen(latest.avg) : 'データ不足'}</span></div>{product.kind === 'card' && <div><div className="stat-label">PSA10相場</div><span className="stat-value" style={{ color: '#6c8ebf' }}>{psa10 ? yen(psa10.psa10 ?? undefined) : '—'}</span></div>}</div><p className="source-note">{latest ? latest.date + '時点 · ' + latest.sample_count + '件の成約から算出' : '成約データを集計中です。'}{isOnePiecePriceStale(prices) ? ' · 古い参考値です。' : ''}</p></div>
+  return <main className="wrap" style={product.kind === 'card' ? { maxWidth: '820px' } : undefined}>
+    <Link prefetch={false} href="/onepiece" style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--ink-faint)', letterSpacing: '0.06em', display: 'inline-block', padding: '18px 0 10px' }}>← トップへ戻る</Link><SiteHeader />
+    {product.kind === 'box' ? <>
+      <BoxSelector basePath="/onepiece/sets" current={set.id} marginTop={0} marginBottom={24} boxes={sets.map(s=>({box_id:s.id,box_name:s.name,release_ym:s.release_date.slice(0,7)}))} />
+      <div className="box-set-header">{product.image_url && <PackImage src={product.image_url} alt={set.name} className="box-pack-art" />}<div style={{ flex: 1 }}><div className="eyebrow">BOX · 収録弾</div><h1 style={{ fontFamily: 'var(--mincho)', fontWeight: 800, marginBottom: 10 }}>{set.name}</h1><p className="source-note">{set.release_date} 発売 · {products.filter(p=>p.set_id===set.id && p.kind==='card').length}枚収録（掲載中）</p></div></div>
+      {marketPanel}{controls}
+    </> : <>
+      <div style={{ marginBottom: 30 }}><SearchBar basePath="/onepiece/products" cards={products.filter(p=>p.kind==='card').map(p=>({slug:p.id,card_name:onePieceShortName(p.name),rarity:onePieceRarity(p),box_name:sets.find(s=>s.id===p.set_id)?.name ?? '',up_pct:null}))} /></div>
+      <CardViewCounter cardId={marketId} />
+      <div className="card-detail-grid" style={{ display: 'grid', gridTemplateColumns: '210px 1fr', gap: 30, alignItems: 'start', marginBottom: 24 }}>
+        <div className="card-detail-col-card"><div className="card-detail-figure"><OnePieceImage product={product} className="pokecard holo" />{signal && <div style={{ marginTop: 12, textAlign: 'center', color: signal.color }}>{signal.dot} {signal.label}</div>}</div></div>
+        <div style={{ paddingTop: 4 }}><div className="eyebrow" style={{ marginBottom: 6 }}>FORECAST · 今後 6ヶ月</div><h1 style={{ fontFamily: 'var(--mincho)', fontSize: 26, fontWeight: 800, letterSpacing: '0.02em', marginBottom: 12, lineHeight: 1.3 }}>{onePieceShortName(product.name)}<span className="rare-badge">{onePieceRarity(product)}</span></h1><p className="source-note" style={{ marginBottom: 20 }}><Link prefetch={false} href={'/onepiece/sets/' + set.id}>{set.name}</Link> · {product.card_no} · {set.release_date} 発売</p>
+          <div style={{ border: '1px solid var(--hair)', borderLeft: '3px solid ' + (signal?.color ?? 'var(--ink-faint)'), borderRadius: 8, padding: '16px 18px', marginBottom: 12, background: 'var(--panel)' }}><div className="stat-label">6ヶ月以内に上昇する確率</div><div className="stat-value" style={{ color: signal?.color }}>{forecast ? forecast.overall.up_pct + '%' : 'データ不足'}</div><p className="source-note">{forecast?.overall.reason ?? '予想に必要な履歴を集計中です。'}</p></div>
+          {marketPanel}{controls}
+        </div>
       </div>
-    </section>
+    </>}
     {product.kind === 'box' && <section className="chart-shell">
       <h2>収録カード</h2>
       <p className="op-footnote">このBOXに収録されている掲載対象カードです。</p>
-      <OnePieceCatalog containedCards sets={[set]} initialKind="card" products={products.filter(p => p.set_id === set.id && p.kind === 'card').map(p => {
-        const data = getOnePiecePrices(p.id)
-        const recent = data?.history[0]
-        return { ...p, avg: recent?.avg ?? null, date: recent?.date ?? null, count: recent?.sample_count ?? null, stale: isOnePiecePriceStale(data) }
-      })} />
+      <OnePieceSetCards setId={set.id} />
     </section>}
     <DetailBargains rows={getOnePieceDetailBargains(product.id).slice(0, 3)} />
     <p><a className="op-buy-link" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`} target="_blank" rel="noreferrer">𝕏 でシェア</a></p>

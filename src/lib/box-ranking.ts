@@ -30,6 +30,8 @@ const DAY = 24 * 60 * 60 * 1000
 
 export interface BoxRankRow {
   boxId: string
+  href?: string
+  variantLabel?: string
   boxName: string
   code: string
   releaseYm: string

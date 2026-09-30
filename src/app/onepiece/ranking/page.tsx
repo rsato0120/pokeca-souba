@@ -8,8 +8,11 @@ import { getOnePieceDetailBargains } from '@/lib/detail-bargains'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import SiteHeader from '@/components/SiteHeader'
-import GameTabs from '@/components/GameTabs'
-import OnePieceRankings from '@/components/OnePieceRankings'
+import SalesRanking from '@/components/SalesRanking'
+import MoversList from '@/components/MoversList'
+import BoxRanking from '@/components/BoxRanking'
+import { onePieceBoxRows } from '@/lib/onepiece-box-ranking'
+import { onePieceMarketId } from '@/lib/market-links'
 import { getOnePieceCatalog, getOnePiecePrices, onePieceRarity, onePieceShortName } from '@/lib/onepiece'
 import { buildOnePieceRanking } from '@/lib/onepiece-ranking'
 import DailySalesShare from '@/components/DailySalesShare'
@@ -41,22 +44,19 @@ export default function Page() {
     .sort((a, b) => b.salesToday - a.salesToday || b.sales7d - a.sales7d || a.id.localeCompare(b.id))
     .slice(0, 3)
     .map(row => ({ href: `/onepiece/products/${row.id}`, name: onePieceShortName(row.name), rarity: onePieceRarity(row), sales: row.salesToday }))
-  return <main className="wrap home-wrap">
-    <SiteHeader /><GameTabs game="onepiece" />
-    <section className="home-panel" style={{ marginTop: 'var(--sp-5)' }}>
-      <div className="home-panel-head"><div><span>MARKET RANKING</span><h1 style={{ fontSize: 'clamp(18px, 3vw, 26px)', lineHeight: 1.4, margin: '8px 0' }}>ONE PIECE ランキング</h1></div><Link prefetch={false} href="/onepiece/cards">カード一覧 →</Link></div>
-      <p className="source-note">売れているカードと相場の動きを、実際の成約から。{baseDate ? `集計基準日 ${baseDate}` : 'データを集計中です。'}</p>
-      <RankingTabs tabs={[
-        { id: 'sales', label: '売れ筋', note: '集計基準日を含む直近7日間の実成約数順です。', node: <><DailySalesShare date={baseDate ?? ''} rows={dailySalesTop} game="onepiece" pageUrl="https://pokeca-souba.vercel.app/onepiece/ranking" /><OnePieceRankings rows={rows} sets={sets} initialTab="sales" showTabs={false} /></> },
-        { id: 'up', label: '値上がり', note: '前日比または7日比の騰落率です。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="up" showTabs={false} /> },
-        { id: 'down', label: '値下がり', note: '前日比または7日比の騰落率です。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="down" showTabs={false} /> },
-        { id: 'price', label: '高額カード', note: '記録日の成約平均価格が高い順です。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="price" showTabs={false} /> },
-        { id: 'boxes', label: 'BOX', note: '未開封BOXの成約数または成約平均価格で比較できます。', node: <OnePieceRankings rows={rows} sets={sets} initialTab="boxes" showTabs={false} /> },
-        { id: 'views', label: '閲覧', note: '実際の閲覧が蓄積するとランキングに表示されます。', node: <TrendingCards cards={market.rows.map(r => ({ id: r.id, name: r.name, rarity: r.rarity, image: r.image, price: r.mid, dayChange: r.dayChange }))} /> },
-        { id: 'votes', label: 'みんなの予想', node: <><CommunityPicks cards={market.rows.map(r => ({ ...r, aiUp: r.upPct }))} /><VoteLeaderboard prices={market.matrix} baseDate={market.baseDate} /></> },
-        { id: 'deals', label: 'お買い得', node: <BargainListings rows={products.flatMap(p => getOnePieceDetailBargains(p.id)).sort((a, b) => b.discountPct - a.discountPct).slice(0, 30)} /> },
-      ]} />
-    </section>
-    <p className="disclaimer">掲載商品の取得範囲内のランキングです。カードは素体（状態A〜D）、BOXは1箱単価。成約件数は市場全体の取引数ではありません。相場は各記録日までの成約平均で、45日を超える古い価格は対象外です。</p>
+  const cards = rows.filter(p => p.kind === 'card')
+  const movers = cards.filter(p => (p.day ?? p.week) != null && p.avg >= 1000).map(p => ({ slug: onePieceMarketId(p.id), name: onePieceShortName(p.name), rarity: onePieceRarity(p), image: p.image_url, mid: p.avg, changePct: (p.day ?? p.week)!, changeLabel: p.day != null ? '前日比' : '7日比' }))
+  return <main className="wrap" style={{ maxWidth: '860px' }}>
+    <SiteHeader />
+    <h1 style={{ fontFamily: 'var(--mincho)', fontSize: '24px', fontWeight: 800, margin: '8px 0 6px' }}>ランキング</h1>
+    <p style={{ fontSize: '13px', color: 'var(--ink-faint)', lineHeight: 1.8, marginBottom: '20px' }}>すべて実際の成約データから算出しています。判定の基準は<Link prefetch={false} href="/onepiece/accuracy" style={{ color: 'var(--accent)' }}>AI予想の的中実績</Link>と揃えてあります。</p>
+    <RankingTabs tabs={[
+      { id: 'sales', label: '売れ筋', note: '直近7日間の実成約数順。集計基準日 ' + (baseDate ?? '集計中'), node: <><DailySalesShare date={baseDate ?? ''} rows={dailySalesTop} game="onepiece" pageUrl="https://pokeca-souba.vercel.app/onepiece/ranking" /><SalesRanking rows={cards.filter(p => p.sales7d > 0).sort((a,b) => b.sales7d-a.sales7d).slice(0,30).map(p => ({ slug: onePieceMarketId(p.id), name: onePieceShortName(p.name), rarity: onePieceRarity(p), image: p.image_url, mid: p.avg, sales7d: p.sales7d, salesToday: p.salesToday, onSale: market.observations[p.id]?.history[0]?.on_sale ?? null, onSaleCapped: false, listings: [] }))} /></> },
+      { id: 'bargains', label: 'お買い得', note: '取得できた出品を成約相場と比較しています。', node: <BargainListings rows={products.flatMap(p => getOnePieceDetailBargains(p.id)).sort((a,b) => b.discountPct-a.discountPct).slice(0,30)} /> },
+      { id: 'movers', label: '値動き', note: '相場¥1,000以上のカード。前日比が取れないカードは7日比で比較します。', node: <MoversList surge={movers.filter(p => p.changePct > 0).sort((a,b) => b.changePct-a.changePct).slice(0,10)} drop={movers.filter(p => p.changePct < 0).sort((a,b) => a.changePct-b.changePct).slice(0,10)} /> },
+      { id: 'views', label: '閲覧', note: '直近で見られているカード。', node: <TrendingCards cards={market.rows.filter(r => cards.some(p => onePieceMarketId(p.id) === r.id)).map(r => ({ id: r.id, name: r.name, rarity: r.rarity, image: r.image, price: r.mid, dayChange: r.dayChange }))} /> },
+      { id: 'votes', label: 'みんなの予想', node: <><CommunityPicks cards={market.rows.map(r => ({ ...r, aiUp: r.upPct }))} /><VoteLeaderboard prices={market.matrix} baseDate={market.baseDate} /></> },
+      { id: 'boxes', label: 'BOX', note: '未開封BOXの7日変化率順。価格は1箱単価です。', node: <BoxRanking rows={onePieceBoxRows(rows, sets, market.observations).slice(0,20)} /> },
+    ]} />
   </main>
 }

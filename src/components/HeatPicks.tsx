@@ -1,4 +1,6 @@
+import PackImage from './PackImage'
 import Link from 'next/link'
+import { marketCardHref } from '@/lib/market-links'
 
 // サイトの看板セクション「AIが見つけた、まだ上がっていないカード。」
 //
@@ -38,7 +40,7 @@ export default function HeatPicks({ picks }: { picks: HeatPick[] }) {
         return (
           <article key={p.slug} className="heat-card">
             <Link prefetch={false}
-              href={`/cards/${p.slug}`}
+              href={marketCardHref(p.slug)}
               aria-label={`${p.name} ${p.rarity} の詳細`}
               style={{ position: 'absolute', inset: 0, zIndex: 1, borderRadius: 'var(--r-lg)' }}
             />
@@ -46,8 +48,7 @@ export default function HeatPicks({ picks }: { picks: HeatPick[] }) {
 
             <div className="heat-head">
               {p.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.image} alt={`${p.name} ${p.rarity}`} className="heat-thumb" referrerPolicy="no-referrer" />
+                                <PackImage src={p.image} alt={`${p.name} ${p.rarity}`} className="heat-thumb" />
               ) : (
                 <div className="heat-thumb heat-thumb-ph">{p.rarity}</div>
               )}

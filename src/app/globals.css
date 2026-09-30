@@ -2656,3 +2656,6 @@ a:hover {
   .onepiece-market-row > span > strong { font-size: var(--fs-sm); white-space: normal; }
   .onepiece-market-row em { font-size: var(--fs-sm); }
 }
+
+/* Fit trimmed artwork in the shared card slots without product-specific zoom. */
+.onepiece-image > svg { width: 100%; height: 100%; position: absolute; inset: 0; }

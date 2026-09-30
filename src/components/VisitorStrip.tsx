@@ -10,6 +10,7 @@ import { useLastVisit, daysBetween, todayJST } from '@/hooks/useLastVisit'
 // どちらも localStorage 由来なので、出せるものが無ければ帯ごと消える。
 
 export type MarketCard = {
+  href?: string
   id: string
   seriesKey?: string
   name: string
@@ -38,12 +39,12 @@ export function md(date: string): string {
   return `${Number(date.slice(5, 7))}/${Number(date.slice(8, 10))}`
 }
 
-export default function VisitorStrip({ cards }: { cards: MarketCard[] }) {
+export default function VisitorStrip({ cards, portfolioHref = '/portfolio', storageKey }: { cards: MarketCard[]; portfolioHref?: string; storageKey?: string }) {
   const { col } = useCollection()
   const snapshot: Record<string, number> = {}
   for (const c of cards) if (c.mid > 0) snapshot[c.id] = Math.round(c.mid)
   const seriesKeys = Object.fromEntries(cards.filter(c => c.seriesKey).map(c => [c.id, c.seriesKey!]))
-  const { prev, ready } = useLastVisit(snapshot, seriesKeys)
+  const { prev, ready } = useLastVisit(snapshot, seriesKeys, storageKey)
 
   // ── ① 保有評価額 ──
   // 買値は入れていない人が多いので、ここは含み損益ではなく「評価額と前日比」を出す。
@@ -103,7 +104,7 @@ export default function VisitorStrip({ cards }: { cards: MarketCard[] }) {
   return (
     <div className="visitor-strip">
       {qty > 0 && (
-        <Link prefetch={false} href="/portfolio" className="visitor-pill">
+        <Link prefetch={false} href={portfolioHref} className="visitor-pill">
           <span className="visitor-pill-label">あなたの保有 {qty}枚</span>
           <span className="visitor-pill-value">¥{Math.round(value).toLocaleString()}</span>
           {dayDiff != null && dayPct != null && (
@@ -124,7 +125,7 @@ export default function VisitorStrip({ cards }: { cards: MarketCard[] }) {
           </div>
           <div className="visitor-movers">
             {movers.map(({ c, was, pct }) => (
-              <Link prefetch={false} key={c.id} href={`/cards/${c.id}`} className="visitor-mover">
+              <Link prefetch={false} key={c.id} href={c.href ?? `/cards/${c.id}`} className="visitor-mover">
                 <span className="visitor-mover-name">{c.name}</span>
                 <span className="visitor-mover-rarity">{c.rarity}</span>
                 <span className="visitor-mover-price">

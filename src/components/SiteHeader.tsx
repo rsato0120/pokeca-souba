@@ -44,7 +44,7 @@ export default function SiteHeader() {
         })}
       </nav>
 
-      <Link prefetch={false} href={isOnePiece ? '/onepiece/cards' : '/screener'} className="site-search-link" aria-label="カード検索">
+      <Link prefetch={false} href={isOnePiece ? '/onepiece/screener' : '/screener'} className="site-search-link" aria-label="カード検索">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
           <circle cx="10.5" cy="10.5" r="6.5" />
           <line x1="15.4" y1="15.4" x2="20.5" y2="20.5" />

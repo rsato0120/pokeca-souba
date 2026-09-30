@@ -6,7 +6,8 @@ import { useCollection } from '@/hooks/useCollection'
 import Sparkline from '@/components/Sparkline'
 
 type CardEntry = {
-  card: Card
+  card: Pick<Card, 'id' | 'card_no' | 'card_name' | 'rarity'>
+  href?: string
   forecast: Forecast | null
   currentPrice: number | null
 }
@@ -25,7 +26,7 @@ export default function BoxCardList({
   // カードID → 直近の代表値（古い順）。無い銘柄は線を出さないだけ
   sparks?: Record<string, number[]>
 }) {
-  const presentRarities = RARITY_ORDER.filter(r => cardsWithForecast.some(c => c.card.rarity === r))
+  const presentRarities = [...new Set([...RARITY_ORDER, ...cardsWithForecast.map(c => c.card.rarity)])].filter(r => cardsWithForecast.some(c => c.card.rarity === r))
   const tabs = ['全て', ...presentRarities]
   const [selected, setSelected] = useState('全て')
   const { getQty, setQty } = useCollection()
@@ -92,7 +93,7 @@ export default function BoxCardList({
             該当するカードがありません
           </div>
         ) : (
-          filtered.map(({ card, forecast, currentPrice }) => {
+          filtered.map(({ card, forecast, currentPrice, href }) => {
             const upPct = forecast?.overall.up_pct ?? null
             const upColor = upPct !== null
               ? upPct >= 50 ? 'var(--up)' : upPct >= 35 ? 'var(--accent)' : 'var(--ink-faint)'
@@ -112,7 +113,7 @@ export default function BoxCardList({
                 }}
               >
                 <Link prefetch={false}
-                  href={`/cards/${card.id}`}
+                  href={href ?? `/cards/${card.id}`}
                   style={{ display: 'contents', color: 'inherit' }}
                 >
                   <div className="col-no" style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', padding: '14px 0 14px 16px' }}>

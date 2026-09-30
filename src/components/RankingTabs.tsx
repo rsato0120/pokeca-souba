@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 
 // ランキングの種別切り替え（ページ内タブ）。
 //
@@ -17,8 +17,14 @@ export interface RankingTab {
   node: React.ReactNode
 }
 
+const subscribe = (notify: () => void) => { window.addEventListener('popstate', notify); return () => window.removeEventListener('popstate', notify) }
+const snapshot = () => new URLSearchParams(window.location.search).get('tab') ?? ''
+const serverSnapshot = () => ''
 export default function RankingTabs({ tabs }: { tabs: RankingTab[] }) {
-  const [active, setActive] = useState(tabs[0]?.id ?? '')
+  const requested = useSyncExternalStore(subscribe, snapshot, serverSnapshot)
+  const aliases: Record<string,string> = { up: 'movers', down: 'movers', deals: 'bargains' }
+  const [selected, setActive] = useState<string | null>(null)
+  const active = selected ?? aliases[requested] ?? requested ?? tabs[0]?.id
   const idx = Math.max(0, tabs.findIndex((t) => t.id === active))
   const current = tabs[idx]
 

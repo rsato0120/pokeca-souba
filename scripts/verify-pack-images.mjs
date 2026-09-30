@@ -2,7 +2,9 @@ import fs from 'node:fs'
 import assert from 'node:assert/strict'
 const catalog = JSON.parse(fs.readFileSync('data/pokeca_data.json', 'utf8'))
 const bounds = JSON.parse(fs.readFileSync('data/pack-image-bounds.json', 'utf8'))
-for (const box of catalog.boxes) {
+const onepiece = JSON.parse(fs.readFileSync('data/onepiece/catalog.json', 'utf8'))
+const artwork = [...catalog.boxes, ...onepiece.products.map(p => ({ box_id: p.id, pack_image_url: p.image_url }))]
+for (const box of artwork) {
   if (!box.pack_image_url) continue
   const b = bounds[box.pack_image_url]
   assert.ok(b, `${box.box_id}: run npm run prepare:pack-images before adding a new image`)
