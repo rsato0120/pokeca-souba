@@ -2,6 +2,19 @@
   "card_id": "box-munikiss_zero",
   "history": [
     {
+      "date": "2026-10-01",
+      "low": 7849,
+      "high": 8000,
+      "avg": 7925,
+      "source": "mercari",
+      "sold_total": 4687,
+      "oldest_sale_days": 18,
+      "on_sale": 81,
+      "ask_low": 7000,
+      "ask_mid": 7800,
+      "psa10": null
+    },
+    {
       "date": "2026-09-30",
       "low": 7864,
       "high": 8099,
@@ -892,15 +905,6 @@
       "ask_low": 880,
       "ask_mid": 1280,
       "psa10": null
-    },
-    {
-      "date": "2026-06-30",
-      "low": 7690,
-      "high": 8600,
-      "avg": 8210,
-      "ask_low": 880,
-      "ask_mid": 1280,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -940,7 +944,8 @@
     "2026-09-27": 32,
     "2026-09-28": 56,
     "2026-09-29": 51,
-    "2026-09-30": 7
+    "2026-09-30": 22,
+    "2026-10-01": 5
   },
-  "sales_fetched_at": "2026-09-30"
+  "sales_fetched_at": "2026-10-01"
 }
