@@ -1,7 +1,15 @@
 {
   "product_id": "op17-871070",
-  "fetched_at": "2026-10-01T07:12:11.724Z",
+  "fetched_at": "2026-10-01T20:04:31.054Z",
   "history": [
+    {
+      "date": "2026-10-02",
+      "avg": 25082,
+      "low": 22500,
+      "high": 27000,
+      "source": "snkrdunk",
+      "sample_count": 23
+    },
     {
       "date": "2026-10-01",
       "avg": 25267,
@@ -308,6 +316,7 @@
     }
   ],
   "sales_by_day": {
+    "2026-10-02": 1,
     "2026-10-01": 2,
     "2026-09-28": 1,
     "2026-09-26": 2,
@@ -347,6 +356,6 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-01T07:25:27.925Z",
+  "psa10_fetched_at": "2026-10-01T20:12:21.843Z",
   "raw_archived_extremes": null
 }
