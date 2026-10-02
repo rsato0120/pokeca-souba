@@ -2,6 +2,21 @@
   "card_id": "soukuu-stream-rayquaza-v-sa-76",
   "history": [
     {
+      "date": "2026-10-03",
+      "low": 96000,
+      "high": 129000,
+      "avg": 112200,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 76,
+      "ask_low": 120000,
+      "ask_mid": 120000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 137410,
+      "psa10_as_of": "2026-10-01"
+    },
+    {
       "date": "2026-10-02",
       "low": 96000,
       "high": 129000,
@@ -1050,13 +1065,6 @@
       "ask_low": 113333,
       "ask_mid": 175166,
       "psa10": null
-    },
-    {
-      "date": "2026-06-30",
-      "low": 96000,
-      "high": 166666,
-      "avg": 127686,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1174,5 +1182,5 @@
     "2026-09-29": 3,
     "2026-10-01": 6
   },
-  "sales_fetched_at": "2026-10-02"
+  "sales_fetched_at": "2026-10-03"
 }
