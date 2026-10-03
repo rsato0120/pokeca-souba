@@ -1,14 +1,14 @@
 name: Update ONE PIECE prices
 on:
   schedule:
-    - cron: '30 0,12 * * *'
+    - cron: '47 1,14 * * *' # JST 10:47 / 23:47
   workflow_dispatch:
-concurrency:
-  group: market-data-updates
-  cancel-in-progress: false
-  queue: max
 jobs:
   update:
+    concurrency:
+      group: onepiece-data-updates
+      cancel-in-progress: false
+      queue: max
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -41,14 +41,17 @@ jobs:
           git add data/onepiece/prices/ data/onepiece/market-listings.json
           if ! git diff --cached --quiet; then
             git commit -m "Update ONE PIECE prices $(date -u '+%Y-%m-%d %H:%M')"
-            git pull --rebase origin main
-            git push
+            bash scripts/push-data-update.sh "${{ github.ref_name }}"
           fi
       - name: Report incomplete update
         if: steps.scrape.outcome == 'failure' || steps.psa.outcome == 'failure'
         run: exit 1
 
   forecasts:
+    concurrency:
+      group: market-forecast-updates
+      cancel-in-progress: false
+      queue: max
     needs: update
     if: always()
     runs-on: ubuntu-latest
@@ -77,8 +80,7 @@ jobs:
           git add data/onepiece/forecasts/ data/onepiece/predictions/
           if ! git diff --cached --quiet; then
             git commit -m "Update ONE PIECE forecasts $(date -u '+%Y-%m-%d %H:%M')"
-            git pull --rebase origin main
-            git push
+            bash scripts/push-data-update.sh "${{ github.ref_name }}"
           fi
       - name: Report incomplete forecasts
         if: steps.generate.outcome == 'failure'

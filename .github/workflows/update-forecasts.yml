@@ -2,8 +2,8 @@ name: Update Prices and Forecasts
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # 毎日 JST 9:00  → 価格 + AI予想（full）
-    - cron: '0 12 * * *'  # 毎日 JST 21:00 → 価格のみ（prices）
+    - cron: '17 1 * * *'  # 毎日 JST 10:17  → 価格 + AI予想（full）
+    - cron: '17 14 * * *' # 毎日 JST 23:17 → 価格のみ（prices）
   workflow_dispatch:
     inputs:
       mode:
@@ -36,8 +36,8 @@ jobs:
         id: mode
         run: |
           case "${{ github.event.schedule }}" in
-            "0 0 * * *")  echo "mode=full"   >> "$GITHUB_OUTPUT" ;;
-            "0 12 * * *") echo "mode=prices" >> "$GITHUB_OUTPUT" ;;
+            "17 1 * * *")  echo "mode=full"   >> "$GITHUB_OUTPUT" ;;
+            "17 14 * * *") echo "mode=prices" >> "$GITHUB_OUTPUT" ;;
             *)            echo "mode=${{ github.event.inputs.mode || 'full' }}" >> "$GITHUB_OUTPUT" ;;
           esac
 
@@ -108,7 +108,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/prices/ data/price-extremes.json data/snkrdunk-ids.json data/market-listings.json data/last-update.json
-          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices $(date -u '+%Y-%m-%d %H:%M')" && git pull --rebase origin "${{ github.ref_name }}" && git push)
+          git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices $(date -u '+%Y-%m-%d %H:%M')" && bash scripts/push-data-update.sh "${{ github.ref_name }}")
 
       # ウォッチリストの値動き通知。価格を確定させてから送るので commit の後に置く。
       # VAPID/Supabase の鍵が未設定なら中で何もせず抜ける（通知機能を有効化するまで無害）。
@@ -134,8 +134,9 @@ jobs:
     if: needs.update.outputs.mode == 'full'
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    # AI予想は価格・出品データを書かないため、価格更新の待機列から分離する。
     concurrency:
-      group: market-data-updates
+      group: market-forecast-updates
       cancel-in-progress: false
       queue: max
     permissions:
@@ -191,8 +192,7 @@ jobs:
           git add data/forecasts/ data/predictions/ data/psa-pop.json data/buy-theses.json
           if ! git diff --cached --quiet; then
             git commit -m "update forecasts $(date -u '+%Y-%m-%d %H:%M')"
-            git pull --rebase origin "${{ github.ref_name }}"
-            git push
+            bash scripts/push-data-update.sh "${{ github.ref_name }}"
           fi
 
       - name: Audit data after forecasts

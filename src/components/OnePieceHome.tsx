@@ -15,6 +15,7 @@ import GameTabs from './GameTabs'
 import SearchBar from './SearchBar'
 import BoxSelector from './BoxSelector'
 import UpdateClock from './UpdateClock'
+import { ONEPIECE_UPDATE_MINUTE_JST } from '@/lib/update-schedule'
 import OnePieceCatalog from './OnePieceCatalog'
 import OnePieceImage from './OnePieceImage'
 import { getOnePieceCatalog, getOnePiecePrices, isOnePiecePriceStale, onePieceShortName, onePieceRarity } from '@/lib/onepiece'
@@ -51,7 +52,7 @@ export default function OnePieceHome({ kind = 'all', setId = '' }: { kind?: 'all
       <SearchBar basePath="/onepiece/products" cards={products.map(p => ({ slug: p.id, card_name: onePieceShortName(p.name), rarity: p.card_no ?? 'BOX', box_name: sets.find(s => s.id === p.set_id)?.name ?? '', up_pct: getOnePieceForecast(p.id)?.overall.up_pct ?? null }))} />
       <BoxSelector basePath="/onepiece/sets" current={setId || undefined} marginTop={12} marginBottom={0} boxes={sets.map(s => ({ box_id: s.id, box_name: s.name, release_ym: s.release_date.slice(0, 7) }))} />
     </section>
-    <div className="home-update-row"><UpdateClock updatedLabel={updatedLabel} minute={30} /><span>価格はスニダン実取引から毎日更新</span></div>
+    <div className="home-update-row"><UpdateClock updatedLabel={updatedLabel} minute={ONEPIECE_UPDATE_MINUTE_JST} /><span>価格はスニダン実取引から毎日更新</span></div>
     {isHome ? <>
       <div className="home-pulse"><MarketPulse index={latestIndex?.value ?? null} indexDate={latestIndex?.date ?? null} indexDayPct={market.indexDayPct} temp={computeMarketTemp(pulse)} {...pulse} /></div>
       <VisitorStrip portfolioHref="/onepiece/portfolio" storageKey="onepiece-visit-v1" cards={ranking.rows.filter(p=>p.kind==='card').map(p=>({id:'onepiece:'+p.id,href:'/onepiece/products/'+p.id,name:onePieceShortName(p.name),rarity:onePieceRarity(p),mid:p.avg,prevMid:p.day != null ? p.avg/(1+p.day/100) : null,psa10:observations.get(p.id)?.psa10_history?.[0]?.psa10 ?? null,prevPsa10:null,seriesKey:'snkrdunk'}))} />
