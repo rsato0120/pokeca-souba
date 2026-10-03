@@ -1,6 +1,6 @@
 {
   "product_id": "op03-136033",
-  "fetched_at": "2026-10-03T06:46:16.869Z",
+  "fetched_at": "2026-10-03T18:19:01.195Z",
   "history": [
     {
       "date": "2026-09-29",
@@ -172,43 +172,43 @@
     },
     {
       "date": "2026-07-05",
-      "avg": 17110,
+      "avg": 17118,
       "low": 16500,
       "high": 17500,
       "source": "snkrdunk",
-      "sample_count": 14
+      "sample_count": 13
     },
     {
       "date": "2026-07-03",
-      "avg": 17103,
+      "avg": 17113,
       "low": 16500,
-      "high": 17500,
-      "source": "snkrdunk",
-      "sample_count": 12
-    },
-    {
-      "date": "2026-06-22",
-      "avg": 17158,
-      "low": 17000,
       "high": 17500,
       "source": "snkrdunk",
       "sample_count": 11
     },
     {
+      "date": "2026-06-22",
+      "avg": 17174,
+      "low": 16400,
+      "high": 17888,
+      "source": "snkrdunk",
+      "sample_count": 10
+    },
+    {
       "date": "2026-06-18",
-      "avg": 16919,
+      "avg": 16907,
       "low": 16400,
       "high": 17250,
       "source": "snkrdunk",
-      "sample_count": 8
+      "sample_count": 7
     },
     {
       "date": "2026-06-14",
-      "avg": 16850,
+      "avg": 16820,
       "low": 16400,
-      "high": 17000,
+      "high": 17300,
       "source": "snkrdunk",
-      "sample_count": 6
+      "sample_count": 5
     },
     {
       "date": "2026-06-10",
@@ -239,6 +239,7 @@
   "sales_by_day": {
     "2026-06-01": 1,
     "2026-06-03": 1,
+    "2026-06-06": 1,
     "2026-09-28": 1,
     "2026-09-15": 2,
     "2026-09-10": 1,
@@ -265,9 +266,8 @@
     "2026-06-18": 2,
     "2026-06-14": 3,
     "2026-06-10": 1,
-    "2026-06-07": 1,
-    "2026-06-06": 1
+    "2026-06-07": 1
   },
-  "coverage_start": "2026-06-06",
+  "coverage_start": "2026-06-07",
   "complete": true
 }
