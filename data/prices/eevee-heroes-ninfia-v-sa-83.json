@@ -2,6 +2,23 @@
   "card_id": "eevee-heroes-ninfia-v-sa-83",
   "history": [
     {
+      "date": "2026-10-04",
+      "low": 15999,
+      "high": 17850,
+      "avg": 17660,
+      "source": "mercari",
+      "sample_count": 10,
+      "sold_total": 686,
+      "oldest_sale_days": 15,
+      "on_sale": 90,
+      "ask_low": 20000,
+      "ask_mid": 23000,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 42009,
+      "psa10_as_of": "2026-10-03"
+    },
+    {
       "date": "2026-10-03",
       "low": 15999,
       "high": 17850,
@@ -1179,18 +1196,9 @@
       "ask_low": 27899,
       "ask_mid": 45000,
       "psa10": null
-    },
-    {
-      "date": "2026-07-02",
-      "low": 17500,
-      "high": 22000,
-      "avg": 19651,
-      "ask_low": 27899,
-      "ask_mid": 45000,
-      "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-10-03",
+  "sales_fetched_at": "2026-10-04",
   "sales_by_day": {
     "2026-07-29": 1,
     "2026-07-26": 1,
@@ -1292,6 +1300,6 @@
     "2026-09-30": 2,
     "2026-10-01": 1,
     "2026-10-02": 3,
-    "2026-10-03": 3
+    "2026-10-03": 6
   }
 }
