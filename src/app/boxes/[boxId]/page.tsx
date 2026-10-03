@@ -1,3 +1,4 @@
+import MercariLink from '@/components/MercariLink'
 import { priceChangePct } from '@/lib/price-change'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -181,8 +182,10 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             ]
             return (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--hair)', alignItems: 'center' }}>
-                {shops.map(s => (
-                  <a
+                {shops.map(s => {
+                  const ShopLink = s.name.startsWith('メルカリ') ? MercariLink : 'a'
+                  return (
+                  <ShopLink
                     key={s.name}
                     href={s.url}
                     target="_blank"
@@ -203,8 +206,9 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
                     }}
                   >
                     {s.name} →
-                  </a>
-                ))}
+                  </ShopLink>
+                  )
+                })}
                 {/* A8インプレッション計測タグ（メルカリ・楽天） */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

@@ -1,3 +1,4 @@
+import MercariLink from '@/components/MercariLink'
 import { priceChangePctForDays } from '@/lib/price-change'
 import { priceSeriesKey } from '@/lib/price-source'
 import Link from 'next/link'
@@ -559,8 +560,10 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
             ]
             return (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px', alignItems: 'center' }}>
-                {shops.map(s => (
-                  <a
+                {shops.map(s => {
+                  const ShopLink = s.name.startsWith('メルカリ') ? MercariLink : 'a'
+                  return (
+                  <ShopLink
                     key={s.name}
                     href={s.url}
                     target="_blank"
@@ -574,8 +577,9 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                     }}
                   >
                     {s.name}で探す →
-                  </a>
-                ))}
+                  </ShopLink>
+                  )
+                })}
                 {/* A8インプレッション計測タグ（メルカリ・楽天） */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

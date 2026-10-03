@@ -1,3 +1,4 @@
+import MercariLink from '@/components/MercariLink'
 import SearchBar from '@/components/SearchBar'
 import BoxSelector from '@/components/BoxSelector'
 import PackImage from '@/components/PackImage'
@@ -53,7 +54,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const extremes = onePieceRawExtremes(prices)
   const investmentScore = computeOnePieceScore(prices, forecast)
   const signal = forecast ? aiVerdict(forecast.overall) : null
-  const controls = <><WatchButton cardId={marketId} mid={latest?.avg ?? 0} /><CardCollectionControl cardId={'onepiece:' + product.id} hasPsa10={psa10?.psa10 != null} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} /><p className="source-note"><Link prefetch={false} href="/onepiece/portfolio">マイコレクションを見る →</Link></p><a href={mercariUrl} className="pill" target="_blank" rel="sponsored nofollow noreferrer">メルカリで探す ↗</a><p className="source-note">広告・アフィリエイトリンク</p>
+  const controls = <><WatchButton cardId={marketId} mid={latest?.avg ?? 0} /><CardCollectionControl cardId={'onepiece:' + product.id} hasPsa10={psa10?.psa10 != null} rawLabel={product.kind === 'box' ? '未開封BOX（箱）' : 'カード（枚）'} /><p className="source-note"><Link prefetch={false} href="/onepiece/portfolio">マイコレクションを見る →</Link></p><MercariLink href={mercariUrl} className="pill" target="_blank" rel="sponsored nofollow noreferrer">メルカリで探す ↗</MercariLink><p className="source-note">広告・アフィリエイトリンク</p>
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img src={MERCARI_A8_IMPRESSION_URL} width="1" height="1" alt="" /></>
   const marketPanel = <div className="panel" style={{ background: 'var(--bg2)', marginBottom: 'var(--sp-4)' }}><div className="eyebrow" style={{ marginBottom: 'var(--sp-2)' }}>MARKET · 市場価格</div><div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}><div><div className="stat-label">スニダン実成約{product.kind === 'box' ? '・1箱単価' : '・状態A'}</div><span className="stat-value" style={{ color: 'var(--accent)' }}>{latest ? yen(latest.avg) : 'データ不足'}</span></div>{product.kind === 'card' && <div><div className="stat-label">PSA10相場</div><span className="stat-value" style={{ color: '#6c8ebf' }}>{psa10 ? yen(psa10.psa10 ?? undefined) : '—'}</span></div>}</div><p className="source-note">{latest ? latest.date + '時点 · ' + latest.sample_count + '件の成約から算出' : '成約データを集計中です。'}{isOnePiecePriceStale(prices) ? ' · 古い参考値です。' : ''}</p></div>

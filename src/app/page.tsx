@@ -140,7 +140,8 @@ export default function TopPage() {
 
   // 価格急騰・急落: 前日比優先、なければ週間比
   const getChange = (m: CardMetrics) => m.dayChange ?? m.weekChange ?? 0
-  const changeCards = metrics.filter(m => isRankable(m) && (m.dayChange != null || m.weekChange != null))
+  // Exclude small-price moves that dominate percentage rankings.
+  const changeCards = metrics.filter(m => m.currentMid >= 3_000 && isRankable(m) && (m.dayChange != null || m.weekChange != null))
 
   // 直近7日の実成約数。トップでは上位5枚だけを見せ、詳細と個別出品は /ranking に任せる。
   const salesCutoff = new Date(`${siteLatest}T00:00:00+09:00`).getTime() - 6 * 86400000

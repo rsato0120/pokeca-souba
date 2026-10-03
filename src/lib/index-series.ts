@@ -86,7 +86,7 @@ function buildSeries(cardId: string): Series | null {
  * 連鎖指数を組む。series は「カードごとの date→価格」の集合。
  * 基準日（最初に baseMin を満たした日）を 100 とする。
  */
-export function chainLink(seriesList: Series[]): IndexPoint[] {
+export function chainLink(seriesList: Series[], { baseCoverage = 0.6 }: { baseCoverage?: number } = {}): IndexPoint[] {
   const dates = [...new Set(seriesList.flatMap((s) => [...s.keys()]))].sort()
   if (dates.length < 2) return []
 
@@ -94,7 +94,7 @@ export function chainLink(seriesList: Series[]): IndexPoint[] {
   // 全体指数（400枚超）にちょうどいい閾値が、レアリティ別・弾別（十数枚）では
   // 一度も満たされず指数が建たない。割合で見て、下限だけ固定する。
   const size = seriesList.length
-  const baseMin = Math.max(MIN_CONTRIBUTORS, Math.min(MIN_BASE_CONTRIBUTORS, Math.ceil(size * 0.6)))
+  const baseMin = Math.max(MIN_CONTRIBUTORS, Math.min(MIN_BASE_CONTRIBUTORS, Math.ceil(size * baseCoverage)))
   const dailyMin = Math.max(5, Math.min(MIN_CONTRIBUTORS, Math.ceil(size * 0.4)))
 
   const out: IndexPoint[] = []

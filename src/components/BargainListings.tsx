@@ -1,3 +1,4 @@
+import MercariLink from '@/components/MercariLink'
 import { mercariAffiliateUrl, MERCARI_A8_IMPRESSION_URL } from '@/lib/bargains'
 
 export interface BargainRow {
@@ -23,7 +24,7 @@ export default function BargainListings({ rows }: { rows: BargainRow[] }) {
   return (
     <div className="bargain-list">
       {rows.map((row) => (
-        <a
+        <MercariLink
           key={row.listingId}
           href={mercariAffiliateUrl(row.url)}
           target="_blank"
@@ -52,7 +53,7 @@ export default function BargainListings({ rows }: { rows: BargainRow[] }) {
           <span className="bargain-buy-link">
             メルカリで見る →
           </span>
-        </a>
+        </MercariLink>
       ))}
       {/* A8インプレッション計測タグ（メルカリ） */}
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,3 +1,4 @@
+import MercariLink from '@/components/MercariLink'
 import Link from 'next/link'
 import { buildBoxDeals, type BoxMarketListings } from '@/lib/box-bargains'
 import { getAllBoxes, getBoxPriceVariant } from '@/lib/data'
@@ -17,7 +18,7 @@ export default function BoxBargainListings({ data }: { data: BoxMarketListings |
           {rows.map(({ box, variant, listing, marketPrice, savings, discountPct, fetchedAt }) => (
             <article key={listing.id} className="home-bargain-card box-deal-card">
               <Link prefetch={false} className="box-deal-name" href={`/boxes/${box.box_id}`}>{box.box_name} →</Link>
-              <a href={mercariAffiliateUrl(listing.url)} target="_blank" rel="sponsored nofollow noreferrer" aria-label={`${box.box_name} ${VARIANT_LABEL[variant]}の出品をメルカリで見る`}>
+              <MercariLink href={mercariAffiliateUrl(listing.url)} target="_blank" rel="sponsored nofollow noreferrer" aria-label={`${box.box_name} ${VARIANT_LABEL[variant]}の出品をメルカリで見る`}>
                 <span className="home-bargain-info">
                   {listing.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element -- 出品画像を表示
@@ -27,7 +28,7 @@ export default function BoxBargainListings({ data }: { data: BoxMarketListings |
                 </span>
                 <p className="box-deal-title">{listing.title}</p>
                 <div className="home-bargain-foot"><span>{discountPct.toFixed(1)}%安い <small>−¥{savings.toLocaleString()}</small></span><strong>メルカリで見る →</strong></div>
-              </a>
+              </MercariLink>
               <small className="box-deal-time">取得 {new Date(fetchedAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}</small>
             </article>
           ))}
