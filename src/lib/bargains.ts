@@ -16,7 +16,10 @@ export function mercariDirectUrl(href: string): string | null {
       if (!destination) return null
       url = new URL(destination)
     }
-    return url.protocol === 'https:' && url.hostname === 'jp.mercari.com' ? url.href : null
+    if (url.protocol !== 'https:' || url.hostname !== 'jp.mercari.com') return null
+    // Mercari's iOS association lists /search/ and /item/m…/ with a trailing slash.
+    if (url.pathname === '/search' || /^\/item\/m\d+$/.test(url.pathname)) url.pathname += '/'
+    return url.href
   } catch { return null }
 }
 

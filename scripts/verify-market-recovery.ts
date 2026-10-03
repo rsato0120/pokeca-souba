@@ -17,8 +17,10 @@ members[0].set('2026-10-02', { value: 1000000, source: 'snkrdunk' })
 members[1].set('2026-10-02', { value: 11000, source: 'mercari' })
 assert.equal(chainLink(members, { baseCoverage: 0.4 })[1].contributors, 40)
 for (const url of ['https://jp.mercari.com/item/m123456', 'https://jp.mercari.com/search?keyword=%E3%83%AB%E3%83%95%E3%82%A3&status=on_sale']) {
-  assert.equal(mercariDirectUrl(url), url)
-  assert.equal(mercariDirectUrl(mercariAffiliateUrl(url)), url)
+  const appUrl = new URL(url)
+  appUrl.pathname += '/'
+  assert.equal(mercariDirectUrl(url), appUrl.href)
+  assert.equal(mercariDirectUrl(mercariAffiliateUrl(url)), appUrl.href)
 }
 for (const url of ['javascript:alert(1)', 'https://jp.mercari.com.evil.example/item/m1', 'https://example.com', 'not a URL', mercariAffiliateUrl('https://example.com')]) {
   assert.equal(mercariDirectUrl(url), null)
