@@ -518,6 +518,42 @@
       "packs_per_box": 30,
       "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/5d85eb64-73ab-491a-b2f1-c8ccd30d0f5e.webp?size=l",
       "note": "2022年4月8日発売。1パック5枚入り、1BOX30パック。公式商品情報：https://www.pokemon-card.com/ex/s10/index.html"
+    },
+    {
+      "box_id": "hot_wind_arena",
+      "box_name": "熱風のアリーナ",
+      "code": "SV9a",
+      "release_ym": "2025-03",
+      "release_date": "2025-03-14",
+      "certainty": "released",
+      "pack_price_yen": 180,
+      "packs_per_box": 30,
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/5c1bc081-52c0-47ea-9b18-786886a10a4c.webp?size=l",
+      "note": "2025-03-14発売。1パック5枚、1BOX30パック。公式商品情報：https://www.pokemon-card.com/products/sv/sv9a.html"
+    },
+    {
+      "box_id": "jet_black_spirit",
+      "box_name": "漆黒のガイスト",
+      "code": "S6K",
+      "release_ym": "2021-04",
+      "release_date": "2021-04-23",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/4ffea462-f791-47a4-a714-3f3b43f68148.webp?size=l",
+      "note": "2021-04-23発売。1パック5枚、1BOX30パック。公式商品情報：https://www.pokemon-card.com/products/s/s6.html"
+    },
+    {
+      "box_id": "matchless_fighters",
+      "box_name": "双璧のファイター",
+      "code": "S5a",
+      "release_ym": "2021-03",
+      "release_date": "2021-03-19",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7f77f04a-2892-4b91-8cfb-9d9b057a7ce9.webp?size=l",
+      "note": "2021-03-19発売。1パック5枚、1BOX30パック。公式商品情報：https://www.pokemon-card.com/products/s/s5a.html"
     }
   ],
   "cards": [
@@ -34333,6 +34369,1176 @@
         "source": "TCGdex（S10P-088）とスニダン商品番号91144を照合して2026-09-25登録。"
       },
       "note": "スペースジャグラーの主要収録カード。"
+    },
+    {
+      "id": "hot-wind-arena-087",
+      "card_no": "087/063",
+      "rarity": "SAR",
+      "card_name": "シロナのガブリアスex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/25610bcb-1df6-475d-b296-02a416626d9f.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 330,
+        "note": "熱風のアリーナ収録・SAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "HICO KIM",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのSAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/538636 / https://api.tcgdex.net/v2/ja/cards/SV9a-087"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-086",
+      "card_no": "086/063",
+      "rarity": "SAR",
+      "card_name": "ヒビキのホウオウex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/c4590d28-a957-4b41-b3ca-b5348d3b8f56.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 230,
+        "note": "熱風のアリーナ収録・SAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Atsushi Furusawa",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのSAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/525751 / https://api.tcgdex.net/v2/ja/cards/SV9a-086"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-089",
+      "card_no": "089/063",
+      "rarity": "SAR",
+      "card_name": "ヒビキの冒険",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/813f8dfa-3a65-45cc-858a-bff253ab2a68.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "熱風のアリーナ収録・SAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kariya",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのSAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/546117 / https://api.tcgdex.net/v2/ja/cards/SV9a-089"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-091",
+      "card_no": "091/063",
+      "rarity": "UR",
+      "card_name": "シロナのガブリアスex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/3fb86e0c-15e9-42ad-b39a-10611b410bb9.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 330,
+        "note": "熱風のアリーナ収録・UR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのUR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/546119 / https://api.tcgdex.net/v2/ja/cards/SV9a-091"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-090",
+      "card_no": "090/063",
+      "rarity": "UR",
+      "card_name": "ヒビキのホウオウex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/ce4e6419-0ee8-433f-ab1e-ea26ab983375.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 230,
+        "note": "熱風のアリーナ収録・UR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのUR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/546118 / https://api.tcgdex.net/v2/ja/cards/SV9a-090"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-071",
+      "card_no": "071/063",
+      "rarity": "AR",
+      "card_name": "カスミのコダック",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/31094cce-a9d2-44a2-ac86-b516c7162a05.webp?size=l",
+      "card_spec": {
+        "type": "水",
+        "stage": "たね",
+        "hp": 70,
+        "note": "熱風のアリーナ収録・AR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "OKACHEKE",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/543243 / https://api.tcgdex.net/v2/ja/cards/SV9a-071"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-088",
+      "card_no": "088/063",
+      "rarity": "SAR",
+      "card_name": "ペパーのマフィティフex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7f62f39b-8b77-496a-8b99-7cea62b408ae.webp?size=l",
+      "card_spec": {
+        "type": "悪",
+        "stage": "1進化",
+        "hp": 270,
+        "note": "熱風のアリーナ収録・SAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Yuriko Akase",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのSAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/546116 / https://api.tcgdex.net/v2/ja/cards/SV9a-088"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-070",
+      "card_no": "070/063",
+      "rarity": "AR",
+      "card_name": "ヒビキのバクフーン",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b245c122-e4fd-47ff-9f43-cfd69ecea290.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化",
+        "hp": 170,
+        "note": "熱風のアリーナ収録・AR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "GIDORA",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "AR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/544501 / https://api.tcgdex.net/v2/ja/cards/SV9a-070"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-085",
+      "card_no": "085/063",
+      "rarity": "SAR",
+      "card_name": "メガヤンマex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b34d503a-f038-408f-adb4-33992fd8bd32.webp?size=l",
+      "card_spec": {
+        "type": "草",
+        "stage": "1進化",
+        "hp": 280,
+        "note": "熱風のアリーナ収録・SAR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Tonji Matsuno",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SAR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのSAR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/546115 / https://api.tcgdex.net/v2/ja/cards/SV9a-085"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "hot-wind-arena-080",
+      "card_no": "080/063",
+      "rarity": "SR",
+      "card_name": "シロナのガブリアスex",
+      "box_id": "hot_wind_arena",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7f3fa017-d170-4d52-84c7-99170a00db6c.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 330,
+        "note": "熱風のアリーナ収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "I",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "熱風のアリーナのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/sv/sv9a.html / https://snkrdunk.com/apparels/541529 / https://api.tcgdex.net/v2/ja/cards/SV9a-080"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-086",
+      "card_no": "086/070",
+      "rarity": "HR",
+      "card_name": "こくばバドレックスVMAX",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/36b949e8-bca2-4d34-8a57-0578ca416431.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "VMAX",
+        "hp": 320,
+        "note": "漆黒のガイスト収録・HR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/91182 / https://api.tcgdex.net/v2/ja/cards/S6K-086"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-080",
+      "card_no": "080/070",
+      "rarity": "SR",
+      "card_name": "カトレア",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/d8700584-1721-4fa3-a521-e60a25b0e123.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "漆黒のガイスト収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "En Morikura",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/91181 / https://api.tcgdex.net/v2/ja/cards/S6K-080"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-074",
+      "card_no": "074/070",
+      "rarity": "SR",
+      "card_name": "ゼラオラV",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/ee4d22ef-ca25-4f36-b5f6-a024b3eee76c.webp?size=l",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 210,
+        "note": "漆黒のガイスト収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Atsushi Furusawa",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/91180 / https://api.tcgdex.net/v2/ja/cards/S6K-074"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-076",
+      "card_no": "076/070",
+      "rarity": "SR",
+      "card_name": "こくばバドレックスV",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/74c1e9e5-a762-4640-9c3a-fd3e965a169a.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 210,
+        "note": "漆黒のガイスト収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kodama",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96682 / https://api.tcgdex.net/v2/ja/cards/S6K-076"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-079",
+      "card_no": "079/070",
+      "rarity": "SR",
+      "card_name": "ハピナスV",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/aa284378-529c-4520-a2a8-7d9c73978df1.webp?size=l",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たね",
+        "hp": 250,
+        "note": "漆黒のガイスト収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Saya Tsuruta",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96686 / https://api.tcgdex.net/v2/ja/cards/S6K-079"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-088",
+      "card_no": "088/070",
+      "rarity": "HR",
+      "card_name": "カトレア",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/c2066b82-0ef4-4914-b1c1-32602f19597b.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "漆黒のガイスト収録・HR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96644 / https://api.tcgdex.net/v2/ja/cards/S6K-088"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-082",
+      "card_no": "082/070",
+      "rarity": "SR",
+      "card_name": "シャクヤ",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7e744318-8bf0-4f55-bbea-a9c9fb9c3e96.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "漆黒のガイスト収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96693 / https://api.tcgdex.net/v2/ja/cards/S6K-082"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-085",
+      "card_no": "085/070",
+      "rarity": "HR",
+      "card_name": "こくばバドレックスVMAX",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/daf77ddb-d2bc-46ed-8747-43c96af7936a.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "VMAX",
+        "hp": 320,
+        "note": "漆黒のガイスト収録・HR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96645 / https://api.tcgdex.net/v2/ja/cards/S6K-085"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-084",
+      "card_no": "084/070",
+      "rarity": "HR",
+      "card_name": "セレビィVMAX",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/9e819b94-a000-4c80-8aa0-5aa83d33de06.webp?size=l",
+      "card_spec": {
+        "type": "草",
+        "stage": "VMAX",
+        "hp": 310,
+        "note": "漆黒のガイスト収録・HR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96647 / https://api.tcgdex.net/v2/ja/cards/S6K-084"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "jet-black-spirit-090",
+      "card_no": "090/070",
+      "rarity": "HR",
+      "card_name": "シャクヤ",
+      "box_id": "jet_black_spirit",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/6889214c-9752-4c74-8bbb-574f0e755a3b.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "漆黒のガイスト収録・HR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "E",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "漆黒のガイストのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s6.html / https://snkrdunk.com/apparels/96707 / https://api.tcgdex.net/v2/ja/cards/S6K-090"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-078",
+      "card_no": "078/070",
+      "rarity": "SR",
+      "card_name": "ガラルファイヤーV",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/f9a0b3a7-2fc9-404c-a79d-32aa8c1cb7f8.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/91185"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-086",
+      "card_no": "086/070",
+      "rarity": "HR",
+      "card_name": "バシャーモVMAX",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/2af7e7eb-0d86-4ed4-b432-ff47be0b52a6.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・HR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/93030"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-093",
+      "card_no": "093/070",
+      "rarity": "UR",
+      "card_name": "カビゴン",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/d28567e0-fbe8-4338-8468-04f290ba1757.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・UR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのUR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/93031"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-082",
+      "card_no": "082/070",
+      "rarity": "SR",
+      "card_name": "クララ",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/e7c3239f-05b0-461f-9756-0a772b17977d.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/91184"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-076",
+      "card_no": "076/070",
+      "rarity": "SR",
+      "card_name": "ガラルサンダーV",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/baa991bc-f66d-46b0-bcb8-63d6d809dc79.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/91183"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-080",
+      "card_no": "080/070",
+      "rarity": "SR",
+      "card_name": "ガラルヤドキングV",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/9cd749c0-5a91-461d-b7d0-fd3f185bca79.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/98681"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-081",
+      "card_no": "081/070",
+      "rarity": "SR",
+      "card_name": "カリンの信念",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/79321f91-d535-4d3e-99cc-444320841dc2.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/98677"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-089",
+      "card_no": "089/070",
+      "rarity": "HR",
+      "card_name": "カリンの信念",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/8f63674c-0fd6-42c0-a130-b9625f72292e.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・HR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/99570"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-090",
+      "card_no": "090/070",
+      "rarity": "HR",
+      "card_name": "クララ",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/9e72a53a-d9d0-41b6-affd-6351ee0b7f3c.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・HR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのHR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/99569"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "matchless-fighters-083",
+      "card_no": "083/070",
+      "rarity": "SR",
+      "card_name": "セイボリー",
+      "box_id": "matchless_fighters",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7de54060-6362-42c0-8d3e-21f54ffc1497.webp?size=l",
+      "card_spec": {
+        "type": "不明",
+        "stage": "不明",
+        "hp": 0,
+        "note": "双璧のファイター収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "不明",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "不明",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "競技採用状況は未評価。",
+        "collector": "双璧のファイターのSR収録カード。",
+        "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/98685"
+      },
+      "note": "2026-10-03 商品番号・画像を照合して追加。"
     }
   ],
   "market_posts": [
