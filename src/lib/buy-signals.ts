@@ -2,6 +2,7 @@ import { priceChangePct } from './price-change'
 import type { Card, Forecast, PriceRecord, PriceExtremes } from '@/types/pokeca'
 import { isDeckUtilityCard } from '@/lib/card-kind'
 import { UP_VERDICT_PCT } from '@/lib/verdict'
+import { buyMovement } from './buy-movement'
 
 // 「AIが買うべきカード」候補の決定論的な選定。
 // トップページ（表示）と scripts/generate-buy-theses.ts（AI論拠生成の対象選び）で
@@ -185,6 +186,7 @@ export function selectBuyCandidates(
   //   渡すので、その中の順位で出すと常に上位＝高い数字に化ける）。
   //   渡さなければ inputs 内の順位になる（単独で使う呼び出し向けのフォールバック）。
   heatScale?: (score: number) => number,
+  asOf = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10),
 ): BuyCandidate[] {
   const raw = inputs.map(scoreBuy).filter((c): c is BuyCandidate => c != null)
   const scale = heatScale ?? makeHeatScale(raw.map(c => c.score))
@@ -194,13 +196,16 @@ export function selectBuyCandidates(
     .map(c => {
       let below = 0
       while (below < allSorted.length && allSorted[below] < c.score) below++
+      const movement = buyMovement(inputs.find(input => input.slug === c.slug)?.history ?? [], asOf)
       return {
         ...c,
+        movementScore: movement.score,
+        omens: [...movement.reasons, ...c.omens.filter(reason => reason !== '出品数減少' && reason !== '直近の押し目')],
         heat: scale(c.score),
         heatPercentile: allSorted.length ? Math.round((below / allSorted.length) * 100) : 0,
       }
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.movementScore - a.movementScore || b.score - a.score || a.slug.localeCompare(b.slug))
 
   const picked: BuyCandidate[] = []
   const perBox: Record<string, number> = {}

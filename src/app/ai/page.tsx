@@ -87,5 +87,5 @@ export default function AiPage() {
     .sort((a, b) => b.upPct - a.upPct)
     .slice(0, 60)
 
-  return <AiOverview picks={picks} accuracy={accuracy} forecastRows={forecastRows} />
+  return <AiOverview picks={picks} accuracy={accuracy} forecastRows={forecastRows} movementPrioritized />
 }
