@@ -1,6 +1,6 @@
 {
   "product_id": "op15-764615",
-  "fetched_at": "2026-10-03T18:17:34.143Z",
+  "fetched_at": "2026-10-04T07:24:47.264Z",
   "history": [
     {
       "date": "2026-09-25",
@@ -357,6 +357,15 @@
   "complete": true,
   "psa10_history": [
     {
+      "date": "2026-10-04",
+      "avg": 22330,
+      "low": 21800,
+      "high": 23000,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "psa10": 22330
+    },
+    {
       "date": "2026-10-03",
       "avg": 22710,
       "low": 21800,
@@ -628,39 +637,39 @@
     },
     {
       "date": "2026-07-02",
-      "avg": 66338,
+      "avg": 62957,
       "low": 55000,
-      "high": 90000,
+      "high": 62957,
       "source": "snkrdunk",
-      "sample_count": 8,
-      "psa10": 66338
+      "sample_count": 7,
+      "psa10": 62957
     },
     {
       "date": "2026-06-30",
-      "avg": 67400,
+      "avg": 63633,
       "low": 55000,
-      "high": 90000,
+      "high": 63633,
       "source": "snkrdunk",
-      "sample_count": 7,
-      "psa10": 67400
+      "sample_count": 6,
+      "psa10": 63633
     },
     {
       "date": "2026-06-29",
-      "avg": 68667,
-      "low": 55000,
-      "high": 90000,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "psa10": 68667
-    },
-    {
-      "date": "2026-06-27",
-      "avg": 73500,
+      "avg": 64400,
       "low": 55000,
       "high": 94000,
       "source": "snkrdunk",
-      "sample_count": 4,
-      "psa10": 73500
+      "sample_count": 5,
+      "psa10": 64400
+    },
+    {
+      "date": "2026-06-27",
+      "avg": 68000,
+      "low": 55000,
+      "high": 94000,
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "psa10": 68000
     },
     {
       "date": "2026-06-23",
@@ -768,9 +777,10 @@
     "2026-09-29": 1,
     "2026-10-01": 2,
     "2026-10-02": 2,
-    "2026-10-03": 3
+    "2026-10-03": 3,
+    "2026-10-04": 5
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-03T18:31:32.838Z",
+  "psa10_fetched_at": "2026-10-04T07:38:48.793Z",
   "raw_archived_extremes": null
 }
