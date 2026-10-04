@@ -2,6 +2,23 @@
   "card_id": "mega-brave-mega-venusaur-ex-sr",
   "history": [
     {
+      "date": "2026-10-05",
+      "low": 450,
+      "high": 500,
+      "avg": 498,
+      "source": "mercari",
+      "sample_count": 15,
+      "sold_total": 1103,
+      "oldest_sale_days": 16,
+      "on_sale": 58,
+      "ask_low": 500,
+      "ask_mid": 799,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5766,
+      "psa10_as_of": "2026-10-03"
+    },
+    {
       "date": "2026-10-04",
       "low": 450,
       "high": 515,
@@ -1190,15 +1207,6 @@
       "ask_low": 1000,
       "ask_mid": 1500,
       "psa10": 18543
-    },
-    {
-      "date": "2026-07-03",
-      "low": 1127,
-      "high": 1377,
-      "avg": 1252,
-      "ask_low": 999,
-      "ask_mid": 1499,
-      "psa10": 18543
     }
   ],
   "sales_by_day": {
@@ -1256,7 +1264,7 @@
     "2026-10-02": 1,
     "2026-10-03": 1
   },
-  "sales_fetched_at": "2026-10-04",
+  "sales_fetched_at": "2026-10-05",
   "psa10_archived_extremes": {
     "high": {
       "value": 18597,
@@ -1269,7 +1277,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-27",
-    "records": 5,
-    "updated_at": "2026-07-02"
+    "records": 6,
+    "updated_at": "2026-07-03"
   }
 }
