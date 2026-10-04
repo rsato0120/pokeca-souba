@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { chromium } from 'playwright'
 import { getOnePieceCatalog, getOnePiecePrices } from '../src/lib/onepiece'
 import { computePsa10Extremes } from '../src/lib/psa10-extremes'
-import { buildOnePieceHistory, parseOnePieceSale, type Sale } from './onepiece-price-utils'
+import { buildOnePieceHistory, parseOnePieceSale, replaceOnePieceSalesCounts, ONEPIECE_PRICE_WINDOW_DAYS, ONEPIECE_EXISTING_MIN_SALES, ONEPIECE_NEW_MIN_SALES, type Sale } from './onepiece-price-utils'
 import { PSA10_CONDITION_ID } from './snkrdunk-sales'
 
 async function main() {
@@ -16,7 +16,8 @@ async function main() {
         const previous = getOnePiecePrices(product.id)
         if (!previous) continue
         const now = Date.now()
-        const cutoff = now - 120 * 86400000
+        const today = new Date(now + 9 * 3600000).toISOString().slice(0, 10)
+        const cutoff = Date.parse(today) - 119 * 86400000
         const sales: Sale[] = []
         let complete = false
         for (let index = 1; index <= 5; index++) {
@@ -35,14 +36,16 @@ async function main() {
           if (old || json.history.length < 1000) { complete = true; break }
         }
         const oldest = sales.map(s => s.date).sort()[0]
+        if (!complete && !oldest) throw Error('Incomplete sales coverage; previous data retained')
         const usable = complete ? sales : sales.filter(s => s.date > oldest)
-        const records = buildOnePieceHistory(usable).filter(r => complete || Date.parse(r.date) >= Date.parse(oldest) + 30 * 86400000)
+        const minSamples = previous.psa10_history?.length ? ONEPIECE_EXISTING_MIN_SALES : ONEPIECE_NEW_MIN_SALES
+        const records = buildOnePieceHistory(usable, minSamples).filter(r => complete || Date.parse(r.date) >= Date.parse(oldest) + ONEPIECE_PRICE_WINDOW_DAYS * 86400000)
           .map(r => ({ ...r, psa10: r.avg }))
         const history = new Map((previous.psa10_history ?? []).map(r => [r.date, r]))
         for (const record of records) history.set(record.date, record)
         const sorted = [...history.values()].sort((a, b) => b.date.localeCompare(a.date))
-        const counts = { ...previous.psa10_sales_by_day }
-        for (const date of new Set(usable.map(s => s.date))) counts[date] = usable.filter(s => s.date === date).length
+        const replaceFrom = complete ? new Date(cutoff).toISOString().slice(0, 10) : oldest
+        const counts = replaceOnePieceSalesCounts(previous.psa10_sales_by_day, usable, replaceFrom, today)
         const result = { ...previous, psa10_history: sorted.slice(0, 120), psa10_sales_by_day: counts,
           psa10_archived_extremes: computePsa10Extremes(sorted.slice(120), previous.psa10_archived_extremes),
           psa10_fetched_at: new Date(now).toISOString() }

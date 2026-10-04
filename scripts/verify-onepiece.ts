@@ -10,22 +10,44 @@ assert.equal(parseOnePieceSale({ ...raw, condition: 'PSA10' }, 'card', now), nul
 assert.equal(parseOnePieceSale({ ...raw, condition: 'PSA10' }, 'psa10', now)?.price, 12000)
 assert.equal(parseOnePieceSale(raw, 'psa10', now), null)
 assert.equal(parseOnePieceSale({ ...raw, condition: 'PSA9' }, 'psa10', now), null)
-assert.equal(parseOnePieceSale({ ...raw, condition: 'B' }, 'card', now), null)
+assert.equal(parseOnePieceSale({ ...raw, condition: 'B' }, 'card', now)?.price, 12000)
+assert.equal(parseOnePieceSale({ ...raw, condition: 'C' }, 'card', now)?.price, 12000)
+assert.equal(parseOnePieceSale({ ...raw, condition: 'D' }, 'card', now)?.price, 12000)
 assert.equal(parseOnePieceSale({ ...raw, price: NaN }, 'card', now), null)
 assert.equal(parseOnePieceSale({ ...raw, size: '4個' }, 'box', now)?.price, 3000)
 assert.equal(parseOnePieceSale({ ...raw, size: 'カートン' }, 'box', now), null)
 assert.equal(parseOnePieceSale({ ...raw, size: '' }, 'box', now), null)
 const sales = [{ date: '2026-09-03', price: 10000 }, { date: '2026-09-03', price: 12000 }, { date: '2026-09-02', price: 8000 }]
-assert.equal(buildOnePieceHistory(sales)[0].avg, 10000)
-assert.equal(buildOnePieceHistory(sales)[0].date, '2026-09-03')
-assert.equal(buildOnePieceHistory(sales)[0].sample_count, 3)
-assert.equal(buildOnePieceHistory(sales.slice(0, 2)).length, 0)
-assert.equal(buildOnePieceHistory([...sales, { date: '2026-07-01', price: 999999 }])[0].avg, 10000)
+assert.equal(buildOnePieceHistory(sales, 3)[0].avg, 10000)
+assert.equal(buildOnePieceHistory(sales, 3)[0].date, '2026-09-03')
+assert.equal(buildOnePieceHistory(sales, 3)[0].sample_count, 3)
+assert.equal(buildOnePieceHistory(sales).length, 0)
+assert.equal(buildOnePieceHistory([...sales, { date: '2026-09-02', price: 10000 }])[0].sample_count, 4)
+assert.equal(buildOnePieceHistory([...sales, { date: '2026-09-02', price: 10000 }], 6).length, 0)
+assert.equal(buildOnePieceHistory(sales.slice(0, 2), 3).length, 0)
+assert.equal(buildOnePieceHistory([...sales, { date: '2026-07-01', price: 999999 }], 3)[0].avg, 10000)
+const boundarySales = [
+  { date: '2026-09-03', price: 10000 },
+  ...Array.from({ length: 3 }, () => ({ date: '2026-07-21', price: 10000 })),
+  { date: '2026-07-20', price: 999999 },
+]
+assert.equal(buildOnePieceHistory(boundarySales)[0].avg, 10000)
+assert.equal(buildOnePieceHistory(boundarySales)[0].sample_count, 4)
+const thirtySales = [
+  ...Array.from({ length: 30 }, () => ({ date: '2026-09-03', price: 10000 })),
+  { date: '2026-09-02', price: 999999 },
+]
+assert.equal(buildOnePieceHistory(thirtySales)[0].avg, 10000)
+assert.equal(buildOnePieceHistory(thirtySales)[0].sample_count, 30)
+assert.equal(buildOnePieceHistory(thirtySales.slice(0, 6), 6)[0].sample_count, 6)
 assert.deepEqual(replaceOnePieceSalesCounts(
   { '2026-08-31': 4, '2026-09-01': 99, '2026-09-02': 3 },
   [{ date: '2026-09-01', price: 1000 }, { date: '2026-09-01', price: 1200 }],
   '2026-09-01', '2026-09-03',
 ), { '2026-08-31': 4, '2026-09-01': 2 })
+assert.deepEqual(replaceOnePieceSalesCounts(
+  { '2026-08-31': 4, '2026-09-01': 99, '2026-09-02': 3 }, [], '2026-09-01', '2026-09-03',
+), { '2026-08-31': 4 })
 const { sets, products } = getOnePieceCatalog()
 assert.ok(sets.length >= 5)
 assert.equal(new Set(products.map(p => p.snkrdunk_id)).size, products.length)

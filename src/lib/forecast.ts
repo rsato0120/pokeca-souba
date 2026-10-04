@@ -750,7 +750,7 @@ export async function generateOnePieceForecast(product: OnePieceProduct, set: On
   const model = new GoogleGenerativeAI(key).getGenerativeModel({ model: 'gemini-3.1-flash-lite', generationConfig: { responseMimeType: 'application/json', temperature: 0.4 } })
   const prompt = `あなたはONE PIECEカードゲームの相場分析者です。入力の実成約データだけに基づいて日本語で予想してください。
 商品: ${product.name} / ${product.card_no ?? 'BOX'} / ${set.name} / 発売日 ${set.release_date}
-商品区分: ${product.kind}。カードは状態A、BOXは1箱の平均相場です。
+商品区分: ${product.kind}。カードは素体（状態A〜D）、BOXは1箱の平均相場です。
 現在価格は変更しない。再販・大会実績・封入率・PSA鑑定枚数は情報なし。推測で事実を補わない。
 入力にないニュースや人気の断定は避け、履歴の日付・変動・成約件数を根拠にし、薄商いと不確実性を明記。
 最新からの観測: ${JSON.stringify(history.slice(0, 45).map(r => ({ date: r.date, avg: r.avg, count: r.sample_count })))}

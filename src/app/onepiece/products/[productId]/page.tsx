@@ -84,7 +84,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
     <p><a className="op-buy-link" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`} target="_blank" rel="noreferrer">𝕏 でシェア</a></p>
     <section className="chart-shell"><h2>価格推移・詳細チャート</h2>
       {(prices?.history.length ?? 0) > 0 ? <CardCharts forecastChart={forecast ? <PriceForecastChart history={prices!.history} forecast={forecast.price_forecast} /> : null} historyChart={<PriceHistoryChart rawExtras={<PriceExtremesSummary extremes={extremes} mid={latest?.avg ?? 0} />} extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null} history={prices!.history} psa10History={prices!.psa10_history} psa10ArchivedExtremes={prices!.psa10_archived_extremes} salesByDay={prices!.sales_by_day} psa10SalesByDay={prices!.psa10_sales_by_day} unit={product.kind === 'box' ? '箱' : '枚'} movingAverages={false} />} /> : <p className="op-empty">価格推移を表示できる成約データがまだ足りません。</p>}
-      <p className="op-footnote">各日までの直近30日以内から新しい日順に20件を目安に集計。素体は状態A、PSA10は鑑定済みPSA10のみを別々に集計し、BOXは複数箱の取引を1箱単価に換算しています。グラフは取得できた実成約から算出し、取引がない日を補完しません。</p>
+      <p className="op-footnote">各日までの直近45日以内から新しい日順に30件を目安に集計。素体は状態A〜D、PSA10は鑑定済みPSA10のみを別々に集計し、BOXは複数箱の取引を1箱単価に換算しています。グラフは取得できた実成約から算出し、取引がない日を補完しません。</p>
     </section>
     {investmentScore && <CardScorePanel score={investmentScore} />}
     {forecast ? <OnePieceForecast forecast={forecast} /> : <p className="source-note">AI予想は履歴と直近の成約データが十分そろった商品から生成します。</p>}

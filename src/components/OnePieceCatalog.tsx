@@ -27,7 +27,7 @@ export default function OnePieceCatalog({ products, sets, initialKind = 'all', i
     <div className="op-filters" aria-label="収録弾"><button type="button" aria-pressed={!setId} onClick={() => setSetId('')}>すべて（{sets.length}シリーズ）</button>
       {sets.map(s => <button key={s.id} type="button" aria-pressed={setId === s.id} onClick={() => setSetId(s.id)}>{s.name}</button>)}
     </div></>}
-    <p className="op-muted">{visible.length}件 · スニダン成約平均 · カードは状態A／BOXは1箱単価</p>
+    <p className="op-muted">{visible.length}件 · スニダン成約平均 · カードは素体（状態A〜D）／BOXは1箱単価</p>
     {!visible.length && <p className="op-empty">該当する商品がありません。検索条件を変更してください。</p>}
     <div className="onepiece-market-list">{visible.map(p => <Link prefetch={false} className="home-market-row onepiece-market-row" href={`/onepiece/products/${p.id}`} key={p.id}>
       <OnePieceImage product={p} className="home-thumb-ph" />

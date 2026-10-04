@@ -2,7 +2,8 @@ import fs from 'node:fs'
 import { computeObservedExtremes } from '../src/lib/psa10-extremes'
 import { chromium } from 'playwright'
 import { getOnePieceCatalog, getOnePiecePrices } from '../src/lib/onepiece'
-import { buildOnePieceHistory, parseOnePieceSale, replaceOnePieceSalesCounts, type Sale } from './onepiece-price-utils'
+import { buildOnePieceHistory, parseOnePieceSale, replaceOnePieceSalesCounts, ONEPIECE_PRICE_WINDOW_DAYS, ONEPIECE_TARGET_SALES, ONEPIECE_EXISTING_MIN_SALES, ONEPIECE_NEW_MIN_SALES, type Sale } from './onepiece-price-utils'
+import { RAW_CONDITION_IDS } from './snkrdunk-sales'
 import type { OnePiecePrices } from '../src/types/onepiece'
 
 async function main() {
@@ -20,34 +21,43 @@ async function main() {
         const cutoff = Date.parse(today) - 119 * 86400000
         const sales: Sale[] = []
         let complete = false
-        for (let index = 1; index <= (product.kind === 'box' ? 12 : 5); index++) {
-          const url = `${product.source_url.replace('/apparels/', '/v1/apparels/')}/sales-history?page=${index}&per_page=1000`
-            + (product.kind === 'card' ? '&condition_id=18' : '')
-          let rows: Array<{ date: string; price: number; condition?: string; size?: string }> | null = null
-          for (let attempt = 0; attempt < 3; attempt++) {
-            try {
-              const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 })
-              if (!response?.ok()) throw new Error(`HTTP ${response?.status()}`)
-              const json = JSON.parse(await response.text())
-              if (!Array.isArray(json.history)) throw new Error('Invalid sales response')
-              rows = json.history
-              break
-            } catch (error) {
-              if (attempt === 2) throw error
-              await new Promise(r => setTimeout(r, 2000))
+        let allConditionsComplete = true
+        const conditionIds: Array<number | null> = product.kind === 'card' ? [...RAW_CONDITION_IDS] : [null]
+        for (const conditionId of conditionIds) {
+          let conditionComplete = false
+          for (let index = 1; index <= (product.kind === 'box' ? 12 : 5); index++) {
+            const url = `${product.source_url.replace('/apparels/', '/v1/apparels/')}/sales-history?page=${index}&per_page=1000`
+              + (conditionId == null ? '' : `&condition_id=${conditionId}`)
+            let rows: Array<{ date: string; price: number; condition?: string; size?: string }> | null = null
+            for (let attempt = 0; attempt < 3; attempt++) {
+              try {
+                const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 })
+                if (!response?.ok()) throw new Error(`HTTP ${response?.status()}`)
+                const json = JSON.parse(await response.text())
+                if (!Array.isArray(json.history)) throw new Error('Invalid sales response')
+                rows = json.history
+                break
+              } catch (error) {
+                if (attempt === 2) throw error
+                await new Promise(r => setTimeout(r, 2000))
+              }
             }
-          }
-          if (!rows) throw new Error('No sales response')
-          let reachedOld = false
-          for (const row of rows) {
-            const sale = parseOnePieceSale(row, product.kind, now)
-            if (!sale) continue
-            if (Date.parse(sale.date) < cutoff) { reachedOld = true; continue }
-            sales.push(sale)
-          }
-          if (reachedOld || rows.length < (product.kind === 'box' ? 20 : 1000)) { complete = true; break }
-          await new Promise(r => setTimeout(r, 300))
+            if (!rows) throw new Error('No sales response')
+            let reachedOld = false
+            for (const row of rows) {
+              const sale = parseOnePieceSale(row, product.kind, now)
+              if (!sale) continue
+              if (Date.parse(sale.date) < cutoff) { reachedOld = true; continue }
+              sales.push(sale)
+            }
+            if (reachedOld || rows.length < (product.kind === 'box' ? 20 : 1000)) { conditionComplete = true; break }
+            await new Promise(r => setTimeout(r, 300))
+            }
+          if (!conditionComplete) allConditionsComplete = false
         }
+        complete = allConditionsComplete
+        // A〜Dの一部だけで素体相場を公開しない。上限到達時は既存値を維持する。
+        if (product.kind === 'card' && !complete) throw new Error('Incomplete condition coverage; previous data retained')
         // 正常応答でも対象状態・期間に成約がない商品はある。取得障害と混同しない。
         // 既存の観測日・価格を維持し、今日の架空レコードは作らない。
         if (!sales.length && complete) {
@@ -66,12 +76,13 @@ async function main() {
         // oldest から消し、完全に取得できた usable の日だけを戻す。
         const replaceFrom = oldest
         const counts = replaceOnePieceSalesCounts(previous?.sales_by_day, usable, replaceFrom, today)
-        // Only publish windows for which all preceding 30 days were fetched, unless the full history ends here.
-        const records = buildOnePieceHistory(usable).filter(r => complete || Date.parse(r.date) >= Date.parse(oldest) + 30 * 86400000)
-        // For a capped, liquid BOX, the newest window is still complete once 20 trades fit after the cutoff.
+        // Only publish windows for which all preceding 45 days were fetched, unless the full history ends here.
+        const minSamples = previous?.history?.length ? ONEPIECE_EXISTING_MIN_SALES : ONEPIECE_NEW_MIN_SALES
+        const records = buildOnePieceHistory(usable, minSamples).filter(r => complete || Date.parse(r.date) >= Date.parse(oldest) + ONEPIECE_PRICE_WINDOW_DAYS * 86400000)
+        // For a capped, liquid BOX, the newest window is complete once 30 trades fit after the cutoff.
         if (!complete) {
-          for (const record of buildOnePieceHistory(usable)) {
-            if ((record.sample_count ?? 0) >= 20 && !records.some(r => r.date === record.date)) records.push(record)
+          for (const record of buildOnePieceHistory(usable, minSamples)) {
+            if ((record.sample_count ?? 0) >= ONEPIECE_TARGET_SALES && !records.some(r => r.date === record.date)) records.push(record)
           }
         }
         const history = new Map((previous?.history ?? []).map(r => [r.date, r]))
