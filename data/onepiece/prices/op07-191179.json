@@ -1,6 +1,6 @@
 {
   "product_id": "op07-191179",
-  "fetched_at": "2026-10-05T07:45:45.645Z",
+  "fetched_at": "2026-10-05T21:42:32.381Z",
   "history": [
     {
       "date": "2026-09-04",
@@ -28,43 +28,43 @@
     },
     {
       "date": "2026-07-07",
-      "avg": 4629,
+      "avg": 4566,
       "low": 4500,
       "high": 5000,
       "source": "snkrdunk",
-      "sample_count": 15
+      "sample_count": 11
     },
     {
       "date": "2026-06-29",
-      "avg": 4802,
+      "avg": 4803,
       "low": 4500,
       "high": 5000,
       "source": "snkrdunk",
-      "sample_count": 14
+      "sample_count": 10
     },
     {
       "date": "2026-06-20",
-      "avg": 4825,
-      "low": 4700,
+      "avg": 4837,
+      "low": 4790,
       "high": 5000,
       "source": "snkrdunk",
-      "sample_count": 13
+      "sample_count": 9
     },
     {
       "date": "2026-06-14",
-      "avg": 4813,
-      "low": 4700,
-      "high": 5000,
-      "source": "snkrdunk",
-      "sample_count": 12
-    },
-    {
-      "date": "2026-06-10",
-      "avg": 4946,
-      "low": 4700,
+      "avg": 4819,
+      "low": 4790,
       "high": 5000,
       "source": "snkrdunk",
       "sample_count": 8
+    },
+    {
+      "date": "2026-06-10",
+      "avg": 5093,
+      "low": 4790,
+      "high": 5800,
+      "source": "snkrdunk",
+      "sample_count": 4
     },
     {
       "date": "2026-06-08",
@@ -78,18 +78,18 @@
   "raw_archived_extremes": null,
   "sales_by_day": {
     "2026-06-06": 1,
+    "2026-06-08": 4,
     "2026-08-10": 1,
     "2026-07-25": 1,
     "2026-06-29": 1,
     "2026-06-20": 1,
     "2026-06-14": 4,
     "2026-06-10": 4,
-    "2026-06-08": 4,
     "2026-09-04": 1,
     "2026-09-02": 1,
     "2026-07-07": 1
   },
-  "coverage_start": "2026-06-08",
+  "coverage_start": "2026-06-10",
   "complete": true,
   "psa10_history": [
     {
@@ -208,5 +208,5 @@
     "2026-06-10": 1
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-05T07:54:31.039Z"
+  "psa10_fetched_at": "2026-10-05T21:50:05.737Z"
 }
