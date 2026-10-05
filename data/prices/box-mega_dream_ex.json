@@ -2,6 +2,18 @@
   "card_id": "box-mega_dream_ex",
   "history": [
     {
+      "date": "2026-10-06",
+      "low": 12000,
+      "high": 12500,
+      "avg": 12250,
+      "source": "mercari",
+      "sold_total": 156,
+      "oldest_sale_days": 4,
+      "on_sale": 113,
+      "on_sale_capped": true,
+      "psa10": null
+    },
+    {
       "date": "2026-10-05",
       "low": 12000,
       "high": 12500,
@@ -953,15 +965,6 @@
       "ask_low": 5200,
       "ask_mid": 5555,
       "psa10": null
-    },
-    {
-      "date": "2026-07-05",
-      "low": 12000,
-      "high": 13950,
-      "avg": 12799,
-      "ask_low": 5200,
-      "ask_mid": 5555,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1006,7 +1009,8 @@
     "2026-10-02": 128,
     "2026-10-03": 130,
     "2026-10-04": 141,
-    "2026-10-05": 60
+    "2026-10-05": 179,
+    "2026-10-06": 10
   },
-  "sales_fetched_at": "2026-10-05"
+  "sales_fetched_at": "2026-10-06"
 }

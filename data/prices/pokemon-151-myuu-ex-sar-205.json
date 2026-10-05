@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-myuu-ex-sar-205",
   "history": [
     {
+      "date": "2026-10-06",
+      "low": 34000,
+      "high": 54800,
+      "avg": 42952,
+      "source": "snkrdunk",
+      "sample_count": 25,
+      "on_sale": 179,
+      "ask_low": 18000,
+      "ask_mid": 24750,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 55704,
+      "psa10_as_of": "2026-10-06"
+    },
+    {
       "date": "2026-10-05",
       "low": 34000,
       "high": 54800,
@@ -1074,15 +1089,6 @@
       "ask_low": 31111,
       "ask_mid": 44444,
       "psa10": 92922
-    },
-    {
-      "date": "2026-07-04",
-      "low": 38487,
-      "high": 47039,
-      "avg": 42763,
-      "ask_low": 32900,
-      "ask_mid": 44444,
-      "psa10": 92631
     }
   ],
   "sales_by_day": {
@@ -1259,13 +1265,14 @@
     "2026-10-02": 7,
     "2026-10-03": 9,
     "2026-10-04": 7,
-    "2026-10-05": 2
+    "2026-10-05": 7,
+    "2026-10-06": 3
   },
-  "sales_fetched_at": "2026-10-05",
+  "sales_fetched_at": "2026-10-06",
   "psa10_archived_extremes": {
     "high": {
-      "value": 91244,
-      "date": "2026-07-03",
+      "value": 92631,
+      "date": "2026-07-04",
       "source": "snkrdunk"
     },
     "low": {
@@ -1274,7 +1281,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 6,
-    "updated_at": "2026-07-03"
+    "records": 7,
+    "updated_at": "2026-07-04"
   }
 }

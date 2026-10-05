@@ -2,6 +2,21 @@
   "card_id": "electric-breaker-131",
   "history": [
     {
+      "date": "2026-10-06",
+      "low": 9200,
+      "high": 10000,
+      "avg": 9329,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "on_sale": 26,
+      "ask_low": 10999,
+      "ask_mid": 10999,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19921,
+      "psa10_as_of": "2026-10-05"
+    },
+    {
       "date": "2026-10-05",
       "low": 9200,
       "high": 10000,
@@ -387,7 +402,7 @@
       "psa10": 21836
     }
   ],
-  "sales_fetched_at": "2026-10-05",
+  "sales_fetched_at": "2026-10-06",
   "sales_by_day": {
     "2026-09-07": 1,
     "2026-08-23": 1,
@@ -475,6 +490,7 @@
     "2026-10-01": 4,
     "2026-10-02": 6,
     "2026-10-03": 4,
-    "2026-10-04": 2
+    "2026-10-04": 2,
+    "2026-10-05": 1
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "inferno-x-hikari-sr",
   "history": [
     {
+      "date": "2026-10-06",
+      "low": 1200,
+      "high": 1500,
+      "avg": 1320,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 47,
+      "ask_low": 1300,
+      "ask_mid": 1600,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6773,
+      "psa10_as_of": "2026-10-01"
+    },
+    {
       "date": "2026-10-05",
       "low": 1200,
       "high": 1500,
@@ -1096,15 +1111,6 @@
       "ask_low": 1699,
       "ask_mid": 2000,
       "psa10": 10743
-    },
-    {
-      "date": "2026-07-04",
-      "low": 1612,
-      "high": 1970,
-      "avg": 1791,
-      "ask_low": 1699,
-      "ask_mid": 2000,
-      "psa10": 10743
     }
   ],
   "sales_by_day": {
@@ -1212,7 +1218,7 @@
     "2026-10-01": 2,
     "2026-10-02": 1
   },
-  "sales_fetched_at": "2026-10-05",
+  "sales_fetched_at": "2026-10-06",
   "psa10_archived_extremes": {
     "high": {
       "value": 11000,
@@ -1225,7 +1231,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 8,
-    "updated_at": "2026-07-03"
+    "records": 9,
+    "updated_at": "2026-07-04"
   }
 }

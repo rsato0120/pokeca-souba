@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-mega-greninja-ex-mur",
   "history": [
     {
+      "date": "2026-10-06",
+      "low": 35000,
+      "high": 62500,
+      "avg": 49980,
+      "source": "snkrdunk",
+      "sample_count": 32,
+      "on_sale": 170,
+      "ask_low": 31000,
+      "ask_mid": 40000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 102215,
+      "psa10_as_of": "2026-10-05"
+    },
+    {
       "date": "2026-10-05",
       "low": 35000,
       "high": 62500,
@@ -1074,15 +1089,6 @@
       "ask_low": 69000,
       "ask_mid": 100000,
       "psa10": 200674
-    },
-    {
-      "date": "2026-07-04",
-      "low": 87866,
-      "high": 107392,
-      "avg": 97629,
-      "ask_low": 70000,
-      "ask_mid": 100000,
-      "psa10": 201478
     }
   ],
   "sales_by_day": {
@@ -1244,7 +1250,6 @@
     "2026-06-09": 3,
     "2026-06-08": 3,
     "2026-06-07": 2,
-    "2026-06-06": 3,
     "2026-09-03": 2,
     "2026-09-02": 2,
     "2026-08-31": 2,
@@ -1281,9 +1286,9 @@
     "2026-10-02": 2,
     "2026-10-04": 2,
     "2026-10-03": 2,
-    "2026-10-05": 4
+    "2026-10-05": 6
   },
-  "sales_fetched_at": "2026-10-05",
+  "sales_fetched_at": "2026-10-06",
   "psa10_archived_extremes": {
     "high": {
       "value": 211499,
@@ -1291,12 +1296,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 205152,
-      "date": "2026-07-03",
+      "value": 201478,
+      "date": "2026-07-04",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 10,
-    "updated_at": "2026-07-03"
+    "records": 11,
+    "updated_at": "2026-07-04"
   }
 }
