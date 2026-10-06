@@ -2,6 +2,23 @@
   "card_id": "black-flame-122",
   "history": [
     {
+      "date": "2026-10-07",
+      "low": 333,
+      "high": 408,
+      "avg": 408,
+      "source": "mercari",
+      "sample_count": 8,
+      "sold_total": 90,
+      "oldest_sale_days": 22,
+      "on_sale": 8,
+      "ask_low": 500,
+      "ask_mid": 700,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7600,
+      "psa10_as_of": "2026-10-06"
+    },
+    {
       "date": "2026-09-23",
       "low": 400,
       "high": 555,
@@ -229,9 +246,9 @@
       "psa10": 7590
     }
   ],
-  "sales_fetched_at": "2026-09-23",
+  "sales_fetched_at": "2026-10-07",
   "sales_by_day": {
-    "2026-05-27": 1
+    "2026-09-30": 1
   },
   "psa10_sales_by_day": {
     "2026-08-31": 1,
@@ -241,6 +258,7 @@
     "2026-07-29": 1,
     "2026-07-18": 1,
     "2026-06-18": 1,
-    "2026-06-16": 1
+    "2026-06-16": 1,
+    "2026-10-06": 2
   }
 }

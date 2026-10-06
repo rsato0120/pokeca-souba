@@ -2,6 +2,23 @@
   "card_id": "rocket-glory-sv10-120",
   "history": [
     {
+      "date": "2026-10-07",
+      "low": 490,
+      "high": 680,
+      "avg": 607,
+      "source": "mercari",
+      "sample_count": 7,
+      "sold_total": 199,
+      "oldest_sale_days": 27,
+      "on_sale": 2,
+      "ask_low": 799,
+      "ask_mid": 1100,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6000,
+      "psa10_as_of": "2026-09-26"
+    },
+    {
       "date": "2026-09-23",
       "low": 600,
       "high": 777,
@@ -277,5 +294,8 @@
       "psa10": 5200
     }
   ],
-  "sales_fetched_at": "2026-09-23"
+  "sales_fetched_at": "2026-10-07",
+  "psa10_sales_by_day": {
+    "2026-09-26": 1
+  }
 }
