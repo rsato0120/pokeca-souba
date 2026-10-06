@@ -1,4 +1,4 @@
-import { cardShareUrl, MERCARI_X_AFFILIATE_URL } from '@/lib/share-links'
+import { cardShareUrl, mercariXShareUrl } from '@/lib/share-links'
 import CardImage from '@/components/CardImage'
 import MercariLink from '@/components/MercariLink'
 import { priceChangePctForDays } from '@/lib/price-change'
@@ -619,7 +619,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 : 'PSA10 データなし',
               `#ポケカ #ポケカ相場`,
               cardShareUrl(card.id),
-              `メルカリ（PR） ${MERCARI_X_AFFILIATE_URL}`,
+              `メルカリ（PR） ${mercariXShareUrl(card.id)}`,
             ].join('\n')
             return (
               <a

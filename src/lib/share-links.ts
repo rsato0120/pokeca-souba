@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import issuedLinks from '../../data/mercari-x-links.json'
 
 const SITE = 'https://pokeca-souba.vercel.app'
 
@@ -11,5 +12,9 @@ export function cardShareUrl(cardId: string): string {
   return `${SITE}/s/${cardShareToken(cardId)}`
 }
 
-// A8のSNS・note用 → Xで発行されたURLをそのまま使用する。
-export const MERCARI_X_AFFILIATE_URL = 'https://r.8to.jp/4adEG7LLwG86'
+// A8の作成画面でカードごとに発行したX用URLを改変せずに使用する。
+export function mercariXShareUrl(cardId: string): string {
+  const entry = (issuedLinks as Record<string, { url: string; destination: string }>)[cardId]
+  if (!entry) throw new Error(`Missing issued Mercari X link for ${cardId}`)
+  return entry.url
+}

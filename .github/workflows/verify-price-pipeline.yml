@@ -6,6 +6,7 @@ on:
     paths:
       - package.json
       - data/pokeca_data.json
+      - data/mercari-x-links.json
       - data/pack-image-bounds.json
       - package-lock.json
       - .node-version
@@ -17,6 +18,7 @@ on:
     paths:
       - package.json
       - data/pokeca_data.json
+      - data/mercari-x-links.json
       - data/pack-image-bounds.json
       - package-lock.json
       - .node-version
@@ -43,6 +45,7 @@ jobs:
       - run: npm ci --engine-strict
       - run: npx tsx scripts/verify-price-guard.ts
       - run: npx tsx scripts/verify-mercari-freshness.ts
+      - run: npx tsx scripts/verify-mercari-share-links.ts
       - run: npx tsx scripts/verify-price-source.ts
       - run: npx tsx scripts/verify-price-change.ts
       - run: npx tsx scripts/verify-snkrdunk-sales.ts
