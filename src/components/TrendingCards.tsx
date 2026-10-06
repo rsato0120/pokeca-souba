@@ -1,4 +1,5 @@
 'use client'
+import CardImage from '@/components/CardImage'
 
 import { marketCardHref } from '@/lib/market-links'
 import { useEffect, useState } from 'react'
@@ -102,8 +103,8 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
                 </span>
 
                 {card.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={card.image} alt={card.name} className="row-thumb" referrerPolicy="no-referrer" />
+
+                  <CardImage src={card.image} alt={card.name} className="row-thumb" referrerPolicy="no-referrer" />
                 ) : (
                   <div className="row-thumb row-thumb-ph">{card.rarity}</div>
                 )}

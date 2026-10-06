@@ -1,4 +1,5 @@
 'use client'
+import CardImage from '@/components/CardImage'
 
 import { marketCardHref } from '@/lib/market-links'
 
@@ -274,8 +275,8 @@ export default function ScreenerTable({ rows, boxes, rarities, index7d }: Props)
                   <td className="dt-sticky">
                     <Link prefetch={false} href={marketCardHref(r.id)} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
                       {r.image ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
+
+                        <CardImage
                           src={r.image} alt="" loading="lazy" decoding="async"
                           referrerPolicy="no-referrer" className="row-thumb"
                         />

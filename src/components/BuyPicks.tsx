@@ -1,3 +1,4 @@
+import CardImage from '@/components/CardImage'
 import Link from 'next/link'
 import type { Card, BuyThesis, Conviction } from '@/types/pokeca'
 
@@ -71,8 +72,8 @@ export default function BuyPicks({ picks }: { picks: BuyPick[] }) {
                 {i + 1}
               </span>
               {card.image_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={card.image_url} alt={card.card_name} className="row-thumb buy-thumb" referrerPolicy="no-referrer" />
+
+                <CardImage src={card.image_url} alt={card.card_name} className="row-thumb buy-thumb" referrerPolicy="no-referrer" />
               ) : (
                 <div className="row-thumb buy-thumb row-thumb-ph">{card.rarity}</div>
               )}

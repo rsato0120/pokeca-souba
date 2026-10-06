@@ -1,3 +1,4 @@
+import CardImage from '@/components/CardImage'
 import { priceSeriesKey } from '@/lib/price-source'
 import { priceChangePct, priceChangePctForDays } from '@/lib/price-change'
 import HomeDeals from '@/components/HomeDeals'
@@ -298,14 +299,14 @@ export default function TopPage() {
       <HomeMarketPanels rankingHref="/ranking" boxes={boxRanking}
         deals={<HomeDeals rankingHref="/ranking" rows={bargainRows.map(({card,slug,listing,marketPrice,savings,discountPct})=>({listingId:listing.id,slug,name:card.card_name,rarity:card.rarity,cardImage:card.image_url ?? null,listingImage:listing.image_url ?? null,title:listing.title,listingPrice:listing.price,marketPrice,savings,discountPct,url:listing.url}))} />}
         sales={salesLeaders.map(({ m, count }) => ({ id: m.slug, href: '/cards/' + m.slug, name: m.card.card_name, rarity: m.card.rarity, mid: m.currentMid, sales: count, onSale: m.onSale,
-          // eslint-disable-next-line @next/next/no-img-element
-          image: m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-sales-image-ph">{m.card.rarity}</span> }))}
+
+          image: m.card.image_url ? <CardImage src={m.card.image_url} alt="" /> : <span className="home-sales-image-ph">{m.card.rarity}</span> }))}
         surge={surgeCards.map(m => ({ id: m.slug, href: '/cards/' + m.slug, name: m.card.card_name, rarity: m.card.rarity, mid: m.currentMid, change: getChange(m),
-          // eslint-disable-next-line @next/next/no-img-element
-          image: m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span> }))}
+
+          image: m.card.image_url ? <CardImage src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span> }))}
         drop={dropCards.map(m => ({ id: m.slug, href: '/cards/' + m.slug, name: m.card.card_name, rarity: m.card.rarity, mid: m.currentMid, change: getChange(m),
-          // eslint-disable-next-line @next/next/no-img-element
-          image: m.card.image_url ? <img src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span> }))}
+
+          image: m.card.image_url ? <CardImage src={m.card.image_url} alt="" /> : <span className="home-thumb-ph">{m.card.rarity}</span> }))}
       />
 
       <BoxBargainListings data={getBoxMarketListings()} />

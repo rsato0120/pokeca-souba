@@ -1,3 +1,4 @@
+import CardImage from '@/components/CardImage'
 import MercariLink from '@/components/MercariLink'
 import { priceChangePctForDays } from '@/lib/price-change'
 import { priceSeriesKey } from '@/lib/price-source'
@@ -257,8 +258,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           {/* holo = 触ると光沢が斜めに走る。ポケカの実物の質感に寄せた演出（CSSのみ） */}
           <div className="pokecard holo" style={{ padding: card.image_url ? '0' : undefined, overflow: 'hidden' }}>
             {card.image_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+
+              <CardImage
                 src={card.image_url}
                 alt={`${card.card_name} ${card.rarity}`}
                 referrerPolicy="no-referrer"
@@ -617,7 +618,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 : 'PSA10 データなし',
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/cards/${cardId}`,
-              `メルカリで探す https://jp.mercari.com/search?keyword=${encodeURIComponent(`${card.card_name} ${card.card_no || card.rarity} ${box?.box_name ?? ''}`.trim())}&status=on_sale`,
+              `メルカリで探す https://jp.mercari.com/search/?keyword=${encodeURIComponent(`${card.card_name} ${card.card_no || card.rarity} ${box?.box_name ?? ''}`.trim())}&status=on_sale`,
             ].join('\n')
             return (
               <a

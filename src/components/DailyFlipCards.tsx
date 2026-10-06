@@ -1,4 +1,5 @@
 'use client'
+import CardImage from '@/components/CardImage'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -60,8 +61,8 @@ export default function DailyFlipCards({ cards }: { cards: DailyFlipCard[] }) {
                 <span className="daily-flip-front">
                   <span className="daily-flip-category">{card.category}</span>
                   {card.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- 外部カード画像は既存データURLを使用
-                    <img src={card.image} alt="" className="daily-flip-image" />
+
+                    <CardImage src={card.image} alt="" className="daily-flip-image" />
                   ) : (
                     <span className="daily-flip-image daily-flip-image-ph">{card.rarity}</span>
                   )}

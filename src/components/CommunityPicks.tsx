@@ -1,4 +1,5 @@
 'use client'
+import CardImage from '@/components/CardImage'
 
 import { marketCardHref } from '@/lib/market-links'
 import { useEffect, useState } from 'react'
@@ -58,7 +59,7 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
 
   useEffect(() => {
     if (!sb) return
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     void (async () => {
       const { data, error } = await sb
         .from('card_vote_tallies')
@@ -107,8 +108,8 @@ export default function CommunityPicks({ cards }: { cards: PickCard[] }) {
             return (
               <Link prefetch={false} key={card.id} href={marketCardHref(card.id)} className="row" style={{ gridTemplateColumns: 'var(--thumb-w) 1fr auto' }}>
                 {card.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={card.image} alt={card.name} className="row-thumb" referrerPolicy="no-referrer" />
+
+                  <CardImage src={card.image} alt={card.name} className="row-thumb" referrerPolicy="no-referrer" />
                 ) : (
                   <div className="row-thumb row-thumb-ph">{card.rarity}</div>
                 )}

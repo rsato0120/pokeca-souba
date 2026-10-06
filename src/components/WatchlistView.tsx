@@ -1,4 +1,5 @@
 'use client'
+import CardImage from '@/components/CardImage'
 
 import { marketCardHref } from '@/lib/market-links'
 
@@ -101,8 +102,8 @@ export default function WatchlistView({ cards, index7d, game = 'pokemon' }: Prop
                   <td className="dt-sticky">
                     <Link prefetch={false} href={marketCardHref(card.id)} style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)', color: 'inherit' }}>
                       {card.image ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={card.image} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" className="row-thumb" />
+
+                        <CardImage src={card.image} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" className="row-thumb" />
                       ) : (
                         <span className="row-thumb row-thumb-ph">—</span>
                       )}

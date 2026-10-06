@@ -1,3 +1,4 @@
+import CardImage from '@/components/CardImage'
 import Link from 'next/link'
 
 // カード詳細の左カラム（カード画像の下の空き）に置く関連カード。
@@ -23,8 +24,8 @@ export default function RelatedCards({ items }: { items: RelatedItem[] }) {
         {items.map(it => (
           <Link prefetch={false} key={it.id} href={`/cards/${it.id}`} className="related-item">
             {it.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={it.image} alt={it.name} referrerPolicy="no-referrer" className="related-thumb" />
+
+              <CardImage src={it.image} alt={it.name} referrerPolicy="no-referrer" className="related-thumb" />
             ) : (
               <div className="related-thumb" />
             )}

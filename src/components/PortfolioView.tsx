@@ -1,4 +1,5 @@
 'use client'
+import CardImage from '@/components/CardImage'
 import { useState } from 'react'
 import Link from 'next/link'
 import {
@@ -334,8 +335,8 @@ export default function PortfolioView({ cards, boxes = [], game = 'pokemon' }: {
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <Link prefetch={false} href={card.href ?? `/cards/${card.id}`} style={{ flexShrink: 0 }}>
                     {card.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={card.image_url} alt={card.card_name} referrerPolicy="no-referrer"
+
+                      <CardImage src={card.image_url} alt={card.card_name} referrerPolicy="no-referrer"
                         style={{ width: '36px', height: '50px', objectFit: 'cover', borderRadius: '4px', display: 'block' }} />
                     ) : (
                       <div style={{ width: '36px', height: '50px', borderRadius: '4px', background: 'var(--bg2)', border: '1px solid var(--hair)' }} />

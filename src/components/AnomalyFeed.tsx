@@ -1,3 +1,4 @@
+import CardImage from '@/components/CardImage'
 import Link from 'next/link'
 import { ANOMALY_LEVELS, type AnomalyCard } from '@/lib/anomaly'
 
@@ -33,8 +34,8 @@ export default function AnomalyFeed({ rows }: { rows: AnomalyRow[] }) {
             />
             <div className="anom-head">
               {r.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={r.image} alt={`${r.card.card_name} ${r.card.rarity}`} className="anom-thumb" referrerPolicy="no-referrer" />
+
+                <CardImage src={r.image} alt={`${r.card.card_name} ${r.card.rarity}`} className="anom-thumb" referrerPolicy="no-referrer" />
               ) : (
                 <div className="anom-thumb heat-thumb-ph">{r.card.rarity}</div>
               )}
