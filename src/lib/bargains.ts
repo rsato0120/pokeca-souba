@@ -7,22 +7,6 @@ export function mercariAffiliateUrl(destination: string): string {
   return `https://px.a8.net/svt/ejp?a8mat=4B60CK+3FU6LU+5LNQ+5YJRM&a8ejpredirect=${encodeURIComponent(destination)}`
 }
 
-/** Unwrap only the configured affiliate's Mercari destination. */
-export function mercariDirectUrl(href: string): string | null {
-  try {
-    let url = new URL(href)
-    if (url.protocol === 'https:' && url.hostname === 'px.a8.net' && url.pathname === '/svt/ejp') {
-      const destination = url.searchParams.get('a8ejpredirect')
-      if (!destination) return null
-      url = new URL(destination)
-    }
-    if (url.protocol !== 'https:' || url.hostname !== 'jp.mercari.com') return null
-    // Mercari's iOS association lists /search/ and /item/m…/ with a trailing slash.
-    if (url.pathname === '/search' || /^\/item\/m\d+$/.test(url.pathname)) url.pathname += '/'
-    return url.href
-  } catch { return null }
-}
-
 function minimumSavings(marketPrice: number): number {
   if (marketPrice < 10_000) return 1000
   if (marketPrice < 50_000) return 3000

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { chainLink } from '../src/lib/index-series'
-import { mercariAffiliateUrl, mercariDirectUrl } from '../src/lib/bargains'
+import { mercariAffiliateUrl } from '../src/lib/bargains'
 
 // A thinly traded market can have 79 members but only 42 observations per day.
 const members = Array.from({ length: 79 }, (_, i) => new Map<string, { value: number; source: 'snkrdunk' | 'mercari' }>(i < 42 ? [
@@ -16,13 +16,10 @@ assert.ok(Math.abs(recovered[1].value - 110) < 1e-8)
 members[0].set('2026-10-02', { value: 1000000, source: 'snkrdunk' })
 members[1].set('2026-10-02', { value: 11000, source: 'mercari' })
 assert.equal(chainLink(members, { baseCoverage: 0.4 })[1].contributors, 40)
-for (const url of ['https://jp.mercari.com/item/m123456', 'https://jp.mercari.com/search?keyword=%E3%83%AB%E3%83%95%E3%82%A3&status=on_sale']) {
-  const appUrl = new URL(url)
-  appUrl.pathname += '/'
-  assert.equal(mercariDirectUrl(url), appUrl.href)
-  assert.equal(mercariDirectUrl(mercariAffiliateUrl(url)), appUrl.href)
+for (const destination of ['https://jp.mercari.com/item/m123456', 'https://jp.mercari.com/search?keyword=%E3%83%AB%E3%83%95%E3%82%A3&status=on_sale']) {
+  const affiliate = new URL(mercariAffiliateUrl(destination))
+  assert.equal(affiliate.hostname, 'px.a8.net')
+  assert.ok(affiliate.searchParams.get('a8mat'))
+  assert.equal(affiliate.searchParams.get('a8ejpredirect'), destination)
 }
-for (const url of ['javascript:alert(1)', 'https://jp.mercari.com.evil.example/item/m1', 'https://example.com', 'not a URL', mercariAffiliateUrl('https://example.com')]) {
-  assert.equal(mercariDirectUrl(url), null)
-}
-console.log('Market recovery: sparse index, unchanged default, source checks and Mercari URLs OK')
+console.log('Market recovery: sparse index, unchanged default, source checks and affiliate destinations OK')
