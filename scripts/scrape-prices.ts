@@ -739,16 +739,28 @@ interface MercariPriceResult {
 //   ¥294,600〜¥666,666 と表示された。直近3ヶ月の成約は ¥666,666〜¥1,154,400、出品最安は
 //   ¥670,000 で、実勢の半値以下。このカードは1年で3〜4倍に上がっており、下寄りの区間を取る
 //   sliceMean は「値上がりした薄商い銘柄では必然的に1年前の安値を拾う」という性質を持つ。
-// 対策＝**直近の窓から順に試し、件数が足りない時だけ広げる**。薄商い銘柄をスキップにしない
-// （スキップは前日値の凍結を生み、それはそれで古い値が居座る）。
+// まず直近30日を試す。90日から始めると、直近が十分でも古い成約が混じり、
+// shouldHoldStaleMercariPrice の30日上限で毎回棄却されて価格が凍結する。
+// 件数不足の時だけ広げるが、既存価格の更新は30日以内の成約に限る。
 // 鮮度不明（updated 欠落）のサンプルは有限の窓には入れない。仮にAPIが updated を返さなく
 // なっても最後の「全期間」に落ちるだけで、従来と同じ挙動に自動で戻る。
 const SOLD_WINDOWS: Array<{ days: number | null; min: number }> = [
+  { days: 30, min: 5 },
   { days: 90, min: 5 },
   { days: 180, min: 5 },
   { days: 365, min: 5 },
   { days: null, min: 3 },
 ]
+
+export function selectMercariSales<T extends { ageDays: number | null }>(candidates: T[]): { picked: T[]; windowDays: number | null } {
+  for (const window of SOLD_WINDOWS) {
+    const maxAge = window.days
+    const picked = maxAge == null ? candidates
+      : candidates.filter(c => c.ageDays != null && c.ageDays >= 0 && c.ageDays <= maxAge)
+    if (picked.length >= window.min) return { picked, windowDays: window.days }
+  }
+  return { picked: [], windowDays: null }
+}
 
 // trimTopPct: low/high を出す前に高値側から機械的に落とす割合。成約検索に残る混入は必ず
 // 高値側なので、これが無いと表示レンジの上端が束売り/鑑定品の値になる（ミカルゲAR: 実勢¥362
@@ -803,15 +815,7 @@ async function scrapeMercariSoldAvg(
         }
       })
     // 鮮度の窓を直近から順に試す（SOLD_WINDOWS のコメント参照）
-    let picked: typeof candidates = []
-    let windowDays: number | null = null
-    for (const w of SOLD_WINDOWS) {
-      const maxAge = w.days
-      const inWindow = maxAge == null
-        ? candidates
-        : candidates.filter(c => c.ageDays != null && c.ageDays <= maxAge)
-      if (inWindow.length >= w.min) { picked = inWindow; windowDays = w.days; break }
-    }
+    const { picked, windowDays } = selectMercariSales(candidates)
     if (picked.length < 3) return null
     const prices = picked.map(c => c.price)
     const ages = picked.map(c => c.ageDays).filter((a): a is number => a != null)
@@ -1431,7 +1435,7 @@ async function scrapeCard(
         const q = queries[Math.min(attempt, queries.length) - 1]
         if (attempt > 1 && q !== searchQuery) process.stdout.write(`[番号キーワードで再検索] `)
         const result = await scrapeMercariSoldAvg(browser, q, 0.2, 0.6, cardNo, 0.25, cardName)
-        if (result != null) {
+        if (result != null && !shouldHoldStaleMercariPrice(prevRecordForSource, result.oldestSaleDays)) {
           avg = result.avg; mercariLow = result.low; mercariHigh = result.high; soldTotal = result.soldTotal
           // メルカリ由来でも件数を残す。これが無いと「何件の成約で出した値か」が後から検証できず、
           // 監査で薄いサンプルの跳ねと本物の相場変動を切り分けられなかった。

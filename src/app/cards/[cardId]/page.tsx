@@ -610,12 +610,14 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           {/* Xシェアボタン */}
           {(() => {
             const tweetText = [
-              `【AI相場予想】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
-              // スタブ時はダミー価格をツイートに載せない
-              isStub ? '相場データ取得中' : `現在 ¥${price_forecast.current_low.toLocaleString()}〜¥${price_forecast.current_high.toLocaleString()}`,
-              `${signal.dot} ${signal.label} 上昇確率${overall.up_pct}%`,
+              `【ポケカ相場】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
+              latestRecord ? `素体 ¥${Math.round(currentMid).toLocaleString()}（${latestDate?.replace(/-/g, '/')}時点）` : '素体 相場データ取得中',
+              latestPsa10 != null
+                ? `PSA10 ¥${latestPsa10.toLocaleString()}${latestPsa10Date ? `（${latestPsa10Date.replace(/-/g, '/')}成約まで）` : ''}`
+                : 'PSA10 データなし',
               `#ポケカ #ポケカ相場`,
               `https://pokeca-souba.vercel.app/cards/${cardId}`,
+              `メルカリで探す https://jp.mercari.com/search?keyword=${encodeURIComponent(`${card.card_name} ${card.card_no || card.rarity} ${box?.box_name ?? ''}`.trim())}&status=on_sale`,
             ].join('\n')
             return (
               <a

@@ -42,6 +42,7 @@ jobs:
       # Use the same clean install as the scheduled price jobs, on Linux.
       - run: npm ci --engine-strict
       - run: npx tsx scripts/verify-price-guard.ts
+      - run: npx tsx scripts/verify-mercari-freshness.ts
       - run: npx tsx scripts/verify-price-source.ts
       - run: npx tsx scripts/verify-price-change.ts
       - run: npx tsx scripts/verify-snkrdunk-sales.ts
