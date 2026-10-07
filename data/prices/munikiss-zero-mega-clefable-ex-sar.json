@@ -2,6 +2,23 @@
   "card_id": "munikiss-zero-mega-clefable-ex-sar",
   "history": [
     {
+      "date": "2026-10-08",
+      "low": 1899,
+      "high": 2000,
+      "avg": 1978,
+      "source": "mercari",
+      "sample_count": 20,
+      "sold_total": 1803,
+      "oldest_sale_days": 27,
+      "on_sale": 89,
+      "ask_low": 2000,
+      "ask_mid": 2999,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5818,
+      "psa10_as_of": "2026-10-07"
+    },
+    {
       "date": "2026-10-07",
       "low": 1899,
       "high": 2000,
@@ -1150,15 +1167,6 @@
       "ask_low": 2980,
       "ask_mid": 3600,
       "psa10": 12515
-    },
-    {
-      "date": "2026-07-06",
-      "low": 3018,
-      "high": 3688,
-      "avg": 3353,
-      "ask_low": 2980,
-      "ask_mid": 3800,
-      "psa10": 14773
     }
   ],
   "sales_by_day": {
@@ -1172,7 +1180,6 @@
     "2026-06-19": 1,
     "2026-06-18": 1,
     "2026-06-10": 1,
-    "2026-06-08": 1,
     "2026-08-21": 1,
     "2026-07-20": 2,
     "2026-07-21": 1,
@@ -1262,9 +1269,9 @@
     "2026-10-01": 1,
     "2026-10-05": 4,
     "2026-10-06": 4,
-    "2026-10-07": 5
+    "2026-10-07": 8
   },
-  "sales_fetched_at": "2026-10-07",
+  "sales_fetched_at": "2026-10-08",
   "psa10_archived_extremes": {
     "high": {
       "value": 21641,
@@ -1272,12 +1279,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 15035,
-      "date": "2026-07-05",
+      "value": 14773,
+      "date": "2026-07-06",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 12,
-    "updated_at": "2026-07-05"
+    "records": 13,
+    "updated_at": "2026-07-06"
   }
 }
