@@ -449,7 +449,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
       )}
 
       {tab === 'raw' && selectedHistory.length < history.length && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>取得元が変わった前後は比較せず、現在の取得元が続く期間のみ表示しています。</p>
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>取得元や成約の集計期間が異なる価格はつなげず、比較できる実績のみ表示しています。</p>
       )}
       {/* ── 凡例 ── */}
       <div

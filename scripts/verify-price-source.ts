@@ -22,6 +22,16 @@ for (const source of ['mercari', 'snkrdunk'] as const) {
   assert.equal(priceSeriesKey(history.slice(0, 2)), priceSeriesKey(history.slice(0, 1)), 'rolling same-market history must preserve visit comparisons')
 }
 assert.deepEqual(currentPriceSeries([]), [])
+const oldSample = { ...record('2026-09-23', 126667, 'mercari'), oldest_sale_days: 59 }
+const recentSample = { ...record('2026-10-07', 68200, 'mercari'), oldest_sale_days: 28 }
+const refreshed = [recentSample, oldSample]
+assert.deepEqual(currentPriceSeries(refreshed), [recentSample], 'Fresh trades must not create a cliff against an old broad sample')
+assert.deepEqual(sparkSeries(refreshed), [68200])
+assert.notEqual(priceSeriesKey(refreshed), priceSeriesKey([oldSample]), 'Visit comparisons must reset when the sampling basis changes')
+const continuous = [{ ...recentSample, date: '2026-10-08', avg: 70000 }, recentSample, oldSample]
+assert.equal(priceSeriesKey(continuous), priceSeriesKey(refreshed), 'New comparable observations must keep the visit baseline')
+assert.deepEqual(currentPriceSeries(continuous), continuous.slice(0, 2))
+assert.equal(currentPriceSeries([{ ...recentSample, oldest_sale_days: 30 }, oldSample]).length, 1)
 assert.equal(currentPriceSeries([record('2026-09-17', 100), record('2026-09-16', 50)]).length, 1)
 const markets = Array.from({ length: 15 }, () => new Map([
   ['2026-09-15', { value: 100, source: 'mercari' as const }],
