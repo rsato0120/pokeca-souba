@@ -2,6 +2,23 @@
   "card_id": "white-flare-reshiram-ex-sr-160",
   "history": [
     {
+      "date": "2026-10-09",
+      "low": 730,
+      "high": 793,
+      "avg": 766,
+      "source": "mercari",
+      "sample_count": 13,
+      "sold_total": 361,
+      "oldest_sale_days": 25,
+      "on_sale": 22,
+      "ask_low": 800,
+      "ask_mid": 1056,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6401,
+      "psa10_as_of": "2026-10-07"
+    },
+    {
       "date": "2026-10-08",
       "low": 700,
       "high": 777,
@@ -872,8 +889,7 @@
     }
   ],
   "sales_by_day": {
-    "2026-06-22": 1,
-    "2026-06-09": 1
+    "2026-06-22": 1
   },
   "psa10_sales_by_day": {
     "2026-08-23": 1,
@@ -898,5 +914,5 @@
     "2026-09-25": 2,
     "2026-10-07": 1
   },
-  "sales_fetched_at": "2026-10-08"
+  "sales_fetched_at": "2026-10-09"
 }
