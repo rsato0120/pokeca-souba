@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-nanjamo-no-harabarii-ex-sar",
   "history": [
     {
+      "date": "2026-10-10",
+      "low": 3000,
+      "high": 3980,
+      "avg": 3312,
+      "source": "snkrdunk",
+      "sample_count": 15,
+      "on_sale": 152,
+      "ask_low": 2200,
+      "ask_mid": 2500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6471,
+      "psa10_as_of": "2026-10-09"
+    },
+    {
       "date": "2026-10-09",
       "low": 3000,
       "high": 3980,
@@ -1098,15 +1113,6 @@
       "ask_low": 4200,
       "ask_mid": 4999,
       "psa10": 20275
-    },
-    {
-      "date": "2026-07-08",
-      "low": 4526,
-      "high": 5532,
-      "avg": 5029,
-      "ask_low": 4200,
-      "ask_mid": 4999,
-      "psa10": 20242
     }
   ],
   "sales_by_day": {
@@ -1239,7 +1245,6 @@
     "2026-06-14": 1,
     "2026-06-12": 10,
     "2026-06-11": 2,
-    "2026-06-10": 10,
     "2026-09-02": 7,
     "2026-09-01": 27,
     "2026-08-31": 28,
@@ -1279,9 +1284,10 @@
     "2026-10-05": 8,
     "2026-10-06": 31,
     "2026-10-07": 26,
-    "2026-10-08": 4
+    "2026-10-08": 4,
+    "2026-10-09": 2
   },
-  "sales_fetched_at": "2026-10-09",
+  "sales_fetched_at": "2026-10-10",
   "psa10_archived_extremes": {
     "high": {
       "value": 21634,
@@ -1294,7 +1300,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 14,
-    "updated_at": "2026-07-07"
+    "records": 15,
+    "updated_at": "2026-07-08"
   }
 }

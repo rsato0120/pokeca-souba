@@ -2,6 +2,23 @@
   "card_id": "space-juggler-77",
   "history": [
     {
+      "date": "2026-10-10",
+      "low": 3700,
+      "high": 4400,
+      "avg": 4166,
+      "source": "mercari",
+      "sample_count": 55,
+      "sold_total": 877,
+      "oldest_sale_days": 29,
+      "on_sale": 144,
+      "ask_low": 4400,
+      "ask_mid": 6400,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11463,
+      "psa10_as_of": "2026-10-09"
+    },
+    {
       "date": "2026-10-09",
       "low": 3700,
       "high": 4499,
@@ -70,7 +87,7 @@
       "psa10_as_of": "2026-09-25"
     }
   ],
-  "sales_fetched_at": "2026-10-09",
+  "sales_fetched_at": "2026-10-10",
   "sales_by_day": {
     "2026-09-12": 1,
     "2026-08-23": 1,
@@ -162,6 +179,6 @@
     "2026-09-26": 1,
     "2026-10-07": 2,
     "2026-10-08": 3,
-    "2026-10-09": 1
+    "2026-10-09": 2
   }
 }

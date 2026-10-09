@@ -2,6 +2,23 @@
   "card_id": "mega-brave-ivysaur-ar",
   "history": [
     {
+      "date": "2026-10-10",
+      "low": 399,
+      "high": 400,
+      "avg": 400,
+      "source": "mercari",
+      "sample_count": 59,
+      "sold_total": 2355,
+      "oldest_sale_days": 12,
+      "on_sale": 126,
+      "ask_low": 400,
+      "ask_mid": 500,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 4296,
+      "psa10_as_of": "2026-10-10"
+    },
+    {
       "date": "2026-10-09",
       "low": 399,
       "high": 400,
@@ -1230,15 +1247,6 @@
       "ask_low": 800,
       "ask_mid": 1000,
       "psa10": 8584
-    },
-    {
-      "date": "2026-07-08",
-      "low": 1009,
-      "high": 1233,
-      "avg": 1121,
-      "ask_low": 799,
-      "ask_mid": 1000,
-      "psa10": 8683
     }
   ],
   "sales_by_day": {
@@ -1318,7 +1326,6 @@
     "2026-06-14": 3,
     "2026-06-12": 5,
     "2026-06-11": 2,
-    "2026-06-10": 2,
     "2026-09-03": 9,
     "2026-09-02": 6,
     "2026-09-01": 3,
@@ -1356,9 +1363,11 @@
     "2026-10-06": 8,
     "2026-10-05": 1,
     "2026-10-07": 7,
-    "2026-10-08": 2
+    "2026-10-08": 2,
+    "2026-10-10": 1,
+    "2026-10-09": 3
   },
-  "sales_fetched_at": "2026-10-09",
+  "sales_fetched_at": "2026-10-10",
   "psa10_archived_extremes": {
     "high": {
       "value": 8683,
@@ -1371,7 +1380,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 10,
-    "updated_at": "2026-07-07"
+    "records": 11,
+    "updated_at": "2026-07-08"
   }
 }
