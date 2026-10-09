@@ -594,6 +594,54 @@
       "certainty": "released",
       "pack_price_yen": 158,
       "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。"
+    },
+    {
+      "box_id": "holon_research_tower",
+      "box_name": "ホロンの研究塔",
+      "code": "PCG6",
+      "release_ym": "2005-10",
+      "release_date": "2005-10-28",
+      "certainty": "released",
+      "pack_price_yen": 315,
+      "packs_per_box": 20,
+      "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/26.jpg",
+      "note": "2005-10-28発売。1パック11枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
+    },
+    {
+      "box_id": "holon_phantom",
+      "box_name": "ホロンの幻影",
+      "code": "PCG7",
+      "release_ym": "2006-01",
+      "release_date": "2006-01-27",
+      "certainty": "released",
+      "pack_price_yen": 315,
+      "packs_per_box": 20,
+      "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/27.jpg",
+      "note": "2006-01-27発売。1パック10枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
+    },
+    {
+      "box_id": "miracle_crystal",
+      "box_name": "きせきの結晶",
+      "code": "PCG8",
+      "release_ym": "2006-03",
+      "release_date": "2006-03-10",
+      "certainty": "released",
+      "pack_price_yen": 315,
+      "packs_per_box": 20,
+      "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/28.jpg",
+      "note": "2006-03-10発売。1パック11枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
+    },
+    {
+      "box_id": "offense_defense_furthest_ends",
+      "box_name": "さいはての攻防",
+      "code": "PCG9",
+      "release_ym": "2006-06",
+      "release_date": "2006-06-29",
+      "certainty": "released",
+      "pack_price_yen": 315,
+      "packs_per_box": 20,
+      "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/29.jpg",
+      "note": "2006-06-29発売。1パック11枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
     }
   ],
   "cards": [
@@ -35774,6 +35822,162 @@
         "source": "2026-10-09 商品名・型番・画像照合: https://snkrdunk.com/apparels/406359"
       },
       "note": "スニダンの1ED表記なしの商品区分。1ED版と復刻版は集計しない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "pcg6-umbreon-delta-69-1ed",
+      "box_id": "holon_research_tower",
+      "card_name": "ブラッキーδ-デルタ種 (1ED)",
+      "card_no": "069/086",
+      "rarity": "R",
+      "is_reprint": false,
+      "image_url": "https://pcg-search.com/img/pcg/pcg6069.png",
+      "card_spec": {
+        "type": "悪・鋼",
+        "stage": "1進化",
+        "hp": 70,
+        "note": "PCG期のδ-デルタ種。1ED版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Ryo Ueda",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "R"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のPCG期カード。",
+        "collector": "ブラッキーδ-デルタ種 (1ED)の1ED版。通常と異なるタイプを持つδ-デルタ種。",
+        "source": "2026-10-10 商品名・カード番号・版を照合：https://snkrdunk.com/apparels/92005"
+      },
+      "note": "スニダンの1ED版商品区分を追跡。別の版・復刻版と価格を混在させない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "pcg7-rayquaza-delta-15-unlimited",
+      "box_id": "holon_phantom",
+      "card_name": "レックウザδ-デルタ種",
+      "card_no": "015/052",
+      "rarity": "R",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7308345.webp?size=l",
+      "card_spec": {
+        "type": "水・鋼",
+        "stage": "たね",
+        "hp": 80,
+        "note": "PCG期のδ-デルタ種。再販版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "R"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のPCG期カード。",
+        "collector": "レックウザδ-デルタ種の再販版。通常と異なるタイプを持つδ-デルタ種。",
+        "source": "2026-10-10 商品名・カード番号・版を照合：https://snkrdunk.com/apparels/92057"
+      },
+      "note": "スニダンの再販版商品区分を追跡。別の版・復刻版と価格を混在させない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "pcg8-charizard-delta-32-1ed",
+      "box_id": "miracle_crystal",
+      "card_name": "リザードンδ-デルタ種 (1ED)",
+      "card_no": "032/075",
+      "rarity": "R",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7fc5e0c0-94aa-43cf-8869-3908a6423380.webp?size=l",
+      "card_spec": {
+        "type": "雷・鋼",
+        "stage": "2進化",
+        "hp": 120,
+        "note": "PCG期のδ-デルタ種。1ED版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "R"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のPCG期カード。",
+        "collector": "リザードンδ-デルタ種 (1ED)の1ED版。通常と異なるタイプを持つδ-デルタ種。",
+        "source": "2026-10-10 商品名・カード番号・版を照合：https://snkrdunk.com/apparels/91980"
+      },
+      "note": "スニダンの1ED版商品区分を追跡。別の版・復刻版と価格を混在させない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "pcg9-charizard-star-delta-52-1ed",
+      "box_id": "offense_defense_furthest_ends",
+      "card_name": "リザードン☆δ-デルタ種 (1ED)",
+      "card_no": "052/068",
+      "rarity": "☆",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/74fdddd2-b1c0-4489-bfd0-e3a03caec4e7.webp?size=l",
+      "card_spec": {
+        "type": "悪",
+        "stage": "たね",
+        "hp": 90,
+        "note": "PCG期のδ-デルタ種。1ED版。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Masakazu Fukuda",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "☆"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のPCG期カード。",
+        "collector": "リザードン☆δ-デルタ種 (1ED)の1ED版。通常と異なるタイプを持つδ-デルタ種。",
+        "source": "2026-10-10 商品名・カード番号・版を照合：https://snkrdunk.com/apparels/93260"
+      },
+      "note": "スニダンの1ED版商品区分を追跡。別の版・復刻版と価格を混在させない。素体とPSA10は別に追跡。"
     }
   ],
   "market_posts": [
