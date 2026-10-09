@@ -243,8 +243,8 @@ export default function RankingPage() {
     {
       id: 'views',
       label: '閲覧',
-      note: '直近で見られているカード。1カードにつき1日1訪問者まで数えています。',
-      node: <TrendingCards cards={trendCards} />,
+      note: '今日／7日の閲覧数が2以上の上位50枚。1カードにつき1日1訪問者まで数えています。今日の集計は日本時間の0時からです。',
+      node: <TrendingCards cards={trendCards} limit={50} initialDays={1} showPeriodSelector />,
     },
     {
       id: 'votes',

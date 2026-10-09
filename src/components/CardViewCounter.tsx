@@ -46,15 +46,17 @@ export default function CardViewCounter({ cardId }: { cardId: string }) {
     const today = todayJST()
     const store = read(today)
     const counted = store.ids.includes(cardId)
-    if (!counted) {
-      store.ids.push(cardId)
-      try { localStorage.setItem(KEY, JSON.stringify(store)) } catch { /* 保存できなくても表示は続ける */ }
-    }
     void (async () => {
       const { data, error } = await sb.rpc('record_card_view', { p_card_id: cardId, p_count: !counted })
       if (error) return   // 記録も表示も落ちるだけ。ページ本体には影響させない
       const row = (Array.isArray(data) ? data[0] : data) as Stat | undefined
-      if (row) setStat(row)
+      if (!row) return
+      if (!counted) {
+        const confirmed = read(today)
+        if (!confirmed.ids.includes(cardId)) confirmed.ids.push(cardId)
+        try { localStorage.setItem(KEY, JSON.stringify(confirmed)) } catch { /* 保存できなくても表示は続ける */ }
+      }
+      setStat(row)
     })()
   }, [sb, cardId])
 

@@ -34,8 +34,6 @@ type Row = {
   prev_viewers: number
 }
 
-const DAYS = 7
-const TOP_N = 8
 // これ未満は「みんなが見ている」と呼べない。1人＝自分だけ、という行を並べても意味がない。
 // （[[pokeca-vote-and-motion]] の MIN_VOTES と同じ理由で3以上には上げない。
 //   閲覧はほぼ全訪問者が発生させるので、票よりは早く2に届く）
@@ -43,20 +41,24 @@ const MIN_VIEWERS = 2
 // 前の同じ期間と比べてこの倍率以上なら「急上昇」。初週は前期間が0なので付かない
 const SURGE_RATIO = 2
 
-export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
+export default function TrendingCards({ cards, limit = 8, initialDays = 7, showPeriodSelector = false }: { cards: TrendCard[]; limit?: number; initialDays?: 1 | 7; showPeriodSelector?: boolean }) {
   const sb = getSupabase()
+  const [days, setDays] = useState(initialDays)
   const [rows, setRows] = useState<Row[] | null>(null)
   const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     if (!sb) return
+    let active = true
     void (async () => {
       // 掲載終了カードが混ざる可能性があるので、表示したい件数より多めに取って後で間引く
-      const { data, error } = await sb.rpc('card_view_ranking', { p_days: DAYS, p_limit: TOP_N * 3 })
+      const { data, error } = await sb.rpc('card_view_ranking', { p_days: days, p_limit: Math.min(100, limit * 3) })
+      if (!active) return
       if (error) { setFailed(true); return }
       setRows((data ?? []) as Row[])
     })()
-  }, [sb])
+    return () => { active = false }
+  }, [sb, limit, days])
 
   // 環境変数が未設定／読み込み失敗のときは節ごと消す（サイト本体は無傷のまま）
   if (!sb || failed) return null
@@ -66,10 +68,10 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
     .filter(r => r.viewers >= MIN_VIEWERS)
     .map(r => ({ r, card: byId.get(r.card_id) }))
     .filter((x): x is { r: Row; card: TrendCard } => x.card != null)
-    .slice(0, TOP_N)
+    .slice(0, limit)
 
   // 閲覧が貯まるまではセクションごと出さない（空欄が並ぶより存在しない方がよい）
-  if (rows !== null && ranked.length === 0) return null
+  if (!showPeriodSelector && rows !== null && ranked.length === 0) return null
 
   const top = ranked[0]?.r.viewers ?? 1
 
@@ -78,12 +80,24 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
       <div className="sec-head">
         <span className="sec-no" style={{ color: 'var(--accent)' }}>01c</span>
         <span className="sec-title">みんなの注目ランキング</span>
-        <span className="sec-sub">直近{DAYS}日でよく見られているカード</span>
+        <span className="sec-sub">{days === 1 ? '今日' : '直近7日'}よく見られているカード</span>
       </div>
+      {showPeriodSelector && (
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }} aria-label="閲覧数の集計期間">
+          {([1, 7] as const).map(period => (
+            <button key={period} type="button" className={`rank-tab${days === period ? ' is-active' : ''}`} aria-pressed={days === period}
+              onClick={() => { if (days !== period) { setRows(null); setFailed(false); setDays(period) } }}>
+              {period === 1 ? '今日' : '7日'}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {rows === null ? (
           <div style={{ padding: 'var(--sp-5) 0', fontSize: 'var(--fs-base)', color: 'var(--ink-faint)' }}>読み込み中…</div>
+        ) : ranked.length === 0 ? (
+          <p>この期間に閲覧数が2以上のカードはまだありません。</p>
         ) : (
           ranked.map(({ r, card }, i) => {
             const surge = r.prev_viewers > 0 && r.viewers >= r.prev_viewers * SURGE_RATIO
@@ -135,8 +149,8 @@ export default function TrendingCards({ cards }: { cards: TrendCard[] }) {
                   </div>
 
                   <div className="row-meta">
-                    {DAYS}日で {r.viewers}人が閲覧
-                    {r.viewers_today > 0 && <> · 今日 {r.viewers_today}人</>}
+                    {days === 1 ? '今日' : '7日で'} {r.viewers}人が閲覧
+                    {days === 7 && r.viewers_today > 0 && <> · 今日 {r.viewers_today}人</>}
                   </div>
                 </div>
 
