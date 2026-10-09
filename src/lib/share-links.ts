@@ -13,8 +13,10 @@ export function cardShareUrl(cardId: string): string {
 }
 
 // A8の作成画面でカードごとに発行したX用URLを改変せずに使用する。
-export function mercariXShareUrl(cardId: string): string {
+export function mercariXShareUrl(cardId: string): string | null {
   const entry = (issuedLinks as Record<string, { url: string; destination: string }>)[cardId]
+  // 新規BWカードはリンク未発行。共有文から広告リンクを省き、既存カードの検証は維持する。
+  if (!entry && cardId.startsWith('bw-')) return null
   if (!entry) throw new Error(`Missing issued Mercari X link for ${cardId}`)
   return entry.url
 }

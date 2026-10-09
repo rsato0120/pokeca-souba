@@ -1977,7 +1977,8 @@ async function main() {
         : card.rarity === 'PROMO'
         ? `${card.card_name} プロモ`
         : `${card.card_name} ${card.rarity} ${boxName}`.replace(/\s+/g, ' ').trim()
-      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null, card.box_id === '30th_celebration')
+      // BW期は1ED・復刻・状態違いの混入を防ぐため、登録商品IDの成約だけを採用する。
+      await scrapeCard(browser, getCardSlug(card), query, `${card.card_name} ${card.rarity}`, date, stats, snkrdunkIds, card.card_name, card.rarity, boxName, cardNoFor(card), card.card_no ?? null, card.box_id === '30th_celebration' || card.box_id.startsWith('bw_'))
     })
 
     if (boxes.length > 0) {

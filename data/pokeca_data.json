@@ -554,6 +554,46 @@
       "packs_per_box": 30,
       "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/7f77f04a-2892-4b91-8cfb-9d9b057a7ce9.webp?size=l",
       "note": "2021-03-19発売。1パック5枚、1BOX30パック。公式商品情報：https://www.pokemon-card.com/products/s/s5a.html"
+    },
+    {
+      "box_id": "bw_black_collection",
+      "box_name": "ブラックコレクション",
+      "code": "BW1-B",
+      "release_ym": "2010-12",
+      "release_date": "2010-12-17",
+      "certainty": "released",
+      "pack_price_yen": 158,
+      "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。"
+    },
+    {
+      "box_id": "bw_white_collection",
+      "box_name": "ホワイトコレクション",
+      "code": "BW1-W",
+      "release_ym": "2010-12",
+      "release_date": "2010-12-17",
+      "certainty": "released",
+      "pack_price_yen": 158,
+      "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。"
+    },
+    {
+      "box_id": "bw_dragon_blast",
+      "box_name": "リューズブラスト",
+      "code": "BW5-G",
+      "release_ym": "2012-03",
+      "release_date": "2012-03-16",
+      "certainty": "released",
+      "pack_price_yen": 158,
+      "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。"
+    },
+    {
+      "box_id": "bw_plasma_gale",
+      "box_name": "プラズマゲイル",
+      "code": "BW7",
+      "release_ym": "2012-09",
+      "release_date": "2012-09-14",
+      "certainty": "released",
+      "pack_price_yen": 158,
+      "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。"
     }
   ],
   "cards": [
@@ -35539,6 +35579,201 @@
         "source": "https://www.pokemon-card.com/products/s/s5a.html / https://snkrdunk.com/apparels/98685"
       },
       "note": "2026-10-03 商品番号・画像を照合して追加。"
+    },
+    {
+      "id": "bw-black-reshiram-sr-55",
+      "box_id": "bw_black_collection",
+      "card_name": "レシラム",
+      "card_no": "055/053",
+      "rarity": "SR",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/0c990500-01f6-4f1b-aa70-3f3205e01263.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "たね",
+        "hp": 130,
+        "note": "BW期のオリジナル収録版。復刻版と別に追跡。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のBW期カード。",
+        "collector": "レシラムのBW期SR版。素体は傷などの状態による価格差があります。",
+        "source": "2026-10-09 商品名・型番・画像照合: https://snkrdunk.com/apparels/91641"
+      },
+      "note": "スニダンの1ED表記なしの商品区分。1ED版と復刻版は集計しない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "bw-white-zekrom-sr-55",
+      "box_id": "bw_white_collection",
+      "card_name": "ゼクロム",
+      "card_no": "055/053",
+      "rarity": "SR",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/8667a0f6-804d-4b19-b3f5-7ac330343435.webp?size=l",
+      "card_spec": {
+        "type": "雷",
+        "stage": "たね",
+        "hp": 130,
+        "note": "BW期のオリジナル収録版。復刻版と別に追跡。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のBW期カード。",
+        "collector": "ゼクロムのBW期SR版。素体は傷などの状態による価格差があります。",
+        "source": "2026-10-09 商品名・型番・画像照合: https://snkrdunk.com/apparels/91640"
+      },
+      "note": "スニダンの1ED表記なしの商品区分。1ED版と復刻版は集計しない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "bw-dragon-blast-mew-ex-sr-51",
+      "box_id": "bw_dragon_blast",
+      "card_name": "ミュウEX",
+      "card_no": "051/050",
+      "rarity": "SR",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/d724d463-b866-4591-9d93-0c03c74e442f.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 120,
+        "note": "BW期のオリジナル収録版。復刻版と別に追跡。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のBW期カード。",
+        "collector": "ミュウEXのBW期SR版。素体は傷などの状態による価格差があります。",
+        "source": "2026-10-09 商品名・型番・画像照合: https://snkrdunk.com/apparels/91620"
+      },
+      "note": "スニダンの1ED表記なしの商品区分。1ED版と復刻版は集計しない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "bw-plasma-gale-skyla-sr-76",
+      "box_id": "bw_plasma_gale",
+      "card_name": "フウロ",
+      "card_no": "076/070",
+      "rarity": "SR",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/23f73b13-88e9-4620-a4a8-4a8465d42d4b.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "サポート",
+        "hp": 0,
+        "note": "BW期のオリジナル収録版。復刻版と別に追跡。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のBW期カード。",
+        "collector": "フウロのBW期SR版。素体は傷などの状態による価格差があります。",
+        "source": "2026-10-09 商品名・型番・画像照合: https://snkrdunk.com/apparels/91599"
+      },
+      "note": "スニダンの1ED表記なしの商品区分。1ED版と復刻版は集計しない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "bw-plasma-gale-charizard-ur-77",
+      "box_id": "bw_plasma_gale",
+      "card_name": "リザードン",
+      "card_no": "077/070",
+      "rarity": "UR",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/9e55a779-5103-4778-8c4d-c62fb2565988.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "2進化",
+        "hp": 160,
+        "note": "BW期のオリジナル収録版。復刻版と別に追跡。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "unknown",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "high"
+        }
+      },
+      "evidence_notes": {
+        "player": "現行スタンダード対象外のBW期カード。",
+        "collector": "リザードンのBW期UR版。素体は傷などの状態による価格差があります。",
+        "source": "2026-10-09 商品名・型番・画像照合: https://snkrdunk.com/apparels/406359"
+      },
+      "note": "スニダンの1ED表記なしの商品区分。1ED版と復刻版は集計しない。素体とPSA10は別に追跡。"
     }
   ],
   "market_posts": [

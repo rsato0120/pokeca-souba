@@ -13,6 +13,7 @@ import PriceHistoryChart from '@/components/PriceHistoryChart'
 import CardCharts from '@/components/CardCharts'
 import PriceForecastChart from '@/components/PriceForecastChart'
 import CardCollectionControl from '@/components/CardCollectionControl'
+import CardBreakEven from '@/components/CardBreakEven'
 import CardSentiment from '@/components/CardSentiment'
 import SinceLastVisitBadge from '@/components/SinceLastVisitBadge'
 import CardViewCounter from '@/components/CardViewCounter'
@@ -606,20 +607,23 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
           {/* 買取導線（A8 / PR）。上の「探す」＝買う側に対して売る側の受け皿 */}
           <KaitoriLink marginY={10} />
 
+          <CardBreakEven cardId={cardId} rawPrice={currentMid > 0 ? currentMid : null} psa10Price={latestPsa10} rawDate={latestDate ?? null} psa10Date={latestPsa10Date ?? null} />
+
           {/* オリパ案件バナー（A8 / PR） */}
           <OripaBanner marginY={10} />
 
           {/* Xシェアボタン */}
           {(() => {
+            const mercariShareUrl = mercariXShareUrl(card.id)
             const tweetText = [
-              `PR 【ポケカ相場】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
+              `${mercariShareUrl ? 'PR ' : ''}【ポケカ相場】${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`,
               latestRecord ? `素体 ¥${Math.round(currentMid).toLocaleString()}（${latestDate?.replace(/-/g, '/')}時点）` : '素体 相場データ取得中',
               latestPsa10 != null
                 ? `PSA10 ¥${latestPsa10.toLocaleString()}${latestPsa10Date ? `（${latestPsa10Date.replace(/-/g, '/')}成約まで）` : ''}`
                 : 'PSA10 データなし',
               `#ポケカ #ポケカ相場`,
               cardShareUrl(card.id),
-              `メルカリ（PR） ${mercariXShareUrl(card.id)}`,
+              ...(mercariShareUrl ? [`メルカリ（PR） ${mercariShareUrl}`] : []),
             ].join('\n')
             return (
               <a
