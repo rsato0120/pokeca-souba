@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-darkrai-ex-mur",
   "history": [
     {
+      "date": "2026-10-11",
+      "low": 25000,
+      "high": 38000,
+      "avg": 31698,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 149,
+      "ask_low": 23500,
+      "ask_mid": 26400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 65322,
+      "psa10_as_of": "2026-10-10"
+    },
+    {
       "date": "2026-10-10",
       "low": 25000,
       "high": 38000,
@@ -1104,15 +1119,6 @@
       "ask_low": 59000,
       "ask_mid": 99999,
       "psa10": 292943
-    },
-    {
-      "date": "2026-07-09",
-      "low": 77724,
-      "high": 94996,
-      "avg": 86360,
-      "ask_low": 60000,
-      "ask_mid": 99999,
-      "psa10": 292943
     }
   ],
   "sales_by_day": {
@@ -1183,7 +1189,6 @@
     "2026-06-14": 1,
     "2026-06-13": 1,
     "2026-06-12": 1,
-    "2026-06-11": 3,
     "2026-06-24": 2,
     "2026-09-02": 1,
     "2026-08-31": 2,
@@ -1322,7 +1327,7 @@
     "2026-10-09": 3,
     "2026-10-10": 1
   },
-  "sales_fetched_at": "2026-10-10",
+  "sales_fetched_at": "2026-10-11",
   "psa10_archived_extremes": {
     "high": {
       "value": 356347,
@@ -1330,12 +1335,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 295943,
-      "date": "2026-07-08",
+      "value": 292943,
+      "date": "2026-07-09",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 15,
-    "updated_at": "2026-07-08"
+    "records": 16,
+    "updated_at": "2026-07-09"
   }
 }

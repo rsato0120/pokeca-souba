@@ -2,6 +2,23 @@
   "card_id": "eevee-heroes-sandaasu-v-sr-78",
   "history": [
     {
+      "date": "2026-10-11",
+      "low": 1555,
+      "high": 1799,
+      "avg": 1685,
+      "source": "mercari",
+      "sample_count": 6,
+      "sold_total": 804,
+      "oldest_sale_days": 23,
+      "on_sale": 19,
+      "ask_low": 1780,
+      "ask_mid": 1999,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8381,
+      "psa10_as_of": "2026-10-10"
+    },
+    {
       "date": "2026-10-10",
       "low": 1555,
       "high": 1799,
@@ -850,7 +867,7 @@
       "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-10-10",
+  "sales_fetched_at": "2026-10-11",
   "sales_by_day": {
     "2026-09-04": 1,
     "2026-09-05": 1
@@ -867,6 +884,7 @@
     "2026-09-21": 1,
     "2026-10-05": 1,
     "2026-09-27": 1,
-    "2026-10-04": 1
+    "2026-10-04": 1,
+    "2026-10-10": 1
   }
 }

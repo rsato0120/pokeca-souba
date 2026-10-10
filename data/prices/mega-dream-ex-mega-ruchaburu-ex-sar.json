@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-ruchaburu-ex-sar",
   "history": [
     {
+      "date": "2026-10-11",
+      "low": 1000,
+      "high": 1500,
+      "avg": 1290,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 30,
+      "ask_low": 1500,
+      "ask_mid": 1500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5379,
+      "psa10_as_of": "2026-10-10"
+    },
+    {
       "date": "2026-10-10",
       "low": 1000,
       "high": 1500,
@@ -1144,15 +1159,6 @@
       "ask_low": 1700,
       "ask_mid": 2222,
       "psa10": 10335
-    },
-    {
-      "date": "2026-07-05",
-      "low": 1378,
-      "high": 1684,
-      "avg": 1531,
-      "ask_low": 1700,
-      "ask_mid": 2211,
-      "psa10": 10335
     }
   ],
   "sales_by_day": {
@@ -1184,7 +1190,8 @@
     "2026-10-02": 2,
     "2026-10-06": 1,
     "2026-10-07": 1,
-    "2026-10-09": 1
+    "2026-10-09": 1,
+    "2026-10-10": 1
   },
   "psa10_sales_by_day": {
     "2026-08-24": 5,
@@ -1245,9 +1252,10 @@
     "2026-10-05": 1,
     "2026-10-06": 4,
     "2026-10-07": 5,
-    "2026-10-08": 1
+    "2026-10-08": 1,
+    "2026-10-10": 1
   },
-  "sales_fetched_at": "2026-10-10",
+  "sales_fetched_at": "2026-10-11",
   "psa10_archived_extremes": {
     "high": {
       "value": 11197,
@@ -1260,7 +1268,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 11,
-    "updated_at": "2026-07-04"
+    "records": 12,
+    "updated_at": "2026-07-05"
   }
 }
