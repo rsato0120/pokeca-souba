@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-zuruuzukin-ex-sar",
   "history": [
     {
+      "date": "2026-10-12",
+      "low": 1200,
+      "high": 1450,
+      "avg": 1250,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 24,
+      "ask_low": 1000,
+      "ask_mid": 1250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6323,
+      "psa10_as_of": "2026-10-11"
+    },
+    {
       "date": "2026-10-11",
       "low": 1200,
       "high": 1450,
@@ -1125,13 +1140,6 @@
       "ask_low": 1199,
       "ask_mid": 1633,
       "psa10": 8784
-    },
-    {
-      "date": "2026-06-30",
-      "low": 992,
-      "high": 1212,
-      "avg": 1102,
-      "psa10": 8784
     }
   ],
   "sales_by_day": {
@@ -1210,7 +1218,7 @@
     "2026-10-04": 1,
     "2026-10-11": 1
   },
-  "sales_fetched_at": "2026-10-11",
+  "sales_fetched_at": "2026-10-12",
   "psa10_archived_extremes": {
     "high": {
       "value": 8784,
@@ -1223,7 +1231,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 5,
-    "updated_at": "2026-06-29"
+    "records": 6,
+    "updated_at": "2026-06-30"
   }
 }

@@ -2,6 +2,18 @@
   "card_id": "box-abyss_eye",
   "history": [
     {
+      "date": "2026-10-12",
+      "low": 8000,
+      "high": 8500,
+      "avg": 8250,
+      "source": "mercari",
+      "sold_total": 10205,
+      "oldest_sale_days": 6,
+      "on_sale": 620,
+      "on_sale_capped": true,
+      "psa10": null
+    },
+    {
       "date": "2026-10-11",
       "low": 8000,
       "high": 8500,
@@ -896,13 +908,6 @@
       "high": 10800,
       "avg": 10400,
       "psa10": null
-    },
-    {
-      "date": "2026-07-11",
-      "low": 8990,
-      "high": 10200,
-      "avg": 9595,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -953,7 +958,8 @@
     "2026-10-08": 170,
     "2026-10-09": 303,
     "2026-10-10": 228,
-    "2026-10-11": 260
+    "2026-10-11": 300,
+    "2026-10-12": 15
   },
-  "sales_fetched_at": "2026-10-11"
+  "sales_fetched_at": "2026-10-12"
 }
