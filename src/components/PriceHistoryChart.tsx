@@ -14,7 +14,7 @@ import {
 } from 'recharts'
 import type { PriceExtremes, PriceRecord } from '@/types/pokeca'
 import { computePsa10Extremes } from '@/lib/psa10-extremes'
-import { currentPriceSeries } from '@/lib/price-source'
+import { priceHistorySegments } from '@/lib/price-source'
 import RangePosition from '@/components/RangePosition'
 
 interface Props {
@@ -81,7 +81,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
   const hasPsa = psa10Extremes != null
   const showPsa = hasPsa
 
-  const selectedHistory = useMemo(() => tab === 'psa10' ? psa10History ?? history : currentPriceSeries(history), [tab, psa10History, history])
+  const selectedHistory = useMemo(() => tab === 'psa10' ? psa10History ?? history : history, [tab, psa10History, history])
   const nowMs = selectedHistory.length > 0 ? new Date(selectedHistory[0].date).getTime() : 0
   const hasPeriodData = (d: number) =>
     selectedHistory.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
@@ -124,23 +124,21 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
 
     // 移動平均は表示期間の外も使って計算する。期間で切ってから平均すると
     // 左端の数点がいつまでも欠けたままになる
-    const asc = [...selectedHistory].reverse()
-    const series = asc.map(r =>
-      tab === 'raw'
-        ? (r.avg != null ? Number(r.avg) : (Number(r.low) + Number(r.high)) / 2)
-        : (r.psa10 != null ? Number(r.psa10) : null),
-    )
-
-    return asc
-      .map((r, i) => ({
-        label: r.date.slice(5).replace('-', '/'),
-        date: r.date,
-        value: series[i],
-        ma7: movingAverage(series, i, MA_SHORT),
-        ma30: movingAverage(series, i, MA_LONG),
+    const segments = tab === 'raw' ? priceHistorySegments(selectedHistory) : [[...selectedHistory].reverse()]
+    return segments.flatMap((asc, segmentIndex) => {
+      const series = asc.map(r => tab === 'raw'
+        ? (r.avg ?? (r.low + r.high) / 2)
+        : (r.psa10 ?? null))
+      const points = asc.map((r, i) => ({
+        label: r.date.slice(5).replace('-', '/'), date: r.date, value: series[i],
+        ma7: movingAverage(series, i, MA_SHORT), ma30: movingAverage(series, i, MA_LONG),
         vol: volumeByDate.get(r.date) ?? null,
       }))
-      .filter(p => new Date(p.date).getTime() >= cutoff)
+      // A null point breaks the line without removing either boundary observation.
+      return segmentIndex === 0 ? points : [
+        { label: '', date: asc[0].date, value: null, ma7: null, ma30: null, vol: null }, ...points,
+      ]
+    }).filter(p => new Date(p.date).getTime() >= cutoff)
   }, [selectedHistory, tab, days, nowMs, volumeByDate])
 
   const hasData = data.some(d => d.value != null)
@@ -418,7 +416,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
                 strokeWidth={1.5}
                 strokeDasharray="5 4"
                 dot={false}
-                connectNulls
+                connectNulls={false}
                 isAnimationActive={false}
               />
             )}
@@ -430,7 +428,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
                 stroke="var(--ink-dim)"
                 strokeWidth={1.5}
                 dot={false}
-                connectNulls
+                connectNulls={false}
                 isAnimationActive={false}
               />
             )}
@@ -441,15 +439,15 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
               stroke={accent}
               strokeWidth={2.5}
               dot={{ r: 2.5, fill: accent, strokeWidth: 0 }}
-              connectNulls
+              connectNulls={false}
               isAnimationActive={false}
             />
           </ComposedChart>
         </ResponsiveContainer>
       )}
 
-      {tab === 'raw' && selectedHistory.length < history.length && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>取得元や成約の集計期間が異なる価格はつなげず、比較できる実績のみ表示しています。</p>
+      {tab === 'raw' && priceHistorySegments(history).length > 1 && (
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>過去の価格も表示しています。取得元や成約の集計期間が変わる位置で線を分けています。</p>
       )}
       {/* ── 凡例 ── */}
       <div

@@ -1,5 +1,5 @@
 import { computePsa10Extremes } from '../src/lib/psa10-extremes'
-import { canUsePriceSource } from '../src/lib/price-source'
+import { canUsePriceSource, canFetchMercariPrice } from '../src/lib/price-source'
 import { chromium, type Browser } from 'playwright'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -251,9 +251,9 @@ async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string
     const apparelIds = [...new Set(filtered
       .map(l => l.href.match(/\/apparels\/(\d+)/)?.[1])
       .filter((id): id is string => id != null))]
+    if (apparelIds.length > 1) throw new Error('スニダン商品を一意に特定できないため既存価格を維持')
     return apparelIds.length === 1 ? parseInt(apparelIds[0], 10) : null
-  } catch { return null }
-  finally { await page.close() }
+  } finally { await page.close() }
 }
 
 // スニーカーダンク: 素体平均価格 + PSA10平均価格を取得
@@ -1252,8 +1252,7 @@ async function scrapeCard(
         ? Object.entries(snkrdunkIds).find(([otherId, v]) => v === apparelId && otherId !== id)?.[0]
         : undefined
       if (owner) {
-        process.stdout.write(`[スニダンID${apparelId}は${owner}が使用中→不採用] `)
-        apparelId = null
+        throw new Error(`スニダンID${apparelId}は${owner}が使用中 — 既存価格を維持`)
       } else if (apparelId) {
         snkrdunkIds[id] = apparelId
         saveSnkrdunkIds(snkrdunkIds)
@@ -1277,9 +1276,6 @@ async function scrapeCard(
     )
     let snkrdunkRegular: number | null = null
     let snkrdunkCount = 0
-    // 鮮度切れのスニダン値。メルカリも取れなかった時の最後の手段としてだけ使う
-    let snkrdunkStale: number | null = null
-    let snkrdunkStaleDays: number | null = null
     // スニダンの売買履歴に出ていた個別取引の日付。出来高（成約数）の元になる。
     // 価格をスニダンから採るかどうかとは無関係に、取れた分は常に記録する
     let salesFetchedAt: string | null = null
@@ -1300,8 +1296,6 @@ async function scrapeCard(
       snkrdunkRegular = prices.regular
       snkrdunkCount = prices.regularCount
       psa10 = prices.psa10
-      snkrdunkStale = prices.staleRegular
-      snkrdunkStaleDays = prices.staleDays
       snkrdunkSaleDates = prices.regularSaleDates
       snkrdunkPsa10SaleDates = prices.psa10SaleDates
 
@@ -1417,12 +1411,12 @@ async function scrapeCard(
       source = 'スニダン'
       priceSource = 'snkrdunk'
       sampleCount = snkrdunkCount
-    } else if (snkrdunkOnly) {
-      console.log('スニダン成約が採用件数未満 — スキップ（メルカリへ切り替えない）')
+    } else if (!canFetchMercariPrice(apparelId, prevSource, snkrdunkOnly)) {
+      console.log('スニダン商品あり・取得元固定 — スキップ（最後の成約価格・観測日を維持）')
       stats.skipped++
       return
     } else {
-      // スニダン無し or 少数サンプル → Mercari sold_out（実勢）でフォールバック
+      // スニダンに商品がない場合のみメルカリ成約を取得する
       //
       // 名前照合(matchesCardName)を入れると、検索が緩んで別カードで水増しされていた薄商い銘柄は
       // 件数不足に倒れる。そこで **カード番号をキーワードにした検索を控えにする**。出品タイトルに
@@ -1451,30 +1445,7 @@ async function scrapeCard(
       }
       source = 'メルカリ'
       priceSource = 'mercari'
-      // メルカリ成約も取れなければ、少数でもスニダン価格を使う（無いよりはマシ）
-      // フォールバックは「前日の2倍を超える値」を出さない。番号必須化でメルカリ件数が
-      // 足りないと、安価カードがスニダンの手数料込み床値(¥1,500〜1,700)に跳ね上がる
-      // （メガズルズキンex MA: 実勢¥549 → スニダン¥1,640＝+199%）。フォールバック元より
-      // 桁が変わる値を採るくらいなら、既存価格を維持してスキップする方がまし。
-      // ⚠ 上下**両方向**を見る。以前は上振れ（>2倍）しか止めておらず、フォールバックで
-      // 半値以下に落ちる方は素通りしていた。出所が変わって水準が変わっただけの値を
-      // 「暴落」としてグラフに刻んでしまうため、桁が変わる時は既存価格を維持する。
-      const prevAvg = readLatestRecord(id, date)?.avg ?? null
-      const tooFarForFallback = (v: number) => prevAvg != null && (v > prevAvg * 2 || v < prevAvg * 0.5)
-      if (avg == null && canUsePriceSource(prevSource, 'snkrdunk') && snkrdunkRegular != null && !tooFarForFallback(snkrdunkRegular)) {
-        avg = snkrdunkRegular
-        source = `スニダン(${snkrdunkCount}件)`
-        priceSource = 'snkrdunk'
-        sampleCount = snkrdunkCount
-      }
-      // 最後の手段: 鮮度切れのスニダン直近5件平均。年に数回しか動かない超高額カードは
-      // メルカリ側も番号付き成約が薄く、ここが無いと前日の誤った値が居座り続ける
-      if (avg == null && canUsePriceSource(prevSource, 'snkrdunk') && snkrdunkStale != null && !isSnkrdunkFloorPrice(snkrdunkStale) && !tooFarForFallback(snkrdunkStale)) {
-        avg = snkrdunkStale
-        source = `スニダン(鮮度切れ${snkrdunkStaleDays}日前)`
-        priceSource = 'snkrdunk'
-        sampleCount = undefined
-      }
+
     }
 
     if (avg == null) {
@@ -1613,19 +1584,9 @@ async function scrapeCard(
       const askRatio = avg / askRef
       if (askRatio > ratioHi || askRatio < ratioLo) {
         const detail = `成約¥${avg.toLocaleString()} vs ${askRefLabel}¥${askRef.toLocaleString()}`
-        if (snkrdunkRegular != null && canUsePriceSource(prevSource, 'snkrdunk')) {
-          process.stdout.write(`[メルカリ不整合(${detail})→スニダン${snkrdunkCount}件] `)
-          avg = snkrdunkRegular
-          mercariLow = 0; mercariHigh = 0
-          source = `スニダン(${snkrdunkCount}件)`
-          priceSource = 'snkrdunk'
-          sampleCount = snkrdunkCount
-          oldestSaleDays = null
-        } else {
-          console.log(`メルカリ不整合(${detail}) — スキップ（既存価格を維持）`)
-          stats.skipped++
-          return
-        }
+        console.log(`メルカリ不整合(${detail}) — スキップ（既存価格を維持）`)
+        stats.skipped++
+        return
       }
     }
 

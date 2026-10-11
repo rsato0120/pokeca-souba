@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { canUsePriceSource, currentPriceSeries, priceSeriesKey } from '../src/lib/price-source'
+import { canUsePriceSource, canFetchMercariPrice, priceHistorySegments, currentPriceSeries, priceSeriesKey } from '../src/lib/price-source'
 import { priceChangePct } from '../src/lib/price-change'
 import { sparkSeries } from '../src/lib/market'
 import { chainLink } from '../src/lib/index-series'
@@ -43,3 +43,14 @@ assert.equal(index[1].value, 100, '20% market-level difference must not move the
 assert.equal(index[1].contributors, 0)
 assert.ok(Math.abs(index[2].value - 110) < 1e-8, 'a genuine 10% same-market move must remain')
 console.log('Price source stability, history preservation, sparkline and index regression checks: OK')
+
+assert.equal(canFetchMercariPrice(123, 'snkrdunk'), false, 'No trades must not fall back to Mercari')
+assert.equal(canFetchMercariPrice(123, 'mercari'), false, 'Existing Mercari history must not override product availability')
+assert.equal(canFetchMercariPrice(null, 'snkrdunk'), false, 'Missing ID must not change an existing Snkrdunk series')
+assert.equal(canFetchMercariPrice(null, 'mercari'), true)
+assert.equal(canFetchMercariPrice(null), true)
+assert.equal(canFetchMercariPrice(null, undefined, true), false)
+assert.deepEqual(priceHistorySegments(refreshed), [[oldSample], [recentSample]])
+assert.deepEqual(priceHistorySegments(refreshed).flat(), [...refreshed].reverse(), 'September observations remain visible')
+assert.deepEqual(priceHistorySegments([recentSample, record('2026-09-01', 1, 'snkrdunk')]).map(s => s.length), [1, 1])
+assert.deepEqual(priceHistorySegments([]), [])

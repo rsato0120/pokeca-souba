@@ -11,7 +11,7 @@ import {
   Tooltip,
   ReferenceLine,
 } from 'recharts'
-import { currentPriceSeries } from '@/lib/price-source'
+import { priceHistorySegments } from '@/lib/price-source'
 import type { PriceRecord, PriceForecast } from '@/types/pokeca'
 
 interface Props {
@@ -107,11 +107,13 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
     // ── 過去30日（実績・実線）──
     const cutoff = todayMs - PAST_DAYS * DAY
-    const past = (tab === 'raw' ? currentPriceSeries(history) : history)
+    const visibleHistory = history
       .filter(r => new Date(r.date).getTime() >= cutoff)
       .slice()
       .reverse() // 古い順
-      .map<Point>(r => {
+    const segments = tab === 'raw' ? priceHistorySegments([...visibleHistory].reverse()) : [visibleHistory]
+    const past = segments.flatMap((segment, index) => {
+      const points = segment.map<Point>(r => {
         const ms = new Date(r.date).getTime()
         return {
           t: Math.round((ms - todayMs) / DAY),
@@ -120,6 +122,11 @@ export default function PriceForecastChart({ history, forecast }: Props) {
           forecast: null,
         }
       })
+
+      return index === 0 || !points.length ? points : [
+        { ...points[0], actual: null, forecast: null }, ...points,
+      ]
+    })
 
     // 境界（今日）の実績値 = 未来線の起点。実線と破線をここで接続する
     const base =
@@ -310,7 +317,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
             stroke={actualColor}
             strokeWidth={2.5}
             dot={{ r: 2.5, fill: actualColor, strokeWidth: 0 }}
-            connectNulls
+            connectNulls={false}
             isAnimationActive={false}
           />
           {/* AI予想（破線） */}
@@ -321,14 +328,14 @@ export default function PriceForecastChart({ history, forecast }: Props) {
             strokeWidth={2}
             strokeDasharray="5 5"
             dot={false}
-            connectNulls
+            connectNulls={false}
             isAnimationActive={false}
           />
         </LineChart>
       </ResponsiveContainer>
 
-      {tab === 'raw' && currentPriceSeries(history).length < history.length && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>取得元や成約の集計期間が異なる価格はつなげず、比較できる実績のみ表示しています。</p>
+      {tab === 'raw' && priceHistorySegments(history).length > 1 && (
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>過去の価格も表示しています。取得元や成約の集計期間が変わる位置で線を分けています。</p>
       )}
       {/* ── 凡例 ── */}
       <div
