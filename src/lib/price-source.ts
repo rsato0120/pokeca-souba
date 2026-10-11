@@ -5,6 +5,27 @@ export function canUsePriceSource(previous: PriceSource | undefined, next: Price
   return previous == null || previous === next
 }
 
+/** Mercari is allowed only when the product is absent from Snkrdunk. */
+export function canFetchMercariPrice(apparelId: number | null, previous?: PriceSource, snkrdunkOnly = false): boolean {
+  return apparelId == null && !snkrdunkOnly && canUsePriceSource(previous, 'mercari')
+}
+
+/** Keep every observation visible; separate changes in market or sampling basis. */
+export function priceHistorySegments(records: PriceRecord[]): PriceRecord[][] {
+  const segments: PriceRecord[][] = []
+  for (const record of [...records].reverse()) {
+    const segment = segments.at(-1)
+    const previous = segment?.at(-1)
+    if (!previous || previous.source !== record.source
+      || isComparablePriceRecord(previous) !== isComparablePriceRecord(record)) {
+      segments.push([record])
+    } else {
+      segment!.push(record)
+    }
+  }
+  return segments
+}
+
 /** Do not compare broad historical Mercari samples with current trades. */
 export function isComparablePriceRecord(record: PriceRecord): boolean {
   return (record.oldest_sale_days ?? 0) <= 30
