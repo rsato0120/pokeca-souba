@@ -1,15 +1,20 @@
 import fs from 'fs'
 import path from 'path'
-import { chromium } from 'playwright'
+import { chromium, type Browser } from 'playwright'
 import { getSnkrdunkBoxSales, type BoxSale } from './snkrdunk-sales'
 import type { PriceHistory, PriceRecord } from '../src/types/pokeca'
 import { canUsePriceSource } from '../src/lib/price-source'
 import { getSnkrdunkBoxListingCount } from './snkrdunk-box-listings'
+import { existingSnkrdunkBoxes, hasNewBoxSales } from './snkrdunk-box-price-policy'
 
 const root = process.cwd()
 const pricesDir = path.join(root, 'data', 'prices')
 const ids = JSON.parse(fs.readFileSync(path.join(root, 'data', 'snkrdunk-ids.json'), 'utf-8')) as Record<string, number>
-const boxId = process.argv[2] ?? '30th_celebration'
+// Retain each existing market. Discover every Snkrdunk BOX, including variants.
+const requested = process.argv.slice(2)
+const boxIds = requested.length ? requested : existingSnkrdunkBoxes(fs.readdirSync(pricesDir)
+  .filter(file => file.startsWith('box-') && file.endsWith('.json'))
+  .map(file => ({ id: file.slice(0, -5), latest: JSON.parse(fs.readFileSync(path.join(pricesDir, file), 'utf-8')).history[0] })))
 const today = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)
 
 function percentile(sorted: number[], q: number): number {
@@ -54,6 +59,10 @@ function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolea
     console.log(`${seriesId}: 取得元固定のためスキップ（既存価格・取得日を維持）`)
     return false
   }
+  if (!hasNewBoxSales(data.history[0], selected.map(s => s.date), today)) {
+    console.log(`${seriesId}: 新しい成約なし — 最後の価格・観測日を維持`)
+    return false
+  }
 
   const index = data.history.findIndex(r => r.date === today)
   if (index >= 0) data.history[index] = record
@@ -73,20 +82,14 @@ function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolea
   return true
 }
 
-async function main() {
-  const browser = await chromium.launch({
-    headless: true,
-    executablePath: process.env.CHROMIUM_PATH || undefined,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  })
-  try {
+async function updateBox(browser: Browser, boxId: string) {
     const directSeriesId = `box-${boxId}`
     const directApparelId = ids[directSeriesId]
     if (directApparelId) {
       const result = await getSnkrdunkBoxSales(browser, directApparelId, 45)
       const count = await getSnkrdunkBoxListingCount(browser, directApparelId)
       if (!save(directSeriesId, result.sales, count)) {
-        throw new Error(`${boxId}: スニダンの成約価格を取得できませんでした`)
+        console.log(`${boxId}: 成約不足 — 最後の価格・観測日を維持`)
       }
       return
     }
@@ -105,10 +108,21 @@ async function main() {
     // 片方が欠測なら合算も欠測。取得失敗を0件として扱わない。
     const total = variants.every(v => v.count != null) ? variants.reduce((sum, v) => sum + v.count!, 0) : null
     if (save(`box-${boxId}`, variants.flatMap(v => v.sales), total)) updated++
-    if (updated === 0) throw new Error(`${boxId}: スニダンの成約価格を取得できませんでした`)
-  } finally {
-    await browser.close()
-  }
+    if (updated === 0) console.log(`${boxId}: 成約不足 — 最後の価格・観測日を維持`)
+}
+
+async function main() {
+  const browser = await chromium.launch({ headless: true,
+    executablePath: process.env.CHROMIUM_PATH || undefined,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] })
+  let failed = 0
+  try {
+    for (const boxId of boxIds) {
+      try { await updateBox(browser, boxId) }
+      catch (error) { failed++; console.error(boxId, error) }
+    }
+  } finally { await browser.close() }
+  if (failed) throw new Error(`${failed} BOX updates failed; previous prices retained`)
 }
 
 main().catch(error => {

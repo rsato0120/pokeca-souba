@@ -1,3 +1,6 @@
+import fs from 'node:fs'
+import { existingSnkrdunkBoxes, hasNewBoxSales } from './snkrdunk-box-price-policy'
+import { priceDisplayHistory } from '../src/lib/price-display'
 import assert from 'node:assert/strict'
 import { canUsePriceSource, canFetchMercariPrice, priceHistorySegments, currentPriceSeries, priceSeriesKey } from '../src/lib/price-source'
 import { priceChangePct } from '../src/lib/price-change'
@@ -54,3 +57,27 @@ assert.deepEqual(priceHistorySegments(refreshed), [[oldSample], [recentSample]])
 assert.deepEqual(priceHistorySegments(refreshed).flat(), [...refreshed].reverse(), 'September observations remain visible')
 assert.deepEqual(priceHistorySegments([recentSample, record('2026-09-01', 1, 'snkrdunk')]).map(s => s.length), [1, 1])
 assert.deepEqual(priceHistorySegments([]), [])
+
+const gapHistory = [record('2026-10-07', 33000, 'mercari'), record('2026-09-23', 57000, 'mercari')]
+const gapDisplay = priceDisplayHistory(gapHistory, '2026-10-11', 90)
+assert.equal(gapDisplay.length, 19)
+assert.equal(gapDisplay.find(r => r.date === '2026-10-01')?.record.avg, 57000)
+assert.equal(gapDisplay.find(r => r.date === '2026-10-01')?.observedDate, '2026-09-23')
+assert.equal(gapDisplay.at(-1)?.record.avg, 33000)
+assert.equal(gapDisplay.at(-1)?.observedDate, '2026-10-07')
+assert.equal(gapHistory.length, 2, 'Display carries must not create observations or sales')
+const switchedDisplay = priceDisplayHistory([record('2026-10-07', 99000, 'snkrdunk'), gapHistory[1]], '2026-10-11')
+assert.equal(switchedDisplay.find(r => r.date === '2026-10-06')?.record.source, 'mercari')
+assert.equal(switchedDisplay.find(r => r.date === '2026-10-07')?.record.source, 'snkrdunk')
+assert.deepEqual(priceDisplayHistory([], '2026-10-11'), [])
+assert.equal(priceDisplayHistory(gapHistory, '2026-09-01').length, 0, 'Never project a future price backwards')
+assert.equal(priceDisplayHistory(gapHistory, '2026-10-11', 2).length, 3)
+
+const boxSeries = fs.readdirSync('data/prices').filter(file => file.startsWith('box-') && file.endsWith('.json'))
+  .map(file => ({ id: file.slice(0, -5), latest: JSON.parse(fs.readFileSync('data/prices/' + file, 'utf8')).history[0] }))
+const scheduledBoxes = existingSnkrdunkBoxes(boxSeries)
+for (const id of ['hot_wind_arena', 'jet_black_spirit', 'matchless_fighters']) assert.ok(scheduledBoxes.includes(id), id + ' must not be omitted from daily updates')
+assert.equal(new Set(scheduledBoxes).size, scheduledBoxes.length)
+assert.equal(existingSnkrdunkBoxes([{ id: 'box-test', latest: record('2026-10-03', 100, 'mercari') }]).length, 0)
+assert.equal(hasNewBoxSales(record('2026-10-03', 100, 'snkrdunk'), ['2026-10-01'], '2026-10-11'), false)
+assert.equal(hasNewBoxSales(record('2026-10-03', 100, 'snkrdunk'), ['2026-10-11'], '2026-10-11'), true)

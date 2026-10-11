@@ -11,7 +11,7 @@ import {
   Tooltip,
   ReferenceLine,
 } from 'recharts'
-import { priceHistorySegments } from '@/lib/price-source'
+import { priceDisplayHistory } from '@/lib/price-display'
 import type { PriceRecord, PriceForecast } from '@/types/pokeca'
 
 interface Props {
@@ -34,6 +34,8 @@ function yen(v: number): string {
 
 interface Point {
   t: number              // 今日を0とした日数オフセット（-30〜+90）
+  observedDate?: string
+  source?: PriceRecord['source']
   dateLabel: string      // M/D
   actual: number | null  // 実績（実線）
   forecast: number | null // AI予想（破線）
@@ -47,7 +49,8 @@ export default function PriceForecastChart({ history, forecast }: Props) {
   const showPsa = latestPsa10 != null
 
   // 今日（最新レコードの日付）を基準にする（親が history.length>0 を保証）
-  const todayMs = history.length > 0 ? new Date(history[0].date).getTime() : 0
+  const [displayEndDate] = useState(() => new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10))
+  const todayMs = tab === 'raw' ? Date.parse(displayEndDate) : history.length > 0 ? new Date(history[0].date).getTime() : 0
   const fmtMD = (ms: number) => {
     const d = new Date(ms)
     return `${d.getMonth() + 1}/${d.getDate()}`
@@ -107,26 +110,18 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
     // ── 過去30日（実績・実線）──
     const cutoff = todayMs - PAST_DAYS * DAY
-    const visibleHistory = history
-      .filter(r => new Date(r.date).getTime() >= cutoff)
-      .slice()
-      .reverse() // 古い順
-    const segments = tab === 'raw' ? priceHistorySegments([...visibleHistory].reverse()) : [visibleHistory]
-    const past = segments.flatMap((segment, index) => {
-      const points = segment.map<Point>(r => {
-        const ms = new Date(r.date).getTime()
-        return {
-          t: Math.round((ms - todayMs) / DAY),
-          dateLabel: fmtMD(ms),
-          actual: pick(r),
-          forecast: null,
-        }
-      })
-
-      return index === 0 || !points.length ? points : [
-        { ...points[0], actual: null, forecast: null }, ...points,
-      ]
-    })
+    const display = tab === 'raw' ? priceDisplayHistory(history, displayEndDate, PAST_DAYS)
+      : [...history].reverse().filter(r => Date.parse(r.date) >= cutoff)
+        .map(record => ({ date: record.date, observedDate: record.date, record }))
+    const past: Point[] = []
+    for (const [i, item] of display.entries()) {
+      const point: Point = { t: Math.round((Date.parse(item.date) - todayMs) / DAY), dateLabel: fmtMD(Date.parse(item.date)),
+        actual: pick(item.record), forecast: null, observedDate: item.observedDate, source: item.record.source }
+      if (i > 0 && tab === 'raw' && item.record.source !== display[i - 1].record.source) {
+        past.push({ ...point, actual: null })
+      }
+      past.push(point)
+    }
 
     // 境界（今日）の実績値 = 未来線の起点。実線と破線をここで接続する
     const base =
@@ -177,7 +172,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
       yDomain = [Math.max(0, Math.floor(lo - pad)), Math.ceil(hi + pad)]
     }
     return { data: merged, currentPrice: cur, forecastPrice: fc, yDomain }
-  }, [tab, history, todayMs, curMid, growthM1, growthM3, growthM6, latestPsa10])
+  }, [tab, history, todayMs, displayEndDate, curMid, growthM1, growthM3, growthM6, latestPsa10])
 
   const accent = upPct > 0 ? 'var(--up)' : upPct < 0 ? 'var(--down)' : 'var(--flat)'
   const actualColor = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
@@ -304,7 +299,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
             labelFormatter={(t, payload) => {
               const p = payload?.[0]?.payload as Point | undefined
               const tn = Number(t)
-              return p ? `${p.dateLabel}（${tn === 0 ? '今日' : tn > 0 ? `+${tn}日` : `${-tn}日前`}）` : ''
+              return p ? `${p.dateLabel}（${tn === 0 ? '今日' : tn > 0 ? `+${tn}日` : `${-tn}日前`}）${p.observedDate && p.observedDate !== new Date(todayMs + tn * DAY).toISOString().slice(0, 10) ? `・${p.observedDate}の価格を維持` : ''}` : ''
             }}
           />
           {/* 今日の境界線 */}
@@ -334,8 +329,8 @@ export default function PriceForecastChart({ history, forecast }: Props) {
         </LineChart>
       </ResponsiveContainer>
 
-      {tab === 'raw' && priceHistorySegments(history).length > 1 && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>過去の価格も表示しています。取得元や成約の集計期間が変わる位置で線を分けています。</p>
+      {tab === 'raw' && (
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>成約がない期間は直前の価格を維持しています。メルカリの過去価格も表示し、取得元が変わる位置で線を分けています。</p>
       )}
       {/* ── 凡例 ── */}
       <div
