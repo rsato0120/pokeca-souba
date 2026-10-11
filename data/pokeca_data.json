@@ -593,7 +593,8 @@
       "release_date": "2012-09-14",
       "certainty": "released",
       "pack_price_yen": 158,
-      "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。"
+      "note": "BW期の収録カードを追跡。未開封BOXの価格・開封期待値は未対応。価格はスニダンの商品区分に基づき、1ED表記の商品は別商品として扱う。 BOX画像は未開封商品の参考写真（Loose Packs）。",
+      "pack_image_url": "https://loosepacks.com/cdn/shop/files/Untitled-1-2025-09-29T140458.827_00a76fe1-ce34-4df9-8326-a39d740671a2.png?v=1759169639&width=1946"
     },
     {
       "box_id": "holon_research_tower",
@@ -604,8 +605,8 @@
       "certainty": "released",
       "pack_price_yen": 315,
       "packs_per_box": 20,
-      "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/26.jpg",
-      "note": "2005-10-28発売。1パック11枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/06e5f581-ea9f-483f-a0aa-47080852ed43.webp?size=l",
+      "note": "2005-10-28発売。1パック11枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist BOX画像は1ED版。"
     },
     {
       "box_id": "holon_phantom",
@@ -616,8 +617,8 @@
       "certainty": "released",
       "pack_price_yen": 315,
       "packs_per_box": 20,
-      "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/27.jpg",
-      "note": "2006-01-27発売。1パック10枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b6063305-3ee8-4e20-895f-e02d15e778bd.webp?size=l",
+      "note": "2006-01-27発売。1パック10枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist BOX画像は1ED版。"
     },
     {
       "box_id": "miracle_crystal",
@@ -642,6 +643,18 @@
       "packs_per_box": 20,
       "pack_image_url": "https://img.altema.jp/pokemoncard/pack/icon/29.jpg",
       "note": "2006-06-29発売。1パック11枚入り、発売当時の税込定価315円。δ-デルタ種を収録したPCG期の拡張パック。掲載カードは一部。商品情報：https://www.pokemon-card.com/ex/25th/chronicle/ ／ https://altema.jp/pokemoncard/packlist"
+    },
+    {
+      "box_id": "alter_genesis",
+      "box_name": "オルタージェネシス",
+      "code": "SM12",
+      "release_ym": "2019-09",
+      "release_date": "2019-09-06",
+      "certainty": "released",
+      "pack_price_yen": 162,
+      "packs_per_box": 30,
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/73222439-53a3-49c8-8f1c-4809decaeca3.webp?size=l",
+      "note": "2019年9月6日発売。1パック5枚、1BOX30パック。発売時の定価は1パック150円＋税（8%）。"
     }
   ],
   "cards": [
@@ -35978,6 +35991,1098 @@
         "source": "2026-10-10 商品名・カード番号・版を照合：https://snkrdunk.com/apparels/93260"
       },
       "note": "スニダンの1ED版商品区分を追跡。別の版・復刻版と価格を混在させない。素体とPSA10は別に追跡。"
+    },
+    {
+      "id": "alter-genesis-013",
+      "card_no": "013/095",
+      "rarity": "RR",
+      "card_name": "ウルガモスGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/06b06a85-8032-46ef-9964-e6c50288516a.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 210,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hiroyuki Yamamoto",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-035",
+      "card_no": "035/095",
+      "rarity": "RR",
+      "card_name": "オドリドリGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/31dc18c3-6cfd-4f64-ba08-9f2890f7c566.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 170,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-044",
+      "card_no": "044/095",
+      "rarity": "RR",
+      "card_name": "フライゴンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b76f1602-5a56-4d38-8fea-56ee00f67532.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-065",
+      "card_no": "065/095",
+      "rarity": "RR",
+      "card_name": "アルセウス&ディアルガ&パルキアGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/9b6315ed-9241-445d-8a14-5c77f4483c4d.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-066",
+      "card_no": "066/095",
+      "rarity": "RR",
+      "card_name": "アーゴヨン&アクジキングGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/79b2dca4-5492-423d-9ea7-a05573cb05fe.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-073",
+      "card_no": "073/095",
+      "rarity": "RR",
+      "card_name": "メガミミロップ&プリンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/97e52262-ecdf-4c92-b10b-41d3a3290434.webp?size=l",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たね",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Mitsuhiro Arita",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "RR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-096",
+      "card_no": "096/095",
+      "rarity": "SR",
+      "card_name": "ウルガモスGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/26b76c13-44a3-4025-aa50-5aa793d3b114.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 210,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "PLANETA Tsuji",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-097",
+      "card_no": "097/095",
+      "rarity": "SR",
+      "card_name": "オドリドリGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/a2c43767-eeb2-4ed8-a521-b986c30565c8.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 170,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "PLANETA Tsuji",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-098",
+      "card_no": "098/095",
+      "rarity": "SR",
+      "card_name": "フライゴンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/030f9c4e-6b43-4e54-a2f5-31c1ec44194d.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "PLANETA Tsuji",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-099",
+      "card_no": "099/095",
+      "rarity": "SR",
+      "card_name": "アルセウス&ディアルガ&パルキアGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/456c50cf-7934-4b6c-bd78-a852fb3e67df.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-100",
+      "card_no": "100/095",
+      "rarity": "SA",
+      "card_name": "アルセウス&ディアルガ&パルキアGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/846c9918-ad75-4bb3-acdd-32ef9c5cf5ac.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Kouki Saitou",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-101",
+      "card_no": "101/095",
+      "rarity": "SR",
+      "card_name": "アーゴヨン&アクジキングGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/858d4600-97a9-44bf-a2d6-c65b4c42582a.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "5ban Graphics",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-102",
+      "card_no": "102/095",
+      "rarity": "SA",
+      "card_name": "アーゴヨン&アクジキングGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/e7592135-d8c0-4169-8885-9b7221e39edd.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Aya Kusube",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-103",
+      "card_no": "103/095",
+      "rarity": "SR",
+      "card_name": "メガミミロップ&プリンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/08881240-f261-4aa9-b32e-f4c013ceb51c.webp?size=l",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たね",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "aky CG Works",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-104",
+      "card_no": "104/095",
+      "rarity": "SA",
+      "card_name": "メガミミロップ&プリンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/0e9ccc57-de9f-4a7b-8e8b-478460741e7e.webp?size=l",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たね",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Shibuzoh.",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SA"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-105",
+      "card_no": "105/095",
+      "rarity": "SR",
+      "card_name": "グズマ&ハラ",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/4861745f-88d7-4202-8270-9be6dcd175d5.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Junsei Kuninobu",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-106",
+      "card_no": "106/095",
+      "rarity": "SR",
+      "card_name": "シロナ&カトレア",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b2c694f7-e269-435e-b123-5f264ae70bb8.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Sakiko Maeda",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-107",
+      "card_no": "107/095",
+      "rarity": "SR",
+      "card_name": "マオ&スイレン",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/021bacc1-57f4-4dc9-a624-d0e9371d2fa7.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "kirisAki",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-108",
+      "card_no": "108/095",
+      "rarity": "SR",
+      "card_name": "レッド&グリーン",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/82029438-1145-445e-b6fa-9fbd8b633cf6.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "Hitoshi Ariga",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-109",
+      "card_no": "109/095",
+      "rarity": "HR",
+      "card_name": "ウルガモスGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/6e885df6-af6a-4cd4-a23b-85b7162ba02a.webp?size=l",
+      "card_spec": {
+        "type": "炎",
+        "stage": "1進化",
+        "hp": 210,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-110",
+      "card_no": "110/095",
+      "rarity": "HR",
+      "card_name": "オドリドリGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/4ddfd996-6f72-4c30-a31b-e5c45cfe7725.webp?size=l",
+      "card_spec": {
+        "type": "超",
+        "stage": "たね",
+        "hp": 170,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-111",
+      "card_no": "111/095",
+      "rarity": "HR",
+      "card_name": "フライゴンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/ca2c239e-5391-4e6c-b98d-805995a8e430.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "2進化",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-112",
+      "card_no": "112/095",
+      "rarity": "HR",
+      "card_name": "アルセウス&ディアルガ&パルキアGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/b8dd3b53-91a3-424e-ae73-604028213983.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-113",
+      "card_no": "113/095",
+      "rarity": "HR",
+      "card_name": "アーゴヨン&アクジキングGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/a8239fe4-ef6f-46a4-8a26-283c62d06037.webp?size=l",
+      "card_spec": {
+        "type": "ドラゴン",
+        "stage": "たね",
+        "hp": 280,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-114",
+      "card_no": "114/095",
+      "rarity": "HR",
+      "card_name": "メガミミロップ&プリンGX",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/feea848c-35d2-4ff6-9934-0a2c2c81f1e1.webp?size=l",
+      "card_spec": {
+        "type": "無色",
+        "stage": "たね",
+        "hp": 240,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "HR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-115",
+      "card_no": "115/095",
+      "rarity": "UR",
+      "card_name": "タッグコール",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/a038844e-d9b8-454e-b50b-cd13d65048c4.webp?size=l",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-116",
+      "card_no": "116/095",
+      "rarity": "UR",
+      "card_name": "しまめぐりのあかし",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/465cdcd8-b4a9-4a0b-89fe-28e535c7bd17.webp?size=l",
+      "card_spec": {
+        "type": "グッズ",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
+    },
+    {
+      "id": "alter-genesis-117",
+      "card_no": "117/095",
+      "rarity": "UR",
+      "card_name": "巨大なカマド",
+      "box_id": "alter_genesis",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/96870f84-cd22-40f5-9a96-c9aee074aa61.webp?size=l",
+      "card_spec": {
+        "type": "スタジアム",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": ""
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "C",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "unknown",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "unknown",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "out_of_print",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "",
+        "collector": "",
+        "source": "https://www.pokemon-card.com/ex/sm12/index.html / https://api.tcgdex.net/v2/ja/sets/SM12"
+      },
+      "note": ""
     }
   ],
   "market_posts": [

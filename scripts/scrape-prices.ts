@@ -1706,6 +1706,13 @@ async function scrapeBox(
   // なり、両者が食い違う）
   const titleMust = boxTitleFilter(titleAlts, shrink, titleForbidden, titleRequired)
   try {
+    const previous = readLatestRecord(id, '')
+    const registeredId = loadSnkrdunkIds()[id]
+    if (!canFetchMercariPrice(registeredId ?? null, previous?.source)) {
+      console.log('取得元固定・スニダン商品あり — 最後の価格・観測日を維持')
+      stats.skipped++
+      return
+    }
     let avg: number | null = null
     let boxLow = 0, boxHigh = 0
     let soldTotal: number | null = null
@@ -1720,7 +1727,7 @@ async function scrapeBox(
       // trimTopPct=0: BOXは中位バンド(35-65th)を明示的に取るので、追加の高値カットはしない
       // （2026-07-27 に床値バンドから中位バンドへ戻した経緯があり、二重に下げてはいけない）
       const result = await scrapeMercariSoldAvg(browser, searchQuery, 0.35, 0.65, null, 0, null, titleMust)
-      if (result != null) {
+      if (result != null && !shouldHoldStaleMercariPrice(previous, result.oldestSaleDays)) {
         avg = result.avg; boxLow = result.low; boxHigh = result.high; soldTotal = result.soldTotal
         oldestSaleDays = result.oldestSaleDays
         if (result.windowDays == null || result.windowDays > 90) {

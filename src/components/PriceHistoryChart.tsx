@@ -14,7 +14,7 @@ import {
 } from 'recharts'
 import type { PriceExtremes, PriceRecord } from '@/types/pokeca'
 import { computePsa10Extremes } from '@/lib/psa10-extremes'
-import { priceHistorySegments } from '@/lib/price-source'
+import { priceDisplayHistory } from '@/lib/price-display'
 import RangePosition from '@/components/RangePosition'
 
 interface Props {
@@ -57,6 +57,8 @@ function yen(v: number): string {
 interface Point {
   label: string          // M/D
   date: string
+  observedDate?: string
+  source?: PriceRecord['source']
   value: number | null
   ma7: number | null
   ma30: number | null
@@ -82,9 +84,12 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
   const showPsa = hasPsa
 
   const selectedHistory = useMemo(() => tab === 'psa10' ? psa10History ?? history : history, [tab, psa10History, history])
-  const nowMs = selectedHistory.length > 0 ? new Date(selectedHistory[0].date).getTime() : 0
+  const [today] = useState(() => new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10))
+  const displayEndDate = tab === 'raw' ? today : selectedHistory[0]?.date
+  const nowMs = displayEndDate ? Date.parse(displayEndDate) : 0
   const hasPeriodData = (d: number) =>
-    selectedHistory.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
+    tab === 'raw' ? priceDisplayHistory(selectedHistory, displayEndDate ?? '', d).length > 0
+      : selectedHistory.filter(r => new Date(r.date).getTime() >= nowMs - d * DAY).length >= 1
 
   const accent = tab === 'raw' ? 'var(--accent)' : '#6c8ebf'
 
@@ -124,22 +129,27 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
 
     // 移動平均は表示期間の外も使って計算する。期間で切ってから平均すると
     // 左端の数点がいつまでも欠けたままになる
-    const segments = tab === 'raw' ? priceHistorySegments(selectedHistory) : [[...selectedHistory].reverse()]
-    return segments.flatMap((asc, segmentIndex) => {
-      const series = asc.map(r => tab === 'raw'
-        ? (r.avg ?? (r.low + r.high) / 2)
-        : (r.psa10 ?? null))
-      const points = asc.map((r, i) => ({
-        label: r.date.slice(5).replace('-', '/'), date: r.date, value: series[i],
-        ma7: movingAverage(series, i, MA_SHORT), ma30: movingAverage(series, i, MA_LONG),
-        vol: volumeByDate.get(r.date) ?? null,
-      }))
-      // A null point breaks the line without removing either boundary observation.
-      return segmentIndex === 0 ? points : [
-        { label: '', date: asc[0].date, value: null, ma7: null, ma30: null, vol: null }, ...points,
-      ]
-    }).filter(p => new Date(p.date).getTime() >= cutoff)
-  }, [selectedHistory, tab, days, nowMs, volumeByDate])
+    const display = tab === 'raw'
+      ? priceDisplayHistory(selectedHistory, displayEndDate ?? '', 120)
+      : [...selectedHistory].reverse().map(record => ({ date: record.date, observedDate: record.date, record }))
+    const points: Point[] = []
+    let series: (number | null)[] = []
+    let previousSource: PriceRecord['source']
+    for (const [i, item] of display.entries()) {
+      const { date, observedDate, record } = item
+      const value = tab === 'raw' ? record.avg ?? (record.low + record.high) / 2 : record.psa10 ?? null
+      if (i > 0 && tab === 'raw' && record.source !== previousSource) {
+        points.push({ label: '', date, value: null, ma7: null, ma30: null, vol: null })
+        series = []
+      }
+      series.push(value)
+      points.push({ label: date.slice(5).replace('-', '/'), date, observedDate, source: record.source,
+        value, ma7: movingAverage(series, series.length - 1, MA_SHORT), ma30: movingAverage(series, series.length - 1, MA_LONG),
+        vol: volumeByDate.get(date) ?? null })
+      previousSource = record.source
+    }
+    return points.filter(p => Date.parse(p.date) >= cutoff)
+  }, [selectedHistory, tab, days, nowMs, volumeByDate, displayEndDate])
 
   const hasData = data.some(d => d.value != null)
   // 移動平均は点が少ないと線にならないので、表示期間に十分な点がある時だけ出す。
@@ -364,6 +374,14 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
                 fontSize: '12px',
               }}
               labelStyle={{ color: 'var(--ink-faint)' }}
+              labelFormatter={(label, payload) => {
+                const point = payload?.[0]?.payload as Point | undefined
+                if (!point) return label
+                const market = point.source === 'mercari' ? 'メルカリ' : point.source === 'snkrdunk' ? 'スニダン' : '取得元不明'
+                return point.observedDate && point.observedDate !== point.date
+                  ? `${point.date}（${market}・${point.observedDate}の価格を維持）`
+                  : `${point.date}（${market}）`
+              }}
               formatter={(value, name) => {
                 const v = Number(value)
                 if (name === 'vol') {
@@ -446,8 +464,8 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
         </ResponsiveContainer>
       )}
 
-      {tab === 'raw' && priceHistorySegments(history).length > 1 && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>過去の価格も表示しています。取得元や成約の集計期間が変わる位置で線を分けています。</p>
+      {tab === 'raw' && (
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>成約がない期間は直前の価格を維持しています。メルカリの過去価格も表示し、取得元が変わる位置で線を分けています。</p>
       )}
       {/* ── 凡例 ── */}
       <div
