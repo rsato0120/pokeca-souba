@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-rukario-ex-ma",
   "history": [
     {
+      "date": "2026-10-13",
+      "low": 1000,
+      "high": 1499,
+      "avg": 1167,
+      "source": "snkrdunk",
+      "sample_count": 15,
+      "on_sale": 223,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 4763,
+      "psa10_as_of": "2026-10-13"
+    },
+    {
       "date": "2026-10-12",
       "low": 1000,
       "high": 1400,
@@ -1124,15 +1139,6 @@
       "ask_low": 1080,
       "ask_mid": 1350,
       "psa10": 11510
-    },
-    {
-      "date": "2026-07-11",
-      "low": 1215,
-      "high": 1485,
-      "avg": 1350,
-      "ask_low": 1097,
-      "ask_mid": 1350,
-      "psa10": 11501
     }
   ],
   "sales_by_day": {
@@ -1269,7 +1275,6 @@
     "2026-06-16": 8,
     "2026-06-15": 21,
     "2026-06-14": 1,
-    "2026-06-13": 9,
     "2026-09-02": 22,
     "2026-09-01": 70,
     "2026-08-31": 60,
@@ -1313,9 +1318,10 @@
     "2026-10-09": 28,
     "2026-10-10": 14,
     "2026-10-11": 6,
-    "2026-10-12": 1
+    "2026-10-12": 5,
+    "2026-10-13": 1
   },
-  "sales_fetched_at": "2026-10-12",
+  "sales_fetched_at": "2026-10-13",
   "psa10_archived_extremes": {
     "high": {
       "value": 14921,
@@ -1328,7 +1334,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 13,
-    "updated_at": "2026-07-09"
+    "records": 14,
+    "updated_at": "2026-07-11"
   }
 }

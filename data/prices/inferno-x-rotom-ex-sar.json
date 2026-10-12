@@ -2,6 +2,21 @@
   "card_id": "inferno-x-rotom-ex-sar",
   "history": [
     {
+      "date": "2026-10-13",
+      "low": 1000,
+      "high": 1500,
+      "avg": 1325,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 32,
+      "ask_low": 1000,
+      "ask_mid": 1250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6008,
+      "psa10_as_of": "2026-10-05"
+    },
+    {
       "date": "2026-10-12",
       "low": 1000,
       "high": 1500,
@@ -1152,15 +1167,6 @@
       "ask_low": 950,
       "ask_mid": 1205,
       "psa10": 7585
-    },
-    {
-      "date": "2026-07-04",
-      "low": 1183,
-      "high": 1445,
-      "avg": 1314,
-      "ask_low": 950,
-      "ask_mid": 1200,
-      "psa10": 7627
     }
   ],
   "sales_by_day": {
@@ -1174,7 +1180,8 @@
     "2026-09-14": 1,
     "2026-09-27": 1,
     "2026-10-11": 2,
-    "2026-10-10": 1
+    "2026-10-10": 1,
+    "2026-10-12": 1
   },
   "psa10_sales_by_day": {
     "2026-08-22": 1,
@@ -1215,7 +1222,7 @@
     "2026-09-14": 3,
     "2026-10-05": 1
   },
-  "sales_fetched_at": "2026-10-12",
+  "sales_fetched_at": "2026-10-13",
   "psa10_archived_extremes": {
     "high": {
       "value": 7708,
@@ -1228,7 +1235,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 8,
-    "updated_at": "2026-07-03"
+    "records": 9,
+    "updated_at": "2026-07-04"
   }
 }

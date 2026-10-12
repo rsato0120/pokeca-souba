@@ -2,6 +2,21 @@
   "card_id": "munikiss-zero-mega-zygarde-ex-mur",
   "history": [
     {
+      "date": "2026-10-13",
+      "low": 16000,
+      "high": 20000,
+      "avg": 18759,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 90,
+      "ask_low": 18000,
+      "ask_mid": 18500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 45033,
+      "psa10_as_of": "2026-10-12"
+    },
+    {
       "date": "2026-10-12",
       "low": 16000,
       "high": 20000,
@@ -1116,15 +1131,6 @@
       "ask_low": 26880,
       "ask_mid": 32500,
       "psa10": 65552
-    },
-    {
-      "date": "2026-07-11",
-      "low": 27027,
-      "high": 33033,
-      "avg": 30030,
-      "ask_low": 25555,
-      "ask_mid": 31750,
-      "psa10": 65019
     }
   ],
   "sales_by_day": {
@@ -1236,7 +1242,6 @@
     "2026-06-16": 3,
     "2026-06-15": 2,
     "2026-06-14": 14,
-    "2026-06-13": 7,
     "2026-09-03": 5,
     "2026-09-02": 1,
     "2026-09-01": 3,
@@ -1282,7 +1287,7 @@
     "2026-10-11": 3,
     "2026-10-12": 1
   },
-  "sales_fetched_at": "2026-10-12",
+  "sales_fetched_at": "2026-10-13",
   "psa10_archived_extremes": {
     "high": {
       "value": 67658,
@@ -1295,7 +1300,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 16,
-    "updated_at": "2026-07-10"
+    "records": 17,
+    "updated_at": "2026-07-11"
   }
 }

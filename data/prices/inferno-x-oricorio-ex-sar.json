@@ -2,6 +2,21 @@
   "card_id": "inferno-x-oricorio-ex-sar",
   "history": [
     {
+      "date": "2026-10-13",
+      "low": 3400,
+      "high": 4103,
+      "avg": 4103,
+      "source": "snkrdunk",
+      "sample_count": 17,
+      "on_sale": 216,
+      "ask_low": 3456,
+      "ask_mid": 3478,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 9057,
+      "psa10_as_of": "2026-10-13"
+    },
+    {
       "date": "2026-10-12",
       "low": 3400,
       "high": 4103,
@@ -1116,15 +1131,6 @@
       "ask_low": 4799,
       "ask_mid": 5950,
       "psa10": 22227
-    },
-    {
-      "date": "2026-07-11",
-      "low": 5164,
-      "high": 6312,
-      "avg": 5738,
-      "ask_low": 4900,
-      "ask_mid": 6000,
-      "psa10": 22252
     }
   ],
   "sales_by_day": {
@@ -1193,7 +1199,8 @@
     "2026-10-03": 1,
     "2026-10-05": 1,
     "2026-10-08": 1,
-    "2026-10-11": 1
+    "2026-10-11": 1,
+    "2026-10-12": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 12,
@@ -1313,9 +1320,10 @@
     "2026-10-09": 6,
     "2026-10-10": 8,
     "2026-10-11": 3,
-    "2026-10-12": 2
+    "2026-10-12": 5,
+    "2026-10-13": 1
   },
-  "sales_fetched_at": "2026-10-12",
+  "sales_fetched_at": "2026-10-13",
   "psa10_archived_extremes": {
     "high": {
       "value": 24781,
@@ -1328,7 +1336,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 15,
-    "updated_at": "2026-07-10"
+    "records": 16,
+    "updated_at": "2026-07-11"
   }
 }
