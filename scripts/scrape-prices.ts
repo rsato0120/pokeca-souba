@@ -218,41 +218,54 @@ export async function getMercariOnSale(
 }
 
 // スニーカーダンク: カード名+番号で検索し、名前・レアリティ・番号を照合する。
-async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string, cardNo: CardNo | null): Promise<number | null> {
+export function selectSnkrdunkId(links: Array<{ text: string; href: string }>, cardName: string, rarity: string, cardNo: CardNo | null): number | null {
+  const rarityRe = new RegExp(`(^|[^A-Z])${rarity}([^A-Z]|$)`)
+  // 日本語版の通常商品だけを候補にする。同名・同番号でも外国語版やエラー版は別の相場。
+  const filtered = links.filter(l =>
+    !/(?:英語|中国語|韓国語|台湾|香港|海外|繁体字|簡体字)版|エラー(?:版|カード)|ERROR\s*(?:VERSION|CARD)/i.test(l.text)
+    && matchesCardName(l.text, cardName) && rarityRe.test(l.text)
+    && cardNo != null && extractNoPairs(l.text).some(p => p.no === cardNo.no && p.total === cardNo.total)
+  )
+  const apparelIds = [...new Set(filtered
+    .map(l => l.href.match(/\/apparels\/(\d+)/)?.[1])
+    .filter((id): id is string => id != null))]
+  if (apparelIds.length > 1) throw new Error(`スニダン商品を一意に特定できない: ${apparelIds.join(',')}`)
+  return apparelIds.length === 1 ? Number(apparelIds[0]) : null
+}
+
+export async function findSnkrdunkId(browser: Browser, cardName: string, rarity: string, cardNo: CardNo | null): Promise<number | null> {
   const page = await browser.newPage()
   await page.setExtraHTTPHeaders({ 'Accept-Language': 'ja-JP,ja;q=0.9' })
   try {
     const query = encodeURIComponent(`${cardName} ${cardNo ? String(cardNo.no).padStart(3, '0') : rarity}`)
     // スニダン検索は `keywords`（複数形）。`keyword` だと 200 が返っても
     // 検索結果ではなく人気商品一覧になるため、誤候補を拾う可能性がある。
-    await page.goto(`https://snkrdunk.com/search?keywords=${query}&category=card`, {
-      waitUntil: 'domcontentloaded', timeout: 15000
-    })
-    await page.locator('a[href*="/apparels/"]').first().waitFor({ timeout: 10000 })
-    const links = await page.evaluate(() =>
-      Array.from(document.querySelectorAll('a'))
-        .filter(a => (a as HTMLAnchorElement).href.includes('/apparels/'))
-        .map(a => ({ text: (a as HTMLElement).innerText.trim(), href: (a as HTMLAnchorElement).href }))
-    )
-    // rarity は単独トークンとして照合する。includes だと "AR" が "SAR" に、"UR" が "MUR" に
-    // 部分一致し別カード(例: 151ピカチュウAR→メガドリームのピカチュウex SAR)を誤取得するため、
-    // 前後が英大文字でないことを確認する。
-    const rarityRe = new RegExp(`(^|[^A-Z])${rarity}([^A-Z]|$)`)
-    // ⚠ さらにカード番号でも照合する。スニダンは**SA版のタイトルを「リーフィアV SR: SA」と
-    // 表記する**ため、レアリティのトークン照合だけでは "SR" 検索が SA版に一致してしまう。
-    // 実例: リーフィアV SR(070) に SA(071) の apparel 91170 が登録され、SRがSAの価格
-    // (¥19,514)を表示していた。タイトルには "[S6a 071/069]" と番号が入るのでこれで切り分ける。
-    const filtered = links.filter(l =>
-      matchesCardName(l.text, cardName) && rarityRe.test(l.text)
-      && cardNo != null && extractNoPairs(l.text).some(p => p.no === cardNo.no && p.total === cardNo.total)
-    )
-    // 同じ商品のリンクがページ内に複数ある場合はIDで重複排除する。
-    // 番号・名前・レアリティを満たす商品が複数残る場合は、自動登録せず手動確認に回す。
-    const apparelIds = [...new Set(filtered
-      .map(l => l.href.match(/\/apparels\/(\d+)/)?.[1])
-      .filter((id): id is string => id != null))]
-    if (apparelIds.length > 1) throw new Error('スニダン商品を一意に特定できないため既存価格を維持')
-    return apparelIds.length === 1 ? parseInt(apparelIds[0], 10) : null
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      let links: Array<{ text: string; href: string }>
+      try {
+        const response = await page.goto(`https://snkrdunk.com/search?keywords=${query}&category=card`, {
+          waitUntil: 'domcontentloaded', timeout: 15000
+        })
+        if (!response?.ok()) throw new Error(`スニダン検索 HTTP ${response?.status() ?? '応答なし'}`)
+        // 正常な検索結果ゼロには商品リンクがない。通信失敗とは区別して完了を待つ。
+        await page.waitForFunction(() =>
+          document.querySelector('a[href*="/apparels/"]') != null
+          || document.body.innerText.includes('お探しの商品は見つかりませんでした'),
+          undefined, { timeout: 10000 })
+        links = await page.evaluate(() =>
+          Array.from(document.querySelectorAll('a'))
+            .filter(a => (a as HTMLAnchorElement).href.includes('/apparels/'))
+            .map(a => ({ text: (a as HTMLElement).innerText.trim(), href: (a as HTMLAnchorElement).href }))
+        )
+      } catch (error) {
+        if (attempt === 3) throw error
+        await page.waitForTimeout(1000 * attempt)
+        continue
+      }
+      // 本当に候補が複数残る場合は失敗として報告し、他市場へ切り替えない。
+      return selectSnkrdunkId(links, cardName, rarity, cardNo)
+    }
+    return null
   } finally { await page.close() }
 }
 
@@ -1616,8 +1629,8 @@ async function scrapeCard(
     console.log(`完了 [${source}] 平均¥${avg.toLocaleString()}${onSaleLog}${psa10Log}`)
     stats.succeeded++
   } catch (e) {
-    console.log('失敗（既存価格を維持）')
-    console.error('  エラー:', e instanceof Error ? e.message : e)
+    console.log(`失敗 [${id}]（既存価格を維持）`)
+    console.error(`  エラー [${id}]:`, e instanceof Error ? e.message : e)
     stats.failed++
   }
   await new Promise(r => setTimeout(r, 2000 + Math.random() * 2000))
