@@ -2,6 +2,21 @@
   "card_id": "munikiss-zero-mega-starmie-ex-sar",
   "history": [
     {
+      "date": "2026-10-16",
+      "low": 2200,
+      "high": 2504,
+      "avg": 2504,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 61,
+      "ask_low": 1500,
+      "ask_mid": 2500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5395,
+      "psa10_as_of": "2026-10-15"
+    },
+    {
       "date": "2026-10-15",
       "low": 2200,
       "high": 2504,
@@ -1134,15 +1149,6 @@
       "ask_low": 2700,
       "ask_mid": 3333,
       "psa10": 10964
-    },
-    {
-      "date": "2026-07-14",
-      "low": 2948,
-      "high": 3603,
-      "avg": 3275,
-      "ask_low": 2888,
-      "ask_mid": 3333,
-      "psa10": 10964
     }
   ],
   "sales_by_day": {
@@ -1218,7 +1224,6 @@
     "2026-06-26": 1,
     "2026-06-19": 10,
     "2026-06-17": 1,
-    "2026-06-16": 1,
     "2026-09-02": 5,
     "2026-09-04": 13,
     "2026-09-03": 7,
@@ -1261,7 +1266,7 @@
     "2026-10-14": 1,
     "2026-10-15": 1
   },
-  "sales_fetched_at": "2026-10-15",
+  "sales_fetched_at": "2026-10-16",
   "psa10_archived_extremes": {
     "high": {
       "value": 15442,
@@ -1274,7 +1279,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 20,
-    "updated_at": "2026-07-13"
+    "records": 21,
+    "updated_at": "2026-07-14"
   }
 }
