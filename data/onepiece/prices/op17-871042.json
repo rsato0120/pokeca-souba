@@ -1,14 +1,22 @@
 {
   "product_id": "op17-871042",
-  "fetched_at": "2026-10-15T06:28:40.168Z",
+  "fetched_at": "2026-10-15T18:41:10.976Z",
   "history": [
     {
-      "date": "2026-10-14",
-      "avg": 5347,
-      "low": 4500,
-      "high": 6400,
+      "date": "2026-10-15",
+      "avg": 5348,
+      "low": 4999,
+      "high": 6200,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 35
+    },
+    {
+      "date": "2026-10-14",
+      "avg": 5344,
+      "low": 4999,
+      "high": 6200,
+      "source": "snkrdunk",
+      "sample_count": 34
     },
     {
       "date": "2026-10-13",
@@ -28,11 +36,11 @@
     },
     {
       "date": "2026-10-11",
-      "avg": 5379,
+      "avg": 5354,
       "low": 4999,
       "high": 6200,
       "source": "snkrdunk",
-      "sample_count": 34
+      "sample_count": 33
     },
     {
       "date": "2026-10-10",
@@ -44,19 +52,19 @@
     },
     {
       "date": "2026-10-09",
-      "avg": 5325,
+      "avg": 5296,
       "low": 4999,
-      "high": 6200,
+      "high": 6000,
       "source": "snkrdunk",
-      "sample_count": 32
+      "sample_count": 31
     },
     {
       "date": "2026-10-08",
-      "avg": 5380,
+      "avg": 5403,
       "low": 4999,
-      "high": 6200,
+      "high": 6000,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 34
     },
     {
       "date": "2026-10-07",
@@ -68,11 +76,11 @@
     },
     {
       "date": "2026-10-06",
-      "avg": 5451,
+      "avg": 5428,
       "low": 4999,
-      "high": 6200,
+      "high": 6000,
       "source": "snkrdunk",
-      "sample_count": 33
+      "sample_count": 32
     },
     {
       "date": "2026-10-05",
@@ -84,31 +92,31 @@
     },
     {
       "date": "2026-10-04",
-      "avg": 5471,
-      "low": 4999,
+      "avg": 5446,
+      "low": 4900,
       "high": 6200,
+      "source": "snkrdunk",
+      "sample_count": 30
+    },
+    {
+      "date": "2026-10-02",
+      "avg": 5500,
+      "low": 4999,
+      "high": 6100,
       "source": "snkrdunk",
       "sample_count": 31
     },
     {
-      "date": "2026-10-02",
-      "avg": 5486,
-      "low": 4900,
-      "high": 6200,
-      "source": "snkrdunk",
-      "sample_count": 30
-    },
-    {
       "date": "2026-10-01",
-      "avg": 5556,
-      "low": 4900,
-      "high": 6200,
+      "avg": 5536,
+      "low": 4999,
+      "high": 6111,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 31
     },
     {
       "date": "2026-09-30",
-      "avg": 5682,
+      "avg": 5712,
       "low": 4999,
       "high": 6500,
       "source": "snkrdunk",
@@ -116,17 +124,17 @@
     },
     {
       "date": "2026-09-29",
-      "avg": 5752,
+      "avg": 5795,
       "low": 5000,
       "high": 6500,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 31
     },
     {
       "date": "2026-09-28",
-      "avg": 5895,
+      "avg": 5929,
       "low": 5000,
-      "high": 6600,
+      "high": 6666,
       "source": "snkrdunk",
       "sample_count": 30
     },
@@ -140,17 +148,17 @@
     },
     {
       "date": "2026-09-25",
-      "avg": 5969,
+      "avg": 6025,
       "low": 5000,
-      "high": 6666,
+      "high": 6800,
       "source": "snkrdunk",
       "sample_count": 30
     },
     {
       "date": "2026-09-24",
-      "avg": 5989,
+      "avg": 6022,
       "low": 5000,
-      "high": 6666,
+      "high": 6800,
       "source": "snkrdunk",
       "sample_count": 30
     },
@@ -389,8 +397,8 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
+    "2026-10-15": 1,
     "2026-10-14": 1,
-    "2026-10-13": 1,
     "2026-10-11": 2,
     "2026-10-09": 2,
     "2026-10-08": 2,
@@ -399,7 +407,7 @@
     "2026-10-02": 2,
     "2026-10-01": 3,
     "2026-09-25": 1,
-    "2026-09-24": 5,
+    "2026-09-24": 4,
     "2026-09-23": 4,
     "2026-09-22": 6,
     "2026-09-21": 5,
@@ -439,5 +447,5 @@
     "2026-10-12": 1
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-15T06:39:48.432Z"
+  "psa10_fetched_at": "2026-10-15T18:56:15.753Z"
 }
