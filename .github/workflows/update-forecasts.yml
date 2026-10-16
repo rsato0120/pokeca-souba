@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'full | prices（空ならfull）'
+        description: 'full | prices | boxes（空ならfull）'
         required: false
         default: ''
 
@@ -67,20 +67,29 @@ jobs:
 
       - name: Scrape prices (keep each product's price source)
         id: scrape
+        if: steps.mode.outputs.mode != 'boxes'
         timeout-minutes: 300
         continue-on-error: true
         env:
           SCRAPE_CONCURRENCY: '3'
+          DEFER_PRICE_STAMP: '1'
         run: npx tsx scripts/scrape-prices.ts
 
-      # 既存のスニダン基準BOXを全て更新する。メルカリ系列は移行しない。
-      - name: Update all existing SNKRDUNK box prices
+      # 既存のスニダン基準BOXを全て更新する。登録商品IDのあるメルカリ系列も履歴を保存して移行する。
+      - name: Update registered SNKRDUNK box prices
+        id: box_prices
+        timeout-minutes: 60
         run: npx tsx scripts/update-snkrdunk-box-prices.ts
         continue-on-error: true
 
       # 直近7日成約数の上位カードについて、現在購入できるメルカリ出品を保存する。
       # 全カードではなく上位30枚×最大3件に絞り、日次処理とデータ量を抑える。
+      - name: Stamp completed price update
+        if: steps.mode.outputs.mode != 'boxes' && steps.scrape.outcome == 'success' && steps.box_prices.outcome == 'success'
+        run: npx tsx scripts/write-update-stamp.ts prices
+
       - name: Scrape listings for sales ranking
+        if: steps.mode.outputs.mode != 'boxes'
         timeout-minutes: 15
         run: npx tsx scripts/scrape-market-listings.ts
         continue-on-error: true
@@ -94,6 +103,7 @@ jobs:
           name: acquired-prices-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             data/prices/
+            data/price-source-archives/
             data/price-extremes.json
             data/snkrdunk-ids.json
             data/market-listings.json
@@ -104,12 +114,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices/ data/price-extremes.json data/snkrdunk-ids.json data/market-listings.json data/last-update.json
+          git add data/prices/ data/price-source-archives/ data/price-extremes.json data/snkrdunk-ids.json data/market-listings.json data/last-update.json
           git diff --cached --quiet && echo "変更なし" || (git commit -m "update prices $(date -u '+%Y-%m-%d %H:%M')" && bash scripts/push-data-update.sh "${{ github.ref_name }}")
 
       # ウォッチリストの値動き通知。価格を確定させてから送るので commit の後に置く。
       # VAPID/Supabase の鍵が未設定なら中で何もせず抜ける（通知機能を有効化するまで無害）。
       - name: Send watchlist alerts
+        if: steps.mode.outputs.mode != 'boxes'
         timeout-minutes: 5
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -121,7 +132,7 @@ jobs:
         continue-on-error: true
 
       - name: Report incomplete prices
-        if: steps.scrape.outcome == 'failure'
+        if: steps.scrape.outcome == 'failure' || steps.box_prices.outcome == 'failure'
         run: |
           echo "::error::価格取得が未完了です。取得済みデータの保存結果を確認してください。"
           exit 1

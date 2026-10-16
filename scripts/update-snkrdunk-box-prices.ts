@@ -1,20 +1,22 @@
 import fs from 'fs'
 import path from 'path'
+import { pathToFileURL } from 'node:url'
+import { forEachBounded } from './bounded-workers'
 import { chromium, type Browser } from 'playwright'
 import { getSnkrdunkBoxSales, type BoxSale } from './snkrdunk-sales'
 import type { PriceHistory, PriceRecord } from '../src/types/pokeca'
-import { canUsePriceSource } from '../src/lib/price-source'
+
 import { getSnkrdunkBoxListingCount } from './snkrdunk-box-listings'
-import { existingSnkrdunkBoxes, hasNewBoxSales } from './snkrdunk-box-price-policy'
+import { existingSnkrdunkBoxes, hasNewBoxSales, boxProductSeries } from './snkrdunk-box-price-policy'
 
 const root = process.cwd()
 const pricesDir = path.join(root, 'data', 'prices')
 const ids = JSON.parse(fs.readFileSync(path.join(root, 'data', 'snkrdunk-ids.json'), 'utf-8')) as Record<string, number>
-// Retain each existing market. Discover every Snkrdunk BOX, including variants.
+// Registered BOX products remain eligible regardless of the previous observation source.
 const requested = process.argv.slice(2)
 const boxIds = requested.length ? requested : existingSnkrdunkBoxes(fs.readdirSync(pricesDir)
   .filter(file => file.startsWith('box-') && file.endsWith('.json'))
-  .map(file => ({ id: file.slice(0, -5), latest: JSON.parse(fs.readFileSync(path.join(pricesDir, file), 'utf-8')).history[0] })))
+  .map(file => ({ id: file.slice(0, -5), latest: JSON.parse(fs.readFileSync(path.join(pricesDir, file), 'utf-8')).history[0] })), ids)
 const today = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)
 
 function percentile(sorted: number[], q: number): number {
@@ -37,7 +39,7 @@ function recentSales(sales: BoxSale[], target = 20): BoxSale[] {
   return selected
 }
 
-function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolean {
+export function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolean {
   const selected = recentSales(sales)
   if (selected.length === 0) return false
 
@@ -55,7 +57,7 @@ function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolea
   const filePath = path.join(pricesDir, `${seriesId}.json`)
   let data: PriceHistory = { card_id: seriesId, history: [] }
   try { data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as PriceHistory } catch {}
-  if (!canUsePriceSource(data.history[0]?.source, 'snkrdunk')) {
+  if (!seriesId.startsWith('box-') || !(ids[seriesId] || (ids[seriesId + '-shrink'] && ids[seriesId + '-noshrink']))) {
     console.log(`${seriesId}: 取得元固定のためスキップ（既存価格・取得日を維持）`)
     return false
   }
@@ -64,6 +66,13 @@ function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolea
     return false
   }
 
+  // Keep a complete original snapshot, including same-day observations, before migration.
+  if (data.history[0]?.source === 'mercari') {
+    const dir = path.join(root, 'data', 'price-source-archives', seriesId)
+    fs.mkdirSync(dir, { recursive: true })
+    const archive = path.join(dir, 'mercari-' + today + '.json')
+    if (!fs.existsSync(archive)) fs.writeFileSync(archive, JSON.stringify(data, null, 2) + '\n', { flag: 'wx' })
+  }
   const index = data.history.findIndex(r => r.date === today)
   if (index >= 0) data.history[index] = record
   else data.history.push(record)
@@ -82,33 +91,27 @@ function save(seriesId: string, sales: BoxSale[], onSale: number | null): boolea
   return true
 }
 
-async function updateBox(browser: Browser, boxId: string) {
-    const directSeriesId = `box-${boxId}`
-    const directApparelId = ids[directSeriesId]
-    if (directApparelId) {
-      const result = await getSnkrdunkBoxSales(browser, directApparelId, 45)
-      const count = await getSnkrdunkBoxListingCount(browser, directApparelId)
-      if (!save(directSeriesId, result.sales, count)) {
-        console.log(`${boxId}: 成約不足 — 最後の価格・観測日を維持`)
-      }
-      return
-    }
-
-    const variants = await Promise.all((['shrink', 'noshrink'] as const).map(async variant => {
-      const seriesId = `box-${boxId}-${variant}`
-      const apparelId = ids[seriesId]
-      if (!apparelId) throw new Error(`スニダン商品IDがありません: ${seriesId}`)
-      const result = await getSnkrdunkBoxSales(browser, apparelId, 45)
-      const count = await getSnkrdunkBoxListingCount(browser, apparelId)
-      return { seriesId, sales: result.sales, count }
-    }))
-
-    let updated = 0
-    for (const variant of variants) if (save(variant.seriesId, variant.sales, variant.count)) updated++
-    // 片方が欠測なら合算も欠測。取得失敗を0件として扱わない。
-    const total = variants.every(v => v.count != null) ? variants.reduce((sum, v) => sum + v.count!, 0) : null
-    if (save(`box-${boxId}`, variants.flatMap(v => v.sales), total)) updated++
-    if (updated === 0) console.log(`${boxId}: 成約不足 — 最後の価格・観測日を維持`)
+export async function updateBox(browser: Browser, boxId: string, fetchSales = getSnkrdunkBoxSales, fetchCount = getSnkrdunkBoxListingCount) {
+  const products = boxProductSeries(boxId, ids)
+  if (!products.length) throw new Error('スニダン商品IDがありません: ' + boxId)
+  const acquired: Array<{ sales: BoxSale[]; count: number | null }> = []
+  let failed = 0
+  for (const seriesId of products) {
+    try {
+      const result = await fetchSales(browser, ids[seriesId], 45)
+      if (!result.sales.length && !result.complete) throw new Error('成約APIの取得失敗')
+      const count = await fetchCount(browser, ids[seriesId])
+      if (!result.sales.length) console.log(seriesId + ': 直近45日の成約なし（API取得完了）')
+      save(seriesId, result.sales, count)
+      acquired.push({ sales: result.sales, count })
+    } catch (error) { failed++; console.error(seriesId, error) }
+  }
+  // Only combine both registered variants when there is no direct product.
+  if (!ids['box-' + boxId] && acquired.length === 2) {
+    const count = acquired.every(v => v.count != null) ? acquired.reduce((sum, v) => sum + v.count!, 0) : null
+    save('box-' + boxId, acquired.flatMap(v => v.sales), count)
+  }
+  if (failed) throw new Error(failed + ' product fetches failed')
 }
 
 async function main() {
@@ -117,15 +120,15 @@ async function main() {
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] })
   let failed = 0
   try {
-    for (const boxId of boxIds) {
+    await forEachBounded(boxIds, 3, async boxId => {
       try { await updateBox(browser, boxId) }
       catch (error) { failed++; console.error(boxId, error) }
-    }
+    })
   } finally { await browser.close() }
   if (failed) throw new Error(`${failed} BOX updates failed; previous prices retained`)
 }
 
-main().catch(error => {
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) main().catch(error => {
   console.error(error)
   process.exitCode = 1
 })

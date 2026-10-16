@@ -2021,7 +2021,7 @@ async function main() {
   //   「最終更新＝いま」と出すのは嘘になる。
   // ⚠ kind は 'prices'。AI予想はこのスクリプトでは触らないので、
   //   予想まで回した回は従来どおりワークフローが 'full' で上書きする。
-  if (!boxFilter && !boxOnly && !boxSalesOnly && stats.succeeded > 0 && stats.failed === 0) {
+  if (process.env.DEFER_PRICE_STAMP !== '1' && !boxFilter && !boxOnly && !boxSalesOnly && stats.succeeded > 0 && stats.failed === 0) {
     const stamp = { updated_at: new Date().toISOString(), kind: 'prices' as const }
     fs.writeFileSync(path.join(process.cwd(), 'data', 'last-update.json'), JSON.stringify(stamp, null, 2), 'utf-8')
     console.log(`更新スタンプを書きました: ${stamp.updated_at} (prices)`)
