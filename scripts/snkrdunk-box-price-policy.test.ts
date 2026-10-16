@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { existingSnkrdunkBoxes, boxProductSeries } from './snkrdunk-box-price-policy'
+import { existingSnkrdunkBoxes, boxProductSeries, archivedBoxTransition } from './snkrdunk-box-price-policy'
 import { priceChangePct } from '../src/lib/price-change'
 
 test('registered BOX updates include Mercari histories, direct products and both variants', () => {
@@ -32,8 +32,13 @@ test('BOX migration preserves original history, archives same-day data and does 
     const read = () => JSON.parse(fs.readFileSync(path.join(fixture, 'data/prices/box-test.json'), 'utf8'))
     assert.equal(read().history[0].source, 'snkrdunk')
     assert.deepEqual(read().history[1], original.history[1])
+    const registered = { 'box-test': 123 }
+    assert.equal(archivedBoxTransition('box-test', read().history[0], read().history[1], registered), false)
     const archive = path.join(fixture, `data/price-source-archives/box-test/mercari-${today}.json`)
     assert.deepEqual(JSON.parse(fs.readFileSync(archive, 'utf8')), original)
+    const snapshot = JSON.parse(fs.readFileSync(archive, 'utf8'))
+    assert.equal(archivedBoxTransition('box-test', read().history[0], read().history[1], registered, snapshot), true)
+    assert.equal(archivedBoxTransition('card-test', read().history[0], read().history[1], registered, snapshot), false)
     assert.equal(save('box-test', sales, 3), true)
     assert.equal(read().history.length, 2)
     assert.equal(read().sales_by_day[today], 2)

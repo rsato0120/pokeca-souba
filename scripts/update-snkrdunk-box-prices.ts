@@ -7,7 +7,7 @@ import { getSnkrdunkBoxSales, type BoxSale } from './snkrdunk-sales'
 import type { PriceHistory, PriceRecord } from '../src/types/pokeca'
 
 import { getSnkrdunkBoxListingCount } from './snkrdunk-box-listings'
-import { existingSnkrdunkBoxes, hasNewBoxSales, boxProductSeries } from './snkrdunk-box-price-policy'
+import { existingSnkrdunkBoxes, hasNewBoxSales, boxProductSeries, registeredBoxSeries } from './snkrdunk-box-price-policy'
 
 const root = process.cwd()
 const pricesDir = path.join(root, 'data', 'prices')
@@ -57,7 +57,7 @@ export function save(seriesId: string, sales: BoxSale[], onSale: number | null):
   const filePath = path.join(pricesDir, `${seriesId}.json`)
   let data: PriceHistory = { card_id: seriesId, history: [] }
   try { data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as PriceHistory } catch {}
-  if (!seriesId.startsWith('box-') || !(ids[seriesId] || (ids[seriesId + '-shrink'] && ids[seriesId + '-noshrink']))) {
+  if (!registeredBoxSeries(seriesId, ids)) {
     console.log(`${seriesId}: 取得元固定のためスキップ（既存価格・取得日を維持）`)
     return false
   }

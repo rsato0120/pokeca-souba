@@ -5,6 +5,7 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug, getForecast } from '@/lib/data'
 import type { PriceHistory, PriceRecord } from '@/types/pokeca'
 import { guardPrice } from './scrape-prices'
+import { archivedBoxTransition } from './snkrdunk-box-price-policy'
 
 const pricesDir = path.join(process.cwd(), 'data', 'prices')
 const read = (id: string): PriceRecord[] | null => {
@@ -183,6 +184,8 @@ if (!staleSold.length) console.log('   なし')
 // ⚠️ 検出ルールを増やす時は guardPrice 側に足すこと。このセクションは自動で追随する。
 section('11. 現在の表示価格が guardPrice を通らない（＝今サイトに出ている異常値）')
 const guardHits: string[] = []
+const registeredBoxIds = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/snkrdunk-ids.json'), 'utf8')) as Record<string, number>
+let archivedTransitions = 0
 const allIds = [
   ...cards.map(c => getCardSlug(c)),
   ...boxes.flatMap(b => [`box-${b.box_id}`, `box-${b.box_id}-shrink`, `box-${b.box_id}-noshrink`]),
@@ -192,15 +195,22 @@ for (const id of allIds) {
   if (!h || h.length < 2) continue
   const [cur, prev] = h
   if (cur.avg == null) continue
+  let archive: PriceHistory | undefined
+  if (id.startsWith('box-') && cur.source === 'snkrdunk' && prev.source === 'mercari') {
+    try { archive = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/price-source-archives', id, `mercari-${cur.date}.json`), 'utf8')) } catch {}
+  }
+  const migrated = archivedBoxTransition(id, cur, prev, registeredBoxIds, archive)
+  if (migrated) archivedTransitions++
   const v = guardPrice({
     id, date: cur.date, avg: cur.avg, low: cur.low, high: cur.high,
     priceSource: cur.source ?? 'mercari',
     onSale: { count: cur.on_sale ?? null, askLow: cur.ask_low ?? null, askMid: cur.ask_mid ?? null } as never,
-    prev, sampleCount: cur.sample_count, askSource: cur.ask_source,
+    prev: migrated ? null : prev, sampleCount: cur.sample_count, askSource: cur.ask_source,
   })
   if (!v.ok) guardHits.push(`   ${id.padEnd(44)} ${cur.date} ¥${cur.avg.toLocaleString()} ← ${v.reason}`)
 }
 console.log(`   ${guardHits.length}件`)
+console.log(`   履歴退避済みBOX取得元切替: ${archivedTransitions}件（市場間の前日比は比較しない）`)
 guardHits.forEach(s => console.log(s))
 
 // ── 12. 最新バッチで更新されなかった（毎日スキップされ古い値が出続けている） ──
