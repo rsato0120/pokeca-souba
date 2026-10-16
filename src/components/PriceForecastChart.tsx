@@ -114,12 +114,9 @@ export default function PriceForecastChart({ history, forecast }: Props) {
       : [...history].reverse().filter(r => Date.parse(r.date) >= cutoff)
         .map(record => ({ date: record.date, observedDate: record.date, record }))
     const past: Point[] = []
-    for (const [i, item] of display.entries()) {
+    for (const item of display) {
       const point: Point = { t: Math.round((Date.parse(item.date) - todayMs) / DAY), dateLabel: fmtMD(Date.parse(item.date)),
         actual: pick(item.record), forecast: null, observedDate: item.observedDate, source: item.record.source }
-      if (i > 0 && tab === 'raw' && item.record.source !== display[i - 1].record.source) {
-        past.push({ ...point, actual: null })
-      }
       past.push(point)
     }
 
@@ -330,7 +327,7 @@ export default function PriceForecastChart({ history, forecast }: Props) {
       </ResponsiveContainer>
 
       {tab === 'raw' && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>成約がない期間は直前の価格を維持しています。メルカリの過去価格も表示し、取得元が変わる位置で線を分けています。</p>
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>価格を取得していない日は直前の価格を表示しています。取得元が変わる前後も線でつなぎ、各点の取得元はタップすると確認できます。</p>
       )}
       {/* ── 凡例 ── */}
       <div

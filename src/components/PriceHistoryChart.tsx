@@ -139,7 +139,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
       const { date, observedDate, record } = item
       const value = tab === 'raw' ? record.avg ?? (record.low + record.high) / 2 : record.psa10 ?? null
       if (i > 0 && tab === 'raw' && record.source !== previousSource) {
-        points.push({ label: '', date, value: null, ma7: null, ma30: null, vol: null })
+        // Keep the price line continuous, but restart averages at the new market.
         series = []
       }
       series.push(value)
@@ -465,7 +465,7 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
       )}
 
       {tab === 'raw' && (
-        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>成約がない期間は直前の価格を維持しています。メルカリの過去価格も表示し、取得元が変わる位置で線を分けています。</p>
+        <p style={{ fontSize: '12px', color: 'var(--ink-dim)' }}>価格を取得していない日は直前の価格を表示しています。取得元が変わる前後も線でつなぎ、各点の取得元はタップすると確認できます。</p>
       )}
       {/* ── 凡例 ── */}
       <div
