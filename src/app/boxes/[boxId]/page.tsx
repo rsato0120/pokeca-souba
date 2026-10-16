@@ -1,5 +1,5 @@
 import MercariLink from '@/components/MercariLink'
-import { priceChangePct } from '@/lib/price-change'
+import { priceChangePct, priceChangePctForDays } from '@/lib/price-change'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PackImage from '@/components/PackImage'
@@ -123,8 +123,8 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
       card,
       slug,
       currentMid: today ? mid(today) : 0,
-      dayChange: priceChangePct(records, 1, 20),
-      weekChange: priceChangePct(records, 7, 35),
+      dayChange: today?.price_basis === 'transaction_day' ? priceChangePctForDays(records, 1, 1, 20, 4) : priceChangePct(records, 1, 20),
+      weekChange: today?.price_basis === 'transaction_day' ? priceChangePctForDays(records, 6, 8, 35, 4) : priceChangePct(records, 7, 35),
     }
   }).filter(c => c.currentMid > 0)
 
