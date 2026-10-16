@@ -2,6 +2,21 @@
   "card_id": "munikiss-zero-meowth-ex-sr",
   "history": [
     {
+      "date": "2026-10-17",
+      "low": 1450,
+      "high": 1500,
+      "avg": 1489,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 35,
+      "ask_low": 2000,
+      "ask_mid": 2062,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6760,
+      "psa10_as_of": "2026-10-16"
+    },
+    {
       "date": "2026-10-16",
       "low": 1490,
       "high": 1500,
@@ -1140,15 +1155,6 @@
       "ask_low": 2100,
       "ask_mid": 2500,
       "psa10": 14775
-    },
-    {
-      "date": "2026-07-15",
-      "low": 2064,
-      "high": 2522,
-      "avg": 2293,
-      "ask_low": 2000,
-      "ask_mid": 2500,
-      "psa10": 15033
     }
   ],
   "sales_by_day": {
@@ -1273,9 +1279,10 @@
     "2026-10-10": 3,
     "2026-10-11": 6,
     "2026-10-12": 4,
-    "2026-10-15": 1
+    "2026-10-15": 1,
+    "2026-10-16": 1
   },
-  "sales_fetched_at": "2026-10-16",
+  "sales_fetched_at": "2026-10-17",
   "psa10_archived_extremes": {
     "high": {
       "value": 18120,
@@ -1283,12 +1290,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 15329,
-      "date": "2026-07-13",
+      "value": 15033,
+      "date": "2026-07-15",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 21,
-    "updated_at": "2026-07-14"
+    "records": 22,
+    "updated_at": "2026-07-15"
   }
 }

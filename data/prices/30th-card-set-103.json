@@ -2,19 +2,30 @@
   "card_id": "30th-card-set-103",
   "history": [
     {
+      "date": "2026-10-17",
+      "low": 2500,
+      "high": 2500,
+      "avg": 2500,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-16",
       "low": 1000,
       "high": 1499,
-      "avg": 1180,
+      "avg": 1179,
       "source": "snkrdunk",
-      "sample_count": 6,
+      "sample_count": 8,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     }
   ],
-  "sales_fetched_at": "2026-10-16",
+  "sales_fetched_at": "2026-10-17",
   "sales_by_day": {
-    "2026-10-16": 6
+    "2026-10-16": 8,
+    "2026-10-17": 1
   },
   "psa10_history": [],
   "psa10_sales_by_day": {}
