@@ -37,6 +37,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
   const active = variants.find(v => v.id === tab) ?? variants[0]
   if (!active) return null
 
+  const isCardSet = boxId.startsWith('30th_card_set_')
   const hasChoice = variants.length > 1
   const signal = boxSignal(active.premiumPct, active.weekPct)
   const hasData = active.history != null && active.history.length > 0
@@ -71,7 +72,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
 
   // Xシェア文も**選択中の系列**から作る。文中の系列名を必ず添えて、どの相場の話か分かるようにする
   const tweetText = [
-    `【BOX相場】${boxName}（${active.label}）`,
+    `【${isCardSet ? 'セット' : 'BOX'}相場】${boxName}（${active.label}）`,
     hasData ? `現在 ¥${active.low?.toLocaleString()}〜¥${active.high?.toLocaleString()}${active.premiumPct != null ? `（定価比${active.premiumPct >= 0 ? `+${active.premiumPct}` : `${active.premiumPct}`}%）` : ''}` : '',
     active.ev && active.ev.ev > 0 && active.ev.recoveryPct != null
       ? `開封の期待値 ¥${active.ev.ev.toLocaleString()}以上（回収率${active.ev.recoveryPct}%）`
@@ -84,7 +85,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
     <>
       <div style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: '10px', padding: '20px 24px', marginBottom: '28px' }}>
         <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.14em', marginBottom: '12px' }}>
-          BOX · 未開封ボックス相場（{marketLabel}）
+          {isCardSet ? 'SET · 未開封セット相場' : 'BOX · 未開封ボックス相場'}（{marketLabel}）
           {active.history?.[0]?.date && <span> ・ {active.history[0].date.replace(/-/g, '/')} 時点</span>}
         </div>
 
@@ -172,14 +173,14 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
             {chart && (
               <div style={{ marginTop: '24px' }}>
                 <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', letterSpacing: '0.1em', marginBottom: '10px' }}>
-                  PRICE HISTORY · 未開封BOX価格推移（{chart.label}）
+                  PRICE HISTORY · {isCardSet ? '未開封セット' : '未開封BOX'}価格推移（{chart.label}）
                 </div>
                 {chart.fallback && (
                   <div style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.6, marginBottom: '10px' }}>
                     「{active.label}」の推移は蓄積中のため、<strong>グラフだけ</strong>シュリンクあり／なしを合わせた全体の推移を表示しています。上の数値は「{active.label}」のものです。
                   </div>
                 )}
-                <PriceHistoryChart history={chart.history} unit="箱" salesByDay={chart.sales} />
+                <PriceHistoryChart history={chart.history} unit={isCardSet ? 'セット' : '箱'} salesByDay={chart.sales} />
               </div>
             )}
           </>

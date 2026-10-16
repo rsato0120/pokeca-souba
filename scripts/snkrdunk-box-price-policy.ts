@@ -1,7 +1,7 @@
 import type { PriceHistory, PriceRecord } from '../src/types/pokeca'
 
 export function existingSnkrdunkBoxes(series: Array<{ id: string; latest?: PriceRecord }>, ids: Record<string, number> = {}): string[] {
-  return [...new Set(series.filter(s => s.id.startsWith('box-') && (s.latest?.source === 'snkrdunk' || ids[s.id] != null))
+  return [...new Set([...series, ...Object.keys(ids).map(id => ({ id, latest: undefined }))].filter(s => s.id.startsWith('box-') && (s.latest?.source === 'snkrdunk' || ids[s.id] != null))
     .map(s => s.id.slice(4).replace(/-(shrink|noshrink)$/, '')))]
 }
 

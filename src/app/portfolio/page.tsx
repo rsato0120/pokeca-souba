@@ -31,12 +31,13 @@ export default function PortfolioPage() {
       .reverse()
 
     // PSA10: 直近90日のpsa10価格（nullの日は除外）を昇順で。現在値は直近の既知値。
-    const psaHist = records
+    const psaRecords = history?.psa10_history ?? records
+    const psaHist = psaRecords
       .slice(0, 90)
       .filter(r => r.psa10 != null)
       .map(r => ({ date: r.date, mid: Number(r.psa10) }))
       .reverse()
-    const psa10Current = records.find(r => r.psa10 != null)?.psa10 ?? null
+    const psa10Current = psaRecords.find(r => r.psa10 != null)?.psa10 ?? null
 
     return {
       id: card.id,

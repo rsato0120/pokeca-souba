@@ -8,7 +8,7 @@ import { priceChangePct } from '../src/lib/price-change'
 
 test('registered BOX updates include Mercari histories, direct products and both variants', () => {
   const ids = { 'box-inferno_x-shrink': 687430, 'box-inferno_x-noshrink': 703025, 'box-test': 1, 'box-test-shrink': 2 }
-  assert.deepEqual(existingSnkrdunkBoxes([{ id: 'box-inferno_x-shrink', latest: { date: '2026-10-11', low: 100, high: 100, source: 'mercari' } }], ids), ['inferno_x'])
+  assert.deepEqual(existingSnkrdunkBoxes([{ id: 'box-inferno_x-shrink', latest: { date: '2026-10-11', low: 100, high: 100, source: 'mercari' } }], ids), ['inferno_x', 'test'])
   assert.deepEqual(boxProductSeries('test', ids), ['box-test', 'box-test-shrink'])
   assert.deepEqual(boxProductSeries('unknown', ids), [])
 })

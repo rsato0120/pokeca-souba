@@ -151,7 +151,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
     })
     .map(([id, hist, sales]) => {
       const s = summarizeVariant(id, hist, msrp, sales)
-      return { ...s, ev: evFor(s.mid) }
+      return { ...s, label: box.box_id.startsWith('30th_card_set_') ? '未開封セット' : s.label, ev: evFor(s.mid) }
     })
 
   const priceRanking = [...cardChanges].sort((a, b) => {
@@ -293,8 +293,8 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
             <span>
               {box.packs_per_box != null
                 ? `パック ¥${box.pack_price_yen}`
-                : box.pack_price_yen > 0
-                ? `定価 ¥${box.pack_price_yen.toLocaleString()}`
+                : (box.msrp_yen ?? box.pack_price_yen) > 0
+                ? `定価 ¥${(box.msrp_yen ?? box.pack_price_yen).toLocaleString()}`
                 : '定価なし（キャンペーン配布）'}
             </span>
             <span>{cards.length}枚収録（掲載中）</span>

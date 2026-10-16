@@ -45,7 +45,7 @@ export default function BoxCollectionControl({ boxId, boxName, noshrinkMid, shri
       <div className="eyebrow" style={{ marginBottom: 'var(--sp-2)' }}>
         MY COLLECTION · 持っている{boxName}を登録
       </div>
-      {noshrinkMid != null && stepper('シュリンクなし', noshrinkMid, false)}
+      {noshrinkMid != null && stepper(boxId.startsWith('30th_card_set_') ? '未開封セット' : 'シュリンクなし', noshrinkMid, false)}
       {shrinkMid != null && stepper('シュリンクあり', shrinkMid, true)}
       <div className="source-note">
         登録するとマイコレクションの評価額に合算されます（この端末にだけ保存されます）。

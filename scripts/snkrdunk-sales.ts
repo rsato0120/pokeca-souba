@@ -65,9 +65,10 @@ async function fetchPage(
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
         const res = await p.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 })
-        if (!res) continue
+        if (!res || !res.ok()) continue
         const json = JSON.parse(await res.text()) as { history?: SaleRow[] }
-        return json.history ?? []
+        if (!Array.isArray(json.history)) throw new Error('Invalid sales-history response')
+        return json.history
       } catch {
         if (attempt < 3) await new Promise(r => setTimeout(r, 2000))
       }
@@ -86,7 +87,7 @@ async function collectDates(
   conditionIds: readonly number[],
   sinceDays: number,
   nowMs: number,
-): Promise<{ date: string; price: number }[]> {
+): Promise<{ rows: { date: string; price: number }[]; failed: boolean }> {
   const cutoff = nowMs - sinceDays * 86400000
 
   // ⚠ 状態ごとに**並列**で取る（2026-08-30）。直列にすると1枚あたり5リクエスト×待機で
@@ -94,9 +95,10 @@ async function collectDates(
   //   同時に開くのは1枚あたり最大5ページで、カード間は従来どおり間隔を空けている。
   const perCondition = await Promise.all(conditionIds.map(async cid => {
     const rows: { date: string; price: number }[] = []
+    let failed = false
     for (let page = 1; page <= 5; page++) {
       const got = await fetchPage(browser, apparelId, cid, page)
-      if (got == null) break        // 取得失敗。その状態は諦める（0件と区別できないので足さない）
+      if (got == null) { failed = true; break } // 欠測を成約0件として扱わない
       let reachedOld = false
       for (const r of got) {
         const d = parseSnkrdunkSaleDate(r.date, nowMs)
@@ -108,12 +110,14 @@ async function collectDates(
       if (reachedOld || got.length < PER_PAGE) break
       await new Promise(r => setTimeout(r, 300))
     }
-    return rows
+    return { rows, failed }
   }))
 
-  return perCondition.flat()
+  return { rows: perCondition.flatMap(result => result.rows), failed: perCondition.some(result => result.failed) }
 }
 export interface SnkrdunkSales {
+  regularComplete?: boolean
+  psa10Complete?: boolean
   /** 素体（A〜D）の成約日。1取引1要素 */
   regular: string[]
   /** PSA10 の成約日。1取引1要素 */
@@ -148,15 +152,17 @@ export async function getSnkrdunkSales(
 ): Promise<SnkrdunkSales> {
   // 5状態の並列リクエストが日付境界をまたいでも、全行を同じ基準時刻で集計する。
   const nowMs = Date.now()
-  const [regularSales, psa10Sales] = await Promise.all([
+  const [raw, psa] = await Promise.all([
     collectDates(browser, apparelId, RAW_CONDITION_IDS, sinceDays, nowMs),
     collectDates(browser, apparelId, [PSA10_CONDITION_ID], sinceDays, nowMs),
   ])
   return {
-    regular: regularSales.map(s => s.date),
-    psa10: psa10Sales.map(s => s.date),
-    regularSales,
-    psa10Sales,
+    regular: raw.rows.map(s => s.date),
+    psa10: psa.rows.map(s => s.date),
+    regularSales: raw.rows,
+    psa10Sales: psa.rows,
+    regularComplete: !raw.failed,
+    psa10Complete: !psa.failed,
   }
 }
 

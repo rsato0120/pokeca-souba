@@ -86,6 +86,8 @@ export interface PokeData {
 export type PriceSource = 'mercari' | 'snkrdunk'
 
 export interface PriceRecord {
+  /** 実際の成約日ごとの観測。日次取得の移動窓相場と区別する。 */
+  price_basis?: 'transaction_day'
   date: string  // "2026-06-20"
   low: number
   high: number
@@ -143,6 +145,8 @@ export interface PsaPop {
 }
 
 export interface PriceHistory {
+  /** 素体の件数不足に左右されないPSA10の独立した成約日履歴。 */
+  psa10_history?: PriceRecord[]
   /** 保存期間から外れたPSA10平均相場の極値。表示時に現存履歴と合算する。 */
   psa10_archived_extremes?: PriceExtremes | null
   card_id: string

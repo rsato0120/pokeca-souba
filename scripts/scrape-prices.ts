@@ -6,6 +6,7 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
 import { forEachBounded } from './bounded-workers'
+import { scrapeVintageCard } from './vintage-card-sales'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
 import { getSnkrdunkSales, getSnkrdunkBoxSales, recentSalesWindow } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
@@ -1942,6 +1943,14 @@ async function main() {
 
   try {
     await forEachBounded(cards, concurrency, async (card) => {
+      if (/^(pcg[6-9]-|30th-card-set-)/.test(card.id)) {
+        try {
+          const saved = await scrapeVintageCard(browser, card.id, snkrdunkIds[card.id], date)
+          if (saved) stats.succeeded++
+          else stats.skipped++
+        } catch (error) { stats.failed++; console.error(card.id, error) }
+        return
+      }
       const boxName = boxMap.get(card.box_id) ?? ''
       // プロモは card_name（例「トウホクのピカチュウ」）が一意なので box_name/英字レアを付けず
       // カナ「プロモ」だけ添えてヒット件数を確保する（人工box名を付けると0件になる）

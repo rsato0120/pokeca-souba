@@ -167,14 +167,15 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   // source を持たない旧レコードは断定せず中立ラベルにする。
   const avgSource = latestRecord?.source ?? null
   const avgSourceLabel =
-    avgSource === 'snkrdunk' ? 'スニーカーダンク 素体平均'
+    avgSource === 'snkrdunk' ? latestRecord?.price_basis === 'transaction_day' ? 'スニーカーダンク 実成約（日別）' : 'スニーカーダンク 素体平均'
     : avgSource === 'mercari' ? 'メルカリ 取引平均'
     : '取引平均'
   const avgSampleCount = latestRecord?.sample_count ?? null
   const latestDate = latestRecord?.date ?? null
   // 今日のスニダン取得が失敗(null)でも、履歴の直近の既知PSA10を表示する（チャートと整合）。
   // psa10 は薄商いだと数日前の成約が残るため、取得日ではなく最後の実成約日を明示する。
-  const latestPsa10Record = priceHistory?.history?.find(r => r.psa10 != null) ?? null
+  const psa10Records = priceHistory?.psa10_history ?? priceHistory?.history ?? []
+  const latestPsa10Record = psa10Records.find(r => r.psa10 != null) ?? null
   const latestPsa10 = latestPsa10Record?.psa10 ?? null
   const latestPsa10Date = latestPsa10Record?.psa10_as_of
     ?? Object.keys(priceHistory?.psa10_sales_by_day ?? {}).sort().at(-1)
@@ -341,7 +342,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               {box?.box_name ?? card.box_id}
             </Link>{' '}・{' '}
             <span style={{ color: 'var(--ink-dim)' }}>
-              {card.card_spec.type} / HP{card.card_spec.hp}
+              {card.card_spec.type} / {card.card_spec.hp > 0 ? `HP${card.card_spec.hp}` : 'HP未確認'}
             </span>{' '}
             ・ {box?.release_ym ?? '—'} 発売 ・ illus. {card.materials.collector.illustrator}
           </div>
@@ -651,7 +652,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
       {/* グラフはタブで切り替える。統合はしない（CardCharts.tsx のコメント参照）。
           以前は同じページの離れた位置に似たグラフが2枚あり、どちらを見ればいいのか
           分からない状態だった。 */}
-      {priceHistory && priceHistory.history.length > 0 && (
+      {priceHistory && (priceHistory.history.length > 0 || psa10Records.length > 0) && (
         <div style={{ marginBottom: '26px' }}>
           <CardCharts
             forecastChart={realForecast ? <PriceForecastChart history={priceHistory.history} forecast={price_forecast} /> : null}
@@ -708,6 +709,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                 }
                 psa10ArchivedExtremes={priceHistory.psa10_archived_extremes}
                 history={priceHistory.history}
+                psa10History={psa10Records}
+                movingAverages={latestRecord?.price_basis !== 'transaction_day'}
                 extremes={extremes ? { high: extremes.high.value, low: extremes.low.value } : null}
                 salesByDay={priceHistory.sales_by_day}
                 psa10SalesByDay={priceHistory.psa10_sales_by_day}

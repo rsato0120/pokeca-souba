@@ -74,7 +74,7 @@ function movingAverage(values: (number | null)[], i: number, n: number): number 
 }
 
 export default function PriceHistoryChart({ history, extremes = null, rawExtras, psa10History, psa10ArchivedExtremes = null, unit = '枚', salesByDay, psa10SalesByDay, movingAverages = true }: Props) {
-  const [tab, setTab] = useState<Tab>('raw')
+  const [tab, setTab] = useState<Tab>(() => history.length === 0 && psa10History?.some(r => r.psa10 != null) ? 'psa10' : 'raw')
   const [days, setDays] = useState<number>(30)
 
   // 履歴にPSA10価格が1つでもあればタブを出す

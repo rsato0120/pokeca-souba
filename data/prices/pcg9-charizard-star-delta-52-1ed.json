@@ -1,0 +1,45 @@
+{
+  "card_id": "pcg9-charizard-star-delta-52-1ed",
+  "history": [
+    {
+      "date": "2025-12-16",
+      "low": 1299999,
+      "high": 1299999,
+      "avg": 1299999,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "psa10_history": [
+    {
+      "date": "2026-03-28",
+      "low": 0,
+      "high": 0,
+      "psa10": 17500000,
+      "psa10_as_of": "2026-03-28",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2025-12-28",
+      "low": 0,
+      "high": 0,
+      "psa10": 8290000,
+      "psa10_as_of": "2025-12-28",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "sales_by_day": {
+    "2025-12-16": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-03-28": 1,
+    "2025-12-28": 1
+  },
+  "sales_fetched_at": "2026-10-16"
+}
