@@ -2,6 +2,21 @@
   "card_id": "mega-brave-mega-lucario-ex-mur",
   "history": [
     {
+      "date": "2026-10-18",
+      "low": 29500,
+      "high": 38500,
+      "avg": 33880,
+      "source": "snkrdunk",
+      "sample_count": 32,
+      "on_sale": 90,
+      "ask_low": 25500,
+      "ask_mid": 29750,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 111886,
+      "psa10_as_of": "2026-10-17"
+    },
+    {
       "date": "2026-10-17",
       "low": 29500,
       "high": 38480,
@@ -1146,15 +1161,6 @@
       "ask_low": 44444,
       "ask_mid": 58999,
       "psa10": 127509
-    },
-    {
-      "date": "2026-07-16",
-      "low": 53157,
-      "high": 64969,
-      "avg": 59063,
-      "ask_low": 43700,
-      "ask_mid": 58999,
-      "psa10": 126947
     }
   ],
   "sales_by_day": {
@@ -1228,7 +1234,8 @@
     "2026-10-13": 1,
     "2026-10-14": 3,
     "2026-10-15": 6,
-    "2026-10-16": 5
+    "2026-10-16": 5,
+    "2026-10-17": 2
   },
   "psa10_sales_by_day": {
     "2026-08-24": 3,
@@ -1317,9 +1324,10 @@
     "2026-10-12": 3,
     "2026-10-13": 2,
     "2026-10-15": 2,
-    "2026-10-16": 2
+    "2026-10-16": 2,
+    "2026-10-17": 4
   },
-  "sales_fetched_at": "2026-10-17",
+  "sales_fetched_at": "2026-10-18",
   "psa10_archived_extremes": {
     "high": {
       "value": 142353,
@@ -1332,7 +1340,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-24",
-    "records": 20,
-    "updated_at": "2026-07-15"
+    "records": 21,
+    "updated_at": "2026-07-16"
   }
 }
