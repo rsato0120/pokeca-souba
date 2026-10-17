@@ -1,6 +1,6 @@
 {
   "product_id": "promo-94909",
-  "fetched_at": "2026-10-16T18:24:51.126Z",
+  "fetched_at": "2026-10-17T06:15:36.461Z",
   "history": [
     {
       "date": "2026-10-11",
@@ -548,6 +548,15 @@
   "complete": true,
   "psa10_history": [
     {
+      "date": "2026-10-17",
+      "avg": 12373,
+      "low": 12300,
+      "high": 12500,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "psa10": 12373
+    },
+    {
       "date": "2026-10-16",
       "avg": 12318,
       "low": 12200,
@@ -558,21 +567,21 @@
     },
     {
       "date": "2026-10-15",
-      "avg": 12306,
+      "avg": 12310,
       "low": 12000,
       "high": 12500,
       "source": "snkrdunk",
-      "sample_count": 44,
-      "psa10": 12306
+      "sample_count": 45,
+      "psa10": 12310
     },
     {
       "date": "2026-10-14",
-      "avg": 12295,
+      "avg": 12298,
       "low": 12000,
-      "high": 12500,
+      "high": 12400,
       "source": "snkrdunk",
-      "sample_count": 40,
-      "psa10": 12295
+      "sample_count": 41,
+      "psa10": 12298
     },
     {
       "date": "2026-10-13",
@@ -1617,15 +1626,6 @@
       "source": "snkrdunk",
       "sample_count": 3,
       "psa10": 53000
-    },
-    {
-      "date": "2026-06-05",
-      "avg": 51343,
-      "low": 48000,
-      "high": 55000,
-      "source": "snkrdunk",
-      "sample_count": 7,
-      "psa10": 51343
     }
   ],
   "psa10_sales_by_day": {
@@ -1661,9 +1661,10 @@
     "2026-06-17": 14,
     "2026-06-18": 5,
     "2026-06-19": 3,
-    "2026-10-16": 2,
+    "2026-10-17": 1,
+    "2026-10-16": 1,
     "2026-10-15": 4,
-    "2026-10-14": 3,
+    "2026-10-14": 4,
     "2026-10-13": 2,
     "2026-10-12": 11,
     "2026-10-11": 6,
@@ -1768,8 +1769,8 @@
   },
   "psa10_archived_extremes": {
     "high": {
-      "value": 43314,
-      "date": "2026-06-04",
+      "value": 51343,
+      "date": "2026-06-05",
       "source": "snkrdunk"
     },
     "low": {
@@ -1778,9 +1779,9 @@
       "source": "snkrdunk"
     },
     "since": "2026-05-18",
-    "records": 17,
-    "updated_at": "2026-06-04"
+    "records": 18,
+    "updated_at": "2026-06-05"
   },
-  "psa10_fetched_at": "2026-10-16T18:34:38.530Z",
+  "psa10_fetched_at": "2026-10-17T06:29:19.622Z",
   "raw_archived_extremes": null
 }
