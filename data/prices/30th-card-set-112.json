@@ -3,21 +3,21 @@
   "history": [
     {
       "date": "2026-10-19",
-      "low": 1400,
+      "low": 1050,
       "high": 2100,
-      "avg": 1750,
+      "avg": 1490,
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 5,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-18",
       "low": 1200,
-      "high": 1500,
-      "avg": 1367,
+      "high": 1200,
+      "avg": 1200,
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -47,8 +47,8 @@
     "2026-10-16": 2,
     "2026-10-17": 2,
     "2026-10-18": 3,
-    "2026-10-19": 2
+    "2026-10-19": 5
   },
   "psa10_sales_by_day": {},
-  "sales_fetched_at": "2026-10-19"
+  "sales_fetched_at": "2026-10-20"
 }
