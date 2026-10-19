@@ -1,6 +1,6 @@
 {
   "product_id": "op09-349478",
-  "fetched_at": "2026-10-19T06:53:53.528Z",
+  "fetched_at": "2026-10-19T20:16:12.671Z",
   "history": [
     {
       "date": "2026-09-13",
@@ -20,43 +20,43 @@
     },
     {
       "date": "2026-08-05",
-      "avg": 45970,
+      "avg": 45522,
       "low": 36000,
-      "high": 55000,
-      "source": "snkrdunk",
-      "sample_count": 10
-    },
-    {
-      "date": "2026-08-04",
-      "avg": 47100,
-      "low": 37000,
       "high": 55000,
       "source": "snkrdunk",
       "sample_count": 9
     },
     {
-      "date": "2026-07-29",
-      "avg": 46113,
+      "date": "2026-08-04",
+      "avg": 46738,
       "low": 37000,
-      "high": 53900,
+      "high": 55000,
       "source": "snkrdunk",
       "sample_count": 8
     },
     {
-      "date": "2026-07-16",
-      "avg": 46650,
+      "date": "2026-07-29",
+      "avg": 45557,
       "low": 37000,
       "high": 53900,
       "source": "snkrdunk",
-      "sample_count": 6
+      "sample_count": 7
     },
     {
-      "date": "2026-07-15",
-      "avg": 48580,
+      "date": "2026-07-16",
+      "avg": 45980,
       "low": 36000,
       "high": 55000,
       "source": "snkrdunk",
       "sample_count": 5
+    },
+    {
+      "date": "2026-07-15",
+      "avg": 48225,
+      "low": 36000,
+      "high": 55000,
+      "source": "snkrdunk",
+      "sample_count": 4
     },
     {
       "date": "2026-07-05",
@@ -193,6 +193,7 @@
     "2026-06-09": 1,
     "2026-06-10": 1,
     "2026-06-21": 1,
+    "2026-06-22": 1,
     "2026-09-30": 1,
     "2026-08-06": 1,
     "2026-08-05": 1,
@@ -201,21 +202,20 @@
     "2026-07-15": 1,
     "2026-07-05": 2,
     "2026-06-30": 1,
-    "2026-06-22": 1,
     "2026-09-13": 1,
     "2026-07-16": 1
   },
-  "coverage_start": "2026-06-22",
+  "coverage_start": "2026-06-30",
   "complete": true,
   "psa10_history": [
     {
       "date": "2026-10-19",
-      "avg": 56205,
+      "avg": 56005,
       "low": 51000,
-      "high": 60000,
+      "high": 59000,
       "source": "snkrdunk",
-      "sample_count": 30,
-      "psa10": 56205
+      "sample_count": 31,
+      "psa10": 56005
     },
     {
       "date": "2026-10-17",
@@ -759,93 +759,93 @@
     },
     {
       "date": "2026-07-17",
-      "avg": 79356,
+      "avg": 79489,
       "low": 74000,
       "high": 82000,
       "source": "snkrdunk",
-      "sample_count": 30,
-      "psa10": 79356
+      "sample_count": 28,
+      "psa10": 79489
     },
     {
       "date": "2026-07-16",
-      "avg": 80226,
+      "avg": 80453,
       "low": 79000,
-      "high": 82000,
-      "source": "snkrdunk",
-      "sample_count": 26,
-      "psa10": 80226
-    },
-    {
-      "date": "2026-07-15",
-      "avg": 80745,
-      "low": 79500,
       "high": 82480,
       "source": "snkrdunk",
       "sample_count": 24,
-      "psa10": 80745
+      "psa10": 80453
     },
     {
-      "date": "2026-07-11",
-      "avg": 81135,
-      "low": 80000,
+      "date": "2026-07-15",
+      "avg": 81040,
+      "low": 79999,
       "high": 82480,
       "source": "snkrdunk",
       "sample_count": 22,
-      "psa10": 81135
+      "psa10": 81040
     },
     {
-      "date": "2026-07-09",
-      "avg": 81099,
-      "low": 79999,
+      "date": "2026-07-11",
+      "avg": 81499,
+      "low": 80000,
       "high": 82500,
       "source": "snkrdunk",
       "sample_count": 20,
-      "psa10": 81099
+      "psa10": 81499
+    },
+    {
+      "date": "2026-07-09",
+      "avg": 81499,
+      "low": 80000,
+      "high": 82500,
+      "source": "snkrdunk",
+      "sample_count": 18,
+      "psa10": 81499
     },
     {
       "date": "2026-07-08",
-      "avg": 80952,
+      "avg": 81412,
       "low": 79999,
-      "high": 82500,
+      "high": 82900,
       "source": "snkrdunk",
-      "sample_count": 17,
-      "psa10": 80952
+      "sample_count": 15,
+      "psa10": 81412
     },
     {
       "date": "2026-07-06",
-      "avg": 81029,
-      "low": 79500,
-      "high": 82900,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "psa10": 81029
-    },
-    {
-      "date": "2026-07-04",
-      "avg": 81080,
-      "low": 80000,
+      "avg": 81671,
+      "low": 81000,
       "high": 82900,
       "source": "snkrdunk",
       "sample_count": 11,
-      "psa10": 81080
+      "psa10": 81671
+    },
+    {
+      "date": "2026-07-04",
+      "avg": 81876,
+      "low": 81000,
+      "high": 83000,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "psa10": 81876
     },
     {
       "date": "2026-06-29",
-      "avg": 81288,
-      "low": 80000,
+      "avg": 82235,
+      "low": 81000,
       "high": 83000,
       "source": "snkrdunk",
-      "sample_count": 10,
-      "psa10": 81288
+      "sample_count": 8,
+      "psa10": 82235
     },
     {
       "date": "2026-06-26",
-      "avg": 81098,
-      "low": 80000,
+      "avg": 82126,
+      "low": 81000,
       "high": 82900,
       "source": "snkrdunk",
-      "sample_count": 9,
-      "psa10": 81098
+      "sample_count": 7,
+      "psa10": 82126
     },
     {
       "date": "2026-06-24",
@@ -1038,7 +1038,8 @@
     "2026-06-17": 2,
     "2026-06-19": 2,
     "2026-06-20": 2,
-    "2026-10-19": 2,
+    "2026-06-22": 2,
+    "2026-10-19": 3,
     "2026-10-17": 1,
     "2026-10-09": 2,
     "2026-10-08": 1,
@@ -1103,10 +1104,9 @@
     "2026-06-29": 1,
     "2026-06-26": 4,
     "2026-06-24": 1,
-    "2026-06-23": 2,
-    "2026-06-22": 2
+    "2026-06-23": 2
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-19T07:04:59.338Z",
+  "psa10_fetched_at": "2026-10-19T20:26:48.888Z",
   "raw_archived_extremes": null
 }
