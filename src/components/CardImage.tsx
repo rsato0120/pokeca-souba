@@ -11,7 +11,7 @@ export default function CardImage({ src, alt, className, style, ...props }: Prop
   const crop = (bounds as Record<string, Bounds>)[src]
   if (!crop) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} className={imageClass} style={style} {...props} />
+    return <img src={src} alt={alt} className={imageClass} style={{ display: 'block', ...style, objectFit: 'contain' }} {...props} />
   }
   return <svg className={imageClass} role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : true}
     viewBox={`${crop.left} ${crop.top} ${crop.contentWidth} ${crop.contentHeight}`}

@@ -1895,7 +1895,10 @@ async function main() {
   const boxSalesOnly = process.env.BOX_SALES_ONLY === '1'
   const cards = (boxOnly || boxSalesOnly)
     ? []
-    : getAllCards().filter(matchesFilter)
+    : getAllCards().filter(matchesFilter).filter(card => {
+      const box = getAllBoxes().find(box => box.box_id === card.box_id)
+      return box != null && isBoxReleased(box)
+    })
   const boxes = getAllBoxes().filter(
     b => isBoxReleased(b) && b.packs_per_box != null && (filters.length === 0 || filters.includes(b.box_id))
   )
@@ -1943,7 +1946,7 @@ async function main() {
 
   try {
     await forEachBounded(cards, concurrency, async (card) => {
-      if (/^(pcg[6-9]-|30th-card-set-)/.test(card.id)) {
+      if (/^(pcg[6-9]-|pmcg1-|30th-card-set-)/.test(card.id)) {
         try {
           const saved = await scrapeVintageCard(browser, card.id, snkrdunkIds[card.id], date)
           if (saved) stats.succeeded++

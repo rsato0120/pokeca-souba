@@ -295,7 +295,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
                 ? `パック ¥${box.pack_price_yen}`
                 : (box.msrp_yen ?? box.pack_price_yen) > 0
                 ? `定価 ¥${(box.msrp_yen ?? box.pack_price_yen).toLocaleString()}`
-                : '定価なし（キャンペーン配布）'}
+                : box.price_unknown ? '定価未確認' : '定価なし（キャンペーン配布）'}
             </span>
             <span>{cards.length}枚収録（掲載中）</span>
           </div>

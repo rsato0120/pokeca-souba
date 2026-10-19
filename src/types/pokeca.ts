@@ -16,6 +16,8 @@ export interface Box {
   release_date?: string
   certainty: Certainty
   pack_price_yen: number
+  /** 当時の定価を確認できていない商品。0円の配布商品と区別する。 */
+  price_unknown?: boolean
   /** パックBOX以外（構築デッキ等）の商品定価。 */
   msrp_yen?: number
   packs_per_box?: number

@@ -7,7 +7,7 @@ const issued = links as Record<string, { url: string; destination: string }>
 let checked = 0
 for (const card of catalog.cards) {
   const entry = issued[card.id]
-  if (!entry && (card.box_id.startsWith('bw_') || /^pcg[6-9]-/.test(card.id) || card.box_id === 'alter_genesis' || card.id.startsWith('30th-card-set-'))) continue
+  if (!entry && (card.box_id.startsWith('bw_') || /^(pcg[6-9]-|pmcg1-|mg-)/.test(card.id) || card.box_id === 'alter_genesis' || card.id.startsWith('30th-card-set-'))) continue
   assert.ok(entry, `A8でX用リンクを発行してください: ${card.id}`)
   assert.match(entry.url, /^https:\/\/r\.8to\.jp\/[A-Za-z0-9]{12}$/)
   const destination = new URL(entry.destination)

@@ -44,7 +44,7 @@ export function mergeVintageSales(previous: PriceHistory, api: SnkrdunkSales, to
 }
 
 export async function scrapeVintageCard(browser: Browser, id: string, apparelId: number, today: string): Promise<boolean> {
-  if (!/^(pcg[6-9]-|30th-card-set-)/.test(id) || !apparelId) throw new Error('登録済みPCG・御三家プロモだけが対象です')
+  if (!/^(pcg[6-9]-|pmcg1-|30th-card-set-)/.test(id) || !apparelId) throw new Error('登録済み旧裏・PCG・御三家プロモだけが対象です')
   const file = path.join(process.cwd(), 'data/prices', `${id}.json`)
   let previous: PriceHistory = { card_id: id, history: [] }
   if (fs.existsSync(file)) previous = JSON.parse(fs.readFileSync(file, 'utf8'))

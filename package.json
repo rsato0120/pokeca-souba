@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/verify-pack-images.mjs",
+    "prebuild": "node scripts/verify-pack-images.mjs && node scripts/verify-card-images.mjs",
     "build": "next build",
     "prepare:pack-images": "node scripts/prepare-pack-images.mjs",
     "verify:pack-images": "node scripts/verify-pack-images.mjs",
+    "prepare:card-images": "node scripts/prepare-card-images.mjs",
+    "verify:card-images": "node scripts/verify-card-images.mjs",
     "start": "next start",
     "lint": "eslint"
   },
