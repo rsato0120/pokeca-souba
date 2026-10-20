@@ -2,6 +2,21 @@
   "card_id": "munikiss-zero-rosas-encouragement-sr",
   "history": [
     {
+      "date": "2026-10-21",
+      "low": 1800,
+      "high": 2500,
+      "avg": 2125,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 69,
+      "ask_low": 1900,
+      "ask_mid": 2000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7171,
+      "psa10_as_of": "2026-10-20"
+    },
+    {
       "date": "2026-10-20",
       "low": 1650,
       "high": 2500,
@@ -1162,17 +1177,6 @@
       "ask_low": 2222,
       "ask_mid": 2699,
       "psa10": 16041
-    },
-    {
-      "date": "2026-07-19",
-      "low": 1958,
-      "high": 2393,
-      "avg": 2175,
-      "source": "snkrdunk",
-      "sample_count": 29,
-      "ask_low": 2222,
-      "ask_mid": 2765,
-      "psa10": 16254
     }
   ],
   "sales_by_day": {
@@ -1219,7 +1223,8 @@
     "2026-10-07": 2,
     "2026-10-08": 2,
     "2026-10-13": 1,
-    "2026-10-19": 1
+    "2026-10-19": 1,
+    "2026-10-20": 1
   },
   "psa10_sales_by_day": {
     "2026-08-24": 1,
@@ -1310,9 +1315,10 @@
     "2026-10-16": 3,
     "2026-10-17": 1,
     "2026-10-18": 1,
-    "2026-10-19": 5
+    "2026-10-19": 5,
+    "2026-10-20": 4
   },
-  "sales_fetched_at": "2026-10-20",
+  "sales_fetched_at": "2026-10-21",
   "psa10_archived_extremes": {
     "high": {
       "value": 22705,
@@ -1320,12 +1326,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 18451,
-      "date": "2026-07-17",
+      "value": 16254,
+      "date": "2026-07-19",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 24,
-    "updated_at": "2026-07-18"
+    "records": 25,
+    "updated_at": "2026-07-19"
   }
 }
