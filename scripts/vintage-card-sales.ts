@@ -6,7 +6,7 @@ import { getSnkrdunkSales, type SnkrdunkSales } from './snkrdunk-sales'
 
 type Sale = { date: string; price: number }
 
-function dailyRecords(sales: Sale[], today: string, psa = false): PriceRecord[] {
+function dailyRecords(sales: Sale[], today: string, psa = false, filterOutliers = false): PriceRecord[] {
   const grouped = new Map<string, number[]>()
   for (const sale of sales) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(sale.date) || sale.date > today || !Number.isFinite(Date.parse(sale.date)) || !Number.isFinite(sale.price) || sale.price <= 0) continue
@@ -14,8 +14,17 @@ function dailyRecords(sales: Sale[], today: string, psa = false): PriceRecord[] 
     prices.push(sale.price)
     grouped.set(sale.date, prices)
   }
-  return [...grouped].map(([date, prices]) => {
-    prices.sort((a, b) => a - b)
+  return [...grouped].map(([date, allPrices]) => {
+    allPrices.sort((a, b) => a - b)
+    // The API does not expose card quantities. Do not treat unusually large
+    // transaction totals as a verified single-card price. Keep trade volume intact.
+    const middle = Math.floor(allPrices.length / 2)
+    const median = allPrices.length % 2 ? allPrices[middle] : (allPrices[middle - 1] + allPrices[middle]) / 2
+    const candidates = filterOutliers && allPrices.length >= 3
+      ? allPrices.filter(price => price >= median * 0.5 && price <= median * 1.5)
+      : allPrices
+    // A split distribution has no clear majority price band; do not invent one.
+    const prices = candidates.length > allPrices.length / 2 ? candidates : allPrices
     const avg = Math.round(prices.reduce((sum, p) => sum + p, 0) / prices.length)
     return psa
       ? { date, low: 0, high: 0, psa10: avg, psa10_as_of: date, source: 'snkrdunk' as const, sample_count: prices.length, price_basis: 'transaction_day' as const }
@@ -30,7 +39,10 @@ export function mergeVintageSales(previous: PriceHistory, api: SnkrdunkSales, to
     for (const r of next) records.set(r.date, r)
     return [...records.values()].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 90)
   }
-  const raw = dailyRecords(api.regularSales, today)
+  const allRaw = dailyRecords(api.regularSales, today)
+  const raw = previous.card_id.startsWith('30th-card-set-')
+    ? dailyRecords(api.regularSales, today, false, true)
+    : allRaw
   const psa = dailyRecords(api.psa10Sales, today, true)
   const counts = (old: Record<string, number> = {}, records: PriceRecord[]) => {
     const result = { ...old }
@@ -39,7 +51,7 @@ export function mergeVintageSales(previous: PriceHistory, api: SnkrdunkSales, to
   }
   return { ...previous, history: merge(previous.history, raw),
     psa10_history: merge(previous.psa10_history ?? previous.history.filter(r => r.psa10 != null), psa),
-    sales_by_day: counts(previous.sales_by_day, raw),
+    sales_by_day: counts(previous.sales_by_day, allRaw),
     psa10_sales_by_day: counts(previous.psa10_sales_by_day, psa), sales_fetched_at: today }
 }
 
