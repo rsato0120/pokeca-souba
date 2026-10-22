@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-yukimenoko-ex-sar",
   "history": [
     {
+      "date": "2026-10-23",
+      "low": 1880,
+      "high": 1999,
+      "avg": 1925,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "on_sale": 41,
+      "ask_low": 1800,
+      "ask_mid": 2400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5637,
+      "psa10_as_of": "2026-10-22"
+    },
+    {
       "date": "2026-10-22",
       "low": 1880,
       "high": 1999,
@@ -1169,17 +1184,6 @@
       "ask_low": 2222,
       "ask_mid": 2528,
       "psa10": 9867
-    },
-    {
-      "date": "2026-07-20",
-      "low": 1924,
-      "high": 2352,
-      "avg": 2138,
-      "source": "snkrdunk",
-      "sample_count": 33,
-      "ask_low": 2300,
-      "ask_mid": 2750,
-      "psa10": 10219
     }
   ],
   "sales_by_day": {
@@ -1290,10 +1294,10 @@
     "2026-10-16": 1,
     "2026-10-18": 1,
     "2026-10-19": 1,
-    "2026-10-22": 5,
+    "2026-10-22": 7,
     "2026-10-21": 2
   },
-  "sales_fetched_at": "2026-10-22",
+  "sales_fetched_at": "2026-10-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 10701,
@@ -1306,7 +1310,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 26,
-    "updated_at": "2026-07-19"
+    "records": 27,
+    "updated_at": "2026-07-20"
   }
 }

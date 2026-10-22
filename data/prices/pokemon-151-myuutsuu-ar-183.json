@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-myuutsuu-ar-183",
   "history": [
     {
+      "date": "2026-10-23",
+      "low": 3000,
+      "high": 4000,
+      "avg": 3557,
+      "source": "snkrdunk",
+      "sample_count": 19,
+      "on_sale": 260,
+      "ask_low": 2700,
+      "ask_mid": 3490,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11647,
+      "psa10_as_of": "2026-10-22"
+    },
+    {
       "date": "2026-10-22",
       "low": 3000,
       "high": 4000,
@@ -1168,17 +1183,6 @@
       "ask_low": 2999,
       "ask_mid": 3795,
       "psa10": 18791
-    },
-    {
-      "date": "2026-07-21",
-      "low": 4129,
-      "high": 5047,
-      "avg": 4588,
-      "source": "snkrdunk",
-      "sample_count": 42,
-      "ask_low": 2999,
-      "ask_mid": 3999,
-      "psa10": 18807
     }
   ],
   "sales_by_day": {
@@ -1315,7 +1319,6 @@
     "2026-06-26": 10,
     "2026-06-25": 3,
     "2026-06-24": 6,
-    "2026-06-23": 7,
     "2026-09-02": 15,
     "2026-09-01": 2,
     "2026-09-03": 17,
@@ -1368,9 +1371,9 @@
     "2026-10-19": 6,
     "2026-10-20": 7,
     "2026-10-21": 7,
-    "2026-10-22": 1
+    "2026-10-22": 6
   },
-  "sales_fetched_at": "2026-10-22",
+  "sales_fetched_at": "2026-10-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 19779,
@@ -1383,7 +1386,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 23,
-    "updated_at": "2026-07-20"
+    "records": 24,
+    "updated_at": "2026-07-21"
   }
 }
