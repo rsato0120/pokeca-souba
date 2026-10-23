@@ -2,32 +2,42 @@
   "card_id": "30th-card-set-102",
   "history": [
     {
+      "date": "2026-10-23",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-22",
       "low": 1000,
       "high": 1500,
-      "avg": 1192,
+      "avg": 1231,
       "source": "snkrdunk",
-      "sample_count": 14,
+      "sample_count": 10,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-21",
       "low": 1000,
-      "high": 1300,
-      "avg": 1114,
+      "high": 1280,
+      "avg": 1098,
       "source": "snkrdunk",
-      "sample_count": 14,
+      "sample_count": 12,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-20",
-      "low": 1200,
-      "high": 2000,
-      "avg": 1700,
+      "low": 1000,
+      "high": 1300,
+      "avg": 1167,
       "source": "snkrdunk",
-      "sample_count": 5,
+      "sample_count": 6,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -35,9 +45,9 @@
       "date": "2026-10-19",
       "low": 1200,
       "high": 1380,
-      "avg": 1260,
+      "avg": 1245,
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 4,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -45,9 +55,9 @@
       "date": "2026-10-18",
       "low": 1200,
       "high": 4800,
-      "avg": 3199,
+      "avg": 3032,
       "source": "snkrdunk",
-      "sample_count": 7,
+      "sample_count": 6,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -65,9 +75,9 @@
       "date": "2026-10-16",
       "low": 1200,
       "high": 2500,
-      "avg": 1995,
+      "avg": 2007,
       "source": "snkrdunk",
-      "sample_count": 17,
+      "sample_count": 16,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     }
@@ -80,7 +90,8 @@
     "2026-10-19": 18,
     "2026-10-20": 18,
     "2026-10-21": 31,
-    "2026-10-22": 20
+    "2026-10-22": 20,
+    "2026-10-23": 3
   },
   "psa10_history": [],
   "psa10_sales_by_day": {}
