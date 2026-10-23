@@ -1,6 +1,6 @@
 {
   "product_id": "op16-822591",
-  "fetched_at": "2026-10-23T06:33:56.626Z",
+  "fetched_at": "2026-10-23T18:44:57.306Z",
   "history": [
     {
       "date": "2026-10-23",
@@ -404,67 +404,67 @@
     },
     {
       "date": "2026-07-08",
-      "avg": 15617,
-      "low": 13999,
-      "high": 17171,
-      "source": "snkrdunk",
-      "sample_count": 31
-    },
-    {
-      "date": "2026-07-06",
-      "avg": 15814,
-      "low": 13999,
-      "high": 17191,
-      "source": "snkrdunk",
-      "sample_count": 29
-    },
-    {
-      "date": "2026-07-05",
-      "avg": 16101,
-      "low": 14999,
-      "high": 17191,
-      "source": "snkrdunk",
-      "sample_count": 26
-    },
-    {
-      "date": "2026-07-04",
-      "avg": 16201,
-      "low": 14999,
-      "high": 17200,
+      "avg": 15185,
+      "low": 13500,
+      "high": 16868,
       "source": "snkrdunk",
       "sample_count": 24
     },
     {
-      "date": "2026-07-03",
-      "avg": 16892,
-      "low": 16666,
-      "high": 17200,
+      "date": "2026-07-06",
+      "avg": 15406,
+      "low": 13999,
+      "high": 16868,
+      "source": "snkrdunk",
+      "sample_count": 22
+    },
+    {
+      "date": "2026-07-05",
+      "avg": 15733,
+      "low": 13999,
+      "high": 17171,
+      "source": "snkrdunk",
+      "sample_count": 19
+    },
+    {
+      "date": "2026-07-04",
+      "avg": 15831,
+      "low": 14500,
+      "high": 17171,
       "source": "snkrdunk",
       "sample_count": 17
     },
     {
-      "date": "2026-07-01",
-      "avg": 17058,
-      "low": 16666,
-      "high": 17328,
+      "date": "2026-07-03",
+      "avg": 16748,
+      "low": 16500,
+      "high": 17200,
       "source": "snkrdunk",
-      "sample_count": 15
+      "sample_count": 10
+    },
+    {
+      "date": "2026-07-01",
+      "avg": 17023,
+      "low": 16666,
+      "high": 17200,
+      "source": "snkrdunk",
+      "sample_count": 8
     },
     {
       "date": "2026-06-29",
-      "avg": 17086,
+      "avg": 17074,
       "low": 16800,
-      "high": 17328,
+      "high": 17200,
       "source": "snkrdunk",
-      "sample_count": 14
+      "sample_count": 7
     },
     {
       "date": "2026-06-28",
-      "avg": 17077,
+      "avg": 17053,
       "low": 16800,
-      "high": 17328,
+      "high": 17200,
       "source": "snkrdunk",
-      "sample_count": 13
+      "sample_count": 6
     },
     {
       "date": "2026-06-27",
@@ -719,6 +719,7 @@
     "2026-06-22": 3,
     "2026-06-23": 1,
     "2026-06-24": 1,
+    "2026-06-26": 7,
     "2026-10-02": 3,
     "2026-09-25": 1,
     "2026-09-20": 1,
@@ -766,14 +767,13 @@
     "2026-06-29": 1,
     "2026-06-28": 3,
     "2026-06-27": 3,
-    "2026-06-26": 7,
     "2026-10-23": 1,
     "2026-08-27": 1,
     "2026-08-05": 1,
     "2026-07-31": 2,
     "2026-07-23": 1
   },
-  "coverage_start": "2026-06-26",
+  "coverage_start": "2026-06-27",
   "complete": true,
   "psa10_history": [
     {
@@ -787,12 +787,12 @@
     },
     {
       "date": "2026-10-21",
-      "avg": 12659,
-      "low": 12200,
-      "high": 13000,
+      "avg": 13103,
+      "low": 12500,
+      "high": 14000,
       "source": "snkrdunk",
-      "sample_count": 32,
-      "psa10": 12659
+      "sample_count": 31,
+      "psa10": 13103
     },
     {
       "date": "2026-10-20",
@@ -805,12 +805,12 @@
     },
     {
       "date": "2026-10-19",
-      "avg": 15085,
+      "avg": 14994,
       "low": 13000,
       "high": 17000,
       "source": "snkrdunk",
-      "sample_count": 33,
-      "psa10": 15085
+      "sample_count": 34,
+      "psa10": 14994
     },
     {
       "date": "2026-10-18",
@@ -1246,8 +1246,9 @@
     }
   ],
   "psa10_sales_by_day": {
-    "2026-10-21": 20,
-    "2026-10-20": 1,
+    "2026-10-22": 6,
+    "2026-10-21": 14,
+    "2026-10-19": 1,
     "2026-10-18": 2,
     "2026-10-17": 2,
     "2026-10-15": 1,
@@ -1294,6 +1295,6 @@
     "2026-07-26": 1
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-23T06:44:29.062Z",
+  "psa10_fetched_at": "2026-10-23T19:00:38.681Z",
   "raw_archived_extremes": null
 }
