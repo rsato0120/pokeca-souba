@@ -15,8 +15,8 @@ export function cardShareUrl(cardId: string): string {
 // A8の作成画面でカードごとに発行したX用URLを改変せずに使用する。
 export function mercariXShareUrl(cardId: string): string | null {
   const entry = (issuedLinks as Record<string, { url: string; destination: string }>)[cardId]
-  // 新規BW・PCGデルタ種・SM12・御三家プロモはリンク未発行。共有文から広告リンクを省く。
-  if (!entry && (cardId.startsWith('bw-') || /^(pcg[6-9]-|pmcg1-|mg-)/.test(cardId) || cardId.startsWith('alter-genesis-') || cardId.startsWith('30th-card-set-'))) return null
+  // 新規BW・PCGデルタ種・SM12はリンク未発行。共有文から広告リンクを省く。
+  if (!entry && (cardId.startsWith('bw-') || /^(pcg[6-9]-|pmcg1-|mg-)/.test(cardId) || cardId.startsWith('alter-genesis-'))) return null
   if (!entry) throw new Error(`Missing issued Mercari X link for ${cardId}`)
   return entry.url
 }
