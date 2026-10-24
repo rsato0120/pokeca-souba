@@ -3,11 +3,21 @@
   "history": [
     {
       "date": "2026-10-24",
-      "low": 3000,
+      "low": 3300,
       "high": 3300,
-      "avg": 3150,
+      "avg": 3300,
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-10-23",
+      "low": 3000,
+      "high": 3000,
+      "avg": 3000,
+      "source": "snkrdunk",
+      "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -890,16 +900,6 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-07-25",
-      "low": 1000,
-      "high": 1000,
-      "avg": 1000,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,30 +907,30 @@
       "date": "2026-10-24",
       "low": 0,
       "high": 0,
-      "psa10": 11950,
+      "psa10": 11833,
       "psa10_as_of": "2026-10-24",
       "source": "snkrdunk",
-      "sample_count": 4,
+      "sample_count": 3,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-23",
       "low": 0,
       "high": 0,
-      "psa10": 12000,
+      "psa10": 12150,
       "psa10_as_of": "2026-10-23",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-22",
       "low": 0,
       "high": 0,
-      "psa10": 11890,
+      "psa10": 11945,
       "psa10_as_of": "2026-10-22",
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 4,
       "price_basis": "transaction_day"
     },
     {
@@ -1906,12 +1906,13 @@
     "2024-02-08": 1,
     "2024-01-29": 1,
     "2024-01-27": 1,
-    "2024-01-26": 1
+    "2024-01-26": 1,
+    "2026-10-23": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 4,
     "2026-10-23": 3,
-    "2026-10-22": 2,
+    "2026-10-22": 4,
     "2026-10-19": 1,
     "2026-10-18": 2,
     "2026-10-17": 2,

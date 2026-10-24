@@ -12,6 +12,16 @@
       "price_basis": "transaction_day"
     },
     {
+      "date": "2026-10-21",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-09-25",
       "low": 1000,
       "high": 1000,
@@ -888,16 +898,6 @@
       "avg": 11729,
       "source": "snkrdunk",
       "sample_count": 7,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-06-09",
-      "low": 8000,
-      "high": 8000,
-      "avg": 8000,
-      "source": "snkrdunk",
-      "sample_count": 3,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     }
@@ -1979,7 +1979,8 @@
     "2023-03-13": 12,
     "2023-03-12": 23,
     "2023-03-11": 24,
-    "2023-03-10": 39
+    "2023-03-10": 39,
+    "2026-10-21": 1
   },
   "psa10_sales_by_day": {
     "2026-10-15": 2,
