@@ -23,13 +23,14 @@ interface Props {
   packPrice?: number
   boxId: string
   boxName: string
+  mercariShareUrl?: string | null
   /** 購入リンクやバナーなど、相場の下・期待値の上に挟むもの */
   children?: React.ReactNode
 }
 
 const labelMono: React.CSSProperties = { fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--ink-faint)', marginBottom: '4px' }
 
-export default function BoxMarketSection({ variants, mixedForChart, msrp, packsPerBox, packPrice, boxId, boxName, children }: Props) {
+export default function BoxMarketSection({ variants, mixedForChart, msrp, packsPerBox, packPrice, boxId, boxName, mercariShareUrl, children }: Props) {
   // 初期選択はデータがある系列を優先（配列の順＝あり→なし→混在）
   const firstWithData = variants.find(v => v.history && v.history.length > 0)?.id ?? variants[0]?.id ?? 'mixed'
   const [tab, setTab] = useState<BoxVariantId>(firstWithData)
@@ -72,13 +73,14 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
 
   // Xシェア文も**選択中の系列**から作る。文中の系列名を必ず添えて、どの相場の話か分かるようにする
   const tweetText = [
-    `【${isCardSet ? 'セット' : 'BOX'}相場】${boxName}（${active.label}）`,
+    `${mercariShareUrl ? 'PR ' : ''}【${isCardSet ? 'セット' : 'BOX'}相場】${boxName}（${active.label}）`,
     hasData ? `現在 ¥${active.low?.toLocaleString()}〜¥${active.high?.toLocaleString()}${active.premiumPct != null ? `（定価比${active.premiumPct >= 0 ? `+${active.premiumPct}` : `${active.premiumPct}`}%）` : ''}` : '',
     active.ev && active.ev.ev > 0 && active.ev.recoveryPct != null
       ? `開封の期待値 ¥${active.ev.ev.toLocaleString()}以上（回収率${active.ev.recoveryPct}%）`
       : '',
     `#ポケカ #ポケカ相場`,
     `https://pokeca-souba.vercel.app/boxes/${boxId}`,
+    mercariShareUrl ? `メルカリ（PR） ${mercariShareUrl}` : '',
   ].filter(Boolean).join('\n')
 
   return (

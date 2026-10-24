@@ -13,6 +13,7 @@ import BoxCollectionControl from '@/components/BoxCollectionControl'
 import { sparkSeries, midOf } from '@/lib/market'
 import BoxSelector from '@/components/BoxSelector'
 import BoxMarketSection from '@/components/BoxMarketSection'
+import { mercariBoxXShareUrl } from '@/lib/share-links'
 import { summarizeVariant, type BoxVariantView } from '@/lib/box-variant'
 import BoxReleaseStatus from '@/components/BoxReleaseStatus'
 import SetPricePanel, { type SetRow } from '@/components/SetPricePanel'
@@ -349,6 +350,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
         </div>
         ) : (
           <BoxMarketSection
+            mercariShareUrl={mercariBoxXShareUrl(boxId)}
             variants={boxVariants}
             mixedForChart={{ history: mixedHist, salesByDay: boxPriceHistory?.sales_by_day }}
             msrp={msrp}

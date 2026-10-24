@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import catalog from '../data/pokeca_data.json'
 import links from '../data/mercari-x-links.json'
-import { mercariXShareUrl } from '../src/lib/share-links'
+import { mercariXShareUrl, mercariBoxXShareUrl } from '../src/lib/share-links'
 
 const issued = links as Record<string, { url: string; destination: string }>
 let checked = 0
@@ -16,6 +16,18 @@ for (const card of catalog.cards) {
   assert.equal(destination.pathname, '/search/')
   assert.equal(destination.searchParams.get('status'), 'on_sale')
   assert.equal(destination.searchParams.get('keyword'), `${card.card_name} ${card.card_no || card.rarity}`.trim())
+  checked++
+}
+for (const [id, entry] of Object.entries(issued).filter(([id]) => id.startsWith('box-'))) {
+  const box = catalog.boxes.find(box => `box-${box.box_id}` === id)
+  assert.ok(box, `Unknown BOX affiliate link: ${id}`)
+  assert.equal(mercariBoxXShareUrl(box.box_id), entry.url)
+  assert.match(entry.url, /^https:\/\/r\.8to\.jp\/[A-Za-z0-9]{12}$/)
+  const destination = new URL(entry.destination)
+  assert.equal(destination.origin, 'https://jp.mercari.com')
+  assert.equal(destination.pathname, '/search/')
+  assert.equal(destination.searchParams.get('status'), 'on_sale')
+  assert.equal(destination.searchParams.get('keyword'), `${box.box_name} BOX`)
   checked++
 }
 assert.equal(Object.keys(issued).length, checked)

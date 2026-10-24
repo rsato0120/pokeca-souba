@@ -3,6 +3,11 @@ import issuedLinks from '../../data/mercari-x-links.json'
 
 const SITE = 'https://pokeca-souba.vercel.app'
 
+// BOXもA8画面で発行したX専用URLだけを使う。
+export function mercariBoxXShareUrl(boxId: string): string | null {
+  return (issuedLinks as Record<string, { url: string }>)[`box-${boxId}`]?.url ?? null
+}
+
 // カードIDから安定した短縮キーを作る。カタログの並び順が変わってもリンクを維持する。
 export function cardShareToken(cardId: string): string {
   return createHash('sha256').update(cardId).digest('hex').slice(0, 12)
