@@ -1,0 +1,100 @@
+{
+  "card_id": "violet-ex-093",
+  "history": [
+    {
+      "date": "2025-03-08",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2025-02-07",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "psa10_history": [
+    {
+      "date": "2026-10-17",
+      "low": 0,
+      "high": 0,
+      "psa10": 4980,
+      "psa10_as_of": "2026-10-17",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-09-28",
+      "low": 0,
+      "high": 0,
+      "psa10": 3780,
+      "psa10_as_of": "2026-09-28",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-09-24",
+      "low": 0,
+      "high": 0,
+      "psa10": 3980,
+      "psa10_as_of": "2026-09-24",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-09-23",
+      "low": 0,
+      "high": 0,
+      "psa10": 3980,
+      "psa10_as_of": "2026-09-23",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-05-11",
+      "low": 0,
+      "high": 0,
+      "psa10": 7400,
+      "psa10_as_of": "2026-05-11",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2025-08-08",
+      "low": 0,
+      "high": 0,
+      "psa10": 4300,
+      "psa10_as_of": "2025-08-08",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "sales_by_day": {
+    "2025-03-08": 1,
+    "2025-02-07": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-10-17": 1,
+    "2026-09-28": 1,
+    "2026-09-24": 1,
+    "2026-09-23": 1,
+    "2026-05-11": 1,
+    "2025-08-08": 1
+  },
+  "sales_fetched_at": "2026-10-25"
+}

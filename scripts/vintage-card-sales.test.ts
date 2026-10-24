@@ -1,10 +1,22 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { mergeVintageSales } from './vintage-card-sales'
+import { mergeVintageSales, usesDatedCardSales } from './vintage-card-sales'
 import type { SnkrdunkSales } from './snkrdunk-sales'
 
 const sales: SnkrdunkSales = { regular: ['2025-12-01'], psa10: ['2026-10-15'],
   regularSales: [{ date: '2025-12-01', price: 12000 }], psa10Sales: [{ date: '2026-10-15', price: 50000 }] }
+
+test('older SV cards retain dated raw trades and independent recent PSA10 observations', () => {
+  assert.ok(usesDatedCardSales('stellar-miracle-130'))
+  assert.ok(usesDatedCardSales('scarlet-ex-099'))
+  assert.equal(usesDatedCardSales('30th-celebration-130'), false)
+  const data = mergeVintageSales({ card_id: 'stellar-miracle-130', history: [] }, sales, '2026-10-25')
+  assert.equal(data.history[0].date, '2025-12-01')
+  assert.equal(data.psa10_history?.[0].date, '2026-10-15')
+  const psaOnly = mergeVintageSales({ card_id: 'stellar-miracle-131', history: [] }, { ...sales, regular: [], regularSales: [] }, '2026-10-25')
+  assert.deepEqual(psaOnly.history, [])
+  assert.equal(psaOnly.psa10_history?.[0].psa10, 50000)
+})
 
 test('starter prices reject high transaction totals without removing trades from volume', () => {
   const api = { ...sales, regularSales: [1000, 1100, 1200, 1200, 1300, 6200, 11111]

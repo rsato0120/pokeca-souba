@@ -1,0 +1,133 @@
+{
+  "card_id": "violet-ex-098",
+  "history": [
+    {
+      "date": "2025-02-06",
+      "low": 2800,
+      "high": 2800,
+      "avg": 2800,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2024-03-01",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2024-02-26",
+      "low": 1200,
+      "high": 1200,
+      "avg": 1200,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-08-15",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-05-31",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-04-21",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-01-29",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "psa10_history": [
+    {
+      "date": "2025-11-05",
+      "low": 0,
+      "high": 0,
+      "psa10": 5000,
+      "psa10_as_of": "2025-11-05",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2024-03-29",
+      "low": 0,
+      "high": 0,
+      "psa10": 3800,
+      "psa10_as_of": "2024-03-29",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-11-29",
+      "low": 0,
+      "high": 0,
+      "psa10": 4000,
+      "psa10_as_of": "2023-11-29",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-09-25",
+      "low": 0,
+      "high": 0,
+      "psa10": 4750,
+      "psa10_as_of": "2023-09-25",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "sales_by_day": {
+    "2025-02-06": 1,
+    "2024-03-01": 1,
+    "2024-02-26": 1,
+    "2023-08-15": 1,
+    "2023-05-31": 1,
+    "2023-04-21": 1,
+    "2023-01-29": 1
+  },
+  "psa10_sales_by_day": {
+    "2025-11-05": 1,
+    "2024-03-29": 1,
+    "2023-11-29": 1,
+    "2023-09-25": 1
+  },
+  "sales_fetched_at": "2026-10-25"
+}

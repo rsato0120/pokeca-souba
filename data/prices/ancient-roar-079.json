@@ -1,0 +1,56 @@
+{
+  "card_id": "ancient-roar-079",
+  "history": [
+    {
+      "date": "2023-11-14",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "psa10_history": [
+    {
+      "date": "2026-10-05",
+      "low": 0,
+      "high": 0,
+      "psa10": 3999,
+      "psa10_as_of": "2026-10-05",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-07-13",
+      "low": 0,
+      "high": 0,
+      "psa10": 4999,
+      "psa10_as_of": "2026-07-13",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-02-04",
+      "low": 0,
+      "high": 0,
+      "psa10": 11900,
+      "psa10_as_of": "2026-02-04",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "sales_by_day": {
+    "2023-11-14": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-10-05": 1,
+    "2026-07-13": 1,
+    "2026-02-04": 1
+  },
+  "sales_fetched_at": "2026-10-25"
+}

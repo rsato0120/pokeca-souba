@@ -6,6 +6,14 @@ import { getSnkrdunkSales, type SnkrdunkSales } from './snkrdunk-sales'
 
 type Sale = { date: string; price: number }
 
+// These older SV sets often trade only as PSA10. Keep their real observation
+// dates and independent PSA10 history rather than discarding both as stale raw.
+const DATED_SV_PREFIXES = ['stellar-miracle', 'mask-of-change', 'wild-force', 'cyber-judge', 'ancient-roar', 'future-flash', 'raging-surf', 'snow-hazard', 'triplet-beat', 'scarlet-ex', 'violet-ex']
+export function usesDatedCardSales(id: string): boolean {
+  return /^(pcg[6-9]-|pmcg1-|30th-card-set-)/.test(id)
+    || DATED_SV_PREFIXES.some(prefix => id.startsWith(`${prefix}-`))
+}
+
 function dailyRecords(sales: Sale[], today: string, psa = false, filterOutliers = false): PriceRecord[] {
   const grouped = new Map<string, number[]>()
   for (const sale of sales) {
@@ -56,7 +64,7 @@ export function mergeVintageSales(previous: PriceHistory, api: SnkrdunkSales, to
 }
 
 export async function scrapeVintageCard(browser: Browser, id: string, apparelId: number, today: string): Promise<boolean> {
-  if (!/^(pcg[6-9]-|pmcg1-|30th-card-set-)/.test(id) || !apparelId) throw new Error('登録済み旧裏・PCG・御三家プロモだけが対象です')
+  if (!usesDatedCardSales(id) || !apparelId) throw new Error('登録済みの成約日別管理カードだけが対象です')
   const file = path.join(process.cwd(), 'data/prices', `${id}.json`)
   let previous: PriceHistory = { card_id: id, history: [] }
   if (fs.existsSync(file)) previous = JSON.parse(fs.readFileSync(file, 'utf8'))

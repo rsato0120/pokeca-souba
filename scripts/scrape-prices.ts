@@ -6,7 +6,7 @@ import * as path from 'path'
 import { getAllCards, getAllBoxes, getCardSlug } from '@/lib/data'
 import { SET_BOXES } from '@/lib/set-boxes'
 import { forEachBounded } from './bounded-workers'
-import { scrapeVintageCard } from './vintage-card-sales'
+import { scrapeVintageCard, usesDatedCardSales } from './vintage-card-sales'
 import { updateExtremes, MIN_SAMPLE_COUNT } from '@/lib/extremes'
 import { getSnkrdunkSales, getSnkrdunkBoxSales, recentSalesWindow } from './snkrdunk-sales'
 import type { PriceExtremes, PriceHistory, PriceRecord, PriceSource } from '@/types/pokeca'
@@ -1946,7 +1946,7 @@ async function main() {
 
   try {
     await forEachBounded(cards, concurrency, async (card) => {
-      if (/^(pcg[6-9]-|pmcg1-|30th-card-set-)/.test(card.id)) {
+      if (usesDatedCardSales(card.id)) {
         try {
           const saved = await scrapeVintageCard(browser, card.id, snkrdunkIds[card.id], date)
           if (saved) stats.succeeded++

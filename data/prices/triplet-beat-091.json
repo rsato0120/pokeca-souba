@@ -1,0 +1,67 @@
+{
+  "card_id": "triplet-beat-091",
+  "history": [
+    {
+      "date": "2023-03-15",
+      "low": 260000,
+      "high": 260000,
+      "avg": 260000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "psa10_history": [
+    {
+      "date": "2026-09-24",
+      "low": 0,
+      "high": 0,
+      "psa10": 4500,
+      "psa10_as_of": "2026-09-24",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-07-27",
+      "low": 0,
+      "high": 0,
+      "psa10": 5000,
+      "psa10_as_of": "2026-07-27",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2025-01-30",
+      "low": 0,
+      "high": 0,
+      "psa10": 3300,
+      "psa10_as_of": "2025-01-30",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2023-11-23",
+      "low": 0,
+      "high": 0,
+      "psa10": 5399,
+      "psa10_as_of": "2023-11-23",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    }
+  ],
+  "sales_by_day": {
+    "2023-03-15": 1
+  },
+  "psa10_sales_by_day": {
+    "2026-09-24": 1,
+    "2026-07-27": 1,
+    "2025-01-30": 1,
+    "2023-11-23": 1
+  },
+  "sales_fetched_at": "2026-10-25"
+}
