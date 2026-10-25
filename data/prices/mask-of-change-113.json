@@ -12,6 +12,16 @@
       "price_basis": "transaction_day"
     },
     {
+      "date": "2026-10-21",
+      "low": 1750,
+      "high": 1750,
+      "avg": 1750,
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-20",
       "low": 1600,
       "high": 1600,
@@ -844,13 +854,33 @@
   ],
   "psa10_history": [
     {
+      "date": "2026-10-25",
+      "low": 0,
+      "high": 0,
+      "psa10": 9600,
+      "psa10_as_of": "2026-10-25",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-24",
       "low": 0,
       "high": 0,
-      "psa10": 9757,
+      "psa10": 9751,
       "psa10_as_of": "2026-10-24",
       "source": "snkrdunk",
-      "sample_count": 4,
+      "sample_count": 3,
+      "price_basis": "transaction_day"
+    },
+    {
+      "date": "2026-10-23",
+      "low": 0,
+      "high": 0,
+      "psa10": 9776,
+      "psa10_as_of": "2026-10-23",
+      "source": "snkrdunk",
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
@@ -1722,26 +1752,6 @@
       "source": "snkrdunk",
       "sample_count": 7,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-06",
-      "low": 0,
-      "high": 0,
-      "psa10": 13493,
-      "psa10_as_of": "2026-05-06",
-      "source": "snkrdunk",
-      "sample_count": 3,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-05",
-      "low": 0,
-      "high": 0,
-      "psa10": 13500,
-      "psa10_as_of": "2026-05-05",
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1828,7 +1838,8 @@
     "2025-08-15": 1,
     "2025-08-12": 1,
     "2025-07-15": 1,
-    "2024-04-26": 1
+    "2024-04-26": 1,
+    "2026-10-21": 2
   },
   "psa10_sales_by_day": {
     "2026-10-24": 4,
@@ -2049,7 +2060,9 @@
     "2024-07-10": 1,
     "2024-06-30": 1,
     "2024-06-20": 1,
-    "2024-05-22": 1
+    "2024-05-22": 1,
+    "2026-10-25": 1,
+    "2026-10-23": 1
   },
   "sales_fetched_at": "2026-10-25"
 }
