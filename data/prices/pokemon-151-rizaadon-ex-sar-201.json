@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-rizaadon-ex-sar-201",
   "history": [
     {
+      "date": "2026-10-26",
+      "low": 42000,
+      "high": 64800,
+      "avg": 50139,
+      "source": "snkrdunk",
+      "sample_count": 25,
+      "on_sale": 148,
+      "ask_low": 41900,
+      "ask_mid": 43500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 107910,
+      "psa10_as_of": "2026-10-25"
+    },
+    {
       "date": "2026-10-25",
       "low": 42000,
       "high": 64800,
@@ -1182,17 +1197,6 @@
       "ask_low": 50000,
       "ask_mid": 73333,
       "psa10": 119754
-    },
-    {
-      "date": "2026-07-23",
-      "low": 62324,
-      "high": 76174,
-      "avg": 69249,
-      "source": "snkrdunk",
-      "sample_count": 46,
-      "ask_low": 52300,
-      "ask_mid": 74495,
-      "psa10": 120928
     }
   ],
   "sales_by_day": {
@@ -1323,7 +1327,6 @@
     "2026-06-29": 7,
     "2026-06-28": 4,
     "2026-06-27": 6,
-    "2026-06-26": 6,
     "2026-09-02": 13,
     "2026-09-01": 10,
     "2026-08-31": 6,
@@ -1379,9 +1382,10 @@
     "2026-10-21": 10,
     "2026-10-22": 10,
     "2026-10-23": 10,
-    "2026-10-24": 12
+    "2026-10-24": 12,
+    "2026-10-25": 9
   },
-  "sales_fetched_at": "2026-10-25",
+  "sales_fetched_at": "2026-10-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 121349,
@@ -1394,7 +1398,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 25,
-    "updated_at": "2026-07-22"
+    "records": 26,
+    "updated_at": "2026-07-23"
   }
 }

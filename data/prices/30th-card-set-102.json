@@ -2,12 +2,22 @@
   "card_id": "30th-card-set-102",
   "history": [
     {
+      "date": "2026-10-26",
+      "low": 1000,
+      "high": 1300,
+      "avg": 1145,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-25",
       "low": 1000,
       "high": 1200,
-      "avg": 1067,
+      "avg": 1058,
       "source": "snkrdunk",
-      "sample_count": 6,
+      "sample_count": 12,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -15,17 +25,17 @@
       "date": "2026-10-24",
       "low": 1000,
       "high": 1300,
-      "avg": 1100,
+      "avg": 1086,
       "source": "snkrdunk",
-      "sample_count": 8,
+      "sample_count": 7,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-23",
-      "low": 1000,
-      "high": 1000,
-      "avg": 1000,
+      "low": 1100,
+      "high": 1234,
+      "avg": 1167,
       "source": "snkrdunk",
       "sample_count": 2,
       "oldest_sale_days": 0,
@@ -33,21 +43,21 @@
     },
     {
       "date": "2026-10-22",
-      "low": 1000,
-      "high": 1500,
-      "avg": 1231,
+      "low": 1500,
+      "high": 3000,
+      "avg": 2500,
       "source": "snkrdunk",
-      "sample_count": 10,
+      "sample_count": 3,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-21",
       "low": 1000,
-      "high": 1280,
-      "avg": 1127,
+      "high": 1499,
+      "avg": 1195,
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 9,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -102,7 +112,7 @@
       "price_basis": "transaction_day"
     }
   ],
-  "sales_fetched_at": "2026-10-25",
+  "sales_fetched_at": "2026-10-26",
   "sales_by_day": {
     "2026-10-16": 27,
     "2026-10-17": 39,
@@ -113,7 +123,8 @@
     "2026-10-22": 20,
     "2026-10-23": 9,
     "2026-10-24": 13,
-    "2026-10-25": 6
+    "2026-10-25": 14,
+    "2026-10-26": 4
   },
   "psa10_history": [],
   "psa10_sales_by_day": {}
