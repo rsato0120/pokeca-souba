@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-mega-floette-ex-sar",
   "history": [
     {
+      "date": "2026-10-27",
+      "low": 1000,
+      "high": 1200,
+      "avg": 1125,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 55,
+      "ask_low": 1100,
+      "ask_mid": 1150,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5304,
+      "psa10_as_of": "2026-10-27"
+    },
+    {
       "date": "2026-10-26",
       "low": 1000,
       "high": 1200,
@@ -1186,17 +1201,6 @@
       "ask_low": 1660,
       "ask_mid": 2099,
       "psa10": 25572
-    },
-    {
-      "date": "2026-07-24",
-      "low": 1516,
-      "high": 1852,
-      "avg": 1684,
-      "source": "snkrdunk",
-      "sample_count": 24,
-      "ask_low": 1666,
-      "ask_mid": 2100,
-      "psa10": 25572
     }
   ],
   "sales_by_day": {
@@ -1211,7 +1215,6 @@
     "2026-07-25": 1,
     "2026-07-21": 2,
     "2026-07-10": 1,
-    "2026-06-27": 1,
     "2026-08-21": 1,
     "2026-09-16": 1,
     "2026-09-17": 2,
@@ -1274,9 +1277,10 @@
     "2026-10-23": 1,
     "2026-10-24": 2,
     "2026-10-25": 5,
-    "2026-10-26": 3
+    "2026-10-26": 7,
+    "2026-10-27": 1
   },
-  "sales_fetched_at": "2026-10-26",
+  "sales_fetched_at": "2026-10-27",
   "psa10_archived_extremes": {
     "high": {
       "value": 25597,
@@ -1289,7 +1293,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 30,
-    "updated_at": "2026-07-23"
+    "records": 31,
+    "updated_at": "2026-07-24"
   }
 }

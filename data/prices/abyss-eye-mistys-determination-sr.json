@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-mistys-determination-sr",
   "history": [
     {
+      "date": "2026-10-27",
+      "low": 1400,
+      "high": 2222,
+      "avg": 1860,
+      "source": "snkrdunk",
+      "sample_count": 21,
+      "on_sale": 59,
+      "ask_low": 1999,
+      "ask_mid": 2100,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12904,
+      "psa10_as_of": "2026-10-25"
+    },
+    {
       "date": "2026-10-26",
       "low": 1400,
       "high": 2222,
@@ -1170,17 +1185,6 @@
       "ask_low": 2049,
       "ask_mid": 2500,
       "psa10": 37222
-    },
-    {
-      "date": "2026-07-22",
-      "low": 2437,
-      "high": 2979,
-      "avg": 2708,
-      "source": "snkrdunk",
-      "sample_count": 34,
-      "ask_low": 2000,
-      "ask_mid": 2500,
-      "psa10": 35000
     }
   ],
   "sales_by_day": {
@@ -1230,7 +1234,6 @@
     "2026-07-02": 4,
     "2026-06-30": 5,
     "2026-06-28": 3,
-    "2026-06-27": 3,
     "2026-09-03": 2,
     "2026-09-04": 2,
     "2026-09-05": 2,
@@ -1311,7 +1314,7 @@
     "2026-10-24": 2,
     "2026-10-25": 2
   },
-  "sales_fetched_at": "2026-10-26",
+  "sales_fetched_at": "2026-10-27",
   "psa10_archived_extremes": {
     "high": {
       "value": 35000,
@@ -1324,7 +1327,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-20",
-    "records": 2,
-    "updated_at": "2026-07-21"
+    "records": 3,
+    "updated_at": "2026-07-22"
   }
 }
