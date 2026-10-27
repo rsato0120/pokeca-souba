@@ -12,6 +12,16 @@
       "price_basis": "transaction_day"
     },
     {
+      "date": "2026-10-23",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-13",
       "low": 1000,
       "high": 1000,
@@ -755,7 +765,8 @@
     "2025-10-20": 1,
     "2025-10-07": 1,
     "2025-03-02": 1,
-    "2023-09-24": 1
+    "2023-09-24": 1,
+    "2026-10-23": 1
   },
   "psa10_sales_by_day": {
     "2026-10-14": 1,
@@ -822,5 +833,5 @@
     "2025-04-12": 1,
     "2026-10-27": 1
   },
-  "sales_fetched_at": "2026-10-27"
+  "sales_fetched_at": "2026-10-28"
 }

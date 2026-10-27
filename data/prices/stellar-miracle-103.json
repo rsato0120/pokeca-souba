@@ -3,6 +3,16 @@
   "history": [],
   "psa10_history": [
     {
+      "date": "2026-10-27",
+      "low": 0,
+      "high": 0,
+      "psa10": 4000,
+      "psa10_as_of": "2026-10-27",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-26",
       "low": 0,
       "high": 0,
@@ -235,7 +245,8 @@
     "2025-10-15": 1,
     "2025-09-08": 1,
     "2025-02-01": 1,
-    "2026-10-26": 1
+    "2026-10-26": 1,
+    "2026-10-27": 1
   },
-  "sales_fetched_at": "2026-10-27"
+  "sales_fetched_at": "2026-10-28"
 }

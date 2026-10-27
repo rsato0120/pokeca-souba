@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-kanari-sr",
   "history": [
     {
+      "date": "2026-10-28",
+      "low": 1000,
+      "high": 2100,
+      "avg": 1526,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 89,
+      "ask_low": 1000,
+      "ask_mid": 1200,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6176,
+      "psa10_as_of": "2026-10-27"
+    },
+    {
       "date": "2026-10-27",
       "low": 1000,
       "high": 2100,
@@ -1236,17 +1251,6 @@
       "ask_low": 1399,
       "ask_mid": 1700,
       "psa10": 11389
-    },
-    {
-      "date": "2026-07-20",
-      "low": 1270,
-      "high": 1552,
-      "avg": 1411,
-      "source": "snkrdunk",
-      "sample_count": 33,
-      "ask_low": 1333,
-      "ask_mid": 1700,
-      "psa10": 11389
     }
   ],
   "sales_by_day": {
@@ -1342,7 +1346,6 @@
     "2026-07-01": 2,
     "2026-06-30": 2,
     "2026-06-29": 2,
-    "2026-06-28": 1,
     "2026-09-02": 4,
     "2026-08-31": 6,
     "2026-09-03": 1,
@@ -1391,9 +1394,9 @@
     "2026-10-23": 9,
     "2026-10-24": 9,
     "2026-10-26": 1,
-    "2026-10-27": 2
+    "2026-10-27": 3
   },
-  "sales_fetched_at": "2026-10-27",
+  "sales_fetched_at": "2026-10-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 13720,
@@ -1401,12 +1404,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 11462,
-      "date": "2026-07-19",
+      "value": 11389,
+      "date": "2026-07-20",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 24,
-    "updated_at": "2026-07-19"
+    "records": 25,
+    "updated_at": "2026-07-20"
   }
 }

@@ -2,6 +2,16 @@
   "card_id": "scarlet-ex-083",
   "history": [
     {
+      "date": "2026-10-27",
+      "low": 1900,
+      "high": 1900,
+      "avg": 1900,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-18",
       "low": 1800,
       "high": 1800,
@@ -480,7 +490,7 @@
       "psa10": 8700,
       "psa10_as_of": "2026-10-27",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
@@ -497,10 +507,10 @@
       "date": "2026-10-23",
       "low": 0,
       "high": 0,
-      "psa10": 7480,
+      "psa10": 7640,
       "psa10_as_of": "2026-10-23",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
@@ -1421,7 +1431,8 @@
     "2023-08-12": 1,
     "2023-06-24": 1,
     "2023-06-03": 1,
-    "2023-04-03": 1
+    "2023-04-03": 1,
+    "2026-10-27": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 2,
@@ -1515,8 +1526,8 @@
     "2023-10-30": 1,
     "2023-08-10": 1,
     "2023-07-10": 1,
-    "2026-10-23": 1,
-    "2026-10-27": 1
+    "2026-10-23": 2,
+    "2026-10-27": 2
   },
-  "sales_fetched_at": "2026-10-27"
+  "sales_fetched_at": "2026-10-28"
 }
