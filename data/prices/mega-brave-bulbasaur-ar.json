@@ -2,6 +2,21 @@
   "card_id": "mega-brave-bulbasaur-ar",
   "history": [
     {
+      "date": "2026-10-29",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 101,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5616,
+      "psa10_as_of": "2026-10-28"
+    },
+    {
       "date": "2026-10-28",
       "low": 1000,
       "high": 1000,
@@ -1260,17 +1275,6 @@
       "ask_low": 1100,
       "ask_mid": 1399,
       "psa10": 9197
-    },
-    {
-      "date": "2026-07-27",
-      "low": 840,
-      "high": 1000,
-      "avg": 961,
-      "source": "mercari",
-      "sold_total": 4261,
-      "ask_low": 1000,
-      "ask_mid": 1399,
-      "psa10": 9044
     }
   ],
   "sales_by_day": {
@@ -1362,7 +1366,6 @@
     "2026-07-03": 2,
     "2026-07-01": 6,
     "2026-06-30": 6,
-    "2026-06-29": 3,
     "2026-09-03": 17,
     "2026-09-02": 6,
     "2026-09-01": 6,
@@ -1420,9 +1423,10 @@
     "2026-10-24": 4,
     "2026-10-25": 2,
     "2026-10-26": 1,
-    "2026-10-27": 3
+    "2026-10-27": 3,
+    "2026-10-28": 4
   },
-  "sales_fetched_at": "2026-10-28",
+  "sales_fetched_at": "2026-10-29",
   "psa10_archived_extremes": {
     "high": {
       "value": 9327,
@@ -1435,7 +1439,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-24",
-    "records": 30,
-    "updated_at": "2026-07-26"
+    "records": 31,
+    "updated_at": "2026-07-27"
   }
 }

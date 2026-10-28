@@ -2,6 +2,16 @@
   "card_id": "stellar-miracle-131",
   "history": [
     {
+      "date": "2026-10-28",
+      "low": 4399,
+      "high": 4399,
+      "avg": 4399,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-20",
       "low": 3980,
       "high": 3980,
@@ -890,16 +900,6 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-04-13",
-      "low": 8800,
-      "high": 8800,
-      "avg": 8800,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,30 +907,30 @@
       "date": "2026-10-28",
       "low": 0,
       "high": 0,
-      "psa10": 31500,
+      "psa10": 32000,
       "psa10_as_of": "2026-10-28",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-27",
       "low": 0,
       "high": 0,
-      "psa10": 32499,
+      "psa10": 30775,
       "psa10_as_of": "2026-10-27",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 4,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-26",
       "low": 0,
       "high": 0,
-      "psa10": 30775,
+      "psa10": 29900,
       "psa10_as_of": "2026-10-26",
       "source": "snkrdunk",
-      "sample_count": 4,
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
@@ -1951,7 +1951,8 @@
     "2024-07-22": 3,
     "2024-07-21": 1,
     "2024-07-20": 4,
-    "2024-07-19": 9
+    "2024-07-19": 9,
+    "2026-10-28": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 1,
@@ -2326,7 +2327,7 @@
     "2026-10-26": 5,
     "2026-10-22": 5,
     "2026-10-27": 5,
-    "2026-10-28": 1
+    "2026-10-28": 2
   },
-  "sales_fetched_at": "2026-10-28"
+  "sales_fetched_at": "2026-10-29"
 }

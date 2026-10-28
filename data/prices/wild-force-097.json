@@ -2,6 +2,16 @@
   "card_id": "wild-force-097",
   "history": [
     {
+      "date": "2026-10-28",
+      "low": 5500,
+      "high": 5500,
+      "avg": 5500,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-27",
       "low": 5500,
       "high": 5500,
@@ -890,16 +900,6 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2024-01-29",
-      "low": 5400,
-      "high": 6200,
-      "avg": 5850,
-      "source": "snkrdunk",
-      "sample_count": 4,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -927,10 +927,10 @@
       "date": "2026-10-19",
       "low": 0,
       "high": 0,
-      "psa10": 28260,
+      "psa10": 28712,
       "psa10_as_of": "2026-10-19",
       "source": "snkrdunk",
-      "sample_count": 6,
+      "sample_count": 5,
       "price_basis": "transaction_day"
     },
     {
@@ -1897,7 +1897,8 @@
     "2024-01-28": 6,
     "2024-01-27": 10,
     "2024-01-26": 9,
-    "2026-10-27": 1
+    "2026-10-27": 1,
+    "2026-10-28": 1
   },
   "psa10_sales_by_day": {
     "2026-10-22": 7,
@@ -2050,5 +2051,5 @@
     "2024-03-06": 2,
     "2026-10-21": 7
   },
-  "sales_fetched_at": "2026-10-28"
+  "sales_fetched_at": "2026-10-29"
 }

@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-sandaa-ex-sar-204",
   "history": [
     {
+      "date": "2026-10-29",
+      "low": 12500,
+      "high": 15500,
+      "avg": 14063,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 111,
+      "ask_low": 12000,
+      "ask_mid": 14000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 26169,
+      "psa10_as_of": "2026-10-29"
+    },
+    {
       "date": "2026-10-28",
       "low": 9000,
       "high": 15500,
@@ -1222,17 +1237,6 @@
       "ask_low": 13888,
       "ask_mid": 16625,
       "psa10": 34873
-    },
-    {
-      "date": "2026-07-27",
-      "low": 17361,
-      "high": 21219,
-      "avg": 19290,
-      "source": "snkrdunk",
-      "sample_count": 20,
-      "ask_low": 13500,
-      "ask_mid": 16625,
-      "psa10": 34873
     }
   ],
   "sales_by_day": {
@@ -1318,7 +1322,6 @@
     "2026-07-02": 2,
     "2026-07-01": 1,
     "2026-06-30": 1,
-    "2026-06-29": 1,
     "2026-09-02": 2,
     "2026-09-01": 2,
     "2026-09-04": 4,
@@ -1371,9 +1374,10 @@
     "2026-10-24": 4,
     "2026-10-25": 3,
     "2026-10-27": 2,
-    "2026-10-26": 1
+    "2026-10-26": 1,
+    "2026-10-29": 2
   },
-  "sales_fetched_at": "2026-10-28",
+  "sales_fetched_at": "2026-10-29",
   "psa10_archived_extremes": {
     "high": {
       "value": 35208,
@@ -1386,7 +1390,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-29",
-    "records": 26,
-    "updated_at": "2026-07-26"
+    "records": 27,
+    "updated_at": "2026-07-27"
   }
 }
