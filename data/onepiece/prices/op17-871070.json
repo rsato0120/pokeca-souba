@@ -1,19 +1,27 @@
 {
   "product_id": "op17-871070",
-  "fetched_at": "2026-10-28T07:26:19.803Z",
+  "fetched_at": "2026-10-28T19:53:21.576Z",
   "history": [
     {
-      "date": "2026-10-27",
-      "avg": 20041,
-      "low": 17300,
+      "date": "2026-10-28",
+      "avg": 19844,
+      "low": 15900,
       "high": 23000,
       "source": "snkrdunk",
       "sample_count": 33
     },
     {
+      "date": "2026-10-27",
+      "avg": 19850,
+      "low": 17300,
+      "high": 23000,
+      "source": "snkrdunk",
+      "sample_count": 31
+    },
+    {
       "date": "2026-10-26",
-      "avg": 19663,
-      "low": 15900,
+      "avg": 19563,
+      "low": 15000,
       "high": 23000,
       "source": "snkrdunk",
       "sample_count": 30
@@ -28,27 +36,27 @@
     },
     {
       "date": "2026-10-24",
-      "avg": 19790,
-      "low": 15900,
+      "avg": 19630,
+      "low": 15000,
       "high": 23000,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 30
     },
     {
       "date": "2026-10-23",
-      "avg": 19790,
-      "low": 15900,
-      "high": 23000,
+      "avg": 19850,
+      "low": 15000,
+      "high": 23700,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 30
     },
     {
       "date": "2026-10-22",
-      "avg": 20364,
-      "low": 17500,
-      "high": 23800,
+      "avg": 20443,
+      "low": 17300,
+      "high": 23888,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 30
     },
     {
       "date": "2026-10-21",
@@ -516,11 +524,12 @@
     }
   ],
   "sales_by_day": {
-    "2026-10-27": 3,
+    "2026-10-28": 2,
+    "2026-10-27": 2,
     "2026-10-26": 1,
-    "2026-10-25": 2,
+    "2026-10-24": 2,
     "2026-10-23": 3,
-    "2026-10-22": 2,
+    "2026-10-22": 1,
     "2026-10-21": 4,
     "2026-10-17": 4,
     "2026-10-16": 1,
@@ -582,6 +591,6 @@
     "2026-10-10": 1
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-10-28T07:43:58.235Z",
+  "psa10_fetched_at": "2026-10-28T20:04:58.342Z",
   "raw_archived_extremes": null
 }
