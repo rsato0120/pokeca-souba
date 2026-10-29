@@ -2,6 +2,16 @@
   "card_id": "snow-hazard-093",
   "history": [
     {
+      "date": "2026-10-29",
+      "low": 3600,
+      "high": 3600,
+      "avg": 3600,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-07",
       "low": 4000,
       "high": 4000,
@@ -886,16 +896,6 @@
       "low": 6300,
       "high": 6400,
       "avg": 6350,
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-04-30",
-      "low": 5000,
-      "high": 6500,
-      "avg": 5750,
       "source": "snkrdunk",
       "sample_count": 2,
       "oldest_sale_days": 0,
@@ -1905,7 +1905,8 @@
     "2023-04-17": 5,
     "2023-04-16": 8,
     "2023-04-15": 5,
-    "2023-04-14": 10
+    "2023-04-14": 10,
+    "2026-10-29": 1
   },
   "psa10_sales_by_day": {
     "2026-10-22": 1,
