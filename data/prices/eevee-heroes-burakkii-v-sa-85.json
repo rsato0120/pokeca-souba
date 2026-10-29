@@ -2,6 +2,21 @@
   "card_id": "eevee-heroes-burakkii-v-sa-85",
   "history": [
     {
+      "date": "2026-10-30",
+      "low": 38200,
+      "high": 40000,
+      "avg": 39033,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 101,
+      "ask_low": 30000,
+      "ask_mid": 40000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 91881,
+      "psa10_as_of": "2026-10-29"
+    },
+    {
       "date": "2026-10-29",
       "low": 38200,
       "high": 40000,
@@ -1252,20 +1267,9 @@
       "ask_low": 56000,
       "ask_mid": 62500,
       "psa10": null
-    },
-    {
-      "date": "2026-07-28",
-      "low": 41111,
-      "high": 59000,
-      "avg": 48786,
-      "source": "mercari",
-      "sold_total": 592,
-      "ask_low": 56000,
-      "ask_mid": 62500,
-      "psa10": null
     }
   ],
-  "sales_fetched_at": "2026-10-29",
+  "sales_fetched_at": "2026-10-30",
   "sales_by_day": {
     "2026-08-21": 1,
     "2026-08-20": 1,
@@ -1401,6 +1405,7 @@
     "2026-10-25": 8,
     "2026-10-26": 6,
     "2026-10-27": 6,
-    "2026-10-28": 4
+    "2026-10-28": 4,
+    "2026-10-29": 5
   }
 }
