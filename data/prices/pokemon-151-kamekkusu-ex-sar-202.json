@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-kamekkusu-ex-sar-202",
   "history": [
     {
+      "date": "2026-10-31",
+      "low": 13499,
+      "high": 18000,
+      "avg": 16078,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "on_sale": 65,
+      "ask_low": 14800,
+      "ask_mid": 17400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 30733,
+      "psa10_as_of": "2026-10-31"
+    },
+    {
       "date": "2026-10-30",
       "low": 13499,
       "high": 18000,
@@ -1202,17 +1217,6 @@
       "ask_low": 15000,
       "ask_mid": 19999,
       "psa10": 36050
-    },
-    {
-      "date": "2026-07-29",
-      "low": 17398,
-      "high": 21264,
-      "avg": 19331,
-      "source": "snkrdunk",
-      "sample_count": 19,
-      "ask_low": 17277,
-      "ask_mid": 22221,
-      "psa10": 36224
     }
   ],
   "sales_by_day": {
@@ -1309,7 +1313,6 @@
     "2026-07-08": 1,
     "2026-07-06": 1,
     "2026-07-04": 3,
-    "2026-07-01": 6,
     "2026-09-02": 4,
     "2026-09-01": 4,
     "2026-08-31": 4,
@@ -1368,9 +1371,10 @@
     "2026-10-26": 3,
     "2026-10-28": 8,
     "2026-10-29": 7,
-    "2026-10-30": 4
+    "2026-10-30": 5,
+    "2026-10-31": 1
   },
-  "sales_fetched_at": "2026-10-30",
+  "sales_fetched_at": "2026-10-31",
   "psa10_archived_extremes": {
     "high": {
       "value": 39821,
@@ -1378,12 +1382,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 36727,
-      "date": "2026-07-28",
+      "value": 36224,
+      "date": "2026-07-29",
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 31,
-    "updated_at": "2026-07-28"
+    "records": 32,
+    "updated_at": "2026-07-29"
   }
 }
