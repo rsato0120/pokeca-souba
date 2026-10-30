@@ -8,12 +8,13 @@
       "avg": 1677,
       "source": "snkrdunk",
       "sample_count": 30,
-      "on_sale": 81,
+      "on_sale": 79,
       "ask_low": 1000,
-      "ask_mid": 1500,
+      "ask_mid": 1499,
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
-      "psa10": null
+      "psa10": 15000,
+      "psa10_as_of": "2026-10-30"
     },
     {
       "date": "2026-10-29",
@@ -1254,5 +1255,8 @@
     "2026-10-25": 3,
     "2026-10-26": 3
   },
-  "sales_fetched_at": "2026-10-30"
+  "sales_fetched_at": "2026-10-30",
+  "psa10_sales_by_day": {
+    "2026-10-30": 1
+  }
 }
