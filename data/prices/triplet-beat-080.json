@@ -3,21 +3,21 @@
   "history": [
     {
       "date": "2026-10-30",
-      "low": 16500,
+      "low": 16700,
       "high": 16700,
-      "avg": 16600,
+      "avg": 16700,
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-29",
       "low": 16000,
-      "high": 16000,
-      "avg": 16000,
+      "high": 16500,
+      "avg": 16250,
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -904,6 +904,16 @@
   ],
   "psa10_history": [
     {
+      "date": "2026-10-31",
+      "low": 0,
+      "high": 0,
+      "psa10": 33566,
+      "psa10_as_of": "2026-10-31",
+      "source": "snkrdunk",
+      "sample_count": 3,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-30",
       "low": 0,
       "high": 0,
@@ -917,20 +927,20 @@
       "date": "2026-10-29",
       "low": 0,
       "high": 0,
-      "psa10": 33349,
+      "psa10": 34300,
       "psa10_as_of": "2026-10-29",
       "source": "snkrdunk",
-      "sample_count": 10,
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-10-28",
       "low": 0,
       "high": 0,
-      "psa10": 32415,
+      "psa10": 32932,
       "psa10_as_of": "2026-10-28",
       "source": "snkrdunk",
-      "sample_count": 6,
+      "sample_count": 12,
       "price_basis": "transaction_day"
     },
     {
@@ -1791,16 +1801,6 @@
       "psa10_as_of": "2026-08-01",
       "source": "snkrdunk",
       "sample_count": 2,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-07-31",
-      "low": 0,
-      "high": 0,
-      "psa10": 46389,
-      "psa10_as_of": "2026-07-31",
-      "source": "snkrdunk",
-      "sample_count": 9,
       "price_basis": "transaction_day"
     }
   ],
@@ -3288,7 +3288,8 @@
     "2026-10-27": 13,
     "2026-10-28": 17,
     "2026-10-30": 4,
-    "2026-10-29": 10
+    "2026-10-29": 10,
+    "2026-10-31": 3
   },
   "sales_fetched_at": "2026-10-31"
 }
