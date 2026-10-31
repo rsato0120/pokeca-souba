@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-mega-zeraora-ex-sar",
   "history": [
     {
+      "date": "2026-11-01",
+      "low": 1850,
+      "high": 2480,
+      "avg": 2232,
+      "source": "snkrdunk",
+      "sample_count": 15,
+      "on_sale": 58,
+      "ask_low": 1800,
+      "ask_mid": 2275,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 17171,
+      "psa10_as_of": "2026-10-26"
+    },
+    {
       "date": "2026-10-31",
       "low": 1850,
       "high": 2480,
@@ -1204,17 +1219,6 @@
       "ask_low": 2700,
       "ask_mid": 3000,
       "psa10": 32143
-    },
-    {
-      "date": "2026-07-31",
-      "low": 2225,
-      "high": 2719,
-      "avg": 2472,
-      "source": "snkrdunk",
-      "sample_count": 30,
-      "ask_low": 2800,
-      "ask_mid": 3180,
-      "psa10": 29999
     }
   ],
   "sales_by_day": {
@@ -1243,7 +1247,6 @@
     "2026-07-13": 3,
     "2026-07-11": 2,
     "2026-07-08": 3,
-    "2026-07-02": 3,
     "2026-08-26": 2,
     "2026-08-22": 2,
     "2026-08-27": 2,
@@ -1340,7 +1343,7 @@
     "2026-10-26": 1,
     "2026-10-27": 1
   },
-  "sales_fetched_at": "2026-10-31",
+  "sales_fetched_at": "2026-11-01",
   "psa10_archived_extremes": {
     "high": {
       "value": 29999,
@@ -1353,7 +1356,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-22",
-    "records": 9,
-    "updated_at": "2026-07-30"
+    "records": 10,
+    "updated_at": "2026-07-31"
   }
 }
