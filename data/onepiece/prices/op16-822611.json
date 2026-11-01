@@ -1,7 +1,15 @@
 {
   "product_id": "op16-822611",
-  "fetched_at": "2026-11-01T08:11:49.909Z",
+  "fetched_at": "2026-11-01T19:14:17.649Z",
   "history": [
+    {
+      "date": "2026-11-01",
+      "avg": 10940,
+      "low": 8500,
+      "high": 13000,
+      "source": "snkrdunk",
+      "sample_count": 19
+    },
     {
       "date": "2026-10-31",
       "avg": 11203,
@@ -12,11 +20,11 @@
     },
     {
       "date": "2026-10-30",
-      "avg": 11408,
-      "low": 9000,
+      "avg": 11580,
+      "low": 9999,
       "high": 13999,
       "source": "snkrdunk",
-      "sample_count": 18
+      "sample_count": 17
     },
     {
       "date": "2026-10-29",
@@ -420,67 +428,67 @@
     },
     {
       "date": "2026-07-21",
-      "avg": 33957,
+      "avg": 33373,
       "low": 31000,
-      "high": 35400,
+      "high": 35000,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 27
     },
     {
       "date": "2026-07-20",
-      "avg": 33908,
+      "avg": 33295,
       "low": 31000,
-      "high": 37500,
+      "high": 35000,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 26
     },
     {
       "date": "2026-07-17",
-      "avg": 33634,
-      "low": 30999,
-      "high": 37777,
-      "source": "snkrdunk",
-      "sample_count": 25
-    },
-    {
-      "date": "2026-07-16",
-      "avg": 33243,
-      "low": 30999,
-      "high": 35000,
-      "source": "snkrdunk",
-      "sample_count": 22
-    },
-    {
-      "date": "2026-07-14",
-      "avg": 32922,
+      "avg": 32823,
       "low": 30999,
       "high": 35000,
       "source": "snkrdunk",
       "sample_count": 21
     },
     {
-      "date": "2026-07-13",
-      "avg": 32868,
+      "date": "2026-07-16",
+      "avg": 32210,
       "low": 30000,
-      "high": 35000,
+      "high": 34500,
       "source": "snkrdunk",
-      "sample_count": 20
+      "sample_count": 18
+    },
+    {
+      "date": "2026-07-14",
+      "avg": 31752,
+      "low": 30000,
+      "high": 34000,
+      "source": "snkrdunk",
+      "sample_count": 17
+    },
+    {
+      "date": "2026-07-13",
+      "avg": 31611,
+      "low": 30000,
+      "high": 34000,
+      "source": "snkrdunk",
+      "sample_count": 16
     },
     {
       "date": "2026-07-12",
-      "avg": 33280,
-      "low": 30000,
-      "high": 37777,
+      "avg": 30972,
+      "low": 29999,
+      "high": 34000,
       "source": "snkrdunk",
-      "sample_count": 12
+      "sample_count": 8
     },
     {
       "date": "2026-07-11",
-      "avg": 34635,
-      "low": 30999,
-      "high": 39000,
+      "avg": 31375,
+      "low": 26000,
+      "high": 34500,
       "source": "snkrdunk",
-      "sample_count": 8
+      "sample_count": 4
     },
     {
       "date": "2026-07-09",
@@ -751,7 +759,9 @@
     "2026-06-30": 1,
     "2026-07-01": 1,
     "2026-07-03": 1,
-    "2026-10-29": 1,
+    "2026-07-05": 4,
+    "2026-11-01": 1,
+    "2026-10-30": 1,
     "2026-10-22": 1,
     "2026-10-21": 1,
     "2026-10-18": 2,
@@ -787,9 +797,7 @@
     "2026-07-12": 4,
     "2026-07-09": 2,
     "2026-07-08": 1,
-    "2026-07-05": 4,
-    "2026-10-31": 1,
-    "2026-10-30": 1,
+    "2026-10-31": 2,
     "2026-10-19": 1,
     "2026-10-09": 1,
     "2026-09-14": 1,
@@ -800,9 +808,18 @@
     "2026-08-18": 1,
     "2026-07-26": 1
   },
-  "coverage_start": "2026-07-05",
+  "coverage_start": "2026-07-08",
   "complete": true,
   "psa10_history": [
+    {
+      "date": "2026-11-01",
+      "avg": 27252,
+      "low": 24000,
+      "high": 29900,
+      "source": "snkrdunk",
+      "sample_count": 39,
+      "psa10": 27252
+    },
     {
       "date": "2026-10-31",
       "avg": 27216,
@@ -1337,7 +1354,7 @@
   ],
   "psa10_sales_by_day": {
     "2026-06-18": 1,
-    "2026-10-31": 1,
+    "2026-11-01": 11,
     "2026-10-27": 7,
     "2026-10-26": 2,
     "2026-10-22": 5,
@@ -1389,6 +1406,6 @@
     "2026-07-11": 1
   },
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-01T08:28:17.478Z",
+  "psa10_fetched_at": "2026-11-01T19:28:14.469Z",
   "raw_archived_extremes": null
 }
