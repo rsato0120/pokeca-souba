@@ -1,6 +1,17 @@
 {
   "card_id": "pcg7-rayquaza-delta-15-unlimited",
-  "history": [],
+  "history": [
+    {
+      "date": "2026-11-01",
+      "low": 298000,
+      "high": 298000,
+      "avg": 298000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    }
+  ],
   "psa10_history": [
     {
       "date": "2026-10-01",
@@ -43,12 +54,14 @@
       "price_basis": "transaction_day"
     }
   ],
-  "sales_by_day": {},
+  "sales_by_day": {
+    "2026-11-01": 1
+  },
   "psa10_sales_by_day": {
     "2026-10-01": 1,
     "2026-07-29": 1,
     "2026-06-08": 1,
     "2024-10-03": 1
   },
-  "sales_fetched_at": "2026-11-01"
+  "sales_fetched_at": "2026-11-02"
 }

@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-morpeko-ex-sar",
   "history": [
     {
+      "date": "2026-11-02",
+      "low": 2600,
+      "high": 3500,
+      "avg": 2994,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "on_sale": 87,
+      "ask_low": 2200,
+      "ask_mid": 2450,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11361,
+      "psa10_as_of": "2026-10-31"
+    },
+    {
       "date": "2026-11-01",
       "low": 2300,
       "high": 3400,
@@ -1210,17 +1225,6 @@
       "ask_low": 3555,
       "ask_mid": 4400,
       "psa10": 32500
-    },
-    {
-      "date": "2026-07-31",
-      "low": 3110,
-      "high": 3801,
-      "avg": 3455,
-      "source": "snkrdunk",
-      "sample_count": 25,
-      "ask_low": 3888,
-      "ask_mid": 4500,
-      "psa10": 33944
     }
   ],
   "sales_by_day": {
@@ -1269,7 +1273,6 @@
     "2026-07-07": 2,
     "2026-07-05": 4,
     "2026-07-04": 4,
-    "2026-07-03": 5,
     "2026-09-02": 3,
     "2026-09-01": 3,
     "2026-08-31": 4,
@@ -1368,7 +1371,7 @@
     "2026-10-30": 1,
     "2026-10-31": 1
   },
-  "sales_fetched_at": "2026-11-01",
+  "sales_fetched_at": "2026-11-02",
   "psa10_archived_extremes": {
     "high": {
       "value": 33944,
@@ -1381,7 +1384,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-20",
-    "records": 10,
-    "updated_at": "2026-07-30"
+    "records": 11,
+    "updated_at": "2026-07-31"
   }
 }

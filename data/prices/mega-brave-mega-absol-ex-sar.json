@@ -2,6 +2,21 @@
   "card_id": "mega-brave-mega-absol-ex-sar",
   "history": [
     {
+      "date": "2026-11-02",
+      "low": 1800,
+      "high": 2000,
+      "avg": 1822,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 58,
+      "ask_low": 1980,
+      "ask_mid": 1990,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 9070,
+      "psa10_as_of": "2026-11-01"
+    },
+    {
       "date": "2026-11-01",
       "low": 1500,
       "high": 2000,
@@ -1210,17 +1225,6 @@
       "ask_low": 3199,
       "ask_mid": 3500,
       "psa10": 12669
-    },
-    {
-      "date": "2026-07-31",
-      "low": 2268,
-      "high": 2772,
-      "avg": 2520,
-      "source": "snkrdunk",
-      "sample_count": 10,
-      "ask_low": 3199,
-      "ask_mid": 3500,
-      "psa10": 12673
     }
   ],
   "sales_by_day": {
@@ -1283,7 +1287,8 @@
     "2026-10-25": 1,
     "2026-10-26": 1,
     "2026-10-27": 1,
-    "2026-10-28": 1
+    "2026-10-28": 1,
+    "2026-11-02": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 1,
@@ -1363,9 +1368,10 @@
     "2026-10-29": 4,
     "2026-10-28": 1,
     "2026-10-30": 6,
-    "2026-10-31": 2
+    "2026-10-31": 2,
+    "2026-11-01": 1
   },
-  "sales_fetched_at": "2026-11-01",
+  "sales_fetched_at": "2026-11-02",
   "psa10_archived_extremes": {
     "high": {
       "value": 15203,
@@ -1378,7 +1384,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-24",
-    "records": 36,
-    "updated_at": "2026-07-30"
+    "records": 37,
+    "updated_at": "2026-07-31"
   }
 }

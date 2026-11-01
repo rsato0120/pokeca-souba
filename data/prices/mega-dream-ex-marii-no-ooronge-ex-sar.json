@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-marii-no-ooronge-ex-sar",
   "history": [
     {
+      "date": "2026-11-02",
+      "low": 2222,
+      "high": 2999,
+      "avg": 2529,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "on_sale": 168,
+      "ask_low": 2000,
+      "ask_mid": 2500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6323,
+      "psa10_as_of": "2026-11-01"
+    },
+    {
       "date": "2026-11-01",
       "low": 2222,
       "high": 3300,
@@ -1210,17 +1225,6 @@
       "ask_low": 3777,
       "ask_mid": 4329,
       "psa10": 13359
-    },
-    {
-      "date": "2026-07-31",
-      "low": 3242,
-      "high": 3962,
-      "avg": 3602,
-      "source": "snkrdunk",
-      "sample_count": 28,
-      "ask_low": 3800,
-      "ask_mid": 4333,
-      "psa10": 13379
     }
   ],
   "sales_by_day": {
@@ -1344,7 +1348,6 @@
     "2026-07-06": 18,
     "2026-07-05": 4,
     "2026-07-04": 6,
-    "2026-07-03": 6,
     "2026-09-02": 9,
     "2026-09-01": 6,
     "2026-08-31": 10,
@@ -1408,9 +1411,9 @@
     "2026-10-29": 5,
     "2026-10-30": 7,
     "2026-10-31": 8,
-    "2026-11-01": 7
+    "2026-11-01": 12
   },
-  "sales_fetched_at": "2026-11-01",
+  "sales_fetched_at": "2026-11-02",
   "psa10_archived_extremes": {
     "high": {
       "value": 15788,
@@ -1418,12 +1421,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 13779,
-      "date": "2026-06-29",
+      "value": 13379,
+      "date": "2026-07-31",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 37,
-    "updated_at": "2026-07-30"
+    "records": 38,
+    "updated_at": "2026-07-31"
   }
 }

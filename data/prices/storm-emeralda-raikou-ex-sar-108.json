@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-raikou-ex-sar-108",
   "history": [
     {
+      "date": "2026-11-02",
+      "low": 2300,
+      "high": 3799,
+      "avg": 3242,
+      "source": "snkrdunk",
+      "sample_count": 31,
+      "on_sale": 83,
+      "ask_low": 2888,
+      "ask_mid": 3188,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 24112,
+      "psa10_as_of": "2026-11-01"
+    },
+    {
       "date": "2026-11-01",
       "low": 2350,
       "high": 3980,
@@ -1196,18 +1211,6 @@
       "ask_low": 6000,
       "ask_mid": 9999,
       "psa10": null
-    },
-    {
-      "date": "2026-07-31",
-      "low": 6499,
-      "high": 6777,
-      "avg": 6650,
-      "source": "mercari",
-      "sample_count": 18,
-      "sold_total": 242,
-      "ask_low": 6480,
-      "ask_mid": 6999,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1302,9 +1305,10 @@
     "2026-10-28": 7,
     "2026-10-29": 11,
     "2026-10-30": 9,
-    "2026-10-31": 2
+    "2026-10-31": 2,
+    "2026-11-01": 2
   },
-  "sales_fetched_at": "2026-11-01",
+  "sales_fetched_at": "2026-11-02",
   "psa10_sales_by_day": {
     "2026-10-20": 1,
     "2026-10-21": 3,
