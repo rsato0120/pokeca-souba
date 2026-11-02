@@ -2,6 +2,17 @@
   "card_id": "box-pokemon_151",
   "history": [
     {
+      "date": "2026-11-03",
+      "low": 47000,
+      "high": 49000,
+      "avg": 48700,
+      "source": "snkrdunk",
+      "sample_count": 23,
+      "psa10": null,
+      "on_sale": 976,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-11-02",
       "low": 47000,
       "high": 49799,
@@ -951,15 +962,6 @@
       "sold_total": 2297,
       "oldest_sale_days": 15,
       "psa10": null
-    },
-    {
-      "date": "2026-08-02",
-      "low": 55593,
-      "high": 58000,
-      "avg": 56797,
-      "source": "mercari",
-      "sold_total": 2299,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1032,7 +1034,8 @@
     "2026-10-30": 23,
     "2026-10-31": 16,
     "2026-11-01": 13,
-    "2026-11-02": 8
+    "2026-11-02": 27,
+    "2026-11-03": 3
   },
-  "sales_fetched_at": "2026-11-02"
+  "sales_fetched_at": "2026-11-03"
 }

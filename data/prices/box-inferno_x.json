@@ -2,6 +2,17 @@
   "card_id": "box-inferno_x",
   "history": [
     {
+      "date": "2026-11-03",
+      "low": 16000,
+      "high": 18000,
+      "avg": 17790,
+      "source": "snkrdunk",
+      "sample_count": 42,
+      "psa10": null,
+      "on_sale": 1013,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-11-02",
       "low": 17200,
       "high": 18966,
@@ -952,15 +963,6 @@
       "sold_total": 14224,
       "oldest_sale_days": 7,
       "psa10": null
-    },
-    {
-      "date": "2026-08-02",
-      "low": 19761,
-      "high": 21999,
-      "avg": 20880,
-      "source": "mercari",
-      "sold_total": 14213,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1033,7 +1035,8 @@
     "2026-10-30": 28,
     "2026-10-31": 33,
     "2026-11-01": 33,
-    "2026-11-02": 24
+    "2026-11-02": 73,
+    "2026-11-03": 2
   },
-  "sales_fetched_at": "2026-11-02"
+  "sales_fetched_at": "2026-11-03"
 }

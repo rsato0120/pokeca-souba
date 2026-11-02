@@ -2,6 +2,17 @@
   "card_id": "box-eevee_heroes",
   "history": [
     {
+      "date": "2026-11-03",
+      "low": 107917,
+      "high": 112500,
+      "avg": 110209,
+      "source": "mercari",
+      "sold_total": 358,
+      "oldest_sale_days": 28,
+      "on_sale": 90,
+      "psa10": null
+    },
+    {
       "date": "2026-11-02",
       "low": 109217,
       "high": 115000,
@@ -952,15 +963,6 @@
       "sold_total": 358,
       "oldest_sale_days": 89,
       "psa10": null
-    },
-    {
-      "date": "2026-08-02",
-      "low": 124444,
-      "high": 150000,
-      "avg": 137222,
-      "source": "mercari",
-      "sold_total": 353,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1032,7 +1034,8 @@
     "2026-10-29": 1,
     "2026-10-31": 4,
     "2026-11-01": 3,
-    "2026-11-02": 1
+    "2026-11-02": 5,
+    "2026-11-03": 1
   },
-  "sales_fetched_at": "2026-11-02"
+  "sales_fetched_at": "2026-11-03"
 }

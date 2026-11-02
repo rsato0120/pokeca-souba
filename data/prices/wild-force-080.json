@@ -2,6 +2,16 @@
   "card_id": "wild-force-080",
   "history": [
     {
+      "date": "2026-11-02",
+      "low": 3500,
+      "high": 3500,
+      "avg": 3500,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-01",
       "low": 3500,
       "high": 3500,
@@ -23,11 +33,11 @@
     },
     {
       "date": "2026-10-29",
-      "low": 4500,
+      "low": 3980,
       "high": 4500,
-      "avg": 4500,
+      "avg": 4240,
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -890,19 +900,19 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-08-26",
-      "low": 2199,
-      "high": 2400,
-      "avg": 2300,
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
+    {
+      "date": "2026-11-03",
+      "low": 0,
+      "high": 0,
+      "psa10": 11740,
+      "psa10_as_of": "2026-11-03",
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "price_basis": "transaction_day"
+    },
     {
       "date": "2026-11-02",
       "low": 0,
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 1,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-27",
-      "low": 0,
-      "high": 0,
-      "psa10": 16600,
-      "psa10_as_of": "2026-05-27",
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1911,7 +1911,8 @@
     "2026-10-25": 1,
     "2026-10-29": 2,
     "2026-10-30": 2,
-    "2026-11-01": 1
+    "2026-11-01": 1,
+    "2026-11-02": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 4,
@@ -2230,7 +2231,8 @@
     "2026-10-29": 1,
     "2026-10-30": 2,
     "2026-10-31": 1,
-    "2026-11-02": 1
+    "2026-11-02": 1,
+    "2026-11-03": 2
   },
-  "sales_fetched_at": "2026-11-02"
+  "sales_fetched_at": "2026-11-03"
 }
