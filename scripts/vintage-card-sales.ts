@@ -6,11 +6,11 @@ import { getSnkrdunkSales, type SnkrdunkSales } from './snkrdunk-sales'
 
 type Sale = { date: string; price: number }
 
-// These older SV sets often trade only as PSA10. Keep their real observation
+// These older sets often trade only as PSA10. Keep their real observation
 // dates and independent PSA10 history rather than discarding both as stale raw.
 const DATED_SV_PREFIXES = ['stellar-miracle', 'mask-of-change', 'wild-force', 'cyber-judge', 'ancient-roar', 'future-flash', 'raging-surf', 'snow-hazard', 'triplet-beat', 'scarlet-ex', 'violet-ex']
 export function usesDatedCardSales(id: string): boolean {
-  return /^(pcg[6-9]-|pmcg1-|30th-card-set-)/.test(id)
+  return /^(pcg[6-9]-|pmcg1-|30th-card-set-|time-gazer-)/.test(id)
     || DATED_SV_PREFIXES.some(prefix => id.startsWith(`${prefix}-`))
 }
 

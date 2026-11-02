@@ -9,6 +9,7 @@ const sales: SnkrdunkSales = { regular: ['2025-12-01'], psa10: ['2026-10-15'],
 test('older SV cards retain dated raw trades and independent recent PSA10 observations', () => {
   assert.ok(usesDatedCardSales('stellar-miracle-130'))
   assert.ok(usesDatedCardSales('scarlet-ex-099'))
+  assert.ok(usesDatedCardSales('time-gazer-75'))
   assert.equal(usesDatedCardSales('30th-celebration-130'), false)
   const data = mergeVintageSales({ card_id: 'stellar-miracle-130', history: [] }, sales, '2026-10-25')
   assert.equal(data.history[0].date, '2025-12-01')

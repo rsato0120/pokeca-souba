@@ -8,7 +8,7 @@ export function getOnePieceCatalog(): OnePieceCatalog {
   return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/catalog.json'), 'utf8'))
 }
 export function getOnePiecePrices(id: string): OnePiecePrices | null {
-  if (!/^(?:op\d{2}|promo)-\d+$/.test(id)) return null
+  if (!/^(?:(?:op|eb)\d{2}|promo)-\d+$/.test(id)) return null
   try {
     return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/prices', `${id}.json`), 'utf8'))
   } catch { return null }
@@ -25,7 +25,7 @@ export function isOnePiecePriceStale(prices: OnePiecePrices | null): boolean {
 }
 
 export function getOnePieceForecast(id: string): Forecast | null {
-  if (!/^(?:op\d{2}|promo)-\d+$/.test(id)) return null
+  if (!/^(?:(?:op|eb)\d{2}|promo)-\d+$/.test(id)) return null
   try {
     const forecast: Forecast = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/forecasts', `${id}.json`), 'utf8'))
     const current = getOnePiecePrices(id)?.history[0]
@@ -38,7 +38,7 @@ export function getOnePieceForecast(id: string): Forecast | null {
 }
 
 export function getOnePiecePredictionLog(id: string): PredictionLog | null {
-  if (!/^(?:op\d{2}|promo)-\d+$/.test(id)) return null
+  if (!/^(?:(?:op|eb)\d{2}|promo)-\d+$/.test(id)) return null
   try { return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/onepiece/predictions', `${id}.json`), 'utf8')) }
   catch { return null }
 }

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { buildOnePieceHistory, parseOnePieceSale, replaceOnePieceSalesCounts } from './onepiece-price-utils'
-import { getOnePieceCatalog } from '../src/lib/onepiece'
+import { getOnePieceCatalog, getOnePiecePrices } from '../src/lib/onepiece'
 import { isActiveTab, navItemsFor } from '../src/lib/nav'
 
 const now = Date.parse('2026-09-04T12:00:00+09:00')
@@ -49,6 +49,10 @@ assert.deepEqual(replaceOnePieceSalesCounts(
   { '2026-08-31': 4, '2026-09-01': 99, '2026-09-02': 3 }, [], '2026-09-01', '2026-09-03',
 ), { '2026-08-31': 4 })
 const { sets, products } = getOnePieceCatalog()
+// Extra boosters use EB IDs; these must load their saved history just like OP IDs.
+assert.ok(getOnePiecePrices('eb05-910479')?.history.length, 'EB-05 BOX prices must be readable')
+assert.ok(getOnePiecePrices('eb05-911903')?.history.length, 'EB-05 card prices must be readable')
+assert.equal(getOnePiecePrices('../eb05-910479'), null)
 assert.ok(sets.length >= 5)
 assert.equal(new Set(products.map(p => p.snkrdunk_id)).size, products.length)
 for (const set of sets) {

@@ -918,6 +918,18 @@
       "packs_per_box": 30,
       "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/237fbbd4-fd2f-4216-9edf-00aa543f94ab.webp?size=l",
       "note": "2023-01-20発売。1BOX30パック。商品情報：https://www.pokemon-card.com/ex/sv1/ / https://snkrdunk.com/apparels/106864"
+    },
+    {
+      "box_id": "time_gazer",
+      "box_name": "タイムゲイザー",
+      "code": "S10D",
+      "release_ym": "2022-04",
+      "release_date": "2022-04-08",
+      "certainty": "released",
+      "pack_price_yen": 165,
+      "packs_per_box": 30,
+      "pack_image_url": "https://cdn.snkrdunk.com/upload_bg_removed/d1b56de6-644e-44bd-af63-d128e5cb083f.webp?size=l",
+      "note": "2022年4月8日発売。1パック5枚入り、1BOX30パック。公式商品情報：https://www.pokemon-card.com/ex/s10/"
     }
   ],
   "cards": [
@@ -51708,6 +51720,201 @@
         "collector": "ワイルドフォースのUR版。セットコードとカード番号で識別。",
         "source": "2026-10-25 番号・レアリティ・画像照合：https://snkrdunk.com/apparels/186440 / https://api.tcgdex.net/v2/ja/cards/SV5K-100"
       }
+    },
+    {
+      "id": "time-gazer-75",
+      "card_no": "075/067",
+      "rarity": "SR",
+      "card_name": "オリジンディアルガV",
+      "box_id": "time_gazer",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/c77196e1-cb2a-4b5e-9f1e-de1269fd2d03.webp?size=l",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "たね",
+        "hp": 220,
+        "note": "タイムゲイザー収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "未確認",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "S10D 075/067・SR SA。",
+        "source": "https://snkrdunk.com/apparels/91140"
+      },
+      "note": "タイムゲイザーの主要収録カード。公式商品情報：https://www.pokemon-card.com/ex/s10/"
+    },
+    {
+      "id": "time-gazer-73",
+      "card_no": "073/067",
+      "rarity": "SR",
+      "card_name": "カイリキーV",
+      "box_id": "time_gazer",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/eecfc33c-f262-4326-b932-00c76fb50e42.webp?size=l",
+      "card_spec": {
+        "type": "闘",
+        "stage": "たね",
+        "hp": 220,
+        "note": "タイムゲイザー収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "未確認",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "S10D 073/067・SR SA。",
+        "source": "https://snkrdunk.com/apparels/96744"
+      },
+      "note": "タイムゲイザーの主要収録カード。公式商品情報：https://www.pokemon-card.com/ex/s10/"
+    },
+    {
+      "id": "time-gazer-78",
+      "card_no": "078/067",
+      "rarity": "SR",
+      "card_name": "ナタネの活気",
+      "box_id": "time_gazer",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/57114b57-7b2f-4bf8-886c-ebd41c331361.webp?size=l",
+      "card_spec": {
+        "type": "サポート",
+        "stage": "トレーナーズ",
+        "hp": 0,
+        "note": "タイムゲイザー収録・SR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "未確認",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "S10D 078/067・SR。",
+        "source": "https://snkrdunk.com/apparels/91138"
+      },
+      "note": "タイムゲイザーの主要収録カード。公式商品情報：https://www.pokemon-card.com/ex/s10/"
+    },
+    {
+      "id": "time-gazer-69",
+      "card_no": "069/067",
+      "rarity": "SR",
+      "card_name": "ヒスイドレディアV",
+      "box_id": "time_gazer",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/4e774122-ccd2-49b2-816b-6b5243176fbb.webp?size=l",
+      "card_spec": {
+        "type": "草",
+        "stage": "たね",
+        "hp": 200,
+        "note": "タイムゲイザー収録・SR（スペシャルアート）。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "未確認",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "SR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "S10D 069/067・SR SA。",
+        "source": "https://snkrdunk.com/apparels/96742"
+      },
+      "note": "タイムゲイザーの主要収録カード。公式商品情報：https://www.pokemon-card.com/ex/s10/"
+    },
+    {
+      "id": "time-gazer-86",
+      "card_no": "086/067",
+      "rarity": "UR",
+      "card_name": "オリジンディアルガVSTAR",
+      "box_id": "time_gazer",
+      "is_reprint": false,
+      "image_url": "https://cdn.snkrdunk.com/upload_bg_removed/e4a51b95-7758-44de-9ceb-89a6819849af.webp?size=l",
+      "card_spec": {
+        "type": "鋼",
+        "stage": "VSTAR",
+        "hp": 280,
+        "note": "タイムゲイザー収録・UR。"
+      },
+      "materials": {
+        "player": {
+          "regulation_mark": "F",
+          "rotation": "unknown",
+          "competitive_usage": "none"
+        },
+        "collector": {
+          "illustrator": "未確認",
+          "illustrator_popularity": "unknown",
+          "artwork_type": "original",
+          "rarity": "UR"
+        },
+        "common": {
+          "reprint_status": "none",
+          "scarcity": "normal",
+          "character_popularity": "unknown"
+        }
+      },
+      "evidence_notes": {
+        "player": "ソード＆シールド期・レギュレーションマークF。",
+        "collector": "S10D 086/067・UR。",
+        "source": "https://snkrdunk.com/apparels/93011"
+      },
+      "note": "タイムゲイザーの主要収録カード。公式商品情報：https://www.pokemon-card.com/ex/s10/"
     }
   ],
   "market_posts": [
