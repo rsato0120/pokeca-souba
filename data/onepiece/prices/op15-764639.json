@@ -1,6 +1,6 @@
 {
   "product_id": "op15-764639",
-  "fetched_at": "2026-11-03T08:36:29.331Z",
+  "fetched_at": "2026-11-03T20:40:55.711Z",
   "history": [
     {
       "date": "2026-10-30",
@@ -624,6 +624,15 @@
   "coverage_start": "2026-07-22",
   "complete": true,
   "psa10_history": [
+    {
+      "date": "2026-11-03",
+      "avg": 46727,
+      "low": 45000,
+      "high": 48000,
+      "source": "snkrdunk",
+      "sample_count": 32,
+      "psa10": 46727
+    },
     {
       "date": "2026-11-01",
       "avg": 46809,
@@ -1445,84 +1454,84 @@
     },
     {
       "date": "2026-07-17",
-      "avg": 102441,
+      "avg": 102525,
       "low": 99999,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 30,
-      "psa10": 102441
+      "sample_count": 29,
+      "psa10": 102525
     },
     {
       "date": "2026-07-16",
-      "avg": 103649,
-      "low": 100000,
+      "avg": 103801,
+      "low": 102000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 25,
-      "psa10": 103649
+      "sample_count": 24,
+      "psa10": 103801
     },
     {
       "date": "2026-07-15",
-      "avg": 103533,
-      "low": 100000,
+      "avg": 103693,
+      "low": 102000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 23,
-      "psa10": 103533
+      "sample_count": 22,
+      "psa10": 103693
     },
     {
       "date": "2026-07-14",
-      "avg": 103260,
+      "avg": 103423,
       "low": 100000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 21,
-      "psa10": 103260
+      "sample_count": 20,
+      "psa10": 103423
     },
     {
       "date": "2026-07-12",
-      "avg": 103047,
+      "avg": 103217,
       "low": 100000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 19,
-      "psa10": 103047
+      "sample_count": 18,
+      "psa10": 103217
     },
     {
       "date": "2026-07-11",
-      "avg": 102818,
+      "avg": 102994,
       "low": 100000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 17,
-      "psa10": 102818
+      "sample_count": 16,
+      "psa10": 102994
     },
     {
       "date": "2026-07-10",
-      "avg": 102158,
+      "avg": 102354,
       "low": 100000,
       "high": 104000,
       "source": "snkrdunk",
-      "sample_count": 12,
-      "psa10": 102158
+      "sample_count": 11,
+      "psa10": 102354
     },
     {
       "date": "2026-07-09",
-      "avg": 101878,
+      "avg": 102113,
       "low": 100000,
       "high": 104000,
       "source": "snkrdunk",
-      "sample_count": 9,
-      "psa10": 101878
+      "sample_count": 8,
+      "psa10": 102113
     },
     {
       "date": "2026-07-08",
-      "avg": 100580,
+      "avg": 100725,
       "low": 99900,
       "high": 103000,
       "source": "snkrdunk",
-      "sample_count": 5,
-      "psa10": 100580
+      "sample_count": 4,
+      "psa10": 100725
     },
     {
       "date": "2026-07-07",
@@ -1694,15 +1703,6 @@
       "source": "snkrdunk",
       "sample_count": 7,
       "psa10": 135143
-    },
-    {
-      "date": "2026-06-14",
-      "avg": 136833,
-      "low": 135000,
-      "high": 140000,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "psa10": 136833
     }
   ],
   "psa10_sales_by_day": {
@@ -1745,7 +1745,9 @@
     "2026-07-02": 5,
     "2026-07-03": 3,
     "2026-07-05": 1,
-    "2026-10-31": 1,
+    "2026-07-07": 1,
+    "2026-11-03": 3,
+    "2026-11-01": 1,
     "2026-10-29": 3,
     "2026-10-27": 1,
     "2026-10-25": 1,
@@ -1834,8 +1836,7 @@
     "2026-07-11": 5,
     "2026-07-10": 3,
     "2026-07-09": 4,
-    "2026-07-08": 4,
-    "2026-07-07": 1
+    "2026-07-08": 4
   },
   "psa10_archived_extremes": {
     "high": {
@@ -1849,9 +1850,9 @@
       "source": "snkrdunk"
     },
     "since": "2026-05-20",
-    "records": 19,
-    "updated_at": "2026-06-13"
+    "records": 20,
+    "updated_at": "2026-06-14"
   },
-  "psa10_fetched_at": "2026-11-03T08:52:31.400Z",
+  "psa10_fetched_at": "2026-11-03T20:56:19.389Z",
   "raw_archived_extremes": null
 }
