@@ -3,21 +3,21 @@
   "history": [
     {
       "date": "2026-11-03",
-      "low": 15500,
-      "high": 15500,
-      "avg": 15500,
+      "low": 14800,
+      "high": 16333,
+      "avg": 15544,
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 3,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-02",
       "low": 12500,
-      "high": 16333,
-      "avg": 14417,
+      "high": 12500,
+      "avg": 12500,
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -904,23 +904,33 @@
   ],
   "psa10_history": [
     {
+      "date": "2026-11-04",
+      "low": 0,
+      "high": 0,
+      "psa10": 33000,
+      "psa10_as_of": "2026-11-04",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-03",
       "low": 0,
       "high": 0,
-      "psa10": 32411,
+      "psa10": 34263,
       "psa10_as_of": "2026-11-03",
       "source": "snkrdunk",
-      "sample_count": 7,
+      "sample_count": 21,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-02",
       "low": 0,
       "high": 0,
-      "psa10": 36134,
+      "psa10": 32695,
       "psa10_as_of": "2026-11-02",
       "source": "snkrdunk",
-      "sample_count": 10,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 2,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-08-04",
-      "low": 0,
-      "high": 0,
-      "psa10": 45618,
-      "psa10_as_of": "2026-08-04",
-      "source": "snkrdunk",
-      "sample_count": 4,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -2479,7 +2479,7 @@
     "2026-11-01": 2,
     "2026-10-31": 1,
     "2026-11-02": 2,
-    "2026-11-03": 1
+    "2026-11-03": 3
   },
   "psa10_sales_by_day": {
     "2026-10-25": 2,
@@ -3296,7 +3296,8 @@
     "2026-10-31": 4,
     "2026-11-01": 6,
     "2026-11-02": 10,
-    "2026-11-03": 7
+    "2026-11-03": 21,
+    "2026-11-04": 1
   },
-  "sales_fetched_at": "2026-11-03"
+  "sales_fetched_at": "2026-11-04"
 }

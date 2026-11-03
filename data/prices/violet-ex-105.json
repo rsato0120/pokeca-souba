@@ -2,6 +2,16 @@
   "card_id": "violet-ex-105",
   "history": [
     {
+      "date": "2026-11-04",
+      "low": 14000,
+      "high": 14000,
+      "avg": 14000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-02",
       "low": 12000,
       "high": 12000,
@@ -890,16 +900,6 @@
       "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-01-09",
-      "low": 15999,
-      "high": 17000,
-      "avg": 16600,
-      "source": "snkrdunk",
-      "sample_count": 3,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,20 +907,20 @@
       "date": "2026-11-03",
       "low": 0,
       "high": 0,
-      "psa10": 44200,
+      "psa10": 44033,
       "psa10_as_of": "2026-11-03",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 3,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-02",
       "low": 0,
       "high": 0,
-      "psa10": 43500,
+      "psa10": 42999,
       "psa10_as_of": "2026-11-02",
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
@@ -947,10 +947,10 @@
       "date": "2026-10-30",
       "low": 0,
       "high": 0,
-      "psa10": 45173,
+      "psa10": 45238,
       "psa10_as_of": "2026-10-30",
       "source": "snkrdunk",
-      "sample_count": 4,
+      "sample_count": 5,
       "price_basis": "transaction_day"
     },
     {
@@ -2505,7 +2505,8 @@
     "2026-10-25": 1,
     "2026-10-22": 1,
     "2026-11-01": 1,
-    "2026-11-02": 1
+    "2026-11-02": 1,
+    "2026-11-04": 1
   },
   "psa10_sales_by_day": {
     "2026-10-25": 2,
@@ -3335,7 +3336,7 @@
     "2026-10-31": 3,
     "2026-11-01": 2,
     "2026-11-02": 2,
-    "2026-11-03": 1
+    "2026-11-03": 3
   },
-  "sales_fetched_at": "2026-11-03"
+  "sales_fetched_at": "2026-11-04"
 }
