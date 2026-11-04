@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-cinccino-ex-sar",
   "history": [
     {
+      "date": "2026-11-05",
+      "low": 2400,
+      "high": 2999,
+      "avg": 2708,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "on_sale": 101,
+      "ask_low": 2750,
+      "ask_mid": 2775,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5883,
+      "psa10_as_of": "2026-11-04"
+    },
+    {
       "date": "2026-11-04",
       "low": 2400,
       "high": 3000,
@@ -1222,17 +1237,6 @@
       "ask_low": 4100,
       "ask_mid": 5000,
       "psa10": 18387
-    },
-    {
-      "date": "2026-08-03",
-      "low": 3822,
-      "high": 4672,
-      "avg": 4247,
-      "source": "snkrdunk",
-      "sample_count": 27,
-      "ask_low": 4100,
-      "ask_mid": 5000,
-      "psa10": 18387
     }
   ],
   "sales_by_day": {
@@ -1340,7 +1344,6 @@
     "2026-07-11": 1,
     "2026-07-10": 2,
     "2026-07-07": 1,
-    "2026-07-06": 1,
     "2026-09-03": 4,
     "2026-09-01": 5,
     "2026-08-31": 5,
@@ -1402,9 +1405,9 @@
     "2026-11-01": 5,
     "2026-11-02": 6,
     "2026-11-03": 14,
-    "2026-11-04": 2
+    "2026-11-04": 13
   },
-  "sales_fetched_at": "2026-11-04",
+  "sales_fetched_at": "2026-11-05",
   "psa10_archived_extremes": {
     "high": {
       "value": 39391,
@@ -1417,7 +1420,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 41,
-    "updated_at": "2026-08-02"
+    "records": 42,
+    "updated_at": "2026-08-03"
   }
 }

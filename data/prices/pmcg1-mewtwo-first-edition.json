@@ -2,6 +2,16 @@
   "card_id": "pmcg1-mewtwo-first-edition",
   "history": [
     {
+      "date": "2026-11-04",
+      "low": 9000,
+      "high": 9000,
+      "avg": 9000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-03",
       "low": 9000,
       "high": 9000,
@@ -102,10 +112,11 @@
     "2026-10-25": 1,
     "2026-10-28": 1,
     "2026-10-29": 1,
-    "2026-11-03": 1
+    "2026-11-03": 1,
+    "2026-11-04": 1
   },
   "psa10_sales_by_day": {
     "2023-09-14": 1
   },
-  "sales_fetched_at": "2026-11-04"
+  "sales_fetched_at": "2026-11-05"
 }

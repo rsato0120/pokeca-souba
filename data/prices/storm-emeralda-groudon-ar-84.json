@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-groudon-ar-84",
   "history": [
     {
+      "date": "2026-11-05",
+      "low": 1000,
+      "high": 1699,
+      "avg": 1190,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 78,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 25920,
+      "psa10_as_of": "2026-11-02"
+    },
+    {
       "date": "2026-11-04",
       "low": 1000,
       "high": 1699,
@@ -1276,19 +1291,6 @@
       "ask_low": 1500,
       "ask_mid": 1799,
       "psa10": 2238
-    },
-    {
-      "date": "2026-08-04",
-      "low": 1399,
-      "high": 1499,
-      "avg": 1474,
-      "source": "mercari",
-      "sample_count": 75,
-      "sold_total": 2051,
-      "oldest_sale_days": 1,
-      "ask_low": 1350,
-      "ask_mid": 1777,
-      "psa10": 3000
     }
   ],
   "sales_by_day": {
@@ -1385,7 +1387,8 @@
     "2026-10-30": 1,
     "2026-11-01": 1,
     "2026-11-02": 4,
-    "2026-11-03": 4
+    "2026-11-03": 4,
+    "2026-11-04": 1
   },
   "psa10_sales_by_day": {
     "2026-08-04": 1,
@@ -1400,7 +1403,7 @@
     "2026-11-01": 1,
     "2026-11-02": 1
   },
-  "sales_fetched_at": "2026-11-04",
+  "sales_fetched_at": "2026-11-05",
   "psa10_archived_extremes": {
     "high": {
       "value": 3000,
@@ -1413,7 +1416,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-31",
-    "records": 4,
-    "updated_at": "2026-08-03"
+    "records": 5,
+    "updated_at": "2026-08-04"
   }
 }

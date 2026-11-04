@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-roxie-performance-sar",
   "history": [
     {
+      "date": "2026-11-05",
+      "low": 1000,
+      "high": 2000,
+      "avg": 1400,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 47,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6990,
+      "psa10_as_of": "2026-11-04"
+    },
+    {
       "date": "2026-11-04",
       "low": 1000,
       "high": 2000,
@@ -1162,15 +1177,6 @@
       "ask_low": 1300,
       "ask_mid": 1699,
       "psa10": 24514
-    },
-    {
-      "date": "2026-07-13",
-      "low": 1391,
-      "high": 1700,
-      "avg": 1545,
-      "ask_low": 1200,
-      "ask_mid": 1650,
-      "psa10": 24514
     }
   ],
   "sales_by_day": {
@@ -1213,7 +1219,7 @@
     "2026-10-31": 1,
     "2026-11-04": 2
   },
-  "sales_fetched_at": "2026-11-04",
+  "sales_fetched_at": "2026-11-05",
   "psa10_archived_extremes": {
     "high": {
       "value": 26069,
@@ -1226,7 +1232,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 18,
-    "updated_at": "2026-07-12"
+    "records": 19,
+    "updated_at": "2026-07-13"
   }
 }
