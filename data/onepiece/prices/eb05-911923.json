@@ -1,55 +1,64 @@
 {
   "product_id": "eb05-911923",
-  "fetched_at": "2026-11-04T08:06:04.152Z",
+  "fetched_at": "2026-11-04T21:01:45.303Z",
   "history": [
     {
-      "date": "2026-11-04",
-      "avg": 3186,
+      "date": "2026-11-05",
+      "avg": 3113,
       "low": 3000,
       "high": 3300,
       "source": "snkrdunk",
-      "sample_count": 37
+      "sample_count": 34
     },
     {
-      "date": "2026-11-03",
-      "avg": 3167,
+      "date": "2026-11-04",
+      "avg": 3101,
       "low": 3000,
-      "high": 3300,
+      "high": 3200,
       "source": "snkrdunk",
       "sample_count": 31
     },
     {
-      "date": "2026-11-02",
-      "avg": 3745,
+      "date": "2026-11-03",
+      "avg": 3716,
       "low": 3000,
       "high": 4100,
       "source": "snkrdunk",
-      "sample_count": 28
+      "sample_count": 29
+    },
+    {
+      "date": "2026-11-02",
+      "avg": 3926,
+      "low": 3000,
+      "high": 4799,
+      "source": "snkrdunk",
+      "sample_count": 22
     },
     {
       "date": "2026-11-01",
-      "avg": 4171,
-      "low": 3000,
-      "high": 4999,
+      "avg": 4854,
+      "low": 3800,
+      "high": 6400,
       "source": "snkrdunk",
-      "sample_count": 18
+      "sample_count": 11
     },
     {
       "date": "2026-10-31",
-      "avg": 5783,
-      "low": 4799,
+      "avg": 5010,
+      "low": 3800,
       "high": 6500,
       "source": "snkrdunk",
-      "sample_count": 6
+      "sample_count": 10
     }
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-04": 6,
-    "2026-11-03": 9,
-    "2026-11-02": 10,
-    "2026-11-01": 12,
-    "2026-10-31": 5,
+    "2026-11-05": 3,
+    "2026-11-04": 13,
+    "2026-11-03": 7,
+    "2026-11-02": 11,
+    "2026-11-01": 1,
+    "2026-10-31": 9,
     "2026-10-30": 1
   },
   "coverage_start": "2026-10-30",
@@ -57,5 +66,5 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-04T08:16:42.729Z"
+  "psa10_fetched_at": "2026-11-04T21:13:16.338Z"
 }
