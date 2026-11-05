@@ -2,6 +2,21 @@
   "card_id": "black-bolt-gamageroge-ar-109",
   "history": [
     {
+      "date": "2026-11-06",
+      "low": 7500,
+      "high": 8500,
+      "avg": 8032,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "on_sale": 63,
+      "ask_low": 7999,
+      "ask_mid": 9000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 17252,
+      "psa10_as_of": "2026-11-05"
+    },
+    {
       "date": "2026-11-05",
       "low": 7500,
       "high": 8500,
@@ -1226,17 +1241,6 @@
       "ask_low": 6999,
       "ask_mid": 9350,
       "psa10": 49054
-    },
-    {
-      "date": "2026-08-04",
-      "low": 7718,
-      "high": 9434,
-      "avg": 8576,
-      "source": "snkrdunk",
-      "sample_count": 9,
-      "ask_low": 8500,
-      "ask_mid": 9350,
-      "psa10": 49572
     }
   ],
   "sales_by_day": {
@@ -1321,7 +1325,6 @@
     "2026-07-10": 2,
     "2026-07-09": 3,
     "2026-07-08": 5,
-    "2026-07-07": 2,
     "2026-08-27": 1,
     "2026-09-02": 3,
     "2026-08-31": 1,
@@ -1376,9 +1379,9 @@
     "2026-11-02": 1,
     "2026-11-03": 2,
     "2026-11-04": 3,
-    "2026-11-05": 1
+    "2026-11-05": 3
   },
-  "sales_fetched_at": "2026-11-05",
+  "sales_fetched_at": "2026-11-06",
   "psa10_archived_extremes": {
     "high": {
       "value": 49737,
@@ -1391,7 +1394,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-21",
-    "records": 14,
-    "updated_at": "2026-08-03"
+    "records": 15,
+    "updated_at": "2026-08-04"
   }
 }

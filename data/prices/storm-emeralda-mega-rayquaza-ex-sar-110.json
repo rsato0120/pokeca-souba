@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-mega-rayquaza-ex-sar-110",
   "history": [
     {
+      "date": "2026-11-06",
+      "low": 24500,
+      "high": 29000,
+      "avg": 26357,
+      "source": "snkrdunk",
+      "sample_count": 42,
+      "on_sale": 278,
+      "ask_low": 19999,
+      "ask_mid": 20000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 64536,
+      "psa10_as_of": "2026-11-06"
+    },
+    {
       "date": "2026-11-05",
       "low": 23000,
       "high": 29000,
@@ -1236,19 +1251,6 @@
       "ask_low": 64200,
       "ask_mid": 88888,
       "psa10": null
-    },
-    {
-      "date": "2026-08-04",
-      "low": 63333,
-      "high": 76800,
-      "avg": 75900,
-      "source": "mercari",
-      "sample_count": 5,
-      "sold_total": 992,
-      "oldest_sale_days": 0,
-      "ask_low": 69000,
-      "ask_mid": 80000,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1350,7 +1352,8 @@
     "2026-11-02": 14,
     "2026-11-03": 32,
     "2026-11-04": 32,
-    "2026-11-05": 6
+    "2026-11-05": 15,
+    "2026-11-06": 2
   },
   "psa10_sales_by_day": {
     "2026-08-25": 13,
@@ -1429,7 +1432,8 @@
     "2026-11-02": 31,
     "2026-11-03": 33,
     "2026-11-04": 15,
-    "2026-11-05": 4
+    "2026-11-05": 8,
+    "2026-11-06": 1
   },
-  "sales_fetched_at": "2026-11-05"
+  "sales_fetched_at": "2026-11-06"
 }
