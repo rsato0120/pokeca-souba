@@ -1,46 +1,54 @@
 {
   "product_id": "eb05-911903",
-  "fetched_at": "2026-11-05T08:36:59.107Z",
+  "fetched_at": "2026-11-05T21:19:07.494Z",
   "history": [
     {
-      "date": "2026-11-05",
-      "avg": 109736,
-      "low": 102000,
-      "high": 129999,
+      "date": "2026-11-06",
+      "avg": 111564,
+      "low": 102700,
+      "high": 129800,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 38
+    },
+    {
+      "date": "2026-11-05",
+      "avg": 110684,
+      "low": 102700,
+      "high": 126000,
+      "source": "snkrdunk",
+      "sample_count": 36
     },
     {
       "date": "2026-11-04",
-      "avg": 107000,
-      "low": 101000,
+      "avg": 104740,
+      "low": 100000,
       "high": 110000,
       "source": "snkrdunk",
-      "sample_count": 42
+      "sample_count": 38
     },
     {
       "date": "2026-11-03",
-      "avg": 104171,
-      "low": 100000,
-      "high": 110000,
-      "source": "snkrdunk",
-      "sample_count": 31
-    },
-    {
-      "date": "2026-11-02",
-      "avg": 113214,
+      "avg": 111923,
       "low": 100000,
       "high": 124999,
       "source": "snkrdunk",
-      "sample_count": 60
+      "sample_count": 67
+    },
+    {
+      "date": "2026-11-02",
+      "avg": 113432,
+      "low": 100000,
+      "high": 124999,
+      "source": "snkrdunk",
+      "sample_count": 58
     },
     {
       "date": "2026-11-01",
-      "avg": 115653,
+      "avg": 113492,
       "low": 100000,
-      "high": 125000,
+      "high": 124999,
       "source": "snkrdunk",
-      "sample_count": 47
+      "sample_count": 57
     },
     {
       "date": "2026-10-31",
@@ -53,11 +61,12 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-05": 2,
-    "2026-11-04": 19,
-    "2026-11-03": 10,
-    "2026-11-02": 13,
-    "2026-11-01": 8,
+    "2026-11-06": 2,
+    "2026-11-05": 17,
+    "2026-11-04": 10,
+    "2026-11-03": 9,
+    "2026-11-02": 1,
+    "2026-11-01": 18,
     "2026-10-31": 39,
     "2026-10-30": 1
   },
@@ -66,5 +75,5 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-05T08:53:39.663Z"
+  "psa10_fetched_at": "2026-11-05T21:32:35.721Z"
 }
