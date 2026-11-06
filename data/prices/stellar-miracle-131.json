@@ -2,6 +2,16 @@
   "card_id": "stellar-miracle-131",
   "history": [
     {
+      "date": "2026-11-06",
+      "low": 4700,
+      "high": 4700,
+      "avg": 4700,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-04",
       "low": 4800,
       "high": 5000,
@@ -890,16 +900,6 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-05-18",
-      "low": 5000,
-      "high": 8888,
-      "avg": 6944,
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,40 +907,40 @@
       "date": "2026-11-05",
       "low": 0,
       "high": 0,
-      "psa10": 30833,
+      "psa10": 30750,
       "psa10_as_of": "2026-11-05",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-04",
       "low": 0,
       "high": 0,
-      "psa10": 30900,
+      "psa10": 30950,
       "psa10_as_of": "2026-11-04",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-03",
       "low": 0,
       "high": 0,
-      "psa10": 30725,
+      "psa10": 30867,
       "psa10_as_of": "2026-11-03",
       "source": "snkrdunk",
-      "sample_count": 4,
+      "sample_count": 3,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-02",
       "low": 0,
       "high": 0,
-      "psa10": 30600,
+      "psa10": 30300,
       "psa10_as_of": "2026-11-02",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
@@ -1959,7 +1959,8 @@
     "2026-11-01": 1,
     "2026-11-02": 1,
     "2026-11-03": 2,
-    "2026-11-04": 2
+    "2026-11-04": 2,
+    "2026-11-06": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 1,
