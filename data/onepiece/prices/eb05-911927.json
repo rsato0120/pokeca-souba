@@ -1,46 +1,54 @@
 {
   "product_id": "eb05-911927",
-  "fetched_at": "2026-11-06T08:44:56.715Z",
+  "fetched_at": "2026-11-06T20:40:27.162Z",
   "history": [
     {
-      "date": "2026-11-06",
-      "avg": 13123,
-      "low": 12300,
+      "date": "2026-11-07",
+      "avg": 13204,
+      "low": 12499,
       "high": 14000,
       "source": "snkrdunk",
-      "sample_count": 32
+      "sample_count": 31
+    },
+    {
+      "date": "2026-11-06",
+      "avg": 13180,
+      "low": 12300,
+      "high": 14999,
+      "source": "snkrdunk",
+      "sample_count": 30
     },
     {
       "date": "2026-11-05",
-      "avg": 12275,
-      "low": 11500,
-      "high": 13333,
+      "avg": 11873,
+      "low": 10800,
+      "high": 12800,
       "source": "snkrdunk",
       "sample_count": 51
     },
     {
       "date": "2026-11-04",
-      "avg": 11929,
-      "low": 11500,
+      "avg": 11612,
+      "low": 10500,
       "high": 12500,
       "source": "snkrdunk",
       "sample_count": 38
     },
     {
       "date": "2026-11-03",
-      "avg": 11486,
-      "low": 10500,
-      "high": 12500,
-      "source": "snkrdunk",
-      "sample_count": 33
-    },
-    {
-      "date": "2026-11-02",
-      "avg": 11479,
+      "avg": 11480,
       "low": 10500,
       "high": 12000,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 49
+    },
+    {
+      "date": "2026-11-02",
+      "avg": 11555,
+      "low": 10500,
+      "high": 12000,
+      "source": "snkrdunk",
+      "sample_count": 44
     },
     {
       "date": "2026-11-01",
@@ -69,11 +77,12 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-06": 5,
+    "2026-11-07": 1,
+    "2026-11-06": 17,
     "2026-11-05": 13,
-    "2026-11-04": 14,
-    "2026-11-03": 24,
-    "2026-11-02": 9,
+    "2026-11-04": 11,
+    "2026-11-03": 5,
+    "2026-11-02": 22,
     "2026-11-01": 22,
     "2026-10-31": 26,
     "2026-10-30": 3
@@ -83,5 +92,5 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-06T08:55:40.807Z"
+  "psa10_fetched_at": "2026-11-06T20:51:04.092Z"
 }
