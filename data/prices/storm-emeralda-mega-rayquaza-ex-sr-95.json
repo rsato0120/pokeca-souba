@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-mega-rayquaza-ex-sr-95",
   "history": [
     {
+      "date": "2026-11-07",
+      "low": 1999,
+      "high": 2500,
+      "avg": 2237,
+      "source": "snkrdunk",
+      "sample_count": 37,
+      "on_sale": 85,
+      "ask_low": 1988,
+      "ask_mid": 2200,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 19905,
+      "psa10_as_of": "2026-11-06"
+    },
+    {
       "date": "2026-11-06",
       "low": 1999,
       "high": 2500,
@@ -1225,19 +1240,6 @@
       "ask_low": 4900,
       "ask_mid": 5500,
       "psa10": null
-    },
-    {
-      "date": "2026-08-05",
-      "low": 4800,
-      "high": 4999,
-      "avg": 4872,
-      "source": "mercari",
-      "sample_count": 9,
-      "sold_total": 1407,
-      "oldest_sale_days": 1,
-      "ask_low": 4600,
-      "ask_mid": 5555,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1338,9 +1340,11 @@
     "2026-11-01": 1,
     "2026-11-02": 1,
     "2026-11-03": 1,
-    "2026-11-05": 2
+    "2026-11-05": 2,
+    "2026-11-07": 1,
+    "2026-11-06": 1
   },
-  "sales_fetched_at": "2026-11-06",
+  "sales_fetched_at": "2026-11-07",
   "psa10_sales_by_day": {
     "2026-10-01": 1,
     "2026-10-02": 2,

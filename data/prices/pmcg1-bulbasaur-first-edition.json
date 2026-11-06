@@ -2,6 +2,16 @@
   "card_id": "pmcg1-bulbasaur-first-edition",
   "history": [
     {
+      "date": "2026-11-06",
+      "low": 50000,
+      "high": 50000,
+      "avg": 50000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-05",
       "low": 50000,
       "high": 50000,
@@ -98,7 +108,8 @@
     "2026-04-03": 1,
     "2026-04-01": 1,
     "2026-03-23": 1,
-    "2026-11-05": 1
+    "2026-11-05": 1,
+    "2026-11-06": 1
   },
   "psa10_sales_by_day": {
     "2026-10-17": 1,
@@ -107,5 +118,5 @@
     "2026-08-15": 1,
     "2026-10-18": 1
   },
-  "sales_fetched_at": "2026-11-06"
+  "sales_fetched_at": "2026-11-07"
 }

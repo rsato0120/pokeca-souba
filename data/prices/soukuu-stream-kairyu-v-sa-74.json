@@ -2,6 +2,21 @@
   "card_id": "soukuu-stream-kairyu-v-sa-74",
   "history": [
     {
+      "date": "2026-11-07",
+      "low": 75000,
+      "high": 88000,
+      "avg": 79500,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 19,
+      "ask_low": 29300,
+      "ask_mid": 83333,
+      "ask_source": "mercari",
+      "on_sale_source": "snkrdunk",
+      "psa10": 148283,
+      "psa10_as_of": "2026-11-06"
+    },
+    {
       "date": "2026-11-06",
       "low": 75000,
       "high": 88000,
@@ -1244,18 +1259,6 @@
       "ask_low": 29300,
       "ask_mid": 77778,
       "psa10": 131296
-    },
-    {
-      "date": "2026-07-30",
-      "low": 47100,
-      "high": 55500,
-      "avg": 52062,
-      "source": "mercari",
-      "sample_count": 37,
-      "sold_total": 204,
-      "ask_low": 29300,
-      "ask_mid": 77778,
-      "psa10": 131416
     }
   ],
   "sales_by_day": {
@@ -1314,7 +1317,6 @@
     "2026-07-12": 2,
     "2026-07-11": 1,
     "2026-07-09": 1,
-    "2026-07-08": 3,
     "2026-09-02": 1,
     "2026-09-01": 1,
     "2026-09-03": 3,
@@ -1362,13 +1364,14 @@
     "2026-11-03": 2,
     "2026-11-02": 1,
     "2026-11-04": 2,
-    "2026-11-05": 3
+    "2026-11-05": 3,
+    "2026-11-06": 2
   },
-  "sales_fetched_at": "2026-11-06",
+  "sales_fetched_at": "2026-11-07",
   "psa10_archived_extremes": {
     "high": {
-      "value": 130936,
-      "date": "2026-07-28",
+      "value": 131416,
+      "date": "2026-07-30",
       "source": "snkrdunk"
     },
     "low": {
@@ -1377,7 +1380,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-02",
-    "records": 28,
-    "updated_at": "2026-07-29"
+    "records": 29,
+    "updated_at": "2026-07-30"
   }
 }

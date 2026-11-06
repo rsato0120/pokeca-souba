@@ -2,6 +2,21 @@
   "card_id": "black-bolt-n-no-sujigaki-sar-173",
   "history": [
     {
+      "date": "2026-11-07",
+      "low": 4200,
+      "high": 4600,
+      "avg": 4424,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 64,
+      "ask_low": 4200,
+      "ask_mid": 5050,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 17875,
+      "psa10_as_of": "2026-11-06"
+    },
+    {
       "date": "2026-11-06",
       "low": 4200,
       "high": 4600,
@@ -1205,17 +1220,6 @@
       "ask_low": 5999,
       "ask_mid": 6850,
       "psa10": 21323
-    },
-    {
-      "date": "2026-07-30",
-      "low": 4752,
-      "high": 5808,
-      "avg": 5280,
-      "source": "snkrdunk",
-      "sample_count": 5,
-      "ask_low": 5300,
-      "ask_mid": 6100,
-      "psa10": 21323
     }
   ],
   "sales_by_day": {
@@ -1316,7 +1320,7 @@
     "2026-11-05": 4,
     "2026-11-06": 4
   },
-  "sales_fetched_at": "2026-11-06",
+  "sales_fetched_at": "2026-11-07",
   "psa10_archived_extremes": {
     "high": {
       "value": 21323,
@@ -1329,7 +1333,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-21",
-    "records": 8,
-    "updated_at": "2026-07-29"
+    "records": 9,
+    "updated_at": "2026-07-30"
   }
 }
