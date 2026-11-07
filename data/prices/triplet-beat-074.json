@@ -44,6 +44,16 @@
       "price_basis": "transaction_day"
     },
     {
+      "date": "2026-11-03",
+      "low": 0,
+      "high": 0,
+      "psa10": 4000,
+      "psa10_as_of": "2026-11-03",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-12",
       "low": 0,
       "high": 0,
@@ -336,7 +346,8 @@
     "2025-07-02": 1,
     "2025-02-11": 1,
     "2026-11-04": 1,
-    "2026-11-06": 1
+    "2026-11-06": 1,
+    "2026-11-03": 1
   },
-  "sales_fetched_at": "2026-11-07"
+  "sales_fetched_at": "2026-11-08"
 }
