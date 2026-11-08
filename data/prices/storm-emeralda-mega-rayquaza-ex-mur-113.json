@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-mega-rayquaza-ex-mur-113",
   "history": [
     {
+      "date": "2026-11-09",
+      "low": 49999,
+      "high": 69999,
+      "avg": 59779,
+      "source": "snkrdunk",
+      "sample_count": 33,
+      "on_sale": 120,
+      "ask_low": 42999,
+      "ask_mid": 43000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 212308,
+      "psa10_as_of": "2026-11-08"
+    },
+    {
       "date": "2026-11-08",
       "low": 42000,
       "high": 71000,
@@ -1238,17 +1253,6 @@
       "ask_low": 145000,
       "ask_mid": 194000,
       "psa10": null
-    },
-    {
-      "date": "2026-08-07",
-      "low": 143869,
-      "high": 175839,
-      "avg": 159854,
-      "source": "snkrdunk",
-      "sample_count": 7,
-      "ask_low": 168000,
-      "ask_mid": 200000,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1351,7 +1355,8 @@
     "2026-11-05": 5,
     "2026-11-06": 6,
     "2026-11-07": 8,
-    "2026-11-08": 1
+    "2026-11-08": 8,
+    "2026-11-09": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 5,
@@ -1433,5 +1438,5 @@
     "2026-11-08": 1,
     "2026-11-07": 1
   },
-  "sales_fetched_at": "2026-11-08"
+  "sales_fetched_at": "2026-11-09"
 }

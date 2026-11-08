@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-saanaito-ex-ma",
   "history": [
     {
+      "date": "2026-11-09",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 155,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 4455,
+      "psa10_as_of": "2026-11-09"
+    },
+    {
       "date": "2026-11-08",
       "low": 1000,
       "high": 1000,
@@ -1290,19 +1305,6 @@
       "ask_low": 700,
       "ask_mid": 999,
       "psa10": 10907
-    },
-    {
-      "date": "2026-08-06",
-      "low": 500,
-      "high": 555,
-      "avg": 534,
-      "source": "mercari",
-      "sample_count": 40,
-      "sold_total": 3651,
-      "oldest_sale_days": 15,
-      "ask_low": 700,
-      "ask_mid": 999,
-      "psa10": 10909
     }
   ],
   "sales_by_day": {
@@ -1383,7 +1385,6 @@
     "2026-07-13": 1,
     "2026-07-12": 2,
     "2026-07-11": 1,
-    "2026-07-10": 14,
     "2026-09-02": 9,
     "2026-09-01": 12,
     "2026-08-31": 13,
@@ -1453,9 +1454,11 @@
     "2026-11-04": 26,
     "2026-11-05": 4,
     "2026-11-07": 2,
-    "2026-11-06": 1
+    "2026-11-06": 1,
+    "2026-11-09": 1,
+    "2026-11-08": 1
   },
-  "sales_fetched_at": "2026-11-08",
+  "sales_fetched_at": "2026-11-09",
   "psa10_archived_extremes": {
     "high": {
       "value": 13344,
@@ -1463,12 +1466,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 10913,
-      "date": "2026-08-05",
+      "value": 10909,
+      "date": "2026-08-06",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 14,
-    "updated_at": "2026-08-05"
+    "records": 15,
+    "updated_at": "2026-08-06"
   }
 }
