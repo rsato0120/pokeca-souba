@@ -1,6 +1,6 @@
 {
   "product_id": "op15-764639",
-  "fetched_at": "2026-11-10T08:52:01.737Z",
+  "fetched_at": "2026-11-10T21:02:33.315Z",
   "history": [
     {
       "date": "2026-11-10",
@@ -650,6 +650,15 @@
   "coverage_start": "2026-07-22",
   "complete": true,
   "psa10_history": [
+    {
+      "date": "2026-11-10",
+      "avg": 46557,
+      "low": 45000,
+      "high": 48000,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "psa10": 46557
+    },
     {
       "date": "2026-11-09",
       "avg": 46557,
@@ -1471,84 +1480,84 @@
     },
     {
       "date": "2026-07-28",
-      "avg": 94574,
+      "avg": 93781,
       "low": 88000,
-      "high": 104980,
+      "high": 102000,
       "source": "snkrdunk",
-      "sample_count": 29,
-      "psa10": 94574
+      "sample_count": 27,
+      "psa10": 93781
     },
     {
       "date": "2026-07-27",
-      "avg": 94773,
+      "avg": 93965,
       "low": 88000,
-      "high": 104980,
+      "high": 102000,
       "source": "snkrdunk",
-      "sample_count": 28,
-      "psa10": 94773
+      "sample_count": 26,
+      "psa10": 93965
     },
     {
       "date": "2026-07-24",
-      "avg": 95023,
-      "low": 88000,
-      "high": 104980,
+      "avg": 94203,
+      "low": 87500,
+      "high": 104000,
       "source": "snkrdunk",
-      "sample_count": 27,
-      "psa10": 95023
+      "sample_count": 25,
+      "psa10": 94203
     },
     {
       "date": "2026-07-23",
-      "avg": 96642,
-      "low": 91000,
-      "high": 105000,
+      "avg": 95779,
+      "low": 89999,
+      "high": 104980,
       "source": "snkrdunk",
-      "sample_count": 22,
-      "psa10": 96642
+      "sample_count": 20,
+      "psa10": 95779
     },
     {
       "date": "2026-07-20",
-      "avg": 98785,
+      "avg": 97974,
       "low": 93000,
-      "high": 105000,
+      "high": 104980,
       "source": "snkrdunk",
-      "sample_count": 18,
-      "psa10": 98785
+      "sample_count": 16,
+      "psa10": 97974
     },
     {
       "date": "2026-07-19",
-      "avg": 98831,
+      "avg": 97972,
       "low": 93000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 17,
-      "psa10": 98831
+      "sample_count": 15,
+      "psa10": 97972
     },
     {
       "date": "2026-07-18",
-      "avg": 98633,
+      "avg": 97684,
       "low": 93000,
       "high": 105000,
       "source": "snkrdunk",
-      "sample_count": 16,
-      "psa10": 98633
+      "sample_count": 14,
+      "psa10": 97684
     },
     {
       "date": "2026-07-17",
-      "avg": 101394,
+      "avg": 100531,
       "low": 95000,
-      "high": 105555,
+      "high": 106000,
       "source": "snkrdunk",
-      "sample_count": 11,
-      "psa10": 101394
+      "sample_count": 9,
+      "psa10": 100531
     },
     {
       "date": "2026-07-16",
-      "avg": 105556,
-      "low": 105000,
-      "high": 106000,
+      "avg": 105695,
+      "low": 104980,
+      "high": 106800,
       "source": "snkrdunk",
-      "sample_count": 6,
-      "psa10": 105556
+      "sample_count": 4,
+      "psa10": 105695
     },
     {
       "date": "2026-07-15",
@@ -1720,15 +1729,6 @@
       "source": "snkrdunk",
       "sample_count": 9,
       "psa10": 118867
-    },
-    {
-      "date": "2026-06-21",
-      "avg": 118975,
-      "low": 117999,
-      "high": 120000,
-      "source": "snkrdunk",
-      "sample_count": 8,
-      "psa10": 118975
     }
   ],
   "psa10_sales_by_day": {
@@ -1777,7 +1777,8 @@
     "2026-07-10": 3,
     "2026-07-11": 5,
     "2026-07-12": 2,
-    "2026-11-09": 1,
+    "2026-07-14": 2,
+    "2026-11-10": 1,
     "2026-11-08": 1,
     "2026-11-05": 1,
     "2026-11-03": 3,
@@ -1864,8 +1865,7 @@
     "2026-07-18": 5,
     "2026-07-17": 5,
     "2026-07-16": 2,
-    "2026-07-15": 2,
-    "2026-07-14": 2
+    "2026-07-15": 2
   },
   "psa10_archived_extremes": {
     "high": {
@@ -1879,9 +1879,9 @@
       "source": "snkrdunk"
     },
     "since": "2026-05-20",
-    "records": 26,
-    "updated_at": "2026-06-20"
+    "records": 27,
+    "updated_at": "2026-06-21"
   },
-  "psa10_fetched_at": "2026-11-10T09:06:28.741Z",
+  "psa10_fetched_at": "2026-11-10T21:20:20.304Z",
   "raw_archived_extremes": null
 }
