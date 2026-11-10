@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-zinnia-trust-sar-112",
   "history": [
     {
+      "date": "2026-11-10",
+      "low": 1499,
+      "high": 1999,
+      "avg": 1639,
+      "source": "snkrdunk",
+      "sample_count": 34,
+      "on_sale": 70,
+      "ask_low": 1250,
+      "ask_mid": 1450,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16100,
+      "psa10_as_of": "2026-11-09"
+    },
+    {
       "date": "2026-11-09",
       "low": 1499,
       "high": 1999,
@@ -1203,19 +1218,6 @@
       "ask_low": 3700,
       "ask_mid": 4100,
       "psa10": null
-    },
-    {
-      "date": "2026-08-08",
-      "low": 3499,
-      "high": 3600,
-      "avg": 3538,
-      "source": "mercari",
-      "sample_count": 21,
-      "sold_total": 300,
-      "oldest_sale_days": 4,
-      "ask_low": 3800,
-      "ask_mid": 4211,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1309,14 +1311,16 @@
     "2026-11-02": 1,
     "2026-11-05": 2,
     "2026-11-04": 2,
-    "2026-11-08": 2
+    "2026-11-08": 2,
+    "2026-11-09": 1
   },
-  "sales_fetched_at": "2026-11-09",
+  "sales_fetched_at": "2026-11-10",
   "psa10_sales_by_day": {
     "2026-10-30": 2,
     "2026-10-31": 2,
     "2026-11-06": 1,
     "2026-11-07": 1,
-    "2026-11-08": 1
+    "2026-11-08": 1,
+    "2026-11-09": 1
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "mega-brave-mega-lucario-ex-sr",
   "history": [
     {
+      "date": "2026-11-10",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 96,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5836,
+      "psa10_as_of": "2026-11-10"
+    },
+    {
       "date": "2026-11-09",
       "low": 1000,
       "high": 1000,
@@ -1296,17 +1311,6 @@
       "ask_low": 1111,
       "ask_mid": 1555,
       "psa10": 10733
-    },
-    {
-      "date": "2026-08-07",
-      "low": 2085,
-      "high": 2549,
-      "avg": 2317,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "ask_low": 1222,
-      "ask_mid": 1850,
-      "psa10": 10820
     }
   ],
   "sales_by_day": {
@@ -1399,9 +1403,11 @@
     "2026-11-05": 2,
     "2026-11-06": 1,
     "2026-11-07": 3,
-    "2026-11-08": 5
+    "2026-11-08": 5,
+    "2026-11-10": 4,
+    "2026-11-09": 2
   },
-  "sales_fetched_at": "2026-11-09",
+  "sales_fetched_at": "2026-11-10",
   "psa10_archived_extremes": {
     "high": {
       "value": 12908,
@@ -1414,7 +1420,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-27",
-    "records": 41,
-    "updated_at": "2026-08-06"
+    "records": 42,
+    "updated_at": "2026-08-07"
   }
 }

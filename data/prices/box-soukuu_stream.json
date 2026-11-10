@@ -2,6 +2,17 @@
   "card_id": "box-soukuu_stream",
   "history": [
     {
+      "date": "2026-11-10",
+      "low": 200199,
+      "high": 216000,
+      "avg": 208100,
+      "source": "mercari",
+      "sold_total": 98,
+      "oldest_sale_days": 26,
+      "on_sale": 22,
+      "psa10": null
+    },
+    {
       "date": "2026-11-09",
       "low": 200199,
       "high": 216000,
@@ -959,16 +970,6 @@
       "sold_total": 90,
       "oldest_sale_days": 90,
       "psa10": null
-    },
-    {
-      "date": "2026-08-09",
-      "low": 190111,
-      "high": 260000,
-      "avg": 225056,
-      "source": "mercari",
-      "sold_total": 91,
-      "oldest_sale_days": 89,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1027,7 +1028,8 @@
     "2026-11-04": 2,
     "2026-11-05": 9,
     "2026-11-06": 7,
-    "2026-11-08": 1
+    "2026-11-08": 1,
+    "2026-11-09": 1
   },
-  "sales_fetched_at": "2026-11-09"
+  "sales_fetched_at": "2026-11-10"
 }
