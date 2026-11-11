@@ -2,6 +2,16 @@
   "card_id": "pcg6-umbreon-delta-69-1ed",
   "history": [
     {
+      "date": "2026-11-11",
+      "low": 115000,
+      "high": 125000,
+      "avg": 120000,
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-08-28",
       "low": 34800,
       "high": 34800,
@@ -286,7 +296,8 @@
   ],
   "sales_by_day": {
     "2026-08-28": 1,
-    "2025-09-12": 1
+    "2025-09-12": 1,
+    "2026-11-11": 2
   },
   "psa10_sales_by_day": {
     "2026-10-14": 1,
