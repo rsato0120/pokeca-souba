@@ -2,6 +2,16 @@
   "card_id": "triplet-beat-080",
   "history": [
     {
+      "date": "2026-11-12",
+      "low": 13000,
+      "high": 13000,
+      "avg": 13000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-11",
       "low": 14999,
       "high": 14999,
@@ -890,16 +900,6 @@
       "sample_count": 5,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-24",
-      "low": 18500,
-      "high": 25999,
-      "avg": 22250,
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,40 +907,40 @@
       "date": "2026-11-12",
       "low": 0,
       "high": 0,
-      "psa10": 30999,
+      "psa10": 31072,
       "psa10_as_of": "2026-11-12",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 11,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-11",
       "low": 0,
       "high": 0,
-      "psa10": 31116,
+      "psa10": 30970,
       "psa10_as_of": "2026-11-11",
       "source": "snkrdunk",
-      "sample_count": 9,
+      "sample_count": 5,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-10",
       "low": 0,
       "high": 0,
-      "psa10": 29527,
+      "psa10": 30769,
       "psa10_as_of": "2026-11-10",
       "source": "snkrdunk",
-      "sample_count": 11,
+      "sample_count": 13,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-09",
       "low": 0,
       "high": 0,
-      "psa10": 30500,
+      "psa10": 27749,
       "psa10_as_of": "2026-11-09",
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 4,
       "price_basis": "transaction_day"
     },
     {
@@ -2485,7 +2485,8 @@
     "2026-11-06": 1,
     "2026-11-08": 1,
     "2026-11-09": 1,
-    "2026-11-11": 1
+    "2026-11-11": 1,
+    "2026-11-12": 1
   },
   "psa10_sales_by_day": {
     "2026-10-25": 2,
@@ -3311,7 +3312,7 @@
     "2026-11-09": 12,
     "2026-11-10": 15,
     "2026-11-11": 9,
-    "2026-11-12": 3
+    "2026-11-12": 11
   },
   "sales_fetched_at": "2026-11-12"
 }
