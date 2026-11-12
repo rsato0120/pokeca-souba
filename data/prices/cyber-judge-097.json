@@ -2,6 +2,16 @@
   "card_id": "cyber-judge-097",
   "history": [
     {
+      "date": "2026-11-12",
+      "low": 3000,
+      "high": 3000,
+      "avg": 3000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-04",
       "low": 5800,
       "high": 5800,
@@ -890,27 +900,27 @@
       "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-01-08",
-      "low": 8950,
-      "high": 8950,
-      "avg": 8950,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
     {
+      "date": "2026-11-13",
+      "low": 0,
+      "high": 0,
+      "psa10": 29950,
+      "psa10_as_of": "2026-11-13",
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-12",
       "low": 0,
       "high": 0,
-      "psa10": 27999,
+      "psa10": 28707,
       "psa10_as_of": "2026-11-12",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 8,
       "price_basis": "transaction_day"
     },
     {
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 2,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-03-26",
-      "low": 0,
-      "high": 0,
-      "psa10": 39000,
-      "psa10_as_of": "2026-03-26",
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1973,7 +1973,8 @@
     "2024-01-26": 21,
     "2026-10-22": 1,
     "2026-11-03": 1,
-    "2026-11-04": 1
+    "2026-11-04": 1,
+    "2026-11-12": 1
   },
   "psa10_sales_by_day": {
     "2026-10-22": 2,
@@ -2302,7 +2303,8 @@
     "2026-11-08": 1,
     "2026-11-09": 1,
     "2026-11-11": 4,
-    "2026-11-12": 1
+    "2026-11-12": 8,
+    "2026-11-13": 4
   },
-  "sales_fetched_at": "2026-11-12"
+  "sales_fetched_at": "2026-11-13"
 }

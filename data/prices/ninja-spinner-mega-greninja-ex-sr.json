@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-mega-greninja-ex-sr",
   "history": [
     {
+      "date": "2026-11-13",
+      "low": 1000,
+      "high": 1200,
+      "avg": 1067,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 71,
+      "ask_low": 1000,
+      "ask_mid": 1250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 4836,
+      "psa10_as_of": "2026-11-13"
+    },
+    {
       "date": "2026-11-12",
       "low": 1000,
       "high": 1200,
@@ -1256,17 +1271,6 @@
       "ask_low": 1555,
       "ask_mid": 2322,
       "psa10": 16447
-    },
-    {
-      "date": "2026-08-04",
-      "low": 1860,
-      "high": 2274,
-      "avg": 2067,
-      "source": "snkrdunk",
-      "sample_count": 11,
-      "ask_low": 1750,
-      "ask_mid": 2400,
-      "psa10": 16447
     }
   ],
   "sales_by_day": {
@@ -1373,9 +1377,10 @@
     "2026-11-07": 3,
     "2026-11-09": 1,
     "2026-11-10": 1,
-    "2026-11-12": 2
+    "2026-11-12": 2,
+    "2026-11-13": 2
   },
-  "sales_fetched_at": "2026-11-12",
+  "sales_fetched_at": "2026-11-13",
   "psa10_archived_extremes": {
     "high": {
       "value": 23662,
@@ -1388,7 +1393,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 42,
-    "updated_at": "2026-08-03"
+    "records": 43,
+    "updated_at": "2026-08-04"
   }
 }

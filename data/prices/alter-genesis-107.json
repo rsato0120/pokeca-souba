@@ -2,6 +2,16 @@
   "card_id": "alter-genesis-107",
   "history": [
     {
+      "date": "2026-11-12",
+      "low": 27000,
+      "high": 27000,
+      "avg": 27000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-11",
       "low": 27000,
       "high": 27000,
@@ -890,27 +900,27 @@
       "sample_count": 5,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-05-13",
-      "low": 39800,
-      "high": 92500,
-      "avg": 73767,
-      "source": "snkrdunk",
-      "sample_count": 3,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
     {
+      "date": "2026-11-12",
+      "low": 0,
+      "high": 0,
+      "psa10": 47980,
+      "psa10_as_of": "2026-11-12",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-11",
       "low": 0,
       "high": 0,
-      "psa10": 47201,
+      "psa10": 47007,
       "psa10_as_of": "2026-11-11",
       "source": "snkrdunk",
-      "sample_count": 5,
+      "sample_count": 4,
       "price_basis": "transaction_day"
     },
     {
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 4,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-05",
-      "low": 0,
-      "high": 0,
-      "psa10": 30500,
-      "psa10_as_of": "2026-05-05",
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1922,7 +1922,8 @@
     "2023-01-13": 2,
     "2022-11-28": 1,
     "2022-10-17": 1,
-    "2022-10-13": 2
+    "2022-10-13": 2,
+    "2026-11-12": 1
   },
   "psa10_sales_by_day": {
     "2026-11-11": 5,
@@ -2428,7 +2429,8 @@
     "2023-07-01": 2,
     "2023-06-28": 3,
     "2023-06-26": 2,
-    "2023-06-21": 2
+    "2023-06-21": 2,
+    "2026-11-12": 1
   },
-  "sales_fetched_at": "2026-11-12"
+  "sales_fetched_at": "2026-11-13"
 }

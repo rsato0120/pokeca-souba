@@ -2,6 +2,16 @@
   "card_id": "cyber-judge-096",
   "history": [
     {
+      "date": "2026-11-12",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-11",
       "low": 1000,
       "high": 1000,
@@ -255,11 +265,12 @@
     "2024-01-28": 1,
     "2024-01-27": 3,
     "2024-01-26": 1,
-    "2026-11-11": 1
+    "2026-11-11": 1,
+    "2026-11-12": 1
   },
   "psa10_sales_by_day": {
     "2026-09-11": 1,
     "2025-05-24": 1
   },
-  "sales_fetched_at": "2026-11-12"
+  "sales_fetched_at": "2026-11-13"
 }

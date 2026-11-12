@@ -2,6 +2,21 @@
   "card_id": "mega-brave-mega-venusaur-ex-sar",
   "history": [
     {
+      "date": "2026-11-13",
+      "low": 2700,
+      "high": 3500,
+      "avg": 3205,
+      "source": "snkrdunk",
+      "sample_count": 32,
+      "on_sale": 114,
+      "ask_low": 3299,
+      "ask_mid": 4400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10786,
+      "psa10_as_of": "2026-11-12"
+    },
+    {
       "date": "2026-11-12",
       "low": 2700,
       "high": 3500,
@@ -1254,17 +1269,6 @@
       "ask_low": 5500,
       "ask_mid": 7200,
       "psa10": 27002
-    },
-    {
-      "date": "2026-08-11",
-      "low": 5127,
-      "high": 6267,
-      "avg": 5697,
-      "source": "snkrdunk",
-      "sample_count": 17,
-      "ask_low": 5500,
-      "ask_mid": 7350,
-      "psa10": 27071
     }
   ],
   "sales_by_day": {
@@ -1396,7 +1400,6 @@
     "2026-07-18": 4,
     "2026-07-16": 1,
     "2026-07-15": 6,
-    "2026-07-14": 1,
     "2026-09-03": 21,
     "2026-09-02": 15,
     "2026-09-01": 6,
@@ -1468,9 +1471,10 @@
     "2026-11-07": 2,
     "2026-11-10": 6,
     "2026-11-09": 2,
-    "2026-11-11": 8
+    "2026-11-11": 8,
+    "2026-11-12": 2
   },
-  "sales_fetched_at": "2026-11-12",
+  "sales_fetched_at": "2026-11-13",
   "psa10_archived_extremes": {
     "high": {
       "value": 27133,
@@ -1483,7 +1487,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-24",
-    "records": 47,
-    "updated_at": "2026-08-10"
+    "records": 48,
+    "updated_at": "2026-08-11"
   }
 }

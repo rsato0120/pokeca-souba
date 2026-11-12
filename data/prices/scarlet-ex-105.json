@@ -2,6 +2,16 @@
   "card_id": "scarlet-ex-105",
   "history": [
     {
+      "date": "2026-11-12",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-11",
       "low": 1000,
       "high": 1000,
@@ -890,27 +900,27 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-05-25",
-      "low": 12100,
-      "high": 13000,
-      "avg": 12550,
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
     {
+      "date": "2026-11-12",
+      "low": 0,
+      "high": 0,
+      "psa10": 7300,
+      "psa10_as_of": "2026-11-12",
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-11",
       "low": 0,
       "high": 0,
-      "psa10": 6400,
+      "psa10": 6000,
       "psa10_as_of": "2026-11-11",
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 2,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2024-07-21",
-      "low": 0,
-      "high": 0,
-      "psa10": 6200,
-      "psa10_as_of": "2024-07-21",
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1968,7 +1968,8 @@
     "2023-01-24": 2,
     "2023-01-23": 5,
     "2023-01-22": 1,
-    "2026-11-11": 1
+    "2026-11-11": 1,
+    "2026-11-12": 1
   },
   "psa10_sales_by_day": {
     "2026-10-15": 1,
@@ -2132,7 +2133,8 @@
     "2023-07-07": 1,
     "2023-07-02": 1,
     "2023-07-01": 1,
-    "2026-11-11": 2
+    "2026-11-11": 2,
+    "2026-11-12": 2
   },
-  "sales_fetched_at": "2026-11-12"
+  "sales_fetched_at": "2026-11-13"
 }

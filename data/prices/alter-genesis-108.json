@@ -2,12 +2,22 @@
   "card_id": "alter-genesis-108",
   "history": [
     {
+      "date": "2026-11-11",
+      "low": 8980,
+      "high": 8980,
+      "avg": 8980,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-10",
       "low": 5499,
-      "high": 8980,
-      "avg": 7240,
+      "high": 5499,
+      "avg": 5499,
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     },
@@ -1366,7 +1376,8 @@
     "2023-03-13": 1,
     "2023-02-10": 1,
     "2023-02-03": 1,
-    "2023-01-21": 1
+    "2023-01-21": 1,
+    "2026-11-11": 1
   },
   "psa10_sales_by_day": {
     "2026-11-05": 4,
@@ -1485,5 +1496,5 @@
     "2023-07-31": 1,
     "2023-07-10": 1
   },
-  "sales_fetched_at": "2026-11-12"
+  "sales_fetched_at": "2026-11-13"
 }
