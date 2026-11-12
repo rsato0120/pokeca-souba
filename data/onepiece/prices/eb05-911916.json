@@ -1,30 +1,38 @@
 {
   "product_id": "eb05-911916",
-  "fetched_at": "2026-11-11T21:38:44.071Z",
+  "fetched_at": "2026-11-12T08:55:57.855Z",
   "history": [
     {
-      "date": "2026-11-11",
-      "avg": 1337,
+      "date": "2026-11-12",
+      "avg": 1321,
       "low": 1100,
-      "high": 1337,
+      "high": 1321,
       "source": "snkrdunk",
-      "sample_count": 34
+      "sample_count": 37
+    },
+    {
+      "date": "2026-11-11",
+      "avg": 1338,
+      "low": 1100,
+      "high": 1338,
+      "source": "snkrdunk",
+      "sample_count": 33
     },
     {
       "date": "2026-11-10",
-      "avg": 1355,
+      "avg": 1352,
       "low": 1100,
-      "high": 1355,
+      "high": 1352,
       "source": "snkrdunk",
       "sample_count": 30
     },
     {
       "date": "2026-11-09",
-      "avg": 1355,
+      "avg": 1357,
       "low": 1100,
-      "high": 1355,
+      "high": 1357,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 29
     },
     {
       "date": "2026-11-08",
@@ -36,19 +44,19 @@
     },
     {
       "date": "2026-11-07",
-      "avg": 1361,
+      "avg": 1363,
       "low": 1100,
-      "high": 1361,
+      "high": 1363,
       "source": "snkrdunk",
-      "sample_count": 29
+      "sample_count": 28
     },
     {
       "date": "2026-11-06",
-      "avg": 1383,
+      "avg": 1386,
       "low": 1100,
-      "high": 1383,
+      "high": 1680,
       "source": "snkrdunk",
-      "sample_count": 26
+      "sample_count": 25
     },
     {
       "date": "2026-11-05",
@@ -101,10 +109,12 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-11": 4,
+    "2026-11-12": 4,
+    "2026-11-11": 3,
     "2026-11-10": 1,
+    "2026-11-09": 1,
     "2026-11-07": 3,
-    "2026-11-06": 4,
+    "2026-11-06": 3,
     "2026-11-05": 7,
     "2026-11-02": 2,
     "2026-11-01": 4,
@@ -115,5 +125,5 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-11T21:50:04.100Z"
+  "psa10_fetched_at": "2026-11-12T09:13:36.518Z"
 }
