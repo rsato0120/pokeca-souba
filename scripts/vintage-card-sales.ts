@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import datedCards from '../data/dated-card-sales.json'
 import type { Browser } from 'playwright'
 import type { PriceHistory, PriceRecord } from '../src/types/pokeca'
 import { getSnkrdunkSales, type SnkrdunkSales } from './snkrdunk-sales'
@@ -10,7 +11,7 @@ type Sale = { date: string; price: number }
 // dates and independent PSA10 history rather than discarding both as stale raw.
 const DATED_SV_PREFIXES = ['stellar-miracle', 'mask-of-change', 'wild-force', 'cyber-judge', 'ancient-roar', 'future-flash', 'raging-surf', 'snow-hazard', 'triplet-beat', 'scarlet-ex', 'violet-ex']
 export function usesDatedCardSales(id: string): boolean {
-  return /^(pcg[6-9]-|pmcg1-|30th-card-set-|time-gazer-)/.test(id)
+  return datedCards.includes(id) || /^(pcg[6-9]-|pmcg1-|30th-card-set-|time-gazer-)/.test(id)
     || DATED_SV_PREFIXES.some(prefix => id.startsWith(`${prefix}-`))
 }
 

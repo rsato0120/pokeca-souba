@@ -78,3 +78,13 @@ test('missing, non-positive and future trades cannot replace valid history', () 
   assert.deepEqual(next, previous)
   assert.throws(() => mergeVintageSales(previous, { ...sales, regularComplete: false }, '2026-10-16'), /未完了/)
 })
+
+test('registered thin-market cards use dated trades without changing other cards', () => {
+  for (const id of ['bw-black-reshiram-sr-55', 'electric-breaker-119', 'alter-genesis-117', 'gx-battle-boost-tapu-fini-gx-rr-27']) {
+    assert.ok(usesDatedCardSales(id), id)
+    const data = mergeVintageSales({ card_id: id, history: [] }, sales, '2026-11-12')
+    assert.equal(data.history[0].date, '2025-12-01')
+    assert.equal(data.psa10_history?.[0].date, '2026-10-15')
+  }
+  assert.equal(usesDatedCardSales('electric-breaker-120'), false)
+})
