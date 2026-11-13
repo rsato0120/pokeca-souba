@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-pikachu-ar-173",
   "history": [
     {
+      "date": "2026-11-14",
+      "low": 2500,
+      "high": 4500,
+      "avg": 3392,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 349,
+      "ask_low": 2999,
+      "ask_mid": 3500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16010,
+      "psa10_as_of": "2026-11-14"
+    },
+    {
       "date": "2026-11-13",
       "low": 2500,
       "high": 4500,
@@ -1259,17 +1274,6 @@
       "ask_low": 3800,
       "ask_mid": 4495,
       "psa10": 20290
-    },
-    {
-      "date": "2026-08-13",
-      "low": 4590,
-      "high": 5610,
-      "avg": 5100,
-      "source": "snkrdunk",
-      "sample_count": 30,
-      "ask_low": 3699,
-      "ask_mid": 4444,
-      "psa10": 20577
     }
   ],
   "sales_by_day": {
@@ -1406,7 +1410,6 @@
     "2026-07-18": 3,
     "2026-07-17": 4,
     "2026-07-16": 1,
-    "2026-07-15": 12,
     "2026-09-03": 34,
     "2026-09-02": 19,
     "2026-09-01": 14,
@@ -1482,9 +1485,10 @@
     "2026-11-10": 6,
     "2026-11-11": 6,
     "2026-11-12": 14,
-    "2026-11-13": 10
+    "2026-11-13": 17,
+    "2026-11-14": 8
   },
-  "sales_fetched_at": "2026-11-13",
+  "sales_fetched_at": "2026-11-14",
   "psa10_archived_extremes": {
     "high": {
       "value": 27825,
@@ -1492,12 +1496,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 20629,
-      "date": "2026-08-12",
+      "value": 20577,
+      "date": "2026-08-13",
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 45,
-    "updated_at": "2026-08-12"
+    "records": 46,
+    "updated_at": "2026-08-13"
   }
 }

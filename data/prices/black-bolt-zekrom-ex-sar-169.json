@@ -2,6 +2,21 @@
   "card_id": "black-bolt-zekrom-ex-sar-169",
   "history": [
     {
+      "date": "2026-11-14",
+      "low": 17888,
+      "high": 22222,
+      "avg": 20788,
+      "source": "snkrdunk",
+      "sample_count": 16,
+      "on_sale": 60,
+      "ask_low": 17000,
+      "ask_mid": 21000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 44635,
+      "psa10_as_of": "2026-11-14"
+    },
+    {
       "date": "2026-11-13",
       "low": 17888,
       "high": 22222,
@@ -1258,17 +1273,6 @@
       "ask_low": 21000,
       "ask_mid": 25999,
       "psa10": 48178
-    },
-    {
-      "date": "2026-08-12",
-      "low": 23213,
-      "high": 28371,
-      "avg": 25792,
-      "source": "snkrdunk",
-      "sample_count": 12,
-      "ask_low": 21000,
-      "ask_mid": 25999,
-      "psa10": 48178
     }
   ],
   "sales_by_day": {
@@ -1360,7 +1364,6 @@
     "2026-07-18": 3,
     "2026-07-17": 3,
     "2026-07-16": 7,
-    "2026-07-15": 3,
     "2026-09-03": 3,
     "2026-09-02": 2,
     "2026-09-01": 1,
@@ -1433,9 +1436,10 @@
     "2026-11-10": 22,
     "2026-11-11": 6,
     "2026-11-12": 5,
-    "2026-11-13": 1
+    "2026-11-13": 3,
+    "2026-11-14": 1
   },
-  "sales_fetched_at": "2026-11-13",
+  "sales_fetched_at": "2026-11-14",
   "psa10_archived_extremes": {
     "high": {
       "value": 49612,
@@ -1448,7 +1452,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-21",
-    "records": 22,
-    "updated_at": "2026-08-11"
+    "records": 23,
+    "updated_at": "2026-08-12"
   }
 }

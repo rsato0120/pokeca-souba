@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-darkrai-ex-mur",
   "history": [
     {
+      "date": "2026-11-14",
+      "low": 24000,
+      "high": 34980,
+      "avg": 30332,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 166,
+      "ask_low": 19999,
+      "ask_mid": 24000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 61304,
+      "psa10_as_of": "2026-11-13"
+    },
+    {
       "date": "2026-11-13",
       "low": 24000,
       "high": 34980,
@@ -1258,17 +1273,6 @@
       "ask_low": 46000,
       "ask_mid": 60000,
       "psa10": 156065
-    },
-    {
-      "date": "2026-08-12",
-      "low": 49352,
-      "high": 60320,
-      "avg": 54836,
-      "source": "snkrdunk",
-      "sample_count": 37,
-      "ask_low": 48000,
-      "ask_mid": 60000,
-      "psa10": 156065
     }
   ],
   "sales_by_day": {
@@ -1412,7 +1416,6 @@
     "2026-07-19": 1,
     "2026-07-18": 1,
     "2026-07-16": 2,
-    "2026-07-15": 2,
     "2026-09-03": 2,
     "2026-09-02": 4,
     "2026-09-01": 3,
@@ -1487,9 +1490,9 @@
     "2026-11-09": 4,
     "2026-11-10": 3,
     "2026-11-11": 3,
-    "2026-11-13": 2
+    "2026-11-13": 3
   },
-  "sales_fetched_at": "2026-11-13",
+  "sales_fetched_at": "2026-11-14",
   "psa10_archived_extremes": {
     "high": {
       "value": 356347,
@@ -1502,7 +1505,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 49,
-    "updated_at": "2026-08-11"
+    "records": 50,
+    "updated_at": "2026-08-12"
   }
 }
