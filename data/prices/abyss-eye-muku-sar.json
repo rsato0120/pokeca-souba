@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-muku-sar",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 2850,
+      "high": 3400,
+      "avg": 3164,
+      "source": "snkrdunk",
+      "sample_count": 24,
+      "on_sale": 108,
+      "ask_low": 2930,
+      "ask_mid": 3090,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 14402,
+      "psa10_as_of": "2026-11-10"
+    },
+    {
       "date": "2026-11-14",
       "low": 2850,
       "high": 3400,
@@ -1263,17 +1278,6 @@
       "ask_low": 3750,
       "ask_mid": 4000,
       "psa10": 26008
-    },
-    {
-      "date": "2026-08-14",
-      "low": 3614,
-      "high": 4417,
-      "avg": 4015,
-      "source": "snkrdunk",
-      "sample_count": 33,
-      "ask_low": 3700,
-      "ask_mid": 4045,
-      "psa10": 25798
     }
   ],
   "sales_by_day": {
@@ -1455,7 +1459,7 @@
     "2026-11-10": 2,
     "2026-11-11": 1
   },
-  "sales_fetched_at": "2026-11-14",
+  "sales_fetched_at": "2026-11-15",
   "psa10_archived_extremes": {
     "high": {
       "value": 29999,
@@ -1463,12 +1467,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 26363,
-      "date": "2026-08-10",
+      "value": 25798,
+      "date": "2026-08-14",
       "source": "snkrdunk"
     },
     "since": "2026-07-27",
-    "records": 18,
-    "updated_at": "2026-08-13"
+    "records": 19,
+    "updated_at": "2026-08-14"
   }
 }

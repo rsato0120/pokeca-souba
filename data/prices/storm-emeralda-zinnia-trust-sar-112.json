@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-zinnia-trust-sar-112",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 1200,
+      "high": 1850,
+      "avg": 1540,
+      "source": "snkrdunk",
+      "sample_count": 35,
+      "on_sale": 65,
+      "ask_low": 1050,
+      "ask_mid": 1375,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16180,
+      "psa10_as_of": "2026-11-14"
+    },
+    {
       "date": "2026-11-14",
       "low": 1200,
       "high": 1850,
@@ -1223,17 +1238,6 @@
       "ask_low": 3333,
       "ask_mid": 3799,
       "psa10": null
-    },
-    {
-      "date": "2026-08-13",
-      "low": 2795,
-      "high": 3416,
-      "avg": 3105,
-      "source": "snkrdunk",
-      "sample_count": 18,
-      "ask_low": 3400,
-      "ask_mid": 3800,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1331,9 +1335,9 @@
     "2026-11-09": 1,
     "2026-11-12": 1,
     "2026-11-13": 1,
-    "2026-11-14": 2
+    "2026-11-14": 6
   },
-  "sales_fetched_at": "2026-11-14",
+  "sales_fetched_at": "2026-11-15",
   "psa10_sales_by_day": {
     "2026-10-30": 2,
     "2026-10-31": 2,

@@ -2,6 +2,21 @@
   "card_id": "clay-burst-raichu-ar-74",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 1500,
+      "high": 1800,
+      "avg": 1725,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 104,
+      "ask_low": 1777,
+      "ask_mid": 1888,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7570,
+      "psa10_as_of": "2026-11-14"
+    },
+    {
       "date": "2026-11-14",
       "low": 1800,
       "high": 2300,
@@ -1262,17 +1277,6 @@
       "ask_low": 1699,
       "ask_mid": 2300,
       "psa10": 13310
-    },
-    {
-      "date": "2026-08-13",
-      "low": 1737,
-      "high": 2123,
-      "avg": 1930,
-      "source": "snkrdunk",
-      "sample_count": 10,
-      "ask_low": 1799,
-      "ask_mid": 2372,
-      "psa10": 13310
     }
   ],
   "sales_by_day": {
@@ -1418,9 +1422,10 @@
     "2026-11-10": 4,
     "2026-11-11": 1,
     "2026-11-12": 3,
-    "2026-11-13": 3
+    "2026-11-13": 3,
+    "2026-11-14": 1
   },
-  "sales_fetched_at": "2026-11-14",
+  "sales_fetched_at": "2026-11-15",
   "psa10_archived_extremes": {
     "high": {
       "value": 13742,
@@ -1433,7 +1438,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-08",
-    "records": 5,
-    "updated_at": "2026-08-12"
+    "records": 6,
+    "updated_at": "2026-08-13"
   }
 }

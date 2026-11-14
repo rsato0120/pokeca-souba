@@ -2,6 +2,16 @@
   "card_id": "stellar-miracle-131",
   "history": [
     {
+      "date": "2026-11-14",
+      "low": 4500,
+      "high": 4500,
+      "avg": 4500,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-13",
       "low": 3200,
       "high": 3200,
@@ -890,19 +900,19 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-06-04",
-      "low": 8100,
-      "high": 8100,
-      "avg": 8100,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
+    {
+      "date": "2026-11-14",
+      "low": 0,
+      "high": 0,
+      "psa10": 29450,
+      "psa10_as_of": "2026-11-14",
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "price_basis": "transaction_day"
+    },
     {
       "date": "2026-11-13",
       "low": 0,
@@ -917,10 +927,10 @@
       "date": "2026-11-12",
       "low": 0,
       "high": 0,
-      "psa10": 30929,
+      "psa10": 30950,
       "psa10_as_of": "2026-11-12",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 1,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-30",
-      "low": 0,
-      "high": 0,
-      "psa10": 25000,
-      "psa10_as_of": "2026-05-30",
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1965,7 +1965,8 @@
     "2026-11-08": 1,
     "2026-11-11": 1,
     "2026-11-12": 2,
-    "2026-11-13": 1
+    "2026-11-13": 1,
+    "2026-11-14": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 1,
@@ -2356,7 +2357,8 @@
     "2026-11-10": 1,
     "2026-11-11": 2,
     "2026-11-12": 3,
-    "2026-11-13": 1
+    "2026-11-13": 1,
+    "2026-11-14": 2
   },
-  "sales_fetched_at": "2026-11-14"
+  "sales_fetched_at": "2026-11-15"
 }
