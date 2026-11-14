@@ -1,7 +1,15 @@
 {
   "product_id": "op07-178125",
-  "fetched_at": "2026-11-14T08:05:03.454Z",
+  "fetched_at": "2026-11-14T19:33:38.484Z",
   "history": [
+    {
+      "date": "2026-11-14",
+      "avg": 14935,
+      "low": 14800,
+      "high": 15390,
+      "source": "snkrdunk",
+      "sample_count": 7
+    },
     {
       "date": "2026-11-13",
       "avg": 14935,
@@ -188,14 +196,6 @@
     },
     {
       "date": "2026-08-26",
-      "avg": 19086,
-      "low": 18000,
-      "high": 20000,
-      "source": "snkrdunk",
-      "sample_count": 30
-    },
-    {
-      "date": "2026-08-24",
       "avg": 19089,
       "low": 18000,
       "high": 20000,
@@ -203,7 +203,7 @@
       "sample_count": 29
     },
     {
-      "date": "2026-08-21",
+      "date": "2026-08-24",
       "avg": 19093,
       "low": 18000,
       "high": 20000,
@@ -211,92 +211,100 @@
       "sample_count": 28
     },
     {
-      "date": "2026-08-18",
-      "avg": 19078,
+      "date": "2026-08-21",
+      "avg": 19096,
       "low": 18000,
       "high": 20000,
       "source": "snkrdunk",
       "sample_count": 27
     },
     {
-      "date": "2026-08-16",
-      "avg": 18971,
+      "date": "2026-08-18",
+      "avg": 19081,
       "low": 18000,
       "high": 20000,
       "source": "snkrdunk",
-      "sample_count": 23
+      "sample_count": 26
     },
     {
-      "date": "2026-08-14",
-      "avg": 18947,
+      "date": "2026-08-16",
+      "avg": 18970,
       "low": 18000,
       "high": 20000,
       "source": "snkrdunk",
       "sample_count": 22
     },
     {
-      "date": "2026-08-13",
-      "avg": 18897,
+      "date": "2026-08-14",
+      "avg": 18945,
       "low": 18000,
-      "high": 19999,
+      "high": 20000,
       "source": "snkrdunk",
       "sample_count": 21
     },
     {
-      "date": "2026-08-12",
-      "avg": 18713,
+      "date": "2026-08-13",
+      "avg": 18892,
       "low": 18000,
-      "high": 19000,
+      "high": 20000,
       "source": "snkrdunk",
-      "sample_count": 18
+      "sample_count": 20
     },
     {
-      "date": "2026-08-10",
-      "avg": 18638,
+      "date": "2026-08-12",
+      "avg": 18696,
       "low": 18000,
       "high": 19000,
       "source": "snkrdunk",
       "sample_count": 17
     },
     {
-      "date": "2026-08-09",
-      "avg": 18553,
+      "date": "2026-08-10",
+      "avg": 18615,
       "low": 18000,
       "high": 18999,
       "source": "snkrdunk",
       "sample_count": 16
     },
     {
-      "date": "2026-08-08",
-      "avg": 18527,
+      "date": "2026-08-09",
+      "avg": 18523,
       "low": 18000,
-      "high": 19000,
+      "high": 18999,
       "source": "snkrdunk",
       "sample_count": 15
     },
     {
-      "date": "2026-08-07",
-      "avg": 18500,
+      "date": "2026-08-08",
+      "avg": 18493,
       "low": 18000,
-      "high": 19000,
+      "high": 18999,
       "source": "snkrdunk",
       "sample_count": 14
     },
     {
-      "date": "2026-08-05",
-      "avg": 18385,
+      "date": "2026-08-07",
+      "avg": 18461,
       "low": 18000,
       "high": 18999,
       "source": "snkrdunk",
       "sample_count": 13
     },
     {
-      "date": "2026-08-04",
-      "avg": 18213,
-      "low": 17800,
+      "date": "2026-08-05",
+      "avg": 18333,
+      "low": 18000,
       "high": 18800,
       "source": "snkrdunk",
-      "sample_count": 8
+      "sample_count": 12
+    },
+    {
+      "date": "2026-08-04",
+      "avg": 18100,
+      "low": 17800,
+      "high": 18400,
+      "source": "snkrdunk",
+      "sample_count": 7
     },
     {
       "date": "2026-07-31",
@@ -524,7 +532,8 @@
     "2026-07-14": 4,
     "2026-07-15": 1,
     "2026-07-17": 3,
-    "2026-11-13": 1,
+    "2026-07-18": 1,
+    "2026-11-14": 1,
     "2026-11-08": 1,
     "2026-11-02": 1,
     "2026-10-27": 1,
@@ -554,9 +563,8 @@
     "2026-08-05": 5,
     "2026-08-04": 5,
     "2026-07-31": 1,
-    "2026-07-28": 1,
-    "2026-07-18": 1
+    "2026-07-28": 1
   },
-  "coverage_start": "2026-07-18",
+  "coverage_start": "2026-07-28",
   "complete": true
 }
