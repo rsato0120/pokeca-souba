@@ -2,6 +2,16 @@
   "card_id": "alter-genesis-107",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 9999,
+      "high": 9999,
+      "avg": 9999,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-12",
       "low": 27000,
       "high": 27000,
@@ -890,27 +900,27 @@
       "sample_count": 3,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-05-14",
-      "low": 39000,
-      "high": 82800,
-      "avg": 57060,
-      "source": "snkrdunk",
-      "sample_count": 5,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
     {
+      "date": "2026-11-15",
+      "low": 0,
+      "high": 0,
+      "psa10": 47400,
+      "psa10_as_of": "2026-11-15",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-14",
       "low": 0,
       "high": 0,
-      "psa10": 47832,
+      "psa10": 47998,
       "psa10_as_of": "2026-11-14",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 1,
       "price_basis": "transaction_day"
     },
     {
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 8,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-05-10",
-      "low": 0,
-      "high": 0,
-      "psa10": 32500,
-      "psa10_as_of": "2026-05-10",
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1923,7 +1923,8 @@
     "2022-11-28": 1,
     "2022-10-17": 1,
     "2022-10-13": 2,
-    "2026-11-12": 1
+    "2026-11-12": 1,
+    "2026-11-15": 1
   },
   "psa10_sales_by_day": {
     "2026-11-11": 5,
@@ -2432,7 +2433,8 @@
     "2023-06-21": 2,
     "2026-11-12": 1,
     "2026-11-13": 2,
-    "2026-11-14": 3
+    "2026-11-14": 3,
+    "2026-11-15": 1
   },
   "sales_fetched_at": "2026-11-15"
 }
