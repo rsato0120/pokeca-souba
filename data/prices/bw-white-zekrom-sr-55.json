@@ -2,6 +2,16 @@
   "card_id": "bw-white-zekrom-sr-55",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 9500,
+      "high": 9500,
+      "avg": 9500,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-08-04",
       "low": 10800,
       "high": 10800,
@@ -401,7 +411,8 @@
     "2025-09-08": 1,
     "2024-02-03": 1,
     "2023-05-09": 1,
-    "2023-04-08": 1
+    "2023-04-08": 1,
+    "2026-11-16": 1
   },
   "psa10_sales_by_day": {
     "2026-10-26": 1,
@@ -437,5 +448,5 @@
     "2024-08-17": 1,
     "2023-07-31": 1
   },
-  "sales_fetched_at": "2026-11-15"
+  "sales_fetched_at": "2026-11-16"
 }

@@ -2,6 +2,16 @@
   "card_id": "paradigm-trigger-worker-sr-111",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-14",
       "low": 1000,
       "high": 1000,
@@ -890,16 +900,6 @@
       "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2022-10-23",
-      "low": 5500,
-      "high": 5500,
-      "avg": 5500,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -1646,7 +1646,8 @@
     "2022-10-23": 1,
     "2022-10-22": 3,
     "2022-10-21": 6,
-    "2026-11-14": 1
+    "2026-11-14": 1,
+    "2026-11-15": 1
   },
   "psa10_sales_by_day": {
     "2026-11-11": 1,
@@ -1715,5 +1716,5 @@
     "2023-06-29": 1,
     "2023-06-27": 2
   },
-  "sales_fetched_at": "2026-11-15"
+  "sales_fetched_at": "2026-11-16"
 }

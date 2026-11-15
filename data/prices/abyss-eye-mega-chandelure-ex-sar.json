@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-mega-chandelure-ex-sar",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 1500,
+      "high": 2000,
+      "avg": 1771,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 35,
+      "ask_low": 1500,
+      "ask_mid": 1650,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8910,
+      "psa10_as_of": "2026-11-13"
+    },
+    {
       "date": "2026-11-15",
       "low": 1500,
       "high": 2000,
@@ -1266,17 +1281,6 @@
       "ask_low": 1750,
       "ask_mid": 2300,
       "psa10": 13500
-    },
-    {
-      "date": "2026-08-14",
-      "low": 1894,
-      "high": 2314,
-      "avg": 2104,
-      "source": "snkrdunk",
-      "sample_count": 30,
-      "ask_low": 1780,
-      "ask_mid": 2300,
-      "psa10": 13500
     }
   ],
   "sales_by_day": {
@@ -1297,7 +1301,6 @@
     "2026-08-19": 1,
     "2026-07-26": 1,
     "2026-07-22": 2,
-    "2026-07-17": 2,
     "2026-08-27": 1,
     "2026-08-29": 1,
     "2026-07-18": 1,
@@ -1369,5 +1372,20 @@
     "2026-11-12": 1,
     "2026-11-13": 1
   },
-  "sales_fetched_at": "2026-11-15"
+  "sales_fetched_at": "2026-11-16",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 13500,
+      "date": "2026-08-14",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 13500,
+      "date": "2026-08-14",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-14",
+    "records": 1,
+    "updated_at": "2026-08-14"
+  }
 }

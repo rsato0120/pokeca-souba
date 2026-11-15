@@ -2,6 +2,21 @@
   "card_id": "inferno-x-hikari-sar",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 2800,
+      "high": 3188,
+      "avg": 2858,
+      "source": "snkrdunk",
+      "sample_count": 11,
+      "on_sale": 123,
+      "ask_low": 2700,
+      "ask_mid": 2850,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 9183,
+      "psa10_as_of": "2026-11-16"
+    },
+    {
       "date": "2026-11-15",
       "low": 2800,
       "high": 3188,
@@ -1266,17 +1281,6 @@
       "ask_low": 2850,
       "ask_mid": 3333,
       "psa10": 16600
-    },
-    {
-      "date": "2026-08-15",
-      "low": 3201,
-      "high": 3913,
-      "avg": 3557,
-      "source": "snkrdunk",
-      "sample_count": 22,
-      "ask_low": 2800,
-      "ask_mid": 3333,
-      "psa10": 16815
     }
   ],
   "sales_by_day": {
@@ -1366,7 +1370,6 @@
     "2026-07-21": 3,
     "2026-07-20": 3,
     "2026-07-19": 1,
-    "2026-07-17": 3,
     "2026-09-02": 3,
     "2026-09-01": 3,
     "2026-08-31": 3,
@@ -1432,9 +1435,10 @@
     "2026-11-10": 2,
     "2026-11-11": 2,
     "2026-11-14": 3,
-    "2026-11-15": 1
+    "2026-11-15": 4,
+    "2026-11-16": 1
   },
-  "sales_fetched_at": "2026-11-15",
+  "sales_fetched_at": "2026-11-16",
   "psa10_archived_extremes": {
     "high": {
       "value": 17309,
@@ -1447,7 +1451,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 48,
-    "updated_at": "2026-08-14"
+    "records": 49,
+    "updated_at": "2026-08-15"
   }
 }

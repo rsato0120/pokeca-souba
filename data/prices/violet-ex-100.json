@@ -2,6 +2,16 @@
   "card_id": "violet-ex-100",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 1980,
+      "high": 1980,
+      "avg": 1980,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-14",
       "low": 1980,
       "high": 1980,
@@ -890,16 +900,6 @@
       "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-01-12",
-      "low": 5300,
-      "high": 5300,
-      "avg": 5300,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,17 +907,17 @@
       "date": "2026-11-15",
       "low": 0,
       "high": 0,
-      "psa10": 17400,
+      "psa10": 17600,
       "psa10_as_of": "2026-11-15",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-14",
       "low": 0,
       "high": 0,
-      "psa10": 17633,
+      "psa10": 17532,
       "psa10_as_of": "2026-11-14",
       "source": "snkrdunk",
       "sample_count": 4,
@@ -927,7 +927,7 @@
       "date": "2026-11-13",
       "low": 0,
       "high": 0,
-      "psa10": 17399,
+      "psa10": 16500,
       "psa10_as_of": "2026-11-13",
       "source": "snkrdunk",
       "sample_count": 1,
@@ -2280,7 +2280,8 @@
     "2023-01-22": 9,
     "2023-01-21": 15,
     "2023-01-20": 11,
-    "2026-11-14": 1
+    "2026-11-14": 1,
+    "2026-11-15": 1
   },
   "psa10_sales_by_day": {
     "2026-10-25": 2,
@@ -2934,7 +2935,7 @@
     "2026-11-12": 2,
     "2026-11-13": 2,
     "2026-11-14": 5,
-    "2026-11-15": 1
+    "2026-11-15": 2
   },
-  "sales_fetched_at": "2026-11-15"
+  "sales_fetched_at": "2026-11-16"
 }

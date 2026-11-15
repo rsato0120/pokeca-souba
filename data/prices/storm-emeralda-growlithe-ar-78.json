@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-growlithe-ar-78",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 1000,
+      "high": 1500,
+      "avg": 1248,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 96,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8600,
+      "psa10_as_of": "2026-10-29"
+    },
+    {
       "date": "2026-11-15",
       "low": 1000,
       "high": 1553,
@@ -1265,19 +1280,6 @@
       "ask_low": 700,
       "ask_mid": 980,
       "psa10": null
-    },
-    {
-      "date": "2026-08-14",
-      "low": 600,
-      "high": 700,
-      "avg": 677,
-      "source": "mercari",
-      "sample_count": 55,
-      "sold_total": 350,
-      "oldest_sale_days": 3,
-      "ask_low": 799,
-      "ask_mid": 999,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1320,7 +1322,7 @@
     "2026-11-08": 5,
     "2026-11-09": 1
   },
-  "sales_fetched_at": "2026-11-15",
+  "sales_fetched_at": "2026-11-16",
   "psa10_sales_by_day": {
     "2026-10-29": 1,
     "2026-10-30": 1

@@ -2,6 +2,16 @@
   "card_id": "cyber-judge-097",
   "history": [
     {
+      "date": "2026-11-15",
+      "low": 5800,
+      "high": 5800,
+      "avg": 5800,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-14",
       "low": 5800,
       "high": 5800,
@@ -890,16 +900,6 @@
       "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-01-12",
-      "low": 5000,
-      "high": 8000,
-      "avg": 6827,
-      "source": "snkrdunk",
-      "sample_count": 3,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,30 +907,30 @@
       "date": "2026-11-15",
       "low": 0,
       "high": 0,
-      "psa10": 30000,
+      "psa10": 37018,
       "psa10_as_of": "2026-11-15",
       "source": "snkrdunk",
-      "sample_count": 2,
+      "sample_count": 12,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-14",
       "low": 0,
       "high": 0,
-      "psa10": 33000,
+      "psa10": 29962,
       "psa10_as_of": "2026-11-14",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 5,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-13",
       "low": 0,
       "high": 0,
-      "psa10": 29960,
+      "psa10": 29958,
       "psa10_as_of": "2026-11-13",
       "source": "snkrdunk",
-      "sample_count": 10,
+      "sample_count": 5,
       "price_basis": "transaction_day"
     },
     {
@@ -1976,7 +1976,8 @@
     "2026-11-04": 1,
     "2026-11-12": 1,
     "2026-11-13": 1,
-    "2026-11-14": 1
+    "2026-11-14": 1,
+    "2026-11-15": 1
   },
   "psa10_sales_by_day": {
     "2026-10-22": 2,
@@ -2308,7 +2309,7 @@
     "2026-11-12": 8,
     "2026-11-13": 10,
     "2026-11-14": 6,
-    "2026-11-15": 2
+    "2026-11-15": 12
   },
-  "sales_fetched_at": "2026-11-15"
+  "sales_fetched_at": "2026-11-16"
 }
