@@ -2,6 +2,16 @@
   "card_id": "alter-genesis-102",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 8000,
+      "high": 8000,
+      "avg": 8000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2023-09-23",
       "low": 6600,
       "high": 6600,
@@ -505,7 +515,8 @@
     }
   ],
   "sales_by_day": {
-    "2023-09-23": 1
+    "2023-09-23": 1,
+    "2026-11-16": 1
   },
   "psa10_sales_by_day": {
     "2026-10-27": 1,
