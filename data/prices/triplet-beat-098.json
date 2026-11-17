@@ -2,6 +2,16 @@
   "card_id": "triplet-beat-098",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 2999,
+      "high": 2999,
+      "avg": 2999,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-15",
       "low": 2999,
       "high": 2999,
@@ -888,16 +898,6 @@
       "avg": 6533,
       "source": "snkrdunk",
       "sample_count": 6,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-03-11",
-      "low": 7500,
-      "high": 10000,
-      "avg": 8200,
-      "source": "snkrdunk",
-      "sample_count": 4,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     }
@@ -1795,7 +1795,8 @@
     "2023-03-10": 14,
     "2026-11-02": 1,
     "2026-11-03": 1,
-    "2026-11-15": 1
+    "2026-11-15": 1,
+    "2026-11-16": 1
   },
   "psa10_sales_by_day": {
     "2026-09-17": 1,
@@ -1879,5 +1880,5 @@
     "2026-11-09": 5,
     "2026-11-10": 5
   },
-  "sales_fetched_at": "2026-11-16"
+  "sales_fetched_at": "2026-11-17"
 }

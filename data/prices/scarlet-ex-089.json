@@ -2,6 +2,16 @@
   "card_id": "scarlet-ex-089",
   "history": [
     {
+      "date": "2026-11-17",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-07-11",
       "low": 1000,
       "high": 1000,
@@ -246,7 +256,8 @@
   ],
   "sales_by_day": {
     "2026-07-11": 1,
-    "2023-05-11": 1
+    "2023-05-11": 1,
+    "2026-11-17": 1
   },
   "psa10_sales_by_day": {
     "2026-10-22": 1,
@@ -272,5 +283,5 @@
     "2026-11-01": 3,
     "2026-11-16": 1
   },
-  "sales_fetched_at": "2026-11-16"
+  "sales_fetched_at": "2026-11-17"
 }

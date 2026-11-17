@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-kecleon-ar-88",
   "history": [
     {
+      "date": "2026-11-17",
+      "low": 1000,
+      "high": 1480,
+      "avg": 1246,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 139,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 14636,
+      "psa10_as_of": "2026-11-16"
+    },
+    {
       "date": "2026-11-16",
       "low": 1000,
       "high": 1480,
@@ -1259,17 +1274,6 @@
       "ask_low": 1400,
       "ask_mid": 1600,
       "psa10": null
-    },
-    {
-      "date": "2026-08-16",
-      "low": 1445,
-      "high": 1766,
-      "avg": 1605,
-      "source": "snkrdunk",
-      "sample_count": 27,
-      "ask_low": 1200,
-      "ask_mid": 1649,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1345,9 +1349,10 @@
     "2026-11-04": 2,
     "2026-11-05": 1,
     "2026-11-07": 2,
-    "2026-11-08": 4
+    "2026-11-08": 4,
+    "2026-11-16": 1
   },
-  "sales_fetched_at": "2026-11-16",
+  "sales_fetched_at": "2026-11-17",
   "psa10_sales_by_day": {
     "2026-10-28": 1,
     "2026-10-29": 1,
@@ -1359,6 +1364,7 @@
     "2026-11-04": 3,
     "2026-11-05": 3,
     "2026-11-14": 1,
-    "2026-11-15": 2
+    "2026-11-15": 2,
+    "2026-11-16": 1
   }
 }

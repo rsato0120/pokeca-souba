@@ -2,6 +2,16 @@
   "card_id": "triplet-beat-078",
   "history": [
     {
+      "date": "2026-11-16",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-15",
       "low": 1000,
       "high": 1000,
@@ -253,6 +263,16 @@
     }
   ],
   "psa10_history": [
+    {
+      "date": "2026-11-16",
+      "low": 0,
+      "high": 0,
+      "psa10": 6999,
+      "psa10_as_of": "2026-11-16",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
     {
       "date": "2026-11-15",
       "low": 0,
@@ -1142,16 +1162,6 @@
       "source": "snkrdunk",
       "sample_count": 1,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-10-13",
-      "low": 0,
-      "high": 0,
-      "psa10": 5350,
-      "psa10_as_of": "2023-10-13",
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1179,7 +1189,8 @@
     "2023-04-15": 1,
     "2023-03-20": 1,
     "2023-03-12": 1,
-    "2026-11-15": 1
+    "2026-11-15": 1,
+    "2026-11-16": 1
   },
   "psa10_sales_by_day": {
     "2026-10-17": 1,
@@ -1273,7 +1284,8 @@
     "2026-11-11": 5,
     "2026-11-13": 1,
     "2026-11-14": 1,
-    "2026-11-15": 1
+    "2026-11-15": 1,
+    "2026-11-16": 1
   },
-  "sales_fetched_at": "2026-11-16"
+  "sales_fetched_at": "2026-11-17"
 }

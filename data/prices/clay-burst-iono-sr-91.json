@@ -2,6 +2,21 @@
   "card_id": "clay-burst-iono-sr-91",
   "history": [
     {
+      "date": "2026-11-17",
+      "low": 3200,
+      "high": 4200,
+      "avg": 3453,
+      "source": "snkrdunk",
+      "sample_count": 15,
+      "on_sale": 197,
+      "ask_low": 2300,
+      "ask_mid": 3500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16285,
+      "psa10_as_of": "2026-11-16"
+    },
+    {
       "date": "2026-11-16",
       "low": 3200,
       "high": 4200,
@@ -1266,17 +1281,6 @@
       "ask_low": 4222,
       "ask_mid": 5043,
       "psa10": 27687
-    },
-    {
-      "date": "2026-08-14",
-      "low": 3780,
-      "high": 4620,
-      "avg": 4200,
-      "source": "snkrdunk",
-      "sample_count": 8,
-      "ask_low": 4444,
-      "ask_mid": 5175,
-      "psa10": 27687
     }
   ],
   "sales_by_day": {
@@ -1287,7 +1291,6 @@
     "2026-08-16": 1,
     "2026-08-18": 1,
     "2026-08-05": 1,
-    "2026-07-18": 1,
     "2026-08-21": 1,
     "2026-08-26": 2,
     "2026-08-27": 2,
@@ -1434,13 +1437,13 @@
     "2026-11-13": 2,
     "2026-11-14": 5,
     "2026-11-15": 2,
-    "2026-11-16": 1
+    "2026-11-16": 6
   },
-  "sales_fetched_at": "2026-11-16",
+  "sales_fetched_at": "2026-11-17",
   "psa10_archived_extremes": {
     "high": {
-      "value": 27275,
-      "date": "2026-08-13",
+      "value": 27687,
+      "date": "2026-08-14",
       "source": "snkrdunk"
     },
     "low": {
@@ -1449,7 +1452,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-08",
-    "records": 6,
-    "updated_at": "2026-08-13"
+    "records": 7,
+    "updated_at": "2026-08-14"
   }
 }

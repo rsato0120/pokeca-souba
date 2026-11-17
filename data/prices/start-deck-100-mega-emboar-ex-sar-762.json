@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-emboar-ex-sar-762",
   "history": [
     {
+      "date": "2026-11-17",
+      "low": 5100,
+      "high": 5999,
+      "avg": 5482,
+      "source": "snkrdunk",
+      "sample_count": 15,
+      "on_sale": 48,
+      "ask_low": 4980,
+      "ask_mid": 4990,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12275,
+      "psa10_as_of": "2026-11-17"
+    },
+    {
       "date": "2026-11-16",
       "low": 5000,
       "high": 5999,
@@ -1270,17 +1285,6 @@
       "ask_low": 8000,
       "ask_mid": 10000,
       "psa10": 33799
-    },
-    {
-      "date": "2026-08-15",
-      "low": 8848,
-      "high": 10814,
-      "avg": 9831,
-      "source": "snkrdunk",
-      "sample_count": 12,
-      "ask_low": 7600,
-      "ask_mid": 9999,
-      "psa10": 33799
     }
   ],
   "sales_by_day": {
@@ -1332,7 +1336,8 @@
     "2026-11-03": 1,
     "2026-11-13": 2,
     "2026-11-14": 3,
-    "2026-11-15": 1
+    "2026-11-15": 1,
+    "2026-11-16": 1
   },
   "psa10_sales_by_day": {
     "2026-08-20": 2,
@@ -1393,7 +1398,23 @@
     "2026-11-12": 1,
     "2026-11-14": 2,
     "2026-11-15": 1,
-    "2026-11-16": 1
+    "2026-11-16": 2,
+    "2026-11-17": 1
   },
-  "sales_fetched_at": "2026-11-16"
+  "sales_fetched_at": "2026-11-17",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 33799,
+      "date": "2026-08-15",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 33799,
+      "date": "2026-08-15",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-15",
+    "records": 1,
+    "updated_at": "2026-08-15"
+  }
 }
