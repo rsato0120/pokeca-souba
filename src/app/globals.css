@@ -2669,3 +2669,8 @@ a:hover {
 .x-chart-share-dialog button, .x-chart-share-dialog a { display:inline-block; border:1px solid var(--hair); background:var(--panel); color:var(--ink); border-radius:8px; padding:10px 14px; margin:6px 8px 6px 0; font-size:13px; cursor:pointer; text-decoration:none; }
 .x-chart-share-dialog button:disabled { opacity:.5; cursor:wait; }
 .x-chart-share-preview { display:block; width:100%; height:auto; border:1px solid var(--hair); border-radius:8px; }
+
+.site-visitors { margin:0 0 18px; padding:10px 14px; border:1px solid var(--hair); border-radius:10px; background:var(--panel); color:var(--ink-dim); }
+.site-visitors-counts { display:flex; flex-wrap:wrap; gap:6px 24px; font-size:12px; }
+.site-visitors strong { font-family:var(--mono); color:var(--accent); font-size:17px; font-variant-numeric:tabular-nums; }
+.site-visitors small { display:block; margin-top:4px; font-size:10px; line-height:1.6; color:var(--ink-faint); }

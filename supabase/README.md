@@ -150,3 +150,7 @@ npx tsx scripts/send-alerts.ts --dry
 ウォッチリスト本体は端末の localStorage にしかない。通知をONにしたときだけ
 「プッシュの宛先（endpoint とその鍵）＋対象カードID」を預かり、OFFにすれば行ごと消える。
 名前・メール・端末IDは受け取らない。
+
+## サイト全体の来訪者数
+
+共通ヘッダーに今日・累計を表示します。新規導入は migrations/20261117_site_visitors.sql をSQL Editorで実行してください。数え方・保持・検証は docs/site-visitors-2026-11-17.md に記載。累計は集計開始以降の日別人数の延べ合計です。

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ThemeToggle from './ThemeToggle'
+import SiteVisitorCounter from './SiteVisitorCounter'
 import { navItemsFor, isActiveTab } from '@/lib/nav'
 
 // 全ページ共通のヘッダー。
@@ -23,6 +24,7 @@ export default function SiteHeader() {
   const isOnePiece = pathname === '/onepiece' || pathname.startsWith('/onepiece/')
 
   return (
+    <>
     <header className="site-header">
       <Link prefetch={false} href={isOnePiece ? '/onepiece' : '/'} className="logo-link">
         <span className="logo">相場</span>
@@ -52,5 +54,7 @@ export default function SiteHeader() {
       </Link>
       <ThemeToggle />
     </header>
+    <SiteVisitorCounter />
+    </>
   )
 }
