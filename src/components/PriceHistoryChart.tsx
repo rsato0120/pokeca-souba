@@ -245,6 +245,8 @@ export default function PriceHistoryChart({ history, extremes = null, rawExtras,
 
   return (
     <div
+      data-share-chart={`${tab === 'raw' ? '素体' : 'PSA10'} · 詳細チャート · ${days}日 · ${selectedHistory[0]?.date ?? ''}時点`}
+      data-share-legend={`${tab === 'raw' ? '通常相場' : 'PSA10相場'}${showMa7 ? ' / 7日平均' : ''}${showMa30 ? ' / 30日平均' : ''}${hasVolume ? ' / 棒：成約数' : ''} / 未取得日は直前の価格を表示`}
       style={{
         background: 'var(--bg2)',
         border: '1px solid var(--hair)',

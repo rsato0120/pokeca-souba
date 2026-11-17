@@ -199,6 +199,8 @@ export default function PriceForecastChart({ history, forecast }: Props) {
 
   return (
     <div
+      data-share-chart={`${tab === 'raw' ? '素体' : 'PSA10'} · 相場とAI予測 · ${history[0]?.date ?? ''}時点`}
+      data-share-legend="実線：実績（過去30日） / 破線：AI予想（未来6か月）"
       style={{
         background: 'var(--bg2)',
         border: '1px solid var(--hair)',

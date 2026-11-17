@@ -1,5 +1,7 @@
 'use client'
 
+import XChartShare from '@/components/XChartShare'
+
 import { useState } from 'react'
 import PriceHistoryChart from './PriceHistoryChart'
 import BoxExpectedValue from './BoxExpectedValue'
@@ -78,6 +80,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
     active.ev && active.ev.ev > 0 && active.ev.recoveryPct != null
       ? `開封の期待値 ¥${active.ev.ev.toLocaleString()}以上（回収率${active.ev.recoveryPct}%）`
       : '',
+    chart?.fallback ? `共有グラフ：${chart.label}（選択中の系列と異なります）` : '',
     `#ポケカ #ポケカ相場`,
     `https://pokeca-souba.vercel.app/boxes/${boxId}`,
     mercariShareUrl ? `メルカリ（PR） ${mercariShareUrl}` : '',
@@ -190,20 +193,7 @@ export default function BoxMarketSection({ variants, mixedForChart, msrp, packsP
 
         {children}
 
-        <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            padding: '5px 16px', borderRadius: '20px',
-            border: '1px solid #aaa',
-            color: 'var(--ink-dim)', fontSize: '12px', fontFamily: 'var(--mono)',
-            letterSpacing: '0.03em', marginTop: '12px',
-          }}
-        >
-          𝕏 でシェア
-        </a>
+        <XChartShare text={tweetText} title={`${boxName}（${chart?.label ?? active.label}）`} fileName={boxId} />
       </div>
 
       {/* 開封期待値も**選択中の系列**の BOX相場で計算したものを出す */}

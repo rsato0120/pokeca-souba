@@ -2659,3 +2659,13 @@ a:hover {
 
 /* Fit trimmed artwork in the shared card slots without product-specific zoom. */
 .onepiece-image > svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+.x-chart-share-trigger { display:inline-flex; align-items:center; padding:6px 16px; border:1px solid var(--hair); border-radius:20px; color:var(--ink-dim); background:var(--panel); font:12px var(--mono); cursor:pointer; margin:10px 0; }
+.x-chart-share-dialog { margin:auto; width:min(640px, calc(100vw - 32px)); max-height:90dvh; overflow:auto; padding:24px; box-sizing:border-box; border:1px solid var(--hair); border-radius:16px; color:var(--ink); background:var(--bg2); }
+.x-chart-share-dialog::backdrop { background:rgb(0 0 0 / 55%); }
+.x-chart-share-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.x-chart-share-head h2 { font-size:18px; margin:0; }
+.x-chart-share-dialog p { font-size:13px; line-height:1.7; color:var(--ink-dim); }
+.x-chart-share-dialog button, .x-chart-share-dialog a { display:inline-block; border:1px solid var(--hair); background:var(--panel); color:var(--ink); border-radius:8px; padding:10px 14px; margin:6px 8px 6px 0; font-size:13px; cursor:pointer; text-decoration:none; }
+.x-chart-share-dialog button:disabled { opacity:.5; cursor:wait; }
+.x-chart-share-preview { display:block; width:100%; height:auto; border:1px solid var(--hair); border-radius:8px; }

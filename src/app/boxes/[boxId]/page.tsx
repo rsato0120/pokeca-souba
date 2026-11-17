@@ -1,3 +1,4 @@
+import XChartShare from '@/components/XChartShare'
 import MercariLink from '@/components/MercariLink'
 import { priceChangePct, priceChangePctForDays } from '@/lib/price-change'
 import Link from 'next/link'
@@ -331,20 +332,7 @@ export default async function BoxPage(props: PageProps<'/boxes/[boxId]'>) {
               `https://pokeca-souba.vercel.app/boxes/${boxId}`,
             ].filter(Boolean).join('\n')
             return (
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '6px',
-                  padding: '5px 16px', borderRadius: '20px',
-                  border: '1px solid #aaa',
-                  color: 'var(--ink-dim)', fontSize: '12px', fontFamily: 'var(--mono)',
-                  letterSpacing: '0.03em', marginTop: '12px',
-                }}
-              >
-                𝕏 でシェア
-              </a>
+              <XChartShare text={tweetText} title={box.box_name} fileName={boxId} />
             )
           })()}
         </div>

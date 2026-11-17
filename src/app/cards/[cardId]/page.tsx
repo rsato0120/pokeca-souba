@@ -1,3 +1,4 @@
+import XChartShare from '@/components/XChartShare'
 import { cardShareUrl, mercariXShareUrl } from '@/lib/share-links'
 import CardImage from '@/components/CardImage'
 import MercariLink from '@/components/MercariLink'
@@ -627,20 +628,7 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
               ...(mercariShareUrl ? [`メルカリ（PR） ${mercariShareUrl}`] : []),
             ].join('\n')
             return (
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '6px',
-                  padding: '5px 16px', borderRadius: '20px',
-                  border: '1px solid #aaa',
-                  color: 'var(--ink-dim)', fontSize: '12px', fontFamily: 'var(--mono)',
-                  letterSpacing: '0.03em', marginBottom: '6px',
-                }}
-              >
-                𝕏 でシェア
-              </a>
+              <XChartShare text={tweetText} title={`${card.card_name} ${card.rarity}（${box?.box_name ?? card.box_id}）`} fileName={cardId} />
             )
           })()}
         </div>
