@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-n-no-zoroaaku-ex-sar",
   "history": [
     {
+      "date": "2026-11-18",
+      "low": 4500,
+      "high": 5600,
+      "avg": 5161,
+      "source": "snkrdunk",
+      "sample_count": 26,
+      "on_sale": 127,
+      "ask_low": 5800,
+      "ask_mid": 5800,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10303,
+      "psa10_as_of": "2026-11-17"
+    },
+    {
       "date": "2026-11-17",
       "low": 4500,
       "high": 5600,
@@ -1273,17 +1288,6 @@
       "ask_low": 6000,
       "ask_mid": 8000,
       "psa10": 16305
-    },
-    {
-      "date": "2026-08-16",
-      "low": 5839,
-      "high": 7137,
-      "avg": 6488,
-      "source": "snkrdunk",
-      "sample_count": 23,
-      "ask_low": 6700,
-      "ask_mid": 7555,
-      "psa10": 16384
     }
   ],
   "sales_by_day": {
@@ -1410,7 +1414,6 @@
     "2026-07-22": 1,
     "2026-07-21": 6,
     "2026-07-20": 1,
-    "2026-07-19": 2,
     "2026-09-02": 18,
     "2026-09-01": 10,
     "2026-08-31": 12,
@@ -1490,9 +1493,9 @@
     "2026-11-14": 35,
     "2026-11-15": 22,
     "2026-11-16": 6,
-    "2026-11-17": 3
+    "2026-11-17": 6
   },
-  "sales_fetched_at": "2026-11-17",
+  "sales_fetched_at": "2026-11-18",
   "psa10_archived_extremes": {
     "high": {
       "value": 21487,
@@ -1505,7 +1508,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 53,
-    "updated_at": "2026-08-15"
+    "records": 54,
+    "updated_at": "2026-08-16"
   }
 }

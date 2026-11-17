@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-erikas-tangela-ar-743",
   "history": [
     {
+      "date": "2026-11-18",
+      "low": 2200,
+      "high": 3600,
+      "avg": 3011,
+      "source": "snkrdunk",
+      "sample_count": 23,
+      "on_sale": 86,
+      "ask_low": 1999,
+      "ask_mid": 2499,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11420,
+      "psa10_as_of": "2026-11-17"
+    },
+    {
       "date": "2026-11-17",
       "low": 2200,
       "high": 3600,
@@ -1274,17 +1289,6 @@
       "ask_low": 5999,
       "ask_mid": 6999,
       "psa10": 28974
-    },
-    {
-      "date": "2026-08-16",
-      "low": 6831,
-      "high": 8349,
-      "avg": 7590,
-      "source": "snkrdunk",
-      "sample_count": 26,
-      "ask_low": 6000,
-      "ask_mid": 6899,
-      "psa10": 29504
     }
   ],
   "sales_by_day": {
@@ -1435,9 +1439,10 @@
     "2026-11-13": 7,
     "2026-11-14": 3,
     "2026-11-15": 1,
-    "2026-11-16": 3
+    "2026-11-16": 3,
+    "2026-11-17": 2
   },
-  "sales_fetched_at": "2026-11-17",
+  "sales_fetched_at": "2026-11-18",
   "psa10_archived_extremes": {
     "high": {
       "value": 32125,
@@ -1445,12 +1450,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 32125,
-      "date": "2026-08-15",
+      "value": 29504,
+      "date": "2026-08-16",
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 1,
-    "updated_at": "2026-08-15"
+    "records": 2,
+    "updated_at": "2026-08-16"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-gengaa-ex-ma",
   "history": [
     {
+      "date": "2026-11-18",
+      "low": 1700,
+      "high": 2700,
+      "avg": 2301,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 482,
+      "ask_low": 1300,
+      "ask_mid": 1800,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7144,
+      "psa10_as_of": "2026-11-18"
+    },
+    {
       "date": "2026-11-17",
       "low": 1700,
       "high": 2700,
@@ -1274,17 +1289,6 @@
       "ask_low": 2500,
       "ask_mid": 3350,
       "psa10": 30940
-    },
-    {
-      "date": "2026-08-16",
-      "low": 2431,
-      "high": 2971,
-      "avg": 2701,
-      "source": "snkrdunk",
-      "sample_count": 35,
-      "ask_low": 2600,
-      "ask_mid": 3499,
-      "psa10": 29908
     }
   ],
   "sales_by_day": {
@@ -1438,7 +1442,6 @@
     "2026-07-22": 32,
     "2026-07-21": 4,
     "2026-07-20": 19,
-    "2026-07-19": 26,
     "2026-09-03": 59,
     "2026-09-02": 58,
     "2026-09-01": 47,
@@ -1518,9 +1521,10 @@
     "2026-11-14": 87,
     "2026-11-15": 40,
     "2026-11-16": 32,
-    "2026-11-17": 18
+    "2026-11-17": 49,
+    "2026-11-18": 1
   },
-  "sales_fetched_at": "2026-11-17",
+  "sales_fetched_at": "2026-11-18",
   "psa10_archived_extremes": {
     "high": {
       "value": 37499,
@@ -1533,7 +1537,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 51,
-    "updated_at": "2026-08-15"
+    "records": 52,
+    "updated_at": "2026-08-16"
   }
 }

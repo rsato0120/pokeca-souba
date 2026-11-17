@@ -2,6 +2,17 @@
   "card_id": "box-ninja_spinner",
   "history": [
     {
+      "date": "2026-11-18",
+      "low": 8000,
+      "high": 8887,
+      "avg": 8500,
+      "source": "snkrdunk",
+      "sample_count": 26,
+      "psa10": null,
+      "on_sale": 789,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-11-17",
       "low": 8000,
       "high": 8888,
@@ -976,16 +987,6 @@
       "sold_total": 6771,
       "oldest_sale_days": 7,
       "psa10": null
-    },
-    {
-      "date": "2026-08-17",
-      "low": 10000,
-      "high": 10500,
-      "avg": 10250,
-      "source": "mercari",
-      "sold_total": 6743,
-      "oldest_sale_days": 9,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1073,7 +1074,8 @@
     "2026-11-14": 27,
     "2026-11-15": 16,
     "2026-11-16": 54,
-    "2026-11-17": 1
+    "2026-11-17": 52,
+    "2026-11-18": 1
   },
-  "sales_fetched_at": "2026-11-17"
+  "sales_fetched_at": "2026-11-18"
 }
