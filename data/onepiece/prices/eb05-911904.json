@@ -1,26 +1,34 @@
 {
   "product_id": "eb05-911904",
-  "fetched_at": "2026-11-17T22:43:57.338Z",
+  "fetched_at": "2026-11-18T09:13:30.582Z",
   "history": [
     {
-      "date": "2026-11-17",
-      "avg": 70737,
+      "date": "2026-11-18",
+      "avg": 70395,
       "low": 55555,
       "high": 77000,
       "source": "snkrdunk",
-      "sample_count": 31
+      "sample_count": 30
     },
     {
-      "date": "2026-11-16",
-      "avg": 71771,
-      "low": 58888,
-      "high": 78000,
+      "date": "2026-11-17",
+      "avg": 71041,
+      "low": 55555,
+      "high": 77777,
       "source": "snkrdunk",
       "sample_count": 33
     },
     {
+      "date": "2026-11-16",
+      "avg": 71433,
+      "low": 58888,
+      "high": 77777,
+      "source": "snkrdunk",
+      "sample_count": 31
+    },
+    {
       "date": "2026-11-15",
-      "avg": 71431,
+      "avg": 71281,
       "low": 55555,
       "high": 78000,
       "source": "snkrdunk",
@@ -36,35 +44,35 @@
     },
     {
       "date": "2026-11-13",
-      "avg": 71811,
+      "avg": 71531,
       "low": 58888,
       "high": 78000,
       "source": "snkrdunk",
-      "sample_count": 39
+      "sample_count": 37
     },
     {
       "date": "2026-11-12",
-      "avg": 71814,
+      "avg": 71627,
       "low": 58888,
       "high": 78000,
       "source": "snkrdunk",
-      "sample_count": 34
+      "sample_count": 33
     },
     {
       "date": "2026-11-11",
-      "avg": 72606,
-      "low": 70000,
-      "high": 78000,
-      "source": "snkrdunk",
-      "sample_count": 31
-    },
-    {
-      "date": "2026-11-10",
-      "avg": 72493,
+      "avg": 72427,
       "low": 61999,
       "high": 78499,
       "source": "snkrdunk",
       "sample_count": 30
+    },
+    {
+      "date": "2026-11-10",
+      "avg": 72703,
+      "low": 70000,
+      "high": 78000,
+      "source": "snkrdunk",
+      "sample_count": 38
     },
     {
       "date": "2026-11-09",
@@ -157,13 +165,14 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
+    "2026-11-18": 1,
     "2026-11-17": 2,
-    "2026-11-16": 3,
-    "2026-11-15": 1,
-    "2026-11-13": 5,
+    "2026-11-16": 1,
+    "2026-11-15": 3,
+    "2026-11-13": 4,
     "2026-11-12": 3,
     "2026-11-11": 1,
-    "2026-11-10": 5,
+    "2026-11-10": 4,
     "2026-11-09": 2,
     "2026-11-08": 4,
     "2026-11-07": 3,
@@ -182,5 +191,5 @@
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-17T23:00:32.775Z"
+  "psa10_fetched_at": "2026-11-18T09:25:19.224Z"
 }
