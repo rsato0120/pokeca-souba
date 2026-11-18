@@ -2,6 +2,21 @@
   "card_id": "white-flare-reshiram-ex-sar-168",
   "history": [
     {
+      "date": "2026-11-19",
+      "low": 19000,
+      "high": 25000,
+      "avg": 22317,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 57,
+      "ask_low": 25000,
+      "ask_mid": 25400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 38629,
+      "psa10_as_of": "2026-11-18"
+    },
+    {
       "date": "2026-11-18",
       "low": 19000,
       "high": 25000,
@@ -1278,17 +1293,6 @@
       "ask_low": 21999,
       "ask_mid": 25000,
       "psa10": 41890
-    },
-    {
-      "date": "2026-08-17",
-      "low": 21225,
-      "high": 25941,
-      "avg": 23583,
-      "source": "snkrdunk",
-      "sample_count": 15,
-      "ask_low": 21999,
-      "ask_mid": 25000,
-      "psa10": 41890
     }
   ],
   "sales_by_day": {
@@ -1373,7 +1377,6 @@
     "2026-07-24": 3,
     "2026-07-23": 4,
     "2026-07-22": 2,
-    "2026-07-20": 3,
     "2026-09-03": 5,
     "2026-09-02": 3,
     "2026-09-01": 3,
@@ -1452,9 +1455,10 @@
     "2026-11-14": 15,
     "2026-11-15": 12,
     "2026-11-16": 4,
-    "2026-11-17": 2
+    "2026-11-17": 2,
+    "2026-11-18": 1
   },
-  "sales_fetched_at": "2026-11-18",
+  "sales_fetched_at": "2026-11-19",
   "psa10_archived_extremes": {
     "high": {
       "value": 43192,
@@ -1467,7 +1471,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-22",
-    "records": 26,
-    "updated_at": "2026-08-16"
+    "records": 27,
+    "updated_at": "2026-08-17"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mightyena-ar-753",
   "history": [
     {
+      "date": "2026-11-19",
+      "low": 1000,
+      "high": 1033,
+      "avg": 1033,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 14,
+      "ask_low": 1000,
+      "ask_mid": 1250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8565,
+      "psa10_as_of": "2026-11-13"
+    },
+    {
       "date": "2026-11-18",
       "low": 1000,
       "high": 1033,
@@ -1310,19 +1325,6 @@
       "ask_low": 1050,
       "ask_mid": 1300,
       "psa10": 12937
-    },
-    {
-      "date": "2026-08-17",
-      "low": 1000,
-      "high": 1299,
-      "avg": 1227,
-      "source": "mercari",
-      "sample_count": 89,
-      "sold_total": 225,
-      "oldest_sale_days": 89,
-      "ask_low": 1050,
-      "ask_mid": 1350,
-      "psa10": 13133
     }
   ],
   "sales_by_day": {
@@ -1332,7 +1334,6 @@
     "2026-08-17": 1,
     "2026-08-01": 1,
     "2026-07-26": 1,
-    "2026-07-20": 1,
     "2026-08-25": 1,
     "2026-08-21": 1,
     "2026-08-26": 1,
@@ -1375,7 +1376,7 @@
     "2026-11-13": 1,
     "2026-11-14": 1
   },
-  "sales_fetched_at": "2026-11-18",
+  "sales_fetched_at": "2026-11-19",
   "psa10_archived_extremes": {
     "high": {
       "value": 14025,
@@ -1383,12 +1384,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 14025,
-      "date": "2026-08-15",
+      "value": 13133,
+      "date": "2026-08-17",
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 2,
-    "updated_at": "2026-08-16"
+    "records": 3,
+    "updated_at": "2026-08-17"
   }
 }
