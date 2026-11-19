@@ -1,6 +1,6 @@
 {
   "product_id": "op05-135438",
-  "fetched_at": "2026-11-18T22:24:00.261Z",
+  "fetched_at": "2026-11-19T09:33:41.511Z",
   "history": [
     {
       "date": "2026-11-18",
@@ -867,6 +867,15 @@
   "complete": true,
   "psa10_history": [
     {
+      "date": "2026-11-19",
+      "avg": 31174,
+      "low": 30000,
+      "high": 32000,
+      "source": "snkrdunk",
+      "sample_count": 33,
+      "psa10": 31174
+    },
+    {
       "date": "2026-11-18",
       "avg": 31071,
       "low": 30000,
@@ -877,21 +886,21 @@
     },
     {
       "date": "2026-11-17",
+      "avg": 31071,
+      "low": 30000,
+      "high": 32000,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "psa10": 31071
+    },
+    {
+      "date": "2026-11-16",
       "avg": 31323,
       "low": 30000,
       "high": 32000,
       "source": "snkrdunk",
       "sample_count": 32,
       "psa10": 31323
-    },
-    {
-      "date": "2026-11-16",
-      "avg": 31301,
-      "low": 30000,
-      "high": 32000,
-      "source": "snkrdunk",
-      "sample_count": 31,
-      "psa10": 31301
     },
     {
       "date": "2026-11-15",
@@ -1936,15 +1945,6 @@
       "source": "snkrdunk",
       "sample_count": 9,
       "psa10": 75344
-    },
-    {
-      "date": "2026-07-18",
-      "avg": 75412,
-      "low": 73999,
-      "high": 77999,
-      "source": "snkrdunk",
-      "sample_count": 8,
-      "psa10": 75412
     }
   ],
   "psa10_sales_by_day": {
@@ -2011,9 +2011,10 @@
     "2026-07-20": 1,
     "2026-07-21": 4,
     "2026-07-22": 1,
-    "2026-11-18": 1,
+    "2026-11-19": 3,
     "2026-11-17": 1,
-    "2026-11-16": 2,
+    "2026-11-16": 1,
+    "2026-11-15": 2,
     "2026-11-14": 4,
     "2026-11-13": 8,
     "2026-11-12": 4,
@@ -2129,14 +2130,14 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 77196,
-      "date": "2026-07-17",
+      "value": 75412,
+      "date": "2026-07-18",
       "source": "snkrdunk"
     },
     "since": "2026-05-19",
-    "records": 57,
-    "updated_at": "2026-07-17"
+    "records": 58,
+    "updated_at": "2026-07-18"
   },
-  "psa10_fetched_at": "2026-11-18T22:41:48.767Z",
+  "psa10_fetched_at": "2026-11-19T09:48:42.516Z",
   "raw_archived_extremes": null
 }
