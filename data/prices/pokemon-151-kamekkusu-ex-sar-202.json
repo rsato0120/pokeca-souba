@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-kamekkusu-ex-sar-202",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 13499,
+      "high": 18000,
+      "avg": 16087,
+      "source": "snkrdunk",
+      "sample_count": 16,
+      "on_sale": 70,
+      "ask_low": 14800,
+      "ask_mid": 17300,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 30665,
+      "psa10_as_of": "2026-11-19"
+    },
+    {
       "date": "2026-11-19",
       "low": 13499,
       "high": 18000,
@@ -1282,17 +1297,6 @@
       "ask_low": 18000,
       "ask_mid": 20000,
       "psa10": 36047
-    },
-    {
-      "date": "2026-08-18",
-      "low": 16656,
-      "high": 20358,
-      "avg": 18507,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 18000,
-      "ask_mid": 20000,
-      "psa10": 36047
     }
   ],
   "sales_by_day": {
@@ -1466,7 +1470,7 @@
     "2026-11-19": 1,
     "2026-11-18": 2
   },
-  "sales_fetched_at": "2026-11-19",
+  "sales_fetched_at": "2026-11-20",
   "psa10_archived_extremes": {
     "high": {
       "value": 39821,
@@ -1479,7 +1483,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 51,
-    "updated_at": "2026-08-17"
+    "records": 52,
+    "updated_at": "2026-08-18"
   }
 }

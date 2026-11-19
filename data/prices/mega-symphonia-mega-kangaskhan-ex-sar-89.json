@@ -2,6 +2,21 @@
   "card_id": "mega-symphonia-mega-kangaskhan-ex-sar-89",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 2000,
+      "high": 2600,
+      "avg": 2291,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 74,
+      "ask_low": 2400,
+      "ask_mid": 2800,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7336,
+      "psa10_as_of": "2026-11-13"
+    },
+    {
       "date": "2026-11-19",
       "low": 2000,
       "high": 2599,
@@ -1282,17 +1297,6 @@
       "ask_low": 3700,
       "ask_mid": 4500,
       "psa10": 11355
-    },
-    {
-      "date": "2026-08-18",
-      "low": 3045,
-      "high": 3721,
-      "avg": 3383,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "ask_low": 4200,
-      "ask_mid": 4999,
-      "psa10": 11355
     }
   ],
   "sales_by_day": {
@@ -1302,7 +1306,6 @@
     "2026-08-16": 4,
     "2026-08-12": 1,
     "2026-08-04": 1,
-    "2026-07-21": 2,
     "2026-08-21": 1,
     "2026-08-22": 1,
     "2026-08-28": 3,
@@ -1394,7 +1397,6 @@
     "2026-07-24": 2,
     "2026-07-23": 9,
     "2026-07-22": 2,
-    "2026-07-21": 4,
     "2026-09-02": 3,
     "2026-09-01": 1,
     "2026-09-03": 12,
@@ -1455,7 +1457,7 @@
     "2026-11-13": 3,
     "2026-11-14": 2
   },
-  "sales_fetched_at": "2026-11-19",
+  "sales_fetched_at": "2026-11-20",
   "psa10_archived_extremes": {
     "high": {
       "value": 11363,
@@ -1463,12 +1465,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 11363,
-      "date": "2026-08-14",
+      "value": 11355,
+      "date": "2026-08-18",
       "source": "snkrdunk"
     },
     "since": "2026-08-14",
-    "records": 4,
-    "updated_at": "2026-08-17"
+    "records": 5,
+    "updated_at": "2026-08-18"
   }
 }

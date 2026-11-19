@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-mega-zeraora-ex-sar",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 1999,
+      "high": 2500,
+      "avg": 2330,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "on_sale": 65,
+      "ask_low": 1000,
+      "ask_mid": 1645,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 14596,
+      "psa10_as_of": "2026-11-11"
+    },
+    {
       "date": "2026-11-19",
       "low": 1999,
       "high": 2500,
@@ -1280,17 +1295,6 @@
       "source": "snkrdunk",
       "sample_count": 34,
       "psa10": 33000
-    },
-    {
-      "date": "2026-08-19",
-      "low": 2290,
-      "high": 2798,
-      "avg": 2544,
-      "source": "snkrdunk",
-      "sample_count": 34,
-      "ask_low": 2800,
-      "ask_mid": 3255,
-      "psa10": 33000
     }
   ],
   "sales_by_day": {
@@ -1417,7 +1421,7 @@
     "2026-11-11": 1,
     "2026-11-12": 1
   },
-  "sales_fetched_at": "2026-11-19",
+  "sales_fetched_at": "2026-11-20",
   "psa10_archived_extremes": {
     "high": {
       "value": 33000,
@@ -1430,7 +1434,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-22",
-    "records": 28,
-    "updated_at": "2026-08-18"
+    "records": 29,
+    "updated_at": "2026-08-19"
   }
 }

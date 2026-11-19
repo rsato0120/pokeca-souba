@@ -2,6 +2,17 @@
   "card_id": "box-vmax_climax",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 28888,
+      "high": 30000,
+      "avg": 29444,
+      "source": "mercari",
+      "sold_total": 276,
+      "oldest_sale_days": 30,
+      "on_sale": 46,
+      "psa10": null
+    },
+    {
       "date": "2026-11-19",
       "low": 28888,
       "high": 30000,
@@ -1003,18 +1014,6 @@
       "ask_low": 36666,
       "ask_mid": 40000,
       "psa10": null
-    },
-    {
-      "date": "2026-08-19",
-      "low": 33531,
-      "high": 35555,
-      "avg": 34543,
-      "source": "mercari",
-      "sold_total": 284,
-      "oldest_sale_days": 82,
-      "ask_low": 37000,
-      "ask_mid": 40000,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1094,7 +1093,8 @@
     "2026-11-14": 6,
     "2026-11-16": 1,
     "2026-11-17": 1,
-    "2026-11-18": 1
+    "2026-11-18": 1,
+    "2026-11-19": 1
   },
-  "sales_fetched_at": "2026-11-19"
+  "sales_fetched_at": "2026-11-20"
 }

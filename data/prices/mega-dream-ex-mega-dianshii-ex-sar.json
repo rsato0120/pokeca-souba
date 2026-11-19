@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-dianshii-ex-sar",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 1300,
+      "high": 2500,
+      "avg": 1801,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 49,
+      "ask_low": 1950,
+      "ask_mid": 2325,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7736,
+      "psa10_as_of": "2026-11-15"
+    },
+    {
       "date": "2026-11-19",
       "low": 1300,
       "high": 2500,
@@ -1282,17 +1297,6 @@
       "ask_low": 2099,
       "ask_mid": 2683,
       "psa10": 10366
-    },
-    {
-      "date": "2026-08-18",
-      "low": 1805,
-      "high": 2207,
-      "avg": 2006,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 2100,
-      "ask_mid": 2700,
-      "psa10": 10366
     }
   ],
   "sales_by_day": {
@@ -1426,7 +1430,7 @@
     "2026-11-15": 2,
     "2026-11-14": 2
   },
-  "sales_fetched_at": "2026-11-19",
+  "sales_fetched_at": "2026-11-20",
   "psa10_archived_extremes": {
     "high": {
       "value": 12216,
@@ -1439,7 +1443,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 55,
-    "updated_at": "2026-08-17"
+    "records": 56,
+    "updated_at": "2026-08-18"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-n-no-zoroaaku-ex-sar",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 4500,
+      "high": 5600,
+      "avg": 5120,
+      "source": "snkrdunk",
+      "sample_count": 24,
+      "on_sale": 137,
+      "ask_low": 5800,
+      "ask_mid": 5800,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10267,
+      "psa10_as_of": "2026-11-19"
+    },
+    {
       "date": "2026-11-19",
       "low": 4500,
       "high": 5600,
@@ -1281,17 +1296,6 @@
       "ask_low": 5800,
       "ask_mid": 7728,
       "psa10": 16261
-    },
-    {
-      "date": "2026-08-18",
-      "low": 5882,
-      "high": 7190,
-      "avg": 6536,
-      "source": "snkrdunk",
-      "sample_count": 26,
-      "ask_low": 6000,
-      "ask_mid": 8100,
-      "psa10": 16261
     }
   ],
   "sales_by_day": {
@@ -1306,7 +1310,6 @@
     "2026-07-27": 3,
     "2026-07-23": 3,
     "2026-07-22": 2,
-    "2026-07-21": 2,
     "2026-08-25": 1,
     "2026-08-22": 1,
     "2026-08-03": 1,
@@ -1417,7 +1420,6 @@
     "2026-07-24": 7,
     "2026-07-23": 3,
     "2026-07-22": 1,
-    "2026-07-21": 6,
     "2026-09-02": 18,
     "2026-09-01": 10,
     "2026-08-31": 12,
@@ -1501,7 +1503,7 @@
     "2026-11-19": 4,
     "2026-11-18": 3
   },
-  "sales_fetched_at": "2026-11-19",
+  "sales_fetched_at": "2026-11-20",
   "psa10_archived_extremes": {
     "high": {
       "value": 21487,
@@ -1509,12 +1511,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 16305,
-      "date": "2026-08-17",
+      "value": 16261,
+      "date": "2026-08-18",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 55,
-    "updated_at": "2026-08-17"
+    "records": 56,
+    "updated_at": "2026-08-18"
   }
 }
