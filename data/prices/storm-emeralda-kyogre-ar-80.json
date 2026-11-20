@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-kyogre-ar-80",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 1000,
+      "high": 2000,
+      "avg": 1544,
+      "source": "snkrdunk",
+      "sample_count": 31,
+      "on_sale": 96,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 21389,
+      "psa10_as_of": "2026-11-14"
+    },
+    {
       "date": "2026-11-20",
       "low": 1000,
       "high": 2400,
@@ -1301,19 +1316,6 @@
       "ask_low": 1311,
       "ask_mid": 1500,
       "psa10": null
-    },
-    {
-      "date": "2026-08-20",
-      "low": 1288,
-      "high": 1399,
-      "avg": 1349,
-      "source": "mercari",
-      "sample_count": 90,
-      "sold_total": 725,
-      "oldest_sale_days": 9,
-      "ask_low": 1350,
-      "ask_mid": 1555,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1417,9 +1419,10 @@
     "2026-11-12": 1,
     "2026-11-17": 6,
     "2026-11-16": 1,
-    "2026-11-18": 2
+    "2026-11-18": 2,
+    "2026-11-20": 1
   },
-  "sales_fetched_at": "2026-11-20",
+  "sales_fetched_at": "2026-11-21",
   "psa10_sales_by_day": {
     "2026-09-28": 1,
     "2026-09-29": 1,

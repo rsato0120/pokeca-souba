@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-mewtwo-vstar-sar-221",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 9600,
+      "high": 12000,
+      "avg": 10820,
+      "source": "snkrdunk",
+      "sample_count": 27,
+      "on_sale": 180,
+      "ask_low": 7999,
+      "ask_mid": 9499,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 27182,
+      "psa10_as_of": "2026-11-19"
+    },
+    {
       "date": "2026-11-20",
       "low": 9600,
       "high": 12000,
@@ -1286,17 +1301,6 @@
       "ask_low": 12680,
       "ask_mid": 16600,
       "psa10": 34234
-    },
-    {
-      "date": "2026-08-19",
-      "low": 13404,
-      "high": 16382,
-      "avg": 14893,
-      "source": "snkrdunk",
-      "sample_count": 24,
-      "ask_low": 12680,
-      "ask_mid": 16050,
-      "psa10": 35406
     }
   ],
   "sales_by_day": {
@@ -1380,7 +1384,8 @@
     "2026-11-15": 1,
     "2026-11-16": 3,
     "2026-11-17": 2,
-    "2026-11-18": 1
+    "2026-11-18": 1,
+    "2026-11-20": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 6,
@@ -1503,5 +1508,20 @@
     "2026-11-17": 1,
     "2026-11-19": 2
   },
-  "sales_fetched_at": "2026-11-20"
+  "sales_fetched_at": "2026-11-21",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 35406,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 35406,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-19",
+    "records": 1,
+    "updated_at": "2026-08-19"
+  }
 }

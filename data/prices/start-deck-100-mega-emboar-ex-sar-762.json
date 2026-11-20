@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-emboar-ex-sar-762",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 5100,
+      "high": 5666,
+      "avg": 5407,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "on_sale": 47,
+      "ask_low": 4800,
+      "ask_mid": 5100,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12308,
+      "psa10_as_of": "2026-11-19"
+    },
+    {
       "date": "2026-11-20",
       "low": 5000,
       "high": 5666,
@@ -1286,17 +1301,6 @@
       "ask_low": 8000,
       "ask_mid": 10000,
       "psa10": 32755
-    },
-    {
-      "date": "2026-08-19",
-      "low": 8136,
-      "high": 9944,
-      "avg": 9040,
-      "source": "snkrdunk",
-      "sample_count": 12,
-      "ask_low": 7280,
-      "ask_mid": 9995,
-      "psa10": 33799
     }
   ],
   "sales_by_day": {
@@ -1414,7 +1418,7 @@
     "2026-11-18": 1,
     "2026-11-19": 1
   },
-  "sales_fetched_at": "2026-11-20",
+  "sales_fetched_at": "2026-11-21",
   "psa10_archived_extremes": {
     "high": {
       "value": 33799,
@@ -1427,7 +1431,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 4,
-    "updated_at": "2026-08-18"
+    "records": 5,
+    "updated_at": "2026-08-19"
   }
 }

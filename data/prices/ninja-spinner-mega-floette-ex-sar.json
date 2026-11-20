@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-mega-floette-ex-sar",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 1100,
+      "high": 1200,
+      "avg": 1133,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 47,
+      "ask_low": 1200,
+      "ask_mid": 1250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5033,
+      "psa10_as_of": "2026-11-20"
+    },
+    {
       "date": "2026-11-20",
       "low": 1000,
       "high": 1200,
@@ -1286,17 +1301,6 @@
       "ask_low": 1444,
       "ask_mid": 1980,
       "psa10": 16523
-    },
-    {
-      "date": "2026-08-19",
-      "low": 1534,
-      "high": 1874,
-      "avg": 1704,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 1499,
-      "ask_mid": 1990,
-      "psa10": 16523
     }
   ],
   "sales_by_day": {
@@ -1399,7 +1403,7 @@
     "2026-11-18": 1,
     "2026-11-20": 1
   },
-  "sales_fetched_at": "2026-11-20",
+  "sales_fetched_at": "2026-11-21",
   "psa10_archived_extremes": {
     "high": {
       "value": 25597,
@@ -1412,7 +1416,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 55,
-    "updated_at": "2026-08-18"
+    "records": 56,
+    "updated_at": "2026-08-19"
   }
 }

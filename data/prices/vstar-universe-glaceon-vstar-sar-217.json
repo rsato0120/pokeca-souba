@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-glaceon-vstar-sar-217",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 3400,
+      "high": 4100,
+      "avg": 3552,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "on_sale": 133,
+      "ask_low": 3200,
+      "ask_mid": 4500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11894,
+      "psa10_as_of": "2026-11-20"
+    },
+    {
       "date": "2026-11-20",
       "low": 3400,
       "high": 4100,
@@ -1286,17 +1301,6 @@
       "ask_low": 4111,
       "ask_mid": 5000,
       "psa10": 16874
-    },
-    {
-      "date": "2026-08-19",
-      "low": 3908,
-      "high": 4776,
-      "avg": 4342,
-      "source": "snkrdunk",
-      "sample_count": 16,
-      "ask_low": 4200,
-      "ask_mid": 5000,
-      "psa10": 16665
     }
   ],
   "sales_by_day": {
@@ -1386,7 +1390,6 @@
     "2026-07-25": 2,
     "2026-07-24": 6,
     "2026-07-23": 3,
-    "2026-07-22": 3,
     "2026-09-03": 1,
     "2026-08-31": 6,
     "2026-09-04": 4,
@@ -1467,7 +1470,22 @@
     "2026-11-17": 3,
     "2026-11-18": 17,
     "2026-11-19": 16,
-    "2026-11-20": 1
+    "2026-11-20": 2
   },
-  "sales_fetched_at": "2026-11-20"
+  "sales_fetched_at": "2026-11-21",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 16665,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 16665,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-19",
+    "records": 1,
+    "updated_at": "2026-08-19"
+  }
 }

@@ -2,6 +2,16 @@
   "card_id": "triplet-beat-095",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 2000,
+      "high": 2000,
+      "avg": 2000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-19",
       "low": 2000,
       "high": 2000,
@@ -520,10 +530,11 @@
     "2023-03-11": 4,
     "2023-03-10": 4,
     "2026-10-22": 1,
-    "2026-11-19": 1
+    "2026-11-19": 1,
+    "2026-11-20": 1
   },
   "psa10_sales_by_day": {
     "2023-12-01": 1
   },
-  "sales_fetched_at": "2026-11-20"
+  "sales_fetched_at": "2026-11-21"
 }

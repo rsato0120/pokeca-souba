@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-charizard-v-sar-211",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 4000,
+      "high": 6000,
+      "avg": 5355,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 162,
+      "ask_low": 3800,
+      "ask_mid": 3900,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 17289,
+      "psa10_as_of": "2026-11-20"
+    },
+    {
       "date": "2026-11-20",
       "low": 4000,
       "high": 6000,
@@ -1286,17 +1301,6 @@
       "ask_low": 5444,
       "ask_mid": 7000,
       "psa10": 23176
-    },
-    {
-      "date": "2026-08-19",
-      "low": 6106,
-      "high": 7462,
-      "avg": 6784,
-      "source": "snkrdunk",
-      "sample_count": 15,
-      "ask_low": 5555,
-      "ask_mid": 7000,
-      "psa10": 23212
     }
   ],
   "sales_by_day": {
@@ -1391,7 +1395,6 @@
     "2026-07-25": 6,
     "2026-07-24": 9,
     "2026-07-23": 4,
-    "2026-07-22": 1,
     "2026-09-03": 7,
     "2026-09-02": 2,
     "2026-09-01": 7,
@@ -1469,7 +1472,22 @@
     "2026-11-17": 1,
     "2026-11-18": 3,
     "2026-11-19": 5,
-    "2026-11-20": 1
+    "2026-11-20": 3
   },
-  "sales_fetched_at": "2026-11-20"
+  "sales_fetched_at": "2026-11-21",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 23212,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 23212,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-19",
+    "records": 1,
+    "updated_at": "2026-08-19"
+  }
 }

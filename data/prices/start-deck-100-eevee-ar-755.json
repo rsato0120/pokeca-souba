@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-eevee-ar-755",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 7999,
+      "high": 13000,
+      "avg": 10419,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 204,
+      "ask_low": 5900,
+      "ask_mid": 7999,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 33795,
+      "psa10_as_of": "2026-11-20"
+    },
+    {
       "date": "2026-11-20",
       "low": 7999,
       "high": 13000,
@@ -1286,17 +1301,6 @@
       "ask_low": 16999,
       "ask_mid": 20500,
       "psa10": 116332
-    },
-    {
-      "date": "2026-08-20",
-      "low": 20006,
-      "high": 24452,
-      "avg": 22229,
-      "source": "snkrdunk",
-      "sample_count": 35,
-      "ask_low": 17580,
-      "ask_mid": 21000,
-      "psa10": 116332
     }
   ],
   "sales_by_day": {
@@ -1514,13 +1518,14 @@
     "2026-11-16": 4,
     "2026-11-17": 7,
     "2026-11-18": 6,
-    "2026-11-19": 4
+    "2026-11-19": 4,
+    "2026-11-20": 2
   },
-  "sales_fetched_at": "2026-11-20",
+  "sales_fetched_at": "2026-11-21",
   "psa10_archived_extremes": {
     "high": {
-      "value": 116232,
-      "date": "2026-08-17",
+      "value": 116332,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "low": {
@@ -1529,7 +1534,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 5,
-    "updated_at": "2026-08-19"
+    "records": 6,
+    "updated_at": "2026-08-20"
   }
 }

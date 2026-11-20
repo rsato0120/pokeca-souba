@@ -2,6 +2,21 @@
   "card_id": "shiny-treasure-pikachu-s-236",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 4300,
+      "high": 8000,
+      "avg": 6493,
+      "source": "snkrdunk",
+      "sample_count": 17,
+      "on_sale": 216,
+      "ask_low": 3500,
+      "ask_mid": 4000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 21074,
+      "psa10_as_of": "2026-11-20"
+    },
+    {
       "date": "2026-11-20",
       "low": 4300,
       "high": 8000,
@@ -1286,17 +1301,6 @@
       "ask_low": 6299,
       "ask_mid": 8495,
       "psa10": 36794
-    },
-    {
-      "date": "2026-08-19",
-      "low": 10016,
-      "high": 12242,
-      "avg": 11129,
-      "source": "snkrdunk",
-      "sample_count": 14,
-      "ask_low": 6000,
-      "ask_mid": 8222,
-      "psa10": 36027
     }
   ],
   "sales_by_day": {
@@ -1395,7 +1399,6 @@
     "2026-07-25": 4,
     "2026-07-24": 5,
     "2026-07-23": 4,
-    "2026-07-22": 1,
     "2026-09-02": 8,
     "2026-09-01": 8,
     "2026-08-31": 3,
@@ -1468,7 +1471,22 @@
     "2026-11-17": 2,
     "2026-11-19": 12,
     "2026-11-18": 6,
-    "2026-11-20": 1
+    "2026-11-20": 9
   },
-  "sales_fetched_at": "2026-11-20"
+  "sales_fetched_at": "2026-11-21",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 36027,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 36027,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-19",
+    "records": 1,
+    "updated_at": "2026-08-19"
+  }
 }

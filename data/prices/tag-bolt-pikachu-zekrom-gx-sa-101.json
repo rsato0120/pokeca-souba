@@ -2,6 +2,21 @@
   "card_id": "tag-bolt-pikachu-zekrom-gx-sa-101",
   "history": [
     {
+      "date": "2026-11-21",
+      "low": 120000,
+      "high": 200000,
+      "avg": 167000,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 88,
+      "ask_low": 99000,
+      "ask_mid": 165500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 772611,
+      "psa10_as_of": "2026-11-20"
+    },
+    {
       "date": "2026-11-20",
       "low": 120000,
       "high": 200000,
@@ -1286,17 +1301,6 @@
       "ask_low": 115999,
       "ask_mid": 169700,
       "psa10": 878459
-    },
-    {
-      "date": "2026-08-19",
-      "low": 221400,
-      "high": 270600,
-      "avg": 246000,
-      "source": "snkrdunk",
-      "sample_count": 4,
-      "ask_low": 111500,
-      "ask_mid": 150778,
-      "psa10": 876579
     }
   ],
   "sales_by_day": {
@@ -1439,13 +1443,14 @@
     "2026-11-15": 1,
     "2026-11-16": 1,
     "2026-11-17": 1,
-    "2026-11-19": 1
+    "2026-11-19": 1,
+    "2026-11-20": 1
   },
-  "sales_fetched_at": "2026-11-20",
+  "sales_fetched_at": "2026-11-21",
   "psa10_archived_extremes": {
     "high": {
-      "value": 872979,
-      "date": "2026-08-17",
+      "value": 876579,
+      "date": "2026-08-19",
       "source": "snkrdunk"
     },
     "low": {
@@ -1454,7 +1459,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-18",
-    "records": 31,
-    "updated_at": "2026-08-18"
+    "records": 32,
+    "updated_at": "2026-08-19"
   }
 }
