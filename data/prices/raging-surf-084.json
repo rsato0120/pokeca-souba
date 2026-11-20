@@ -2,6 +2,16 @@
   "card_id": "raging-surf-084",
   "history": [
     {
+      "date": "2026-11-20",
+      "low": 1800,
+      "high": 1800,
+      "avg": 1800,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-10-26",
       "low": 1500,
       "high": 1500,
@@ -888,16 +898,6 @@
       "avg": 4467,
       "source": "snkrdunk",
       "sample_count": 3,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-09-29",
-      "low": 4600,
-      "high": 4800,
-      "avg": 4720,
-      "source": "snkrdunk",
-      "sample_count": 5,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     }
@@ -1901,7 +1901,8 @@
     "2023-09-24": 11,
     "2023-09-23": 18,
     "2023-09-22": 43,
-    "2026-10-26": 1
+    "2026-10-26": 1,
+    "2026-11-20": 1
   },
   "psa10_sales_by_day": {
     "2026-10-22": 1,
