@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-charizard-y-ex-mur-766",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 290000,
+      "high": 450000,
+      "avg": 365533,
+      "source": "snkrdunk",
+      "sample_count": 15,
+      "on_sale": 128,
+      "ask_low": 250000,
+      "ask_mid": 294444,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 1005106,
+      "psa10_as_of": "2026-11-17"
+    },
+    {
       "date": "2026-11-21",
       "low": 275000,
       "high": 428000,
@@ -1290,17 +1305,6 @@
       "ask_low": 670000,
       "ask_mid": 777777,
       "psa10": 2170821
-    },
-    {
-      "date": "2026-08-20",
-      "low": 628976,
-      "high": 768748,
-      "avg": 698862,
-      "source": "snkrdunk",
-      "sample_count": 25,
-      "ask_low": 670000,
-      "ask_mid": 777777,
-      "psa10": 2170821
     }
   ],
   "sales_by_day": {
@@ -1464,11 +1468,11 @@
     "2026-11-17": 1,
     "2026-11-18": 1
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
-      "value": 2169516,
-      "date": "2026-08-18",
+      "value": 2170821,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "low": {
@@ -1477,7 +1481,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 5,
-    "updated_at": "2026-08-19"
+    "records": 6,
+    "updated_at": "2026-08-20"
   }
 }

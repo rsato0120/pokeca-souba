@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-arceus-vstar-ur-262",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 13000,
+      "high": 17000,
+      "avg": 15036,
+      "source": "snkrdunk",
+      "sample_count": 16,
+      "on_sale": 70,
+      "ask_low": 13499,
+      "ask_mid": 13500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 27668,
+      "psa10_as_of": "2026-11-21"
+    },
+    {
       "date": "2026-11-21",
       "low": 13000,
       "high": 17000,
@@ -1290,17 +1305,6 @@
       "ask_low": 14444,
       "ask_mid": 18000,
       "psa10": 33180
-    },
-    {
-      "date": "2026-08-20",
-      "low": 17141,
-      "high": 20951,
-      "avg": 19046,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 14000,
-      "ask_mid": 17990,
-      "psa10": 33180
     }
   ],
   "sales_by_day": {
@@ -1398,7 +1402,6 @@
     "2026-07-28": 3,
     "2026-07-27": 1,
     "2026-07-26": 6,
-    "2026-07-23": 1,
     "2026-08-28": 2,
     "2026-09-02": 7,
     "2026-09-01": 4,
@@ -1482,9 +1485,9 @@
     "2026-11-18": 2,
     "2026-11-19": 1,
     "2026-11-20": 2,
-    "2026-11-21": 1
+    "2026-11-21": 2
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
       "value": 33434,
@@ -1492,12 +1495,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 33434,
-      "date": "2026-08-19",
+      "value": 33180,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 1,
-    "updated_at": "2026-08-19"
+    "records": 2,
+    "updated_at": "2026-08-20"
   }
 }

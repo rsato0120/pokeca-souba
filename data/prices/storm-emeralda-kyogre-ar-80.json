@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-kyogre-ar-80",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 1000,
+      "high": 2400,
+      "avg": 1550,
+      "source": "snkrdunk",
+      "sample_count": 29,
+      "on_sale": 88,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20870,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-21",
       "low": 1000,
       "high": 2000,
@@ -1303,19 +1318,6 @@
       "ask_low": 1111,
       "ask_mid": 1500,
       "psa10": null
-    },
-    {
-      "date": "2026-08-21",
-      "low": 1255,
-      "high": 1360,
-      "avg": 1327,
-      "source": "mercari",
-      "sample_count": 93,
-      "sold_total": 675,
-      "oldest_sale_days": 10,
-      "ask_low": 1311,
-      "ask_mid": 1500,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1420,9 +1422,11 @@
     "2026-11-17": 6,
     "2026-11-16": 1,
     "2026-11-18": 2,
-    "2026-11-20": 1
+    "2026-11-20": 1,
+    "2026-11-22": 1,
+    "2026-11-21": 1
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_sales_by_day": {
     "2026-09-28": 1,
     "2026-09-29": 1,
@@ -1439,6 +1443,7 @@
     "2026-11-10": 1,
     "2026-11-11": 1,
     "2026-11-14": 1,
-    "2026-11-15": 1
+    "2026-11-15": 1,
+    "2026-11-22": 1
   }
 }

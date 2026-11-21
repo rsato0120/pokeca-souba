@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-emboar-ex-sar-762",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 5200,
+      "high": 5999,
+      "avg": 5453,
+      "source": "snkrdunk",
+      "sample_count": 10,
+      "on_sale": 47,
+      "ask_low": 4800,
+      "ask_mid": 5150,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12308,
+      "psa10_as_of": "2026-11-19"
+    },
+    {
       "date": "2026-11-21",
       "low": 5100,
       "high": 5666,
@@ -1290,17 +1305,6 @@
       "ask_low": 8000,
       "ask_mid": 10000,
       "psa10": 32755
-    },
-    {
-      "date": "2026-08-20",
-      "low": 7599,
-      "high": 9287,
-      "avg": 8443,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 8000,
-      "ask_mid": 10000,
-      "psa10": 32755
     }
   ],
   "sales_by_day": {
@@ -1315,7 +1319,6 @@
     "2026-07-26": 1,
     "2026-08-14": 1,
     "2026-07-29": 1,
-    "2026-07-23": 1,
     "2026-08-21": 1,
     "2026-08-28": 1,
     "2026-09-04": 2,
@@ -1418,7 +1421,7 @@
     "2026-11-18": 1,
     "2026-11-19": 1
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
       "value": 33799,
@@ -1426,12 +1429,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 33799,
-      "date": "2026-08-15",
+      "value": 32755,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 5,
-    "updated_at": "2026-08-19"
+    "records": 6,
+    "updated_at": "2026-08-20"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-lucario-vstar-sar-226",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 3000,
+      "high": 3500,
+      "avg": 3200,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 215,
+      "ask_low": 2500,
+      "ask_mid": 2700,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10876,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-21",
       "low": 3000,
       "high": 3500,
@@ -1290,17 +1305,6 @@
       "ask_low": 2800,
       "ask_mid": 3800,
       "psa10": 17973
-    },
-    {
-      "date": "2026-08-20",
-      "low": 5310,
-      "high": 6490,
-      "avg": 5900,
-      "source": "snkrdunk",
-      "sample_count": 10,
-      "ask_low": 2800,
-      "ask_mid": 3800,
-      "psa10": 18125
     }
   ],
   "sales_by_day": {
@@ -1454,9 +1458,10 @@
     "2026-11-15": 1,
     "2026-11-16": 2,
     "2026-11-17": 4,
-    "2026-11-18": 3
+    "2026-11-18": 3,
+    "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
       "value": 19249,
@@ -1464,12 +1469,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 19249,
-      "date": "2026-08-19",
+      "value": 18125,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 1,
-    "updated_at": "2026-08-19"
+    "records": 2,
+    "updated_at": "2026-08-20"
   }
 }

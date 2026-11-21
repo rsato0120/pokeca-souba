@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-kichikigisu-ex-sar",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 1400,
+      "high": 1500,
+      "avg": 1460,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 80,
+      "ask_low": 1400,
+      "ask_mid": 1450,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6580,
+      "psa10_as_of": "2026-11-21"
+    },
+    {
       "date": "2026-11-21",
       "low": 1400,
       "high": 1500,
@@ -1290,17 +1305,6 @@
       "ask_low": 1899,
       "ask_mid": 2399,
       "psa10": 12089
-    },
-    {
-      "date": "2026-08-20",
-      "low": 1481,
-      "high": 1810,
-      "avg": 1645,
-      "source": "snkrdunk",
-      "sample_count": 15,
-      "ask_low": 1899,
-      "ask_mid": 2399,
-      "psa10": 12184
     }
   ],
   "sales_by_day": {
@@ -1433,9 +1437,10 @@
     "2026-11-15": 1,
     "2026-11-18": 1,
     "2026-11-19": 1,
-    "2026-11-20": 2
+    "2026-11-20": 2,
+    "2026-11-21": 2
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
       "value": 13802,
@@ -1443,12 +1448,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 12268,
-      "date": "2026-08-18",
+      "value": 12184,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 54,
-    "updated_at": "2026-08-19"
+    "records": 55,
+    "updated_at": "2026-08-20"
   }
 }

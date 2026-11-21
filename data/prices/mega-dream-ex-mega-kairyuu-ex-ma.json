@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-kairyuu-ex-ma",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 1000,
+      "high": 1316,
+      "avg": 1316,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 414,
+      "ask_low": 1000,
+      "ask_mid": 1100,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 4501,
+      "psa10_as_of": "2026-11-21"
+    },
+    {
       "date": "2026-11-21",
       "low": 1000,
       "high": 1316,
@@ -1290,17 +1305,6 @@
       "ask_low": 1480,
       "ask_mid": 1999,
       "psa10": 10207
-    },
-    {
-      "date": "2026-08-20",
-      "low": 1557,
-      "high": 1903,
-      "avg": 1730,
-      "source": "snkrdunk",
-      "sample_count": 31,
-      "ask_low": 1400,
-      "ask_mid": 1999,
-      "psa10": 10221
     }
   ],
   "sales_by_day": {
@@ -1434,7 +1438,6 @@
     "2026-07-26": 11,
     "2026-07-25": 7,
     "2026-07-24": 9,
-    "2026-07-23": 14,
     "2026-09-03": 50,
     "2026-09-02": 49,
     "2026-09-01": 48,
@@ -1518,9 +1521,9 @@
     "2026-11-18": 22,
     "2026-11-19": 17,
     "2026-11-20": 17,
-    "2026-11-21": 23
+    "2026-11-21": 29
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
       "value": 15349,
@@ -1533,7 +1536,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 54,
-    "updated_at": "2026-08-19"
+    "records": 55,
+    "updated_at": "2026-08-20"
   }
 }

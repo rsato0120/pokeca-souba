@@ -2,6 +2,21 @@
   "card_id": "shiny-star-v-charizard-vmax-ssr-308",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 13800,
+      "high": 23000,
+      "avg": 20267,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 241,
+      "ask_low": 14800,
+      "ask_mid": 15000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 41563,
+      "psa10_as_of": "2026-11-21"
+    },
+    {
       "date": "2026-11-21",
       "low": 13800,
       "high": 23000,
@@ -1332,19 +1347,6 @@
       "ask_low": 18000,
       "ask_mid": 23000,
       "psa10": 47973
-    },
-    {
-      "date": "2026-08-20",
-      "low": 16000,
-      "high": 18999,
-      "avg": 18264,
-      "source": "mercari",
-      "sample_count": 53,
-      "sold_total": 966,
-      "oldest_sale_days": 31,
-      "ask_low": 18000,
-      "ask_mid": 23000,
-      "psa10": 48016
     }
   ],
   "sales_by_day": {
@@ -1423,7 +1425,6 @@
     "2026-07-26": 5,
     "2026-07-25": 2,
     "2026-07-24": 4,
-    "2026-07-23": 3,
     "2026-09-03": 43,
     "2026-09-02": 35,
     "2026-09-01": 2,
@@ -1504,13 +1505,13 @@
     "2026-11-18": 1,
     "2026-11-19": 3,
     "2026-11-20": 5,
-    "2026-11-21": 2
+    "2026-11-21": 3
   },
-  "sales_fetched_at": "2026-11-21",
+  "sales_fetched_at": "2026-11-22",
   "psa10_archived_extremes": {
     "high": {
-      "value": 48007,
-      "date": "2026-08-19",
+      "value": 48016,
+      "date": "2026-08-20",
       "source": "snkrdunk"
     },
     "low": {
@@ -1519,7 +1520,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 1,
-    "updated_at": "2026-08-19"
+    "records": 2,
+    "updated_at": "2026-08-20"
   }
 }
