@@ -1,46 +1,54 @@
 {
   "product_id": "op17-864495",
-  "fetched_at": "2026-11-21T08:48:00.470Z",
+  "fetched_at": "2026-11-21T20:42:01.558Z",
   "history": [
     {
-      "date": "2026-11-21",
-      "avg": 8865,
-      "low": 8680,
+      "date": "2026-11-22",
+      "avg": 8871,
+      "low": 8698,
       "high": 9100,
       "source": "snkrdunk",
-      "sample_count": 62
+      "sample_count": 63
+    },
+    {
+      "date": "2026-11-21",
+      "avg": 8871,
+      "low": 8699,
+      "high": 9100,
+      "source": "snkrdunk",
+      "sample_count": 61
     },
     {
       "date": "2026-11-20",
-      "avg": 8816,
+      "avg": 8933,
       "low": 8600,
-      "high": 9095,
+      "high": 9150,
       "source": "snkrdunk",
-      "sample_count": 39
+      "sample_count": 51
     },
     {
       "date": "2026-11-19",
-      "avg": 9048,
-      "low": 8998,
-      "high": 9199,
+      "avg": 9072,
+      "low": 8990,
+      "high": 9200,
+      "source": "snkrdunk",
+      "sample_count": 33
+    },
+    {
+      "date": "2026-11-18",
+      "avg": 9186,
+      "low": 9000,
+      "high": 9375,
       "source": "snkrdunk",
       "sample_count": 66
     },
     {
-      "date": "2026-11-18",
-      "avg": 9094,
-      "low": 8999,
-      "high": 9200,
-      "source": "snkrdunk",
-      "sample_count": 54
-    },
-    {
       "date": "2026-11-17",
-      "avg": 9241,
+      "avg": 9193,
       "low": 9000,
-      "high": 9475,
+      "high": 9400,
       "source": "snkrdunk",
-      "sample_count": 39
+      "sample_count": 59
     },
     {
       "date": "2026-11-16",
@@ -679,16 +687,16 @@
     "2026-10-24": 12,
     "2026-10-28": 14,
     "2026-11-09": 17,
-    "2026-11-21": 23,
-    "2026-11-20": 39,
-    "2026-11-19": 12,
-    "2026-11-18": 54,
-    "2026-11-17": 39,
+    "2026-11-22": 2,
+    "2026-11-21": 61,
+    "2026-11-20": 18,
+    "2026-11-19": 33,
+    "2026-11-18": 7,
+    "2026-11-17": 59,
     "2026-11-16": 22,
-    "2026-11-15": 17,
-    "2026-11-14": 29
+    "2026-11-15": 17
   },
-  "coverage_start": "2026-11-14",
+  "coverage_start": "2026-11-15",
   "complete": false,
   "raw_archived_extremes": null
 }
