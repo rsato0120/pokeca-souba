@@ -1,11 +1,24 @@
 {
   "product_id": "op18-938650",
-  "fetched_at": "2026-11-21T03:30:03.130Z",
-  "history": [],
+  "fetched_at": "2026-11-21T08:47:29.286Z",
+  "history": [
+    {
+      "date": "2026-11-21",
+      "avg": 11654,
+      "low": 8200,
+      "high": 12999,
+      "source": "snkrdunk",
+      "sample_count": 11
+    }
+  ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-21": 4
+    "2026-11-21": 11
   },
   "coverage_start": "2026-11-21",
-  "complete": true
+  "complete": true,
+  "psa10_history": [],
+  "psa10_sales_by_day": {},
+  "psa10_archived_extremes": null,
+  "psa10_fetched_at": "2026-11-21T09:07:04.145Z"
 }
