@@ -135,6 +135,8 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
   // ダミー値（¥2,500〜¥3,500）なので、**金額は絶対に表示しない**（実勢と誤読されるため）。
   const realForecast = getForecast(card.id)
   const isStub = realForecast == null
+  const formatForecastRange = (low: number | null, high: number | null) =>
+    low == null || high == null ? '—' : `¥${low.toLocaleString()}〜${high.toLocaleString()}`
   const forecast: Forecast = realForecast ?? stubForecast(card.card_no, card.rarity)
   const priceHistory = getPriceHistory(card.id)
 
@@ -445,21 +447,21 @@ export default async function CardPage(props: PageProps<'/cards/[cardId]'>) {
                     <span style={{ display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>現在</span>
                       <span style={{ color: 'var(--ink-dim)' }}>
-                        ¥{price_forecast.current_low.toLocaleString()}〜{price_forecast.current_high.toLocaleString()}
+                        {formatForecastRange(price_forecast.current_low, price_forecast.current_high)}
                       </span>
                     </span>
                     <span style={{ color: 'var(--ink-faint)' }}>→</span>
                     <span style={{ display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>3ヶ月後</span>
                       <span style={{ color: signal.color }}>
-                        ¥{price_forecast.m3_low.toLocaleString()}〜{price_forecast.m3_high.toLocaleString()}
+                        {formatForecastRange(price_forecast.m3_low, price_forecast.m3_high)}
                       </span>
                     </span>
                     <span style={{ color: 'var(--ink-faint)' }}>→</span>
                     <span style={{ display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '9px', color: 'var(--ink-faint)', fontWeight: 400 }}>6ヶ月後</span>
                       <span style={{ color: signal.color }}>
-                        ¥{price_forecast.m6_low.toLocaleString()}〜{price_forecast.m6_high.toLocaleString()}
+                        {formatForecastRange(price_forecast.m6_low, price_forecast.m6_high)}
                       </span>
                     </span>
                   </>
