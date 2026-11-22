@@ -1,25 +1,34 @@
 {
   "product_id": "op18-938642",
-  "fetched_at": "2026-11-22T08:51:52.143Z",
+  "fetched_at": "2026-11-22T20:51:39.123Z",
   "history": [
     {
-      "date": "2026-11-22",
-      "avg": 4869,
-      "low": 4399,
-      "high": 4999,
+      "date": "2026-11-23",
+      "avg": 4483,
+      "low": 4100,
+      "high": 4900,
       "source": "snkrdunk",
-      "sample_count": 16
+      "sample_count": 18
+    },
+    {
+      "date": "2026-11-22",
+      "avg": 4512,
+      "low": 4200,
+      "high": 4900,
+      "source": "snkrdunk",
+      "sample_count": 17
     }
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-22": 12,
-    "2026-11-21": 4
+    "2026-11-21": 4,
+    "2026-11-23": 1,
+    "2026-11-22": 17
   },
-  "coverage_start": "2026-11-21",
+  "coverage_start": "2026-11-22",
   "complete": true,
   "psa10_history": [],
   "psa10_sales_by_day": {},
   "psa10_archived_extremes": null,
-  "psa10_fetched_at": "2026-11-22T09:10:59.396Z"
+  "psa10_fetched_at": "2026-11-22T21:06:09.387Z"
 }

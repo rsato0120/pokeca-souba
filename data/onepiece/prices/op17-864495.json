@@ -1,46 +1,54 @@
 {
   "product_id": "op17-864495",
-  "fetched_at": "2026-11-22T08:52:12.271Z",
+  "fetched_at": "2026-11-22T20:52:03.273Z",
   "history": [
     {
-      "date": "2026-11-22",
-      "avg": 8858,
+      "date": "2026-11-23",
+      "avg": 8885,
       "low": 8700,
+      "high": 9040,
+      "source": "snkrdunk",
+      "sample_count": 82
+    },
+    {
+      "date": "2026-11-22",
+      "avg": 8857,
+      "low": 8699,
       "high": 9090,
       "source": "snkrdunk",
-      "sample_count": 71
+      "sample_count": 64
     },
     {
       "date": "2026-11-21",
-      "avg": 8875,
-      "low": 8699,
-      "high": 9100,
+      "avg": 8809,
+      "low": 8600,
+      "high": 9090,
       "source": "snkrdunk",
-      "sample_count": 45
+      "sample_count": 46
     },
     {
       "date": "2026-11-20",
-      "avg": 8809,
-      "low": 8600,
-      "high": 9100,
+      "avg": 8952,
+      "low": 8650,
+      "high": 9150,
       "source": "snkrdunk",
-      "sample_count": 38
+      "sample_count": 57
     },
     {
       "date": "2026-11-19",
-      "avg": 9022,
-      "low": 8800,
+      "avg": 9079,
+      "low": 8998,
       "high": 9200,
       "source": "snkrdunk",
-      "sample_count": 45
+      "sample_count": 39
     },
     {
       "date": "2026-11-18",
-      "avg": 9089,
-      "low": 8999,
+      "avg": 9084,
+      "low": 8998,
       "high": 9200,
       "source": "snkrdunk",
-      "sample_count": 33
+      "sample_count": 38
     },
     {
       "date": "2026-11-17",
@@ -687,15 +695,15 @@
     "2026-10-24": 12,
     "2026-10-28": 14,
     "2026-11-09": 17,
-    "2026-11-22": 26,
-    "2026-11-21": 45,
-    "2026-11-20": 26,
-    "2026-11-19": 12,
-    "2026-11-18": 33,
-    "2026-11-17": 59,
-    "2026-11-16": 22
+    "2026-11-23": 18,
+    "2026-11-22": 64,
+    "2026-11-21": 28,
+    "2026-11-20": 18,
+    "2026-11-19": 1,
+    "2026-11-18": 38,
+    "2026-11-17": 59
   },
-  "coverage_start": "2026-11-16",
+  "coverage_start": "2026-11-17",
   "complete": false,
   "raw_archived_extremes": null
 }
