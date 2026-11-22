@@ -2,6 +2,21 @@
   "card_id": "mega-symphonia-mega-gardevoir-ex-sar-87",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 6488,
+      "high": 8700,
+      "avg": 7896,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 218,
+      "ask_low": 6700,
+      "ask_mid": 8499,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20349,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-22",
       "low": 6500,
       "high": 8800,
@@ -1294,17 +1309,6 @@
       "ask_low": 10980,
       "ask_mid": 13333,
       "psa10": 27066
-    },
-    {
-      "date": "2026-08-21",
-      "low": 9823,
-      "high": 12005,
-      "avg": 10914,
-      "source": "snkrdunk",
-      "sample_count": 27,
-      "ask_low": 10900,
-      "ask_mid": 13167,
-      "psa10": 27574
     }
   ],
   "sales_by_day": {
@@ -1416,7 +1420,8 @@
     "2026-11-17": 4,
     "2026-11-18": 4,
     "2026-11-19": 3,
-    "2026-11-20": 1
+    "2026-11-20": 1,
+    "2026-11-22": 2
   },
   "psa10_sales_by_day": {
     "2026-08-25": 9,
@@ -1453,7 +1458,6 @@
     "2026-07-27": 1,
     "2026-07-26": 4,
     "2026-07-25": 5,
-    "2026-07-24": 5,
     "2026-09-02": 9,
     "2026-09-01": 12,
     "2026-08-31": 11,
@@ -1540,7 +1544,7 @@
     "2026-11-21": 1,
     "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-22",
+  "sales_fetched_at": "2026-11-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 28751,
@@ -1553,7 +1557,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-14",
-    "records": 7,
-    "updated_at": "2026-08-20"
+    "records": 8,
+    "updated_at": "2026-08-21"
   }
 }

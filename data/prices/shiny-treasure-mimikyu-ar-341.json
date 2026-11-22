@@ -2,6 +2,21 @@
   "card_id": "shiny-treasure-mimikyu-ar-341",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 2999,
+      "high": 3300,
+      "avg": 3117,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 34,
+      "ask_low": 3280,
+      "ask_mid": 3390,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11421,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-22",
       "low": 2999,
       "high": 3300,
@@ -1294,19 +1309,6 @@
       "ask_low": 1333,
       "ask_mid": 2450,
       "psa10": 14495
-    },
-    {
-      "date": "2026-08-19",
-      "low": 1480,
-      "high": 1800,
-      "avg": 1688,
-      "source": "mercari",
-      "sample_count": 89,
-      "sold_total": 766,
-      "oldest_sale_days": 48,
-      "ask_low": 1499,
-      "ask_mid": 2400,
-      "psa10": 14487
     }
   ],
   "sales_by_day": {
@@ -1418,7 +1420,22 @@
     "2026-11-20": 5,
     "2026-11-19": 4,
     "2026-11-21": 2,
-    "2026-11-22": 1
+    "2026-11-22": 5
   },
-  "sales_fetched_at": "2026-11-22"
+  "sales_fetched_at": "2026-11-23",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 14487,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 14487,
+      "date": "2026-08-19",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-19",
+    "records": 1,
+    "updated_at": "2026-08-19"
+  }
 }

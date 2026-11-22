@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-leafeon-vstar-sar-210",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 3500,
+      "high": 4500,
+      "avg": 4184,
+      "source": "snkrdunk",
+      "sample_count": 22,
+      "on_sale": 132,
+      "ask_low": 4500,
+      "ask_mid": 4500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 11603,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-22",
       "low": 3500,
       "high": 4500,
@@ -1294,17 +1309,6 @@
       "ask_low": 5000,
       "ask_mid": 5999,
       "psa10": 16881
-    },
-    {
-      "date": "2026-08-21",
-      "low": 4590,
-      "high": 5610,
-      "avg": 5100,
-      "source": "snkrdunk",
-      "sample_count": 20,
-      "ask_low": 4800,
-      "ask_mid": 5978,
-      "psa10": 17089
     }
   ],
   "sales_by_day": {
@@ -1367,7 +1371,7 @@
     "2026-11-17": 2,
     "2026-11-19": 1,
     "2026-11-20": 1,
-    "2026-11-22": 1,
+    "2026-11-22": 2,
     "2026-11-21": 1
   },
   "psa10_sales_by_day": {
@@ -1487,9 +1491,9 @@
     "2026-11-18": 7,
     "2026-11-19": 5,
     "2026-11-20": 1,
-    "2026-11-22": 1
+    "2026-11-22": 4
   },
-  "sales_fetched_at": "2026-11-22",
+  "sales_fetched_at": "2026-11-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 17176,
@@ -1502,7 +1506,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 2,
-    "updated_at": "2026-08-20"
+    "records": 3,
+    "updated_at": "2026-08-21"
   }
 }

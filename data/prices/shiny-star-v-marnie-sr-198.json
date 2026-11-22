@@ -2,6 +2,21 @@
   "card_id": "shiny-star-v-marnie-sr-198",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 10000,
+      "high": 12899,
+      "avg": 11362,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 207,
+      "ask_low": 10000,
+      "ask_mid": 10500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 30768,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-22",
       "low": 10000,
       "high": 12899,
@@ -1294,17 +1309,6 @@
       "ask_low": 11500,
       "ask_mid": 14700,
       "psa10": 37740
-    },
-    {
-      "date": "2026-08-21",
-      "low": 9064,
-      "high": 11078,
-      "avg": 10071,
-      "source": "snkrdunk",
-      "sample_count": 7,
-      "ask_low": 11500,
-      "ask_mid": 14500,
-      "psa10": 36971
     }
   ],
   "sales_by_day": {
@@ -1377,7 +1381,6 @@
     "2026-07-28": 5,
     "2026-07-27": 2,
     "2026-07-25": 1,
-    "2026-07-24": 4,
     "2026-09-03": 4,
     "2026-09-02": 3,
     "2026-09-01": 5,
@@ -1456,13 +1459,14 @@
     "2026-11-16": 2,
     "2026-11-18": 1,
     "2026-11-20": 1,
-    "2026-11-21": 1
+    "2026-11-21": 1,
+    "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-22",
+  "sales_fetched_at": "2026-11-23",
   "psa10_archived_extremes": {
     "high": {
-      "value": 36930,
-      "date": "2026-08-19",
+      "value": 36971,
+      "date": "2026-08-21",
       "source": "snkrdunk"
     },
     "low": {
@@ -1471,7 +1475,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 2,
-    "updated_at": "2026-08-20"
+    "records": 3,
+    "updated_at": "2026-08-21"
   }
 }

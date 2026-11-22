@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-meganium-ex-sar-761",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 7300,
+      "high": 9000,
+      "avg": 8108,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "on_sale": 47,
+      "ask_low": 8000,
+      "ask_mid": 9500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 17698,
+      "psa10_as_of": "2026-11-18"
+    },
+    {
       "date": "2026-11-22",
       "low": 7300,
       "high": 9000,
@@ -1294,17 +1309,6 @@
       "ask_low": 12888,
       "ask_mid": 19444,
       "psa10": 46412
-    },
-    {
-      "date": "2026-08-21",
-      "low": 14435,
-      "high": 17643,
-      "avg": 16039,
-      "source": "snkrdunk",
-      "sample_count": 17,
-      "ask_low": 15888,
-      "ask_mid": 23278,
-      "psa10": 46412
     }
   ],
   "sales_by_day": {
@@ -1435,7 +1439,7 @@
     "2026-11-18": 1,
     "2026-11-19": 1
   },
-  "sales_fetched_at": "2026-11-22",
+  "sales_fetched_at": "2026-11-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 50292,
@@ -1448,7 +1452,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 6,
-    "updated_at": "2026-08-20"
+    "records": 7,
+    "updated_at": "2026-08-21"
   }
 }

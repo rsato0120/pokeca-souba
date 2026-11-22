@@ -2,6 +2,21 @@
   "card_id": "white-flare-sazandora-ex-sar-171",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 3300,
+      "high": 5500,
+      "avg": 4700,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 33,
+      "ask_low": 4500,
+      "ask_mid": 4500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 9473,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-22",
       "low": 3300,
       "high": 5500,
@@ -1286,19 +1301,6 @@
       "ask_low": 4800,
       "ask_mid": 5555,
       "psa10": 10727
-    },
-    {
-      "date": "2026-08-05",
-      "low": 4300,
-      "high": 4800,
-      "avg": 4671,
-      "source": "mercari",
-      "sample_count": 90,
-      "sold_total": 614,
-      "oldest_sale_days": 77,
-      "ask_low": 4800,
-      "ask_mid": 5555,
-      "psa10": 10727
     }
   ],
   "sales_by_day": {
@@ -1340,7 +1342,6 @@
     "2026-08-27": 2,
     "2026-08-26": 1,
     "2026-08-23": 1,
-    "2026-07-24": 1,
     "2026-09-03": 7,
     "2026-09-02": 1,
     "2026-08-31": 1,
@@ -1380,9 +1381,10 @@
     "2026-11-15": 1,
     "2026-11-16": 2,
     "2026-11-17": 1,
-    "2026-11-21": 1
+    "2026-11-21": 1,
+    "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-22",
+  "sales_fetched_at": "2026-11-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 11074,
@@ -1390,12 +1392,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 10839,
-      "date": "2026-08-03",
+      "value": 10727,
+      "date": "2026-08-05",
       "source": "snkrdunk"
     },
     "since": "2026-07-22",
-    "records": 14,
-    "updated_at": "2026-08-04"
+    "records": 15,
+    "updated_at": "2026-08-05"
   }
 }

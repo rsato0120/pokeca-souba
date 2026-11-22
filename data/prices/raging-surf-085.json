@@ -2,6 +2,16 @@
   "card_id": "raging-surf-085",
   "history": [
     {
+      "date": "2026-11-22",
+      "low": 4000,
+      "high": 4000,
+      "avg": 4000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-09-27",
       "low": 3000,
       "high": 3000,
@@ -804,6 +814,16 @@
   ],
   "psa10_history": [
     {
+      "date": "2026-11-22",
+      "low": 0,
+      "high": 0,
+      "psa10": 9600,
+      "psa10_as_of": "2026-11-22",
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-21",
       "low": 0,
       "high": 0,
@@ -827,7 +847,7 @@
       "date": "2026-11-18",
       "low": 0,
       "high": 0,
-      "psa10": 9700,
+      "psa10": 9800,
       "psa10_as_of": "2026-11-18",
       "source": "snkrdunk",
       "sample_count": 1,
@@ -1692,16 +1712,6 @@
       "source": "snkrdunk",
       "sample_count": 1,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-02-02",
-      "low": 0,
-      "high": 0,
-      "psa10": 15550,
-      "psa10_as_of": "2026-02-02",
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -1784,7 +1794,8 @@
     "2023-09-25": 5,
     "2023-09-24": 3,
     "2023-09-23": 9,
-    "2023-09-22": 9
+    "2023-09-22": 9,
+    "2026-11-22": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 1,
@@ -1971,7 +1982,8 @@
     "2026-11-17": 1,
     "2026-11-18": 2,
     "2026-11-19": 1,
-    "2026-11-21": 1
+    "2026-11-21": 1,
+    "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-22"
+  "sales_fetched_at": "2026-11-23"
 }

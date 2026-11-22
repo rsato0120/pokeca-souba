@@ -2,6 +2,21 @@
   "card_id": "munikiss-zero-jacinthe-sar",
   "history": [
     {
+      "date": "2026-11-23",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 51,
+      "ask_low": 1250,
+      "ask_mid": 1375,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6319,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-22",
       "low": 1000,
       "high": 1000,
@@ -1310,17 +1325,6 @@
       "ask_low": 1111,
       "ask_mid": 1599,
       "psa10": 13651
-    },
-    {
-      "date": "2026-08-18",
-      "low": 1350,
-      "high": 1650,
-      "avg": 1500,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "ask_low": 1199,
-      "ask_mid": 1599,
-      "psa10": 13651
     }
   ],
   "sales_by_day": {
@@ -1397,7 +1401,7 @@
     "2026-11-21": 1,
     "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-22",
+  "sales_fetched_at": "2026-11-23",
   "psa10_archived_extremes": {
     "high": {
       "value": 17364,
@@ -1410,7 +1414,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 53,
-    "updated_at": "2026-08-17"
+    "records": 54,
+    "updated_at": "2026-08-18"
   }
 }
