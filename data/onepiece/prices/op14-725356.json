@@ -1,14 +1,30 @@
 {
   "product_id": "op14-725356",
-  "fetched_at": "2026-11-24T01:57:25.571Z",
+  "fetched_at": "2026-11-24T23:41:28.188Z",
   "history": [
     {
-      "date": "2026-11-23",
-      "avg": 8248,
+      "date": "2026-11-25",
+      "avg": 8207,
       "low": 8000,
+      "high": 8399,
+      "source": "snkrdunk",
+      "sample_count": 31
+    },
+    {
+      "date": "2026-11-24",
+      "avg": 8204,
+      "low": 7990,
       "high": 8499,
       "source": "snkrdunk",
       "sample_count": 30
+    },
+    {
+      "date": "2026-11-23",
+      "avg": 8232,
+      "low": 7990,
+      "high": 8499,
+      "source": "snkrdunk",
+      "sample_count": 34
     },
     {
       "date": "2026-11-22",
@@ -20,11 +36,11 @@
     },
     {
       "date": "2026-11-21",
-      "avg": 8263,
+      "avg": 8242,
       "low": 7990,
-      "high": 8500,
+      "high": 8499,
       "source": "snkrdunk",
-      "sample_count": 30
+      "sample_count": 31
     },
     {
       "date": "2026-11-19",
@@ -945,22 +961,6 @@
       "high": 15470,
       "source": "snkrdunk",
       "sample_count": 20
-    },
-    {
-      "date": "2026-07-22",
-      "avg": 15030,
-      "low": 14700,
-      "high": 15400,
-      "source": "snkrdunk",
-      "sample_count": 20
-    },
-    {
-      "date": "2026-07-21",
-      "avg": 14983,
-      "low": 14700,
-      "high": 15400,
-      "source": "snkrdunk",
-      "sample_count": 22
     }
   ],
   "sales_by_day": {
@@ -995,8 +995,10 @@
     "2026-08-22": 2,
     "2026-08-29": 6,
     "2026-09-05": 2,
+    "2026-11-25": 2,
+    "2026-11-24": 3,
     "2026-11-23": 5,
-    "2026-11-21": 3,
+    "2026-11-21": 2,
     "2026-11-18": 3,
     "2026-11-17": 2,
     "2026-11-16": 3,
@@ -1051,10 +1053,23 @@
     "2026-09-21": 18,
     "2026-09-20": 3,
     "2026-09-19": 8,
-    "2026-09-18": 3,
-    "2026-09-17": 4
+    "2026-09-18": 3
   },
-  "coverage_start": "2026-09-17",
+  "coverage_start": "2026-09-18",
   "complete": false,
-  "raw_archived_extremes": null
+  "raw_archived_extremes": {
+    "high": {
+      "value": 15030,
+      "date": "2026-07-22",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 14983,
+      "date": "2026-07-21",
+      "source": "snkrdunk"
+    },
+    "since": "2026-07-21",
+    "records": 2,
+    "updated_at": "2026-07-22"
+  }
 }
