@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-simisear-vstar-sar-214",
   "history": [
     {
+      "date": "2026-11-24",
+      "low": 3800,
+      "high": 5000,
+      "avg": 4548,
+      "source": "snkrdunk",
+      "sample_count": 21,
+      "on_sale": 60,
+      "ask_low": 3900,
+      "ask_mid": 4250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16781,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-23",
       "low": 3800,
       "high": 5000,
@@ -1295,17 +1310,6 @@
       "ask_low": 3900,
       "ask_mid": 4750,
       "psa10": 23391
-    },
-    {
-      "date": "2026-08-21",
-      "low": 3519,
-      "high": 4301,
-      "avg": 3910,
-      "source": "snkrdunk",
-      "sample_count": 8,
-      "ask_low": 3800,
-      "ask_mid": 4700,
-      "psa10": 22638
     }
   ],
   "sales_by_day": {
@@ -1401,7 +1405,6 @@
     "2026-07-28": 8,
     "2026-07-27": 10,
     "2026-07-26": 2,
-    "2026-07-25": 1,
     "2026-09-03": 7,
     "2026-09-02": 3,
     "2026-08-31": 1,
@@ -1475,9 +1478,10 @@
     "2026-11-21": 1,
     "2026-11-20": 2,
     "2026-11-22": 1,
-    "2026-11-23": 1
+    "2026-11-23": 2,
+    "2026-11-24": 1
   },
-  "sales_fetched_at": "2026-11-23",
+  "sales_fetched_at": "2026-11-24",
   "psa10_archived_extremes": {
     "high": {
       "value": 22638,
@@ -1490,7 +1494,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 2,
-    "updated_at": "2026-08-20"
+    "records": 3,
+    "updated_at": "2026-08-21"
   }
 }

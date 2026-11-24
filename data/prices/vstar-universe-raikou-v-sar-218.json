@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-raikou-v-sar-218",
   "history": [
     {
+      "date": "2026-11-24",
+      "low": 4000,
+      "high": 4200,
+      "avg": 4054,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "on_sale": 29,
+      "ask_low": 3980,
+      "ask_mid": 4040,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 14232,
+      "psa10_as_of": "2026-11-22"
+    },
+    {
       "date": "2026-11-23",
       "low": 4000,
       "high": 4200,
@@ -1298,23 +1313,11 @@
       "ask_low": 2377,
       "ask_mid": 4583,
       "psa10": 15247
-    },
-    {
-      "date": "2026-08-22",
-      "low": 3240,
-      "high": 3960,
-      "avg": 3600,
-      "source": "snkrdunk",
-      "sample_count": 7,
-      "ask_low": 2377,
-      "ask_mid": 4500,
-      "psa10": 15287
     }
   ],
   "sales_by_day": {
     "2026-08-19": 1,
     "2026-08-10": 1,
-    "2026-07-25": 1,
     "2026-08-22": 1,
     "2026-08-16": 1,
     "2026-08-15": 1,
@@ -1374,7 +1377,6 @@
     "2026-07-28": 2,
     "2026-07-27": 3,
     "2026-07-26": 2,
-    "2026-07-25": 4,
     "2026-09-02": 2,
     "2026-09-01": 1,
     "2026-08-31": 1,
@@ -1443,7 +1445,7 @@
     "2026-11-21": 2,
     "2026-11-22": 1
   },
-  "sales_fetched_at": "2026-11-23",
+  "sales_fetched_at": "2026-11-24",
   "psa10_archived_extremes": {
     "high": {
       "value": 15499,
@@ -1451,12 +1453,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 15483,
-      "date": "2026-08-19",
+      "value": 15287,
+      "date": "2026-08-22",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 3,
-    "updated_at": "2026-08-21"
+    "records": 4,
+    "updated_at": "2026-08-22"
   }
 }

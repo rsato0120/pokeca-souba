@@ -904,6 +904,16 @@
   ],
   "psa10_history": [
     {
+      "date": "2026-11-24",
+      "low": 0,
+      "high": 0,
+      "psa10": 8075,
+      "psa10_as_of": "2026-11-24",
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-23",
       "low": 0,
       "high": 0,
@@ -1792,16 +1802,6 @@
       "source": "snkrdunk",
       "sample_count": 2,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-07-08",
-      "low": 0,
-      "high": 0,
-      "psa10": 11900,
-      "psa10_as_of": "2026-07-08",
-      "source": "snkrdunk",
-      "sample_count": 2,
-      "price_basis": "transaction_day"
     }
   ],
   "sales_by_day": {
@@ -2152,7 +2152,8 @@
     "2026-11-20": 1,
     "2026-11-21": 6,
     "2026-11-22": 6,
-    "2026-11-23": 7
+    "2026-11-23": 7,
+    "2026-11-24": 2
   },
-  "sales_fetched_at": "2026-11-23"
+  "sales_fetched_at": "2026-11-24"
 }

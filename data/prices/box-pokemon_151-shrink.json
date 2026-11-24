@@ -2,6 +2,17 @@
   "card_id": "box-pokemon_151-shrink",
   "history": [
     {
+      "date": "2026-11-24",
+      "low": 46500,
+      "high": 47500,
+      "avg": 47000,
+      "source": "snkrdunk",
+      "sample_count": 29,
+      "psa10": null,
+      "on_sale": 904,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-11-23",
       "low": 47000,
       "high": 48000,
@@ -968,16 +979,6 @@
       "sold_total": 1004,
       "oldest_sale_days": 32,
       "psa10": null
-    },
-    {
-      "date": "2026-08-19",
-      "low": 53500,
-      "high": 55600,
-      "avg": 54550,
-      "source": "mercari",
-      "sold_total": 1000,
-      "oldest_sale_days": 31,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1071,7 +1072,8 @@
     "2026-11-20": 20,
     "2026-11-21": 33,
     "2026-11-22": 45,
-    "2026-11-23": 3
+    "2026-11-23": 29,
+    "2026-11-24": 14
   },
-  "sales_fetched_at": "2026-11-23"
+  "sales_fetched_at": "2026-11-24"
 }

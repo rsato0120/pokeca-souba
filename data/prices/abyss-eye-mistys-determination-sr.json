@@ -2,6 +2,21 @@
   "card_id": "abyss-eye-mistys-determination-sr",
   "history": [
     {
+      "date": "2026-11-24",
+      "low": 1600,
+      "high": 2000,
+      "avg": 1850,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "on_sale": 64,
+      "ask_low": 1200,
+      "ask_mid": 1350,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 13273,
+      "psa10_as_of": "2026-11-14"
+    },
+    {
       "date": "2026-11-23",
       "low": 1600,
       "high": 2000,
@@ -1282,17 +1297,6 @@
       "ask_low": 1800,
       "ask_mid": 2000,
       "psa10": 33158
-    },
-    {
-      "date": "2026-08-19",
-      "low": 1930,
-      "high": 2358,
-      "avg": 2144,
-      "source": "snkrdunk",
-      "sample_count": 34,
-      "ask_low": 1790,
-      "ask_mid": 2000,
-      "psa10": 33158
     }
   ],
   "sales_by_day": {
@@ -1419,7 +1423,7 @@
     "2026-11-14": 1,
     "2026-11-15": 1
   },
-  "sales_fetched_at": "2026-11-23",
+  "sales_fetched_at": "2026-11-24",
   "psa10_archived_extremes": {
     "high": {
       "value": 37222,
@@ -1432,7 +1436,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-07-20",
-    "records": 30,
-    "updated_at": "2026-08-18"
+    "records": 31,
+    "updated_at": "2026-08-19"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-marill-ar-748",
   "history": [
     {
+      "date": "2026-11-24",
+      "low": 1000,
+      "high": 2200,
+      "avg": 1725,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 47,
+      "ask_low": 2000,
+      "ask_mid": 2087,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 8188,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-23",
       "low": 1000,
       "high": 2200,
@@ -1298,17 +1313,6 @@
       "ask_low": 2380,
       "ask_mid": 3500,
       "psa10": 18857
-    },
-    {
-      "date": "2026-08-22",
-      "low": 2650,
-      "high": 3238,
-      "avg": 2944,
-      "source": "snkrdunk",
-      "sample_count": 18,
-      "ask_low": 2499,
-      "ask_mid": 3500,
-      "psa10": 19052
     }
   ],
   "sales_by_day": {
@@ -1415,9 +1419,10 @@
     "2026-11-10": 1,
     "2026-11-11": 1,
     "2026-11-21": 1,
-    "2026-11-23": 1
+    "2026-11-23": 1,
+    "2026-11-24": 1
   },
-  "sales_fetched_at": "2026-11-23",
+  "sales_fetched_at": "2026-11-24",
   "psa10_archived_extremes": {
     "high": {
       "value": 22333,
@@ -1425,12 +1430,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 19657,
-      "date": "2026-08-21",
+      "value": 19052,
+      "date": "2026-08-22",
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 7,
-    "updated_at": "2026-08-21"
+    "records": 8,
+    "updated_at": "2026-08-22"
   }
 }
