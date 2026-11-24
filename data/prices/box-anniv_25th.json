@@ -8,8 +8,9 @@
       "avg": 53500,
       "source": "mercari",
       "sold_total": 493,
-      "oldest_sale_days": 29,
-      "on_sale": 34,
+      "oldest_sale_days": 30,
+      "on_sale": 35,
+      "on_sale_capped": true,
       "psa10": null
     },
     {
@@ -1076,7 +1077,7 @@
     "2026-11-20": 12,
     "2026-11-21": 8,
     "2026-11-23": 3,
-    "2026-11-24": 1
+    "2026-11-24": 3
   },
   "sales_fetched_at": "2026-11-24"
 }

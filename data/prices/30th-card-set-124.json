@@ -2,6 +2,16 @@
   "card_id": "30th-card-set-124",
   "history": [
     {
+      "date": "2026-11-24",
+      "low": 1000,
+      "high": 1000,
+      "avg": 1000,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-20",
       "low": 1000,
       "high": 1000,
@@ -80,7 +90,8 @@
     "2026-10-19": 2,
     "2026-10-20": 1,
     "2026-11-19": 1,
-    "2026-11-20": 1
+    "2026-11-20": 1,
+    "2026-11-24": 1
   },
   "psa10_sales_by_day": {},
   "sales_fetched_at": "2026-11-24"
