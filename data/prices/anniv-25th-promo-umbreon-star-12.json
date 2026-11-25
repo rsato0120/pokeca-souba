@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-umbreon-star-12",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 15000,
+      "high": 25555,
+      "avg": 21806,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 302,
+      "ask_low": 16500,
+      "ask_mid": 18000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 45421,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 15000,
       "high": 25555,
@@ -1302,17 +1317,6 @@
       "ask_low": 35000,
       "ask_mid": 49000,
       "psa10": 57345
-    },
-    {
-      "date": "2026-08-24",
-      "low": 27949,
-      "high": 34159,
-      "avg": 31054,
-      "source": "snkrdunk",
-      "sample_count": 11,
-      "ask_low": 35000,
-      "ask_mid": 50950,
-      "psa10": 62908
     }
   ],
   "sales_by_day": {
@@ -1393,7 +1397,6 @@
     "2026-07-29": 5,
     "2026-07-28": 9,
     "2026-07-27": 7,
-    "2026-07-26": 8,
     "2026-09-03": 14,
     "2026-09-02": 15,
     "2026-09-01": 15,
@@ -1479,14 +1482,14 @@
     "2026-11-20": 2,
     "2026-11-21": 1,
     "2026-11-22": 3,
-    "2026-11-24": 3,
+    "2026-11-24": 4,
     "2026-11-23": 4
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
-      "value": 62600,
-      "date": "2026-08-22",
+      "value": 62908,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "low": {
@@ -1495,7 +1498,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 1,
-    "updated_at": "2026-08-22"
+    "records": 2,
+    "updated_at": "2026-08-24"
   }
 }

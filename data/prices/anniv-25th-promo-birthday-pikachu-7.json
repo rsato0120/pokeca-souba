@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-birthday-pikachu-7",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 35500,
+      "high": 45000,
+      "avg": 41421,
+      "source": "snkrdunk",
+      "sample_count": 19,
+      "on_sale": 325,
+      "ask_low": 31000,
+      "ask_mid": 35500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 81579,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 35500,
       "high": 45000,
@@ -1302,17 +1317,6 @@
       "ask_low": 44999,
       "ask_mid": 65000,
       "psa10": 101640
-    },
-    {
-      "date": "2026-08-24",
-      "low": 53447,
-      "high": 65324,
-      "avg": 59385,
-      "source": "snkrdunk",
-      "sample_count": 23,
-      "ask_low": 41800,
-      "ask_mid": 64666,
-      "psa10": 105721
     }
   ],
   "sales_by_day": {
@@ -1414,7 +1418,6 @@
     "2026-07-29": 4,
     "2026-07-28": 14,
     "2026-07-27": 4,
-    "2026-07-26": 7,
     "2026-08-27": 1,
     "2026-09-03": 7,
     "2026-09-02": 5,
@@ -1501,13 +1504,13 @@
     "2026-11-21": 8,
     "2026-11-22": 8,
     "2026-11-23": 4,
-    "2026-11-24": 3
+    "2026-11-24": 6
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
-      "value": 105662,
-      "date": "2026-08-22",
+      "value": 105721,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "low": {
@@ -1516,7 +1519,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 1,
-    "updated_at": "2026-08-22"
+    "records": 2,
+    "updated_at": "2026-08-24"
   }
 }

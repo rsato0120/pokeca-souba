@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-mewtwo-vstar-sar-221",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 9600,
+      "high": 11900,
+      "avg": 10771,
+      "source": "snkrdunk",
+      "sample_count": 26,
+      "on_sale": 178,
+      "ask_low": 7999,
+      "ask_mid": 9900,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 27064,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 9600,
       "high": 11900,
@@ -1302,17 +1317,6 @@
       "ask_low": 12121,
       "ask_mid": 16300,
       "psa10": 30990
-    },
-    {
-      "date": "2026-08-24",
-      "low": 13529,
-      "high": 16535,
-      "avg": 15032,
-      "source": "snkrdunk",
-      "sample_count": 23,
-      "ask_low": 12480,
-      "ask_mid": 16600,
-      "psa10": 33317
     }
   ],
   "sales_by_day": {
@@ -1436,7 +1440,6 @@
     "2026-07-29": 4,
     "2026-07-28": 4,
     "2026-07-27": 2,
-    "2026-07-26": 3,
     "2026-09-03": 10,
     "2026-09-02": 9,
     "2026-09-01": 5,
@@ -1522,7 +1525,7 @@
     "2026-11-22": 2,
     "2026-11-24": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 35406,
@@ -1535,7 +1538,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 4,
-    "updated_at": "2026-08-22"
+    "records": 5,
+    "updated_at": "2026-08-24"
   }
 }

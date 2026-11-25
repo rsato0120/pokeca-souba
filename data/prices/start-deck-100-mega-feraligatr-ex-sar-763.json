@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-feraligatr-ex-sar-763",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 7000,
+      "high": 9500,
+      "avg": 8178,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "on_sale": 55,
+      "ask_low": 7000,
+      "ask_mid": 7750,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 21925,
+      "psa10_as_of": "2026-11-18"
+    },
+    {
       "date": "2026-11-24",
       "low": 7000,
       "high": 9500,
@@ -1302,17 +1317,6 @@
       "ask_low": 15990,
       "ask_mid": 18050,
       "psa10": 38420
-    },
-    {
-      "date": "2026-08-24",
-      "low": 15126,
-      "high": 18488,
-      "avg": 16807,
-      "source": "snkrdunk",
-      "sample_count": 18,
-      "ask_low": 16999,
-      "ask_mid": 19000,
-      "psa10": 52850
     }
   ],
   "sales_by_day": {
@@ -1324,7 +1328,6 @@
     "2026-08-10": 2,
     "2026-08-05": 2,
     "2026-08-04": 1,
-    "2026-07-26": 2,
     "2026-07-28": 1,
     "2026-09-01": 1,
     "2026-09-04": 3,
@@ -1383,7 +1386,8 @@
     "2026-11-14": 3,
     "2026-11-15": 1,
     "2026-11-16": 2,
-    "2026-11-17": 2
+    "2026-11-17": 2,
+    "2026-11-24": 1
   },
   "psa10_sales_by_day": {
     "2026-08-20": 1,
@@ -1443,7 +1447,7 @@
     "2026-11-18": 1,
     "2026-11-19": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 53300,
@@ -1456,7 +1460,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 8,
-    "updated_at": "2026-08-22"
+    "records": 9,
+    "updated_at": "2026-08-24"
   }
 }

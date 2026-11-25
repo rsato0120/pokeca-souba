@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-airisu-no-toushi-sar",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 1599,
+      "high": 2000,
+      "avg": 1739,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 128,
+      "ask_low": 1400,
+      "ask_mid": 1600,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 6675,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 1599,
       "high": 2000,
@@ -1302,17 +1317,6 @@
       "ask_low": 2000,
       "ask_mid": 2675,
       "psa10": 10695
-    },
-    {
-      "date": "2026-08-24",
-      "low": 1760,
-      "high": 2151,
-      "avg": 1955,
-      "source": "snkrdunk",
-      "sample_count": 9,
-      "ask_low": 1900,
-      "ask_mid": 2650,
-      "psa10": 12343
     }
   ],
   "sales_by_day": {
@@ -1381,7 +1385,6 @@
     "2026-07-31": 4,
     "2026-07-28": 10,
     "2026-07-27": 3,
-    "2026-07-26": 6,
     "2026-09-02": 5,
     "2026-09-01": 3,
     "2026-09-03": 5,
@@ -1457,9 +1460,10 @@
     "2026-11-20": 2,
     "2026-11-19": 2,
     "2026-11-22": 17,
-    "2026-11-23": 19
+    "2026-11-23": 19,
+    "2026-11-24": 2
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 16475,
@@ -1472,7 +1476,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 58,
-    "updated_at": "2026-08-22"
+    "records": 59,
+    "updated_at": "2026-08-24"
   }
 }

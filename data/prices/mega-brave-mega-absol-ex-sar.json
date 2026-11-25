@@ -2,6 +2,21 @@
   "card_id": "mega-brave-mega-absol-ex-sar",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 1750,
+      "high": 1999,
+      "avg": 1812,
+      "source": "snkrdunk",
+      "sample_count": 22,
+      "on_sale": 59,
+      "ask_low": 1900,
+      "ask_mid": 2200,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7700,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 1750,
       "high": 1999,
@@ -1302,17 +1317,6 @@
       "ask_low": 2299,
       "ask_mid": 3498,
       "psa10": 9493
-    },
-    {
-      "date": "2026-08-24",
-      "low": 2320,
-      "high": 2836,
-      "avg": 2578,
-      "source": "snkrdunk",
-      "sample_count": 9,
-      "ask_low": 2222,
-      "ask_mid": 3498,
-      "psa10": 13502
     }
   ],
   "sales_by_day": {
@@ -1476,7 +1480,7 @@
     "2026-11-24": 1,
     "2026-11-23": 2
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 15203,
@@ -1489,7 +1493,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-24",
-    "records": 59,
-    "updated_at": "2026-08-22"
+    "records": 60,
+    "updated_at": "2026-08-24"
   }
 }

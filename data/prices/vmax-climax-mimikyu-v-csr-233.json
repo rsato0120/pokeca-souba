@@ -2,6 +2,21 @@
   "card_id": "vmax-climax-mimikyu-v-csr-233",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 5000,
+      "high": 9000,
+      "avg": 6981,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "on_sale": 41,
+      "ask_low": 5000,
+      "ask_mid": 5555,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 27027,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 5000,
       "high": 9000,
@@ -1302,17 +1317,6 @@
       "ask_low": 3400,
       "ask_mid": 5795,
       "psa10": 31754
-    },
-    {
-      "date": "2026-08-24",
-      "low": 6004,
-      "high": 7338,
-      "avg": 6671,
-      "source": "snkrdunk",
-      "sample_count": 11,
-      "ask_low": 4750,
-      "ask_mid": 5900,
-      "psa10": 40684
     }
   ],
   "sales_by_day": {
@@ -1385,7 +1389,6 @@
     "2026-07-29": 5,
     "2026-07-28": 6,
     "2026-07-27": 11,
-    "2026-07-26": 3,
     "2026-09-02": 4,
     "2026-09-01": 5,
     "2026-08-31": 5,
@@ -1469,9 +1472,10 @@
     "2026-11-20": 13,
     "2026-11-21": 13,
     "2026-11-22": 3,
-    "2026-11-23": 11
+    "2026-11-23": 11,
+    "2026-11-24": 10
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 42065,
@@ -1479,12 +1483,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 40964,
-      "date": "2026-08-22",
+      "value": 40684,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 4,
-    "updated_at": "2026-08-22"
+    "records": 5,
+    "updated_at": "2026-08-24"
   }
 }

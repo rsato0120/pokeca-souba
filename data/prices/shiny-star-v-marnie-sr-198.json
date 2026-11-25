@@ -2,6 +2,21 @@
   "card_id": "shiny-star-v-marnie-sr-198",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 10000,
+      "high": 12899,
+      "avg": 11362,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 205,
+      "ask_low": 10000,
+      "ask_mid": 10500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 29916,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 10000,
       "high": 12899,
@@ -1302,17 +1317,6 @@
       "ask_low": 11244,
       "ask_mid": 14700,
       "psa10": 29095
-    },
-    {
-      "date": "2026-08-24",
-      "low": 9295,
-      "high": 11361,
-      "avg": 10328,
-      "source": "snkrdunk",
-      "sample_count": 7,
-      "ask_low": 11500,
-      "ask_mid": 14700,
-      "psa10": 37956
     }
   ],
   "sales_by_day": {
@@ -1465,13 +1469,13 @@
     "2026-11-21": 1,
     "2026-11-22": 1,
     "2026-11-23": 2,
-    "2026-11-24": 3
+    "2026-11-24": 4
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
-      "value": 37740,
-      "date": "2026-08-22",
+      "value": 37956,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "low": {
@@ -1480,7 +1484,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 4,
-    "updated_at": "2026-08-22"
+    "records": 5,
+    "updated_at": "2026-08-24"
   }
 }

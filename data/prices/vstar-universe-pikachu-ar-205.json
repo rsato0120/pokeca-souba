@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-pikachu-ar-205",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 33000,
+      "high": 44444,
+      "avg": 37290,
+      "source": "snkrdunk",
+      "sample_count": 19,
+      "on_sale": 222,
+      "ask_low": 23000,
+      "ask_mid": 29000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 66530,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 33000,
       "high": 44444,
@@ -1302,17 +1317,6 @@
       "ask_low": 29444,
       "ask_mid": 39999,
       "psa10": 91549
-    },
-    {
-      "date": "2026-08-24",
-      "low": 43626,
-      "high": 53320,
-      "avg": 48473,
-      "source": "snkrdunk",
-      "sample_count": 22,
-      "ask_low": 29999,
-      "ask_mid": 45495,
-      "psa10": 92351
     }
   ],
   "sales_by_day": {
@@ -1410,7 +1414,6 @@
     "2026-07-29": 3,
     "2026-07-28": 5,
     "2026-07-27": 8,
-    "2026-07-26": 1,
     "2026-09-02": 2,
     "2026-09-01": 1,
     "2026-08-31": 3,
@@ -1496,7 +1499,7 @@
     "2026-11-21": 2,
     "2026-11-24": 2
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 93454,
@@ -1509,7 +1512,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 4,
-    "updated_at": "2026-08-22"
+    "records": 5,
+    "updated_at": "2026-08-24"
   }
 }

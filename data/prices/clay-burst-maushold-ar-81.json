@@ -2,6 +2,21 @@
   "card_id": "clay-burst-maushold-ar-81",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 1800,
+      "high": 2300,
+      "avg": 2030,
+      "source": "snkrdunk",
+      "sample_count": 6,
+      "on_sale": 38,
+      "ask_low": 2500,
+      "ask_mid": 3000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 9944,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-24",
       "low": 1800,
       "high": 2300,
@@ -1302,17 +1317,6 @@
       "ask_low": 2322,
       "ask_mid": 3000,
       "psa10": 10767
-    },
-    {
-      "date": "2026-08-24",
-      "low": 2935,
-      "high": 3587,
-      "avg": 3261,
-      "source": "snkrdunk",
-      "sample_count": 8,
-      "ask_low": 2599,
-      "ask_mid": 3080,
-      "psa10": 14550
     }
   ],
   "sales_by_day": {
@@ -1425,9 +1429,10 @@
     "2026-11-21": 1,
     "2026-11-22": 1,
     "2026-11-23": 2,
-    "2026-11-24": 1
+    "2026-11-24": 3,
+    "2026-11-25": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 15044,
@@ -1440,7 +1445,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-08",
-    "records": 15,
-    "updated_at": "2026-08-22"
+    "records": 16,
+    "updated_at": "2026-08-24"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "mega-symphonia-acerola-mischief-sr-84",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 1000,
+      "high": 1300,
+      "avg": 1182,
+      "source": "snkrdunk",
+      "sample_count": 17,
+      "on_sale": 84,
+      "ask_low": 1000,
+      "ask_mid": 1000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12880,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 1000,
       "high": 1300,
@@ -1322,17 +1337,6 @@
       "ask_low": 1222,
       "ask_mid": 1880,
       "psa10": 12212
-    },
-    {
-      "date": "2026-08-24",
-      "low": 1363,
-      "high": 1665,
-      "avg": 1514,
-      "source": "snkrdunk",
-      "sample_count": 8,
-      "ask_low": 1200,
-      "ask_mid": 1884,
-      "psa10": 13500
     }
   ],
   "sales_by_day": {
@@ -1498,9 +1502,9 @@
     "2026-11-21": 4,
     "2026-11-22": 2,
     "2026-11-23": 5,
-    "2026-11-24": 4
+    "2026-11-24": 8
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 14214,
@@ -1508,12 +1512,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 13511,
-      "date": "2026-08-22",
+      "value": 13500,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "since": "2026-08-14",
-    "records": 9,
-    "updated_at": "2026-08-22"
+    "records": 10,
+    "updated_at": "2026-08-24"
   }
 }

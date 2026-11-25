@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-mew-ex-14",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 3500,
+      "high": 7800,
+      "avg": 6008,
+      "source": "snkrdunk",
+      "sample_count": 7,
+      "on_sale": 206,
+      "ask_low": 7000,
+      "ask_mid": 7900,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20818,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-24",
       "low": 3500,
       "high": 7800,
@@ -1302,17 +1317,6 @@
       "ask_low": 9999,
       "ask_mid": 15000,
       "psa10": 29300
-    },
-    {
-      "date": "2026-08-24",
-      "low": 13320,
-      "high": 16280,
-      "avg": 14800,
-      "source": "snkrdunk",
-      "sample_count": 7,
-      "ask_low": 11000,
-      "ask_mid": 15000,
-      "psa10": 34987
     }
   ],
   "sales_by_day": {
@@ -1378,7 +1382,6 @@
     "2026-07-29": 9,
     "2026-07-28": 3,
     "2026-07-27": 4,
-    "2026-07-26": 7,
     "2026-09-02": 6,
     "2026-09-01": 3,
     "2026-08-31": 3,
@@ -1463,9 +1466,10 @@
     "2026-11-20": 1,
     "2026-11-21": 1,
     "2026-11-23": 3,
-    "2026-11-24": 3
+    "2026-11-24": 5,
+    "2026-11-25": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 35140,
@@ -1473,12 +1477,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 35140,
-      "date": "2026-08-22",
+      "value": 34987,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 1,
-    "updated_at": "2026-08-22"
+    "records": 2,
+    "updated_at": "2026-08-24"
   }
 }

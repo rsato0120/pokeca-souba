@@ -2,6 +2,21 @@
   "card_id": "inferno-x-mega-charizard-x-ex-sr",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 2000,
+      "high": 3500,
+      "avg": 2957,
+      "source": "snkrdunk",
+      "sample_count": 18,
+      "on_sale": 232,
+      "ask_low": 3000,
+      "ask_mid": 3000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10770,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-24",
       "low": 2000,
       "high": 3500,
@@ -1302,17 +1317,6 @@
       "ask_low": 3777,
       "ask_mid": 4500,
       "psa10": 10384
-    },
-    {
-      "date": "2026-08-24",
-      "low": 4298,
-      "high": 5254,
-      "avg": 4776,
-      "source": "snkrdunk",
-      "sample_count": 25,
-      "ask_low": 3680,
-      "ask_mid": 4500,
-      "psa10": 14243
     }
   ],
   "sales_by_day": {
@@ -1421,7 +1425,6 @@
     "2026-07-30": 1,
     "2026-07-28": 15,
     "2026-07-27": 9,
-    "2026-07-26": 7,
     "2026-09-03": 22,
     "2026-09-02": 24,
     "2026-09-01": 10,
@@ -1507,9 +1510,10 @@
     "2026-11-19": 3,
     "2026-11-22": 2,
     "2026-11-23": 8,
-    "2026-11-24": 8
+    "2026-11-24": 13,
+    "2026-11-25": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 21047,
@@ -1517,12 +1521,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 14254,
-      "date": "2026-08-22",
+      "value": 14243,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 27,
-    "updated_at": "2026-08-22"
+    "records": 28,
+    "updated_at": "2026-08-24"
   }
 }

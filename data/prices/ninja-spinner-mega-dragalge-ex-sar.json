@@ -2,6 +2,21 @@
   "card_id": "ninja-spinner-mega-dragalge-ex-sar",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 1200,
+      "high": 1550,
+      "avg": 1438,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 43,
+      "ask_low": 1000,
+      "ask_mid": 1499,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 5282,
+      "psa10_as_of": "2026-11-23"
+    },
+    {
       "date": "2026-11-24",
       "low": 1450,
       "high": 1550,
@@ -1302,17 +1317,6 @@
       "ask_low": 1400,
       "ask_mid": 2500,
       "psa10": 14502
-    },
-    {
-      "date": "2026-08-24",
-      "low": 1838,
-      "high": 2246,
-      "avg": 2042,
-      "source": "snkrdunk",
-      "sample_count": 20,
-      "ask_low": 1111,
-      "ask_mid": 2500,
-      "psa10": 15597
     }
   ],
   "sales_by_day": {
@@ -1425,7 +1429,7 @@
     "2026-11-22": 1,
     "2026-11-23": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 22657,
@@ -1433,12 +1437,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 16491,
-      "date": "2026-08-15",
+      "value": 15597,
+      "date": "2026-08-24",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 58,
-    "updated_at": "2026-08-22"
+    "records": 59,
+    "updated_at": "2026-08-24"
   }
 }

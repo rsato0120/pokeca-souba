@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-origin-dialga-vstar-ur-260",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 6500,
+      "high": 11000,
+      "avg": 9244,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 54,
+      "ask_low": 9900,
+      "ask_mid": 10839,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 23594,
+      "psa10_as_of": "2026-11-24"
+    },
+    {
       "date": "2026-11-24",
       "low": 7000,
       "high": 10800,
@@ -1294,17 +1309,6 @@
       "ask_low": 10000,
       "ask_mid": 12500,
       "psa10": 27249
-    },
-    {
-      "date": "2026-08-21",
-      "low": 10455,
-      "high": 12779,
-      "avg": 11617,
-      "source": "snkrdunk",
-      "sample_count": 16,
-      "ask_low": 9999,
-      "ask_mid": 12200,
-      "psa10": 27249
     }
   ],
   "sales_by_day": {
@@ -1384,7 +1388,6 @@
     "2026-07-30": 2,
     "2026-07-28": 1,
     "2026-07-27": 2,
-    "2026-07-26": 2,
     "2026-09-02": 4,
     "2026-09-01": 6,
     "2026-08-31": 7,
@@ -1466,7 +1469,7 @@
     "2026-11-23": 1,
     "2026-11-24": 1
   },
-  "sales_fetched_at": "2026-11-24",
+  "sales_fetched_at": "2026-11-25",
   "psa10_archived_extremes": {
     "high": {
       "value": 27249,
@@ -1479,7 +1482,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 2,
-    "updated_at": "2026-08-20"
+    "records": 3,
+    "updated_at": "2026-08-21"
   }
 }
