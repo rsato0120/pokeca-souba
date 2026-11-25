@@ -2,6 +2,17 @@
   "card_id": "box-paradise_dragona-noshrink",
   "history": [
     {
+      "date": "2026-11-25",
+      "low": 14000,
+      "high": 14500,
+      "avg": 14500,
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "psa10": null,
+      "on_sale": 6,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-10-11",
       "low": 9000,
       "high": 17200,
@@ -482,5 +493,9 @@
       "oldest_sale_days": 351,
       "psa10": null
     }
-  ]
+  ],
+  "sales_by_day": {
+    "2026-11-25": 11
+  },
+  "sales_fetched_at": "2026-11-25"
 }
