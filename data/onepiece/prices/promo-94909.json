@@ -1,6 +1,6 @@
 {
   "product_id": "promo-94909",
-  "fetched_at": "2026-11-25T10:33:27.827Z",
+  "fetched_at": "2026-11-25T23:23:09.947Z",
   "history": [
     {
       "date": "2026-11-08",
@@ -582,6 +582,15 @@
   "complete": true,
   "psa10_history": [
     {
+      "date": "2026-11-26",
+      "avg": 9428,
+      "low": 9000,
+      "high": 9750,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "psa10": 9428
+    },
+    {
       "date": "2026-11-25",
       "avg": 9765,
       "low": 9000,
@@ -610,12 +619,12 @@
     },
     {
       "date": "2026-11-22",
-      "avg": 10017,
+      "avg": 10104,
       "low": 9500,
-      "high": 10499,
+      "high": 10500,
       "source": "snkrdunk",
       "sample_count": 31,
-      "psa10": 10017
+      "psa10": 10104
     },
     {
       "date": "2026-11-20",
@@ -1528,66 +1537,66 @@
     },
     {
       "date": "2026-08-08",
-      "avg": 24202,
+      "avg": 24110,
       "low": 21000,
       "high": 26450,
       "source": "snkrdunk",
-      "sample_count": 28,
-      "psa10": 24202
+      "sample_count": 27,
+      "psa10": 24110
     },
     {
       "date": "2026-08-07",
-      "avg": 24740,
+      "avg": 24655,
       "low": 22000,
-      "high": 26500,
+      "high": 26450,
       "source": "snkrdunk",
-      "sample_count": 24,
-      "psa10": 24740
+      "sample_count": 23,
+      "psa10": 24655
     },
     {
       "date": "2026-08-05",
-      "avg": 25829,
-      "low": 25000,
-      "high": 26500,
-      "source": "snkrdunk",
-      "sample_count": 19,
-      "psa10": 25829
-    },
-    {
-      "date": "2026-08-04",
-      "avg": 25987,
+      "avg": 25781,
       "low": 25000,
       "high": 26500,
       "source": "snkrdunk",
       "sample_count": 18,
-      "psa10": 25987
+      "psa10": 25781
+    },
+    {
+      "date": "2026-08-04",
+      "avg": 25945,
+      "low": 25000,
+      "high": 26500,
+      "source": "snkrdunk",
+      "sample_count": 17,
+      "psa10": 25945
     },
     {
       "date": "2026-08-03",
-      "avg": 26269,
-      "low": 26000,
-      "high": 26500,
-      "source": "snkrdunk",
-      "sample_count": 14,
-      "psa10": 26269
-    },
-    {
-      "date": "2026-07-31",
-      "avg": 26366,
+      "avg": 26235,
       "low": 26000,
       "high": 26500,
       "source": "snkrdunk",
       "sample_count": 13,
-      "psa10": 26366
+      "psa10": 26235
+    },
+    {
+      "date": "2026-07-31",
+      "avg": 26338,
+      "low": 26000,
+      "high": 26500,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "psa10": 26338
     },
     {
       "date": "2026-07-30",
-      "avg": 26475,
-      "low": 26450,
-      "high": 26699,
+      "avg": 26443,
+      "low": 26443,
+      "high": 26500,
       "source": "snkrdunk",
-      "sample_count": 8,
-      "psa10": 26475
+      "sample_count": 7,
+      "psa10": 26443
     },
     {
       "date": "2026-07-29",
@@ -1651,15 +1660,6 @@
       "source": "snkrdunk",
       "sample_count": 6,
       "psa10": 32350
-    },
-    {
-      "date": "2026-07-21",
-      "avg": 32860,
-      "low": 31299,
-      "high": 35000,
-      "source": "snkrdunk",
-      "sample_count": 5,
-      "psa10": 32860
     }
   ],
   "psa10_sales_by_day": {
@@ -1726,9 +1726,11 @@
     "2026-07-25": 6,
     "2026-07-26": 1,
     "2026-07-27": 2,
-    "2026-11-25": 4,
-    "2026-11-24": 2,
-    "2026-11-22": 3,
+    "2026-07-29": 1,
+    "2026-11-26": 6,
+    "2026-11-25": 6,
+    "2026-11-23": 2,
+    "2026-11-22": 1,
     "2026-11-20": 1,
     "2026-11-19": 4,
     "2026-11-17": 2,
@@ -1832,8 +1834,7 @@
     "2026-08-04": 4,
     "2026-08-03": 1,
     "2026-07-31": 5,
-    "2026-07-30": 7,
-    "2026-07-29": 1
+    "2026-07-30": 7
   },
   "psa10_archived_extremes": {
     "high": {
@@ -1847,9 +1848,9 @@
       "source": "snkrdunk"
     },
     "since": "2026-05-18",
-    "records": 56,
-    "updated_at": "2026-07-19"
+    "records": 57,
+    "updated_at": "2026-07-21"
   },
-  "psa10_fetched_at": "2026-11-25T10:52:08.512Z",
+  "psa10_fetched_at": "2026-11-25T23:41:13.549Z",
   "raw_archived_extremes": null
 }
