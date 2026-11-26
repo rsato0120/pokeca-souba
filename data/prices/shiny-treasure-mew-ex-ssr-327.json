@@ -2,6 +2,21 @@
   "card_id": "shiny-treasure-mew-ex-ssr-327",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 1900,
+      "high": 3399,
+      "avg": 2678,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "on_sale": 227,
+      "ask_low": 2200,
+      "ask_mid": 2500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 9144,
+      "psa10_as_of": "2026-11-26"
+    },
+    {
       "date": "2026-11-25",
       "low": 1900,
       "high": 3399,
@@ -1306,17 +1321,6 @@
       "ask_low": 2555,
       "ask_mid": 3650,
       "psa10": 10535
-    },
-    {
-      "date": "2026-08-25",
-      "low": 3986,
-      "high": 4872,
-      "avg": 4429,
-      "source": "snkrdunk",
-      "sample_count": 20,
-      "ask_low": 2555,
-      "ask_mid": 3666,
-      "psa10": 11475
     }
   ],
   "sales_by_day": {
@@ -1408,7 +1412,6 @@
     "2026-07-30": 2,
     "2026-07-29": 3,
     "2026-07-28": 1,
-    "2026-07-27": 2,
     "2026-09-03": 14,
     "2026-09-02": 18,
     "2026-09-01": 8,
@@ -1495,9 +1498,11 @@
     "2026-11-19": 1,
     "2026-11-22": 5,
     "2026-11-23": 10,
-    "2026-11-24": 7
+    "2026-11-24": 7,
+    "2026-11-26": 2,
+    "2026-11-25": 3
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 17567,
@@ -1505,12 +1510,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 15763,
-      "date": "2026-08-24",
+      "value": 11475,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 5,
-    "updated_at": "2026-08-24"
+    "records": 6,
+    "updated_at": "2026-08-25"
   }
 }

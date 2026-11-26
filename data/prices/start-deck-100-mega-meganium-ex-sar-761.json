@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-mega-meganium-ex-sar-761",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 7300,
+      "high": 9000,
+      "avg": 8100,
+      "source": "snkrdunk",
+      "sample_count": 13,
+      "on_sale": 48,
+      "ask_low": 9000,
+      "ask_mid": 10056,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 17698,
+      "psa10_as_of": "2026-11-18"
+    },
+    {
       "date": "2026-11-25",
       "low": 7300,
       "high": 9000,
@@ -1306,17 +1321,6 @@
       "ask_low": 12000,
       "ask_mid": 15555,
       "psa10": 29250
-    },
-    {
-      "date": "2026-08-25",
-      "low": 14146,
-      "high": 17290,
-      "avg": 15718,
-      "source": "snkrdunk",
-      "sample_count": 15,
-      "ask_low": 12000,
-      "ask_mid": 15278,
-      "psa10": 30020
     }
   ],
   "sales_by_day": {
@@ -1448,7 +1452,7 @@
     "2026-11-18": 1,
     "2026-11-19": 1
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 50292,
@@ -1456,12 +1460,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 45850,
-      "date": "2026-08-24",
+      "value": 30020,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 9,
-    "updated_at": "2026-08-24"
+    "records": 10,
+    "updated_at": "2026-08-25"
   }
 }

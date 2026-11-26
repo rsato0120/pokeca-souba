@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-mew-ex-14",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 6711,
+      "high": 7980,
+      "avg": 6711,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 209,
+      "ask_low": 7000,
+      "ask_mid": 7900,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20818,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-25",
       "low": 3500,
       "high": 7800,
@@ -1306,17 +1321,6 @@
       "ask_low": 9799,
       "ask_mid": 14650,
       "psa10": 29300
-    },
-    {
-      "date": "2026-08-25",
-      "low": 14004,
-      "high": 17116,
-      "avg": 15560,
-      "source": "snkrdunk",
-      "sample_count": 5,
-      "ask_low": 9999,
-      "ask_mid": 15000,
-      "psa10": 29300
     }
   ],
   "sales_by_day": {
@@ -1381,7 +1385,6 @@
     "2026-07-30": 3,
     "2026-07-29": 9,
     "2026-07-28": 3,
-    "2026-07-27": 4,
     "2026-09-02": 6,
     "2026-09-01": 3,
     "2026-08-31": 3,
@@ -1469,7 +1472,7 @@
     "2026-11-24": 5,
     "2026-11-25": 2
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 35140,
@@ -1477,12 +1480,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 34987,
-      "date": "2026-08-24",
+      "value": 29300,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 2,
-    "updated_at": "2026-08-24"
+    "records": 3,
+    "updated_at": "2026-08-25"
   }
 }

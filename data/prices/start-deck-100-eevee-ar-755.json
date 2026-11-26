@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-eevee-ar-755",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 7999,
+      "high": 13000,
+      "avg": 10325,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 209,
+      "ask_low": 5900,
+      "ask_mid": 7250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 33651,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-25",
       "low": 7999,
       "high": 13000,
@@ -1306,17 +1321,6 @@
       "ask_low": 15000,
       "ask_mid": 18000,
       "psa10": 70790
-    },
-    {
-      "date": "2026-08-26",
-      "low": 18354,
-      "high": 22432,
-      "avg": 20393,
-      "source": "snkrdunk",
-      "sample_count": 43,
-      "ask_low": 15000,
-      "ask_mid": 18844,
-      "psa10": 70790
     }
   ],
   "sales_by_day": {
@@ -1536,7 +1540,7 @@
     "2026-11-24": 3,
     "2026-11-25": 1
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 116444,
@@ -1549,7 +1553,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 10,
-    "updated_at": "2026-08-25"
+    "records": 11,
+    "updated_at": "2026-08-26"
   }
 }

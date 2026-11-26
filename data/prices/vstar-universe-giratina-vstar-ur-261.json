@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-giratina-vstar-ur-261",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 26000,
+      "high": 29500,
+      "avg": 27774,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "on_sale": 109,
+      "ask_low": 22999,
+      "ask_mid": 30000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 45437,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-25",
       "low": 26000,
       "high": 29500,
@@ -1306,17 +1321,6 @@
       "ask_low": 28000,
       "ask_mid": 33400,
       "psa10": 45896
-    },
-    {
-      "date": "2026-08-25",
-      "low": 27977,
-      "high": 34194,
-      "avg": 31085,
-      "source": "snkrdunk",
-      "sample_count": 15,
-      "ask_low": 28500,
-      "ask_mid": 33000,
-      "psa10": 45993
     }
   ],
   "sales_by_day": {
@@ -1415,7 +1419,6 @@
     "2026-07-30": 2,
     "2026-07-29": 1,
     "2026-07-28": 4,
-    "2026-07-27": 1,
     "2026-09-03": 6,
     "2026-09-02": 9,
     "2026-09-01": 7,
@@ -1501,9 +1504,9 @@
     "2026-11-22": 6,
     "2026-11-23": 3,
     "2026-11-24": 3,
-    "2026-11-25": 1
+    "2026-11-25": 2
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 52617,
@@ -1511,12 +1514,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 52011,
-      "date": "2026-08-24",
+      "value": 45993,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 5,
-    "updated_at": "2026-08-24"
+    "records": 6,
+    "updated_at": "2026-08-25"
   }
 }

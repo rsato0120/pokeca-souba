@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-daigo-no-metagurosu-ex-sar",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 2000,
+      "high": 2850,
+      "avg": 2489,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "on_sale": 74,
+      "ask_low": 2800,
+      "ask_mid": 2840,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 7133,
+      "psa10_as_of": "2026-11-26"
+    },
+    {
       "date": "2026-11-25",
       "low": 2000,
       "high": 3000,
@@ -1306,17 +1321,6 @@
       "ask_low": 2800,
       "ask_mid": 3462,
       "psa10": 8843
-    },
-    {
-      "date": "2026-08-25",
-      "low": 2642,
-      "high": 3230,
-      "avg": 2936,
-      "source": "snkrdunk",
-      "sample_count": 28,
-      "ask_low": 2777,
-      "ask_mid": 3444,
-      "psa10": 8918
     }
   ],
   "sales_by_day": {
@@ -1481,9 +1485,11 @@
     "2026-11-16": 1,
     "2026-11-19": 8,
     "2026-11-20": 7,
-    "2026-11-24": 5
+    "2026-11-24": 5,
+    "2026-11-26": 1,
+    "2026-11-25": 5
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 15453,
@@ -1491,12 +1497,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 10174,
-      "date": "2026-08-24",
+      "value": 8918,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 60,
-    "updated_at": "2026-08-24"
+    "records": 61,
+    "updated_at": "2026-08-25"
   }
 }

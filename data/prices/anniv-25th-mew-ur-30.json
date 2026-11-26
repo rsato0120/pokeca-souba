@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-mew-ur-30",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 13000,
+      "high": 35499,
+      "avg": 24121,
+      "source": "snkrdunk",
+      "sample_count": 17,
+      "on_sale": 205,
+      "ask_low": 13800,
+      "ask_mid": 18900,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 64548,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-25",
       "low": 13000,
       "high": 35499,
@@ -1306,17 +1321,6 @@
       "ask_low": 21999,
       "ask_mid": 35555,
       "psa10": 78121
-    },
-    {
-      "date": "2026-08-25",
-      "low": 23812,
-      "high": 29104,
-      "avg": 26458,
-      "source": "snkrdunk",
-      "sample_count": 11,
-      "ask_low": 21999,
-      "ask_mid": 36000,
-      "psa10": 78296
     }
   ],
   "sales_by_day": {
@@ -1390,7 +1394,6 @@
     "2026-07-30": 1,
     "2026-07-29": 1,
     "2026-07-28": 2,
-    "2026-07-27": 2,
     "2026-08-27": 2,
     "2026-09-02": 3,
     "2026-09-01": 1,
@@ -1475,9 +1478,10 @@
     "2026-11-18": 2,
     "2026-11-19": 2,
     "2026-11-23": 5,
-    "2026-11-24": 6
+    "2026-11-24": 6,
+    "2026-11-25": 1
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 83708,
@@ -1485,12 +1489,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 82540,
-      "date": "2026-08-24",
+      "value": 78296,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-21",
-    "records": 3,
-    "updated_at": "2026-08-24"
+    "records": 4,
+    "updated_at": "2026-08-25"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-charizard-1",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 49999,
+      "high": 55500,
+      "avg": 52192,
+      "source": "snkrdunk",
+      "sample_count": 12,
+      "on_sale": 309,
+      "ask_low": 42000,
+      "ask_mid": 72556,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 87709,
+      "psa10_as_of": "2026-11-26"
+    },
+    {
       "date": "2026-11-25",
       "low": 49999,
       "high": 55500,
@@ -1306,17 +1321,6 @@
       "ask_low": 49000,
       "ask_mid": 72900,
       "psa10": 105428
-    },
-    {
-      "date": "2026-08-25",
-      "low": 66870,
-      "high": 81730,
-      "avg": 74300,
-      "source": "snkrdunk",
-      "sample_count": 11,
-      "ask_low": 60000,
-      "ask_mid": 74000,
-      "psa10": 107278
     }
   ],
   "sales_by_day": {
@@ -1401,7 +1405,6 @@
     "2026-07-30": 3,
     "2026-07-29": 8,
     "2026-07-28": 2,
-    "2026-07-27": 2,
     "2026-09-02": 19,
     "2026-09-01": 9,
     "2026-08-31": 6,
@@ -1489,9 +1492,10 @@
     "2026-11-22": 5,
     "2026-11-23": 3,
     "2026-11-24": 2,
-    "2026-11-25": 2
+    "2026-11-25": 2,
+    "2026-11-26": 2
   },
-  "sales_fetched_at": "2026-11-25",
+  "sales_fetched_at": "2026-11-26",
   "psa10_archived_extremes": {
     "high": {
       "value": 120727,
@@ -1499,12 +1503,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 119327,
-      "date": "2026-08-24",
+      "value": 107278,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 2,
-    "updated_at": "2026-08-24"
+    "records": 3,
+    "updated_at": "2026-08-25"
   }
 }
