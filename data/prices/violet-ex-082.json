@@ -2,6 +2,16 @@
   "card_id": "violet-ex-082",
   "history": [
     {
+      "date": "2026-11-27",
+      "low": 1800,
+      "high": 2000,
+      "avg": 1900,
+      "source": "snkrdunk",
+      "sample_count": 2,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-24",
       "low": 1980,
       "high": 1980,
@@ -890,16 +900,6 @@
       "sample_count": 1,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
-    },
-    {
-      "date": "2023-01-26",
-      "low": 1000,
-      "high": 1000,
-      "avg": 1000,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
     }
   ],
   "psa10_history": [
@@ -907,50 +907,50 @@
       "date": "2026-11-27",
       "low": 0,
       "high": 0,
-      "psa10": 9300,
+      "psa10": 9150,
       "psa10_as_of": "2026-11-27",
       "source": "snkrdunk",
-      "sample_count": 1,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-26",
       "low": 0,
       "high": 0,
-      "psa10": 8633,
+      "psa10": 8786,
       "psa10_as_of": "2026-11-26",
       "source": "snkrdunk",
-      "sample_count": 9,
+      "sample_count": 7,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-25",
       "low": 0,
       "high": 0,
-      "psa10": 8233,
+      "psa10": 8100,
       "psa10_as_of": "2026-11-25",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-24",
       "low": 0,
       "high": 0,
-      "psa10": 8066,
+      "psa10": 8075,
       "psa10_as_of": "2026-11-24",
       "source": "snkrdunk",
-      "sample_count": 5,
+      "sample_count": 2,
       "price_basis": "transaction_day"
     },
     {
       "date": "2026-11-23",
       "low": 0,
       "high": 0,
-      "psa10": 7860,
+      "psa10": 7960,
       "psa10_as_of": "2026-11-23",
       "source": "snkrdunk",
-      "sample_count": 3,
+      "sample_count": 6,
       "price_basis": "transaction_day"
     },
     {
@@ -1895,7 +1895,8 @@
     "2026-11-12": 1,
     "2026-11-13": 1,
     "2026-11-23": 1,
-    "2026-11-24": 1
+    "2026-11-24": 1,
+    "2026-11-27": 2
   },
   "psa10_sales_by_day": {
     "2026-10-24": 2,
@@ -2157,7 +2158,7 @@
     "2026-11-24": 6,
     "2026-11-25": 3,
     "2026-11-26": 9,
-    "2026-11-27": 1
+    "2026-11-27": 2
   },
   "sales_fetched_at": "2026-11-27"
 }
