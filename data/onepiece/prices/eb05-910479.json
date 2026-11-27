@@ -1,46 +1,54 @@
 {
   "product_id": "eb05-910479",
-  "fetched_at": "2026-11-27T10:13:37.115Z",
+  "fetched_at": "2026-11-27T23:02:35.406Z",
   "history": [
     {
-      "date": "2026-11-27",
-      "avg": 8965,
-      "low": 8750,
-      "high": 9200,
+      "date": "2026-11-28",
+      "avg": 8789,
+      "low": 8400,
+      "high": 9000,
       "source": "snkrdunk",
-      "sample_count": 52
+      "sample_count": 60
+    },
+    {
+      "date": "2026-11-27",
+      "avg": 8853,
+      "low": 8600,
+      "high": 9100,
+      "source": "snkrdunk",
+      "sample_count": 51
     },
     {
       "date": "2026-11-26",
-      "avg": 9449,
-      "low": 9125,
-      "high": 9700,
+      "avg": 9770,
+      "low": 9400,
+      "high": 9900,
       "source": "snkrdunk",
-      "sample_count": 63
+      "sample_count": 49
     },
     {
       "date": "2026-11-25",
-      "avg": 9673,
-      "low": 9450,
-      "high": 9833,
+      "avg": 10456,
+      "low": 9800,
+      "high": 11000,
       "source": "snkrdunk",
-      "sample_count": 35
+      "sample_count": 37
     },
     {
       "date": "2026-11-24",
-      "avg": 10979,
-      "low": 10555,
-      "high": 11300,
+      "avg": 11225,
+      "low": 10999,
+      "high": 11666,
       "source": "snkrdunk",
-      "sample_count": 35
+      "sample_count": 40
     },
     {
       "date": "2026-11-23",
-      "avg": 11316,
+      "avg": 11312,
       "low": 11000,
       "high": 11666,
       "source": "snkrdunk",
-      "sample_count": 34
+      "sample_count": 36
     },
     {
       "date": "2026-11-22",
@@ -213,19 +221,19 @@
   ],
   "raw_archived_extremes": null,
   "sales_by_day": {
-    "2026-11-27": 24,
+    "2026-11-28": 9,
+    "2026-11-27": 51,
     "2026-11-26": 28,
-    "2026-11-25": 35,
-    "2026-11-24": 13,
-    "2026-11-23": 10,
+    "2026-11-25": 21,
+    "2026-11-24": 4,
+    "2026-11-23": 12,
     "2026-11-22": 12,
     "2026-11-21": 12,
     "2026-11-20": 35,
     "2026-11-19": 15,
     "2026-11-18": 13,
-    "2026-11-17": 20,
-    "2026-11-16": 12
+    "2026-11-17": 20
   },
-  "coverage_start": "2026-11-16",
+  "coverage_start": "2026-11-17",
   "complete": false
 }

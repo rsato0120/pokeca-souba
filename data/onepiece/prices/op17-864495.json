@@ -1,46 +1,54 @@
 {
   "product_id": "op17-864495",
-  "fetched_at": "2026-11-27T10:09:59.573Z",
+  "fetched_at": "2026-11-27T22:58:56.886Z",
   "history": [
     {
+      "date": "2026-11-28",
+      "avg": 8530,
+      "low": 8399,
+      "high": 8725,
+      "source": "snkrdunk",
+      "sample_count": 61
+    },
+    {
       "date": "2026-11-27",
-      "avg": 8626,
-      "low": 8498,
-      "high": 8779,
-      "source": "snkrdunk",
-      "sample_count": 52
-    },
-    {
-      "date": "2026-11-26",
-      "avg": 8714,
-      "low": 8590,
-      "high": 8797,
-      "source": "snkrdunk",
-      "sample_count": 32
-    },
-    {
-      "date": "2026-11-25",
-      "avg": 8741,
-      "low": 8599,
-      "high": 8800,
+      "avg": 8566,
+      "low": 8400,
+      "high": 8730,
       "source": "snkrdunk",
       "sample_count": 44
     },
     {
-      "date": "2026-11-24",
-      "avg": 8898,
-      "low": 8750,
+      "date": "2026-11-26",
+      "avg": 8757,
+      "low": 8700,
+      "high": 8799,
+      "source": "snkrdunk",
+      "sample_count": 30
+    },
+    {
+      "date": "2026-11-25",
+      "avg": 8855,
+      "low": 8700,
       "high": 9000,
       "source": "snkrdunk",
-      "sample_count": 42
+      "sample_count": 54
+    },
+    {
+      "date": "2026-11-24",
+      "avg": 8953,
+      "low": 8899,
+      "high": 9040,
+      "source": "snkrdunk",
+      "sample_count": 34
     },
     {
       "date": "2026-11-23",
-      "avg": 8908,
-      "low": 8780,
-      "high": 9000,
+      "avg": 8984,
+      "low": 8940,
+      "high": 9040,
       "source": "snkrdunk",
-      "sample_count": 59
+      "sample_count": 31
     },
     {
       "date": "2026-11-22",
@@ -727,17 +735,17 @@
     "2026-10-24": 12,
     "2026-10-28": 14,
     "2026-11-09": 17,
-    "2026-11-27": 20,
-    "2026-11-26": 32,
-    "2026-11-25": 29,
-    "2026-11-24": 15,
-    "2026-11-23": 27,
+    "2026-11-28": 17,
+    "2026-11-27": 44,
+    "2026-11-26": 30,
+    "2026-11-25": 20,
+    "2026-11-24": 3,
+    "2026-11-23": 31,
     "2026-11-22": 32,
     "2026-11-21": 30,
-    "2026-11-20": 28,
-    "2026-11-19": 17
+    "2026-11-20": 28
   },
-  "coverage_start": "2026-11-19",
+  "coverage_start": "2026-11-20",
   "complete": false,
   "raw_archived_extremes": null
 }
