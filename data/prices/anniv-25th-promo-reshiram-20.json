@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-reshiram-20",
   "history": [
     {
+      "date": "2026-11-27",
+      "low": 5700,
+      "high": 8900,
+      "avg": 7306,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 141,
+      "ask_low": 6000,
+      "ask_mid": 6600,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 21807,
+      "psa10_as_of": "2026-11-25"
+    },
+    {
       "date": "2026-11-26",
       "low": 5700,
       "high": 8900,
@@ -1340,19 +1355,6 @@
       "ask_low": 8888,
       "ask_mid": 11000,
       "psa10": 23315
-    },
-    {
-      "date": "2026-08-26",
-      "low": 6900,
-      "high": 8000,
-      "avg": 7734,
-      "source": "mercari",
-      "sample_count": 45,
-      "sold_total": 576,
-      "oldest_sale_days": 86,
-      "ask_low": 8900,
-      "ask_mid": 11000,
-      "psa10": 23315
     }
   ],
   "sales_by_day": {
@@ -1499,7 +1501,7 @@
     "2026-11-20": 1,
     "2026-11-25": 1
   },
-  "sales_fetched_at": "2026-11-26",
+  "sales_fetched_at": "2026-11-27",
   "psa10_archived_extremes": {
     "high": {
       "value": 25424,
@@ -1507,12 +1509,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 23362,
-      "date": "2026-08-25",
+      "value": 23315,
+      "date": "2026-08-26",
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 3,
-    "updated_at": "2026-08-25"
+    "records": 4,
+    "updated_at": "2026-08-26"
   }
 }

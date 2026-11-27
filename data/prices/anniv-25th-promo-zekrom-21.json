@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-promo-zekrom-21",
   "history": [
     {
+      "date": "2026-11-27",
+      "low": 6500,
+      "high": 8900,
+      "avg": 7547,
+      "source": "snkrdunk",
+      "sample_count": 8,
+      "on_sale": 158,
+      "ask_low": 5000,
+      "ask_mid": 7400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20020,
+      "psa10_as_of": "2026-11-26"
+    },
+    {
       "date": "2026-11-26",
       "low": 6500,
       "high": 8900,
@@ -1306,17 +1321,6 @@
       "ask_low": 7480,
       "ask_mid": 11478,
       "psa10": 21250
-    },
-    {
-      "date": "2026-08-25",
-      "low": 8877,
-      "high": 10849,
-      "avg": 9863,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "ask_low": 7800,
-      "ask_mid": 11400,
-      "psa10": 21700
     }
   ],
   "sales_by_day": {
@@ -1468,9 +1472,9 @@
     "2026-11-23": 1,
     "2026-11-24": 4,
     "2026-11-25": 2,
-    "2026-11-26": 4
+    "2026-11-26": 5
   },
-  "sales_fetched_at": "2026-11-26",
+  "sales_fetched_at": "2026-11-27",
   "psa10_archived_extremes": {
     "high": {
       "value": 24152,
@@ -1478,12 +1482,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 24152,
-      "date": "2026-08-22",
+      "value": 21700,
+      "date": "2026-08-25",
       "source": "snkrdunk"
     },
     "since": "2026-08-22",
-    "records": 2,
-    "updated_at": "2026-08-24"
+    "records": 3,
+    "updated_at": "2026-08-25"
   }
 }

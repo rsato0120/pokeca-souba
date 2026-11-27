@@ -2,6 +2,16 @@
   "card_id": "violet-ex-100",
   "history": [
     {
+      "date": "2026-11-26",
+      "low": 2200,
+      "high": 2200,
+      "avg": 2200,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-25",
       "low": 2200,
       "high": 2200,
@@ -886,16 +896,6 @@
       "low": 3600,
       "high": 3600,
       "avg": 3600,
-      "source": "snkrdunk",
-      "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2025-01-26",
-      "low": 3800,
-      "high": 3800,
-      "avg": 3800,
       "source": "snkrdunk",
       "sample_count": 1,
       "oldest_sale_days": 0,
@@ -2285,7 +2285,8 @@
     "2026-11-20": 1,
     "2026-11-21": 1,
     "2026-11-23": 1,
-    "2026-11-25": 1
+    "2026-11-25": 1,
+    "2026-11-26": 1
   },
   "psa10_sales_by_day": {
     "2026-10-25": 2,
@@ -2946,5 +2947,5 @@
     "2026-11-23": 2,
     "2026-11-24": 1
   },
-  "sales_fetched_at": "2026-11-26"
+  "sales_fetched_at": "2026-11-27"
 }

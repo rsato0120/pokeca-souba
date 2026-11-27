@@ -2,6 +2,21 @@
   "card_id": "shiny-treasure-charizard-ex-sar-349",
   "history": [
     {
+      "date": "2026-11-27",
+      "low": 23000,
+      "high": 32999,
+      "avg": 26831,
+      "source": "snkrdunk",
+      "sample_count": 25,
+      "on_sale": 149,
+      "ask_low": 20999,
+      "ask_mid": 25000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 62778,
+      "psa10_as_of": "2026-11-26"
+    },
+    {
       "date": "2026-11-26",
       "low": 23000,
       "high": 32999,
@@ -1309,17 +1324,6 @@
       "ask_low": 29999,
       "ask_mid": 35900,
       "psa10": 81635
-    },
-    {
-      "date": "2026-08-26",
-      "low": 32066,
-      "high": 39192,
-      "avg": 35629,
-      "source": "snkrdunk",
-      "sample_count": 24,
-      "ask_low": 29999,
-      "ask_mid": 35950,
-      "psa10": 81784
     }
   ],
   "sales_by_day": {
@@ -1425,7 +1429,6 @@
     "2026-08-03": 16,
     "2026-07-31": 3,
     "2026-07-29": 3,
-    "2026-07-28": 7,
     "2026-09-03": 18,
     "2026-09-02": 15,
     "2026-09-01": 7,
@@ -1513,9 +1516,9 @@
     "2026-11-23": 11,
     "2026-11-25": 3,
     "2026-11-24": 4,
-    "2026-11-26": 5
+    "2026-11-26": 9
   },
-  "sales_fetched_at": "2026-11-26",
+  "sales_fetched_at": "2026-11-27",
   "psa10_archived_extremes": {
     "high": {
       "value": 99525,
@@ -1523,12 +1526,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 82078,
-      "date": "2026-08-25",
+      "value": 81784,
+      "date": "2026-08-26",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 6,
-    "updated_at": "2026-08-25"
+    "records": 7,
+    "updated_at": "2026-08-26"
   }
 }
