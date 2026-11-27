@@ -2,6 +2,21 @@
   "card_id": "terastal-fest-flareon-ex-sar-202",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 4999,
+      "high": 6000,
+      "avg": 5405,
+      "source": "snkrdunk",
+      "sample_count": 20,
+      "on_sale": 113,
+      "ask_low": 5500,
+      "ask_mid": 5750,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12726,
+      "psa10_as_of": "2026-11-28"
+    },
+    {
       "date": "2026-11-27",
       "low": 4999,
       "high": 6000,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 15263
-    },
-    {
-      "date": "2026-08-27",
-      "low": 6322,
-      "high": 7726,
-      "avg": 7024,
-      "source": "snkrdunk",
-      "sample_count": 14,
-      "ask_low": 5999,
-      "ask_mid": 7100,
-      "psa10": 15577
     }
   ],
   "sales_by_day": {
@@ -1436,7 +1440,6 @@
     "2026-08-02": 3,
     "2026-08-01": 12,
     "2026-07-30": 3,
-    "2026-07-29": 2,
     "2026-09-03": 6,
     "2026-09-02": 7,
     "2026-09-01": 5,
@@ -1524,7 +1527,24 @@
     "2026-11-22": 3,
     "2026-11-23": 1,
     "2026-11-25": 1,
-    "2026-11-26": 3
+    "2026-11-26": 3,
+    "2026-11-28": 1,
+    "2026-11-27": 3
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 15577,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 15577,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-27",
+    "records": 1,
+    "updated_at": "2026-08-27"
+  }
 }

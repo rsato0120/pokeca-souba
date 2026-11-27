@@ -2,6 +2,21 @@
   "card_id": "terastal-fest-leafeon-ex-sar-200",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 4800,
+      "high": 7499,
+      "avg": 6372,
+      "source": "snkrdunk",
+      "sample_count": 29,
+      "on_sale": 104,
+      "ask_low": 5800,
+      "ask_mid": 6400,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16765,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 4800,
       "high": 7499,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 19904
-    },
-    {
-      "date": "2026-08-27",
-      "low": 7358,
-      "high": 8994,
-      "avg": 8176,
-      "source": "snkrdunk",
-      "sample_count": 26,
-      "ask_low": 7200,
-      "ask_mid": 8889,
-      "psa10": 19947
     }
   ],
   "sales_by_day": {
@@ -1438,7 +1442,6 @@
     "2026-08-01": 10,
     "2026-07-31": 1,
     "2026-07-30": 3,
-    "2026-07-29": 3,
     "2026-08-28": 19,
     "2026-09-03": 13,
     "2026-09-02": 11,
@@ -1525,5 +1528,20 @@
     "2026-11-21": 19,
     "2026-11-27": 6
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 19947,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 19947,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-27",
+    "records": 1,
+    "updated_at": "2026-08-27"
+  }
 }

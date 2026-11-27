@@ -2,6 +2,21 @@
   "card_id": "anniv-25th-flying-pikachu-vmax-rrr-24",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 1700,
+      "high": 2500,
+      "avg": 2100,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 199,
+      "ask_low": 1000,
+      "ask_mid": 1350,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10672,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 1700,
       "high": 2500,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 16381
-    },
-    {
-      "date": "2026-08-27",
-      "low": 2695,
-      "high": 3293,
-      "avg": 2994,
-      "source": "snkrdunk",
-      "sample_count": 12,
-      "ask_low": 1980,
-      "ask_mid": 2361,
-      "psa10": 16606
     }
   ],
   "sales_by_day": {
@@ -1470,9 +1474,9 @@
     "2026-11-24": 19,
     "2026-11-25": 18,
     "2026-11-26": 8,
-    "2026-11-27": 1
+    "2026-11-27": 2
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 23259,
@@ -1480,12 +1484,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 18779,
-      "date": "2026-08-26",
+      "value": 16606,
+      "date": "2026-08-27",
       "source": "snkrdunk"
     },
     "since": "2026-08-21",
-    "records": 5,
-    "updated_at": "2026-08-26"
+    "records": 6,
+    "updated_at": "2026-08-27"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "storm-emeralda-raikou-ex-sar-108",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 3399,
+      "high": 4000,
+      "avg": 3664,
+      "source": "snkrdunk",
+      "sample_count": 31,
+      "on_sale": 58,
+      "ask_low": 2300,
+      "ask_mid": 4000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20789,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 3399,
       "high": 4220,
@@ -1284,17 +1299,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": null
-    },
-    {
-      "date": "2026-08-27",
-      "low": 5617,
-      "high": 6865,
-      "avg": 6241,
-      "source": "snkrdunk",
-      "sample_count": 44,
-      "ask_low": 5300,
-      "ask_mid": 6500,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1415,9 +1419,11 @@
     "2026-11-23": 3,
     "2026-11-24": 2,
     "2026-11-25": 4,
-    "2026-11-26": 4
+    "2026-11-26": 4,
+    "2026-11-27": 1,
+    "2026-11-28": 1
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_sales_by_day": {
     "2026-10-20": 1,
     "2026-10-21": 3,
@@ -1444,6 +1450,6 @@
     "2026-11-19": 2,
     "2026-11-18": 1,
     "2026-11-26": 2,
-    "2026-11-27": 1
+    "2026-11-27": 3
   }
 }

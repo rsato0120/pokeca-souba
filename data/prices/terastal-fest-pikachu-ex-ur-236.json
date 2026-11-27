@@ -2,6 +2,21 @@
   "card_id": "terastal-fest-pikachu-ex-ur-236",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 6500,
+      "high": 8800,
+      "avg": 7487,
+      "source": "snkrdunk",
+      "sample_count": 19,
+      "on_sale": 168,
+      "ask_low": 5800,
+      "ask_mid": 6650,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 22735,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 6500,
       "high": 8800,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 25740
-    },
-    {
-      "date": "2026-08-27",
-      "low": 9404,
-      "high": 11494,
-      "avg": 10449,
-      "source": "snkrdunk",
-      "sample_count": 16,
-      "ask_low": 7800,
-      "ask_mid": 11500,
-      "psa10": 27660
     }
   ],
   "sales_by_day": {
@@ -1415,7 +1419,6 @@
     "2026-08-02": 1,
     "2026-08-01": 3,
     "2026-07-31": 3,
-    "2026-07-29": 2,
     "2026-09-03": 19,
     "2026-09-02": 6,
     "2026-08-31": 7,
@@ -1501,7 +1504,22 @@
     "2026-11-21": 2,
     "2026-11-25": 2,
     "2026-11-26": 4,
-    "2026-11-27": 1
+    "2026-11-27": 4
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 27660,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 27660,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-27",
+    "records": 1,
+    "updated_at": "2026-08-27"
+  }
 }

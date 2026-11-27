@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-mew-ar-183",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 4580,
+      "high": 5990,
+      "avg": 4971,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 251,
+      "ask_low": 3000,
+      "ask_mid": 3750,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 14194,
+      "psa10_as_of": "2026-11-28"
+    },
+    {
       "date": "2026-11-27",
       "low": 4580,
       "high": 5990,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 20314
-    },
-    {
-      "date": "2026-08-27",
-      "low": 5839,
-      "high": 7137,
-      "avg": 6488,
-      "source": "snkrdunk",
-      "sample_count": 42,
-      "ask_low": 5000,
-      "ask_mid": 6500,
-      "psa10": 21229
     }
   ],
   "sales_by_day": {
@@ -1456,7 +1460,6 @@
     "2026-08-01": 15,
     "2026-07-31": 5,
     "2026-07-30": 5,
-    "2026-07-29": 3,
     "2026-09-02": 20,
     "2026-09-01": 11,
     "2026-08-31": 15,
@@ -1545,9 +1548,11 @@
     "2026-11-23": 9,
     "2026-11-24": 13,
     "2026-11-25": 3,
-    "2026-11-26": 5
+    "2026-11-26": 5,
+    "2026-11-28": 2,
+    "2026-11-27": 4
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 22223,
@@ -1560,7 +1565,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 7,
-    "updated_at": "2026-08-26"
+    "records": 8,
+    "updated_at": "2026-08-27"
   }
 }

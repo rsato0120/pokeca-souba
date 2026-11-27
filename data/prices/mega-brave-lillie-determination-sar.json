@@ -2,6 +2,21 @@
   "card_id": "mega-brave-lillie-determination-sar",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 10000,
+      "high": 15000,
+      "avg": 13209,
+      "source": "snkrdunk",
+      "sample_count": 31,
+      "on_sale": 500,
+      "ask_low": 9000,
+      "ask_mid": 10995,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 52882,
+      "psa10_as_of": "2026-11-28"
+    },
+    {
       "date": "2026-11-27",
       "low": 10000,
       "high": 15500,
@@ -1314,18 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 64400
-    },
-    {
-      "date": "2026-08-28",
-      "low": 17898,
-      "high": 21876,
-      "avg": 19887,
-      "source": "snkrdunk",
-      "sample_count": 41,
-      "on_sale_capped": true,
-      "ask_low": 17999,
-      "ask_mid": 20000,
-      "psa10": 64400
     }
   ],
   "sales_by_day": {
@@ -1446,7 +1449,7 @@
     "2026-11-24": 5,
     "2026-11-25": 7,
     "2026-11-26": 7,
-    "2026-11-27": 1
+    "2026-11-27": 5
   },
   "psa10_sales_by_day": {
     "2026-08-25": 13,
@@ -1477,7 +1480,6 @@
     "2026-08-02": 11,
     "2026-08-01": 4,
     "2026-07-31": 6,
-    "2026-07-29": 8,
     "2026-09-02": 9,
     "2026-09-01": 6,
     "2026-08-29": 3,
@@ -1566,9 +1568,10 @@
     "2026-11-23": 1,
     "2026-11-25": 2,
     "2026-11-26": 4,
-    "2026-11-27": 3
+    "2026-11-27": 6,
+    "2026-11-28": 1
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 91184,
@@ -1576,12 +1579,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 64475,
-      "date": "2026-08-26",
+      "value": 64400,
+      "date": "2026-08-28",
       "source": "snkrdunk"
     },
     "since": "2026-06-24",
-    "records": 63,
-    "updated_at": "2026-08-27"
+    "records": 64,
+    "updated_at": "2026-08-28"
   }
 }

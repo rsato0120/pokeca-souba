@@ -2,6 +2,21 @@
   "card_id": "start-deck-100-banette-ar-749",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 1999,
+      "high": 3700,
+      "avg": 2437,
+      "source": "snkrdunk",
+      "sample_count": 4,
+      "on_sale": 32,
+      "ask_low": 1050,
+      "ask_mid": 1999,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10178,
+      "psa10_as_of": "2026-11-13"
+    },
+    {
       "date": "2026-11-27",
       "low": 1999,
       "high": 3700,
@@ -1314,23 +1329,11 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 18559
-    },
-    {
-      "date": "2026-08-27",
-      "low": 2003,
-      "high": 2448,
-      "avg": 2225,
-      "source": "snkrdunk",
-      "sample_count": 6,
-      "ask_low": 1699,
-      "ask_mid": 2199,
-      "psa10": 18559
     }
   ],
   "sales_by_day": {
     "2026-08-24": 1,
     "2026-08-10": 1,
-    "2026-07-29": 1,
     "2026-08-22": 1,
     "2026-08-07": 1,
     "2026-08-21": 1,
@@ -1383,7 +1386,7 @@
     "2026-11-13": 1,
     "2026-11-14": 1
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 21733,
@@ -1391,12 +1394,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 18813,
-      "date": "2026-08-26",
+      "value": 18559,
+      "date": "2026-08-27",
       "source": "snkrdunk"
     },
     "since": "2026-08-15",
-    "records": 11,
-    "updated_at": "2026-08-26"
+    "records": 12,
+    "updated_at": "2026-08-27"
   }
 }

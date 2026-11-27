@@ -2,6 +2,21 @@
   "card_id": "mega-dream-ex-mega-rizaadon-x-ex-ma",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 2850,
+      "high": 3500,
+      "avg": 3190,
+      "source": "snkrdunk",
+      "sample_count": 31,
+      "on_sale": 877,
+      "ask_low": 2400,
+      "ask_mid": 2500,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 10518,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 2850,
       "high": 3500,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 12910
-    },
-    {
-      "date": "2026-08-28",
-      "low": 4110,
-      "high": 5024,
-      "avg": 4567,
-      "source": "snkrdunk",
-      "sample_count": 46,
-      "ask_low": 4400,
-      "ask_mid": 5350,
-      "psa10": 16938
     }
   ],
   "sales_by_day": {
@@ -1357,7 +1361,6 @@
     "2026-08-06": 4,
     "2026-08-02": 5,
     "2026-08-01": 5,
-    "2026-07-29": 9,
     "2026-09-02": 17,
     "2026-09-01": 10,
     "2026-08-31": 4,
@@ -1475,7 +1478,6 @@
     "2026-08-01": 23,
     "2026-07-31": 27,
     "2026-07-30": 25,
-    "2026-07-29": 32,
     "2026-09-03": 175,
     "2026-09-02": 142,
     "2026-09-01": 111,
@@ -1565,9 +1567,9 @@
     "2026-11-24": 54,
     "2026-11-25": 61,
     "2026-11-26": 49,
-    "2026-11-27": 13
+    "2026-11-27": 35
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 139860,
@@ -1575,12 +1577,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 19124,
-      "date": "2026-08-25",
+      "value": 16938,
+      "date": "2026-08-28",
       "source": "snkrdunk"
     },
     "since": "2026-06-23",
-    "records": 61,
-    "updated_at": "2026-08-27"
+    "records": 62,
+    "updated_at": "2026-08-28"
   }
 }

@@ -2,6 +2,21 @@
   "card_id": "pokecen-pikachu-tohoku",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 7500,
+      "high": 9700,
+      "avg": 8554,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 583,
+      "ask_low": 6000,
+      "ask_mid": 6276,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 22112,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 7500,
       "high": 9700,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 36724
-    },
-    {
-      "date": "2026-08-27",
-      "low": 10542,
-      "high": 12884,
-      "avg": 11713,
-      "source": "snkrdunk",
-      "sample_count": 36,
-      "ask_low": 10500,
-      "ask_mid": 12000,
-      "psa10": 36755
     }
   ],
   "sales_by_day": {
@@ -1436,7 +1440,8 @@
     "2026-11-24": 5,
     "2026-11-25": 5,
     "2026-11-26": 2,
-    "2026-11-27": 1
+    "2026-11-27": 2,
+    "2026-11-28": 1
   },
   "psa10_sales_by_day": {
     "2026-08-25": 16,
@@ -1469,7 +1474,6 @@
     "2026-08-01": 8,
     "2026-07-31": 3,
     "2026-07-30": 23,
-    "2026-07-29": 4,
     "2026-08-28": 41,
     "2026-09-03": 28,
     "2026-09-02": 40,
@@ -1560,9 +1564,9 @@
     "2026-11-24": 14,
     "2026-11-25": 8,
     "2026-11-26": 9,
-    "2026-11-27": 7
+    "2026-11-27": 13
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 72107,
@@ -1570,12 +1574,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 37202,
-      "date": "2026-08-26",
+      "value": 36755,
+      "date": "2026-08-27",
       "source": "snkrdunk"
     },
     "since": "2026-06-26",
-    "records": 60,
-    "updated_at": "2026-08-26"
+    "records": 61,
+    "updated_at": "2026-08-27"
   }
 }

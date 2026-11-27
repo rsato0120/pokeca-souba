@@ -2,6 +2,21 @@
   "card_id": "pokecen-pikachu-fukuoka",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 9200,
+      "high": 11000,
+      "avg": 10235,
+      "source": "snkrdunk",
+      "sample_count": 31,
+      "on_sale": 418,
+      "ask_low": 6999,
+      "ask_mid": 9200,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 20596,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 9200,
       "high": 11000,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 31065
-    },
-    {
-      "date": "2026-08-27",
-      "low": 12549,
-      "high": 15337,
-      "avg": 13943,
-      "source": "snkrdunk",
-      "sample_count": 29,
-      "ask_low": 12200,
-      "ask_mid": 16499,
-      "psa10": 30040
     }
   ],
   "sales_by_day": {
@@ -1352,7 +1356,6 @@
     "2026-08-01": 2,
     "2026-07-31": 4,
     "2026-07-30": 4,
-    "2026-07-29": 2,
     "2026-09-03": 5,
     "2026-09-02": 8,
     "2026-09-01": 9,
@@ -1553,9 +1556,9 @@
     "2026-11-24": 7,
     "2026-11-25": 9,
     "2026-11-26": 20,
-    "2026-11-27": 3
+    "2026-11-27": 12
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 73750,
@@ -1563,12 +1566,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 30830,
-      "date": "2026-08-26",
+      "value": 30040,
+      "date": "2026-08-27",
       "source": "snkrdunk"
     },
     "since": "2026-06-26",
-    "records": 60,
-    "updated_at": "2026-08-26"
+    "records": 61,
+    "updated_at": "2026-08-27"
   }
 }

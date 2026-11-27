@@ -2,6 +2,21 @@
   "card_id": "eevee-heroes-burakkii-vmax-sa-95",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 333333,
+      "high": 559980,
+      "avg": 438663,
+      "source": "snkrdunk",
+      "sample_count": 5,
+      "on_sale": 73,
+      "ask_low": 350000,
+      "ask_mid": 450000,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 738462,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 333333,
       "high": 559980,
@@ -1054,15 +1069,6 @@
       "ask_low": 69999,
       "ask_mid": 100000,
       "psa10": 785375
-    },
-    {
-      "date": "2026-06-27",
-      "low": 404589,
-      "high": 494497,
-      "avg": 449543,
-      "ask_low": 69999,
-      "ask_mid": 100000,
-      "psa10": 785375
     }
   ],
   "sales_by_day": {
@@ -1084,7 +1090,8 @@
     "2026-11-21": 1,
     "2026-11-23": 1,
     "2026-11-24": 1,
-    "2026-11-26": 1
+    "2026-11-26": 1,
+    "2026-11-27": 1
   },
   "psa10_sales_by_day": {
     "2026-08-24": 4,
@@ -1168,7 +1175,23 @@
     "2026-11-22": 2,
     "2026-11-23": 1,
     "2026-11-25": 3,
-    "2026-11-26": 5
+    "2026-11-26": 5,
+    "2026-11-27": 2
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 785375,
+      "date": "2026-06-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 785375,
+      "date": "2026-06-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-06-27",
+    "records": 1,
+    "updated_at": "2026-06-27"
+  }
 }

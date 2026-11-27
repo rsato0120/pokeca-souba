@@ -2,6 +2,21 @@
   "card_id": "terastal-fest-jolteon-ex-sar-209",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 4200,
+      "high": 5800,
+      "avg": 4936,
+      "source": "snkrdunk",
+      "sample_count": 30,
+      "on_sale": 158,
+      "ask_low": 4000,
+      "ask_mid": 4900,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 12698,
+      "psa10_as_of": "2026-11-28"
+    },
+    {
       "date": "2026-11-27",
       "low": 4200,
       "high": 5800,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 12972
-    },
-    {
-      "date": "2026-08-27",
-      "low": 5687,
-      "high": 6951,
-      "avg": 6319,
-      "source": "snkrdunk",
-      "sample_count": 20,
-      "ask_low": 4800,
-      "ask_mid": 7500,
-      "psa10": 13358
     }
   ],
   "sales_by_day": {
@@ -1524,7 +1528,23 @@
     "2026-11-25": 5,
     "2026-11-24": 3,
     "2026-11-26": 10,
-    "2026-11-27": 2
+    "2026-11-27": 8,
+    "2026-11-28": 1
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 13358,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 13358,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-27",
+    "records": 1,
+    "updated_at": "2026-08-27"
+  }
 }

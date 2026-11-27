@@ -2,6 +2,21 @@
   "card_id": "shiny-treasure-gardevoir-ex-sar-348",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 10500,
+      "high": 17000,
+      "avg": 14382,
+      "source": "snkrdunk",
+      "sample_count": 14,
+      "on_sale": 51,
+      "ask_low": 11000,
+      "ask_mid": 13750,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 30650,
+      "psa10_as_of": "2026-11-26"
+    },
+    {
       "date": "2026-11-27",
       "low": 10500,
       "high": 17000,
@@ -1314,23 +1329,11 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 36625
-    },
-    {
-      "date": "2026-08-27",
-      "low": 11149,
-      "high": 13627,
-      "avg": 12388,
-      "source": "snkrdunk",
-      "sample_count": 10,
-      "ask_low": 11999,
-      "ask_mid": 13999,
-      "psa10": 37139
     }
   ],
   "sales_by_day": {
     "2026-08-25": 1,
     "2026-08-06": 1,
-    "2026-07-29": 1,
     "2026-08-14": 1,
     "2026-08-13": 1,
     "2026-08-27": 1,
@@ -1373,7 +1376,8 @@
     "2026-11-20": 1,
     "2026-11-21": 3,
     "2026-11-22": 3,
-    "2026-11-26": 1
+    "2026-11-26": 1,
+    "2026-11-27": 1
   },
   "psa10_sales_by_day": {
     "2026-08-24": 2,
@@ -1469,7 +1473,7 @@
     "2026-11-26": 2,
     "2026-11-25": 2
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 40453,
@@ -1477,12 +1481,12 @@
       "source": "snkrdunk"
     },
     "low": {
-      "value": 37499,
-      "date": "2026-08-26",
+      "value": 37139,
+      "date": "2026-08-27",
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 7,
-    "updated_at": "2026-08-26"
+    "records": 8,
+    "updated_at": "2026-08-27"
   }
 }

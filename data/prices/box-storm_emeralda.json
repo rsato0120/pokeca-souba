@@ -2,6 +2,17 @@
   "card_id": "box-storm_emeralda",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 7500,
+      "high": 8000,
+      "avg": 7800,
+      "source": "snkrdunk",
+      "sample_count": 138,
+      "psa10": null,
+      "on_sale": 1656,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-11-27",
       "low": 7500,
       "high": 7950,
@@ -991,17 +1002,6 @@
       "oldest_sale_days": 0,
       "on_sale_capped": true,
       "psa10": null
-    },
-    {
-      "date": "2026-08-28",
-      "low": 13797,
-      "high": 14000,
-      "avg": 13899,
-      "source": "mercari",
-      "sold_total": 1422,
-      "oldest_sale_days": 0,
-      "on_sale_capped": true,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1099,7 +1099,8 @@
     "2026-11-24": 208,
     "2026-11-25": 185,
     "2026-11-26": 201,
-    "2026-11-27": 107
+    "2026-11-27": 261,
+    "2026-11-28": 10
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28"
 }

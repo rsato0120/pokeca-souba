@@ -2,6 +2,21 @@
   "card_id": "terastal-fest-glaceon-ex-sar-206",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 6500,
+      "high": 7600,
+      "avg": 7009,
+      "source": "snkrdunk",
+      "sample_count": 24,
+      "on_sale": 90,
+      "ask_low": 6490,
+      "ask_mid": 6795,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 16087,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 6500,
       "high": 7600,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 20055
-    },
-    {
-      "date": "2026-08-27",
-      "low": 7259,
-      "high": 8873,
-      "avg": 8066,
-      "source": "snkrdunk",
-      "sample_count": 18,
-      "ask_low": 7333,
-      "ask_mid": 9200,
-      "psa10": 20401
     }
   ],
   "sales_by_day": {
@@ -1518,7 +1522,22 @@
     "2026-11-24": 2,
     "2026-11-25": 1,
     "2026-11-26": 3,
-    "2026-11-27": 3
+    "2026-11-27": 5
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 20401,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 20401,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-27",
+    "records": 1,
+    "updated_at": "2026-08-27"
+  }
 }

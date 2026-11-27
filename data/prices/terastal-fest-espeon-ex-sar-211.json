@@ -2,6 +2,21 @@
   "card_id": "terastal-fest-espeon-ex-sar-211",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 5999,
+      "high": 7500,
+      "avg": 6413,
+      "source": "snkrdunk",
+      "sample_count": 25,
+      "on_sale": 153,
+      "ask_low": 4200,
+      "ask_mid": 6250,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 15931,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 5999,
       "high": 7500,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 21974
-    },
-    {
-      "date": "2026-08-27",
-      "low": 8145,
-      "high": 9955,
-      "avg": 9050,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 7700,
-      "ask_mid": 9090,
-      "psa10": 22285
     }
   ],
   "sales_by_day": {
@@ -1430,7 +1434,6 @@
     "2026-08-01": 10,
     "2026-07-31": 2,
     "2026-07-30": 3,
-    "2026-07-29": 2,
     "2026-09-03": 15,
     "2026-09-02": 14,
     "2026-09-01": 4,
@@ -1520,7 +1523,22 @@
     "2026-11-24": 3,
     "2026-11-25": 3,
     "2026-11-26": 3,
-    "2026-11-27": 2
+    "2026-11-27": 6
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28",
+  "psa10_archived_extremes": {
+    "high": {
+      "value": 22285,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "low": {
+      "value": 22285,
+      "date": "2026-08-27",
+      "source": "snkrdunk"
+    },
+    "since": "2026-08-27",
+    "records": 1,
+    "updated_at": "2026-08-27"
+  }
 }

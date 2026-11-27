@@ -2,6 +2,17 @@
   "card_id": "box-mega_brave",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 7500,
+      "high": 7800,
+      "avg": 7600,
+      "source": "snkrdunk",
+      "sample_count": 24,
+      "psa10": null,
+      "on_sale": 652,
+      "on_sale_source": "snkrdunk"
+    },
+    {
       "date": "2026-11-27",
       "low": 7550,
       "high": 7999,
@@ -1049,17 +1060,6 @@
       "oldest_sale_days": 2,
       "on_sale_capped": true,
       "psa10": null
-    },
-    {
-      "date": "2026-08-28",
-      "low": 9820,
-      "high": 10000,
-      "avg": 9910,
-      "source": "mercari",
-      "sold_total": 169,
-      "oldest_sale_days": 3,
-      "on_sale_capped": true,
-      "psa10": null
     }
   ],
   "sales_by_day": {
@@ -1157,7 +1157,8 @@
     "2026-11-24": 25,
     "2026-11-25": 25,
     "2026-11-26": 16,
-    "2026-11-27": 15
+    "2026-11-27": 27,
+    "2026-11-28": 1
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28"
 }

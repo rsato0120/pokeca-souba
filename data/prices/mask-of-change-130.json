@@ -2,6 +2,16 @@
   "card_id": "mask-of-change-130",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 14800,
+      "high": 14800,
+      "avg": 14800,
+      "source": "snkrdunk",
+      "sample_count": 1,
+      "oldest_sale_days": 0,
+      "price_basis": "transaction_day"
+    },
+    {
       "date": "2026-11-27",
       "low": 17200,
       "high": 17200,
@@ -888,16 +898,6 @@
       "avg": 26000,
       "source": "snkrdunk",
       "sample_count": 1,
-      "oldest_sale_days": 0,
-      "price_basis": "transaction_day"
-    },
-    {
-      "date": "2026-04-20",
-      "low": 12000,
-      "high": 28000,
-      "avg": 20000,
-      "source": "snkrdunk",
-      "sample_count": 2,
       "oldest_sale_days": 0,
       "price_basis": "transaction_day"
     }
@@ -2283,7 +2283,8 @@
     "2026-11-22": 2,
     "2026-11-23": 3,
     "2026-11-24": 2,
-    "2026-11-27": 1
+    "2026-11-27": 1,
+    "2026-11-28": 1
   },
   "psa10_sales_by_day": {
     "2026-10-24": 1,
@@ -2821,5 +2822,5 @@
     "2026-11-23": 2,
     "2026-11-24": 1
   },
-  "sales_fetched_at": "2026-11-27"
+  "sales_fetched_at": "2026-11-28"
 }

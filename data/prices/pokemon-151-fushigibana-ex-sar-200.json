@@ -2,6 +2,21 @@
   "card_id": "pokemon-151-fushigibana-ex-sar-200",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 14000,
+      "high": 17000,
+      "avg": 14722,
+      "source": "snkrdunk",
+      "sample_count": 9,
+      "on_sale": 74,
+      "ask_low": 12000,
+      "ask_mid": 12650,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 28400,
+      "psa10_as_of": "2026-11-27"
+    },
+    {
       "date": "2026-11-27",
       "low": 14000,
       "high": 17000,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 35482
-    },
-    {
-      "date": "2026-08-27",
-      "low": 15000,
-      "high": 18334,
-      "avg": 16667,
-      "source": "snkrdunk",
-      "sample_count": 9,
-      "ask_low": 15000,
-      "ask_mid": 18888,
-      "psa10": 35992
     }
   ],
   "sales_by_day": {
@@ -1370,7 +1374,8 @@
     "2026-11-17": 1,
     "2026-11-18": 1,
     "2026-11-22": 1,
-    "2026-11-26": 2
+    "2026-11-26": 2,
+    "2026-11-27": 2
   },
   "psa10_sales_by_day": {
     "2026-08-19": 1,
@@ -1392,7 +1397,6 @@
     "2026-08-04": 1,
     "2026-08-03": 1,
     "2026-07-31": 9,
-    "2026-07-29": 4,
     "2026-09-02": 15,
     "2026-09-01": 12,
     "2026-09-03": 7,
@@ -1476,7 +1480,7 @@
     "2026-11-26": 1,
     "2026-11-27": 1
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
       "value": 49061,
@@ -1489,7 +1493,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-06-28",
-    "records": 58,
-    "updated_at": "2026-08-26"
+    "records": 59,
+    "updated_at": "2026-08-27"
   }
 }

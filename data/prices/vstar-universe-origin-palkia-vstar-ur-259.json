@@ -2,6 +2,21 @@
   "card_id": "vstar-universe-origin-palkia-vstar-ur-259",
   "history": [
     {
+      "date": "2026-11-28",
+      "low": 9500,
+      "high": 12500,
+      "avg": 11323,
+      "source": "snkrdunk",
+      "sample_count": 11,
+      "on_sale": 45,
+      "ask_low": 9900,
+      "ask_mid": 10450,
+      "ask_source": "snkrdunk",
+      "on_sale_source": "snkrdunk",
+      "psa10": 26606,
+      "psa10_as_of": "2026-11-28"
+    },
+    {
       "date": "2026-11-27",
       "low": 9500,
       "high": 12500,
@@ -1314,17 +1329,6 @@
       "ask_source": "snkrdunk",
       "on_sale_source": "snkrdunk",
       "psa10": 26346
-    },
-    {
-      "date": "2026-08-27",
-      "low": 10849,
-      "high": 13259,
-      "avg": 12054,
-      "source": "snkrdunk",
-      "sample_count": 13,
-      "ask_low": 9280,
-      "ask_mid": 11506,
-      "psa10": 25771
     }
   ],
   "sales_by_day": {
@@ -1487,13 +1491,15 @@
     "2026-11-23": 1,
     "2026-11-24": 1,
     "2026-11-26": 2,
-    "2026-11-25": 1
+    "2026-11-25": 1,
+    "2026-11-28": 1,
+    "2026-11-27": 1
   },
-  "sales_fetched_at": "2026-11-27",
+  "sales_fetched_at": "2026-11-28",
   "psa10_archived_extremes": {
     "high": {
-      "value": 25648,
-      "date": "2026-08-26",
+      "value": 25771,
+      "date": "2026-08-27",
       "source": "snkrdunk"
     },
     "low": {
@@ -1502,7 +1508,7 @@
       "source": "snkrdunk"
     },
     "since": "2026-08-19",
-    "records": 7,
-    "updated_at": "2026-08-26"
+    "records": 8,
+    "updated_at": "2026-08-27"
   }
 }
